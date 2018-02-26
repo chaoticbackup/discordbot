@@ -1,10 +1,12 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
-// var jsdom = require("jsdom/lib/old-api");
+
 var jsdom = require("jsdom");
-const {JSDOM} = jsdom;
 var jquery = require("jquery");
+const {JSDOM} = jsdom;
+const virtualConsole = new jsdom.VirtualConsole();
+virtualConsole.sendTo(console);
 
 var seconds = 60;
 
@@ -56,27 +58,26 @@ logger.level = 'debug';
 //    }
 // });
 
+
 function checkMessages() {
   console.log("Checking Messages");
-  const {window} = new JSDOM(``, {
-    url: "http://chaoticbackup.forumotion.com"
+  JSDOM.fromURL("http://chaoticbackup.forumotion.com", {
+    virtualConsole
   })
-  var $ = jquery(window);
+  .then(function(dom) {
+    const window = dom.window;
+    // const document = dom.window.document;
+    // const bodyEl = document.body;
 
-  // jsdom.env({
-  //   html: "http://chaoticbackup.forumotion.com",
-  //   scripts: [jquery],
-  //   done: function(err, window) {
-  //     if (err) {console.error(err); return;}
-  //     // var $ = window.$;
-  //     var $ = jquery(window);
+    // console.log(dom.serialize());
 
-  //     console.log(window.document);
+    var $ = jquery(window);
+    console.log($('.row1 span'));
 
-  //     var spans = $('.row1 span');
-  //     console.log(spans.get());
-  //   }
-  // });
+  });
+
+
 
   // setTimeout(checkMessages, seconds*1000);
 }
+
