@@ -31,6 +31,10 @@ bot.on('ready', function (evt) {
 
   checkMessages();
 });
+// Automatically reconnect if the bot disconnects due to inactivity
+bot.on('disconnect', function(erMsg, code) {
+    bot.connect();
+});
 bot.on('message', function (user, userID, channelID, message, evt) {
   if (user.bot) return;
 
@@ -65,7 +69,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         message: 'any day now'
       });
     }
-    if (message.includes("any day now?")) {
+    if (message.toLowerCase().includes("any day now?")) {
       bot.sendMessage({
         to: channelID,
         message: '***ANY*** day now'
@@ -88,38 +92,54 @@ var monthTable = {
   "Dec": 11
 }
 
+function hm(date) {
+  var h12 = date[date.length-1];
+  var time = ((h12=="am"||h12=="pm") ? date[date.length-2] : date[date.length-1]).split(":");
+  var hour, minute;
+
+  if (h12 == "pm")
+    hour = (time[0] < 12) ? time[0] + 12 : time[0];
+  else if (h12 == "am")
+    hour = (time[0] == 12) ? time[0] - 12 : time[0];
+  else {
+    hour = time[0];
+  }
+  minute = time[1];
+
+  return {hour: hour, minute: minute};
+}
+
+function md(date) {
+  var month, day;
+  if (date[date.length-2] == "-") {
+    month = monthTable[date[2]];
+    day = date[1];
+  }
+  else {
+    month = monthTable[date[1]];
+    day = date[2].slice(0, -1);
+  }
+  return {month: month, day: day};
+}
+
 function newDate(dateTime) {
   // Tue 27 Feb 2018 - 14:31
   var date = dateTime.split(" ");
-  var time = date[date.length-2].split(":");
 
   var year = date[3];
-  var month = monthTable[date[1]];
-  var day = date[2].slice(0, -1);
-  var hour = (function() {
-    if (date[date.length-1] == "pm")
-      return (time[0] < 12) ? time[0] + 12 : time[0];
-    else
-      return (time[0] == 12) ? time[0] - 12 : time[0];
-  })();
-  var minute = time[1];
+
+  var {hour, minute} = hm(date);
+  var {month, day} = md(date);
 
   return new Date(year, month, day, hour, minute, (new Date).getSeconds());
 }
 
 function newToday(date) {
   var time = date[date.length-2].split(":");
-  var hour = (function() {
-    if (date[date.length-1] == "pm")
-      return (time[0] < 12) ? time[0] + 12 : time[0];
-    else 
-      return (time[0] == 12) ? time[0] - 12 : time[0];
-  })();
-  var minute = time[1];
+  var {hour, minute} = hm(date);
 
   var today = new Date();
   today.setHours(hour, minute);
-
   return today;
 }
 
@@ -155,14 +175,11 @@ function checkMessages() {
 
       if (date[0] == "Yesterday") return;
       else if (date[0] == "Today") {
-        console.log(currenttime, newToday(date));
-        console.log((currenttime - newToday(date))/1000);
         if ((currenttime - newToday(date))/1000 <= (seconds+20)) {
           news.push(latest[index]);
         }
       }
       else return;
-
     });
 
     news.forEach(function(newPost, i) {
