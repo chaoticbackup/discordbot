@@ -70,6 +70,9 @@ bot.on('message', (message) => {
   if (content.toLowerCase().includes("any day now?"))
     bot.channels.get(channelID).send('***ANY*** day now');
 
+  if (content.toLowerCase().includes("rule 34"))
+    bot.channels.get(channelID).send('not on this server we don\'t');
+
 });
 
 /* LOGIN */
