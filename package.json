@@ -1,14 +1,14 @@
 {
   "name": "forumbot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "discord.io": "^2.5.3",
-    "feedparser": "^2.2.9",
+    "bufferutil": "^3.0.3",
+    "discord.js": "^11.3.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
     "winston": "^2.4.0"

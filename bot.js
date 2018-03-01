@@ -1,4 +1,4 @@
-var Discord = require('discord.io');
+var Discord = require('discord.js');
 var logger = require('winston');
 var auth = require('./auth.json');
 
@@ -19,71 +19,61 @@ logger.add(logger.transports.Console, {
 logger.level = 'debug';
 
 // Initialize Discord Bot
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
-});
+var bot = new Discord.Client();
 
 bot.on('ready', function (evt) {
-  logger.info('Connected');
-  logger.info('Logged in as: ');
-  logger.info(bot.username + ' - (' + bot.id + ')');
-
+  logger.info('Logged in as: ' + bot.user);
   checkMessages();
 });
+
 // Automatically reconnect if the bot disconnects due to inactivity
 bot.on('disconnect', function(erMsg, code) {
     bot.connect();
 });
-bot.on('message', function (user, userID, channelID, message, evt) {
-  if (userID == 279331985955094529) return; //Ignore's own messages
+bot.on('message', (message) => {
+  var user = message.author;
+  var content = message.content;
+  var channelID = message.channel.id;
+
+  if (user.bot) return; //Ignore's own messages
 
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
-  if (message.substring(0, 1) == '!') {
-    var args = message.substring(1).split(' ');
+  if (content.substring(0, 1) == '!') {
+    var args = content.substring(1).split(' ');
     var cmd = args[0].toLowerCase();
      
     args = args.splice(1);
 
     switch(cmd) {
       case 'ping':
-        bot.sendMessage({
-          to: channelID,
-          message: 'Pong!'
-        });
+        message.reply('Pong!');
         break;
       case 'pong':
-        bot.sendMessage({
-          to: channelID,
-          message: 'That\'s my role...'
-        });
+        bot.channels.get(channelID).send('That\'s my role...');
         break;
       case '6.4.1':
       case 'endofturn':
-        bot.sendMessage({
-          to: channelID,
-          message: "6.4.1. The last step in a player’s turn is the Recovery Step. During the Recovery Step, the following events occur simultaneously:\n" +
-            "1.) All damage is removed from Creatures in play.\n" +
-            "2.) All effects that last “until end of turn” end. Any effects which are not tracked by an innate ability or counter and don’t have a specified duration also end now. All such effects end simultaneously and cannot result in a Creature being destroyed."
-        });
+        bot.channels.get(channelID).send(
+          "6.4.1. The last step in a player’s turn is the Recovery Step. During the Recovery Step, the following events occur simultaneously:\n" +
+          "1.) All damage is removed from Creatures in play.\n" +
+          "2.) All effects that last “until end of turn” end. Any effects which are not tracked by an innate ability or counter and don’t have a specified duration also end now. All such effects end simultaneously and cannot result in a Creature being destroyed."
+        );
         break;
     }
+    return;
   }
    
-  if (message.match(/.*(chaotic).*(com).*(back).*/i)) {
-    bot.sendMessage({
-      to: channelID,
-      message: 'any day now'
-    });
-  }
-  if (message.toLowerCase().includes("any day now?")) {
-    bot.sendMessage({
-      to: channelID,
-      message: '***ANY*** day now'
-    });
-  }
+  if (content.match(/.*(chaotic).*(com).*(back).*/i))
+    bot.channels.get(channelID).send('any day now');
+
+  if (content.toLowerCase().includes("any day now?"))
+    bot.channels.get(channelID).send('***ANY*** day now');
+
 });
+
+/* LOGIN */
+bot.login(auth.token);
 
 var monthTable = {
   "Jan": 0,
@@ -197,10 +187,7 @@ function checkMessages() {
 
       var message = author+" posted on \""+topic+"\" -> "+link;
       console.log(message);
-      bot.sendMessage({
-        to: general_chat,
-        message: message
-      });
+      bot.channels.get(general_chat).send(message);
     });
 
   });
