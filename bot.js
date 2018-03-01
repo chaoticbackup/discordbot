@@ -60,7 +60,7 @@ bot.on('message', (message) => {
     return;
   }
    
-  if (content.match(/.*(chaotic).*(com).*(back).*/i))
+  if (content.match(/.*(chaotic).*(com|be).*(back).*/i))
     bot.channels.get(channelID).send('any day now');
 
   if (content.toLowerCase().includes("any day now?"))
@@ -68,6 +68,12 @@ bot.on('message', (message) => {
 
   if (content.toLowerCase().includes("rule 34"))
     bot.channels.get(channelID).send('not on this server we don\'t');
+   
+  var mentions = Array.from(message.mentions.users.keys());
+
+  // if (mentions.indexOf('140143063711481856') !== -1)
+  if (mentions.indexOf('279788856285331457') !== -1)
+    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway')
 
 });
 
