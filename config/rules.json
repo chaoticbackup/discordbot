@@ -1,0 +1,3 @@
+{
+	"6.4.1": "6.4.1. The last step in a player’s turn is the Recovery Step. During the Recovery Step, the following events occur simultaneously:\n1.) All damage is removed from Creatures in play.\n2.) All effects that last \"until end of turn\" end. Any effects which are not tracked by an *innate ability* or *counter* and don’t have a *specified duration* also end now. All such effects end simultaneously and cannot result in a Creature being destroyed."
+}
