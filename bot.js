@@ -36,7 +36,7 @@ bot.on('disconnect', function(erMsg, code) {
     bot.connect();
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-  if (user.bot) return;
+  if (userID == 279331985955094529) return; //Ignore's own messages
 
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
@@ -52,29 +52,37 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           to: channelID,
           message: 'Pong!'
         });
-      break;
+        break;
       case 'pong':
         bot.sendMessage({
           to: channelID,
           message: 'That\'s my role...'
         });
-      break;
-      // Just add any case commands if you want to..
-     }
-   }
+        break;
+      case '6.4.1':
+      case 'endofturn':
+        bot.sendMessage({
+          to: channelID,
+          message: "6.4.1. The last step in a player’s turn is the Recovery Step. During the Recovery Step, the following events occur simultaneously:\n" +
+            "1.) All damage is removed from Creatures in play.\n" +
+            "2.) All effects that last “until end of turn” end. Any effects which are not tracked by an innate ability or counter and don’t have a specified duration also end now. All such effects end simultaneously and cannot result in a Creature being destroyed."
+        });
+        break;
+    }
+  }
    
-   if (message.match(/.*(chaotic).*(com).*(back).*/gi)) {
-      bot.sendMessage({
-        to: channelID,
-        message: 'any day now'
-      });
-    }
-    if (message.toLowerCase().includes("any day now?")) {
-      bot.sendMessage({
-        to: channelID,
-        message: '***ANY*** day now'
-      });
-    }
+  if (message.match(/.*(chaotic).*(com).*(back).*/i)) {
+    bot.sendMessage({
+      to: channelID,
+      message: 'any day now'
+    });
+  }
+  if (message.toLowerCase().includes("any day now?")) {
+    bot.sendMessage({
+      to: channelID,
+      message: '***ANY*** day now'
+    });
+  }
 });
 
 var monthTable = {
