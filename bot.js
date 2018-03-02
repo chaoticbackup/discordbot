@@ -88,6 +88,9 @@ bot.on('message', (message) => {
 /* LOGIN */
 bot.login(auth.token);
 
+function randomResponse(items) {
+  return items[Math.floor(Math.random()*items.length)];
+}
 
 function cleantext(string) {
   //strip comma and apostrophy
@@ -104,7 +107,7 @@ function whyban(card, mentions) {
 
   for (var key in bans) {
     if (cleantext(key).indexOf(card) == 0) {           
-      return `*${key}* was banned because:\n${bans[key]}`;
+      return `*${key}* was banned because:\n${randomResponse(bans[key])}`;
     }
   }
 
