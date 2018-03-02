@@ -24,10 +24,10 @@ bot.on('disconnect', function(erMsg, code) {
 });
 bot.on('message', (message) => {
   var user = message.author;
+  if (user.bot) return; //Ignore's own messages
   var content = message.content;
   var channelID = message.channel.id;
-
-  if (user.bot) return; //Ignore's own messages
+  var mentions = Array.from(message.mentions.users.keys());
 
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
@@ -45,8 +45,15 @@ bot.on('message', (message) => {
         bot.channels.get(channelID).send('That\'s my role...');
         break;
       case 'ban':
+        if (mentions.length > 0) {
+          bot.channels.get(channelID).send("I'm not in charge of banning players");
+          break;
+        }
       case 'whyban':
-        bot.channels.get(channelID).send(whyban(args));
+        if (mentions.length > 0)
+          bot.channels.get(channelID).send("Player's aren't cards, silly");
+        else 
+          bot.channels.get(channelID).send(whyban(args));
         break;
       case 'banlist':
         bot.channels.get(channelID).send(banlist());
@@ -72,8 +79,6 @@ bot.on('message', (message) => {
   if (content.toLowerCase().includes("rule 34"))
     bot.channels.get(channelID).send('not on this server we don\'t');
    
-  var mentions = Array.from(message.mentions.users.keys());
-
   // if (mentions.indexOf('140143063711481856') !== -1)
   if (mentions.indexOf('279788856285331457') !== -1)
     bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway')
@@ -89,7 +94,7 @@ function cleantext(string) {
   return string.toLowerCase().replace(/,|\'/g, '');
 }
 
-function whyban(card) {
+function whyban(card, mentions) {
   var bans = reload('./config/bans.json');
   card = cleantext(card.join(" ")); // remerge string
 
