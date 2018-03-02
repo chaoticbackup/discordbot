@@ -5,7 +5,8 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "node bot.js",
-    "forever": "forever -o out.log -e err.log start bot.js"
+    "forever": "forever -o out.log -e err.log start bot.js",
+    "restart": "forever -o out.log -e err.log restart bot.js"
   },
   "dependencies": {
     "bufferutil": "^3.0.3",
