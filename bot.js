@@ -34,7 +34,6 @@ bot.on('message', (message) => {
   if (content.substring(0, 1) == '!') {
     var args = content.substring(1).split(' ');
     var cmd = args[0].toLowerCase();
-     
     args = args.splice(1);
 
     switch(cmd) {
@@ -69,26 +68,23 @@ bot.on('message', (message) => {
     }
     return;
   }
-   
-  if (content.match(/.*(chaotic).*(com|be).*(back).*/i))
-    bot.channels.get(channelID).send('any day now');
 
-  if (content.toLowerCase().includes("any day now?"))
-    bot.channels.get(channelID).send('***ANY*** day now');
-
-  if (content.toLowerCase().includes("rule 34"))
-    bot.channels.get(channelID).send('not on this server we don\'t');
-   
-  // if (mentions.indexOf('140143063711481856') !== -1)
-  if (mentions.indexOf('279788856285331457') !== -1)
-    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway')
+  if (checkSass(content, channelID)) return;
+  
+  checkMentions(mentions, channelID);
 
 });
 
 /* LOGIN */
 bot.login(auth.token);
 
-function randomResponse(items) {
+// Helper Functions
+function reload(module) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
+}
+
+function rndrsp(items) {
   return items[Math.floor(Math.random()*items.length)];
 }
 
@@ -97,23 +93,7 @@ function cleantext(string) {
   return string.toLowerCase().replace(/,|\'/g, '');
 }
 
-function whyban(card, mentions) {
-  var bans = reload('./config/bans.json');
-  card = cleantext(card.join(" ")); // remerge string
-
-  if (card == "") {
-    return "Specify a card...";
-  }
-
-  for (var key in bans) {
-    if (cleantext(key).indexOf(card) == 0) {           
-      return `*${key}* was banned because:\n${randomResponse(bans[key])}`;
-    }
-  }
-
-  return "That card isn't banned. :D"
-}
-
+// Responses
 function banlist() {
   var bans = reload('./config/bans.json');
   var message = "This is our player-made ban list:\n====="
@@ -124,22 +104,59 @@ function banlist() {
   return message;
 }
 
+function whyban(card, mentions) {
+  var bans = reload('./config/bans.json');
+  card = cleantext(card.join(" ")); // remerge string
+
+  if (card == "") {
+    return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
+  }
+
+  for (var key in bans) {
+    if (cleantext(key).indexOf(card) == 0) {           
+      return `*${key}* was banned because:\n${rndrsp(bans[key])}`;
+    }
+  }
+
+  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
+}
+
 function ruling(rule) {
   var rules = reload('./config/rules.json');
+  var sass = reload('./config/sass.json');
 
-  if (rule == "" || rule == "0.0.0") {
-    return "Rule 0.0.0. Provide the bot a rule";
+  if (rule == "") {
+    return rndrsp(sass["!providerule"]);
   }
 
   if (rules.hasOwnProperty(rule)) {           
     return `${rules[rule]}`;
   }
 
-  return "Sorry I don't have that rule memorized. " +
-    "You can check the Comprehensive Rules:\nhttps://drive.google.com/drive/folders/0B6oyUfwoM3u1bUhEcEhHalFiWTA";
+  return rndrsp(sass["!norule"]);
 }
 
-function reload(module) {
-  delete require.cache[require.resolve(module)];
-  return require(module);
+function checkSass(content, channelID) {
+  var sass = reload('./config/sass.json');
+  
+  for (var key in sass) {
+    var query = new RegExp(key, "i");
+    if (content.match(query)) {
+      bot.channels.get(channelID).send(rndrsp(sass[key]));
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkMentions(mentions, channelID) {
+  if (mentions.length <= 0) return;
+  var sass = reload('./config/sass.json');
+
+  // if (mentions.indexOf('140143063711481856') !== -1)
+  if (mentions.indexOf('279331985955094529') !== -1)
+    bot.channels.get(channelID).send(rndrsp(sass["!hello"]));
+
+  if (mentions.indexOf('279788856285331457') !== -1)
+    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway')
 }
