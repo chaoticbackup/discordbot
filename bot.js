@@ -80,6 +80,12 @@ bot.on('message', (message) => {
 /* LOGIN */
 bot.login(auth.token);
 
+
+function cleantext(string) {
+  //strip comma and apostrophy
+  return string.toLowerCase().replace(/,|\'/g, '');
+}
+
 function whyban(card) {
   var bans = reload('./config/bans.json');
   card = cleantext(card.join(" ")); // remerge string
@@ -95,27 +101,26 @@ function whyban(card) {
   }
 
   return "That card isn't banned. :D"
+
+}
+
+function banlist() {
+
 }
 
 function ruling(rule) {
   var rules = reload('./config/rules.json');
-  rule = (rule[0]);
 
-  if (rule == "" || "0.0.0") {
+  if (rule == "" || rule == "0.0.0") {
     return "Rule 0.0.0. Provide the bot a rule";
   }
 
   if (rules.hasOwnProperty(rule)) {           
-    return `${rules[key]}`;
+    return `${rules[rule]}`;
   }
 
   return "Sorry I don't have that rule memorized. " +
     "You can check the Comprehensive Rules:\nhttps://drive.google.com/drive/folders/0B6oyUfwoM3u1bUhEcEhHalFiWTA";
-}
-
-function cleantext(string) {
-  //strip comma and apostrophy
-  return string.toLowerCase().replace(/,|\'/g, '');
 }
 
 function reload(module) {
