@@ -48,6 +48,9 @@ bot.on('message', (message) => {
       case 'whyban':
         bot.channels.get(channelID).send(whyban(args));
         break;
+      case 'banlist':
+        bot.channels.get(channelID).send(banlist());
+        break;
       case 'rule':
       case 'rules':
       case 'ruling':
@@ -101,11 +104,16 @@ function whyban(card) {
   }
 
   return "That card isn't banned. :D"
-
 }
 
 function banlist() {
-
+  var bans = reload('./config/bans.json');
+  var message = "This is our player-made ban list:\n====="
+  for (var key in bans) {
+    message += "\n" + key;
+  }
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban <card name>\""
+  return message;
 }
 
 function ruling(rule) {
