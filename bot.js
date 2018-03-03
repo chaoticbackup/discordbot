@@ -62,6 +62,7 @@ bot.on('message', (message) => {
       case 'ruling':
         bot.channels.get(channelID).send(ruling(args));
         break;
+      case 'combo':
       case 'comboswith':
         bot.channels.get(channelID).send(combo(args));
         break;
@@ -155,7 +156,7 @@ function combo(card) {
       return `*Here's are cards that work with ${key}*:\n${combos[key]}`;
   }
 
-  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
+  return rndrsp(["I'm not aware of any combos. A more advanced player might know"]);
 }
 
 function checkMentions(mentions, channelID) {
