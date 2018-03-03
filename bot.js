@@ -51,7 +51,7 @@ bot.on('message', (message) => {
       case 'whyban':
         if (mentions.length > 0)
           bot.channels.get(channelID).send("Player's aren't cards, silly");
-        else 
+        else
           bot.channels.get(channelID).send(whyban(args));
         break;
       case 'banlist':
@@ -62,6 +62,9 @@ bot.on('message', (message) => {
       case 'ruling':
         bot.channels.get(channelID).send(ruling(args));
         break;
+      case 'comboswith':
+        bot.channels.get(channelID).send(combo(args));
+        break;
       case 'endofturn':
         bot.channels.get(channelID).send(ruling('6.4.1'));
         break;
@@ -69,8 +72,8 @@ bot.on('message', (message) => {
     return;
   }
 
-  if (checkSass(content, channelID)) return;
-  
+  checkSass(content, channelID);
+
   checkMentions(mentions, channelID);
 
 });
@@ -108,14 +111,11 @@ function whyban(card, mentions) {
   var bans = reload('./config/bans.json');
   card = cleantext(card.join(" ")); // remerge string
 
-  if (card == "") {
-    return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
-  }
+  if (card == "") return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
 
   for (var key in bans) {
-    if (cleantext(key).indexOf(card) == 0) {           
-      return `*${key}* was banned because:\n${rndrsp(bans[key])}`;
-    }
+    if (cleantext(key).indexOf(card) == 0)
+      return `*${key}*:\n${rndrsp(bans[key])}`;
   }
 
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
@@ -125,28 +125,37 @@ function ruling(rule) {
   var rules = reload('./config/rules.json');
   var sass = reload('./config/sass.json');
 
-  if (rule == "") {
-    return rndrsp(sass["!providerule"]);
-  }
+  if (rule == "") return rndrsp(sass["!providerule"]);
 
-  if (rules.hasOwnProperty(rule)) {           
-    return `${rules[rule]}`;
-  }
+  if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
 
   return rndrsp(sass["!norule"]);
 }
 
 function checkSass(content, channelID) {
   var sass = reload('./config/sass.json');
-  
+
   for (var key in sass) {
-    var query = new RegExp(key, "i");
-    if (content.match(query)) {
+    if (content.match(new RegExp(key, "i"))) {
       bot.channels.get(channelID).send(rndrsp(sass[key]));
       return true;
     }
   }
   return false;
+}
+
+function combo(card) {
+  var combos = reload('./config/combos.json');
+  card = cleantext(card.join(" ")); // remerge string
+
+  if (card == "") return rndrsp(["Specify a card..."]);
+
+  for (var key in combos) {
+    if (cleantext(key).indexOf(card) == 0)
+      return `*Here's are cards that work with ${key}*:\n${combos[key]}`;
+  }
+
+  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
 }
 
 function checkMentions(mentions, channelID) {
