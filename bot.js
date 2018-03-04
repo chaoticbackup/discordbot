@@ -278,7 +278,7 @@ function checkMessages() {
 
       if (date[0] == "Yesterday") return;
       else if (date[0] == "Today") {
-        if ((currenttime - newToday(date))/1000 <= (seconds+20)) {
+        if ((currenttime - newToday(date))/1000 <= (seconds)) {
           news.push(latest[index]);
         }
       }
