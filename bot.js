@@ -104,7 +104,7 @@ function banlist() {
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban <card name>\"";
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
   return message;
 }
 
