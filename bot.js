@@ -14,11 +14,12 @@ var bot = new Discord.Client();
 
 bot.on('ready', function (evt) {
   logger.info('Logged in as: ' + bot.user);
+  console.log("Checking Messages");
   checkMessages();
 });
 
 // Automatically reconnect if the bot disconnects due to inactivity
-bot.on('disconnect', function(erMsg, code) {
+bot.on('disconnect', (erMsg, code) => {
     bot.connect();
 });
 bot.on('message', (message) => {
@@ -99,11 +100,11 @@ function cleantext(string) {
 // Responses
 function banlist() {
   var bans = reload('./config/bans.json');
-  var message = "This is our player-made ban list:\n====="
+  var message = "This is our player-made ban list:\n=====";
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban <card name>\""
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban <card name>\"";
   return message;
 }
 
@@ -111,10 +112,10 @@ function whyban(card, mentions) {
   var bans = reload('./config/bans.json');
   card = cleantext(card.join(" ")); // remerge string
 
-  if (card == "") return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
+  if (!card) return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
 
   for (var key in bans) {
-    if (cleantext(key).indexOf(card) == 0)
+    if (cleantext(key).indexOf(card) === 0)
       return `*${key}*:\n${rndrsp(bans[key])}`;
   }
 
@@ -125,7 +126,7 @@ function ruling(rule) {
   var rules = reload('./config/rules.json');
   var sass = reload('./config/sass.json');
 
-  if (rule == "") return rndrsp(sass["!providerule"]);
+  if (!rule) return rndrsp(sass["!providerule"]);
 
   if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
 
@@ -148,10 +149,10 @@ function combo(card) {
   var combos = reload('./config/combos.json');
   card = cleantext(card.join(" ")); // remerge string
 
-  if (card == "") return rndrsp(["Specify a card..."]);
+  if (!card) return rndrsp(["Specify a card..."]);
 
   for (var key in combos) {
-    if (cleantext(key).indexOf(card) == 0)
+    if (cleantext(key).indexOf(card) === 0)
       return `*Here's are cards that work with ${key}*:\n${combos[key]}`;
   }
 
@@ -167,7 +168,7 @@ function checkMentions(mentions, channelID) {
     bot.channels.get(channelID).send(rndrsp(sass["!hello"]));
 
   if (mentions.indexOf('279788856285331457') !== -1)
-    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway')
+    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway');
 }
 
 var jsdom = require("jsdom");
@@ -192,7 +193,7 @@ var monthTable = {
   "Oct": 9,
   "Nov": 10,
   "Dec": 11
-}
+};
 
 function hm(date) {
   var h12 = date[date.length-1];
@@ -233,7 +234,7 @@ function newDate(dateTime) {
   var {hour, minute} = hm(date);
   var {month, day} = md(date);
 
-  return new Date(year, month, day, hour, minute, (new Date).getSeconds());
+  return new Date(year, month, day, hour, minute, (new Date()).getSeconds());
 }
 
 function newToday(date) {
@@ -246,7 +247,6 @@ function newToday(date) {
 }
 
 function checkMessages() {
-  console.log("Checking Messages");
   var {seconds, default_channel} = reload("./config/config.json");
 
   // Simulated Browser
