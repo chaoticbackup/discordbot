@@ -292,7 +292,7 @@ function checkMessages() {
 
       var message = author+" posted on \""+topic+"\" -> "+link;
       console.log(message);
-      bot.channels.get(default_channel).send(message);
+      // bot.channels.get(default_channel).send(message);
     });
 
   });
