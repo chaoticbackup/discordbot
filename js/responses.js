@@ -1,4 +1,5 @@
-var {reload, rndrsp, cleantext} = require('./shared.js');
+const {reload, rndrsp, cleantext} = require('./shared.js');
+const rules = require('./rules.js');
 
 module.exports = function(message) {
 	var user = message.author;
@@ -40,7 +41,7 @@ module.exports = function(message) {
 	    case 'rule':
 	    case 'rules':
 	    case 'ruling':
-	      bot.channels.get(channelID).send(ruling(args));
+	      bot.channels.get(channelID).send(rules(args));
 	      break;
 	    case 'combo':
 	    case 'comboswith':
@@ -51,6 +52,10 @@ module.exports = function(message) {
 	      break;
 	    case 'source':
 	      bot.channels.get(channelID).send(ruling('8.2.3.5'));
+	      break;
+	    case 'errata':
+	    	bot.channels.get(channelID).send(errata(args));
+	    	break;
 	  }
 	  return;
 	}
@@ -86,15 +91,8 @@ function whyban(card, mentions) {
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
 }
 
-function ruling(rule) {
-  var rules = reload('../config/rules.json');
-  var sass = reload('../config/sass.json');
-
-  if (!rule) return rndrsp(sass["!providerule"]);
-
-  if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
-
-  return rndrsp(sass["!norule"]);
+function errata(args) {
+	return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
 }
 
 function checkSass(content, channelID) {

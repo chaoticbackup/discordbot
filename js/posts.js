@@ -115,7 +115,7 @@ module.exports = class ForumPosts {
 	          news.push(latest[index]);
 	        }
 	      }
-	      else return;
+	      return;
 	    });
 
 	    news.forEach(function(newPost, i) {

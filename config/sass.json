@@ -4,6 +4,6 @@
 	"rule 34": ["not on this server we don't", "you have tumblr for that"],
 	"wombo combo": ["that ain't falco"],
 	"!norule": ["Sorry I don't have that rule memorized. You can check the Comprehensive Rules:\nhttps://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view"],
-	"!providerule": ["Rule 0.0.0. Provide the bot a rule", "I could quote the whole Comprehensive Rules... or you can read it yourself:\nhttps://drive.google.com/drive/folders/0B6oyUfwoM3u1bUhEcEhHalFiWTA"],
+	"!providerule": ["Rule 0.0.0. Provide the bot a rule", "I could quote the whole Comprehensive Rules... or you can read it yourself:\nhttps://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view"],
 	"!hello": ["Hello :wave:", "Want to be my friend?", "Feeling lonely?"]
 }
