@@ -63,7 +63,7 @@ module.exports = function(message) {
 	var rsp = checkSass(content, channelID);
 	if (rsp) bot.channels.get(channelID).send(rsp);
 
-	checkMentions.call(this, mentions, channelID);
+	checkMentions.call(bot, mentions, channelID);
 }
 
 // Responses
@@ -120,7 +120,7 @@ function combo(card) {
 
 function checkMentions(mentions, channelID) {
   if (mentions.length <= 0) return;
-  var bot = this.bot;
+  var bot = this;
   var sass = reload('../config/sass.json');
 
   // if (mentions.indexOf('140143063711481856') !== -1)

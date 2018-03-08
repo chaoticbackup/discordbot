@@ -30,7 +30,7 @@ module.exports = function(rule) {
 
 	  var loadPage = function (pageNum) {
 	    return doc.getPage(pageNum).then(function(page) {
-	      console.log('# Page ' + pageNum);
+	      // console.log('# Page ' + pageNum);
 	      // var viewport = page.getViewport(1.0 /* scale */);
 	      // console.log('Size: ' + viewport.width + 'x' + viewport.height);
 	      // console.log();
