@@ -1,5 +1,5 @@
 {
-  "name": "forumbot",
+  "name": "chaoticbacktalk",
   "version": "2.0.0",
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
@@ -8,12 +8,19 @@
     "forever": "forever -o out.log -e err.log start bot.js",
     "restart": "forever -o out.log -e err.log restart bot.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaoticbackup/discordbot.git"
+  },
+  "author": "Danude Sandstorm",
+  "license": "MIT",
   "dependencies": {
     "bufferutil": "^3.0.3",
     "discord.js": "^11.3.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
     "pdfjs-dist": "^2.0.x",
+    "webpack": "^2.x",
     "winston": "^2.4.0"
   }
 }
