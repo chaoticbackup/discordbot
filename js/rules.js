@@ -41,7 +41,8 @@ module.exports = function(rule) {
 	          return item.str;
 	        });
 	        // console.log('## Text Content');
-	        console.log(strings.join(' '));
+	        var text =strings.join(' ');
+	        console.log(text);
 	      }).then(function() {
 	        console.log();
 	      });
