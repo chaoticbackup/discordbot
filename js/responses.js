@@ -88,6 +88,10 @@ function whyban(card, mentions) {
       return `*${key}*:\n${rndrsp(bans[key])}`;
   }
 
+  if ("Marksman's Preparation".indexOf(card) === 0) {
+  	return "Marksman's Preparation is under consideration.";
+  }
+
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
 }
 
