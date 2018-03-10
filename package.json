@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node bot.js",
     "forever": "forever -o out.log -e err.log start bot.js",
-    "restart": "forever -o out.log -e err.log restart bot.js"
+    "restart": "forever -o out.log -e err.log restart bot.js",
+    "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../discordbot/"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,9 @@
     "pdfjs-dist": "^2.0.x",
     "webpack": "^2.x",
     "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "forever": "^0.15.3",
+    "git-auto-pull": "^1.0.9"
   }
 }
