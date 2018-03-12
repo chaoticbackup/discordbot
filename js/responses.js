@@ -88,7 +88,7 @@ function whyban(card, mentions) {
       return `*${key}*:\n${rndrsp(bans[key])}`;
   }
 
-  if ("Marksman's Preparation".indexOf(card) === 0) {
+  if (cleantext("Marksman's Preparation").indexOf(card) === 0) {
   	return "Marksman's Preparation is under consideration.";
   }
 
