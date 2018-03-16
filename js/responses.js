@@ -68,28 +68,30 @@ module.exports = function(message) {
 
 // Responses
 function banlist() {
-  var bans = reload('../config/bans.json');
-  var message = "This is our player-made ban list:\n=====";
+  const {bans, watchlist} = reload('../config/bans.json');
+  let message = "**Player-made Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
+  }
+  message += "\n=====\n**Debated Cards:**"
+  for (var key in watchlist) {
+  	message += "\n" + key;
   }
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
   return message;
 }
 
 function whyban(card, mentions) {
-  var bans = reload('../config/bans.json');
   card = cleantext(card.join(" ")); // remerge string
-
+  
   if (!card) return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
-
-  for (var key in bans) {
+  
+  const {bans, watchlist} = reload('../config/bans.json');
+  
+  let merge = Object.assign({}, bans, watchlist);
+  for (var key in merge) {
     if (cleantext(key).indexOf(card) === 0)
-      return `*${key}*:\n${rndrsp(bans[key])}`;
-  }
-
-  if (cleantext("Marksman's Preparation").indexOf(card) === 0) {
-  	return "Marksman's Preparation is under consideration.";
+      return `*${key}*:\n${rndrsp(merge[key])}`;
   }
 
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
