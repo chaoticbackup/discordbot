@@ -73,7 +73,7 @@ function banlist() {
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\n**Debated Cards:**"
+  message += "\n=====\n**Watchlist:**"
   for (var key in watchlist) {
   	message += "\n" + key;
   }
