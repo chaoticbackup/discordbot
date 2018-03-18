@@ -60,7 +60,7 @@ module.exports = function(message) {
 	  return;
 	}
 
-	var rsp = checkSass(content, channelID);
+	var rsp = checkSass(content);
 	if (rsp) bot.channels.get(channelID).send(rsp);
 
 	checkMentions.call(bot, mentions, channelID);
@@ -84,7 +84,7 @@ function banlist() {
 function whyban(card, mentions) {
   card = cleantext(card.join(" ")); // remerge string
   
-  if (!card) return rndrsp(["Specify a card...", "Yeah, just ban *everything*"]);
+  if (!card) return banlist();
   
   const {bans, watchlist} = reload('../config/bans.json');
   
@@ -101,7 +101,7 @@ function errata(args) {
 	return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
 }
 
-function checkSass(content, channelID) {
+function checkSass(content) {
   var sass = reload('../config/sass.json');
 
   for (var key in sass) {
