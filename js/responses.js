@@ -3,6 +3,7 @@ const rules = require('./rules.js');
 
 module.exports = function(message) {
 	var user = message.author;
+	console.log(user);
 	if (user.bot) return; //Ignore bot messages
 	var content = message.content;
 	var channelID = message.channel.id;
@@ -24,6 +25,8 @@ module.exports = function(message) {
 	    case 'pong':
 	      bot.channels.get(channelID).send('That\'s my role...');
 	      break;
+	    case 'commands':
+	    	bot.channels.get(channelID).send(help());
 	    case 'ban':
 	      if (mentions.length > 0) {
 	        bot.channels.get(channelID).send("I'm not in charge of banning players");
@@ -67,6 +70,11 @@ module.exports = function(message) {
 }
 
 // Responses
+function help() {
+  const sass = reload('../config/sass.json');
+  return rndrsp(sass['!help']);
+}
+
 function banlist() {
   const {bans, watchlist} = reload('../config/bans.json');
   let message = "**Player-made Ban List:**\n=====";
