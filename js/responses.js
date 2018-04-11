@@ -27,6 +27,7 @@ module.exports = function(message) {
 	      break;
 	    case 'commands':
 	    	bot.channels.get(channelID).send(help());
+	    	break;
 	    case 'ban':
 	      if (mentions.length > 0) {
 	        bot.channels.get(channelID).send("I'm not in charge of banning players");
@@ -51,10 +52,10 @@ module.exports = function(message) {
 	      bot.channels.get(channelID).send(combo(args));
 	      break;
 	    case 'endofturn':
-	      bot.channels.get(channelID).send(ruling('6.4.1'));
+	      bot.channels.get(channelID).send(rules('6.4.1'));
 	      break;
 	    case 'source':
-	      bot.channels.get(channelID).send(ruling('8.2.3.5'));
+	      bot.channels.get(channelID).send(rules('8.2.3.5'));
 	      break;
 	    case 'errata':
 	    	bot.channels.get(channelID).send(errata(args));
@@ -91,11 +92,11 @@ function banlist() {
 
 function whyban(card, mentions) {
   card = cleantext(card.join(" ")); // remerge string
-  
+
   if (!card) return banlist();
-  
+
   const {bans, watchlist} = reload('../config/bans.json');
-  
+
   let merge = Object.assign({}, bans, watchlist);
   for (var key in merge) {
     if (cleantext(key).indexOf(card) === 0)
