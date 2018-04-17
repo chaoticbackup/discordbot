@@ -54,6 +54,12 @@ module.exports = function(message) {
 	    case 'endofturn':
 	      bot.channels.get(channelID).send(rules('6.4.1'));
 	      break;
+      case 'fluidmorph':
+        bot.channels.get(channelID).send(rules('fluidmorph'));
+        break;
+      case 'elementdamage':
+        bot.channels.get(channelID).send(rules("elementdamage"));
+        break;
 	    case 'source':
 	      bot.channels.get(channelID).send(rules('8.2.3.5'));
 	      break;
