@@ -88,12 +88,12 @@ function checkSass(content) {
 }
 
 function compliment() {
-  const command = reload('../config/command.json');
+  const command = reload('../config/commands.json');
   return rndrsp(command['compliment']);
 }
 
 function help() {
-  const command = reload('../config/command.json');
+  const command = reload('../config/commands.json');
   return rndrsp(command['help']);
 }
 
