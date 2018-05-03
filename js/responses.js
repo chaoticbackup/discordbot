@@ -2,14 +2,12 @@ const {reload, rndrsp, cleantext} = require('./shared.js');
 const rules = require('./rules.js');
 
 module.exports = function(message) {
-	var user = message.author;
-	console.log(user);
-	if (user.bot) return; //Ignore bot messages
-	var content = message.content;
-	var channelID = message.channel.id;
-	var mentions = Array.from(message.mentions.users.keys());
+  if (message.author.bot) return; //Ignore bot messages
 
-	const bot = this;
+  const bot = this;
+  const content = message.content;
+  const channelID = message.channel.id;
+  const mentions = Array.from(message.mentions.users.keys());
 
 	// Our bot needs to know if it will execute a command
 	// It will listen for messages that will start with `!`
@@ -23,7 +21,7 @@ module.exports = function(message) {
 	      message.reply('Pong!');
 	      break;
 	    case 'pong':
-	      bot.channels.get(channelID).send('That\'s my role...');
+	      bot.channels.get(channelID).send('That\'s my role!');
 	      break;
 	    case 'commands':
 	    	bot.channels.get(channelID).send(help());
@@ -66,6 +64,9 @@ module.exports = function(message) {
 	    case 'errata':
 	    	bot.channels.get(channelID).send(errata(args));
 	    	break;
+      case 'compliment':
+        bot.channels.get(channelID).send(compliment());
+        break;
 	  }
 	  return;
 	}
@@ -77,9 +78,23 @@ module.exports = function(message) {
 }
 
 // Responses
+function checkSass(content) {
+  var sass = reload('../config/sass.json');
+
+  for (var key in sass) {
+    if (content.match(new RegExp(key, "i")))
+      return rndrsp(sass[key]);
+  }
+}
+
+function compliment() {
+  const command = reload('../config/command.json');
+  return rndrsp(command['compliment']);
+}
+
 function help() {
-  const sass = reload('../config/sass.json');
-  return rndrsp(sass['!help']);
+  const command = reload('../config/command.json');
+  return rndrsp(command['help']);
 }
 
 function banlist() {
@@ -88,7 +103,7 @@ function banlist() {
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\n**Watchlist:**"
+  message += "\n=====\n**Watchlist:**\n(not banned)"
   for (var key in watchlist) {
   	message += "\n" + key;
   }
@@ -116,18 +131,9 @@ function errata(args) {
 	return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
 }
 
-function checkSass(content) {
-  var sass = reload('../config/sass.json');
-
-  for (var key in sass) {
-    if (content.match(new RegExp(key, "i")))
-      return rndrsp(sass[key]);
-  }
-}
-
 function combo(card) {
   var combos = reload('../config/combos.json');
-  card = cleantext(card.join(" ")); // remerge string
+  card = cleantext(card.join(" ")); // re-merge string
 
   if (!card) return rndrsp(["Specify a card..."]);
 
@@ -136,7 +142,7 @@ function combo(card) {
       return `*Here's are cards that work with ${key}*:\n${combos[key]}`;
   }
 
-  return rndrsp(["I'm not aware of any combos. A more advanced player might know"]);
+  return ("I'm not aware of any combos. A more advanced player might know");
 }
 
 function checkMentions(mentions, channelID) {
@@ -146,7 +152,7 @@ function checkMentions(mentions, channelID) {
 
   // if (mentions.indexOf('140143063711481856') !== -1)
   if (mentions.indexOf('279331985955094529') !== -1)
-    bot.channels.get(channelID).send(rndrsp(sass["!hello"]));
+    bot.channels.get(channelID).send(rndrsp(sass["_h_"]));
 
   if (mentions.indexOf('279788856285331457') !== -1)
     bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway');
