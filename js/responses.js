@@ -78,15 +78,6 @@ module.exports = function(message) {
 }
 
 // Responses
-function checkSass(content) {
-  var sass = reload('../config/sass.json');
-
-  for (var key in sass) {
-    if (content.match(new RegExp(key, "i")))
-      return rndrsp(sass[key]);
-  }
-}
-
 function compliment() {
   const command = reload('../config/commands.json');
   return rndrsp(command['compliment']);
@@ -143,6 +134,15 @@ function combo(card) {
   }
 
   return ("I'm not aware of any combos. A more advanced player might know");
+}
+
+function checkSass(content) {
+  var sass = reload('../config/sass.json');
+
+  for (var key in sass) {
+    if (content.match(new RegExp(key, "i")))
+      return rndrsp(sass[key]);
+  }
 }
 
 function checkMentions(mentions, channelID) {
