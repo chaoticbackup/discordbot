@@ -67,6 +67,10 @@ module.exports = function(message) {
       case 'compliment':
         bot.channels.get(channelID).send(compliment());
         break;
+      case 'burn':
+      case 'insult':
+      	bot.channels.get(channelID).send(insult());
+      	break;
 	  }
 	  return;
 	}
@@ -86,6 +90,11 @@ function compliment() {
 function help() {
   const command = reload('../config/commands.json');
   return rndrsp(command['help']);
+}
+
+function insult() {
+  const command = reload('../config/commands.json');
+  return rndrsp(command['insult']);
 }
 
 function banlist() {
