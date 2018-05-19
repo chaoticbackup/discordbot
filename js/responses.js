@@ -7,78 +7,83 @@ module.exports = function(message) {
   const bot = this;
   const content = message.content;
   const channelID = message.channel.id;
+  const channel = bot.channels.get(channelID);
   const mentions = Array.from(message.mentions.users.keys());
 
-	// Our bot needs to know if it will execute a command
-	// It will listen for messages that will start with `!`
-	if (content.substring(0, 1) == '!') {
-	  var args = content.substring(1).split(' ');
-	  var cmd = args[0].toLowerCase();
-	  args = args.splice(1);
+  // Our bot needs to know if it will execute a command
+  // It will listen for messages that will start with `!`
+  if (content.substring(0, 1) == '!') {
+    var args = content.substring(1).split(' ');
+    var cmd = args[0].toLowerCase();
+    args = args.splice(1);
 
-	  switch(cmd) {
-	    case 'ping':
-	      message.reply('Pong!');
-	      break;
-	    case 'pong':
-	      bot.channels.get(channelID).send('That\'s my role!');
-	      break;
-	    case 'commands':
-	    	bot.channels.get(channelID).send(help());
-	    	break;
-	    case 'ban':
-	      if (mentions.length > 0) {
-	        bot.channels.get(channelID).send("I'm not in charge of banning players");
-	        break;
-	      }
-	    case 'whyban':
-	      if (mentions.length > 0)
-	        bot.channels.get(channelID).send("Player's aren't cards, silly");
-	      else
-	        bot.channels.get(channelID).send(whyban(args));
-	      break;
-	    case 'banlist':
-	      bot.channels.get(channelID).send(banlist());
-	      break;
-	    case 'rule':
-	    case 'rules':
-	    case 'ruling':
-	      bot.channels.get(channelID).send(rules(args));
-	      break;
-	    case 'combo':
-	    case 'comboswith':
-	      bot.channels.get(channelID).send(combo(args));
-	      break;
-	    case 'endofturn':
-	      bot.channels.get(channelID).send(rules('6.4.1'));
-	      break;
+    switch(cmd) {
+      case 'ping':
+        message.reply('Pong!');
+        break;
+      case 'pong':
+        channel.send('That\'s my role!');
+        break;
+      case 'commands':
+        channel.send(help());
+        break;
+      case 'ban':
+        if (mentions.length > 0) {
+          channel.send("I'm not in charge of banning players");
+          break;
+        }
+      case 'whyban':
+        if (mentions.length > 0)
+          channel.send("Player's aren't cards, silly");
+        else
+          channel.send(whyban(args));
+        break;
+      case 'banlist':
+        channel.send(banlist());
+        break;
+      case 'rule':
+      case 'rules':
+      case 'ruling':
+        channel.send(rules(args));
+        break;
+      case 'combo':
+      case 'comboswith':
+        channel.send(combo(args));
+        break;
+      case 'endofturn':
+        channel.send(rules('6.4.1'));
+        break;
       case 'fluidmorph':
-        bot.channels.get(channelID).send(rules('fluidmorph'));
+        channel.send(rules('fluidmorph'));
         break;
       case 'elementdamage':
-        bot.channels.get(channelID).send(rules("elementdamage"));
+        channel.send(rules("elementdamage"));
         break;
-	    case 'source':
-	      bot.channels.get(channelID).send(rules('8.2.3.5'));
-	      break;
-	    case 'errata':
-	    	bot.channels.get(channelID).send(errata(args));
-	    	break;
+      case 'source':
+        channel.send(rules('8.2.3.5'));
+        break;
+      case 'errata':
+        channel.send(errata(args));
+        break;
       case 'compliment':
-        bot.channels.get(channelID).send(compliment());
+        channel.send(compliment());
         break;
       case 'burn':
       case 'insult':
-      	bot.channels.get(channelID).send(insult());
-      	break;
-	  }
-	  return;
-	}
+        channel.send(insult());
+        break;
+      case 'card':
+        const ayy = bot.emojis.find("name", "GenCounter");
+        channel.send(card(args, ayy));
+        break;
+    }
+    return;
+  }
 
-	var rsp = checkSass(content);
-	if (rsp) bot.channels.get(channelID).send(rsp);
+  var rsp = checkSass(content);
+  if (rsp) channel.send(rsp);
 
-	checkMentions.call(bot, mentions, channelID);
+  checkMentions.call(bot, mentions, channelID);
 }
 
 // Responses
@@ -97,6 +102,21 @@ function insult() {
   return rndrsp(command['insult']);
 }
 
+function card(card, ayy) {
+  var cards = reload('../config/cards.json');
+  card = cleantext(card.join(" ")); // re-merge string
+
+  if (!card) return rndrsp(["Specify a card..."]);
+
+  for (var key in cards) {
+    if (cleantext(key).indexOf(card) === 0) {  
+      return `${cards[key].replace(/:GenCounter:/gi, ayy.toString())}`;
+    }
+  }
+
+  return ("That's not a valid card name");
+}
+
 function banlist() {
   const {bans, watchlist} = reload('../config/bans.json');
   let message = "**Player-made Ban List:**\n=====";
@@ -105,7 +125,7 @@ function banlist() {
   }
   message += "\n=====\n**Watchlist:**\n(not banned)"
   for (var key in watchlist) {
-  	message += "\n" + key;
+    message += "\n" + key;
   }
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
   return message;
@@ -128,7 +148,7 @@ function whyban(card, mentions) {
 }
 
 function errata(args) {
-	return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
+  return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
 }
 
 function combo(card) {
