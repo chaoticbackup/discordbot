@@ -177,11 +177,11 @@ function checkSass(content) {
 function checkMentions(mentions, channelID) {
   if (mentions.length <= 0) return;
   var bot = this;
-  var sass = reload('../config/sass.json');
+  var commands = reload('../config/commands.json');
 
   // if (mentions.indexOf('140143063711481856') !== -1)
   if (mentions.indexOf('279331985955094529') !== -1)
-    bot.channels.get(channelID).send(rndrsp(sass["_h_"]));
+    bot.channels.get(channelID).send(rndrsp(commands["hello"]));
 
   if (mentions.indexOf('279788856285331457') !== -1)
     bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway');
