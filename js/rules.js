@@ -3,9 +3,19 @@ const {reload, rndrsp} = require('./shared.js');
 
 module.exports = function(rule) {
 	var rules = reload('../config/rules.json');
-	var sass = reload('../config/sass.json');
+	var commands = reload('../config/commands.json');
 
-	if (!rule) return rndrsp(sass["!providerule"]);
+	if (!rule) return rndrsp(commands["providerule"]);
+
+	if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
+
+	return rndrsp(commands["norule"]);
+
+/* This is ignored */
+	var rules = reload('../config/rules.json');
+	var commands = reload('../config/commands.json');
+
+	if (!rule) return rndrsp(commands["providerule"]);
 
 	if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
 
@@ -60,5 +70,5 @@ module.exports = function(rule) {
 	  console.error('Error: ' + err);
 	});
 
-	return rndrsp(sass["!norule"]);
+	return rndrsp(commands["norule"]);
 }
