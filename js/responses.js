@@ -13,8 +13,8 @@ module.exports = function(message) {
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
   if (content.substring(0, 1) == '!') {
-    var args = content.substring(1).split(' ');
-    var cmd = args[0].toLowerCase();
+    let args = content.substring(1).split(' ');
+    let cmd = args[0].toLowerCase();
     args = args.splice(1);
 
     switch(cmd) {
@@ -29,7 +29,10 @@ module.exports = function(message) {
         break;
       case 'ban':
         if (mentions.length > 0) {
-          channel.send("I'm not in charge of banning players");
+          if (mentions.indexOf('279331985955094529') !== -1) 
+            channel.send("You try to ban me? I'll ban you!")
+          else
+            channel.send("I'm not in charge of banning players");
           break;
         }
       case 'whyban':
@@ -46,22 +49,11 @@ module.exports = function(message) {
       case 'ruling':
         channel.send(rules(args));
         break;
-      case 'endofturn':
-        channel.send(rules('6.4.1'));
-        break;
-      case 'fluidmorph':
-        channel.send(rules('fluidmorph'));
-        break;
-      case 'elementdamage':
-        channel.send(rules("elementdamage"));
-        break;
-      case 'source':
-        channel.send(rules('8.2.3.5'));
-        break;
       case 'errata':
         channel.send(errata(args));
         break;
       case 'compliment':
+      case 'flirt':
         channel.send(compliment());
         break;
       case 'burn':
@@ -83,11 +75,6 @@ module.exports = function(message) {
 }
 
 // Responses
-function compliment() {
-  const command = reload('../config/commands.json');
-  return rndrsp(command['compliment']);
-}
-
 function help() {
   const help = reload('../config/help.json');
   let message = "";
@@ -95,6 +82,11 @@ function help() {
     message += "\n" + help[key];
   }
   return message;
+}
+
+function compliment() {
+  const command = reload('../config/commands.json');
+  return rndrsp(command['compliment']);
 }
 
 function insult() {
