@@ -46,10 +46,6 @@ module.exports = function(message) {
       case 'ruling':
         channel.send(rules(args));
         break;
-      case 'combo':
-      case 'comboswith':
-        channel.send(combo(args));
-        break;
       case 'endofturn':
         channel.send(rules('6.4.1'));
         break;
@@ -73,8 +69,8 @@ module.exports = function(message) {
         channel.send(insult());
         break;
       case 'card':
-        const ayy = bot.emojis.find("name", "GenCounter");
-        channel.send(card(args, ayy));
+        const genCounter = bot.emojis.find("name", "GenCounter").toString();
+        channel.send(card(args, genCounter));
         break;
     }
     return;
@@ -93,8 +89,12 @@ function compliment() {
 }
 
 function help() {
-  const command = reload('../config/commands.json');
-  return rndrsp(command['help']);
+  const help = reload('../config/help.json');
+  let message = "";
+  for (var key in help) {
+    message += "\n" + help[key];
+  }
+  return message;
 }
 
 function insult() {
@@ -102,7 +102,7 @@ function insult() {
   return rndrsp(command['insult']);
 }
 
-function card(card, ayy) {
+function card(card, genCounter) {
   var cards = reload('../config/cards.json');
   card = cleantext(card.join(" ")); // re-merge string
 
@@ -110,7 +110,7 @@ function card(card, ayy) {
 
   for (var key in cards) {
     if (cleantext(key).indexOf(card) === 0) {  
-      return `${cards[key].replace(/:GenCounter:/gi, ayy.toString())}`;
+      return `${cards[key].replace(/:GenCounter:/gi, genCounter)}`;
     }
   }
 
@@ -149,20 +149,6 @@ function whyban(card, mentions) {
 
 function errata(args) {
   return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
-}
-
-function combo(card) {
-  var combos = reload('../config/combos.json');
-  card = cleantext(card.join(" ")); // re-merge string
-
-  if (!card) return rndrsp(["Specify a card..."]);
-
-  for (var key in combos) {
-    if (cleantext(key).indexOf(card) === 0)
-      return `*Here's are cards that work with ${key}*:\n${combos[key]}`;
-  }
-
-  return ("I'm not aware of any combos. A more advanced player might know");
 }
 
 function checkSass(content) {

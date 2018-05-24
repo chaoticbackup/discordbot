@@ -1,0 +1,7 @@
+{
+	"start": "I try to be helpful, but can be sassy. Here's what I can help you with:",
+	"banlist": "```!banlist``` ```!ban, !whyban <card name>```",
+	"rules": "```!rule, !rules, !ruling <rule section/keyword>```",
+	"card": "```!card <card name>\n(Returns the card's text as well as its picture)```",
+	"end": "\nTo be curtious to other conversations, talk to me in <#387805334657433600> :)"
+}
