@@ -42,7 +42,10 @@ module.exports = function(message) {
           channel.send(whyban(args));
         break;
       case 'banlist':
-        channel.send(banlist());
+        if (channel.id != 387805334657433600)
+          channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else
+          channel.send(banlist());
         break;
       case 'rule':
       case 'rules':
