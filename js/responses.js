@@ -57,11 +57,11 @@ module.exports = function(message) {
         break;
       case 'compliment':
       case 'flirt':
-        channel.send(compliment());
+        channel.send(compliment(args));
         break;
       case 'burn':
       case 'insult':
-        channel.send(insult());
+        channel.send(insult(args));
         break;
       case 'card':
         const genCounter = bot.emojis.find("name", "GenCounter").toString();
@@ -87,9 +87,17 @@ function help() {
   return message;
 }
 
-function compliment() {
+function insertname(resp, name) {
+  if (name)
+    resp = resp.replace(/\{\{.*\|x(.*)\}\}/i, (match, p1) => {return name + p1});
+  else
+    resp = resp.replace(/\{\{(.*)\|.*\}\}/i, (p1) => {return p1});
+  return resp;
+}
+
+function compliment(args) {
   const command = reload('../config/commands.json');
-  return rndrsp(command['compliment']);
+  return insertname(rndrsp(command['compliment']), args.join(" "));
 }
 
 function insult() {
