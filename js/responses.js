@@ -92,7 +92,7 @@ function insertname(resp, name) {
   if (name)
     resp = resp.replace(/\{\{.+?\|((?:x)(.*?)|(.*?)(?:x))\}\}/ig, (match, p1, p2) => {return name + p2});
   else
-    resp = resp.replace(/\{\{(.*)\|.*\}\}/ig, (p1) => {return p1});
+    resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (p1) => {return p1});
   return resp;
 }
 
