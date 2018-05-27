@@ -60,6 +60,7 @@ module.exports = function(message) {
         channel.send(compliment(args));
         break;
       case 'burn':
+      case 'roast':
       case 'insult':
         channel.send(insult(args));
         break;
@@ -89,9 +90,9 @@ function help() {
 
 function insertname(resp, name) {
   if (name)
-    resp = resp.replace(/\{\{.*\|x(.*)\}\}/i, (match, p1) => {return name + p1});
+    resp = resp.replace(/\{\{.+?\|((?:x)(.*?)|(.*?)(?:x))\}\}/ig, (match, p1, p2) => {return name + p2});
   else
-    resp = resp.replace(/\{\{(.*)\|.*\}\}/i, (p1) => {return p1});
+    resp = resp.replace(/\{\{(.*)\|.*\}\}/ig, (p1) => {return p1});
   return resp;
 }
 
@@ -100,9 +101,9 @@ function compliment(args) {
   return insertname(rndrsp(command['compliment']), args.join(" "));
 }
 
-function insult() {
+function insult(args) {
   const command = reload('../config/commands.json');
-  return rndrsp(command['insult']);
+  return insertname(rndrsp(command['insult']), args.join(" "));
 }
 
 function card(card, genCounter) {
