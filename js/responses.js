@@ -62,7 +62,8 @@ module.exports = function(message) {
       case 'burn':
       case 'roast':
       case 'insult':
-        channel.send(insult(args));
+        if (mentions.indexOf('279331985955094529') !== -1) channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
+        else channel.send(insult(args));
         break;
       case 'card':
         const genCounter = bot.emojis.find("name", "GenCounter").toString();
@@ -90,9 +91,9 @@ function help() {
 
 function insertname(resp, name) {
   if (name)
-    resp = resp.replace(/\{\{.+?\|((?:x)(.*?)|(.*?)(?:x))\}\}/ig, (match, p1, p2) => {return name + p2});
+    resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
   else
-    resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (p1) => {return p1});
+    resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
   return resp;
 }
 
@@ -135,7 +136,7 @@ function banlist() {
   return message;
 }
 
-function whyban(card, mentions) {
+function whyban(card) {
   card = cleantext(card.join(" ")); // remerge string
 
   if (!card) return banlist();
@@ -169,7 +170,8 @@ function checkMentions(mentions, channelID) {
   var bot = this;
   var commands = reload('../config/commands.json');
 
-  // if (mentions.indexOf('140143063711481856') !== -1)
+  // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4
+
   if (mentions.indexOf('279331985955094529') !== -1)
     bot.channels.get(channelID).send(rndrsp(commands["hello"]));
 
