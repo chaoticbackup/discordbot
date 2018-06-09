@@ -36,11 +36,14 @@ module.exports = function(message) {
           break;
         }
       case 'whyban':
-        if (mentions.length > 0)
+        if (mentions.length > 0) {
           channel.send("Player's aren't cards, silly");
-        else
+          break;
+        }
+        else if (args.length > 0) {
           channel.send(whyban(args));
-        break;
+          break;
+        }
       case 'banlist':
         if (channel.id != 387805334657433600)
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
@@ -138,8 +141,6 @@ function banlist() {
 
 function whyban(card) {
   card = cleantext(card.join(" ")); // remerge string
-
-  if (!card) return banlist();
 
   const {bans, watchlist} = reload('../config/bans.json');
 
