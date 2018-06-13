@@ -16,7 +16,7 @@ const bot = new Discord.Client();
 
 bot.on('ready', function (evt) {
   logger.info('Logged in as: ' + bot.user);
-  bot.user.setGame('!commands')
+  bot.user.setActivity('!commands')
   const fp = new ForumPosts(bot);
   fp.checkMessages();
 });

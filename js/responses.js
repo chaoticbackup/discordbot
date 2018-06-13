@@ -24,9 +24,19 @@ module.exports = function(message) {
       case 'pong':
         channel.send('That\'s my role!');
         break;
+      /* Commands */
       case 'commands':
-        channel.send(help());
+        if (channel.id != 387805334657433600)
+          channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
+        else
+          channel.send(help());
         break;
+      /* Cards */
+      case 'card':
+        const genCounter = bot.emojis.find("name", "GenCounter").toString();
+        channel.send(card(args, genCounter));
+        break;
+      /* Banlist and Bans */
       case 'ban':
         if (mentions.length > 0) {
           if (mentions.indexOf('279331985955094529') !== -1) 
@@ -50,27 +60,36 @@ module.exports = function(message) {
         else
           channel.send(banlist());
         break;
+      /* Rule */
       case 'rule':
       case 'rules':
       case 'ruling':
         channel.send(rules(args));
         break;
-      case 'errata':
-        channel.send(errata(args));
-        break;
+      /* Compliments */
       case 'compliment':
       case 'flirt':
         channel.send(compliment(args));
         break;
+      /* Insults */
       case 'burn':
       case 'roast':
       case 'insult':
         if (mentions.indexOf('279331985955094529') !== -1) channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
         else channel.send(insult(args));
         break;
-      case 'card':
-        const genCounter = bot.emojis.find("name", "GenCounter").toString();
-        channel.send(card(args, genCounter));
+      /* Documents */
+      case 'rulebook':
+        channel.send("https://drive.google.com/file/d/1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT/view");
+        break;
+      case 'cr':
+        channel.send("https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view");
+        break;
+      case 'errata':
+        channel.send("https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view");
+        break;
+      case 'guide':
+        channel.send("https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view");
         break;
     }
     return;
@@ -151,10 +170,6 @@ function whyban(card) {
   }
 
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
-}
-
-function errata(args) {
-  return "You can check errata's here:\nhttps://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view";
 }
 
 function checkSass(content) {

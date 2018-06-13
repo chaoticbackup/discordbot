@@ -1,6 +1,9 @@
 {
 	"start": "I try to be helpful, but can be sassy. Here's what I can help you with:",
-	"banlist": "```!banlist``` ```!ban, !whyban <card name>```",
 	"card": "```!card <card name>\n(Returns the card's text as well as its picture)```",
-	"end": "To be curtious to other conversations, talk to me in <#387805334657433600> :)"
+	"banlist": "```!banlist``` ```!ban, !whyban <card name>```",
+	"compliment": "```!compliment, !flirt\n(Can take a name as a paramater)```",
+	"insult": "```!insult, !burn, !roast\n(Can take a name as a paramater)```",
+	"documents": "```!rulebook, !cr, !errata, !guide```\n(These are the important documents)",
+	"end": "I may also pop in to add a quip ;)"
 }

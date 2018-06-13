@@ -4,8 +4,8 @@ const {reload, rndrsp} = require('./shared.js');
 module.exports = function(rule) {
 	var rules = reload('../config/rules.json');
 	var commands = reload('../config/commands.json');
-
-	if (!rule) return rndrsp(commands["providerule"]);
+	
+	if (rule.length < 1) return rndrsp(commands["providerule"]);
 
 	if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
 
