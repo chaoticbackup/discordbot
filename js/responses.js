@@ -91,8 +91,12 @@ module.exports = function(message) {
       case 'guide':
         channel.send("https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view");
         break;
-      case 'starter':
+      case 'starters':
         channel.send(starter());
+        break;
+      /* Misc */
+      case 'sandwich':
+        channel.send(":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:");
         break;
     }
     return;
@@ -136,7 +140,10 @@ function card(card, genCounter) {
   var cards = reload('../config/cards.json');
   card = cleantext(card.join(" ")); // re-merge string
 
-  if (!card) return rndrsp(["Specify a card..."]);
+  if (!card) {
+    var keys = Object.keys(cards);
+    return cards[keys[keys.length * Math.random() << 0]];
+  }
 
   for (var key in cards) {
     if (cleantext(key).indexOf(card) === 0) {  

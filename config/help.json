@@ -4,6 +4,6 @@
 	"banlist": "```!banlist``` ```!ban, !whyban <card name>```",
 	"compliment": "```!compliment, !flirt\n(Can take a name as a paramater)```",
 	"insult": "```!insult, !burn, !roast\n(Can take a name as a paramater)```",
-	"documents": "```!rulebook, !cr, !errata, !guide\n(These are the important documents)```",
+	"documents": "```!rulebook, !cr, !errata, !guide, !starters\n(These are the important documents)```",
 	"end": "I may also pop in to add a quip ;)"
 }
