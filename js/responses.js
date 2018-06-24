@@ -91,6 +91,9 @@ module.exports = function(message) {
       case 'guide':
         channel.send("https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view");
         break;
+      case 'starter':
+        channel.send(starter());
+        break;
     }
     return;
   }
@@ -170,6 +173,11 @@ function whyban(card) {
   }
 
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
+}
+
+function starter() {
+  const commands = reload('../config/commands.json');
+  return commands["starter"][0];
 }
 
 function checkSass(content) {
