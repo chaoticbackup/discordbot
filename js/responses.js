@@ -98,6 +98,9 @@ module.exports = function(message) {
       case 'sandwich':
         channel.send(":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:");
         break;
+      case 'joke':
+        channel.send(joke());
+        break;
     }
     return;
   }
@@ -134,6 +137,11 @@ function compliment(args) {
 function insult(args) {
   const command = reload('../config/commands.json');
   return insertname(rndrsp(command['insult']), args.join(" "));
+}
+
+function joke() {
+  const command = reload('../config/commands.json');
+  return rndrsp(command["joke"]);
 }
 
 function card(card, genCounter) {
