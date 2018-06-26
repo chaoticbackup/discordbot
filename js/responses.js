@@ -6,8 +6,7 @@ module.exports = function(message) {
 
   const bot = this;
   const content = message.content;
-  const channelID = message.channel.id;
-  const channel = bot.channels.get(channelID);
+  const channel = bot.channels.get(message.channel.id);
   const mentions = Array.from(message.mentions.users.keys());
 
   // Our bot needs to know if it will execute a command
@@ -55,7 +54,7 @@ module.exports = function(message) {
           break;
         }
       case 'banlist':
-        if (channel.id != 387805334657433600)
+        if (message.guild.id == 135657678633566208 && channel.id != 387805334657433600)
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
           channel.send(banlist());
@@ -108,7 +107,7 @@ module.exports = function(message) {
   var rsp = checkSass(content);
   if (rsp) channel.send(rsp);
 
-  checkMentions.call(bot, mentions, channelID);
+  checkMentions.call(bot, mentions, channel.id);
 }
 
 // Responses
