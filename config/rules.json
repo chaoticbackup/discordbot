@@ -5,5 +5,5 @@
 	"8.2.3.5": "8.2.3.5. Card abilities in a Burst are independent of the card that created them. Destruction of this card will not remove the generated ability from the Burst or cause it to fail to resolve.",
 	"8.5.1": "First any targets of the Mugic or ability are rechecked to see if they are legal. If no targets are still legal then the Mugic or ability fails to resolve and is removed from the Burst.",
     "elementdamage": "1. The Attack you are playing must be that element. Whether it is from a marked damage value or from an element check, it's an Elemental Attack.\n2. Your Engaged Creature has the element.\n3. Your Creature deals a non-zero amount of damage with the Attack when it resolves.\nFor example, if I play Fireram from a creature with 60+ power and a Flameblade of Seeryn, even with no modifiers, the damage of that attack will cause Flameblade to trigger.",
-    "fluidmorph": "1. You must deal a non-zero amount of damage.\n2. Your engaged Creature must have water.\n3. The Attack must be Water Attack.\nInvader's Tactics will trigger Fluidmorph. Inner Flood without a damage modifier will not."
+    "fluidmorph": "1. You must deal a non-zero amount of attack damage.\n2. Your engaged Creature must have water.\n3. The Attack must be Water Attack.\nInvader's Tactics will trigger Fluidmorph. Inner Flood without a damage modifier will not."
 }
