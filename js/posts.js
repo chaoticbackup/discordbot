@@ -80,7 +80,7 @@ module.exports = class ForumPosts {
 
 	checkMessages() {
 	  var {seconds} = reload("../config/config.json");
-	  console.log("Checking Messages");
+	  // console.log("Checking Messages");w
 
 	  // Simulated Browser
 	  JSDOM.fromURL(forum, {
