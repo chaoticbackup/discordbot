@@ -32,8 +32,7 @@ module.exports = function(message) {
         break;
       /* Cards */
       case 'card':
-        const genCounter = bot.emojis.find("name", "GenCounter").toString();
-        channel.send(card(args, genCounter));
+        channel.send(card(args, bot.emojis.find("name", "GenCounter")));
         break;
       /* Banlist and Bans */
       case 'ban':
@@ -143,22 +142,30 @@ function joke() {
   return rndrsp(command["joke"]);
 }
 
+function GenericCounter(cardtext, genCounter) {
+  if (genCounter) {
+    return cardtext.replace(/:GenCounter:/gi, genCounter.toString());
+  }
+  else return cardtext.replace(/:GenCounter:/gi, 'MC');
+}
+
 function card(card, genCounter) {
   var cards = reload('../config/cards.json');
   card = cleantext(card.join(" ")); // re-merge string
 
   if (!card) {
+    // Return random card
     var keys = Object.keys(cards);
-    return cards[keys[keys.length * Math.random() << 0]];
+    return `${GenericCounter(cards[keys[keys.length * Math.random() << 0]], genCounter)}`;
   }
 
   for (var key in cards) {
     if (cleantext(key).indexOf(card) === 0) {  
-      return `${cards[key].replace(/:GenCounter:/gi, genCounter)}`;
+      return `${GenericCounter(cards[key].replace(), genCounter)}`;
     }
   }
 
-  return ("That's not a valid card name");
+  return "That's not a valid card name";
 }
 
 function banlist() {
