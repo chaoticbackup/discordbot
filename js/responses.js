@@ -25,7 +25,7 @@ module.exports = function(message) {
         break;
       /* Commands */
       case 'commands':
-        if (channel.id != 387805334657433600)
+        if (message.guild.id == 135657678633566208 && channel.id != 387805334657433600)
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           channel.send(help());
@@ -98,6 +98,15 @@ module.exports = function(message) {
         break;
       case 'joke':
         channel.send(joke());
+        break;
+      /* Moderator Only */
+      case 'haxxor':
+        if (message.guild.id == 135657678633566208 &&
+          (message.member.roles.find("name", "Ultra Rare") || message.member.roles.find("name", "Super Rare"))
+        ) {
+          channel.send('Resetting...')
+            .then(msg => bot.destroy())
+        }
         break;
     }
     return;

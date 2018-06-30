@@ -12,7 +12,7 @@ logger.add(logger.transports.Console, {
 logger.level = 'debug';
 
 // Initialize Discord Bot
-const bot = new Discord.Client();
+const bot = new Discord.Client({autoReconnect: true});
 
 bot.on('ready', function (evt) {
   logger.info('Logged in as: ' + bot.user);
@@ -23,7 +23,8 @@ bot.on('ready', function (evt) {
 
 // Automatically reconnect if the bot disconnects due to inactivity
 bot.on('disconnect', (erMsg, code) => {
-    bot.connect();
+	logger.info('Reconnecting');
+    // bot.connect();
 });
 
 // Respones
