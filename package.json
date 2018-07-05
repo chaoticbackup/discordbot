@@ -4,7 +4,8 @@
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "start": "node bot.js",
+    "start": "babel-node bot.js --presets env,stage-1",
+    "build": "babel lib -d dist",
     "forever": "forever -o out.log -e err.log start bot.js",
     "restart": "forever -o out.log -e err.log restart bot.js",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../discordbot/"
@@ -13,18 +14,23 @@
     "type": "git",
     "url": "git+https://github.com/chaoticbackup/discordbot.git"
   },
-  "author": "Danude Sandstorm",
   "license": "MIT",
   "dependencies": {
     "bufferutil": "^3.0.3",
     "discord.js": "^11.3.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
+    "lokijs": "^1.5.5",
     "pdfjs-dist": "^2.0.x",
-    "webpack": "^2.x",
+    "webpack": "^3.x",
+    "whatwg-fetch": "^2.0.3",
     "winston": "^2.4.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-1": "^6.24.1",
     "forever": "^0.15.3",
     "git-auto-pull": "^1.0.9"
   }
