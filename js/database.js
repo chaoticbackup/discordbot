@@ -1,39 +1,45 @@
-const fetch = require('whatwg-fetch');
-const loki = require('lokijs');
-const {reload, rndrsp, cleantext} = require('./shared.js');
+const fetch =  require('node-fetch');
+import loki from 'lokijs';
+import {reload, rndrsp, cleantext} from './shared.js';
 
 export default class API {
   static base_url = "https://spreadsheets.google.com/feeds/list/";
   static data_format = "/od6/public/values?alt=json";
   static base_spreadsheet = "1cUNmwV693zl2zqbH_IG4Wz8o9Va_sOHe7pAZF6M59Es";
+  static base_image = "https://drive.google.com/uc?id=";
 
   path(spreadsheetID) {
     return API.base_url + spreadsheetID + API.data_format;
   }
 
   constructor() {
-    this.format = "collection";
+    this.format = "cards";
+    this.filter = new loki("filter.db");
 
     let urls = {};
     this.getSpreadsheet(this.path(API.base_spreadsheet), (data) => {
-      if (data == null) return;
+      // If no data, use the json file
+      if (data == null) {
+        console.error("Falling back on local database");
+        this.data = "local";
+        return;
+      }
+      // Setup urls
       data.forEach((d) => {
-        console.log(d);
         if (!urls[d.gsx$type.$t]) urls[d.gsx$type.$t] = {};
         urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
       });
-      console.log(urls);
       this.urls = urls;
-    });
 
-    this.db = new loki(`chaotic_${this.format}.db`, {
-      autosave: true,
-      autoload: true,
-      autoloadCallback: this.databaseInitialize.bind(this),
-      autosaveInterval: 4000,
-      persistenceMethod: 'localStorage'
+      // setup database from spreadsheet data
+      this.db = new loki(`chaotic_${this.format}.db`, {
+        autosave: true,
+        autoload: true,
+        autoloadCallback: this.databaseInitialize.bind(this),
+        autosaveInterval: 4000,
+        persistenceMethod: 'localStorage'
+      });
     });
-
   }
 
   async getSpreadsheet(spreadsheet, callback) {
@@ -50,33 +56,56 @@ export default class API {
     });
   }
 
-  async databaseInitialize() {
+  databaseInitialize() {
     ["attacks","battlegear", "creatures", "locations", "mugic"]
-    .forEach((item, i) => {
+    .forEach((type, i) => {
       // check if the db already exists in memory
-      let entries = this.db.getCollection(item);
+      let entries = this.db.getCollection(type);
       if (entries === null) {
-        this[item] = this.db.addCollection(item);
+        this[type] = this.db.addCollection(type);
+        this.setupType(type);
       }
       else {
-        this[item] = entries;
-        console.log(item);
-        setupType(item);
+        this[type] = entries;
       }
     });
   }
 
   async setupType(type) {
     let uc_type = type.charAt(0).toUpperCase() + type.slice(1);
-    console.log(type, this.urls[uc_type]);
     return this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
       this[type].insert(data);
     });
   }
 
-  
-  card(card, genCounter) {
-    var cards = reload('../config/cards.json');
+  async getSpreadsheetData(spreadsheet, type, callback) {
+    this.getSpreadsheet(spreadsheet, (data) => {
+      callback(data.map((item) => {
+        let temp = {};
+        delete item.content;
+        for (const key of Object.keys(item)) {
+          temp[key] = item[key].$t;
+        }
+        temp["gsx$type"] = type;
+        return temp;
+      }));
+    });
+  }
+
+  /* 
+    Returning a card
+  */
+  card(card, bot) {
+    if (this.data === "local") {
+      return this.card_local(card, bot.emojis.find("name", "GenCounter"));
+    }
+    else {
+      return this.card_db(card, bot);
+    }
+  }
+
+  card_local(card, genCounter) {
+    var cards = require('../config/cards.json');
     card = cleantext(card.join(" ")); // re-merge string
 
     function GenericCounter(cardtext, genCounter) {
@@ -99,6 +128,100 @@ export default class API {
     }
 
     return "That's not a valid card name";
+  }
+
+  card_db(card, bot) {
+    card = cleantext(card.join(" "));
+
+    // Sort data descending alphabetically
+    let filter = this.filter.addCollection('filter');
+    var pview = filter.addDynamicView('filter');
+    pview.applySimpleSort('gsx$name');
+
+    // begin data filtering
+    let attackResults = this.attacks.chain();
+    let battlegearResults = this.battlegear.chain();
+    let creatureResults = this.creatures.chain();
+    let locationResults = this.locations.chain();
+    let mugicResults = this.mugic.chain();
+
+    // Search by name
+    if (card.length > 0) {
+      attackResults = attackResults.find({'$or': [
+        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+      ]});
+      battlegearResults = battlegearResults.find({'$or': [
+        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+      ]});
+      creatureResults = creatureResults.find({'$or': [
+        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+      ]});
+      locationResults = locationResults.find({'$or': [
+        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(card, 'i')}}
+      ]});
+      mugicResults = mugicResults.find({'$or': [
+        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+      ]});
+    }
+
+    // Merge Results
+    let temp;
+
+    temp = attackResults.data();
+    temp.forEach(function(v){ delete v.$loki });
+    filter.insert(temp);
+
+    temp = battlegearResults.data();
+    temp.forEach(function(v){ delete v.$loki });
+    filter.insert(temp);
+
+    temp = creatureResults.data();
+    temp.forEach(function(v){ delete v.$loki });
+    filter.insert(temp);
+
+    temp = locationResults.data();
+    temp.forEach(function(v){ delete v.$loki });
+    filter.insert(temp);
+
+    temp = mugicResults.data();
+    temp.forEach(function(v){ delete v.$loki });
+    filter.insert(temp);
+
+    let results = pview.data();
+    this.filter.removeCollection('filter');
+
+    let Response = (card) => {
+      //TODO tribal mugic counters
+      function MugicCounter(cardtext) {
+        let genCounter = bot.emojis.find("name", "GenCounter");
+        if (genCounter) {
+          return cardtext.replace(/\{\{MC\}\}/gi, genCounter.toString());
+        }
+        else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
+      }
+
+      let resp = MugicCounter(card.gsx$ability);
+
+      if (card.gsx$brainwashed)
+        resp += "\n" + MugicCounter(card.gsx$brainwashed);
+
+      resp += "\n" + API.base_image + card.gsx$image;
+
+      return resp;
+    }
+
+    if (card.length > 0) {
+      return Response(results[0]);
+    }
+    else {
+      return Response(rndrsp(results)); // Random card
+    }
+
   }
 
 }

@@ -1,7 +1,7 @@
 const {reload, rndrsp, cleantext} = require('./shared.js');
 const rules = require('./rules.js');
 const API = require('./database.js').default;
-var cardsdb = new API();
+const cardsdb = new API();
 
 module.exports = function(message) {
   if (message.author.bot) return; //Ignore bot messages
@@ -34,7 +34,7 @@ module.exports = function(message) {
         break;
       /* Cards */
       case 'card':
-        channel.send(cardsdb.card(args, bot.emojis.find("name", "GenCounter")));
+        channel.send(cardsdb.card(args, bot));
         break;
       /* Banlist and Bans */
       case 'ban':
