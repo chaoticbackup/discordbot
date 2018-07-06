@@ -1,13 +1,13 @@
 {
   "name": "chaoticbacktalk",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "start": "babel-node bot.js --presets env,stage-1",
-    "build": "babel lib -d dist",
-    "forever": "forever -o out.log -e err.log start bot.js",
-    "restart": "forever -o out.log -e err.log restart bot.js",
+    "start": "babel-node src/bot.js --presets env,stage-1",
+    "build": "babel src -d build --copy-files",
+    "forever": "forever -o out.log -e err.log start build/bot.js",
+    "restart": "forever -o out.log -e err.log restart build/bot.js",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../discordbot/"
   },
   "repository": {
@@ -16,6 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bufferutil": "^3.0.3",
     "discord.js": "^11.3.0",
     "jquery": "^3.3.1",

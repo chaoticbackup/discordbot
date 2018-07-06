@@ -1,5 +1,6 @@
 *.pem
 auth.json
 package-lock.json
-
+*.log
 node_modules/
+build/
