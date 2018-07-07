@@ -131,7 +131,7 @@ export default class API {
   }
 
   card_db(card, bot) {
-    card = cleantext(card.join(" "));
+    card = card.join(" ");
 
     // Sort data descending alphabetically
     let filter = this.filter.addCollection('filter');
@@ -145,28 +145,25 @@ export default class API {
     let locationResults = this.locations.chain();
     let mugicResults = this.mugic.chain();
 
+    console.log(card);
+
     // Search by name
     if (card.length > 0) {
-      attackResults = attackResults.find({'$or': [
-        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
-      ]});
-      battlegearResults = battlegearResults.find({'$or': [
-        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
-      ]});
-      creatureResults = creatureResults.find({'$or': [
-        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
-      ]});
-      locationResults = locationResults.find({'$or': [
-        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(card, 'i')}}
-      ]});
-      mugicResults = mugicResults.find({'$or': [
-        {'gsx$name': {'$regex': new RegExp(card, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
-      ]});
+      attackResults = attackResults.find(
+        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
+      );
+      battlegearResults = battlegearResults.find(
+        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
+      );
+      creatureResults = creatureResults.find(
+        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
+      );
+      locationResults = locationResults.find(
+        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
+      );
+      mugicResults = mugicResults.find(
+        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
+      );
     }
 
     // Merge Results
@@ -194,6 +191,10 @@ export default class API {
 
     let results = pview.data();
     this.filter.removeCollection('filter');
+
+    if (results.length <= 0) {
+      return "That's not a valid card name";
+    }
 
     let Response = (card) => {
       //TODO tribal mugic counters
