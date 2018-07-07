@@ -145,8 +145,6 @@ export default class API {
     let locationResults = this.locations.chain();
     let mugicResults = this.mugic.chain();
 
-    console.log(card);
-
     // Search by name
     if (card.length > 0) {
       attackResults = attackResults.find(
@@ -197,11 +195,26 @@ export default class API {
     }
 
     let Response = (card) => {
-      //TODO tribal mugic counters
       function MugicCounter(cardtext) {
-        let genCounter = bot.emojis.find("name", "GenCounter");
-        if (genCounter) {
-          return cardtext.replace(/\{\{MC\}\}/gi, genCounter.toString());
+        //tribal mugic counters
+        let mc = (() => {
+          switch (card.gsx$tribe) {
+            case "OverWorld":
+              return bot.emojis.find("name", "OWCounter");
+            case "UnderWorld":
+              return bot.emojis.find("name", "UWCounter");
+            case "M'arrillian":
+              return bot.emojis.find("name", "MarCounter");
+            case "Mipedian":
+              return bot.emojis.find("name", "MipCounter");
+            case "Danian":
+              return bot.emojis.find("name", "DanCounter");
+            default:
+              return bot.emojis.find("name", "GenCounter");
+          }
+        })();
+        if (mc) {
+          return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
         }
         else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
       }
