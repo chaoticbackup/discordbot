@@ -194,48 +194,65 @@ export default class API {
       return "That's not a valid card name";
     }
 
-    let Response = (card) => {
-      function MugicCounter(cardtext) {
-        //tribal mugic counters
-        let mc = (() => {
-          switch (card.gsx$tribe) {
-            case "OverWorld":
-              return bot.emojis.find("name", "OWCounter");
-            case "UnderWorld":
-              return bot.emojis.find("name", "UWCounter");
-            case "M'arrillian":
-              return bot.emojis.find("name", "MarCounter");
-            case "Mipedian":
-              return bot.emojis.find("name", "MipCounter");
-            case "Danian":
-              return bot.emojis.find("name", "DanCounter");
-            default:
-              return bot.emojis.find("name", "GenCounter");
-          }
-        })();
-        if (mc) {
-          return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
-        }
-        else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
-      }
-
-      let resp = MugicCounter(card.gsx$ability);
-
-      if (card.gsx$brainwashed)
-        resp += "\n" + MugicCounter(card.gsx$brainwashed);
-
-      resp += "\n" + API.base_image + card.gsx$image;
-
-      return resp;
-    }
-
     if (card.length > 0) {
-      return Response(results[0]);
+      return this.Response(results[0], bot);
     }
     else {
-      return Response(rndrsp(results)); // Random card
+      return this.Response(rndrsp(results), bot); // Random card
     }
 
+  }
+
+  Response(card, bot) {
+    let MugicCounter = (cardtext) => {
+      //tribal mugic counters
+      let mc = (() => {
+        switch (card.gsx$tribe) {
+          case "OverWorld":
+            return bot.emojis.find("name", "OWCounter");
+          case "UnderWorld":
+            return bot.emojis.find("name", "UWCounter");
+          case "M'arrillian":
+            return bot.emojis.find("name", "MarCounter");
+          case "Mipedian":
+            return bot.emojis.find("name", "MipCounter");
+          case "Danian":
+            return bot.emojis.find("name", "DanCounter");
+          default:
+            return bot.emojis.find("name", "GenCounter");
+        }
+      })();
+      if (mc) {
+        return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
+      }
+      else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
+    }
+
+    let Disciplines = () => {
+      let line = "";
+      line += card.gsx$courage + bot.emojis.find("name", "Courage").toString() + " ";
+      line += card.gsx$power + bot.emojis.find("name", "Power").toString() + " ";
+      line += card.gsx$wisdom + bot.emojis.find("name", "Wisdom").toString() + " ";
+      line += card.gsx$speed + bot.emojis.find("name", "Speed").toString() + " ";
+      line += "| " + card.gsx$energy + " E";
+      return line;
+    }
+
+    let resp = ""
+
+    // Ability
+    resp += MugicCounter(card.gsx$ability);
+
+    if (card.gsx$brainwashed)
+      resp += "\n" + MugicCounter(card.gsx$brainwashed);
+
+    // Image
+    resp += "\n" + API.base_image + card.gsx$image;
+
+    // Stats
+    resp += "\n" + Disciplines();
+
+    return resp;
   }
 
 }
