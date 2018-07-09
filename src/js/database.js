@@ -250,7 +250,8 @@ export default class API {
     resp += "\n" + API.base_image + card.gsx$image;
 
     // Stats
-    resp += "\n" + Disciplines();
+    if (card.gsx$energy > 0)
+      resp += "\n" + Disciplines();
 
     return resp;
   }
