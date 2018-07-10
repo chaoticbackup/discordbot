@@ -98,6 +98,8 @@ module.exports = function(message) {
       case 'sandwich':
         channel.send(":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:");
         break;
+      case 'sandwitch':
+        channel.send(cardsdb.card("Arkanin"));
       case 'joke':
         channel.send(joke());
         break;
