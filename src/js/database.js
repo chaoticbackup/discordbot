@@ -191,7 +191,7 @@ export default class API {
     this.filter.removeCollection('filter');
 
     if (results.length <= 0) {
-      if (card == "Theb-Saar") {
+      if (cleantext(card) == "thebsarr") {
         return "No data available\nhttps://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729"
       }
       return "That's not a valid card name";
