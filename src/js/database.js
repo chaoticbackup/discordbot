@@ -153,7 +153,7 @@ export default class API {
       ).simplesort('gsx$name').data();
 
     if (results.length <= 0) {
-      if (cleantext(card) == "thebsarr") {
+      if ("thebsaar".includes(cleantext(card))) {
         return "No data available\nhttps://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729"
       }
       return "That's not a valid card name";
