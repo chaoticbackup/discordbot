@@ -6,6 +6,8 @@ const cardsdb = new API();
 module.exports = function(message) {
   if (message.author.bot) return; //Ignore bot messages
 
+try {  
+
   const bot = this;
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
@@ -124,6 +126,11 @@ module.exports = function(message) {
   if (rsp) channel.send(rsp);
 
   checkMentions.call(bot, mentions, channel.id);
+}
+catch (err) {
+  console.error(err);
+  bot.destroy();
+}
 }
 
 // Responses

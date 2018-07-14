@@ -14,7 +14,9 @@ export default class API {
 
   constructor() {
     this.format = "cards";
-    this.filter = new loki("filter.db");
+    // Sort data descending alphabetically
+    let filterdb = new loki("filter.db");
+    this.filter = filterdb.addCollection('filter');
 
     let urls = {};
     this.getSpreadsheet(this.path(API.base_spreadsheet), (data) => {
@@ -56,9 +58,16 @@ export default class API {
     });
   }
 
-  databaseInitialize() {
-    ["attacks","battlegear", "creatures", "locations", "mugic"]
-    .forEach((type, i) => {
+  //https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
+  }
+
+  async databaseInitialize() {
+    await this.asyncForEach(["attacks","battlegear", "creatures", "locations", "mugic"],
+    async (type) => {
       // check if the db already exists in memory
       let entries = this.db.getCollection(type);
       if (entries === null) {
@@ -69,12 +78,18 @@ export default class API {
         this[type] = entries;
       }
     });
+
+    // this.combineDB();
   }
 
   async setupType(type) {
     let uc_type = type.charAt(0).toUpperCase() + type.slice(1);
     return this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
       this[type].insert(data);
+      // Combines into single DB
+      let temp = this[type].chain().data();
+      temp.forEach(function(v){ delete v.$loki });
+      this.filter.insert(temp);
     });
   }
 
@@ -107,7 +122,6 @@ export default class API {
   card_local(card, genCounter) {
     var cards = require('../config/cards.json');
     card = cleantext(card.join(" ")); // re-merge string
-
     function GenericCounter(cardtext, genCounter) {
       if (genCounter) {
         return cardtext.replace(/:GenCounter:/gi, genCounter.toString());
@@ -133,62 +147,10 @@ export default class API {
   card_db(card, bot) {
     card = card.join(" ");
 
-    // Sort data descending alphabetically
-    let filter = this.filter.addCollection('filter');
-    var pview = filter.addDynamicView('filter');
-    pview.applySimpleSort('gsx$name');
-
-    // begin data filtering
-    let attackResults = this.attacks.chain();
-    let battlegearResults = this.battlegear.chain();
-    let creatureResults = this.creatures.chain();
-    let locationResults = this.locations.chain();
-    let mugicResults = this.mugic.chain();
-
     // Search by name
-    if (card.length > 0) {
-      attackResults = attackResults.find(
+    let results = this.filter.chain().find(
         {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      );
-      battlegearResults = battlegearResults.find(
-        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      );
-      creatureResults = creatureResults.find(
-        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      );
-      locationResults = locationResults.find(
-        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      );
-      mugicResults = mugicResults.find(
-        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      );
-    }
-
-    // Merge Results
-    let temp;
-
-    temp = attackResults.data();
-    temp.forEach(function(v){ delete v.$loki });
-    filter.insert(temp);
-
-    temp = battlegearResults.data();
-    temp.forEach(function(v){ delete v.$loki });
-    filter.insert(temp);
-
-    temp = creatureResults.data();
-    temp.forEach(function(v){ delete v.$loki });
-    filter.insert(temp);
-
-    temp = locationResults.data();
-    temp.forEach(function(v){ delete v.$loki });
-    filter.insert(temp);
-
-    temp = mugicResults.data();
-    temp.forEach(function(v){ delete v.$loki });
-    filter.insert(temp);
-
-    let results = pview.data();
-    this.filter.removeCollection('filter');
+      ).simplesort('gsx$name').data();
 
     if (results.length <= 0) {
       if (cleantext(card) == "thebsarr") {
@@ -241,7 +203,7 @@ export default class API {
       return line;
     }
 
-    let resp = ""
+    let resp = "";
 
     // Ability
     resp += MugicCounter(card.gsx$ability);
