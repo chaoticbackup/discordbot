@@ -19,14 +19,15 @@
 		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
+		"Enre-Hep, High Muge of the Desert": ["He has ability to copy Mugics (and commonly 6 times), combined with a caster equipped with Hepptad's Crown, you can cast any Mugic many times, causing oppresive or broken outcomes."]
+	},
+	"joke": {
 		"AZAIA Mindscrying Chamber": ["There's a lot of ways to remove elements. But this card's unilateral destruction of elements all but ensures a win for a discipline deck. You can't react to this one. It triggers on reveal, so location negating doesn't stop it. It's far reaching effect goes beyond a single Creature, paralizing other cards that rely on expending."],
 		"Numin Voidland": ["Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their damage."],
 		"Illusionary Lake": ["Water is the most common element in the game. This location's preventing the gain of water ensures a win against any deck that relies on water."],
 		"Na-inna": ["Not too problamatic of a card. It can mess with your opponent by moving Counters from the Creatures that could utilize it better. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combined with a fluidmorpher, it can lead to some drastic resource advantage."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. By going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
-		"Deadwater Devastation": ["See Supercooled Rain"]
-	},
-	"joke": {
+		"Deadwater Devastation": ["See Supercooled Rain"],
 		"Agame": ["He's banned for using fan set cards in a competative match."],
 		"Afjak": ["Attempting to ban the judge with the highest level of understanding in the game would result in Chaotic truly becoming chaotic. As everyone interprets the rules their own way, blatant cheating overruns what remains of the community until no one wishes to play and the game subsides into oblivion."],
 		"Dwayne": ["Gotta have Dwayne"],
@@ -34,7 +35,6 @@
 		"Ixxik": ["https://www.youtube.com/watch?v=rE_TUwYc6Vk"],
 		"Ursis": ["A divisive card. It may have no ability (but no negative one either), but High Energy, Great Power, 3 Mugic counters, and most importantly Creature type Muge."],
 		"Marksman's Preparation": ["This card has been talked about for similar reasons to Primal Smash. You can treat it as a 2 Build Point attack that deals 30 Damage and helps you cycle and a 0 Cost that deals 0 Damage and clogs your hand until you draw the other. Despite the downside, its a strong burst of damage and cycling effect for low Build Points."],
-		"Enre-Hep, High Muge of the Desert": ["He has ability to copy Mugics (and commonly 6 times), combined with a caster equipped with Hepptad's Crown, you can cast any Mugic many times, causing oppresive or broken outcomes."],
 		"Skeletal Springs": ["Fluidmorphing is a powerful game mechanic. But its not oppresive. This location not only prevents Fluidmorphing, it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck already. So a boost for the player and a potential game breaker for the opponent."],
 		"Xerium Armor": ["Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check."]
 	}
