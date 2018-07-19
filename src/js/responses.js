@@ -6,13 +6,12 @@ const cardsdb = new API();
 module.exports = function(message) {
   if (message.author.bot) return; //Ignore bot messages
 
-try {  
-
   const bot = this;
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
   const mentions = Array.from(message.mentions.users.keys());
 
+try {
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
   if (content.substring(0, 1) == '!') {
@@ -57,7 +56,7 @@ try {
           break;
         }
       case 'banlist':
-        if (message.guild.id == 135657678633566208 && channel.id != 387805334657433600)
+        if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 || channel.id != 418856983018471435))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
           channel.send(banlist());
@@ -167,13 +166,17 @@ function joke() {
 }
 
 function banlist() {
-  const {bans, watchlist} = reload('../config/bans.json');
+  const {bans, watchlist, noteable} = reload('../config/bans.json');
   let message = "**Player-made Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\n**Watchlist:**\n(not banned)"
+  message += "\n=====\n**Watchlist:** (not banned)"
   for (var key in watchlist) {
+    message += "\n" + key;
+  }
+  message += "\n=====\n**Noteable:** (has our attention)"
+  for (var key in noteable) {
     message += "\n" + key;
   }
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
