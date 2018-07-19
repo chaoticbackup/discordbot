@@ -166,17 +166,13 @@ function joke() {
 }
 
 function banlist() {
-  const {bans, watchlist, noteable} = reload('../config/bans.json');
+  const {bans, watchlist} = reload('../config/bans.json');
   let message = "**Player-made Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
   }
   message += "\n=====\n**Watchlist:** (not banned)"
   for (var key in watchlist) {
-    message += "\n" + key;
-  }
-  message += "\n=====\n**Noteable:** (has our attention)"
-  for (var key in noteable) {
     message += "\n" + key;
   }
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
