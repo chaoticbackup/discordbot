@@ -137,7 +137,7 @@ export default class API {
 
     for (var key in cards) {
       if (cleantext(key).indexOf(card) === 0) {  
-        return `${GenericCounter(cards[key].replace(), genCounter)}`;
+        return `${GenericCounter(cards[key], genCounter)}`;
       }
     }
 

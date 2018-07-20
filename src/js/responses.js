@@ -108,6 +108,10 @@ try {
       case 'joke':
         channel.send(joke());
         break;
+      case 'never':
+      case 'nowornever':
+        channel.send(nowornever(args));
+        break;
       /* Moderator Only */
       case 'haxxor':
         if (message.guild.id == 135657678633566208 &&
@@ -196,6 +200,23 @@ function whyban(card) {
 function starter() {
   const commands = reload('../config/commands.json');
   return commands["starter"][0];
+}
+
+function nowornever(card) {
+  var cards = require('../config/nowornever.json');
+  card = cleantext(card.join(" ")); // re-merge string
+
+  if (!card) {
+    // Return random card
+    var keys = Object.keys(cards);
+    return `${cards[keys[keys.length * Math.random() << 0]]}`;
+  }
+
+  for (var key in cards) {
+    if (cleantext(key).indexOf(card) === 0) {  
+      return `${cards[key]}`;
+    }
+  }
 }
 
 function checkSass(content) {
