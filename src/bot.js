@@ -25,8 +25,7 @@ bot.on('ready', function (evt) {
 // Automatically reconnect if the bot disconnects due to inactivity
 bot.on('disconnect', (erMsg, code) => {
 	logger.info('Reconnecting');
-	console.log(this);
-    bot.login(auth.token);
+    // bot.login(auth.token);
 });
 
 // Respones
