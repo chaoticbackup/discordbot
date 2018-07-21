@@ -112,6 +112,9 @@ try {
       case 'nowornever':
         channel.send(nowornever(args));
         break;
+      case 'limited':
+        channel.send(limited());
+        break;
       /* Moderator Only */
       case 'haxxor':
         if (message.guild.id == 135657678633566208 &&
@@ -200,6 +203,15 @@ function whyban(card) {
 function starter() {
   const commands = reload('../config/commands.json');
   return commands["starter"][0];
+}
+
+function limited() {
+  const {goodstuff} = reload('../config/bans.json');
+  let message = "**Limited Format:**";
+  goodstuff.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
 }
 
 function nowornever(card) {
