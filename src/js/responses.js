@@ -40,7 +40,7 @@ try {
       /* Banlist and Bans */
       case 'ban':
         if (mentions.length > 0) {
-          if (mentions.indexOf('279331985955094529') !== -1) 
+          if (mentions.indexOf('279331985955094529') !== -1)
             channel.send("You try to ban me? I'll ban you!")
           else
             channel.send("I'm not in charge of banning players");
@@ -112,6 +112,7 @@ try {
       case 'nowornever':
         channel.send(nowornever(args));
         break;
+      case 'goodstuff':
       case 'limited':
         channel.send(limited());
         break;
@@ -225,7 +226,7 @@ function nowornever(card) {
   }
 
   for (var key in cards) {
-    if (cleantext(key).indexOf(card) === 0) {  
+    if (cleantext(key).indexOf(card) === 0) {
       return `${cards[key]}`;
     }
   }
