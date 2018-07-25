@@ -1,6 +1,8 @@
 const fetch =  require('node-fetch');
 import loki from 'lokijs';
 import {reload, rndrsp, cleantext} from './shared.js';
+import fs from 'fs';
+const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export default class API {
   static base_url = "https://spreadsheets.google.com/feeds/list/";
@@ -33,13 +35,17 @@ export default class API {
       });
       this.urls = urls;
 
+      if (!fs.existsSync('db')) {
+        fs.mkdirSync('db');
+      }
+
       // setup database from spreadsheet data
-      this.db = new loki(`chaotic_${this.format}.db`, {
+      this.db = new loki(`db/chaotic_${this.format}.db`, {
         autosave: true,
         autoload: true,
         autoloadCallback: this.databaseInitialize.bind(this),
         autosaveInterval: 4000,
-        persistenceMethod: 'localStorage'
+        adapter: new LokiFSStructuredAdapter()
       });
     });
   }
