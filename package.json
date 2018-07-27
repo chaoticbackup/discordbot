@@ -8,6 +8,8 @@
     "build": "babel src -d build --copy-files",
     "forever": "forever -o out.log -e err.log start build/bot.js",
     "restart": "forever -o out.log -e err.log restart build/bot.js",
+    "stop": "forever stop build/bot.js",
+    "clean": "rm -rf build/",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../discordbot/"
   },
   "repository": {

@@ -34,13 +34,13 @@ export default class API {
         urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
       });
       this.urls = urls;
-
-      if (!fs.existsSync('db')) {
-        fs.mkdirSync('db');
+      
+      if (!fs.existsSync(__dirname + '/../db')) {
+        fs.mkdirSync(__dirname + '/../db');
       }
 
       // setup database from spreadsheet data
-      this.db = new loki(`db/chaotic_${this.format}.db`, {
+      this.db = new loki(`${__dirname}/../db/chaotic_${this.format}.db`, {
         autosave: true,
         autoload: true,
         autoloadCallback: this.databaseInitialize.bind(this),
