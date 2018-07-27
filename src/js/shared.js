@@ -9,7 +9,7 @@ function rndrsp(items) {
 
 function cleantext(string) {
   //strip comma and apostrophy
-  return string.toLowerCase().replace(/,|\'|’/g, '');
+  return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
 module.exports = {
