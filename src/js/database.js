@@ -34,7 +34,7 @@ export default class API {
         urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
       });
       this.urls = urls;
-      
+
       if (!fs.existsSync(__dirname + '/../db')) {
         fs.mkdirSync(__dirname + '/../db');
       }
@@ -159,7 +159,7 @@ export default class API {
       ).simplesort('gsx$name').data();
 
     if (results.length <= 0) {
-      if ("thebsaar".includes(cleantext(card))) {
+      if ("thebsarr".includes(cleantext(card))) {
         return "No data available\nhttps://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729"
       }
       return "That's not a valid card name";
