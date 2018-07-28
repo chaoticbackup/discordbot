@@ -82,21 +82,24 @@ export default class API {
       }
       else {
         this[type] = entries;
+        this.mergeDB(type);
       }
     });
-
-    // this.combineDB();
   }
 
   async setupType(type) {
     let uc_type = type.charAt(0).toUpperCase() + type.slice(1);
     return this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
       this[type].insert(data);
-      // Combines into single DB
-      let temp = this[type].chain().data();
-      temp.forEach(function(v){ delete v.$loki });
-      this.filter.insert(temp);
+      this.mergeDB(type);
     });
+  }
+
+  async mergeDB(type) {
+    // Combines into single DB
+    let temp = this[type].chain().data();
+    temp.forEach(function(v){ delete v.$loki });
+    this.filter.insert(temp);
   }
 
   async getSpreadsheetData(spreadsheet, type, callback) {
