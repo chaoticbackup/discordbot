@@ -24,6 +24,7 @@
 		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
+		"Arkanin": ["Combined with Muges that have large Mugic Ability, Arkanin provides massive amounts of healing."],
 		"Deadwater Devastation": ["A downgraded Supercooled Rain. But still can severely hinder your Mugic abilty."],
 		"Grounding Grapple": ["On a similar power level to Deadwater Devastation, Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
 		"Headmaster Ankhyja, Seeker of the Art": ["Prevents opponent's interaction with your creatures leading to less strategic games. Stunts decks that rely on targeting opponents."],
@@ -81,6 +82,7 @@
 		"Nivenna",
 		"Psionic Serendade",
 		"Rao'pa Sahkk, Condensation Ceremony",
+		"Ramarhvir, the Hivebringer",
 		"Rhyme of the Reckless",
 		"Skeletal Springs",
 		"Song of Transportation",
