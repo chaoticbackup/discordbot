@@ -175,7 +175,7 @@ function joke() {
 
 function banlist() {
   const {bans, watchlist} = reload('../config/bans.json');
-  let message = "**Player-made Ban List:**\n=====";
+  let message = "**Community Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
   }
