@@ -1,24 +1,23 @@
 var pdfjsLib = require('pdfjs-dist');
-const {reload, rndrsp} = require('./shared.js');
+const {reload, rndrsp, cleantext} = require('./shared.js');
+const glossary = require('../config/glossary');
 
 module.exports = function(rule) {
-	var rules = reload('../config/rules.json');
-	var commands = reload('../config/commands.json');
-	
+	let commands = reload('../config/commands.json');
+
 	if (rule.length < 1) return rndrsp(commands["providerule"]);
 
-	if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
+	let rules = reload('../config/rules.json');
+	let merge = Object.assign({}, rules, glossary);
+
+	for (var key in merge) {
+	  if (cleantext(key).indexOf(rule) === 0)
+	    return `*${key}*:\n${merge[key]}`;
+	}
 
 	return rndrsp(commands["norule"]);
 
 /* This is ignored */
-	var rules = reload('../config/rules.json');
-	var commands = reload('../config/commands.json');
-
-	if (!rule) return rndrsp(commands["providerule"]);
-
-	if (rules.hasOwnProperty(rule)) return `${rules[rule]}`;
-
 	pdfjsLib.getDocument("./ComprehensiveRules.pdf").then((doc) => {
 	  var numPages = doc.numPages;
 	  // console.log('# Document Loaded');
