@@ -154,7 +154,7 @@ export default class API {
   }
 
   card_db(card, bot) {
-    card = card.join(" ");
+    card = card.join(" ").replace(/\(|\)/g, (match) => {return ("\\"+match)});
 
     // Search by name
     let results = this.filter.chain().find(
