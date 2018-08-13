@@ -6,6 +6,7 @@ module.exports = function(rule) {
 	let commands = reload('../config/commands.json');
 
 	if (rule.length < 1) return rndrsp(commands["providerule"]);
+	rule = cleantext(rule.join(" "));
 
 	let rules = reload('../config/rules.json');
 	let merge = Object.assign({}, rules, glossary);
