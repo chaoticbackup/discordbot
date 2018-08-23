@@ -24,17 +24,17 @@
 		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
-		"Before the Storm": ["This attack provides Strike Decks a second strike. You'd see ~55 damage from a 4 bp attack. Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration."],
 		"Hune Paltanin": ["She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage."],
 		"Na-inna": ["Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combine with a fluidmorpher."],
 		"Talisman of the Mandiblor": ["Makes fighting Danian decks very annoying. You spend resources taking out their strong fighter, just to have it come back at the price of a exausted support creature. Additionally, because it can be sacrificed at anytime, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."],
-		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. Combined with gear revival, the player can spam subsequent high damage."]
+		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage."]
 	},
 	"joke": {
 		"Agame": ["He's banned for using fan set cards in a competative match."],
 		"Arkanin": ["Combined with Muges that have large Mugic Ability, Arkanin provides massive amounts of healing."],
 		"Afjak": ["Attempting to ban the judge with the highest level of understanding in the game would result in Chaotic truly becoming chaotic. As everyone interprets the rules their own way, blatant cheating overruns what remains of the community until no one wishes to play and the game subsides into oblivion."],
-		"Aszil, The Young Queen": ["She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck."],
+		"Aszil, The Young Queen": ["She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck. Other creatures that give resources have a cost."],
+		"Before the Storm": ["This attack provides Strike Decks a second strike. You'd see ~55 damage from a 4 bp attack. Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration."],
 		"Dwayne": ["Gotta have Dwayne"],
 		"Enre-Hep, High Muge of the Desert": ["He has ability to copy Mugics (and commonly 6 times), combined with a caster equipped with Hepptad's Crown, you can cast any Mugic many times, causing oppresive or broken outcomes."],
 		"Ginaresh, the Extinquisher": ["Similarly to Illusionary Lake, this card can create an inability to have and gain Fire. As long as you play consistent water attacks, your opponent will not be able to play fire attacks."],
@@ -62,6 +62,7 @@
 		"Enre-Hep, High Muge of the Desert",
 		"Evergreen Tunic",
 		"Ginaresh, the Extinquisher",
+		"Grantkae, Mipedian General",
 		"Headmaster Ankhyja",
 		"Headmaster Ankhyja, Seeker of the Art",
 		"Hiadrom",
@@ -95,6 +96,7 @@
 		"Smildon",
 		"Super Cooled Rain",
 		"Talisman of the Mandiblor",
+		"Tangath Toborn, OverWorld General",
 		"Unheard Melody",
 		"Ursis",
 		"Vial of Liquid Thought",
