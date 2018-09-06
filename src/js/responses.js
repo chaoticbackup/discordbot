@@ -113,8 +113,10 @@ try {
         channel.send(nowornever(args));
         break;
       case 'goodstuff':
-      case 'limited':
       case 'restricted':
+        channel.send(restricted());
+        break;
+      case 'limited':
         channel.send(limited());
         break;
       /* Moderator Only */
@@ -207,10 +209,19 @@ function starter() {
   return commands["starter"][0];
 }
 
-function limited() {
+function restricted() {
   const {goodstuff} = reload('../config/bans.json');
   let message = "**Restricted Format:**\n(A format that reduces the pool)";
   goodstuff.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
+function limited() {
+  const {limited} = reload('../config/bans.json');
+  let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
+  limited.forEach((key) => {
     message += "\n" + key;
   });
   return message;
