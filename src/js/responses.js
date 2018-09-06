@@ -114,6 +114,7 @@ try {
         break;
       case 'goodstuff':
       case 'limited':
+      case 'restricted':
         channel.send(limited());
         break;
       /* Moderator Only */
@@ -208,7 +209,7 @@ function starter() {
 
 function limited() {
   const {goodstuff} = reload('../config/bans.json');
-  let message = "**Limited Format:**";
+  let message = "**Restricted Format:**\n(A format that reduces the pool)";
   goodstuff.forEach((key) => {
     message += "\n" + key;
   });
