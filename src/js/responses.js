@@ -1,5 +1,7 @@
 const {reload, rndrsp, cleantext} = require('./shared.js');
 const rules = require('./rules.js');
+const fs = require('fs-extra');
+const path = require('path');
 const API = require('./database.js').default;
 const cardsdb = new API();
 
@@ -122,10 +124,16 @@ try {
       /* Moderator Only */
       case 'haxxor':
         if (message.guild.id == 135657678633566208 &&
-          (message.member.roles.find("name", "Ultra Rare") || message.member.roles.find("name", "Super Rare"))
+          (message.member.roles.find("name", "Administrator") || message.member.roles.find("name", "Moderator"))
         ) {
           channel.send('Resetting...')
-            .then(msg => bot.destroy())
+          .then(msg => {
+            console.log(__dirname, path.join(__dirname, '../db'));
+            fs.remove(path.join(__dirname, '../db'), (err) => {
+              new API();
+              bot.destroy();
+            });
+          });
         }
         break;
     }
