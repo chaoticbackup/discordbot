@@ -128,7 +128,6 @@ try {
         ) {
           channel.send('Resetting...')
           .then(msg => {
-            console.log(__dirname, path.join(__dirname, '../db'));
             fs.remove(path.join(__dirname, '../db'), (err) => {
               new API();
               bot.destroy();
