@@ -116,7 +116,7 @@ export default class API {
     });
   }
 
-  /* 
+  /*
     Returning a card
   */
   card(card, bot) {
@@ -145,7 +145,7 @@ export default class API {
     }
 
     for (var key in cards) {
-      if (cleantext(key).indexOf(card) === 0) {  
+      if (cleantext(key).indexOf(card) === 0) {
         return `${GenericCounter(cards[key], genCounter)}`;
       }
     }
@@ -154,7 +154,9 @@ export default class API {
   }
 
   card_db(card, bot) {
-    card = card.join(" ").replace(/\(|\)/g, (match) => {return ("\\"+match)});
+    card = card.join(" ")
+      .replace(/\(|\)/g, (match) => {return ("\\"+match)})
+      .replace(/’/g, '\'');
 
     // Search by name
     let results = this.filter.chain().find(
