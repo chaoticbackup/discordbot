@@ -28,7 +28,7 @@
     "node-fetch": "^2.1.2",
     "path": "^0.12.7",
     "pdfjs-dist": "^2.0.489",
-    "winston": "^3.1.0"
+    "winston": "^2.x.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
