@@ -6,6 +6,7 @@ const API = require('./database.js').default;
 const cardsdb = new API();
 
 module.exports = function(message) {
+  if (process.env.NODE_ENV == "development" && message.channel.id != 418856983018471435) return; // Ignores dev mode
   if (message.author.bot) return; //Ignore bot messages
 
   const bot = this;
@@ -36,6 +37,7 @@ try {
           channel.send(help());
         break;
       /* Cards */
+      case 'c':
       case 'card':
         channel.send(cardsdb.card(args, bot));
         break;
@@ -121,10 +123,16 @@ try {
       case 'limited':
         channel.send(limited());
         break;
+      case 'rm':
+      case 'delete':
+        let lstmsg = bot.user.lastMessage;
+        if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
+        if (message.deletable) message.delete(); // delete user msg
+        break;
       /* Moderator Only */
       case 'haxxor':
         if (message.guild.id == 135657678633566208 &&
-          (message.member.roles.find("name", "Administrator") || message.member.roles.find("name", "Moderator"))
+          (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
         ) {
           channel.send('Resetting...')
           .then(msg => {

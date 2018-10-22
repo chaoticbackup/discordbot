@@ -1,10 +1,10 @@
 {
   "name": "chaoticbacktalk",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "start": "babel-node src/bot.js --presets env,stage-1",
+    "start": "set NODE_ENV=development&& babel-node src/bot.js --presets env,stage-1",
     "build": "babel src -d build --copy-files",
     "forever": "forever -o out.log -e err.log start build/bot.js",
     "restart": "forever -o out.log -e err.log restart build/bot.js",
@@ -20,16 +20,15 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bufferutil": "^3.0.5",
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.4.0",
     "fs-extra": "^7.0.0",
     "jquery": "^3.3.1",
-    "jsdom": "^11.6.2",
+    "jsdom": "^12.2.0",
     "lokijs": "^1.5.5",
     "node-fetch": "^2.1.2",
     "path": "^0.12.7",
-    "pdfjs-dist": "^2.0.x",
-    "webpack": "^3.x",
-    "winston": "^2.4.0"
+    "pdfjs-dist": "^2.0.489",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
