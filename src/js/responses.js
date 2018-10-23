@@ -116,9 +116,12 @@ try {
       case 'nowornever':
         channel.send(nowornever(args));
         break;
+      case 'strong':
+      case 'good':
+      case 'best':
       case 'goodstuff':
       case 'restricted':
-        channel.send(restricted());
+        channel.send(restricted(args));
         break;
       case 'limited':
         channel.send(limited());
@@ -131,7 +134,7 @@ try {
         break;
       /* Moderator Only */
       case 'haxxor':
-        if (message.guild.id == 135657678633566208 &&
+        if (message.guild.id == '135657678633566208' &&
           (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
         ) {
           channel.send('Resetting...')
@@ -224,12 +227,28 @@ function starter() {
   return commands["starter"][0];
 }
 
-function restricted() {
-  const {goodstuff} = reload('../config/bans.json');
-  let message = "**Restricted Format:**\n(A format that reduces the pool)";
-  goodstuff.forEach((key) => {
-    message += "\n" + key;
-  });
+function restricted(filter) {
+  const {strongstuff} = reload('../config/bans.json');
+  let message = "";
+
+  if (filter.length > 0) {
+    let type = filter[0].charAt(0).toUpperCase() + filter[0].slice(1).toLowerCase();
+    if (strongstuff.hasOwnProperty(type)) {
+      message = `Strong ${type}:`;
+      strongstuff[type].forEach((key) => {
+        message += "\n" + key;
+      });
+    }
+  }
+  else {
+    message = "**Restricted Format:**\n(best cards in standard format)";
+    Object.keys(strongstuff).forEach((type, idx) => {
+      message += "\n**" + type +"**:";
+      strongstuff[type].forEach((key) => {
+        message += "\n" + key;
+      });
+    });
+  }
   return message;
 }
 
