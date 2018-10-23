@@ -17,7 +17,7 @@ const bot = new Discord.Client({autoReconnect: true});
 
 bot.on('ready', function (evt) {
   logger.info('Logged in as: ' + bot.user);
-  bot.user.setActivity('!commands')
+  bot.user.setActivity('!commands');
   const fp = new ForumPosts(bot);
   fp.checkMessages();
 });
@@ -33,14 +33,16 @@ bot.on('message', responses.bind(bot));
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {
+	let meebot = bot.users.get('159985870458322944');
 	if (member.displayName.match(new RegExp("(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
-		if (member.bannable) {
-			member.ban(); 
+		if (member.bannable) member.ban().then((err) => {
 			logger.info('Banned: ' + member.displayName);
 			// Delete the welcome message
-			let meebot = bot.users.find(user => user.id == 159985870458322944);
-			if (meebot && meebot.lastMessage && meebot.lastMessage.deletable) meebot.lastMessage.delete();
-		}
+			let meebot = bot.users.get('159985870458322944');
+			if (meebot) setTimeout(() => {
+				if (meebot.lastMessage && meebot.lastMessage.deletable) meebot.lastMessage.delete();
+			}, 500);
+		}); 
 	}
 });
 
