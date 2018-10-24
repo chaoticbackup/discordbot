@@ -33,7 +33,6 @@ bot.on('message', responses.bind(bot));
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {
-	let meebot = bot.users.get('159985870458322944');
 	if (member.displayName.match(new RegExp("(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then((err) => {
 			logger.info('Banned: ' + member.displayName);
