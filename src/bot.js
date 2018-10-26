@@ -14,11 +14,11 @@ logger.level = 'debug';
 
 // Initialize Discord Bot
 const bot = new Discord.Client({autoReconnect: true});
+const fp = new ForumPosts(bot);
 
 bot.on('ready', function (evt) {
   logger.info('Logged in as: ' + bot.user);
   bot.user.setActivity('!commands');
-  const fp = new ForumPosts(bot);
   fp.checkMessages();
 });
 
@@ -48,4 +48,4 @@ bot.on('guildMemberAdd', (member) => {
 /* LOGIN */
 bot.login(auth.token);
 
-
+process.on('unhandledRejection', console.error);

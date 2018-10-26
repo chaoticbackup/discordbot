@@ -6,7 +6,7 @@ const API = require('./database.js').default;
 const cardsdb = new API();
 
 module.exports = function(message) {
-  if (process.env.NODE_ENV == "development" && message.channel.id != 418856983018471435) return; // Ignores dev mode
+  if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
   if (message.author.bot) return; //Ignore bot messages
 
   const bot = this;

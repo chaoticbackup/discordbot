@@ -1,7 +1,8 @@
-const fetch =  require('node-fetch');
 import loki from 'lokijs';
 import {reload, rndrsp, cleantext} from './shared.js';
 import fs from 'fs';
+const fetch =  require('node-fetch');
+const { RichEmbed } = require('discord.js');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export default class API {
@@ -121,7 +122,7 @@ export default class API {
   */
   card(card, bot) {
     if (this.data === "local") {
-      return this.card_local(card, bot.emojis.find("name", "GenCounter"));
+      return this.card_local(card, bot.emojis.find(emoji => emoji.name==="GenCounter"));
     }
     else {
       return this.card_db(card, bot);
@@ -185,17 +186,17 @@ export default class API {
       let mc = (() => {
         switch (card.gsx$tribe) {
           case "OverWorld":
-            return bot.emojis.find("name", "OWCounter");
+            return bot.emojis.find(emoji => emoji.name==="OWCounter");
           case "UnderWorld":
-            return bot.emojis.find("name", "UWCounter");
+            return bot.emojis.find(emoji => emoji.name==="UWCounter");
           case "M'arrillian":
-            return bot.emojis.find("name", "MarCounter");
+            return bot.emojis.find(emoji => emoji.name==="MarCounter");
           case "Mipedian":
-            return bot.emojis.find("name", "MipCounter");
+            return bot.emojis.find(emoji => emoji.name==="MipCounter");
           case "Danian":
-            return bot.emojis.find("name", "DanCounter");
+            return bot.emojis.find(emoji => emoji.name==="DanCounter");
           default:
-            return bot.emojis.find("name", "GenCounter");
+            return bot.emojis.find(emoji => emoji.name==="GenCounter");
         }
       })();
       if (mc) {
@@ -206,10 +207,10 @@ export default class API {
 
     let Disciplines = () => {
       let line = "";
-      line += card.gsx$courage + bot.emojis.find("name", "Courage").toString() + " ";
-      line += card.gsx$power + bot.emojis.find("name", "Power").toString() + " ";
-      line += card.gsx$wisdom + bot.emojis.find("name", "Wisdom").toString() + " ";
-      line += card.gsx$speed + bot.emojis.find("name", "Speed").toString() + " ";
+      line += card.gsx$courage + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " ";
+      line += card.gsx$power + bot.emojis.find(emoji => emoji.name==="Power").toString() + " ";
+      line += card.gsx$wisdom + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " ";
+      line += card.gsx$speed + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " ";
       line += "| " + card.gsx$energy + " E";
       return line;
     }
@@ -230,6 +231,20 @@ export default class API {
       resp += "\n" + Disciplines();
 
     return resp;
+
+    /*    
+    const embed = new RichEmbed();
+
+    embed.addField('', MugicCounter(card.gsx$ability));
+
+    if (card.gsx$brainwashed)
+      embed.addField('', MugicCounter(card.gsx$brainwashed));
+
+    if (card.gsx$energy > 0)
+      embed.addField('', Disciplines());
+
+    embed.setImage(API.base_image + card.gsx$image);
+    */
   }
 
 }
