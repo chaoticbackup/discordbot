@@ -166,7 +166,10 @@ export default class API {
 
     if (results.length <= 0) {
       if ("thebsarr".includes(cleantext(card))) {
-        return "No data available\nhttps://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729"
+        return new RichEmbed()
+          .setColor("#ba9626")
+          .addField("Theb-Sarr", "No data available")
+          .setImage("https://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729");
       }
       return "That's not a valid card name";
     }
