@@ -215,36 +215,50 @@ export default class API {
       return line;
     }
 
-    let resp = "";
-
     // Ability
-    resp += MugicCounter(card.gsx$ability);
+    let resp = MugicCounter(card.gsx$ability);
 
-    if (card.gsx$brainwashed)
-      resp += "\n" + MugicCounter(card.gsx$brainwashed);
+    if (card.gsx$brainwashed){
+      resp += "\n**Brainwashed**\n" + MugicCounter(card.gsx$brainwashed);
+    }
 
-    // Image
-    resp += "\n" + API.base_image + card.gsx$image;
-
-    // Stats
-    if (card.gsx$energy > 0)
+    if (card.gsx$energy > 0) {
       resp += "\n" + Disciplines();
+    }
 
-    return resp;
+    let color = () => {
+      if (card.gsx$type == "Battlegear") 
+        return "#aebdce";
+      if (card.gsx$type == "Locations")
+        return "#419649";
+      if (card.gsx$type == "Attacks")
+        return "#586b81";
+      switch (card.gsx$tribe) {
+        case "OverWorld":
+          return "#1994d1";
+        case "UnderWorld":
+          return "#ce344e";
+        case "M'arrillian":
+          return "#717981";
+        case "Mipedian":
+          return "#ba9626";
+        case "Danian":
+          return "#957167";
+        case "Generic":
+         if (card.gsx$type == "Creatures")
+          return "#b5b5b5";
+         else 
+          return "#4f545c";
+      }
+      return "#56687e"; // Default color
+    }
 
-    /*    
-    const embed = new RichEmbed();
-
-    embed.addField('', MugicCounter(card.gsx$ability));
-
-    if (card.gsx$brainwashed)
-      embed.addField('', MugicCounter(card.gsx$brainwashed));
-
-    if (card.gsx$energy > 0)
-      embed.addField('', Disciplines());
-
-    embed.setImage(API.base_image + card.gsx$image);
-    */
+    const embed = new RichEmbed()
+      .setColor(color())
+      .addField(card.gsx$name, resp)
+      .setImage(API.base_image + card.gsx$image);
+    
+    return embed;
   }
 
 }
