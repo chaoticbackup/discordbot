@@ -59,18 +59,14 @@
 		"Ursis",
 		"Vial of Liquid Thought"
 	],
-	"strongstuff": {
+	"restricted": {
 		"Attacks": [
-			"Carniwin",
 			"Deadwater Devastation",
 			"Grounding Grapple",
 			"Inner Flood",
-			"Marksman's Preparation",
-			"Mind Mash",
 			"Primal Smash",
 			"Supercooled Rain",
-			"Twister of Elements",
-			"Winterclaw"
+			"Twister of Elements"
 		],
 		"Battlegear": [
 			"Bi-Mowercycle",
@@ -82,60 +78,80 @@
 			"Vial of Liquid Thought",
 			"Xerium Armor"
 		],
-		"Creatures": [
-			"Aer'dak",
-			"Ailav",
-			"Arbeid",
-			"Aivenna",
-			"Aszil, The Young Queen",
-			"Blazvatan",
-			"Bodal, Flamedrill Researcher",
-			"Chaor",
-			"Chaor, The Fierce",
-			"Cromaxx",
-			"Dror'niq",
-			"Enre-Hep, High Muge of the Desert",
-			"Gintanai, The Forgotten",
-			"Gimwei",
-			"Grantkae, Mipedian General",
-			"Gronmor",
-			"Headmaster Ankhyja",
-			"Herken",
-			"Hiadrom",
-			"Hune Paltanin",
-			"Iflar, The Crown Prince",
-			"Ikkatosh, The Aich King",
-			"Illiar",
-			"Illexia, The Danian Queen",
-			"Ixxik",
-			"Intress, Natureforce",
-			"Kileron, Warbeast of the Dust Storm",
-			"Kopond, High Muge of the Hearth",
-			"Lomma, Desert Wanderer",
-			"Lord Van Bloot, Servant of Aa'unne",
-			"Lore, High Muge of the Hive",
-			"Makanaz",
-			"Malvadine, The King's Herald",
-			"Maxxor",
-			"Maxxor, Protector of Perim",
-			"Na-inna",
-			"Najarin, Fluidmorphers Foe",
-			"Najarin, High Muge of the Lake",
-			"Neekwin",
-			"Ninren",
-			"Nivenna",
-			"Owayki",
-			"Ramarhvir, The Danian Hivebringer",
-			"Smildon",
-			"Stelgar, Vicious Mutation",
-			"Takinom, The Shadowknight",
-			"Tangath Toborn, OverWorld General",
-			"Tangath Toborn, In Training",
-			"Tartarek, Psi Overloader",
-			"Ulmquad",
-			"Ursis",
-			"Zamool, Lord Van Bloot's Enforcer"
-		],
+		"Creatures": {
+			"Danian": [
+				"Aszil, The Young Queen",
+				"Elhadd",
+				"Elna",
+				"Fliandar",
+				"Hiadrom",
+				"Illexia, The Danian Queen",
+				"Ivelaan",
+				"Lomma, Desert Wanderer",
+				"Lore, High Muge of the Hive",
+				"Makanaz",
+				"Neekwin",
+				"Ramarhvir, The Danian Hivebringer",
+				"Tarin",
+				"Ulmquad",
+				"Vunhra"
+			],
+			"M'arrillian": [
+				"Aer'dak",
+				"Dror'niq"
+			],
+			"Mipedian": [
+				"Ailav",
+				"Blazvatan",
+				"Enre-Hep, High Muge of the Desert",
+				"Gintanai, The Forgotten",
+				"Grantkae, Mipedian General",
+				"Headmaster Ankhyja",
+				"Iflar, The Crown Prince",
+				"Ixxik",
+				"Kileron, Warbeast of the Dust Storm",
+				"Malvadine, The King's Herald",
+				"Ninren",
+				"Owayki"
+			],
+			"OverWorld": [
+				"Aivenna",
+				"Arbeid",
+				"Arrthoa, Captain of the Ezoa",
+				"Bodal, Flamedrill Researcher",
+				"Drabe",
+				"Garv",
+				"Gimwei",
+				"Gronmor",
+				"Herken",
+				"Hune Paltanin",
+				"Ikkatosh, The Aich King",
+				"Illiar",
+				"Intress, Natureforce",
+				"Maxxor",
+				"Maxxor, Protector of Perim",
+				"Najarin, High Muge of the Lake",
+				"Rellim, Water Master",
+				"Tangath Toborn, OverWorld General",
+				"Tangath Toborn, In Training",
+				"Tartarek, Psi Overloader"
+			],
+			"UnderWorld": [
+				"Chaor",
+				"Chaor, The Fierce",
+				"Kopond, High Muge of the Hearth",
+				"Lord Van Bloot, Servant of Aa'unne",
+				"Nivenna",
+				"Takinom, The Shadowknight",
+				"Ulmar, Perithon Racer",
+				"Zamool, Lord Van Bloot's Enforcer"
+			],
+			"Tribeless": [
+				"Cromaxx",
+				"Smildon",
+				"Ursis"
+			]
+		},
 		"Locations": [
 			"AZAIA Mindscrying Chamber",
 			"Dranakis Threshold",
@@ -149,18 +165,65 @@
 			"Silchaw's Mine",
 			"Skeletal Springs"
 		],
-		"Mugic": [
-			"Cadence Clash",
-			"Canon of Casualty",
-			"Elemental Elegy",
-			"Melody of Mirage",
-			"Melody of the Meek",
-			"Psionic Serendade",
-			"Rhyme of the Reckless",
-			"Song of Transportation",
-			"Tonal Destruction",
-			"Unbalancing Battlesong",
-			"Unheard Melody"
-		]
-	}
+		"Mugic": {
+			"Danian": [
+				"Elemental Elegy",
+				"Ode to Obscurity",
+				"Strain of Infection",
+				"Unbalancing Battlesong"
+			],
+			"M'arrillian": [
+				"Unheard Melody"
+			],
+			"Mipedian": [
+				"Aegis Airia",
+				"Gear Glissando",
+				"Melody of Mirage"
+			],
+			"OverWorld": [
+				"Rhyme of the Reckless"
+			],
+			"UnderWorld": [
+				"Canon of Casualty",
+				"Discord of Disarming"
+			],
+			"Generic": [
+				"Cadence Clash",
+				"Melody of the Meek",
+				"Psionic Serendade",
+				"Surprising Riffs",
+				"Tonal Destruction"
+			]
+		}
+	}, 
+	"badultras": [
+		"Aa'une the Oligarch, Projection",
+		"Bahrakatan, The Coralsmith",
+		"Bo'aam",
+		"Chorus of Cothica",
+		"Crown of Aa'une",
+		"Dread Tread",
+		"Fal'makin",
+		"Azai Inquisitor",
+		"Fanfare of the Brain",
+		"Glacier Plains",
+		"M'arrillian Heat Cannon",
+		"Iparu",
+		"Iparu Jungle",
+		"Iparu, Metallic Ally",
+		"Katharaz",
+		"Kha'rall Shard of the Tidal Crest",
+		"Lucky Shot",
+		"Mommark, Clonemaster",
+		"Najarin's Tower of Song",
+		"Necrabe",
+		"Nimmei, Expedition Overseer",
+		"Purge Dirge",
+		"Rath'tab",
+		"Sink Scream",
+		"Siril'ean, The Songthief",
+		"Strike of the Meek",
+		"Unified Tribecharge",
+		"Warriors of Owayki"
+	]
 }

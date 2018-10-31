@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database.js').default;
 const cardsdb = new API();
+import {banlist, whyban, limited, restricted, badultras} from './bans.js';
 
 module.exports = function(message) {
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
@@ -13,6 +14,11 @@ module.exports = function(message) {
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
   const mentions = Array.from(message.mentions.users.keys());
+
+  // Prevents sending an empty message
+  const send = (message) => {
+    if (message) channel.send(message).catch(console.error);
+  }
 
 try {
   // Our bot needs to know if it will execute a command
@@ -34,12 +40,12 @@ try {
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
-          channel.send(help());
+          send(help());
         break;
       /* Cards */
       case 'c':
       case 'card':
-        channel.send(cardsdb.card(args, bot));
+        send(cardsdb.card(args, bot));
         break;
       /* Banlist and Bans */
       case 'ban':
@@ -56,32 +62,32 @@ try {
           break;
         }
         else if (args.length > 0) {
-          channel.send(whyban(args));
+          send(whyban(args));
           break;
         }
       case 'banlist':
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
-          channel.send(banlist());
+          send(banlist());
         break;
       /* Rule */
       case 'rule':
       case 'rules':
       case 'ruling':
-        channel.send(rules(args));
+        send(rules(args));
         break;
       /* Compliments */
       case 'compliment':
       case 'flirt':
-        channel.send(compliment(args));
+        send(compliment(args));
         break;
       /* Insults */
       case 'burn':
       case 'roast':
       case 'insult':
         if (mentions.indexOf('279331985955094529') !== -1) channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
-        else channel.send(insult(args));
+        else send(insult(args));
         break;
       /* Documents */
       case 'rulebook':
@@ -97,7 +103,7 @@ try {
         channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
         break;
       case 'starters':
-        channel.send(starter());
+        send(starter());
         break;
       /* Misc */
       case 'sandwich':
@@ -107,25 +113,28 @@ try {
         channel.send(":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:");
         break;
       case 'sandwitch':
-        channel.send(cardsdb.card(["Arkanin"], bot));
+        send(cardsdb.card(["Arkanin"], bot));
         break;
       case 'joke':
-        channel.send(joke());
+        send(joke());
         break;
       case 'never':
       case 'nowornever':
-        channel.send(nowornever(args));
+        send(nowornever(args));
         break;
       case 'strong':
       case 'good':
       case 'best':
       case 'goodstuff':
       case 'restricted':
-        channel.send(restricted(args));
+        send(restricted(args));
         break;
       case 'limited':
-        channel.send(limited());
+        send(limited());
         break;
+      case 'badstuff':
+      case 'badultras':
+        send(badultras());
       case 'rm':
       case 'delete':
         let lstmsg = bot.user.lastMessage;
@@ -151,7 +160,7 @@ try {
   }
 
   var rsp = checkSass(content);
-  if (rsp) channel.send(rsp);
+  if (rsp) send(rsp);
 
   checkMentions.call(bot, mentions, channel.id);
 }
@@ -194,75 +203,13 @@ function joke() {
   return rndrsp(command["joke"]);
 }
 
-function banlist() {
-  const {bans, watchlist} = reload('../config/bans.json');
-  let message = "**Community Ban List:**\n=====";
-  for (var key in bans) {
-    message += "\n" + key;
-  }
-  message += "\n=====\n**Watchlist:** (not banned)"
-  for (var key in watchlist) {
-    message += "\n" + key;
-  }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
-  return message;
-}
-
-function whyban(card) {
-  card = cleantext(card.join(" ")); // remerge string
-
-  const {bans, watchlist, joke} = reload('../config/bans.json');
-
-  let merge = Object.assign({}, bans, watchlist, joke);
-  for (var key in merge) {
-    if (cleantext(key).indexOf(card) === 0)
-      return `*${key}*:\n${rndrsp(merge[key])}`;
-  }
-
-  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
-}
-
 function starter() {
   const commands = reload('../config/commands.json');
   return commands["starter"][0];
 }
 
-function restricted(filter) {
-  const {strongstuff} = reload('../config/bans.json');
-  let message = "";
-
-  if (filter.length > 0) {
-    let type = filter[0].charAt(0).toUpperCase() + filter[0].slice(1).toLowerCase();
-    if (strongstuff.hasOwnProperty(type)) {
-      message = `Strong ${type}:`;
-      strongstuff[type].forEach((key) => {
-        message += "\n" + key;
-      });
-    }
-  }
-  else {
-    message = "**Restricted Format:**\n(best cards in standard format)";
-    Object.keys(strongstuff).forEach((type, idx) => {
-      message += "\n**" + type +"**:";
-      strongstuff[type].forEach((key) => {
-        message += "\n" + key;
-      });
-    });
-  }
-  return message;
-}
-
-function limited() {
-  const {limited} = reload('../config/bans.json');
-  let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
-  limited.forEach((key) => {
-    message += "\n" + key;
-  });
-  return message;
-}
-
 function nowornever(card) {
-  var cards = require('../config/nowornever.json');
+  const cards = require('../config/nowornever.json');
   card = cleantext(card.join(" ")); // re-merge string
 
   if (!card) {
@@ -279,7 +226,7 @@ function nowornever(card) {
 }
 
 function checkSass(content) {
-  var sass = reload('../config/sass.json');
+  const sass = reload('../config/sass.json');
 
   for (var key in sass) {
     if (content.match(new RegExp(key, "i")))
