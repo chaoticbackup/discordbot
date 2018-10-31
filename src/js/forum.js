@@ -5,7 +5,7 @@ const virtualConsole = new jsdom.VirtualConsole();
 virtualConsole.sendTo(console);
 
 const {reload} = require('./shared.js');
-const {forum, default_channel} = require('../config/config.json');
+const {forum, default_channel} = require('../config/forum.json');
 
 const monthTable = {
   "Jan": 0,
@@ -79,7 +79,7 @@ module.exports = class ForumPosts {
 	}
 
 	checkMessages() {
-	  var {seconds} = reload("../config/config.json");
+	  var {seconds} = reload("../config/forum.json");
 	  // console.log("Checking Messages");w
 
 	  // Simulated Browser

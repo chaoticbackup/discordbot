@@ -2,7 +2,7 @@ require('babel-polyfill');
 const Discord = require('discord.js');
 const logger = require('winston');
 var auth = require('./auth.json');
-var ForumPosts = require('./js/posts.js');
+var ForumPosts = require('./js/forum.js');
 var responses = require('./js/responses.js');
 
 // Configure logger settings
