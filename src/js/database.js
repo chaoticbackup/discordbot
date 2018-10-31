@@ -184,7 +184,7 @@ export default class API {
   }
 
   Response(card, bot) {
-    let MugicCounter = (cardtext) => {
+    let Ability = (cardtext) => {
       //tribal mugic counters
       let mc = (() => {
         switch (card.gsx$tribe) {
@@ -202,9 +202,27 @@ export default class API {
             return bot.emojis.find(emoji => emoji.name==="GenCounter");
         }
       })();
-      if (mc) {
-        return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
-      }
+
+      let el = ((input) => {
+        switch (input) {
+          case "Fire":
+            return bot.emojis.find(emoji => emoji.name=="Fire");
+          case "Air":
+            return bot.emojis.find(emoji => emoji.name=="Air");
+          case "Earth":
+            return bot.emojis.find(emoji => emoji.name=="Earth");
+          case "Water":
+            return bot.emojis.find(emoji => emoji.name=="Water");
+          default:
+            return "";
+        }
+      });
+
+      cardtext = cardtext.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
+        return el(p1) + match;
+      });
+
+      if (mc) return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
       else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
     }
 
@@ -219,10 +237,10 @@ export default class API {
     }
 
     // Ability
-    let resp = MugicCounter(card.gsx$ability);
+    let resp = Ability(card.gsx$ability);
 
     if (card.gsx$brainwashed){
-      resp += "\n**Brainwashed**\n" + MugicCounter(card.gsx$brainwashed);
+      resp += "\n**Brainwashed**\n" + Ability(card.gsx$brainwashed);
     }
 
     if (card.gsx$energy > 0) {
