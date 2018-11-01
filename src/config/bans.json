@@ -21,12 +21,12 @@
 		"Tartarek, Psi Overloader": ["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you destroy Chieftains with ease.", "Tartarek has Warbeast-like stats but no Recklessness, two Elements, two Mugicians, and a decent Wisdom increasing Ability, and can easily destroy a play style (goodbye Chieftains). To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
 		"Tonal Destruction" : ["This card is decent if you just want to limit your opponent. But gets out of hand when combined with Enre-hep High Muge or Lore High Muge by allowing you to strip all the Mugic from your opponent's hand."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
+		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage."],
 		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
 		"Hune Paltanin": ["She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage."],
-		"Talisman of the Mandiblor": ["Makes fighting Danian decks very annoying. You spend resources taking out their strong fighter, just to have it come back at the price of a exausted support creature. Additionally, because it can be sacrificed at anytime, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."],
-		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage."]
+		"Talisman of the Mandiblor": ["Makes fighting Danian decks very annoying. You spend resources taking out their strong fighter, just to have it come back at the price of a exausted support creature. Additionally, because it can be sacrificed at anytime, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."]
 	},
 	"joke": {
 		"Agame": ["He's banned for using fan set cards in a competative match."],
@@ -56,8 +56,7 @@
 		"Malvadine, The King's Herald",
 		"Neekwin",
 		"Talisman of the Mandiblor",
-		"Ursis",
-		"Vial of Liquid Thought"
+		"Ursis"
 	],
 	"restricted": {
 		"Attacks": [
