@@ -218,8 +218,27 @@ export default class API {
         }
       });
 
+      let dis = ((input) => {
+        switch (input) {
+          case "Courage":
+            return bot.emojis.find(emoji => emoji.name=="Courage");
+          case "Power":
+            return bot.emojis.find(emoji => emoji.name=="Power");
+          case "Wisdom":
+            return bot.emojis.find(emoji => emoji.name=="Wisdom");
+          case "Speed":
+            return bot.emojis.find(emoji => emoji.name=="Speed");
+          default:
+            return "";
+        }
+      });
+
       cardtext = cardtext.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
         return el(p1) + match;
+      });
+
+      cardtext = cardtext.replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
+        return dis(p1) + match;
       });
 
       if (mc) return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
