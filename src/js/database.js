@@ -180,7 +180,6 @@ export default class API {
     else {
       return this.Response(rndrsp(results), bot); // Random card
     }
-
   }
 
   Response(card, bot) {
@@ -255,17 +254,6 @@ export default class API {
       return line;
     }
 
-    // Ability
-    let resp = Ability(card.gsx$ability);
-
-    if (card.gsx$brainwashed){
-      resp += "\n**Brainwashed**\n" + Ability(card.gsx$brainwashed);
-    }
-
-    if (card.gsx$energy > 0) {
-      resp += "\n" + Disciplines();
-    }
-
     let color = () => {
       if (card.gsx$type == "Battlegear") 
         return "#aebdce";
@@ -293,9 +281,22 @@ export default class API {
       return "#56687e"; // Default color
     }
 
+    // Ability
+    let resp = Ability(card.gsx$ability);
+
+    if (card.gsx$brainwashed){
+      resp += "\n**Brainwashed**\n" + Ability(card.gsx$brainwashed);
+    }
+
+    if (card.gsx$energy > 0) {
+      resp += "\n" + Disciplines();
+    }
+
     const embed = new RichEmbed()
+      .setTitle(card.gsx$name)
+      .setURL(API.base_image + card.gsx$image)
       .setColor(color())
-      .addField(card.gsx$name, resp)
+      .setDescription(resp)
       .setImage(API.base_image + card.gsx$image);
     
     return embed;

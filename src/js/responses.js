@@ -103,7 +103,7 @@ try {
         channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
         break;
       case 'starters':
-        send(starter());
+        send(starters());
         break;
       /* Misc */
       case 'sandwich':
@@ -159,10 +159,11 @@ try {
     return;
   }
 
-  var rsp = checkSass(content);
-  if (rsp) send(rsp);
+  // If no commands check message content for quips
+  send(checkSass(content));
 
-  checkMentions.call(bot, mentions, channel.id);
+  send(checkMentions(mentions));
+  // checkMentions.call(bot, mentions, channel.id);
 }
 catch (err) {
   console.error(err);
@@ -203,7 +204,7 @@ function joke() {
   return rndrsp(command["joke"]);
 }
 
-function starter() {
+function starters() {
   const commands = reload('../config/commands.json');
   return commands["starter"][0];
 }
@@ -234,16 +235,18 @@ function checkSass(content) {
   }
 }
 
-function checkMentions(mentions, channelID) {
+function checkMentions(mentions) {
   if (mentions.length <= 0) return;
-  var bot = this;
-  var commands = reload('../config/commands.json');
+  const commands = reload('../config/commands.json');
+  let message = "";
 
   // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4
 
-  if (mentions.indexOf('279331985955094529') !== -1)
-    bot.channels.get(channelID).send(rndrsp(commands["hello"]));
+  if (mentions.indexOf('279788856285331457') !== -1) // Afjak
+    message = ('Don\'t @ the Oracle. He sees everything anyway');
 
-  if (mentions.indexOf('279788856285331457') !== -1)
-    bot.channels.get(channelID).send('Don\'t @ the Oracle. He sees everything anyway');
+  if (mentions.indexOf('279331985955094529') !== -1) // ChaoticBacktalk
+    message = (rndrsp(commands["hello"]));
+
+  return message;
 }
