@@ -182,7 +182,7 @@ function help() {
   const help = reload('../config/help.json');
   let message = "";
   for (var key in help) {
-    message += "\n" + help[key];
+    message += "\n" + help[key] + "\n";
   }
   return message;
 }

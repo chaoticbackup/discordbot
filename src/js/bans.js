@@ -53,7 +53,7 @@ export function goodstuff(filter) {
     let message = "";
     [].concat(goodstuff.Creatures["Danian"], goodstuff.Creatures["M'arrillian"], 
       goodstuff.Creatures["Mipedian"], goodstuff.Creatures["OverWorld"], 
-      goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Tribeless"]).sort().forEach((card) => {
+      goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Generic"]).sort().forEach((card) => {
         message += "\n" + card;
     });
     return message;
