@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database.js').default;
 const cardsdb = new API();
-import {banlist, whyban, limited, goodstuff, badultras} from './bans.js';
+import {goodstuff, badultras} from './goodstuff.js';
 
 module.exports = function(message) {
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
@@ -179,7 +179,7 @@ catch (err) {
 
 // Responses
 function help() {
-  const help = reload('../config/help.json');
+  const {help} = reload('../config/commands.json');
   let message = "";
   for (var key in help) {
     message += "\n" + help[key] + "\n";
@@ -230,6 +230,43 @@ function nowornever(card) {
       return `${cards[key]}`;
     }
   }
+}
+
+function banlist() {
+  const {bans, watchlist} = reload('../config/bans.json');
+  let message = "**Community Ban List:**\n=====";
+  for (var key in bans) {
+    message += "\n" + key;
+  }
+  message += "\n=====\n**Watchlist:** (not banned)"
+  for (var key in watchlist) {
+    message += "\n" + key;
+  }
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
+  return message;
+}
+
+function whyban(card) {
+  card = cleantext(card.join(" ")); // remerge string
+
+  const {bans, watchlist, joke} = reload('../config/bans.json');
+
+  let merge = Object.assign({}, bans, watchlist, joke);
+  for (var key in merge) {
+    if (cleantext(key).indexOf(card) === 0)
+      return `*${key}*:\n${rndrsp(merge[key])}`;
+  }
+
+  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
+}
+
+function limited() {
+  const {limited} = reload('../config/bans.json');
+  let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
+  limited.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
 }
 
 function checkSass(content) {

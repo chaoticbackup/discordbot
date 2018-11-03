@@ -1,44 +1,7 @@
 const {reload, rndrsp, cleantext} = require('./shared.js');
 
-export function banlist() {
-  const {bans, watchlist} = reload('../config/bans.json');
-  let message = "**Community Ban List:**\n=====";
-  for (var key in bans) {
-    message += "\n" + key;
-  }
-  message += "\n=====\n**Watchlist:** (not banned)"
-  for (var key in watchlist) {
-    message += "\n" + key;
-  }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
-  return message;
-}
-
-export function whyban(card) {
-  card = cleantext(card.join(" ")); // remerge string
-
-  const {bans, watchlist, joke} = reload('../config/bans.json');
-
-  let merge = Object.assign({}, bans, watchlist, joke);
-  for (var key in merge) {
-    if (cleantext(key).indexOf(card) === 0)
-      return `*${key}*:\n${rndrsp(merge[key])}`;
-  }
-
-  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
-}
-
-export function limited() {
-  const {limited} = reload('../config/bans.json');
-  let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
-  limited.forEach((key) => {
-    message += "\n" + key;
-  });
-  return message;
-}
-
 export function badultras() {
-  const {badultras} = reload('../config/bans.json');
+  const {badultras} = reload('../config/goodstuff.json');
   let message = "**List of Wasted Ultras**";
   badultras.forEach((key) => {
     message += "\n" + key;
@@ -47,7 +10,7 @@ export function badultras() {
 }
 
 export function goodstuff(filter) {
-  const {goodstuff} = reload('../config/bans.json');
+  const {goodstuff} = reload('../config/goodstuff.json');
 
   function Creatures() {
     let message = "";
@@ -181,7 +144,7 @@ export function goodstuff(filter) {
     message += "\n**Mugic**:";
     message += Mugic();
 
-    message += "\n(*Thanks Metal*)";
+    message += "\n*(Thanks Metal)*";
   }
   return message;
 }

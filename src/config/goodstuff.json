@@ -1,0 +1,176 @@
+{
+	"goodstuff": {
+		"Attacks": [
+			"Deadwater Devastation",
+			"Grounding Grapple",
+			"Inner Flood",
+			"Primal Smash",
+			"Supercooled Rain",
+			"Twister of Elements"
+		],
+		"Battlegear": [
+			"Bi-Mowercycle",
+			"Burithean Axe",
+			"Drilldozer, Customized Rig",
+			"Evergreen Tunic",
+			"Muge's Tuningfork",
+			"Talisman of the Mandiblor",
+			"Vial of Liquid Thought",
+			"Xerium Armor"
+		],
+		"Creatures": {
+			"Danian": [
+				"Aszil, The Young Queen",
+				"Elhadd",
+				"Elna",
+				"Fliandar",
+				"Hiadrom",
+				"Illexia, The Danian Queen",
+				"Ivelaan",
+				"Lomma, Desert Wanderer",
+				"Lore, High Muge of the Hive",
+				"Makanaz",
+				"Neekwin",
+				"Ramarhvir, The Danian Hivebringer",
+				"Tarin",
+				"Ulmquad",
+				"Vunhra"
+			],
+			"M'arrillian": [
+				"Aer'dak",
+				"Dror'niq",
+				"Lam'inkal",
+				"Nunk'worn",
+				"Xis'torq"
+			],
+			"Mipedian": [
+				"Ailav",
+				"Blazvatan",
+				"Enre-Hep, High Muge of the Desert",
+				"Gintanai, The Forgotten",
+				"Grantkae, Mipedian General",
+				"Headmaster Ankhyja",
+				"Iflar, The Crown Prince",
+				"Ixxik",
+				"Kileron, Warbeast of the Dust Storm",
+				"Malvadine, The King's Herald",
+				"Ninren",
+				"Owayki"
+			],
+			"OverWorld": [
+				"Aivenna",
+				"Arbeid",
+				"Arrthoa, Captain of the Ezoa",
+				"Bodal, Flamedrill Researcher",
+				"Drabe",
+				"Garv",
+				"Gimwei",
+				"Gronmor",
+				"Herken",
+				"Hune Paltanin",
+				"Ikkatosh, The Aich King",
+				"Illiar",
+				"Intress, Natureforce",
+				"Maxxor",
+				"Maxxor, Protector of Perim",
+				"Najarin, High Muge of the Lake",
+				"Rellim, Water Master",
+				"Tangath Toborn, OverWorld General",
+				"Tangath Toborn, In Training",
+				"Tartarek, Psi Overloader"
+			],
+			"UnderWorld": [
+				"Chaor",
+				"Chaor, The Fierce",
+				"Kopond, High Muge of the Hearth",
+				"Lord Van Bloot, Servant of Aa'unne",
+				"Nivenna",
+				"Takinom, The Shadowknight",
+				"Ulmar, Perithon Racer",
+				"Zamool, Lord Van Bloot's Enforcer"
+			],
+			"Generic": [
+				"Cromaxx",
+				"Smildon",
+				"Ursis"
+			]
+		},
+		"Locations": [
+			"AZAIA Mindscrying Chamber",
+			"Dranakis Threshold",
+			"Illusionary Lake",
+			"Imaginary Walls",
+			"Mipedim Mirage",
+			"Numin Voidland",
+			"Prexxor Chasm",
+			"Prexxor Chasm, The Blight",
+			"Rao'pa Sahkk, Condensation Ceremony",
+			"Silchaw's Mine",
+			"Skeletal Springs"
+		],
+		"Mugic": {
+			"Danian": [
+				"Elemental Elegy",
+				"Ode to Obscurity",
+				"Strain of Infection",
+				"Unbalancing Battlesong"
+			],
+			"M'arrillian": [
+				"Intimidating Melody of M'arr",
+				"Unheard Melody"
+			],
+			"Mipedian": [
+				"Aegis Airia",
+				"Gear Glissando",
+				"Melody of Mirage"
+			],
+			"OverWorld": [
+				"Refrain of Denial",
+				"Rhyme of the Reckless",
+				"Song of Stasis",
+				"Symphony of Shielding"
+			],
+			"UnderWorld": [
+				"Canon of Casualty",
+				"Discord of Disarming"
+			],
+			"Generic": [
+				"Cadence Clash",
+				"Melody of the Meek",
+				"Psionic Serendade",
+				"Surprising Riffs",
+				"Tonal Destruction"
+			]
+		}
+	},
+	"badultras": [
+		"Aa'une the Oligarch, Projection",
+		"Bahrakatan, The Coralsmith",
+		"Bo'aam",
+		"Chorus of Cothica",
+		"Crown of Aa'une",
+		"Dread Tread",
+		"Fal'makin",
+		"Azai Inquisitor",
+		"Fanfare of the Brain",
+		"Glacier Plains",
+		"M'arrillian Heat Cannon",
+		"Iparu",
+		"Iparu Jungle",
+		"Iparu, Metallic Ally",
+		"Katharaz",
+		"Kha'rall Shard of the Tidal Crest",
+		"Lucky Shot",
+		"Mommark, Clonemaster",
+		"Najarin's Tower of Song",
+		"Necrabe",
+		"Nimmei, Expedition Overseer",
+		"Purge Dirge",
+		"Rath'tab",
+		"Sink Scream",
+		"Siril'ean, The Songthief",
+		"Strike of the Meek",
+		"Unified Tribecharge",
+		"Warriors of Owayki"
+	]
+}
