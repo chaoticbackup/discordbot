@@ -7,14 +7,6 @@ const cardsdb = new API();
 import {goodstuff, badultras} from './goodstuff.js';
 import {banlist, whyban, limited} from './bans.js';
 
-function insertname(resp, name) {
-  if (name)
-    resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
-  else
-    resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
-  return resp;
-}
-
 module.exports = function(message) {
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
   if (message.author.bot) return; //Ignore bot messages
@@ -27,6 +19,19 @@ module.exports = function(message) {
   // Prevents sending an empty message
   const send = (message) => {
     if (message) channel.send(message).catch(console.error);
+  }
+
+  const insertname = (resp, name) => {
+    // Replace the mention with the display name
+    if (mentions.length > 0) {
+      name = this.guilds.get(message.guild.id).members.get(mentions[0]).displayName;
+    }
+
+    if (name)
+      resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
+    else
+      resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
+    return resp;
   }
 
 try {
@@ -177,7 +182,7 @@ try {
   }
 
   // If no commands check message content for quips
-  send(checkSass.call(bot, mentions, content));
+  send(checkSass.call(bot, mentions, message));
 }
 catch (err) {
   console.error(err);
@@ -226,8 +231,9 @@ function nowornever(card) {
   }
 }
 
-function checkSass(mentions, content) {
+function checkSass(mentions, message) {
   const {sass, tags} = reload('../config/sass.json');
+  let content = message.content;
 
   for (var key in sass) {
     if (content.match(new RegExp(key, "i")))
@@ -235,7 +241,7 @@ function checkSass(mentions, content) {
   }
 
   if (mentions.length <= 0) return;
-  let message = "";
+  let response = "";
 
   // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4
 
@@ -244,15 +250,19 @@ function checkSass(mentions, content) {
 
   if (mentions.indexOf('279331985955094529') !== -1) {// ChaoticBacktalk
     if (content.match(new RegExp(/did.+(king).+(make|create)/, "i"))) {
-      message = (rndrsp(tags["daddy"]));
+      response = (rndrsp(tags["daddy"]));
     }
     else if (content.match(new RegExp(/who.+(made|created)/, "i"))) {
-      message = `${this.users.find(user => user.id == "140143063711481856").username} taught me Chaotic`;
+      try {
+        let displayname = this.guilds.get(message.guild.id).members.get("140143063711481856").displayName;
+        response = `${displayname} taught me Chaotic`;
+      }
+      catch(err) {}
     }
     else {
-      message = (rndrsp(tags["hello"]));
+      response = (rndrsp(tags["hello"]));
     }
   }
 
-  return message;
+  return response;
 }

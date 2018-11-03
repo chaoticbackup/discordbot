@@ -121,6 +121,13 @@ export default class API {
     Returning a card
   */
   card(name, bot) {
+    if ("thebsarr".includes(cleantext(name))) {
+      return new RichEmbed()
+        .setColor("#ba9626")
+        .addField("Theb-Sarr", "No data available")
+        .setImage("https://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729");
+    }
+
     if (this.data === "local") {
       return this.card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
     }
@@ -172,7 +179,7 @@ export default class API {
   full_art(name) {
     let results = this.find_cards(name);
 
-    if (results.length > 0) {
+    if (name && results.length > 0) {
       let card = results[0];
       if (card.gsx$splash) return new RichEmbed()
         .setColor(this.color(card))
@@ -190,12 +197,6 @@ export default class API {
     let results = this.find_cards(name);
 
     if (results.length <= 0) {
-      if ("thebsarr".includes(cleantext(name))) {
-        return new RichEmbed()
-          .setColor("#ba9626")
-          .addField("Theb-Sarr", "No data available")
-          .setImage("https://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729");
-      }
       return "That's not a valid card name";
     }
     
