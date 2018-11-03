@@ -120,18 +120,19 @@ export default class API {
   /*
     Returning a card
   */
-  card(card, bot) {
+  card(name, bot) {
     if (this.data === "local") {
-      return this.card_local(card, bot.emojis.find(emoji => emoji.name==="GenCounter"));
+      return this.card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
     }
     else {
-      return this.card_db(card, bot);
+      return this.card_db(name, bot);
     }
   }
 
-  card_local(card, genCounter) {
+  /* If database hadn't been set up */
+  card_local(name, genCounter) {
     var cards = require('../config/cards.json');
-    card = cleantext(card.join(" ")); // re-merge string
+
     function GenericCounter(cardtext, genCounter) {
       if (genCounter) {
         return cardtext.replace(/:GenCounter:/gi, genCounter.toString());
@@ -139,14 +140,16 @@ export default class API {
       else return cardtext.replace(/:GenCounter:/gi, 'MC');
     }
 
-    if (!card) {
+    name = cleantext(name);
+
+    if (!name) {
       // Return random card
       var keys = Object.keys(cards);
       return `${GenericCounter(cards[keys[keys.length * Math.random() << 0]], genCounter)}`;
     }
 
     for (var key in cards) {
-      if (cleantext(key).indexOf(card) === 0) {
+      if (cleantext(key).indexOf(name) === 0) {
         return `${GenericCounter(cards[key], genCounter)}`;
       }
     }
@@ -154,18 +157,40 @@ export default class API {
     return "That's not a valid card name";
   }
 
-  card_db(card, bot) {
-    card = card.join(" ")
+  /* Finding cards in the database by name */
+  find_cards(name) {
+    let card = name
       .replace(/\(|\)/g, (match) => {return ("\\"+match)})
       .replace(/’/g, '\'');
 
     // Search by name
-    let results = this.filter.chain().find(
+    return this.filter.chain().find(
         {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
       ).simplesort('gsx$name').data();
+  }
+
+  full_art(name) {
+    let results = this.find_cards(name);
+
+    if (results.length > 0) {
+      let card = results[0];
+      if (card.gsx$splash) return new RichEmbed()
+        .setColor(this.color(card))
+        .setTitle(card.gsx$name)
+        .setURL(API.base_image + card.gsx$splash)
+        .setImage(API.base_image + card.gsx$splash);
+      else {
+        return `Sorry, I don't have ${card.gsx$name}'s full art`;
+      }
+    }
+  }
+
+  /* Return a card to send */
+  card_db(name, bot) {
+    let results = this.find_cards(name);
 
     if (results.length <= 0) {
-      if ("thebsarr".includes(cleantext(card))) {
+      if ("thebsarr".includes(cleantext(name))) {
         return new RichEmbed()
           .setColor("#ba9626")
           .addField("Theb-Sarr", "No data available")
@@ -173,13 +198,40 @@ export default class API {
       }
       return "That's not a valid card name";
     }
-
-    if (card.length > 0) {
+    
+    if (name.length > 0) {
       return this.Response(results[0], bot);
     }
     else {
       return this.Response(rndrsp(results), bot); // Random card
     }
+  }
+
+  color(card) {
+    if (card.gsx$type == "Battlegear") 
+      return "#aebdce";
+    if (card.gsx$type == "Locations")
+      return "#419649";
+    if (card.gsx$type == "Attacks")
+      return "#586b81";
+    switch (card.gsx$tribe) {
+      case "OverWorld":
+        return "#1994d1";
+      case "UnderWorld":
+        return "#ce344e";
+      case "M'arrillian":
+        return "#717981";
+      case "Mipedian":
+        return "#ba9626";
+      case "Danian":
+        return "#957167";
+      case "Generic":
+       if (card.gsx$type == "Creatures")
+        return "#b5b5b5";
+       else 
+        return "#4f545c";
+    }
+    return "#56687e"; // Default color
   }
 
   Response(card, bot) {
@@ -254,33 +306,6 @@ export default class API {
       return line;
     }
 
-    let color = () => {
-      if (card.gsx$type == "Battlegear") 
-        return "#aebdce";
-      if (card.gsx$type == "Locations")
-        return "#419649";
-      if (card.gsx$type == "Attacks")
-        return "#586b81";
-      switch (card.gsx$tribe) {
-        case "OverWorld":
-          return "#1994d1";
-        case "UnderWorld":
-          return "#ce344e";
-        case "M'arrillian":
-          return "#717981";
-        case "Mipedian":
-          return "#ba9626";
-        case "Danian":
-          return "#957167";
-        case "Generic":
-         if (card.gsx$type == "Creatures")
-          return "#b5b5b5";
-         else 
-          return "#4f545c";
-      }
-      return "#56687e"; // Default color
-    }
-
     // Ability
     let resp = Ability(card.gsx$ability);
 
@@ -295,7 +320,7 @@ export default class API {
     const embed = new RichEmbed()
       .setTitle(card.gsx$name)
       .setURL(API.base_image + card.gsx$image)
-      .setColor(color())
+      .setColor(this.color(card))
       .setDescription(resp)
       .setImage(API.base_image + card.gsx$image);
     

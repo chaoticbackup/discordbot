@@ -1,7 +1,13 @@
 {
-	".*(chaotic).*(com|be).*(back).*": ["any day now"],
-	"any day now\\?": ["***ANY*** day now"],
-	"rule 34": ["not on this server we don't"],
-	"wombo combo": ["that ain't falco"],
-	"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"]
+	"sass": {
+		".*(chaotic).*(com|be).*(back).*": ["any day now"],
+		"any day now\\?": ["***ANY*** day now"],
+		"rule 34": ["not on this server we don't"],
+		"wombo combo": ["that ain't falco"],
+		"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"]
+	},
+	"tags": {
+		"daddy": ["Yeah he did!", "He's the best daddy!", "*big smile*", "Sometimes I'm bad and don't behave him."],
+		"hello": ["Hello :wave:", "Want to be my friend?", "Feeling lonely?", "I don't talk, I just backtalk", "Sorry I'm in a match right now", "Wadda ya want, Rebant?", "Yes? Oh… it's you", "Backtalk is not available, please leave a message after the tone", "Hello there <:Chaor:285620681163669506>", "Chaotic mail?", "Bots can't talk silly", "Speak up; I can't hear you.", "Sigh, here we go again", "What's up, Ghatup?", "How {{are you|Is x}}, Biondu?", "What's going on, Hoton?", "Doing well, Savell?", "How you been, Najarin?", "Where's life at, Attacat?", "Feeling fly, Ozlai?", "Everything cool, Zamool?", "What's the deal, Kreaal?", "What's jerkin, Herkin?", "What's the scene, Tir'baleen?", "What's the fuss, Dardemus?", "5 more minutes mom", "Nobody's home", "Let's talk.. IN CHAOTIC!", "Can I take your order?", "The Back signal! Quick, to the Back cave!", "You don't control me you M'arrillian wanna be!", "WHO DARES DISTURB MY SLUMBER?!", "If you @ me again I'm putting your favorite card on the banlist", "Backtalk bot is brought to you by http://chaoticbackup.forumotion.com", "What's so im-Port-ent?", "Once you go Back, your never go back!", "*seen*", "You humans are so needy", "@smellyhuman, yes?", "My dream is to one day be a bot for the actual Chaotic website.", "What's the plan, Blazvatan?", "What's to know, Accato?", "Say your fill, Tassanil", "What's to say, Gimwei?", "Say your thing, H'earring", "What's the hoot, Van Bloot?", "What I miss, Yokkis?", "I'm shy, so you talk I'll listen", "You can tag anyone you want actually, the whole server is me in disguise.", "*smiles and nods*"]
+	}
 }

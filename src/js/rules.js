@@ -5,7 +5,8 @@ const glossary = require('../config/glossary');
 module.exports = function(rule) {
 	let commands = reload('../config/commands.json');
 
-	if (rule.length < 1) return rndrsp(commands["providerule"]);
+	if (rule.length < 1) 
+		return `"Please provide a rule, or use **!rulebook** for the Rules"`;
 	rule = cleantext(rule.join(" "));
 
 	let rules = reload('../config/rules.json');
@@ -16,7 +17,7 @@ module.exports = function(rule) {
 	    return `*${key}*:\n${merge[key]}`;
 	}
 
-	return rndrsp(commands["norule"]);
+	return `I'm not sure, but you can check the Player Guide:\n<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>`;
 
 /* This is ignored */
 	pdfjsLib.getDocument("./ComprehensiveRules.pdf").then((doc) => {
