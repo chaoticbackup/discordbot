@@ -58,7 +58,7 @@
 		"Talisman of the Mandiblor",
 		"Ursis"
 	],
-	"restricted": {
+	"goodstuff": {
 		"Attacks": [
 			"Deadwater Devastation",
 			"Grounding Grapple",
@@ -97,7 +97,9 @@
 			],
 			"M'arrillian": [
 				"Aer'dak",
-				"Dror'niq"
+				"Dror'niq",
+				"Lam'inkal",
+				"Xis'torq"
 			],
 			"Mipedian": [
 				"Ailav",
@@ -145,7 +147,7 @@
 				"Ulmar, Perithon Racer",
 				"Zamool, Lord Van Bloot's Enforcer"
 			],
-			"Tribeless": [
+			"Generic": [
 				"Cromaxx",
 				"Smildon",
 				"Ursis"
@@ -172,6 +174,7 @@
 				"Unbalancing Battlesong"
 			],
 			"M'arrillian": [
+				"Intimidating Melody of M'arr",
 				"Unheard Melody"
 			],
 			"Mipedian": [
@@ -180,7 +183,10 @@
 				"Melody of Mirage"
 			],
 			"OverWorld": [
-				"Rhyme of the Reckless"
+				"Refrain of Denial",
+				"Rhyme of the Reckless",
+				"Song of Stasis",
+				"Symphony of Shielding"
 			],
 			"UnderWorld": [
 				"Canon of Casualty",

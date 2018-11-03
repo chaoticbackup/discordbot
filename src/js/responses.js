@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database.js').default;
 const cardsdb = new API();
-import {banlist, whyban, limited, restricted, badultras} from './bans.js';
+import {banlist, whyban, limited, goodstuff, badultras} from './bans.js';
 
 module.exports = function(message) {
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
@@ -125,16 +125,22 @@ try {
       case 'strong':
       case 'good':
       case 'best':
+        send(goodstuff(args));
+        break;
       case 'goodstuff':
-      case 'restricted':
-        send(restricted(args));
+        if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600)) {
+          channel.send("This list is long, you can ask for a specific type or ask in <#387805334657433600>")
+        }
+        send(goodstuff());
         break;
       case 'limited':
         send(limited());
         break;
+      case 'bad':
       case 'badstuff':
       case 'badultras':
         send(badultras());
+        break;
       case 'rm':
       case 'delete':
         let lstmsg = bot.user.lastMessage;

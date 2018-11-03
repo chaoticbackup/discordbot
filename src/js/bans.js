@@ -46,15 +46,14 @@ export function badultras() {
   return message;
 }
 
-export function restricted(filter) {
-  const {restricted} = reload('../config/bans.json');
-  let message = "";
+export function goodstuff(filter) {
+  const {goodstuff} = reload('../config/bans.json');
 
   function Creatures() {
     let message = "";
-    [].concat(restricted.Creatures["Danian"], restricted.Creatures["M'arrillian"], 
-      restricted.Creatures["Mipedian"], restricted.Creatures["OverWorld"], 
-      restricted.Creatures["UnderWorld"], restricted.Creatures["Tribeless"]).sort().forEach((card) => {
+    [].concat(goodstuff.Creatures["Danian"], goodstuff.Creatures["M'arrillian"], 
+      goodstuff.Creatures["Mipedian"], goodstuff.Creatures["OverWorld"], 
+      goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Tribeless"]).sort().forEach((card) => {
         message += "\n" + card;
     });
     return message;
@@ -62,69 +61,127 @@ export function restricted(filter) {
 
   function Mugic() {
     let message = "";
-    [].concat(restricted.Mugic["Danian"], restricted.Mugic["M'arrillian"], 
-      restricted.Mugic["Mipedian"], restricted.Mugic["OverWorld"], 
-      restricted.Mugic["UnderWorld"], restricted.Mugic["Generic"]).sort().forEach((card) => {
+    [].concat(goodstuff.Mugic["Danian"], goodstuff.Mugic["M'arrillian"], 
+      goodstuff.Mugic["Mipedian"], goodstuff.Mugic["OverWorld"], 
+      goodstuff.Mugic["UnderWorld"], goodstuff.Mugic["Generic"]).sort().forEach((card) => {
         message += "\n" + card;
     });
     return message;
   }
 
-  if (filter.length > 0) {
-    let type = filter[0].charAt(0).toUpperCase() + filter[0].slice(1).toLowerCase();  
+  function Type(type) {
+    let message = "";
+    goodstuff[type].forEach((card) => {
+      message += "\n" + card;
+    });
+    return message;
+  }
 
-    if (type == "Creatures") {
-      message = `**Strong Creatures:**`;
-      message += Creatures();
-    }
-    else if (type == "Mugic") {
-      message = `**Strong Mugic:**`;
-      message += Mugic();
-    }
-    else if (["Attacks", "Battlegear", "Locations"].indexOf(type) !== -1) {
-      message = `**Strong ${type}:**`;
-      restricted[type].forEach((card) => {
-        message += "\n" + card;
-      });
-    }
-    // If specified a tribe
-    else if (["Danian", "M'arrillian", "Mipedian", "OverWorld", 
-      "UnderWorld", "Generic", "Tribeless"].indexOf(filter[0]) !== -1) {
-      // If specified mugic or creatures
-      if (filter[1] && (filter[1]=="Creatures" || filter[1] == "Mugic")) {
-        message = `**Strong ${filter[0]} ${filter[1]}**`;
-        restricted[filter[1]][filter[0]].forEach((card) => {
+  function Tribe(tribe, type) {
+    let message = "";
+    // If specified mugic or creatures
+    if (type) {
+      if (type.toLowerCase()=="creatures") {
+        message = `**Strong ${tribe} Creatures**`;
+        goodstuff["Creatures"][tribe].forEach((card) => {
           message += "\n" + card;
         });
       }
-      else {
-        message = `**Strong ${filter[0]} Cards:**`;
-        [].concat(restricted.Mugic[filter[0]], restricted.Creatures[filter[0]])
-          .sort().forEach((card) => {
-            message += "\n" + card;
+      if (type.toLowerCase()=="mugic") {
+        message = `**Strong ${tribe} Mugic**`;
+        goodstuff["Mugic"][tribe].forEach((card) => {
+          message += "\n" + card;
         });
-        }
+      }
+    }
+    else {
+      message = `**Strong ${tribe} Cards:**`;
+      [].concat(goodstuff["Mugic"][tribe], goodstuff["Creatures"][tribe])
+        .sort().forEach((card) => {
+          message += "\n" + card;
+      });
+    }
+    return message;
+  }
+
+  let message = "";
+  if (filter && filter.length > 0) {
+    switch (filter[0].toLowerCase()) {
+      case 'creature':
+      case 'creatures':
+        message = `**Strong Creatures:**`;
+        message += Creatures();
+        break;
+      case 'mugic':
+        message = `**Strong Mugic:**`;
+        message += Mugic();
+        break;
+      case 'attack':
+      case 'attacks':
+        message = `**Strong Attacks:**`;
+        message += Type("Attacks");
+        break;
+      case 'battlegear':
+        message = `**Strong Battlegear:**`;
+        message += Type("Battlegear");
+        break;
+      case 'location':
+      case 'locations':
+        message = `**Strong Locations:**`;
+        message += Type("Locations");
+        break;
+      case 'danian':
+      case 'danians':
+        message = Tribe("Danian", filter[1]);
+        break;
+      case 'm\'arrillian':
+      case 'm\'arrillians':
+        message = Tribe("M'arrillian", filter[1]);
+        break;
+      case 'mipedian':
+      case 'mipedians':
+        message = Tribe("Mipedian", filter[1]);
+        break;
+      case 'overworld':
+      case 'overworlders':
+        message = Tribe("OverWorld", filter[1]);
+        break;
+      case 'underworld':
+      case 'underworlders':
+        message = Tribe("UnderWorld", filter[1]);
+        break;
+      case 'tribeless':
+        message = `**Strong Tribeless Creatures:**`;
+        goodstuff["Creatures"]["Generic"].forEach((card) => {
+          message += "\n" + card;
+        });
+        break;
+      case 'generic':
+        message = `**Strong Generic Mugic:**`;
+        goodstuff["Mugic"]["Generic"].forEach((card) => {
+          message += "\n" + card;
+        });
+        break;
     }
   }
   else {
-    message = "**Restricted Format:**\n(best cards gone)";
+    message = "**Best cards in the game**";
     message += "\n**Attacks**:";
-    restricted["Attacks"].forEach((card) => {
-      message += "\n" + card;
-    });
-    message += "\n**Battlegear**:";
-    restricted["Battlegear"].forEach((card) => {
-      message += "\n" + card;
-    });
-    message += "\n**Creatures**:";
-      message += Creatures();
-    message += "\n**Locations**:";
-    restricted["Locations"].forEach((card) => {
-      message += "\n" + card;
-    });
-    message += "\n**Mugic**:";
-     message += Mugic();
+    message += Type("Attacks");
 
+    message += "\n**Battlegear**:";
+    message += Type("Battlegear");
+
+    message += "\n**Creatures**:";
+    message += Creatures();
+
+    message += "\n**Locations**:";
+    message += Type("Locations");
+
+    message += "\n**Mugic**:";
+    message += Mugic();
+
+    message += "\n(*Thanks Metal*)";
   }
   return message;
 }
