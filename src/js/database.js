@@ -121,7 +121,7 @@ export default class API {
     Returning a card
   */
   card(name, bot) {
-    if ("thebsarr".includes(cleantext(name))) {
+    if (name && "thebsarr".includes(cleantext(name))) {
       return new RichEmbed()
         .setColor("#ba9626")
         .addField("Theb-Sarr", "No data available")
