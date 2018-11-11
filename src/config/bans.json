@@ -6,7 +6,6 @@
 		"Bi-Mowercycle": ["This card is very meta warping, there are very few Battlegear that can go on support creatures and Bi-Mowercycle is the most consistently good. Bi-Mowercycle allows you to give any Creature Range and Swift without hindering their Battlegear choice. This results in it appearing in a lot of decks which means you almost always need to include Defender."],
 		"Deadwater Devastation": ["A downgraded Supercooled Rain. But still can severely hinder your opponent's Mugic abilty."],
 		"Dror'niq": ["His first ability is too powerful. He can deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nHis second ability is no slouch either. Although it takes 4 Mugic Counters, it can easily add up to 30-50 damage that can be used on any creature."],
-		"Grounding Grapple": ["On a similar power level to Deadwater Devastation, Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
 		"Illusionary Lake": ["Water is the most common element in the game. This location's preventing the gain of water ensures a win against any deck that relies on water."],
 		"Imaginary Walls": ["Reducing 10 damage per attack is strong. Even a modest energy M'arrillian or Minion could be able to take 4 or more attacks than usual because of the reduction.\nReturning a Mugic is not a sufficient benefit for the opposing player to counter act the more difficult battle."],
 		"Lord Van Bloot, Servant of Aa'unne": ["Element Attacks are close to half the Attacks in the game, and having a whole deck built around them is common. Other cards remove elements, but Bloot's preventing element gain clause means element decks lose without high courage."],
@@ -25,6 +24,7 @@
 		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
+		"Grounding Grapple": ["Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
 		"Hune Paltanin": ["She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage."],
 		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Additionally, because it can be sacrificed while engaged, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."]
 	},
@@ -52,6 +52,7 @@
 		"Xerium Armor": ["Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check."]
 	},
 	"limited": [
+		"Grounding Grapple",
 		"Makanaz",
 		"Malvadine, The King's Herald",
 		"Lore's Chamber of Recall",
