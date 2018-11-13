@@ -3,10 +3,7 @@
 		"Attacks": [
 			"Deadwater Devastation",
 			"Grounding Grapple",
-			"Inner Flood",
-			"Primal Smash",
-			"Supercooled Rain",
-			"Twister of Elements"
+			"Inner Flood"
 		],
 		"Battlegear": [
 			"Bi-Mowercycle",
@@ -15,7 +12,6 @@
 			"Evergreen Tunic",
 			"Muge's Tuningfork",
 			"Talisman of the Mandiblor",
-			"Vial of Liquid Thought",
 			"Xerium Armor"
 		],
 		"Creatures": {
@@ -27,21 +23,20 @@
 				"Hiadrom",
 				"Illexia, The Danian Queen",
 				"Ivelaan",
+				"Lore, Ancestral Caller",
 				"Lore, High Muge of the Hive",
 				"Makanaz",
 				"Neekwin",
-				"Ramarhvir, The Danian Hivebringer",
 				"Ulmquad",
 				"Vunhra"
 			],
 			"M'arrillian": [
-				"Aer'dak",
-				"Dror'niq",
 				"Lam'inkal",
 				"Nunk'worn",
 				"Xis'torq"
 			],
 			"Mipedian": [
+				"Arkanin",
 				"Ailav",
 				"Blazvatan",
 				"Enre-Hep, High Muge of the Desert",
@@ -82,11 +77,9 @@
 				"Chaor",
 				"Chaor, The Fierce",
 				"Kopond, High Muge of the Hearth",
-				"Lord Van Bloot, Servant of Aa'unne",
 				"Nivenna",
 				"Takinom, The Shadowknight",
-				"Ulmar, Perithon Racer",
-				"Zamool, Lord Van Bloot's Enforcer"
+				"Ulmar, Perithon Racer"
 			],
 			"Generic": [
 				"Cromaxx",
@@ -95,15 +88,10 @@
 			]
 		},
 		"Locations": [
-			"AZAIA Mindscrying Chamber",
 			"Dranakis Threshold",
-			"Illusionary Lake",
-			"Imaginary Walls",
 			"Mipedim Mirage",
-			"Numin Voidland",
 			"Prexxor Chasm",
 			"Prexxor Chasm, The Blight",
-			"Rao'pa Sahkk, Condensation Ceremony",
 			"Silchaw's Mine",
 			"Skeletal Springs"
 		],
@@ -135,11 +123,9 @@
 			],
 			"Generic": [
 				"Cadence Clash",
-				"Melody of the Meek",
 				"Nourishing Nocturne",
 				"Psionic Serenade",
-				"Surprising Riffs",
-				"Tonal Destruction"
+				"Surprising Riffs"
 			]
 		}
 	},
@@ -165,7 +151,6 @@
 		"Najarin's Tower of Song",
 		"Necrabe",
 		"Nimmei, Expedition Overseer",
-		"Purge Dirge",
 		"Rath'tab",
 		"Sink Scream",
 		"Siril'ean, The Songthief",
