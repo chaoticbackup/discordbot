@@ -17,9 +17,9 @@ export function banlist() {
 export function whyban(card) {
   card = cleantext(card.join(" ")); // remerge string
 
-  const {bans, watchlist, joke} = reload('../config/bans.json');
+  const {bans, watchlist, hidden} = reload('../config/bans.json');
 
-  let merge = Object.assign({}, bans, watchlist, joke);
+  let merge = Object.assign({}, bans, watchlist, hidden);
   for (var key in merge) {
     if (cleantext(key).indexOf(card) === 0)
       return `*${key}*:\n${rndrsp(merge[key])}`;
