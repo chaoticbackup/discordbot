@@ -341,7 +341,8 @@ export default class API {
 
     if (card.gsx$energy > 0) {
       let modstat = 0;
-      if (options.indexOf("max") > -1 && !(options.indexOf("min") > -1)) {
+      if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
+       && !(options.indexOf("min") > -1)) {
         modstat = 10;
       }
       if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
