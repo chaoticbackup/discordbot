@@ -67,6 +67,9 @@ try {
       case 'fullart':
         send(cardsdb.full_art(args.join(" ")));
         break;
+      case 'find':
+        send(cardsdb.find_(args.join(" ")));
+        break;
       /* Rule */
       case 'rule':
       case 'rules':

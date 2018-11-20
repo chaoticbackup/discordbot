@@ -170,6 +170,24 @@ export default class API {
     return "That's not a valid card name";
   }
 
+  find_(name) {
+    if (name.length < 2) {
+      return "Use at least 2 characters";
+    }
+    let results = this.find_cards(name);
+    if (results.length == 0) {
+      return "No cards match this search";
+    }
+
+    let response = "";
+    if (results.length > 10) response = "First 10 matches:\n";
+    results.splice(0, 10).forEach((card) => {
+      response += card.gsx$name + '\n';
+    });
+
+    return response;
+  }
+
   /* Finding cards in the database by name */
   find_cards(name) {
     let card = name

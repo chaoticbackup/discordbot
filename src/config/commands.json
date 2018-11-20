@@ -6,10 +6,13 @@
     "help": {
 		"start": "I try to be helpful, but can be sassy.```md",
 		"card": "!card <card>\n> (returns the card's text as well as its picture. without a card name, returns a random card)",
+		"fullart": "!full, !fullart <card>",
+		"find": "!find <name>\n> (returns a list of cards that start with name)",
 		"ban": "!banlist\n!ban, !whyban <card>\n> (ask me why a card is/should be banned)",
 		"good": "!goodstuff\n!strong, !good, !best <type|tribe> < type >\n> (best cards in the game. can take a card type, or a tribe and type)",
 		"compliment": "!compliment, !flirt <name>\n> (optional name)",
 		"insult": "!insult, !burn, !roast <name>\n> (optional name)",
+		"rule": "!rule <rule>\n> (returns the definition of the rule)",
 		"documents": "!rulebook, !cr, !errata, !guide\n> (the important documents)",
 		"starters": "!starters\n> (Afjak's starter decks on TCO)",
 		"end": "```I may also pop in to add a quip ;)"
