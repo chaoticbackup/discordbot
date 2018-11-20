@@ -128,11 +128,17 @@ export default class API {
         .setImage("https://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729");
     }
 
+    var options = "";
+    name = name.replace(/(?:--|—)(\w+)/g, (match, p1) => {
+      options += p1;
+      return "";
+    }).trim();
+
     if (this.data === "local") {
       return this.card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
     }
     else {
-      return this.card_db(name, bot);
+      return this.card_db(name, options, bot);
     }
   }
 
@@ -193,7 +199,7 @@ export default class API {
   }
 
   /* Return a card to send */
-  card_db(name, bot) {
+  card_db(name, options, bot) {
     let results = this.find_cards(name);
 
     if (results.length <= 0) {
@@ -201,10 +207,11 @@ export default class API {
     }
     
     if (name.length > 0) {
-      return this.Response(results[0], bot);
+      return this.Response(results[0], options, bot);
     }
     else {
-      return this.Response(rndrsp(results), bot); // Random card
+      // Random card
+      return this.Response(rndrsp(results), options, bot);
     }
   }
 
@@ -235,7 +242,7 @@ export default class API {
     return "#56687e"; // Default color
   }
 
-  Response(card, bot) {
+  Response(card, options, bot) {
     let Ability = (cardtext) => {
       //tribal mugic counters
       let mc = (() => {
@@ -297,13 +304,13 @@ export default class API {
       else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
     }
 
-    let Disciplines = () => {
-      let line = "";
-      line += card.gsx$courage + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " ";
-      line += card.gsx$power + bot.emojis.find(emoji => emoji.name==="Power").toString() + " ";
-      line += card.gsx$wisdom + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " ";
-      line += card.gsx$speed + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " ";
-      line += "| " + card.gsx$energy + " E";
+    let Disciplines = (modstat = 0) => {
+      let line = ""
+        + eval(`${card.gsx$courage}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
+        + eval(`${card.gsx$power}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "
+        + eval(`${card.gsx$wisdom}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " "
+        + eval(`${card.gsx$speed}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " "
+        + "| " + eval(`${card.gsx$energy}+${modstat/2}`) + " E";
       return line;
     }
 
@@ -315,7 +322,14 @@ export default class API {
     }
 
     if (card.gsx$energy > 0) {
-      resp += "\n" + Disciplines();
+      let modstat = 0;
+      if (options.indexOf("max") > -1 && !(options.indexOf("min") > -1)) {
+        modstat = 10;
+      }
+      if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
+        modstat = -10;
+      }
+      resp += "\n" + Disciplines(modstat);
     }
 
     const embed = new RichEmbed()
