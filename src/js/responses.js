@@ -38,7 +38,7 @@ try {
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
   if (content.substring(0, 1) == '!') {
-    const command = reload('../config/commands.json');
+    const commands = reload('../config/commands.json');
 
     let args = content.substring(1).split(' ');
     let cmd = args[0].toLowerCase().trim();
@@ -79,7 +79,7 @@ try {
       /* Compliments */
       case 'flirt':
       case 'compliment':
-        send(insertname(rndrsp(command['compliment']), args.join(" ")));
+        send(insertname(rndrsp(commands['compliment']), args.join(" ")));
         break;
       /* Insults */
       case 'burn':
@@ -88,11 +88,11 @@ try {
         if (mentions.indexOf('279331985955094529') !== -1) 
           channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
         else
-          send(insertname(rndrsp(command['insult']), args.join(" ")));
+          send(insertname(rndrsp(commands['insult']), args.join(" ")));
         break;
       /* Jokes */
       case 'joke':
-        send(rndrsp(command["joke"]));
+        send(rndrsp(commands["joke"]));
         break;
       /* Documents */
       case 'rulebook':
