@@ -174,7 +174,12 @@ export default class API {
     if (name.length < 2) {
       return "Use at least 2 characters";
     }
-    let results = this.find_cards(name);
+    name = this.escape_text(name);
+
+    let results = this.filter.chain().find(
+        {'gsx$name': {'$regex': new RegExp(name, 'i')}}
+      ).simplesort('gsx$name').data();
+
     if (results.length == 0) {
       return "No cards match this search";
     }
@@ -182,17 +187,23 @@ export default class API {
     let response = "";
     if (results.length > 10) response = "First 10 matches:\n";
     results.splice(0, 10).forEach((card) => {
-      response += card.gsx$name + '\n';
+      response += card.gsx$name.replace(new RegExp(name, 'i'), (match) => {
+        return `**${match}**`;
+      }) + '\n';
     });
 
     return response;
   }
 
-  /* Finding cards in the database by name */
-  find_cards(name) {
-    let card = name
+  escape_text(text) {
+    return text
       .replace(/\(|\)/g, (match) => {return ("\\"+match)})
       .replace(/’/g, '\'');
+  }
+
+  /* Finding cards in the database by name */
+  find_cards_by_name(name) {
+    let card = this.escape_text(name);
 
     // Search by name
     return this.filter.chain().find(
@@ -201,7 +212,7 @@ export default class API {
   }
 
   full_art(name) {
-    let results = this.find_cards(name);
+    let results = this.find_cards_by_name(name);
 
     if (name && results.length > 0) {
       let card = results[0];
@@ -218,7 +229,7 @@ export default class API {
 
   /* Return a card to send */
   card_db(name, options, bot) {
-    let results = this.find_cards(name);
+    let results = this.find_cards_by_name(name);
 
     if (results.length <= 0) {
       return "That's not a valid card name";
