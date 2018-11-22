@@ -144,11 +144,9 @@ try {
       case 'strong':
       case 'good':
       case 'best':
-        send(goodstuff(args));
-        break;
       case 'goodstuff':
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600)) {
-          channel.send("This list is long, you can ask for a specific type or ask in <#387805334657433600>")
+          channel.send("This list is long. Please ask in <#387805334657433600>")
         }
         else {
           send(goodstuff(args));

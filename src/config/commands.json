@@ -9,7 +9,7 @@
 		"fullart": "!full, !fullart <card>",
 		"find": "!find <name>\n> (returns a list of cards that start with name)",
 		"ban": "!banlist\n!ban, !whyban <card>\n> (ask me why a card is/should be banned)",
-		"good": "!goodstuff\n!strong, !good, !best <type|tribe> < type >\n> (best cards in the game. can take a card type, or a tribe and type)",
+		"good": "!goodstuff, !strong, !good, !best <type|tribe> < type >\n> (takes a card type, or a tribe and type)",
 		"compliment": "!compliment, !flirt <name>\n> (optional name)",
 		"insult": "!insult, !burn, !roast <name>\n> (optional name)",
 		"rule": "!rule <rule>\n> (returns the definition of the rule)",

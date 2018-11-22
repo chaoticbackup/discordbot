@@ -128,23 +128,7 @@ export function goodstuff(filter) {
     }
   }
   else {
-    message = "**Best cards in the game**";
-    message += "\n**Attacks**:";
-    message += Type("Attacks");
-
-    message += "\n**Battlegear**:";
-    message += Type("Battlegear");
-
-    message += "\n**Creatures**:";
-    message += Creatures();
-
-    message += "\n**Locations**:";
-    message += Type("Locations");
-
-    message += "\n**Mugic**:";
-    message += Mugic();
-
-    message += "\n*(Thanks Metal)*";
+    message = "Due to the length, I can't send all the cards, please specify a type/tribe";
   }
   return message;
 }
