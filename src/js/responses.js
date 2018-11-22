@@ -70,6 +70,9 @@ try {
       case 'find':
         send(cardsdb.find_(args.join(" ")));
         break;
+      case 'rate':
+        send(cardsdb.rate_(args.join(" "), bot));
+        break;
       /* Rule */
       case 'rule':
       case 'rules':
