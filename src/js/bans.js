@@ -15,7 +15,7 @@ export function banlist() {
 }
 
 export function whyban(card) {
-  card = cleantext(card.join(" ")); // remerge string
+  card = cleantext(card);
 
   const {bans, watchlist, hidden} = reload('../config/bans.json');
 

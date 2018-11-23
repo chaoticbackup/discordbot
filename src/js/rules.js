@@ -7,7 +7,7 @@ module.exports = function(rule) {
 
 	if (rule.length < 1) 
 		return `"Please provide a rule, or use **!rulebook** for the Rules"`;
-	rule = cleantext(rule.join(" "));
+	rule = cleantext(rule);
 
 	let rules = reload('../config/rules.json');
 	let merge = Object.assign({}, rules, glossary);

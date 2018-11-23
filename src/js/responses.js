@@ -2,8 +2,9 @@ const {reload, rndrsp, cleantext} = require('./shared.js');
 const rules = require('./rules.js');
 const fs = require('fs-extra');
 const path = require('path');
-const API = require('./database.js').default;
-const cardsdb = new API();
+const API = require('./database/database.js').default;
+import {rate_card} from './database/rate.js';
+import {full_art, display_card} from './database/card.js';
 import {goodstuff, badultras} from './goodstuff.js';
 import {banlist, whyban, limited} from './bans.js';
 
@@ -42,7 +43,12 @@ try {
 
     let args = content.substring(1).split(' ');
     let cmd = args[0].toLowerCase().trim();
-    args = args.splice(1);
+
+    var options = [];
+    args = args.splice(1).join(" ").replace(/(?:--|—)(\w+)/g, (match, p1) => {
+      options.push(p1);
+      return "";
+    }).trim();
 
     switch(cmd) {
       case 'ping':
@@ -61,17 +67,17 @@ try {
       /* Cards */
       case 'c':
       case 'card':
-        send(cardsdb.card(args.join(" "), bot));
+        send(display_card(args, options, bot));
         break;
       case 'full':
       case 'fullart':
-        send(cardsdb.full_art(args.join(" ")));
+        send(full_art(args));
         break;
       case 'find':
-        send(cardsdb.find_(args.join(" ")));
+        send(API.find_name(args));
         break;
       case 'rate':
-        send(cardsdb.rate_(args.join(" "), bot));
+        send(rate_card(args, bot));
         break;
       /* Rule */
       case 'rule':
@@ -82,7 +88,7 @@ try {
       /* Compliments */
       case 'flirt':
       case 'compliment':
-        send(insertname(rndrsp(commands['compliment']), args.join(" ")));
+        send(insertname(rndrsp(commands['compliment']), args));
         break;
       /* Insults */
       case 'burn':
@@ -91,7 +97,7 @@ try {
         if (mentions.indexOf('279331985955094529') !== -1) 
           channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
         else
-          send(insertname(rndrsp(commands['insult']), args.join(" ")));
+          send(insertname(rndrsp(commands['insult']), args));
         break;
       /* Jokes */
       case 'joke':
@@ -111,8 +117,11 @@ try {
         channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
         break;
       /* Starters */
+      case 'starter':
       case 'starters':
-        send(commands["starter"][0]);
+        if (options.includes("metal")) send(commands["starter"][1]);
+        else if (options.includes("king")) send(commands["starter"][2]);
+        else send(commands["starter"][0]);
         break;
       /* Banlist and Alternative Formats */
       case 'ban':
@@ -171,7 +180,7 @@ try {
         channel.send(":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:");
         break;
       case 'sandwitch':
-        send(cardsdb.card(["Arkanin"], bot));
+        send(display_card(["Arkanin"], bot));
         break;
       case 'never':
       case 'nowornever':
@@ -220,7 +229,7 @@ function help(args) {
 
 function nowornever(card) {
   const cards = require('../config/nowornever.json');
-  card = cleantext(card.join(" ")); // re-merge string
+  card = cleantext(card); // re-merge string
 
   if (!card) {
     // Return random card
