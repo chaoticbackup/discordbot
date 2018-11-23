@@ -77,7 +77,7 @@ try {
         send(API.find_name(args));
         break;
       case 'rate':
-        send(rate_card(args, bot));
+        send(rate_card(args, options, bot));
         break;
       /* Rule */
       case 'rule':
@@ -145,7 +145,7 @@ try {
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
-          send(banlist());
+          send(banlist(options));
         break;
       case 'limited':
         send(limited());

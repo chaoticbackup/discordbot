@@ -28,6 +28,25 @@
 		"Hune Paltanin": ["She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage."],
 		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Additionally, because it can be sacrificed while engaged, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."]
 	},
+	"limited": [
+		"Cadence Clash",
+		"Makanaz",
+		"Malvadine, The King's Herald",
+		"Lore's Chamber of Recall",
+		"Neekwin",
+		"Talisman of the Mandiblor",
+		"Ulmar, Perithon Racer",
+		"Unbalancing Battlesong",
+		"Ursis"
+	],
+	"small": [
+		"Aer'dak",
+		"Bodal, Flamedrill Researcher",
+		"Ramarhvir, The Danian Hivebringer",
+		"Rao'Pa Sahkk, Condensation Ceremony",
+		"Tonal Destruction",
+		"Zamool, Lord Van Bloot's Enforcer"
+	],
 	"hidden": {
 		"Agame": ["He's banned for using fan set cards in a competative match."],
 		"Arkanin": ["Combined with Muges that have large Mugic Ability, Arkanin provides massive amounts of healing."],
@@ -50,16 +69,5 @@
 		"Song of Transportation": ["Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."],
 		"Ursis": ["A divisive card. It may have no ability (but no negative one either), but High Energy, Great Power, 3 Mugic counters, and most importantly Creature type Muge."],
 		"Xerium Armor": ["Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check."]
-	},
-	"limited": [
-		"Cadence Clash",
-		"Makanaz",
-		"Malvadine, The King's Herald",
-		"Lore's Chamber of Recall",
-		"Neekwin",
-		"Talisman of the Mandiblor",
-		"Ulmar, Perithon Racer",
-		"Unbalancing Battlesong",
-		"Ursis"
-	]
+	}
 }

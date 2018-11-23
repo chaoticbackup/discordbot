@@ -1,6 +1,6 @@
 const API = require('./database.js').default;
 
-export function rate_card(text, bot) {
+export function rate_card(text, options, bot) {
   try {
     var name = text.split(/\s\d.*/g)[0];
     var stats = text.match(/\d+/g).map(Number);

@@ -1,6 +1,10 @@
 const {reload, rndrsp, cleantext} = require('./shared.js');
 
-export function banlist() {
+export function banlist(options) {
+  if (options.includes("small")) {
+    return small();
+  }
+  
   const {bans, watchlist} = reload('../config/bans.json');
   let message = "**Community Ban List:**\n=====";
   for (var key in bans) {
@@ -32,6 +36,15 @@ export function limited() {
   const {limited} = reload('../config/bans.json');
   let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
   limited.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
+function small() {
+  const {small} = reload('../config/bans.json');
+  let message = "**Small Banlist:**\n(Removes the minimum amount of game breaking cards)";
+  small.forEach((key) => {
     message += "\n" + key;
   });
   return message;
