@@ -1,17 +1,17 @@
 {
     "help": {
-		"start": "I try to be helpful, but can be sassy.```md",
-		"card": "!card <card>\n> (returns the card's text as well as its picture. without a card name, returns a random card)",
-		"fullart": "!full, !fullart <card>",
-		"find": "!find <name>\n> (returns a list of cards that start with name)",
-		"ban": "!banlist\n!ban, !whyban <card>\n> (ask me why a card is/should be banned)",
-		"good": "!goodstuff, !strong, !good, !best <type|tribe> < type >\n> (takes a card type, or a tribe and type)",
-		"compliment": "!compliment, !flirt <name>\n> (optional name)",
-		"insult": "!insult, !burn, !roast <name>\n> (optional name)",
-		"rule": "!rule <rule>\n> (returns the definition of the rule)",
-		"documents": "!rulebook, !cr, !errata, !guide\n> (the important documents)",
-		"starters": "!starters\n> (Afjak's starter decks on TCO)",
-		"end": "```I may also pop in to add a quip ;)"
+		"start": ["I try to be helpful, but can be sassy.```md"],
+		"card": ["!card <card>\n> (returns the card's text as well as its picture. without a card name, returns a random card)"],
+		"fullart": ["!full, !fullart <card>"],
+		"find": ["!find <name>\n> (returns a list of cards names that contain the input)"],
+		"ban": ["!banlist\n!ban, !whyban <card>\n> (ask me why a card is/should be banned)"],
+		"good": ["!goodstuff, !strong, !good, !best <type|tribe> < type >\n> (takes a card type, or a tribe and type)"],
+		"compliment": ["!compliment, !flirt <name>\n> (optional name)"],
+		"insult": ["!insult, !burn, !roast <name>\n> (optional name)"],
+		"rule": ["!rule <rule>\n> (returns the definition of the rule)"],
+		"documents": ["!rulebook, !cr, !errata, !guide\n> (the important documents)"],
+		"starters": ["!starters\n> (Default is Afjak's starter decks on TCO)"],
+		"end": ["```I may also pop in to add a quip ;)"]
 	},
 	"starter": [
 		"<:OW:294939978897555457>OverWorld: <http://www.tradecardsonline.com/im/showDeck/deck_id/479045>\n<:UW:294943282943885313>UnderWorld: <http://www.tradecardsonline.com/im/showDeck/deck_id/586301>\n<:Mip:294941790052679690>Mipedian: <http://www.tradecardsonline.com/im/showDeck/deck_id/628611>\n<:Dan:294942889337683968>Danian: <http://www.tradecardsonline.com/im/showDeck/deck_id/625804>\n<:Mar:294942283273601044>M'arrillian: <http://www.tradecardsonline.com/im/showDeck/deck_id/517280>",

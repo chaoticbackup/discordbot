@@ -38,8 +38,12 @@ export function rate_card(text, options, bot) {
 
   let courage, power, wisdom, speed, energy, total;
 
-  if (options.includes("king")) {
+  console.log(options);
+  if (options.includes('king')) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
+  }
+  else if (options.includes('metal')) {
+    return "metal is working on his";
   }
   else {
     ([courage, power, wisdom, speed, energy, total] = smildon(stats, card));
@@ -62,14 +66,16 @@ function king(stats, card, options) {
     let max = Number(c) + 10;
     let value = 100 - (max - s) * 5;
 
+    if (options.includes('pure')) return value;
+
     if (max >= 100 && s < 100) {
-      value = value * .70;
+      value = value * .80;
     }
     else if (max >= 75 && s < 75) {
       value = value * .70;
     }
     else if (max >= 70 && s < 70) {
-      value = value * .80;
+      value = value * .90;
     }
     else if (max >= 60 && s < 60) {
       value = value * .70;
@@ -91,11 +97,13 @@ function king(stats, card, options) {
     let max = Number(c) + 5;
     let value = 100 - (max - e) * 10;
 
+    if (options.includes('pure')) return value;
+
     if (max >= 85 && e < 85) {
       value = value * .70;
     }
     else if (max >= 65 && e < 65) {
-      value = value * .70;
+      value = value * .75;
     }
     return value;
   })(card.gsx$energy, stats[4]);
@@ -105,6 +113,8 @@ function king(stats, card, options) {
   ([c, p, w, s] = (() => {
     let h = [0];
     let s = [courage, power, wisdom, speed];
+
+    if (options.includes('unbias') || options.includes('pure')) return s;
 
     for (let i = 0; i < s.length; i++) {
       if (s[i] > s[h[0]]) {
@@ -129,7 +139,7 @@ function king(stats, card, options) {
 
   let total = Number.parseFloat((c + p + w + s + e) / 5).toFixed(2);
 
-  if (options.includes('show')) {
+  if (options.includes('show') || options.includes('pure')) {
     return [c+"%", p+"%", w+"%", s+"%", e+"%", total+"%"];
   }
 

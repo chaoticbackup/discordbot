@@ -38,7 +38,7 @@ module.exports = function(message) {
 try {
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
-  if (content.substring(0, 1) == '!') {
+  if (content.substring(0, 1) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
     const commands = reload('../config/commands.json');
 
     let args = content.substring(1).split(' ');
@@ -58,11 +58,13 @@ try {
         channel.send('That\'s my role!');
         break;
       /* Commands */
+      case 'help':
+        if (content.substring(0, 1) == "1") break;
       case 'commands':
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
-          send(help());
+          send(help(args));
         break;
       /* Cards */
       case 'c':
@@ -220,9 +222,16 @@ function reset(message, channel) {
 // Responses
 function help(args) {
   const {help} = reload('../config/commands.json');
+
+  // detailed help
+  if (help.hasOwnProperty(args)) {
+    if (help[args].length > 1) return "```md\n" + help[args][1] + "\n```";
+  }
+
+  // all help
   let message = "";
   for (var key in help) {
-    message += "\n" + help[key] + "\n";
+    message += "\n" + help[key][0] + "\n";
   }
   return message;
 }
