@@ -2,7 +2,7 @@ const API = require('./database.js').default;
 
 export function rate_card(text, options, bot) {
   try {
-    var name = text.split(/\s\d.*/g)[0];
+    var name = text.split(/\s\d.*/g)[0].trim();
     var stats = text.match(/\d+/g).map(Number);
     if (!stats || stats.length != 5) throw "";
   } catch (err) {
@@ -18,18 +18,23 @@ export function rate_card(text, options, bot) {
 
   let error = "";
 
+  if (stats[0] % 5 != 0) error += "Courage must be a multiple of 5\n";
   if (stats[0] > Number(card.gsx$courage) + 10 || stats[0] < Number(card.gsx$courage) - 10) {
     error += `Courage must be between ${Number(card.gsx$courage) - 10} and ${Number(card.gsx$courage) + 10}\n`;
   }
+  if (stats[1] % 5 != 0) error += "Power must be a multiple of 5\n";
   if (stats[1] > Number(card.gsx$power) + 10 || stats[1] < Number(card.gsx$power) - 10) {
     error += `Power must be between ${Number(card.gsx$power) - 10} and ${Number(card.gsx$power) + 10}\n`;
   }
+  if (stats[2] % 5 != 0) error += "Wisdom must be a multiple of 5\n";
   if (stats[2] > Number(card.gsx$wisdom) + 10 || stats[2] < Number(card.gsx$wisdom) - 10) {
     error += `Wisdom must be between ${Number(card.gsx$wisdom) - 10} and ${Number(card.gsx$wisdom) + 10}\n`;
   }
+  if (stats[3] % 5 != 0) error += "Speed must be a multiple of 5\n";
   if (stats[3] > Number(card.gsx$speed) + 10 || stats[3] < Number(card.gsx$speed) - 10) {
     error += `Speed must be between ${Number(card.gsx$speed) - 10} and ${Number(card.gsx$speed) + 10}\n`;
   }
+  if (stats[4] % 5 != 0) error += "Energy must be a multiple of 5\n";
   if (stats[4] > Number(card.gsx$energy) + 5 || stats[4] < Number(card.gsx$energy) - 5) {
     error += `Energy must be between ${Number(card.gsx$energy) - 5} and ${Number(card.gsx$energy) + 5}\n`;
   }
@@ -38,7 +43,6 @@ export function rate_card(text, options, bot) {
 
   let courage, power, wisdom, speed, energy, total;
 
-  console.log(options);
   if (options.includes('king')) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
   }
@@ -66,7 +70,7 @@ function king(stats, card, options) {
     let max = Number(c) + 10;
     let value = 100 - (max - s) * 5;
 
-    if (options.includes('pure')) return value;
+    if (options.includes('nocheck') || options.includes('pure')) return value;
 
     if (max >= 100 && s < 100) {
       value = value * .80;
@@ -97,7 +101,7 @@ function king(stats, card, options) {
     let max = Number(c) + 5;
     let value = 100 - (max - e) * 10;
 
-    if (options.includes('pure')) return value;
+    if (options.includes('nocheck') || options.includes('pure')) return value;
 
     if (max >= 85 && e < 85) {
       value = value * .70;
@@ -108,13 +112,13 @@ function king(stats, card, options) {
     return value;
   })(card.gsx$energy, stats[4]);
   
-  // Bias values
+  // Bias values against each other
   let c, p, w, s;
   ([c, p, w, s] = (() => {
     let h = [0];
     let s = [courage, power, wisdom, speed];
 
-    if (options.includes('unbias') || options.includes('pure')) return s;
+    if (options.includes('noweight') || options.includes('pure')) return s;
 
     for (let i = 0; i < s.length; i++) {
       if (s[i] > s[h[0]]) {
@@ -134,16 +138,13 @@ function king(stats, card, options) {
   let e = (() => {
     // This prevents over 100%
     if ((c + p + w + s) / 4 > 85) return energy;
+    if (options.includes('pure')) return energy;
     return energy*1.5;
   })();
 
   let total = Number.parseFloat((c + p + w + s + e) / 5).toFixed(2);
 
-  if (options.includes('show') || options.includes('pure')) {
-    return [c+"%", p+"%", w+"%", s+"%", e+"%", total+"%"];
-  }
-
-  return [courage+"%", power+"%", wisdom+"%", speed+"%", energy+"%", total+"%"];
+  return [c+"%", p+"%", w+"%", s+"%", e+"%", total+"%"];
 }
 
 function smildon(stats, card) {
