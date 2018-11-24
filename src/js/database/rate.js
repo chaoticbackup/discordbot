@@ -64,84 +64,92 @@ export function rate_card(text, options, bot) {
 }
 
 function king(stats, card, options) {
-  // valuable stat checks
-  // 50, 60, 70, 75, 100
-  function discipline(c, s) {
-    let max = Number(c) + 10;
-    let value = 100 - (max - s) * 5;
+  let c, p, w, s, e;
 
-    if (options.includes('nocheck') || options.includes('pure')) return value;
-
-    if (max >= 100 && s < 100) {
-      value = value * .80;
-    }
-    else if (max >= 75 && s < 75) {
-      value = value * .70;
-    }
-    else if (max >= 70 && s < 70) {
-      value = value * .90;
-    }
-    else if (max >= 60 && s < 60) {
-      value = value * .70;
-    }
-    else if (max >= 50 && s < 50) {
-      value = value * .90;
-    }
-
-    return value;
-  }
-
-  let courage = discipline(card.gsx$courage, stats[0]);
-  let power   = discipline(card.gsx$power, stats[1]);
-  let wisdom  = discipline(card.gsx$wisdom, stats[2]);
-  let speed   = discipline(card.gsx$speed, stats[3]);
-
-  // 65, 85 Xerium Armor
-  let energy  = ((c, e) => {
-    let max = Number(c) + 5;
-    let value = 100 - (max - e) * 10;
-
-    if (options.includes('nocheck') || options.includes('pure')) return value;
-
-    if (max >= 85 && e < 85) {
-      value = value * .70;
-    }
-    else if (max >= 65 && e < 65) {
-      value = value * .75;
-    }
-    return value;
-  })(card.gsx$energy, stats[4]);
-  
-  // Bias values against each other
-  let c, p, w, s;
   ([c, p, w, s] = (() => {
-    let h = [0];
-    let s = [courage, power, wisdom, speed];
+    function stat_max(c) { return Number(c) + 10; }
+    let max = [
+      stat_max(card.gsx$courage),
+      stat_max(card.gsx$power),
+      stat_max(card.gsx$wisdom),
+      stat_max(card.gsx$speed)
+    ];
 
-    if (options.includes('noweight') || options.includes('pure')) return s;
+    function base(c, s) { return 100 - (c - s) * 5; }
+    let s = [
+      base(max[0], stats[0]),
+      base(max[1], stats[1]),
+      base(max[2], stats[2]),
+      base(max[3], stats[3])
+    ];
 
-    for (let i = 0; i < s.length; i++) {
-      if (s[i] > s[h[0]]) {
-        for (let j = 0; j < h.length; j++) {
-          s[h[j]] = s[h[j]] * .80; // reduce score
+    if (options.includes('pure')) return s;
+
+    // valuable stat checks
+    // 50, 60, 70, 75, 100
+    if (!options.includes('nocheck')) {
+      for (let i = 0; i < s.length; i++) {
+        if (max[i] >= 100 && stats[i] < 100) {
+          s[i] *= .80;
         }
-        h = [i]; // reset array
-      }
-      else if (s[i] == s[h[0]]) h.push(s[i]);
-      else {
-        s[i] = s[i] * .80; // reduce score
+        else if (max[i] >= 75 && stats[i] < 75) {
+          s[i] *= .80;
+        }
+        else if (max[i] >= 70 && stats[i] < 70) {
+          s[i] *= .90;
+        }
+        else if (max[i] >= 60 && stats[i] < 60) {
+          s[i] *= .70;
+        }
+        else if (max[i] >= 50 && stats[i] < 50) {
+          s[i] *= .90;
+        }
       }
     }
+
+    // Bias values against each other
+    if (!options.includes('noweight')) {
+      let h = [0];
+      for (let i = 0; i < s.length; i++) {
+        if (s[i] > s[h[0]]) {
+          for (let j = 0; j < h.length; j++) {
+            s[h[j]] *= .90; // reduce score
+          }
+          h = [i]; // reset array
+        }
+        else if (s[i] == s[h[0]]) h.push(s[i]);
+        else {
+          s[i] *= .90; // reduce score
+        }
+      }
+    }
+
     return s;
   })());
 
-  let e = (() => {
-    // This prevents over 100%
-    if ((c + p + w + s) / 4 > 85) return energy;
-    if (options.includes('pure')) return energy;
-    return energy*1.5;
-  })();
 
+  e = (() => {
+    let max = Number(card.gsx$energy) + 5;
+    let value = 100 - (max - stats[4]) * 10;
+
+    if (options.includes('pure')) return value;
+
+    // 65, 85 Xerium Armor
+    if (!options.includes('nocheck')) {
+      if (max >= 85 && e < 85) {
+        value *= .70;
+      }
+      else if (max >= 65 && e < 65) {
+        value *= .70;
+      }
+    }
+
+    // This prevents total being over 100%
+    if ((c + p + w + s) / 4 > 85) return value;
+
+    return value * 1.5;
+  })();
+  
   let total = Number.parseFloat((c + p + w + s + e) / 5).toFixed(2);
 
   return [c+"%", p+"%", w+"%", s+"%", e+"%", total+"%"];

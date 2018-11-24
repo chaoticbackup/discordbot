@@ -9,7 +9,9 @@ import {goodstuff, badultras} from './goodstuff.js';
 import {banlist, whyban, limited} from './bans.js';
 
 module.exports = function(message) {
-  if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return; // Dev Server
+  // Dev Server Only
+  if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
+  if (process.env.NODE_ENV != "development" && message.guild.id == "504052742201933824") return;
   if (message.author.bot) return; //Ignore bot messages
 
   const bot = this;
