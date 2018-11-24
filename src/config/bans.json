@@ -21,7 +21,7 @@
 		"Tonal Destruction" : ["This card is decent if you just want to limit your opponent. But gets out of hand when combined with Enre-hep High Muge or Lore High Muge by allowing you to strip all the Mugic from your opponent's hand."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
 		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage."],
-		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?\nOr do you just want the UnderWorld to take over Perim?", "Sometimes I like playing Solitaire when I'm bored. But Solitaire doesn't require an opponent to play.", "I got bored of playing Chess against myself, so I decided to to play Chaotic against myself.", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
+		"Zamool, Lord Van Bloot's Enforcer": ["Do you hate your opponent?", "You must want the UnderWorld to take over Perim.", "Try playing Solitaire when you're bored.", "Unlike Chaotic, Solitaire doesn't require an opponent to play.", "Did you get bored of playing Chess against yourself and decide to to play Chaotic against yourself?", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
 		"Grounding Grapple": ["Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
@@ -42,8 +42,8 @@
 	"small": [
 		"Aer'dak",
 		"Bodal, Flamedrill Researcher",
+		"Melody of the Meek",
 		"Ramarhvir, The Danian Hivebringer",
-		"Rao'Pa Sahkk, Condensation Ceremony",
 		"Tonal Destruction",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],

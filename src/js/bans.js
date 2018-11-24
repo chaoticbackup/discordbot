@@ -1,7 +1,7 @@
 const {reload, rndrsp, cleantext} = require('./shared.js');
 
 export function banlist(options) {
-  if (options.includes("small")) {
+  if (options.includes("small") || options.includes("short")) {
     return small();
   }
   
@@ -43,7 +43,7 @@ export function limited() {
 
 function small() {
   const {small} = reload('../config/bans.json');
-  let message = "**Small Banlist:**\n(Removes the minimum amount of game breaking cards)";
+  let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
   small.forEach((key) => {
     message += "\n" + key;
   });

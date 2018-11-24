@@ -36,13 +36,14 @@ export function rate_card(text, options, bot) {
 
   if (error) return error;
 
-  let courage = (stats[0] - card.gsx$courage) / 5;
-  let power = (stats[1] - card.gsx$power) / 5;
-  let wisdom = (stats[2] - card.gsx$wisdom) / 5;
-  let speed = (stats[3] - card.gsx$speed) / 5;
-  let energy = (stats[4] - card.gsx$energy) / 5;
+  let courage, power, wisdom, speed, energy, total;
 
-  let total = ((energy*1.5)+courage+power+wisdom+speed)/5;
+  if (options.includes("king")) {
+    ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
+  }
+  else {
+    ([courage, power, wisdom, speed, energy, total] = smildon(stats, card));
+  }
 
   return (
     bot.emojis.find(emoji => emoji.name=="Courage") + " " + courage + "\n" +
@@ -53,3 +54,100 @@ export function rate_card(text, options, bot) {
     "Total Rating: " + total
   );
 }
+
+function king(stats, card, options) {
+  // valuable stat checks
+  // 50, 60, 70, 75, 100
+  function discipline(c, s) {
+    let max = Number(c) + 10;
+    let value = 100 - (max - s) * 5;
+
+    if (max >= 100 && s < 100) {
+      value = value * .70;
+    }
+    else if (max >= 75 && s < 75) {
+      value = value * .70;
+    }
+    else if (max >= 70 && s < 70) {
+      value = value * .80;
+    }
+    else if (max >= 60 && s < 60) {
+      value = value * .70;
+    }
+    else if (max >= 50 && s < 50) {
+      value = value * .90;
+    }
+
+    return value;
+  }
+
+  let courage = discipline(card.gsx$courage, stats[0]);
+  let power   = discipline(card.gsx$power, stats[1]);
+  let wisdom  = discipline(card.gsx$wisdom, stats[2]);
+  let speed   = discipline(card.gsx$speed, stats[3]);
+
+  // 65, 85 Xerium Armor
+  let energy  = ((c, e) => {
+    let max = Number(c) + 5;
+    let value = 100 - (max - e) * 10;
+
+    if (max >= 85 && e < 85) {
+      value = value * .70;
+    }
+    else if (max >= 65 && e < 65) {
+      value = value * .70;
+    }
+    return value;
+  })(card.gsx$energy, stats[4]);
+  
+  // Bias values
+  let c, p, w, s;
+  ([c, p, w, s] = (() => {
+    let h = [0];
+    let s = [courage, power, wisdom, speed];
+
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] > s[h[0]]) {
+        for (let j = 0; j < h.length; j++) {
+          s[h[j]] = s[h[j]] * .80; // reduce score
+        }
+        h = [i]; // reset array
+      }
+      else if (s[i] == s[h[0]]) h.push(s[i]);
+      else {
+        s[i] = s[i] * .80; // reduce score
+      }
+    }
+    return s;
+  })());
+
+  let e = (() => {
+    // This prevents over 100%
+    if ((c + p + w + s) / 4 > 85) return energy;
+    return energy*1.5;
+  })();
+
+  let total = Number.parseFloat((c + p + w + s + e) / 5).toFixed(2);
+
+  if (options.includes('show')) {
+    return [c+"%", p+"%", w+"%", s+"%", e+"%", total+"%"];
+  }
+
+  return [courage+"%", power+"%", wisdom+"%", speed+"%", energy+"%", total+"%"];
+}
+
+function smildon(stats, card) {
+  let courage = (stats[0] - card.gsx$courage) / 5;
+  let power = (stats[1] - card.gsx$power) / 5;
+  let wisdom = (stats[2] - card.gsx$wisdom) / 5;
+  let speed = (stats[3] - card.gsx$speed) / 5;
+  let energy = (stats[4] - card.gsx$energy) / 5;
+  let total = ((energy*1.5)+courage+power+wisdom+speed) / 5;
+
+  return [courage, power, wisdom, speed, energy, total];
+}
+
+function metal(stats, card) {
+
+}
+
