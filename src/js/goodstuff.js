@@ -11,6 +11,7 @@ export function badultras() {
 
 export function goodstuff(filter) {
   const {goodstuff} = reload('../config/goodstuff.json');
+  filter = filter.split(' ');
 
   function Creatures() {
     let message = "";
