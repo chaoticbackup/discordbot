@@ -36,15 +36,18 @@ module.exports = function(message) {
   }
 
 try {
-  // Our bot needs to know if it will execute a command
-  // It will listen for messages that will start with `!`
+  // It will listen for messages that will start with `!` or `c!`
   if (content.substring(0, 1) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
     const commands = reload('../config/commands.json');
 
-    let args = content.substring(1).split(' ');
+    let args = (() => {
+      if (content.substring(1, 2) == "!") return content.substring(2);
+      else return content.substring(1);
+    })().split(' ');
+
     let cmd = args[0].toLowerCase().trim();
 
-    var options = [];
+    let options = [];
     args = args.splice(1).join(" ").replace(/(?:--|—)(\w+)/g, (match, p1) => {
       options.push(p1);
       return "";
@@ -59,7 +62,7 @@ try {
         break;
       /* Commands */
       case 'help':
-        if (content.substring(0, 1) == "1") break;
+        if (content.substring(0, 1) == "!") break;
       case 'commands':
         if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
