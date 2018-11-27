@@ -11,7 +11,7 @@ import {banlist, whyban, limited} from './bans.js';
 module.exports = function(message) {
   // Dev Server Only
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
-  if (process.env.NODE_ENV != "development" && message.guild.id == "504052742201933824") return;
+  // if (process.env.NODE_ENV != "development" && message.guild.id == "504052742201933824") return;
   if (message.author.bot) return; //Ignore bot messages
 
   const bot = this;
@@ -165,7 +165,7 @@ try {
           channel.send("This list is long. Please ask in <#387805334657433600>")
         }
         else {
-          send(goodstuff(args));
+          send(goodstuff(args, options));
         }
         break;
       case 'bad':

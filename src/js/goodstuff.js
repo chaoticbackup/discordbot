@@ -9,8 +9,17 @@ export function badultras() {
   return message;
 }
 
-export function goodstuff(filter) {
-  const {goodstuff} = reload('../config/goodstuff.json');
+export function goodstuff(filter, options) {
+  const {goodstuff, agame} = reload('../config/goodstuff.json');
+  let message = "";
+
+  if (options.includes("agame")) {
+    agame.sort().forEach((card) => {
+      message += card + "\n";
+    });
+    return message;
+  }
+
   filter = filter.split(' ');
 
   function Creatures() {
@@ -68,7 +77,6 @@ export function goodstuff(filter) {
     return message;
   }
 
-  let message = "";
   if (filter && filter.length > 0) {
     switch (filter[0].toLowerCase()) {
       case 'creature':
