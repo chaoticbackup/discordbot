@@ -136,11 +136,12 @@ function king(stats, card, options) {
 
     // 65, 85 Xerium Armor
     if (!options.includes('nocheck')) {
-      if (max >= 85 && e < 85) {
-        value *= .70;
+      console.log(max)
+      if (max >= 85 && stats[4] < 85) {
+        value *= .80;
       }
-      else if (max >= 65 && e < 65) {
-        value *= .70;
+      else if (max >= 65 && stats[4] < 65) {
+        value *= .80;
       }
     }
 
