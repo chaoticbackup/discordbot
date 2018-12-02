@@ -136,7 +136,6 @@ function king(stats, card, options) {
 
     // 65, 85 Xerium Armor
     if (!options.includes('nocheck')) {
-      console.log(max)
       if (max >= 85 && stats[4] < 85) {
         value *= .80;
       }
@@ -215,13 +214,14 @@ function metal(stats, card) {
   })());
 
   // total
-  let t = Number.parseFloat(c*cW + p*pW + w*wW + s*sW + e).toFixed(4);
+  let t = Number.parseFloat((c*cW + p*pW + w*wW + s*sW + e + 1) / 2 * 100).toPrecision(2);
 
-  c = Number.parseFloat(c*cW).toFixed(4);
-  p = Number.parseFloat(p*pW).toFixed(4);
-  w = Number.parseFloat(w*wW).toFixed(4);
-  s = Number.parseFloat(s*sW).toFixed(4);
+  c = Number.parseFloat((c*cW + 1) / 2 * 100).toPrecision(2);
+  p = Number.parseFloat((p*pW + 1) / 2 * 100).toPrecision(2);
+  w = Number.parseFloat((w*wW + 1) / 2 * 100).toPrecision(2);
+  s = Number.parseFloat((s*sW + 1) / 2 * 100).toPrecision(2);
+  e = Number.parseFloat((e + 1) / 2 * 100).toPrecision(2);
 
-  return [c, p, w, s, e, t];
+  return [c+"%", p+"%", w+"%", s+"%", e+"%", t+"%"];
 }
 
