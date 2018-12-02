@@ -5,7 +5,7 @@ const path = require('path');
 const API = require('./database/database.js').default;
 import {rate_card} from './database/rate.js';
 import {full_art, display_card} from './database/card.js';
-import {goodstuff, badultras} from './goodstuff.js';
+import {goodstuff, badultras, funstuff} from './goodstuff.js';
 import {banlist, whyban, limited} from './bans.js';
 
 module.exports = function(message) {
@@ -167,6 +167,10 @@ try {
         else {
           send(goodstuff(args, options));
         }
+        break;
+      case 'fun':
+      case 'funstuff':
+        send(funstuff());
         break;
       case 'bad':
       case 'badstuff':

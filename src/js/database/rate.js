@@ -47,7 +47,7 @@ export function rate_card(text, options, bot) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
   }
   else if (options.includes('metal')) {
-    return "metal is working on his";
+    ([courage, power, wisdom, speed, energy, total] = metal(stats, card, options));
   }
   else {
     ([courage, power, wisdom, speed, energy, total] = smildon(stats, card));
@@ -168,6 +168,60 @@ function smildon(stats, card) {
 }
 
 function metal(stats, card) {
+  // _C=Stats on card
+  let _C = [
+    Number(card.gsx$courage), 
+    Number(card.gsx$power), 
+    Number(card.gsx$wisdom), 
+    Number(card.gsx$speed), 
+    Number(card.gsx$energy)
+  ];
 
+  // _A=Average Stats
+  // _W=Weight of stat in proportion to other stats
+  let tA = stats[0] + stats[1] + stats[2] + stats[3];
+  let cW = stats[0] / tA;
+  let pW = stats[1] / tA;
+  let wW = stats[2] / tA;
+  let sW = stats[3] / tA;
+
+  // c=courage p=power w=wisdom s=speed e=energy
+  let c, p, w, s, e;
+
+  ([c, p, w, s] = (() => {
+    let r = [];
+    for (let i = 0; i < 4; i++) {
+      if (stats[i] == _C[i])      
+        r[i] = 0;
+      else if (stats[i] == _C[i] + 10)
+        r[i] = .6;
+      else if (stats[i] == _C[i] - 10)
+        r[i] = -.6;
+      else if (stats[i] == _C[i] + 5)
+        r[i] = .3;
+      else if (stats[i] == _C[i] - 5)
+        r[i] = -.3;
+    }
+    return r;
+  })());
+
+  (e = (() => {
+    if (stats[4] == _C[4]) 
+      return 0;
+    else if (stats[4] == _C[4] + 5)
+      return .4;
+    else if (stats[4] == _C[4] - 5)
+      return -.4;
+  })());
+
+  // total
+  let t = Number.parseFloat(c*cW + p*pW + w*wW + s*sW + e).toFixed(4);
+
+  c = Number.parseFloat(c*cW).toFixed(4);
+  p = Number.parseFloat(p*pW).toFixed(4);
+  w = Number.parseFloat(w*wW).toFixed(4);
+  s = Number.parseFloat(s*sW).toFixed(4);
+
+  return [c, p, w, s, e, t];
 }
 

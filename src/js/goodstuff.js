@@ -9,16 +9,20 @@ export function badultras() {
   return message;
 }
 
-export function goodstuff(filter, options) {
-  const {goodstuff, agame} = reload('../config/goodstuff.json');
+export function funstuff(filter) {
+  const {agame} = reload('../config/goodstuff.json');
   let message = "";
+  
+  agame.sort().forEach((card) => {
+    message += card + "\n";
+  });
 
-  if (options.includes("agame")) {
-    agame.sort().forEach((card) => {
-      message += card + "\n";
-    });
-    return message;
-  }
+  return message;
+}
+
+export function goodstuff(filter, options) {
+  const {goodstuff} = reload('../config/goodstuff.json');
+  let message = "";
 
   filter = filter.split(' ');
 
