@@ -214,7 +214,7 @@ function metal(stats, card) {
   })());
 
   // total
-  let t = Number.parseFloat((c*cW + p*pW + w*wW + s*sW + e + 1) / 2 * 100).toPrecision(2);
+  let t = Number.parseFloat((c*cW + p*pW + w*wW + s*sW + e + 1) / 2 * 100).toFixed(2);
 
   c = Number.parseFloat((c*cW + 1) / 2 * 100).toPrecision(2);
   p = Number.parseFloat((p*pW + 1) / 2 * 100).toPrecision(2);
