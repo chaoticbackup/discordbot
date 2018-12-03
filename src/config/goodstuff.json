@@ -109,8 +109,11 @@
 				"Tartarek, Psi Overloader"
 			],
 			"UnderWorld": [
+				"Brimflame",
 				"Chaor",
 				"Chaor, The Fierce",
+				"Kaal",
+				"Kreaal",
 				"Kopond, High Muge of the Hearth",
 				"Nivenna",
 				"Takinom, The Shadowknight",
@@ -124,9 +127,11 @@
 		},
 		"Locations": [
 			"Dranakis Threshold",
+			"Dranakis Threshold, Portal to the Past",
 			"Mipedim Mirage",
 			"Prexxor Chasm",
 			"Prexxor Chasm, The Blight",
+			"Runic Grove",
 			"Silchaw's Mine",
 			"Skeletal Springs"
 		],
