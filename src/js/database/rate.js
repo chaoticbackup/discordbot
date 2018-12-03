@@ -88,7 +88,7 @@ function king(stats, card, options) {
     // valuable stat checks
     // 50, 60, 70, 75, 100
     if (!options.includes('nocheck')) {
-      for (let i = 0; i < s.length; i++) {
+      for (let i = 0; i < 4; i++) {
         if (max[i] >= 100 && stats[i] < 100) {
           s[i] *= .80;
         }
@@ -110,20 +110,21 @@ function king(stats, card, options) {
     // Bias values against each other
     if (!options.includes('noweight')) {
       let h = [0];
-      for (let i = 0; i < s.length; i++) {
-        if (s[i] > s[h[0]]) {
+      for (let i = 0; i < 4; i++) {
+        if (s[i] == s[h[0]]) {
+          if (i != 0) h.push(i);
+        }
+        else if (s[i] > s[h[0]]) {
           for (let j = 0; j < h.length; j++) {
             s[h[j]] *= .90; // reduce score
           }
           h = [i]; // reset array
         }
-        else if (s[i] == s[h[0]]) h.push(s[i]);
         else {
           s[i] *= .90; // reduce score
         }
       }
     }
-
     return s;
   })());
 
