@@ -190,38 +190,38 @@ function metal(stats, card) {
   ([c, p, w, s] = (() => {
     let r = [];
     for (let i = 0; i < 4; i++) {
-      if (stats[i] == _C[i])      
-        r[i] = 0;
-      else if (stats[i] == _C[i] + 10)
+      if (stats[i] == _C[i] + 10)
         r[i] = .6;
-      else if (stats[i] == _C[i] - 10)
-        r[i] = -.6;
       else if (stats[i] == _C[i] + 5)
+        r[i] = .45;
+      else if (stats[i] == _C[i])      
         r[i] = .3;
       else if (stats[i] == _C[i] - 5)
-        r[i] = -.3;
+        r[i] = .15;
+      else if (stats[i] == _C[i] - 10)
+        r[i] = 0;
     }
     return r;
   })());
 
   (e = (() => {
-    if (stats[4] == _C[4]) 
-      return 0;
-    else if (stats[4] == _C[4] + 5)
+    if (stats[4] == _C[4] + 5)
       return .4;
+    else if (stats[4] == _C[4]) 
+      return .2;
     else if (stats[4] == _C[4] - 5)
-      return -.4;
+      return 0;
   })());
 
   // total
-  let t = Number.parseFloat((c*cW + p*pW + w*wW + s*sW + e + 1) / 2 * 100).toFixed(2);
+  let t = Number.parseFloat((c*cW + p*pW + w*wW + s*sW + e) * 100).toFixed(2);
 
-  c = Number.parseFloat((c*cW + 1) / 2 * 100).toPrecision(2);
-  p = Number.parseFloat((p*pW + 1) / 2 * 100).toPrecision(2);
-  w = Number.parseFloat((w*wW + 1) / 2 * 100).toPrecision(2);
-  s = Number.parseFloat((s*sW + 1) / 2 * 100).toPrecision(2);
-  e = Number.parseFloat((e + 1) / 2 * 100).toPrecision(2);
+  c = Number.parseFloat(c*cW * 100).toPrecision(2);
+  p = Number.parseFloat(p*pW * 100).toPrecision(2);
+  w = Number.parseFloat(w*wW * 100).toPrecision(2);
+  s = Number.parseFloat(s*sW * 100).toPrecision(2);
+  e = Number.parseFloat(e * 100).toPrecision(2);
 
-  return [c+"%", p+"%", w+"%", s+"%", e+"%", t+"%"];
+  return [c, p, w, s, e, t+"%"];
 }
 
