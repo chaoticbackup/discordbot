@@ -43,10 +43,10 @@ export function rate_card(text, options, bot) {
 
   let courage, power, wisdom, speed, energy, total;
 
-  if (options.includes('king')) {
+  if (options.includes('king')||options.includes('k')) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
   }
-  else if (options.includes('metal')) {
+  else if (options.includes('metal')||options.includes('m')) {
     ([courage, power, wisdom, speed, energy, total] = metal(stats, card, options));
   }
   else {
