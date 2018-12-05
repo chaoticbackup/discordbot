@@ -16,7 +16,6 @@
 		"Ramarhvir, The Danian Hivebringer": ["Ramarhvir, enables Danains resurrection to be too efficiently and making it very difficult to beat (the game drags on). Combined with Hive Unsung can also be used in an infinite combo to allow a one turn win."],
 		"Rao'Pa Sahkk, Condensation Ceremony": ["Easily shuts down Mipedian and UnderWorld decks. And hinders many support Creatures in OverWorld and Danian tribes. Being unable to play Mugic or Abilities is backbreaking.\nAt least Fluidmorphers are having fun at the beach."],
 		"Supercooled Rain": ["Your opponent didn't need Mugic Counters anyway", "Removing 4 Mugic Counters from Creatures is a blow to most decks. Aside from a couple of cards that negate attacks, its not preventable."],
-		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Additionally, because it can be sacrificed while engaged, it can be used to \"skip\" your opponent's turn, since after they engage, you sac and now they can't use their location's advantage."],
 		"Tartarek, Psi Overloader": ["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you destroy Chieftains with ease.", "Tartarek has Warbeast-like stats but no Recklessness, two Elements, two Mugicians, and a decent Wisdom increasing Ability, and can easily destroy a play style (goodbye Chieftains). To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
 		"Tonal Destruction" : ["This card is decent if you just want to limit your opponent. But gets out of hand when combined with Enre-hep High Muge or Lore High Muge by allowing you to strip all the Mugic from your opponent's hand."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
@@ -25,7 +24,8 @@
 	},
 	"watchlist": {
 		"Deadwater Devastation": ["It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options."],
-		"Grounding Grapple": ["Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."]
+		"Grounding Grapple": ["Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
+		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."]
 	},
 	"limited": [
 		"Cadence Clash",
