@@ -163,9 +163,10 @@ class API {
     let card = this.escape_text(name);
 
     // Search by name
-    return this.filter.chain().find(
-        {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}}
-      ).simplesort('gsx$name').data();
+    return this.filter.chain().find({'$or': [
+      {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}},
+      {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+    ]}).simplesort('gsx$name').data();
   }
 
   color(card) {
