@@ -19,23 +19,23 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bufferutil": "^3.0.5",
+    "bufferutil": "^4.0.0",
     "discord.js": "^11.4.0",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^7.0.1",
     "jquery": "^3.3.1",
-    "jsdom": "^12.2.0",
+    "jsdom": "^13.0.0",
     "lokijs": "^1.5.5",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^2.3.0",
     "path": "^0.12.7",
-    "pdfjs-dist": "^2.0.489",
-    "winston": "^2.x.0"
+    "pdfjs-dist": "^2.0.943",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-1": "^6.24.1",
-    "forever": "^0.15.3",
+    "forever": "git+ssh://git@github.com/chaoticbackup/forever.git",
     "git-auto-pull": "^1.0.9"
   }
 }
