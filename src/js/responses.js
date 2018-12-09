@@ -175,6 +175,7 @@ try {
       case 'bad':
       case 'badstuff':
       case 'badultras':
+      case 'wasted':
         send(badultras());
         break;
       case 'rm':
