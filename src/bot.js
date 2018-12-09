@@ -1,31 +1,36 @@
 require('babel-polyfill');
 const Discord = require('discord.js');
-const logger = require('winston');
-var auth = require('./auth.json');
-var ForumPosts = require('./js/forum.js');
-var responses = require('./js/responses.js');
+const winston = require('winston');
+const auth = require('./auth.json');
+const ForumPosts = require('./js/forum.js');
+const responses = require('./js/responses.js');
 
 // Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, {
-  colorize: true
+const logger = winston.createLogger({
+	level: 'debug',
+	format: winston.format.combine(
+		winston.format.colorize(),
+		winston.format.simple()
+	),
+	transports: [
+		new winston.transports.Console()
+	]
 });
-logger.level = 'debug';
 
 // Initialize Discord Bot
 const bot = new Discord.Client({autoReconnect: true});
 const fp = new ForumPosts(bot);
 
 bot.on('ready', function (evt) {
-  logger.info('Logged in as: ' + bot.user);
-  bot.user.setActivity('!commands');
-  fp.checkMessages();
+	logger.info('Logged in as: ' + bot.user);
+	bot.user.setActivity('!commands');
+	fp.checkMessages();
 });
 
 // Automatically reconnect if the bot disconnects due to inactivity
 bot.on('disconnect', (erMsg, code) => {
-	logger.info('Reconnecting');
-  bot.login(auth.token);
+	logger.warn('Reconnecting');
+ 	bot.login(auth.token);
 });
 
 // Respones
@@ -48,4 +53,4 @@ bot.on('guildMemberAdd', (member) => {
 /* LOGIN */
 bot.login(auth.token);
 
-process.on('unhandledRejection', console.error);
+process.on('unhandledRejection', logger.error);
