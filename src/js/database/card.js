@@ -25,7 +25,7 @@ export function full_art(name) {
   Returning a card
 */
 export function display_card(name, options, bot) {
-  if (name && "thebsarr".includes(cleantext(name))) {
+  if (name && "thebsarr".startsWith(cleantext(name))) {
     return new RichEmbed()
       .setColor("#ba9626")
       .addField("Theb-Sarr", "No data available")

@@ -142,8 +142,8 @@ class API {
     }
 
     let response = "";
-    if (results.length > 10) response = "First 10 matches:\n";
-    results.splice(0, 10).forEach((card) => {
+    if (results.length > 15) response = "First 15 matches:\n";
+    results.splice(0, 15).forEach((card) => {
       response += card.gsx$name.replace(new RegExp(name, 'i'), (match) => {
         return `**${match}**`;
       }) + '\n';
@@ -160,12 +160,12 @@ class API {
 
   /* Finding cards in the database by name */
   find_cards_by_name(name) {
-    let card = this.escape_text(name);
+    let card_name = this.escape_text(name);
 
     // Search by name
     return this.filter.chain().find({'$or': [
-      {'gsx$name': {'$regex': new RegExp("^"+card, 'i')}},
-      {'gsx$tags': {'$regex': new RegExp(card, 'i')}},
+      {'gsx$name': {'$regex': new RegExp("^"+card_name, 'i')}},
+      {'gsx$tags': {'$regex': new RegExp("(^|\s)"+card_name, 'i')}},
     ]}).simplesort('gsx$name').data();
   }
 
