@@ -4,23 +4,13 @@ const {JSDOM} = jsdom;
 const virtualConsole = new jsdom.VirtualConsole();
 virtualConsole.sendTo(console);
 
-const {reload} = require('./shared.js');
-const {forum, default_channel} = require('../config/forum.json');
-
-const monthTable = {
-  "Jan": 0,
-  "Feb": 1,
-  "Mar": 2,
-  "Apr": 3,
-  "May": 4,
-  "Jun": 5,
-  "Jul": 6,
-  "Aug": 7,
-  "Sep": 8,
-  "Oct": 9,
-  "Nov": 10,
-  "Dec": 11
-};
+const config = {
+	// "seconds": 120,
+	"seconds": 60,
+	"default_channel": "135657678633566208",
+	"test_channel": "504052742201933827",
+	"forum": "http://chaoticbackup.forumotion.com"
+}
 
 function hm(date) {
   var h12 = date[date.length-1];
@@ -38,6 +28,12 @@ function hm(date) {
 
   return {hour: hour, minute: minute};
 }
+
+const monthTable = {
+  "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3,
+  "May": 4, "Jun": 5, "Jul": 6, "Aug": 7, 
+  "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
+};
 
 function md(date) {
   var month, day;
@@ -57,7 +53,6 @@ function newDate(dateTime) {
   var date = dateTime.split(" ");
 
   var year = date[3];
-
   var {hour, minute} = hm(date);
   var {month, day} = md(date);
 
@@ -76,22 +71,19 @@ function newToday(date) {
 module.exports = class ForumPosts {
 	constructor(bot) {
 		this.bot = bot;
+		this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
 	}
 
 	checkMessages() {
-	  var {seconds} = reload("../config/forum.json");
-	  // console.log("Checking Messages");w
-
 	  // Simulated Browser
-	  JSDOM.fromURL(forum, {
+	  JSDOM.fromURL(config.forum, {
 	    virtualConsole
 	  })
-	  .then(function(dom) {
+	  .then((dom) => {
 	    const window = dom.window;
 	    // const document = dom.window.document;
 	    // const bodyEl = document.body;
 	    // console.log(dom.serialize());
-
 	    var $ = jquery(window);
 
 	    var currenttime = newDate($('.current-time').contents().text().split("is ")[1]);
@@ -111,26 +103,31 @@ module.exports = class ForumPosts {
 
 	      if (date[0] == "Yesterday") return;
 	      else if (date[0] == "Today") {
-	        if ((currenttime - newToday(date))/1000 <= (seconds)) {
+	        if ((currenttime - newToday(date))/1000 <= (config.seconds)) {
 	          news.push(latest[index]);
 	        }
 	      }
-	      return;
 	    });
 
-	    news.forEach(function(newPost, i) {
-	      var link = forum + ($(newPost).children().filter('a.last-post-icon').attr('href'));
+	    news.forEach((newPost, i) => {
+	      var link = config.forum + ($(newPost).children().filter('a.last-post-icon').attr('href'));
 	      var author = ($(newPost).children().filter('strong').children().children().children().text());
 	      var topic = ($(newPost).children().filter('a').first().text());
-
-	      var message = author+" posted on \""+topic+"\" -> "+link;
-	      console.log(message);
-	      // bot.channels.get(default_channel).send(message);
+	      var message = `${author} posted on "${topic}" -> <${link}>`;
+	      this.bot.channels.get(this.channel).send(message);
 	    });
+
+	    if (news.length > 0) {
+	    	config.seconds = 120;
+	    }
+	    else if (config.seconds == 120) {
+	    	config.seconds = 60;
+	    }
+
+	    setTimeout(this.checkMessages.bind(this), config.seconds*1000);
 
 	  });
 
-	  setTimeout(this.checkMessages.bind(this), seconds*1000);
 	}
 
 }
