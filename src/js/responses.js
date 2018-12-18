@@ -232,16 +232,29 @@ function reset(message, channel) {
 // Responses
 function help(args) {
   const {help} = reload('../config/commands.json');
-
-  // detailed help
-  if (help.hasOwnProperty(args)) {
-    if (help[args].length > 1) return "```md\n" + help[args][1] + "\n```";
-  }
-
-  // all help
   let message = "";
-  for (var key in help) {
-    message += "\n" + help[key][0] + "\n";
+
+  if (args) {
+    // detailed help
+    if (help.hasOwnProperty(args)) {
+      if (help[args].long) {
+        message = "```md\n> " 
+          + help[args].cmd + "\n"
+          + help[args].long + "\n"
+          + "```";
+      }
+      else {
+        message = "Sorry, I don't have additional information about that command";
+      }
+    }
+  } 
+  else {
+    // help list
+    for (var key in help) {
+      message += "\n" + help[key].cmd + "\n";
+      if (help[key].short) 
+        message += "> (" + help[key].short + ")\n";
+    }
   }
   return message;
 }

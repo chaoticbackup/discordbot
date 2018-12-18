@@ -1,17 +1,17 @@
 {
     "help": {
-		"start": ["I try to be helpful, but can be sassy.```md"],
-		"card": ["!card <card>\n> (returns the card's text as well as its picture. without a card name, returns a random card)"],
-		"fullart": ["!full, !fullart <card>"],
-		"find": ["!find <name>\n> (returns a list of cards names that contain the input)"],
-		"ban": ["!banlist\n!ban, !whyban <card>\n> (ask me why a card is/should be banned)"],
-		"good": ["!goodstuff, !strong, !good, !best <type|tribe> < type >\n> (takes a card type, or a tribe and type)"],
-		"compliment": ["!compliment, !flirt <name>\n> (optional name)"],
-		"insult": ["!insult, !burn, !roast <name>\n> (optional name)"],
-		"rule": ["!rule <rule>\n> (returns the definition of the rule)"],
-		"documents": ["!rulebook, !cr, !errata, !guide\n> (the important documents)"],
-		"starters": ["!starters\n> (Default is Afjak's starter decks on TCO)"],
-		"end": ["```I may also pop in to add a quip ;)"]
+		"start": {"cmd":"I try to be helpful, but can be sassy.\nI may also pop in to add a quip ;)```md"},
+		"card": {"cmd": "!card <card>", "short": "returns a card", "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card"},
+		"fullart": {"cmd":"!full, !fullart <card>", "short":"", "long":"You provide a card name, I'll look for its full art."},
+		"find": {"cmd":"!find <name>", "short":"returns a list of cards names", "long":"I'll search for names taht contain the letters you provide."},
+		"ban": {"cmd":"!banlist\n!ban, !whyban <card>", "short":"banlist and banned cards", "long":"Ask me about the banlist or why a card is/should be banned."},
+		"good": {"cmd":"!goodstuff, !strong, !good, !best <type|tribe> < type|bp >", "short":"takes a card type, or a tribe and type"},
+		"compliment": {"cmd":"!compliment, !flirt <name>", "short":"optional name"},
+		"insult": {"cmd":"!insult, !burn, !roast <name>", "short":"optional name"},
+		"rule": {"cmd":"!rule <rule>", "short":"returns the definition of the rule"},
+		"documents": {"cmd":"!rulebook, !cr, !errata, !guide", "short":"the important documents"},
+		"starters": {"cmd":"!starters", "short":"a list of starter decks", "long":"I'll provide a list of starter decks. Default are Afjak's TCO starter decks, but you can add --king or --metal for different ones."},
+		"end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``."}
 	},
 	"starter": [
 		"<:OW:294939978897555457>OverWorld: <http://www.tradecardsonline.com/im/showDeck/deck_id/479045>\n<:UW:294943282943885313>UnderWorld: <http://www.tradecardsonline.com/im/showDeck/deck_id/586301>\n<:Mip:294941790052679690>Mipedian: <http://www.tradecardsonline.com/im/showDeck/deck_id/628611>\n<:Dan:294942889337683968>Danian: <http://www.tradecardsonline.com/im/showDeck/deck_id/625804>\n<:Mar:294942283273601044>M'arrillian: <http://www.tradecardsonline.com/im/showDeck/deck_id/517280>",
