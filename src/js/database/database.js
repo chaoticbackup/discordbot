@@ -165,7 +165,7 @@ class API {
     // Search by name
     return this.filter.chain().find({'$or': [
       {'gsx$name': {'$regex': new RegExp("^"+card_name, 'i')}},
-      {'gsx$tags': {'$regex': new RegExp("(^|\s)"+card_name, 'i')}},
+      {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${card_name}`, 'gi')}},
     ]}).simplesort('gsx$name').data();
   }
 
