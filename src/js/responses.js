@@ -238,10 +238,9 @@ function help(args) {
     // detailed help
     if (help.hasOwnProperty(args)) {
       if (help[args].long) {
-        message = "```md\n> " 
-          + help[args].cmd + "\n"
-          + help[args].long + "\n"
-          + "```";
+        message = "```md\n" 
+          + help[args].cmd + "```"
+          + help[args].long;
       }
       else {
         message = "Sorry, I don't have additional information about that command";
