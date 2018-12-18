@@ -66,7 +66,7 @@ try {
       case 'help':
         if (content.substring(0, 1) == "!") break;
       case 'commands':
-        if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435))
+        if (!args && (message.guild.id == 135657678633566208 && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           send(help(args));
