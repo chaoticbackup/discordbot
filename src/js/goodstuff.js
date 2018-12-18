@@ -46,6 +46,17 @@ export function goodstuff(filter, options) {
     return message;
   }
 
+  function Attacks(bp) {
+    let message = `**Strong ${bp} BP Attacks:**`;
+    if (bp && bp >= 0 && bp <= 5) {
+      goodstuff.Attacks[bp].forEach((card) => {
+        message += "\n" + card;
+      });
+    }
+    else return Attacks(1);
+    return message;
+  }
+
   function Type(type) {
     let message = "";
     goodstuff[type].forEach((card) => {
@@ -94,8 +105,7 @@ export function goodstuff(filter, options) {
         break;
       case 'attack':
       case 'attacks':
-        message = `**Strong Attacks:**`;
-        message += Type("Attacks");
+        message = Attacks(filter[1]);
         break;
       case 'battlegear':
         message = `**Strong Battlegear:**`;
