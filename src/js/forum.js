@@ -119,7 +119,7 @@ module.exports = class ForumPosts {
 
 				let fullurl = config.forum + topicurl;
 				let author = ($(newPost).children().filter('strong').children().children().children().text());
-				let topic = ($(newPost).children().filter('a').first().text());
+				let topic = ($(newPost).children().filter('a').first().attr('title'));
 				let message = `${author} posted on "${topic}" -> <${fullurl}>`;
 				this.bot.channels.get(this.channel).send(message);
 			});
