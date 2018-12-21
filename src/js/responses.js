@@ -192,7 +192,7 @@ try {
         channel.send(":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:");
         break;
       case 'sandwitch':
-        send(display_card(["Arkanin"], bot));
+        send(display_card("Arkanin", options, bot));
         break;
       case 'never':
       case 'nowornever':
