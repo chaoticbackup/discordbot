@@ -4,7 +4,8 @@
 		"any day now\\?": ["***ANY*** day now", "Chaotic: One of These Days or Later"],
 		"rule 34": ["not on this server we don't"],
 		"wombo combo": ["that ain't falco"],
-		"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"]
+		"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"],
+		"(the lava pond\\?)": ["https://cdn.discordapp.com/attachments/279820713794338816/521116041426894881/THE_LAVA_POND.gif"]
 	},
 	"tags": {
 		"daddy": ["Yeah he did!", "He's the best daddy!", "*big smile*", "Sometimes I'm bad and don't behave him."],
