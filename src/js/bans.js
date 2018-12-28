@@ -52,14 +52,14 @@ export function limited() {
 
 export function shakeup() {
   const {shakeup} = reload('../config/bans.json');
-  let message = "The **Shake Up** list aims to widen the meta\n";
+  let message = "The **Shake Up** list aims to widen the meta";
   
-  message += "The following are *limited* (unique):";
+  message += "\n``The following are limited (unique):``";
   shakeup.limited.forEach((key) => {
     message += "\n" + key;
   });
   
-  message += "\nThe following are *banned*:";
+  message += "\n``The following are banned:``";
   shakeup.bans.forEach((key) => {
     message += "\n" + key;
   });
