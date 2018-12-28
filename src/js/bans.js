@@ -18,6 +18,15 @@ export function banlist(options) {
   return message;
 }
 
+function small() {
+  const {small} = reload('../config/bans.json');
+  let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
+  small.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
 export function whyban(card) {
   card = cleantext(card);
 
@@ -41,11 +50,19 @@ export function limited() {
   return message;
 }
 
-function small() {
-  const {small} = reload('../config/bans.json');
-  let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
-  small.forEach((key) => {
+export function shakeup() {
+  const {shakeup} = reload('../config/bans.json');
+  let message = "The **Shake Up** list aims to widen the meta\n";
+  
+  message += "The following are *limited* (unique):";
+  shakeup.limited.forEach((key) => {
     message += "\n" + key;
   });
+  
+  message += "\nThe following are *banned*:";
+  shakeup.bans.forEach((key) => {
+    message += "\n" + key;
+  });
+
   return message;
 }

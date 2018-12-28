@@ -6,7 +6,7 @@ const API = require('./database/database.js').default;
 import {rate_card} from './database/rate.js';
 import {full_art, display_card} from './database/card.js';
 import {goodstuff, badultras, funstuff} from './goodstuff.js';
-import {banlist, whyban, limited} from './bans.js';
+import {banlist, whyban, limited, shakeup} from './bans.js';
 
 module.exports = function(message) {
   // Dev Server Only
@@ -156,6 +156,9 @@ try {
         break;
       case 'limited':
         send(limited());
+        break;
+      case 'shakeup':
+        send(shakeup());
         break;
       case 'strong':
       case 'good':
