@@ -185,3 +185,17 @@ function Response(card, options, bot) {
   
   return embed;
 }
+
+export function read_card(name, options) {
+  let results = API.find_cards_by_name(name);
+
+  if (results.length > 0) {
+    if (options.includes("brainwashed") && results[0].gsx$brainwashed) {
+      return results[0].gsx$name + "\n" + results[0].gsx$brainwashed;
+    }
+    else {
+      return results[0].gsx$name + "\n" + results[0].gsx$ability;
+    }
+  }
+  return;
+}

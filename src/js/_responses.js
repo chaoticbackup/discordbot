@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database/database.js').default;
 import {rate_card} from './database/rate.js';
-import {full_art, display_card} from './database/card.js';
+import {full_art, display_card, read_card} from './database/card.js';
 import {goodstuff, badultras, funstuff} from './goodstuff.js';
 import {banlist, whyban, limited, shakeup} from './bans.js';
 
@@ -20,8 +20,8 @@ module.exports = function(message) {
   const mentions = Array.from(message.mentions.users.keys());
 
   // Prevents sending an empty message
-  const send = (message) => {
-    if (message) channel.send(message).catch(console.error);
+  const send = (message, options) => {
+    if (message) channel.send(message, options).catch(console.error);
   }
 
   const insertname = (resp, name) => {
@@ -188,6 +188,18 @@ try {
         if (message.deletable) message.delete(); // delete user msg
         break;
       /* Misc */
+      case 'readthecard':
+        if (bot.guilds.get(message.guild.id).me.hasPermission("SEND_TTS_MESSAGES")) {
+          if (message.guild.id == "135657678633566208"
+            && (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
+            && (channel.id == "387805334657433600" || channel.id == "293610368947716096")) {
+            send(read_card(args, options), {tts: true});
+          }
+          else {
+            send(read_card(args, options), {tts: true});
+          }
+        }
+        break;
       case 'sandwich':
         channel.send(":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:");
         break;
