@@ -46,12 +46,13 @@ export function rate_card(text, options, bot) {
   if (options.includes('king')||options.includes('k')) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));
   }
-  else if (options.includes('metal')||options.includes('m')) {
-    ([courage, power, wisdom, speed, energy, total] = metal(stats, card, options));
-  }
-  else {
+  else if (options.includes('smildon')||options.includes('s')) {
     ([courage, power, wisdom, speed, energy, total] = smildon(stats, card));
   }
+  else {
+    ([courage, power, wisdom, speed, energy, total] = metal(stats, card, options));
+  }
+
 
   return (
     bot.emojis.find(emoji => emoji.name=="Courage") + " " + courage + "\n" +
