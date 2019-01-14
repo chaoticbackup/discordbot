@@ -145,7 +145,7 @@ try {
           break;
         }
         else if (args.length > 0) {
-          send(whyban(args));
+          send(whyban(args, options));
           break;
         }
       case 'banlist':

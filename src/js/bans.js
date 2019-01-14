@@ -27,15 +27,21 @@ function small() {
   return message;
 }
 
-export function whyban(card) {
+export function whyban(card, options) {
   card = cleantext(card);
 
   const {bans, watchlist, hidden} = reload('../config/bans.json');
 
   let merge = Object.assign({}, bans, watchlist, hidden);
   for (var key in merge) {
-    if (cleantext(key).indexOf(card) === 0)
-      return `*${key}*:\n${rndrsp(merge[key])}`;
+    if (cleantext(key).indexOf(card) === 0) {
+      if (options.includes("serious")) {
+        return `*${key}*:\n${merge[key][0]}`;
+      }
+      else {
+        return `*${key}*:\n${rndrsp(merge[key])}`;
+      }
+    }
   }
 
   return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);

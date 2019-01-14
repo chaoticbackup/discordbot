@@ -4,7 +4,7 @@
 		"card": {"cmd": "!card <card>", "short": "returns a card", "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card"},
 		"fullart": {"cmd":"!full, !fullart <card>", "short":"", "long":"You provide a card name, I'll look for its full art."},
 		"find": {"cmd":"!find <name>", "short":"returns a list of cards names", "long":"I'll search for names that contain the letters you provide."},
-		"ban": {"cmd":"!banlist\n!ban, !whyban <card>", "short":"banlist and banned cards", "long":"Ask me about the banlist or why a card is/should be banned."},
+		"ban": {"cmd":"!banlist\n!ban, !whyban <card>", "short":"banlist and banned cards", "long":"Ask me about the banlist or why a card is/should be banned.\nSome of my answers are snarky, so you can add ``--serious`` for a proper explaination."},
 		"good": {"cmd":"!good, !strong, !goodstuff, !best <type|tribe> < bp|type >", "short":"takes a card type, or a tribe and type", "long":"Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n``!good M'arrillian Creatures``\n ``!good Attacks 1``"},
 		"compliment": {"cmd":"!compliment, !flirt <name>", "short":"optional name"},
 		"insult": {"cmd":"!insult, !burn, !roast <name>", "short":"optional name"},
