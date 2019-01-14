@@ -4,6 +4,7 @@ function reload(module) {
 }
 
 function rndrsp(items) {
+	if (items.length == 1) return items[0];
   return items[Math.floor(Math.random()*items.length)];
 }
 
