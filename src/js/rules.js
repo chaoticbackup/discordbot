@@ -4,12 +4,18 @@ const glossary = require('../config/glossary');
 
 module.exports = function(rule) {
 	let commands = reload('../config/commands.json');
+	let rules = reload('../config/rules.json');
 
-	if (rule.length < 1) 
-		return `"Please provide a rule, or use **!rulebook** for the Rules"`;
+	if (rule == "all") {
+		let response = "";
+		for (let key in rules) {
+			response += key + "\n";
+		}
+		return response;
+	}
+
 	rule = cleantext(rule);
 
-	let rules = reload('../config/rules.json');
 	let merge = Object.assign({}, rules, glossary);
 
 	for (var key in merge) {
