@@ -171,12 +171,7 @@ try {
       case 'good':
       case 'best':
       case 'goodstuff':
-        if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600)) {
-          channel.send("This list is long. Please ask in <#387805334657433600>")
-        }
-        else {
-          send(goodstuff(args, options));
-        }
+        send(goodstuff(args, options));
         break;
       case 'fun':
       case 'funstuff':
