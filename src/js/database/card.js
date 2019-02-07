@@ -83,9 +83,10 @@ function Response(card, options, bot) {
   if (!card.gsx$set) {
     return new RichEmbed()
       .setTitle(card.gsx$name)
+      .setURL(API.base_image + card.gsx$splash)
       .setColor(API.color(card))
-      .addField("No data available")
-      .setImage(API.base_image + card.gsx$fullart);
+      .setDescription("No data available")
+      .setImage(API.base_image + card.gsx$splash);
   }
 
   let Ability = (cardtext) => {
