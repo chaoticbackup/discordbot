@@ -25,13 +25,6 @@ export function full_art(name) {
   Returning a card
 */
 export function display_card(name, options, bot) {
-  if (name && "thebsarr".startsWith(cleantext(name))) {
-    return new RichEmbed()
-      .setColor("#ba9626")
-      .addField("Theb-Sarr", "No data available")
-      .setImage("https://vignette.wikia.nocookie.net/chaotic/images/d/d8/Theb-sarr.jpg/revision/latest?cb=20130627223729");
-  }
-
   if (API.data === "local") {
     return card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
   }
@@ -86,6 +79,15 @@ function card_db(name, options, bot) {
 }
 
 function Response(card, options, bot) {
+  // If not a released card
+  if (!card.gsx$set) {
+    return new RichEmbed()
+      .setTitle(card.gsx$name)
+      .setColor(API.color(card))
+      .addField("No data available")
+      .setImage(API.base_image + card.gsx$fullart);
+  }
+
   let Ability = (cardtext) => {
     //tribal mugic counters
     let mc = (() => {
