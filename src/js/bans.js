@@ -14,7 +14,7 @@ export function banlist(options) {
   for (var key in watchlist) {
     message += "\n" + key;
   }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban --serious *card name*\"";
   return message;
 }
 
