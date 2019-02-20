@@ -1,7 +1,7 @@
 {
     "help": {
 		"start": {"cmd":"I try to be helpful, but can be sassy. I may also pop in to add a quip ;)```md"},
-		"card": {"cmd": "!card <card>", "short": "returns a card", "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card"},
+		"card": {"cmd": "!card <card>", "short": "returns a card", "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card\nYou can provide ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after =)."},
 		"fullart": {"cmd":"!full, !fullart <card>", "short":"", "long":"You provide a card name, I'll look for its full art."},
 		"find": {"cmd":"!find <name>", "short":"returns a list of cards names", "long":"I'll search for names that contain the letters you provide."},
 		"ban": {"cmd":"!banlist\n!ban, !whyban <card>", "short":"banlist and banned cards", "long":"Ask me about the banlist or why a card is/should be banned.\nSome of my answers are snarky, so you can add ``--serious`` for a proper explaination."},

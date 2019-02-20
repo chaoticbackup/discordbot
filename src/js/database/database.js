@@ -159,13 +159,28 @@ class API {
   }
 
   /* Finding cards in the database by name */
-  find_cards_by_name(name) {
+  find_cards_by_name(name, options) {
     let card_name = this.escape_text(name);
 
+    let filters = [];
+
+    if (options.length > 0) {
+      options = options.join(" ").toLowerCase();
+      
+      let type = (/type=([\w]{2,})/).exec(options);
+      if (type) filters.push({'gsx$type': {'$regex': new RegExp(type[1], 'i')}});
+
+      let tribe = (/tribe=([\w']{2,})/).exec(options);
+      if (tribe) filters.push({'gsx$tribe': {'$regex': new RegExp(tribe[1], 'i')}});
+    }
+
     // Search by name
-    return this.filter.chain().find({'$or': [
-      {'gsx$name': {'$regex': new RegExp("^"+card_name, 'i')}},
-      {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${card_name}`, 'gi')}},
+    return this.filter.chain().find({'$and': [
+      {'$or': [
+        {'gsx$name': {'$regex': new RegExp("^"+card_name, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${card_name}`, 'gi')}}
+      ]},
+      {'$and': filters}
     ]}).simplesort('gsx$name').data();
   }
 

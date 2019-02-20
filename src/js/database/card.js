@@ -63,8 +63,8 @@ function card_local(name, genCounter) {
 
 /* Return a card to send */
 function card_db(name, options, bot) {
-  let results = API.find_cards_by_name(name);
-
+  let results = API.find_cards_by_name(name, options);
+  
   if (results.length <= 0) {
     return "That's not a valid card name";
   }

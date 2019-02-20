@@ -50,7 +50,7 @@ try {
     let cmd = args[0].toLowerCase().trim();
 
     let options = [];
-    args = args.splice(1).join(" ").replace(/(?:--|—)(\w+)/g, (match, p1) => {
+    args = args.splice(1).join(" ").replace(/(?:--|—)([a-zA-Z'=]+)/g, (match, p1) => {
       options.push(p1);
       return "";
     }).trim();
