@@ -164,7 +164,7 @@ class API {
 
     let filters = [];
 
-    if (options.length > 0) {
+    if (options && options.length > 0) {
       options = options.join(" ").toLowerCase();
       
       let type = (/type=([\w]{2,})/).exec(options);
