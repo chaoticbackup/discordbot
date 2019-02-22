@@ -30,20 +30,15 @@
 		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Unlike other resurrection cards, the Creature can be placed anywhere on the board, allowing them to jump next to your support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."]
 	},
 	"limited": [
+		"Anarkiar",
 		"Cadence Clash",
 		"Drabe",
-		"Gravel Grind",
-		"Harmonious Highsong",
 		"Interlude of Interuption",
-		"Makanaz",
+		"Lanker",
 		"Malvadine, The King's Herald",
-		"Melody of Miracles",
-		"Lore's Chamber of Recall",
 		"Neekwin",
-		"Song of Symmetry",
-		"Swarm Song",
 		"Talisman of the Mandiblor",
-		"Tangath Toborn, In Training",
+		"Tartarek, Psi Overloader",
 		"Ursis"
 	],
 	"small": [
