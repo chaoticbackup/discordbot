@@ -10,7 +10,7 @@
 		"insult": {"cmd":"!insult, !burn, !roast <name>", "short":"optional name"},
 		"rule": {"cmd":"!rule <rule>", "short":"returns the definition of the rule"},
 		"documents": {"cmd":"!rulebook, !cr, !errata, !guide", "short":"the important documents"},
-		"starters": {"cmd":"!starters", "short":"a list of starter decks", "long":"I'll provide a list of starter decks. Default are Afjak's TCO starter decks, but you can add --king or --metal for different ones."},
+		"starters": {"cmd":"!starters", "short":"player made starter decks", "long":"I'll provide a list of starter decks. Default are Afjak's TCO starter decks, but you can add --king or --metal for different ones."},
 		"end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``."},
 		"command": {"cmd":" ", "short":"", "long": "This is for when you need help with my help"}
 	},

@@ -5,7 +5,7 @@ const API = require('./database.js').default;
 export function full_art(name) {
   let results = API.find_cards_by_name(name);
 
-  if (name && results.length > 0) {
+  if (results.length > 0) {
     let card = results[0];
     if (card.gsx$splash) return new RichEmbed()
       .setColor(API.color(card))
