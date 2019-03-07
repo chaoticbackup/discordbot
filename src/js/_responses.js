@@ -102,7 +102,7 @@ try {
       /* Compliments */
       case 'flirt':
       case 'compliment':
-        send(insertname(rndrsp(commands['compliment']), args));
+        send(insertname(rndrsp(commands['compliment'], 'compliment'), args));
         break;
       /* Insults */
       case 'burn':
@@ -115,7 +115,7 @@ try {
         break;
       /* Jokes */
       case 'joke':
-        send(rndrsp(commands["joke"]));
+        send(rndrsp(commands["joke"], 'joke'));
         break;
       /* Documents */
       case 'rulebook':
@@ -321,7 +321,7 @@ function checkSass(mentions, message) {
       catch(err) {}
     }
     else {
-      response = (rndrsp(tags["hello"]));
+      response = (rndrsp(tags["hello"], 'hello'));
     }
   }
 

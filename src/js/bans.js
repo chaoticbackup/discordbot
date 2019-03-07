@@ -39,7 +39,7 @@ export function whyban(card, options) {
         return `*${key}*:\n${merge[key][0]}`;
       }
       else {
-        return `*${key}*:\n${rndrsp(merge[key])}`;
+        return `*${key}*:\n${rndrsp(merge[key], 'bans')}`;
       }
     }
   }
