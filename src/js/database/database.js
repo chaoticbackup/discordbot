@@ -133,34 +133,6 @@ class API {
       .replace(/’/g, '\'');
   }
 
-  find_name(name) {
-    if (name.length < 2) {
-      return "Use at least 2 characters";
-    }
-    name = this.escape_text(name);
-
-    let results = this.filter.chain().find(
-      {'$or': [
-        {'gsx$name': {'$regex': new RegExp("^"+name, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${name}`, 'gi')}}
-      ]}
-      ).simplesort('gsx$name').data();
-
-    if (results.length == 0) {
-      return "No cards match this search";
-    }
-
-    let response = "";
-    if (results.length > 15) response = "First 15 matches:\n";
-    results.splice(0, 15).forEach((card) => {
-      response += card.gsx$name.replace(new RegExp(name, 'i'), (match) => {
-        return `**${match}**`;
-      }) + '\n';
-    });
-
-    return response;
-  }
-
   /* Finding cards in the database by name */
   find_cards_by_name(name, options) {
     name = this.escape_text(name);

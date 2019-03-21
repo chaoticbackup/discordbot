@@ -1,4 +1,4 @@
-const {reload, rndrsp, cleantext} = require('./shared.js');
+const {reload} = require('./shared.js');
 
 export function badultras() {
   const {badultras} = reload('../config/goodstuff.json');

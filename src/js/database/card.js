@@ -21,6 +21,31 @@ export function full_art(name) {
   }
 }
 
+/* 
+Find a list of names based on input 
+*/
+export function find_card(name) {
+  if (name.length < 2) {
+    return "Use at least 2 characters";
+  }
+
+  let results = API.find_cards_by_name(name);
+
+  if (results.length == 0) {
+    return "No cards match this search";
+  }
+
+  let response = "";
+  if (results.length > 15) response = "First 15 matches:\n";
+  results.splice(0, 15).forEach((card) => {
+    response += card.gsx$name.replace(new RegExp(name, 'i'), (match) => {
+      return `**${match}**`;
+    }) + '\n';
+  });
+
+  return response;
+}
+
 /*
   Returning a card
 */
@@ -74,7 +99,7 @@ function card_db(name, options, bot) {
   }
   else {
     // Random card
-    return Response(rndrsp(results), options, bot);
+    return Response(rndrsp(results, "card"), options, bot);
   }
 }
 

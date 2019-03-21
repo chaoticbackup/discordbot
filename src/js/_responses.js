@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database/database.js').default;
 import {rate_card} from './database/rate.js';
-import {full_art, display_card, read_card} from './database/card.js';
+import {full_art, find_card, display_card, read_card} from './database/card.js';
 import {goodstuff, badultras, funstuff} from './goodstuff.js';
 import {banlist, whyban, limited, shakeup} from './bans.js';
 
@@ -81,7 +81,7 @@ try {
         send(full_art(args));
         break;
       case 'find':
-        send(API.find_name(args));
+        send(find_card(args));
         break;
       case 'rate':
         send(rate_card(args, options, bot));
@@ -111,7 +111,7 @@ try {
         if (mentions.indexOf('279331985955094529') !== -1) 
           channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
         else
-          send(insertname(rndrsp(commands['insult']), args));
+          send(insertname(rndrsp(commands['insult'], 'insult'), args));
         break;
       /* Jokes */
       case 'joke':
