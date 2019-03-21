@@ -119,7 +119,7 @@ try {
         break;
       /* Documents */
       case 'rulebook':
-        channel.send("https://drive.google.com/file/d/1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT/view");
+        channel.send(rulebook(args));
         break;
       case 'cr':
         channel.send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
@@ -247,6 +247,15 @@ function reset(message, channel) {
 }
 
 // Responses
+function rulebook(args) {
+
+  if (!args)
+    return ("https://drive.google.com/file/d/1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT/view");
+
+  args = args.split(' ');
+  
+}
+
 function help(args) {
   const {help} = reload('../config/commands.json');
   let message = "";

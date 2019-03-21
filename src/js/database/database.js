@@ -127,6 +127,12 @@ class API {
     });
   }
 
+  escape_text(text) {
+    return text
+      .replace(/\(|\)/g, (match) => {return ("\\"+match)})
+      .replace(/’/g, '\'');
+  }
+
   find_name(name) {
     if (name.length < 2) {
       return "Use at least 2 characters";
@@ -134,7 +140,10 @@ class API {
     name = this.escape_text(name);
 
     let results = this.filter.chain().find(
-        {'gsx$name': {'$regex': new RegExp(name, 'i')}}
+      {'$or': [
+        {'gsx$name': {'$regex': new RegExp("^"+name, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${name}`, 'gi')}}
+      ]}
       ).simplesort('gsx$name').data();
 
     if (results.length == 0) {
@@ -152,18 +161,11 @@ class API {
     return response;
   }
 
-  escape_text(text) {
-    return text
-      .replace(/\(|\)/g, (match) => {return ("\\"+match)})
-      .replace(/’/g, '\'');
-  }
-
   /* Finding cards in the database by name */
   find_cards_by_name(name, options) {
-    let card_name = this.escape_text(name);
+    name = this.escape_text(name);
 
     let filters = [];
-
     if (options && options.length > 0) {
       options = options.join(" ").toLowerCase();
       
@@ -177,8 +179,8 @@ class API {
     // Search by name
     return this.filter.chain().find({'$and': [
       {'$or': [
-        {'gsx$name': {'$regex': new RegExp("^"+card_name, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${card_name}`, 'gi')}}
+        {'gsx$name': {'$regex': new RegExp("^"+name, 'i')}},
+        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${name}`, 'gi')}}
       ]},
       {'$and': filters}
     ]}).simplesort('gsx$name').data();
