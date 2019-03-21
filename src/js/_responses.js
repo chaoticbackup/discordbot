@@ -29,7 +29,6 @@ module.exports = function(message) {
     if (mentions.length > 0) {
       name = this.guilds.get(message.guild.id).members.get(mentions[0]).displayName;
     }
-
     if (name)
       resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
     else
@@ -54,6 +53,10 @@ try {
       options.push(p1);
       return "";
     }).trim();
+
+    if (options.includes("help")) {
+      return send(help(cmd));
+    }
 
     switch(cmd) {
       case 'ping':
@@ -119,7 +122,7 @@ try {
         break;
       /* Documents */
       case 'rulebook':
-        channel.send(rulebook(args));
+        send(rulebook(args, options));
         break;
       case 'cr':
         channel.send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
@@ -226,8 +229,24 @@ try {
   // If no commands check message content for quips
   send(checkSass.call(bot, mentions, message));
 }
-catch (err) {
-  console.error(err);
+catch (error) {
+  // Log/Print error
+  console.error(error);
+
+  // Ignore problems while in development
+  if (process.env.NODE_ENV == "development") {
+    return;
+  }
+
+  // Send Error to Bot Testing Server
+  bot.channels.get("558184649466314752").send(error);
+
+  // Ignore programmer errors (keep running)
+  if (error.name === "ReferenceError") {
+    return;
+  }
+
+  // restart bot if unknown error
   bot.destroy();
 }
 }
@@ -246,42 +265,89 @@ function reset(message, channel) {
   }
 }
 
-// Responses
-function rulebook(args) {
-
-  if (!args)
-    return ("https://drive.google.com/file/d/1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT/view");
-
-  args = args.split(' ');
-  
-}
-
+/*
+* Responses
+*/
 function help(args) {
   const {help} = reload('../config/commands.json');
   let message = "";
 
   if (args) {
     // detailed help
-    if (help.hasOwnProperty(args)) {
-      if (help[args].long) {
-        message = "```md\n" 
-          + help[args].cmd + "```"
-          + help[args].long;
-      }
-      else {
-        message = "Sorry, I don't have additional information about that command";
-      }
+    if (help.hasOwnProperty(args) && help[args].long) {
+      message = "```md\n" 
+        + help[args].cmd + "```"
+        + help[args].long;
+    }
+    else {
+      message = "Sorry, I don't have additional information about that command";
     }
   } 
   else {
     // help list
     for (var key in help) {
-      message += "\n" + help[key].cmd + "\n";
-      if (help[key].short) 
-        message += "> (" + help[key].short + ")\n";
+      if (help[key].hasOwnProperty("short")) {
+        message += "\n" + help[key].cmd + "\n";
+        if (help[key].short !== "") 
+          message += "> (" + help[key].short + ")\n";
+      }
     }
   }
   return message;
+}
+
+function rulebook(args, options) {
+  const {languages, rulebook} = reload('../config/commands.json');
+  
+  let message = "";
+  if (options.includes("list")) {
+    for (let lan in languages) {
+      message += `**${languages[lan]}**\n    ${lan} [`;
+
+      for (let set in rulebook[lan]) {
+        message += `${set}, `;
+      }
+      message = message.slice(0, -2);
+      message += ']\n';
+    };
+    return message;
+  }
+
+  function rule_url(url) {
+    return ("https://drive.google.com/file/d/" + url + "/view");
+  }
+
+  // Default is English AU
+  if (!args) {
+    return rule_url(rulebook["EN"]["AU"]);
+  }
+
+  args = args.split(' ');
+
+  let lang = args[0].toUpperCase();
+  if (rulebook.hasOwnProperty(lang)) {
+    if (args.length === 1) {
+      if (rulebook[lang].hasOwnProperty("AU")) {
+        return rule_url(rulebook[lang]["AU"]);
+      }
+      else {
+        return rule_url(rulebook[lang]["DOP"]);
+      }
+    }
+    else {
+      let set = args[1].toUpperCase();
+      if (rulebook[lang].hasOwnProperty(set)) {
+        return rule_url(rulebook[lang][set]);
+      }
+      else {
+        return "I don't have that set in " + languages[lang];
+      }
+    }
+  }
+  else {
+    return "I don't have a rulebook in that language";
+  }
+
 }
 
 function nowornever(card) {
