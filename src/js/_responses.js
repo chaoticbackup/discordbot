@@ -242,7 +242,10 @@ catch (error) {
   bot.channels.get("558184649466314752").send(error);
 
   // Ignore programmer errors (keep running)
-  if (error.name === "ReferenceError") {
+  if (
+    error.name === "ReferenceError" ||
+    error.name === "SyntaxError"
+  ) {
     return;
   }
 

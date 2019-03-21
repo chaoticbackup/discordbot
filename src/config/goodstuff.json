@@ -67,10 +67,57 @@
 				"Unsanity",
 				"Vine Snare"
 			],
-			"2": ["WIP"],
-			"3": ["WIP"],
-			"4": ["WIP"],
-			"5": ["WIP"]
+			"2": [
+				"Alacritous Force",
+				"Braveglint",
+				"Caustic Cascade",
+				"Charge of the Brave",
+				"Deluge of Doom",
+				"Directed Bravery",
+				"Dry Touch",
+				"Dust Strike",
+				"Enlightened Tenacity",
+				"Eroding Blast",
+				"Extinguishing Fountain",
+				"Fearless Strike",
+				"Flame Orb",
+				"Force Strike",
+				"Frightening Muck",
+				"Incessant Wave",
+				"Instantaneous Inspiration",
+				"Mind Strike",
+				"Mindrazor",
+				"Perplexing Heat",
+				"Progressive Speed",
+				"Prowl Strike",
+				"Slowsand",
+				"Smartsmack",
+				"Sudden Flare",
+				"Vacuum Hemisphere",
+				"Voltorch",
+				"Whirlwind Scythes",
+				"Xenocentric Wrath"
+			],
+			"3": [
+				"Fireram",
+				"Flaming Coals",
+				"Ice Disks",
+				"Plasmarrow",
+				"Rainspears",
+				"Retaliatory Strike",
+				"Tectostrike",
+				"Turbulence Funnel",
+				"Winterclaw"
+			],
+			"4": [
+				"Before the Storm",
+				"Deadwater Devastation",
+				"Grounding Grapple"
+			],
+			"5": [
+				"Mind Mash",
+				"Slashclaw"
+			]
 		},
 		"Battlegear": [
 			"Burithean Axe",
