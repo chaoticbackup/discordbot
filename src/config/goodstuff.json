@@ -1,7 +1,33 @@
 {
 	"goodstuff": {
 		"Attacks": {
-			"0": ["WIP"],
+			"0": [
+				"Airize",
+				"Aqua Recoil",
+				"Burning Rain",
+				"Clean Slide",
+				"Fire Ring",
+				"Fire Stream",
+				"Flamebloom",
+				"Flashwarp",
+				"Flying Advantage",
+				"Hurlicane",
+				"Incinerase",
+				"Inner Flood",
+				"Liquescent Swirl",
+				"Mirthquake",
+				"Muge's Edge",
+				"Petrifying Power",
+				"Quick Exit",
+				"Sediment Stormshield",
+				"Shadow Strike",
+				"Sleet Slide",
+				"Smokesurge",
+				"Sunder Ground",
+				"Symmetry Slam",
+				"Tidal Surge",
+				"Velocitrap"
+			],
 			"1": [
 				"Airsault",
 				"Ash Torrent",
