@@ -1,4 +1,4 @@
-# discordbot
+# Chaotic Backtalk
 A bot which checks the forum for new messages along with other Chaotic related features.
 
 For information on setting up and adding the bot to a server check the [wiki](https://github.com/chaoticbackup/discordbot/wiki).
@@ -41,4 +41,21 @@ npm run build
 You can clean the build folder with
 ```bash
 npm run clean
+```
+
+#### Webhook
+Make a file in .git/hooks/  
+```bash
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+    if [ "master" == "$branch" ]; then
+        curl ip.of.the.machine:1337
+    fi
+done
+```
+
+Make sure port 1337 is open for tcp (on aws the payload is http)  
+```bash
+ npm run gitauto
 ```
