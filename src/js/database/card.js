@@ -106,12 +106,21 @@ function card_db(name, options, bot) {
 function Response(card, options, bot) {
   // If not a released card
   if (!card.gsx$set) {
-    return new RichEmbed()
+    const embed = new RichEmbed()
       .setTitle(card.gsx$name)
-      .setURL(API.base_image + card.gsx$splash)
       .setColor(API.color(card))
-      .setDescription("No data available")
-      .setImage(API.base_image + card.gsx$splash);
+      .setDescription(card.gsx$ability || "No data available");
+
+      if (card.gsx$image) {
+        embed.setURL(API.base_image + card.gsx$image);
+        embed.setImage(API.base_image + card.gsx$image);
+      }
+      else
+      {
+        embed.setURL(API.base_image + card.gsx$splash);
+        embed.setImage(API.base_image + card.gsx$splash);
+      }
+
   }
 
   let Ability = (cardtext) => {
@@ -204,14 +213,12 @@ function Response(card, options, bot) {
     resp += "\n" + Disciplines(modstat);
   }
 
-  const embed = new RichEmbed()
+  return new RichEmbed()
     .setTitle(card.gsx$name)
     .setURL(API.base_image + card.gsx$image)
     .setColor(API.color(card))
     .setDescription(resp)
     .setImage(API.base_image + card.gsx$image);
-  
-  return embed;
 }
 
 export function read_card(name, options) {
