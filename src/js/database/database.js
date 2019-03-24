@@ -133,6 +133,15 @@ class API {
       .replace(/’/g, '\'');
   }
 
+  find_card_name(text) {
+    text = this.escape_text(text);
+
+    return this.filter.chain().find({'$or': [
+      {'gsx$name': {'$regex': new RegExp(text, 'i')}},
+      {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${text}`, 'gi')}}
+    ]}).simplesort('gsx$name').data();
+  }
+
   /* Finding cards in the database by name */
   find_cards_by_name(name, options) {
     name = this.escape_text(name);
