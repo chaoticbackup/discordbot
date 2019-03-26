@@ -110,21 +110,22 @@ function card_db(name, options, bot) {
 function Response(card, options, bot) {
   // If not a released card
   if (!card.gsx$set) {
+    console.log(card);
     const embed = new RichEmbed()
       .setTitle(card.gsx$name)
       .setColor(API.color(card))
       .setDescription(card.gsx$ability || "No data available");
 
-      if (card.gsx$image) {
+      if (card.gsx$image != '') {
         embed.setURL(API.base_image + card.gsx$image);
         embed.setImage(API.base_image + card.gsx$image);
       }
-      else
+      else if (card.gsx$spash != '')
       {
         embed.setURL(API.base_image + card.gsx$splash);
         embed.setImage(API.base_image + card.gsx$splash);
       }
-
+    return embed;
   }
 
   let Ability = (cardtext) => {
