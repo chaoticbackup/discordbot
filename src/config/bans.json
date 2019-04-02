@@ -20,26 +20,25 @@
 		"Rao'Pa Sahkk, Condensation Ceremony": ["Easily shuts down Mipedian and UnderWorld decks. And hinders many support Creatures in OverWorld and Danian tribes. Being unable to play Mugic or Abilities gives Creatures with Water overwhelming advantage.\n*At least Fluidmorphers are having fun at the beach.*"],
 		"Strain of Infection": ["It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in Danian burn to refuel abilities. Enre-hep, High Muge most breaks this card by creating a loop to generate inifnite counters."],
 		"Supercooled Rain": [
-			"Removing 4 Mugic Counters severely cripples most decks. Aside from a couple of cards that negate attacks, it is not preventable.", 
+			"Removing 4 Mugic Counters severely cripples most decks. Aside from a couple of cards that negate attacks, it is not preventable.",
 			"Your opponent didn't need Mugic Counters anyway"],
 		"Tonal Destruction" : ["This card is good if you just want to limit your opponent. But gets out of hand when combined with Enre-hep, High Muge or Lore, High Muge by allowing you to strip 4+ of the Mugic from your opponent's hand."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
 		"Vial of Liquid Thought": ["Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage."],
 		"Zamool, Lord Van Bloot's Enforcer": [
-			"Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", 
-			"Do you hate your opponent?", 
-			"You must want the UnderWorld to take over Perim.", 
-			"Try playing Solitaire when you're bored.", 
-			"Unlike Chaotic, Solitaire doesn't require an opponent to play.", 
-			"Did you get bored of playing Chess against yourself and decide to to play Chaotic against yourself?", 
-			"I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", 
+			"Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.",
+			"Do you hate your opponent?",
+			"You must want the UnderWorld to take over Perim.",
+			"Try playing Solitaire when you're bored.",
+			"Unlike Chaotic, Solitaire doesn't require an opponent to play.",
+			"Did you get bored of playing Chess against yourself and decide to to play Chaotic against yourself?",
+			"I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.",
 			"With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
-		"Neekwin": ["I'm sure you've seen him in a deck by now", "Oh you thought this was over?", "Can't spell win without Neek", "Yeah, I know you're mad about this."],
-		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn, so by giving him additional energy he can increase stats. A common strategy is to combine with Kha'rall Husk Armor, which puts him at 130 energy. If you use his ability until he has 5 energy remaning that is a total of 25 x 15 (375) disciplines that can be distributed. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benifits of obscenely high disciplines."],
-		"Tartarek, Psi Overloader": 
-			["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.", 
+		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor, which puts him at 130 energy. So by giving him this additional energy you distribute 25 x 15 (375) worth of disciplines."],
+		"Tartarek, Psi Overloader":
+			["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.",
 			"Tartarek is a Warbeast-like creature without Recklessness. On top of two Mugicians, and a decent Wisdom increasing Ability, he can easily destroy Chieftains. To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
 		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Unlike other resurrection cards, the Creature can be placed anywhere on the board, allowing them to jump next to your support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."]
 	},
@@ -56,7 +55,7 @@
 	],
 	"small": [
 		"Aer'dak",
-		"Bodal, Flamedrill Researcher",	
+		"Bodal, Flamedrill Researcher",
 		"Melody of the Meek",
 		"Ramarhvir, The Danian Hivebringer",
 		"Strain of Infection",
@@ -82,6 +81,7 @@
 		"Maxxor's Torch": ["One hit of this can send any amphibious creature the Shadow Realm. Oops I mean it hits the code out of M'arrillians."],
 		"Metal": ["He wins too many tournaments."],
 		"Na-inna": ["Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combine with a fluidmorpher."],
+		"Neekwin": ["I'm sure you've seen him in a deck by now", "Oh you thought this was over?", "Can't spell win without Neek", "Yeah, I know you're mad about this."],
 		"Skeletal Springs": ["Admititedly, fluidmorphing is a powerful game mechanic. This location not only prevents Fluidmorphing, it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck. So a boost for the player and a potential game breaker for the opponent."],
 		"Song of Transportation": ["Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."],
 		"Ursis": ["A divisive card. Ursis may have no ability (no negative one either), but it does have High Energy, great Power, 3 Mugic counters, and most importantly Creature type Muge."],
