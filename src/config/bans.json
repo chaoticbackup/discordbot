@@ -36,7 +36,7 @@
 			"With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
-		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor, which puts him at 130 energy. So by giving him this additional energy you distribute 25 x 15 (375) worth of disciplines."],
+		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor. So by giving him this additional energy you distribute (30+50-5)/5 x 15 (225) worth of disciplines."],
 		"Tartarek, Psi Overloader":
 			["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.",
 			"Tartarek is a Warbeast-like creature without Recklessness. On top of two Mugicians, and a decent Wisdom increasing Ability, he can easily destroy Chieftains. To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
