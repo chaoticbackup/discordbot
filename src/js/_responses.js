@@ -78,7 +78,7 @@ try {
       case 'help':
         if (content.substring(0, 1) == "!") break;
       case 'commands':
-        if (!args && (mainserver() && channel.id != 387805334657433600))
+        if (!args && (mainserver(message) && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           send(help(args));
@@ -86,7 +86,7 @@ try {
       /* Cards */
       case 'c':
       case 'card':
-        if (mainserver() && bot.member.roles.size === 1)
+        if (mainserver(message) && bot.member.roles.size === 1)
         {
           send("Please ask me in <#387805334657433600>");
           break;
@@ -173,7 +173,7 @@ try {
           break;
         }
       case 'banlist':
-        if (mainserver() && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+        if (mainserver(message) && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
           send(banlist(options));
@@ -209,7 +209,7 @@ try {
       /* Misc */
       case 'readthecard':
         if (bot.guilds.get(message.guild.id).me.hasPermission("SEND_TTS_MESSAGES")) {
-          if (mainserver()
+          if (mainserver(message)
             && (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
             && (channel.id == "387805334657433600" || channel.id == "293610368947716096")) {
             send(read_card(args, options), {tts: true});
@@ -254,7 +254,7 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  bot.channels.get("558184649466314752").send(error);
+  bot.channels.get("558184649466314752").send(error.toString());
 
   // Ignore programmer errors (keep running)
   if (
@@ -270,7 +270,7 @@ catch (error) {
 }
 
 function reset(message, channel) {
-  if (mainserver() &&
+  if (mainserver(message) &&
     (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
   ) {
     channel.send('Resetting...')
