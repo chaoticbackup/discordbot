@@ -254,7 +254,7 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  bot.channels.get("558184649466314752").send(error.toString());
+  bot.channels.get("558184649466314752").send(error.stack);
 
   // Ignore programmer errors (keep running)
   if (
