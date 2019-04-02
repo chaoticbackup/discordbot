@@ -2,7 +2,7 @@
 	"sass": {
 		".*(chaotic).*(com|be).*(back).*\\?": ["any day now"],
 		"any day now\\?": ["***ANY*** day now", "Chaotic: One of These Days or Later"],
-		"\\*\\*\\*ANY\\*\\*\\* day now\\?": ["I'm out of clever things to say", "So persistant", "This isn't even my final form"],
+		"\\*\\*\\*ANY\\*\\*\\* day now": ["I'm out of clever things to say", "So persistant", "This isn't even my final form"],
 		"rule 34": ["not on this server we don't"],
 		"wombo combo": ["that ain't falco"],
 		"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"],

@@ -8,6 +8,10 @@ import {full_art, find_card, display_card, read_card} from './database/card.js';
 import {goodstuff, badultras, funstuff} from './goodstuff.js';
 import {banlist, whyban, limited, shakeup} from './bans.js';
 
+function mainserver(message) {
+  return message.guild.id == "135657678633566208";
+}
+
 module.exports = function(message) {
   // Dev Server Only
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
@@ -34,6 +38,11 @@ module.exports = function(message) {
     else
       resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
     return resp;
+  }
+
+  if (content.substring(0, 4).toLowerCase() == "#ban") {
+    let name = (content.substring(5, 5) == " ") ? content.substring(6) : content.substring(5);
+    send(whyban(name));
   }
 
 try {
@@ -69,7 +78,7 @@ try {
       case 'help':
         if (content.substring(0, 1) == "!") break;
       case 'commands':
-        if (!args && (message.guild.id == 135657678633566208 && channel.id != 387805334657433600))
+        if (!args && (mainserver() && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           send(help(args));
@@ -77,6 +86,11 @@ try {
       /* Cards */
       case 'c':
       case 'card':
+        if (mainserver() && bot.member.roles.size === 1)
+        {
+          send("Please ask me in <#387805334657433600>");
+          break;
+        }
         send(display_card(args, options, bot));
         break;
       case 'full':
@@ -159,7 +173,7 @@ try {
           break;
         }
       case 'banlist':
-        if (message.guild.id == 135657678633566208 && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+        if (mainserver() && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
           send(banlist(options));
@@ -195,7 +209,7 @@ try {
       /* Misc */
       case 'readthecard':
         if (bot.guilds.get(message.guild.id).me.hasPermission("SEND_TTS_MESSAGES")) {
-          if (message.guild.id == "135657678633566208"
+          if (mainserver()
             && (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
             && (channel.id == "387805334657433600" || channel.id == "293610368947716096")) {
             send(read_card(args, options), {tts: true});
@@ -226,6 +240,7 @@ try {
     return;
   }
 
+
   // If no commands check message content for quips
   send(checkSass.call(bot, mentions, message));
 }
@@ -255,7 +270,7 @@ catch (error) {
 }
 
 function reset(message, channel) {
-  if (message.guild.id == '135657678633566208' &&
+  if (mainserver() &&
     (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
   ) {
     channel.send('Resetting...')

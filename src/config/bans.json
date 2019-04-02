@@ -26,6 +26,8 @@
 		"Zamool, Lord Van Bloot's Enforcer": ["Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.", "Do you hate your opponent?", "You must want the UnderWorld to take over Perim.", "Try playing Solitaire when you're bored.", "Unlike Chaotic, Solitaire doesn't require an opponent to play.", "Did you get bored of playing Chess against yourself and decide to to play Chaotic against yourself?", "I heard you wanted to move past Advanced Apprentice rules, but weren't quite ready for the challenge.", "With Zamool's help, Lord Van Bloot will finally conquer Chaor!"]
 	},
 	"watchlist": {
+		"Neekwin": ["Oh you thought this was over?", "Can't spell win without Neek", "Yeah I know you're mad about this."],
+		"Lanker": ["Statroids"],
 		"Tartarek, Psi Overloader": ["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.", "Tartarek is a Warbeast-like creature without Recklessness. On top of two Mugicians, and a decent Wisdom increasing Ability, he can easily destroy Chieftains. To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
 		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Unlike other resurrection cards, the Creature can be placed anywhere on the board, allowing them to jump next to your support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."]
 	},
@@ -50,7 +52,7 @@
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"hidden": {
-		"Agame": ["He's banned for using fan set cards in a competative match."],
+		"Agame": ["He's banned for smuggling fan set cards in a competative match."],
 		"Afjak": ["Attempting to ban the judge with the highest level of understanding in the game would result in Chaotic truly becoming chaotic. As everyone interprets the rules their own way, blatant cheating overruns what remains of the community until no one wishes to play and the game subsides into oblivion."],
 		"Aszil, The Young Queen": ["She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give Earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck. Other creatures that give resources have a cost."],
 		"Before the Storm": ["This attack provides Strike Decks a second strike. You'd see ~55 damage. Although not extraordinary damage, since Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration."],
@@ -62,6 +64,7 @@
 		"Hive Amber": ["See Hive Unsung"],
 		"Hive Unsung": ["When combined with Ramarhvir the Hivebringer, it enables Danains resurrection to be too efficiently and making it very difficult to beat (the game drags on). Hive Unsung can also be used in an infinite combo to allow a one turn win."],
 		"Ixxik": ["https://www.youtube.com/watch?v=rE_TUwYc6Vk"],
+		"KingMaxxor4": ["I won't let you ban him!"],
 		"Malvadine, The King's Herald": ["His high stats, and ability to defend, make him essential in any mono-Mipedian deck. He has strike and Air 5, which makes him versitile in practically all deck types."],
 		"Marksman's Preparation": ["This card has been talked about for similar reasons to Primal Smash. You can treat it as a 2 Build Point attack that deals 30 Damage and helps you cycle and a 0 Cost that deals 0 Damage and clogs your hand until you draw the other. Despite the downside, its a strong burst of damage and cycling effect for low Build Points."],
 		"Maxxor's Torch": ["One hit of this can send any amphibious creature the Shadow Realm. Oops I mean it hits the code out of M'arrillians."],

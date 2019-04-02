@@ -27,7 +27,7 @@ function small() {
   return message;
 }
 
-export function whyban(card, options) {
+export function whyban(card, options=[]) {
   card = cleantext(card);
 
   const {bans, watchlist, hidden} = reload('../config/bans.json');
