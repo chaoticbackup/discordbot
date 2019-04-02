@@ -6,14 +6,15 @@ export function banlist(options) {
   }
   
   const {bans, watchlist} = reload('../config/bans.json');
-  let message = "**April Fools Ban List:**\n=====";
+  let message = "**Community Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
   }
-  message += "\n=====\n**Watchlist:** (Also Banned)"
+  message += "\n=====\n**Watchlist:** (not banned)"
   for (var key in watchlist) {
     message += "\n" + key;
   }
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban --serious *card name*\"";
   return message;
 }
 
