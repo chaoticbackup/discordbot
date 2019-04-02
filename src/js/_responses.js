@@ -86,8 +86,9 @@ try {
       /* Cards */
       case 'c':
       case 'card':
-        if (mainserver(message) && bot.member.roles.size === 1)
-        {
+        if (mainserver(message) && 
+          (channel.id == "135657678633566208" && message.member.roles.size === 1)
+        ) {
           send("Please ask me in <#387805334657433600>");
           break;
         }
