@@ -12,6 +12,13 @@ function mainserver(message) {
   return message.guild.id == "135657678633566208";
 }
 
+function moderator(message) {
+  return (
+    message.member.roles.find(role => role.name==="Administrator") ||
+    message.member.roles.find(role => role.name==="Moderator")
+  );
+}
+
 module.exports = function(message) {
   // Dev Server Only
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
@@ -41,17 +48,17 @@ module.exports = function(message) {
   }
 
   if (content.substring(0, 4).toLowerCase() == "#ban") {
-    let name = (content.substring(5, 5) == " ") ? content.substring(6) : content.substring(5);
+    let name = (content.charAt(5) == " ") ? content.substring(6) : content.substring(5);
     send(whyban(name));
   }
 
 try {
   // It will listen for messages that will start with `!` or `c!`
-  if (content.substring(0, 1) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
+  if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
     const commands = reload('../config/commands.json');
 
     let args = (() => {
-      if (content.substring(1, 2) == "!") return content.substring(2);
+      if (content.charAt(1) == "!") return content.substring(2);
       else return content.substring(1);
     })().split(' ');
 
@@ -67,16 +74,10 @@ try {
       return send(help(cmd));
     }
 
+    /* Commands */
     switch(cmd) {
-      case 'ping':
-        message.reply('Pong!');
-        break;
-      case 'pong':
-        channel.send('That\'s my role!');
-        break;
-      /* Commands */
       case 'help':
-        if (content.substring(0, 1) == "!") break;
+        if (content.charAt(0) == "!") break;
       case 'commands':
         if (!args && (mainserver(message) && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
@@ -86,7 +87,7 @@ try {
       /* Cards */
       case 'c':
       case 'card':
-        if (mainserver(message) && 
+        if (mainserver(message) &&
           (channel.id == "135657678633566208" && message.member.roles.size === 1)
         ) {
           send("Please ask me in <#387805334657433600>");
@@ -112,7 +113,7 @@ try {
         }
       case 'rule':
       case 'ruling':
-        if (args.length < 1) 
+        if (args.length < 1)
           channel.send(`"Please provide a rule, or use **!rulebook** for the Rules"`);
         else
         send(rules(args));
@@ -126,7 +127,7 @@ try {
       case 'burn':
       case 'roast':
       case 'insult':
-        if (mentions.indexOf('279331985955094529') !== -1) 
+        if (mentions.indexOf('279331985955094529') !== -1)
           channel.send("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
         else
           send(insertname(rndrsp(commands['insult'], 'insult'), args));
@@ -237,10 +238,12 @@ try {
       case 'haxxor':
         reset(message, channel);
         break;
+      case 'clean':
+        clean(message, channel);
+        break;
     }
     return;
   }
-
 
   // If no commands check message content for quips
   send(checkSass.call(bot, mentions, message));
@@ -270,6 +273,10 @@ catch (error) {
 }
 }
 
+function clean(message, channel) {
+  if (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => ))
+}
+
 function reset(message, channel) {
   if (mainserver(message) &&
     (message.member.roles.find(role => role.name==="Administrator") || message.member.roles.find(role => role.name==="Moderator"))
@@ -294,20 +301,20 @@ function help(args) {
   if (args) {
     // detailed help
     if (help.hasOwnProperty(args) && help[args].long) {
-      message = "```md\n" 
+      message = "```md\n"
         + help[args].cmd + "```"
         + help[args].long;
     }
     else {
       message = "Sorry, I don't have additional information about that command";
     }
-  } 
+  }
   else {
     // help list
     for (var key in help) {
       if (help[key].hasOwnProperty("short")) {
         message += "\n" + help[key].cmd + "\n";
-        if (help[key].short !== "") 
+        if (help[key].short !== "")
           message += "> (" + help[key].short + ")\n";
       }
     }
@@ -317,7 +324,7 @@ function help(args) {
 
 function rulebook(args, options) {
   const {languages, rulebook} = reload('../config/commands.json');
-  
+
   let message = "";
   if (options.includes("list")) {
     for (let lan in languages) {
