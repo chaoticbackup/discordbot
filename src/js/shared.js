@@ -1,10 +1,10 @@
-function reload(module) {
-  delete require.cache[require.resolve(module)];
-  return require(module);
+export function cleantext(string) {
+  //strip comma and apostrophy
+  return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
 let sr = {}; // stored responses
-function rndrsp(items, command) {
+export function rndrsp(items, command) {
 	if (items.length == 1) return items[0];
 	
 	if (!command) {
@@ -31,14 +31,7 @@ function rndrsp(items, command) {
 	return items[rand];
 }
 
-
-function cleantext(string) {
-  //strip comma and apostrophy
-  return string.toLowerCase().replace(/[,\'’\-]/g, '');
-}
-
-module.exports = {
-	reload,
-	rndrsp,
-	cleantext
+export function reload(module) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
 }

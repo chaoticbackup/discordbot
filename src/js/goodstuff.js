@@ -1,7 +1,12 @@
-const {reload} = require('./shared.js');
+const {badultras, agame, goodstuff} = require('../config/goodstuff.json');
 
-export function badultras() {
-  const {badultras} = reload('../config/goodstuff.json');
+export {
+  bu as badultras,
+  fs as funstuff,
+  gs as goodstuff
+}
+
+function bu() {
   let message = "**List of Wasted Ultras**";
   badultras.forEach((key) => {
     message += "\n" + key;
@@ -9,150 +14,145 @@ export function badultras() {
   return message;
 }
 
-export function funstuff(filter) {
-  const {agame} = reload('../config/goodstuff.json');
+function fs(filter) {
   let message = "";
-  
   agame.sort().forEach((card) => {
     message += card + "\n";
   });
+  return message;
+}
+
+function gs(filter, options) {
+  filter = filter.split(' ');
+
+  if (!filter || filter[0] == '') {
+    return "Due to the length, I can't send all the cards.\nPlease specify a card type/tribe";
+  }
+
+  let message = "";
+
+  switch (filter[0].toLowerCase()) {
+    case 'creature':
+    case 'creatures':
+      message = `**Strong Creatures:**`;
+      message += Creatures();
+      break;
+    case 'mugic':
+      message = `**Strong Mugic:**`;
+      message += Mugic();
+      break;
+    case 'attack':
+    case 'attacks':
+      message = Attacks(filter[1]);
+      break;
+    case 'battlegear':
+      message = `**Strong Battlegear:**`;
+      message += Type("Battlegear");
+      break;
+    case 'location':
+    case 'locations':
+      message = `**Strong Locations:**`;
+      message += Type("Locations");
+      break;
+    case 'danian':
+    case 'danians':
+      message = Tribe("Danian", filter[1]);
+      break;
+    case 'm\'arrillian':
+    case 'm\'arrillians':
+      message = Tribe("M'arrillian", filter[1]);
+      break;
+    case 'mipedian':
+    case 'mipedians':
+      message = Tribe("Mipedian", filter[1]);
+      break;
+    case 'overworld':
+    case 'overworlders':
+      message = Tribe("OverWorld", filter[1]);
+      break;
+    case 'underworld':
+    case 'underworlders':
+      message = Tribe("UnderWorld", filter[1]);
+      break;
+    case 'tribeless':
+      message = `**Strong Tribeless Creatures:**`;
+      goodstuff["Creatures"]["Generic"].forEach((card) => {
+        message += "\n" + card;
+      });
+      break;
+    case 'generic':
+      message = `**Strong Generic Mugic:**`;
+      goodstuff["Mugic"]["Generic"].forEach((card) => {
+        message += "\n" + card;
+      });
+      break;
+  }
 
   return message;
 }
 
-export function goodstuff(filter, options) {
-  const {goodstuff} = reload('../config/goodstuff.json');
-  let message = "";
+function Creatures() {
+  let msg = "";
+  [].concat(goodstuff.Creatures["Danian"], goodstuff.Creatures["M'arrillian"], 
+    goodstuff.Creatures["Mipedian"], goodstuff.Creatures["OverWorld"], 
+    goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Generic"]).sort().forEach((card) => {
+      msg += "\n" + card;
+  });
+  return msg;
+}
 
-  filter = filter.split(' ');
+function Mugic() {
+  let msg = "";
+  [].concat(goodstuff.Mugic["Danian"], goodstuff.Mugic["M'arrillian"], 
+    goodstuff.Mugic["Mipedian"], goodstuff.Mugic["OverWorld"], 
+    goodstuff.Mugic["UnderWorld"], goodstuff.Mugic["Generic"]).sort().forEach((card) => {
+      msg += "\n" + card;
+  });
+  return msg;
+}
 
-  function Creatures() {
-    let message = "";
-    [].concat(goodstuff.Creatures["Danian"], goodstuff.Creatures["M'arrillian"], 
-      goodstuff.Creatures["Mipedian"], goodstuff.Creatures["OverWorld"], 
-      goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Generic"]).sort().forEach((card) => {
-        message += "\n" + card;
+function Attacks(bp) {
+  let msg = `**Strong ${bp} BP Attacks:**`;
+  if (bp && bp >= 0 && bp <= 5) {
+    goodstuff.Attacks[bp].forEach((card) => {
+      msg += "\n" + card;
     });
-    return message;
   }
+  else return Attacks(1);
+  return msg;
+}
 
-  function Mugic() {
-    let message = "";
-    [].concat(goodstuff.Mugic["Danian"], goodstuff.Mugic["M'arrillian"], 
-      goodstuff.Mugic["Mipedian"], goodstuff.Mugic["OverWorld"], 
-      goodstuff.Mugic["UnderWorld"], goodstuff.Mugic["Generic"]).sort().forEach((card) => {
-        message += "\n" + card;
-    });
-    return message;
-  }
+function Type(type) {
+  let msg = "";
+  goodstuff[type].forEach((card) => {
+    msg += "\n" + card;
+  });
+  return msg;
+}
 
-  function Attacks(bp) {
-    let message = `**Strong ${bp} BP Attacks:**`;
-    if (bp && bp >= 0 && bp <= 5) {
-      goodstuff.Attacks[bp].forEach((card) => {
-        message += "\n" + card;
+function Tribe(tribe, type) {
+  let msg = "";
+  // If specified mugic or creatures
+  if (type) {
+    if (type.toLowerCase()=="creatures") {
+      msg = `**Strong ${tribe} Creatures**`;
+      goodstuff["Creatures"][tribe].forEach((card) => {
+        msg += "\n" + card;
       });
     }
-    else return Attacks(1);
-    return message;
-  }
-
-  function Type(type) {
-    let message = "";
-    goodstuff[type].forEach((card) => {
-      message += "\n" + card;
-    });
-    return message;
-  }
-
-  function Tribe(tribe, type) {
-    let message = "";
-    // If specified mugic or creatures
-    if (type) {
-      if (type.toLowerCase()=="creatures") {
-        message = `**Strong ${tribe} Creatures**`;
-        goodstuff["Creatures"][tribe].forEach((card) => {
-          message += "\n" + card;
-        });
-      }
-      if (type.toLowerCase()=="mugic") {
-        message = `**Strong ${tribe} Mugic**`;
-        goodstuff["Mugic"][tribe].forEach((card) => {
-          message += "\n" + card;
-        });
-      }
-    }
-    else {
-      message = `**Strong ${tribe} Cards:**`;
-      [].concat(goodstuff["Mugic"][tribe], goodstuff["Creatures"][tribe])
-        .sort().forEach((card) => {
-          message += "\n" + card;
+    if (type.toLowerCase()=="mugic") {
+      msg = `**Strong ${tribe} Mugic**`;
+      goodstuff["Mugic"][tribe].forEach((card) => {
+        msg += "\n" + card;
       });
-    }
-    return message;
-  }
-
-  if (filter && filter.length > 0) {
-    switch (filter[0].toLowerCase()) {
-      case 'creature':
-      case 'creatures':
-        message = `**Strong Creatures:**`;
-        message += Creatures();
-        break;
-      case 'mugic':
-        message = `**Strong Mugic:**`;
-        message += Mugic();
-        break;
-      case 'attack':
-      case 'attacks':
-        message = Attacks(filter[1]);
-        break;
-      case 'battlegear':
-        message = `**Strong Battlegear:**`;
-        message += Type("Battlegear");
-        break;
-      case 'location':
-      case 'locations':
-        message = `**Strong Locations:**`;
-        message += Type("Locations");
-        break;
-      case 'danian':
-      case 'danians':
-        message = Tribe("Danian", filter[1]);
-        break;
-      case 'm\'arrillian':
-      case 'm\'arrillians':
-        message = Tribe("M'arrillian", filter[1]);
-        break;
-      case 'mipedian':
-      case 'mipedians':
-        message = Tribe("Mipedian", filter[1]);
-        break;
-      case 'overworld':
-      case 'overworlders':
-        message = Tribe("OverWorld", filter[1]);
-        break;
-      case 'underworld':
-      case 'underworlders':
-        message = Tribe("UnderWorld", filter[1]);
-        break;
-      case 'tribeless':
-        message = `**Strong Tribeless Creatures:**`;
-        goodstuff["Creatures"]["Generic"].forEach((card) => {
-          message += "\n" + card;
-        });
-        break;
-      case 'generic':
-        message = `**Strong Generic Mugic:**`;
-        goodstuff["Mugic"]["Generic"].forEach((card) => {
-          message += "\n" + card;
-        });
-        break;
     }
   }
   else {
-    message = "Due to the length, I can't send all the cards, please specify a type/tribe";
+    msg = `**Strong ${tribe} Cards:**`;
+    [].concat(goodstuff["Mugic"][tribe], goodstuff["Creatures"][tribe])
+      .sort().forEach((card) => {
+        msg += "\n" + card;
+    });
   }
-  return message;
+  return msg;
 }
-

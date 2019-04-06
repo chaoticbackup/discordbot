@@ -1,11 +1,12 @@
-const {reload, rndrsp, cleantext} = require('./shared.js');
+const {rndrsp, cleantext} = require('./shared.js');
 
 export function banlist(options) {
   if (options.includes("small") || options.includes("short")) {
     return small();
   }
+
+  const {bans, watchlist} = require('../config/bans.json');
   
-  const {bans, watchlist} = reload('../config/bans.json');
   let message = "**Community Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
@@ -19,7 +20,7 @@ export function banlist(options) {
 }
 
 function small() {
-  const {small} = reload('../config/bans.json');
+  const {small} = require('../config/bans.json');
   let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
   small.forEach((key) => {
     message += "\n" + key;
@@ -30,7 +31,7 @@ function small() {
 export function whyban(card, options=[]) {
   card = cleantext(card);
 
-  const {bans, watchlist, hidden} = reload('../config/bans.json');
+  const {bans, watchlist, hidden} = require('../config/bans.json');
 
   let merge = Object.assign({}, bans, watchlist, hidden);
   for (var key in merge) {
@@ -48,7 +49,7 @@ export function whyban(card, options=[]) {
 }
 
 export function limited() {
-  const {limited} = reload('../config/bans.json');
+  const {limited} = require('../config/bans.json');
   let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
   limited.forEach((key) => {
     message += "\n" + key;
@@ -57,7 +58,7 @@ export function limited() {
 }
 
 export function shakeup() {
-  const {shakeup} = reload('../config/bans.json');
+  const {shakeup} = require('../config/bans.json');
   let message = "The **Shake Up** list aims to widen the meta";
   
   message += "\n``The following are limited (unique):``";

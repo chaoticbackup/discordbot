@@ -1,5 +1,5 @@
 const { RichEmbed } = require('discord.js');
-import {reload, rndrsp, cleantext} from '../shared.js';
+import {rndrsp, cleantext} from '../shared.js';
 const API = require('./database.js').default;
 
 export function full_art(name) {
@@ -238,4 +238,21 @@ export function read_card(name, options) {
     }
   }
   return;
+}
+
+export function nowornever(card) {
+  const cards = require('../config/nowornever.json');
+  card = cleantext(card); // re-merge string
+
+  if (!card) {
+    // Return random card
+    var keys = Object.keys(cards);
+    return `${cards[keys[keys.length * Math.random() << 0]]}`;
+  }
+
+  for (var key in cards) {
+    if (cleantext(key).indexOf(card) === 0) {
+      return `${cards[key]}`;
+    }
+  }
 }

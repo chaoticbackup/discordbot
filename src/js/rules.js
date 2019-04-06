@@ -1,10 +1,9 @@
 var pdfjsLib = require('pdfjs-dist');
-const {reload, rndrsp, cleantext} = require('./shared.js');
+const {cleantext} = require('./shared.js');
 const glossary = require('../config/glossary');
+const rules = require('../config/rules.json');
 
 module.exports = function(rule) {
-	let commands = reload('../config/commands.json');
-	let rules = reload('../config/rules.json');
 
 	if (rule == "all") {
 		let response = "";
@@ -77,5 +76,4 @@ module.exports = function(rule) {
 	  console.error('Error: ' + err);
 	});
 
-	return rndrsp(commands["norule"]);
 }
