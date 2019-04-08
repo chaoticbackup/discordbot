@@ -21,7 +21,7 @@ function moderator(message) {
   );
 }
 
-module.exports = function(message) {
+module.exports = function(message, logger) {
   // Dev Server Only
   if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
   // if (process.env.NODE_ENV != "development" && message.guild.id == "504052742201933824") return;
@@ -34,7 +34,7 @@ module.exports = function(message) {
 
   // Prevents sending an empty message
   const send = (msg, options) => {
-    if (msg) channel.send(msg, options).catch(console.error);
+    if (msg) channel.send(msg, options).catch(logger.error);
   }
 
   const hasPermission = (permission) => {
@@ -287,7 +287,7 @@ try {
 }
 catch (error) {
   // Log/Print error
-  console.error(error);
+  logger.error(error);
 
   // Ignore problems while in development
   if (process.env.NODE_ENV == "development") {

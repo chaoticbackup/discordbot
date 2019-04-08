@@ -34,13 +34,13 @@ bot.on('disconnect', (erMsg, code) => {
 });
 
 // Respones
-bot.on('message', responses.bind(bot));
+bot.on('message', msg => responses.call(bot, msg, logger));
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {
 	if (member.displayName.match(new RegExp("(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then((err) => {
-			logger.info('Banned: ' + member.displayName);
+			logger.warn('Banned: ' + member.displayName);
 			// Delete the welcome message
 			let meebot = bot.users.get('159985870458322944');
 			if (meebot) setTimeout(() => {

@@ -110,7 +110,6 @@ function card_db(name, options, bot) {
 function Response(card, options, bot) {
   // If not a released card
   if (!card.gsx$set) {
-    console.log(card);
     const embed = new RichEmbed()
       .setTitle(card.gsx$name)
       .setColor(API.color(card))
