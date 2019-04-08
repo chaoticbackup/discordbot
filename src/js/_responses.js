@@ -79,7 +79,9 @@ try {
     /* Commands */
     switch(cmd) {
       case 'help':
-        if (content.charAt(0) == "!") break;
+        if (content.charAt(0) == "!") 
+          channel.send("Use **!commands** or **c!help**");
+        break;
       case 'commands':
         if (!args && (mainserver(message) && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
@@ -113,6 +115,7 @@ try {
           send(rules("all"));
           break;
         }
+        /* falls through */
       case 'rule':
       case 'ruling':
         if (args.length < 1)
@@ -167,6 +170,7 @@ try {
             channel.send("I'm not in charge of banning players");
           break;
         }
+        /* falls through */
       case 'whyban':
         if (mentions.length > 0) {
           channel.send("Player's aren't cards, silly");
@@ -176,6 +180,7 @@ try {
           send(whyban(args, options));
           break;
         }
+        /* falls through */
       case 'banlist':
         if (mainserver(message) && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");

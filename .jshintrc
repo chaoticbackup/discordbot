@@ -1,4 +1,9 @@
 {
-	esversion: 6,
-	eqeqeq: false
+	"esversion": 6,
+	"eqeqeq": false,
+	"trailingcomma": false,
+	"asi": true,
+	"sub": true,
+	"-W014": true,
+	"-W008": true
 }	

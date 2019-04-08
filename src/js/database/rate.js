@@ -1,9 +1,11 @@
 const API = require('./database.js').default;
 
 export function rate_card(text, options, bot) {
+  let name;
+  let stats;
   try {
-    var name = text.split(/\s\d.*/g)[0].trim();
-    var stats = text.match(/\d+/g).map(Number);
+    name = text.split(/\s\d.*/g)[0].trim();
+    stats = text.match(/\d+/g).map(Number);
     if (!stats || stats.length != 5) throw "";
   } catch (err) {
     return "!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>";
