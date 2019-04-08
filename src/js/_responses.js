@@ -80,7 +80,11 @@ try {
     switch(cmd) {
       case 'help':
         if (content.charAt(0) == "!") {
-          channel.send("Use **!commands** or **c!help**");
+          let meebot = bot.users.get('159985870458322944');
+          if (meebot) setTimeout(() => {
+            channel.send("Use **!commands** or **c!help**");
+          }, 500);
+          else channel.send("Use **!commands** or **c!help**");
           break;
         }
         /* falls through */
