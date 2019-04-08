@@ -80,16 +80,19 @@ try {
     switch(cmd) {
       case 'help':
         if (content.charAt(0) == "!") {
-          let meebot = bot.users.get('159985870458322944');
-          if (meebot) setTimeout(() => {
-            channel.send("Use **!commands** or **c!help**");
-          }, 500);
-          else channel.send("Use **!commands** or **c!help**");
+          let rtn_str = "Use **!commands** or **c!help**";
+          if (mainserver(message) && channel.id != "387805334657433600") {
+            rtn_str += " in <#387805334657433600>";
+          }
+          if (bot.users.get('159985870458322944')) //meebot
+            setTimeout(() => channel.send(rtn_str), 500);
+          else 
+            channel.send(rtn_str);
           break;
         }
         /* falls through */
       case 'commands':
-        if (!args && (mainserver(message) && channel.id != 387805334657433600))
+        if (!args && (mainserver(message) && channel.id != "387805334657433600"))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           send(help(args));
