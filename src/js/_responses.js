@@ -79,9 +79,11 @@ try {
     /* Commands */
     switch(cmd) {
       case 'help':
-        if (content.charAt(0) == "!") 
+        if (content.charAt(0) == "!") {
           channel.send("Use **!commands** or **c!help**");
-        break;
+          break;
+        }
+        /* falls through */
       case 'commands':
         if (!args && (mainserver(message) && channel.id != 387805334657433600))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
