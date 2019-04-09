@@ -1,10 +1,10 @@
-const {rndrsp} = require('./shared.js');
+const {cleantext, rndrsp} = require('./shared.js');
 const rules = require('./rules.js');
 const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database/database.js').default;
 import {rate_card} from './database/rate';
-import {full_art, find_card, display_card, read_card, nowornever} from './database/card';
+import {full_art, find_card, display_card, read_card} from './database/card';
 import {goodstuff, badultras, funstuff} from './goodstuff';
 import {banlist, whyban, limited, shakeup} from './bans';
 import {checkSass} from './sass';
@@ -348,4 +348,21 @@ function help(args) {
     }
   }
   return message;
+}
+
+function nowornever(card) {
+  const cards = require('../config/nowornever.json');
+  card = cleantext(card); // re-merge string
+
+  if (!card) {
+    // Return random card
+    var keys = Object.keys(cards);
+    return `${cards[keys[keys.length * Math.random() << 0]]}`;
+  }
+
+  for (var key in cards) {
+    if (cleantext(key).indexOf(card) === 0) {
+      return `${cards[key]}`;
+    }
+  }
 }
