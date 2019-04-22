@@ -24,9 +24,9 @@
     "bufferutil": "^3.0.5",
     "discord.js": "^11.4.0",
     "fs-extra": "^7.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "jsdom": "^13.1.0",
-    "lokijs": "^1.5.5",
+    "lokijs": "^1.5.6",
     "node-fetch": "^2.3.0",
     "path": "^0.12.7",
     "pdfjs-dist": "^2.0.943",
@@ -37,7 +37,7 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-1": "^6.24.1",
-    "forever": "git+https://github.com/chaoticbackup/forever.git",
+    "forever": "^1.0.0",
     "git-auto-pull": "^1.0.9",
     "webpack": "^3.12.0"
   }
