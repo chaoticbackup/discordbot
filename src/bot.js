@@ -53,4 +53,7 @@ bot.on('guildMemberAdd', (member) => {
 /* LOGIN */
 bot.login(auth.token);
 
-process.on('unhandledRejection', logger.error);
+process.on('unhandledRejection', err => {
+	logger.error(err);
+	bot.destroy();
+});

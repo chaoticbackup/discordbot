@@ -304,7 +304,7 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  bot.channels.get("558184649466314752").send(error.stack);
+  bot.channels.get("558184649466314752").send(error.stack).catch(logger.error);
 
   // Ignore programmer errors (keep running)
   if (
