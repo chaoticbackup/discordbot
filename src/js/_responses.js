@@ -9,9 +9,11 @@ import {goodstuff, badultras, funstuff} from './goodstuff';
 import {banlist, whyban, limited, shakeup} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
+import {servers, channels, users} from '../config/server_ids.json';
 
 function mainserver(message) {
-  return message.guild.id == "135657678633566208";
+  if (!message.guild) return false;
+  return message.guild.id == servers.main;
 }
 
 function moderator(message) {
@@ -22,10 +24,10 @@ function moderator(message) {
 }
 
 module.exports = function(message, logger) {
+  //Ignore bot messages
+  if (message.author.bot) return;
   // Dev Server Only
-  if (process.env.NODE_ENV == "development" && message.guild.id != "504052742201933824") return;
-  // if (process.env.NODE_ENV != "development" && message.guild.id == "504052742201933824") return;
-  if (message.author.bot) return; //Ignore bot messages
+  if (process.env.NODE_ENV == "development" && !(message.guild && message.guild.id == servers.develop)) return;
 
   const bot = this;
   const content = message.content;
@@ -38,13 +40,15 @@ module.exports = function(message, logger) {
   }
 
   const hasPermission = (permission) => {
+    if (!message.guild) return false;
     return bot.guilds.get(message.guild.id).me.hasPermission(permission);
   }
 
   const insertname = (resp, name) => {
     // Replace the mention with the display name
     if (mentions.length > 0) {
-      name = this.guilds.get(message.guild.id).members.get(mentions[0]).displayName;
+      if (message.guild)
+        name = bot.guilds.get(message.guild.id).members.get(mentions[0]).displayName;
     }
     if (name)
       resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
@@ -81,18 +85,18 @@ try {
       case 'help':
         if (content.charAt(0) == "!") {
           let rtn_str = "Use **!commands** or **c!help**";
-          if (mainserver(message) && channel.id != "387805334657433600") {
+          if (mainserver(message) && channel.id != channels.bot_commands) {
             rtn_str += " in <#387805334657433600>";
           }
           if (bot.users.get('159985870458322944')) //meebot
             setTimeout(() => channel.send(rtn_str), 500);
-          else 
+          else
             channel.send(rtn_str);
           break;
         }
         /* falls through */
       case 'commands':
-        if (!args && (mainserver(message) && channel.id != "387805334657433600"))
+        if (!args && (mainserver(message) && channel.id != channels.bot_commands))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           send(help(args));
@@ -242,7 +246,7 @@ try {
       case 'readthecard':
         if (hasPermission("SEND_TTS_MESSAGES")) {
           if (mainserver(message) && moderator(message)
-            && (channel.id == "387805334657433600" || channel.id == "293610368947716096")) {
+            && (channel.id == channels.bot_commands || channel.id == "293610368947716096")) {
             send(read_card(args, options), {tts: true});
           }
           else {
@@ -261,7 +265,7 @@ try {
           });
         }
         break;
-      case 'clear': 
+      case 'clear':
       case 'clean':
         if (moderator(message)) {
           args = parseInt(args);
@@ -277,7 +281,7 @@ try {
               });
             }
             else {
-              channel.bulkDelete(args);  
+              channel.bulkDelete(args);
             }
           }
         }
@@ -304,7 +308,7 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  bot.channels.get("558184649466314752").send(error.stack).catch(logger.error);
+  bot.channels.get(channels.errors).send(error.stack).catch(logger.error);
 
   // Ignore programmer errors (keep running)
   if (
