@@ -9,8 +9,8 @@ import {goodstuff, badultras, funstuff} from './goodstuff';
 import {banlist, whyban, limited, shakeup} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
+import {tierlist, tierlisttext} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
-import {tierlist, tierlisttext} from '../config/tierlist.json';
 
 function mainserver(message) {
   if (!message.guild) return false;
