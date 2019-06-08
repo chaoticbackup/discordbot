@@ -3,6 +3,7 @@ const rules = require('./rules.js');
 const fs = require('fs-extra');
 const path = require('path');
 const API = require('./database/database.js').default;
+const {RichEmbed} = require('discord.js');
 import {rate_card} from './database/rate';
 import {full_art, find_card, display_card, read_card} from './database/card';
 import {goodstuff, badultras, funstuff} from './goodstuff';
@@ -233,18 +234,17 @@ try {
         if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
         if (message.deletable) message.delete(); // delete user msg
         break;
-      case 'sandwich':
-        channel.send(":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:");
-        break;
-      case 'pizza':
-        channel.send(":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:");
-        break;
-      case 'sandwitch':
-        send(display_card("Arkanin", options, bot));
+      case 'order':
+      case 'make':
+        send(order(cleantext(args)));
         break;
       case 'never':
       case 'nowornever':
         send(nowornever(args));
+        break;
+      /* Joke Cards */
+      case 'gone':
+        send(gone(args));
         break;
       /* Moderator Only */
       case 'readthecard':
@@ -372,5 +372,50 @@ function nowornever(card) {
     if (cleantext(key).indexOf(card) === 0) {
       return `${cards[key]}`;
     }
+  }
+}
+
+function gone(card) {
+  card = cleantext(card).toLowerCase();
+
+  if (card = "raimusa") {
+    return new RichEmbed().setImage("https://cdn.discordapp.com/attachments/341486838416015361/586752310441410574/1vWjo0F_1.jpg");
+  }
+}
+
+function order(item) {
+  if (!item) return 'What would you like to order?';
+
+  switch (item) {
+    case 'sandwich':
+    case 'burger':
+      return ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:";
+    case 'hotdog':
+      return ":bread: :meat_on_bone: -> :hotdog:";
+    case 'pizza':
+      return ":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:";
+    case 'salad':
+      return ":leaves: :tomato: :cucumber: -> :salad:";
+    case 'fries':
+      return ":potato: -> :fries:";
+    case 'popcorn':
+      return ":corn: -> :popcorn:";
+    case 'pasta':
+    case 'spaghetti':
+      return ":bread: :tomato: :cheese: -> :spaghetti:";
+    case 'sandwitch':
+      return (display_card("Arkanin", options, bot));
+    case 'chaor crunchies':
+      return ":popcorn:";
+    case 'jhunda juice':
+      return ":tumbler_glass:";
+    case 'lomma latte':
+    case 'frafdoccino':
+      return ":coffee:";
+    // Dractyl Chips
+    case 'shimmark shake':
+      return ":milk: :handshake:";
+    default:
+      return "Sorry, I don't have that";
   }
 }
