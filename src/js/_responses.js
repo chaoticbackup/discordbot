@@ -12,6 +12,7 @@ import {checkSass} from './sass';
 import {rulebook} from './rulebook';
 import {tierlist, tierlisttext} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
+import {menu, make, order} from './menu';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -196,7 +197,7 @@ try {
         }
         /* falls through */
       case 'banlist':
-        if (mainserver(message) && (channel.id != 387805334657433600 && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
           send(banlist(options));
@@ -208,8 +209,12 @@ try {
         send(shakeup());
         break;
       case 'tierlist':
-        send(tierlist());
-        send(tierlisttext());
+        if (!args && (mainserver(message) && channel.id != channels.bot_commands))
+          channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
+        else {
+          send(tierlist());
+          send(tierlisttext());
+        }
         break;
       case 'strong':
       case 'good':
@@ -233,6 +238,9 @@ try {
         let lstmsg = bot.user.lastMessage;
         if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
         if (message.deletable) message.delete(); // delete user msg
+        break;
+      case 'menu':
+        send(menu());
         break;
       case 'order':
         send(order(cleantext(args)));
@@ -383,56 +391,5 @@ function gone(card) {
 
   if (card = "raimusa") {
     return new RichEmbed().setImage("https://cdn.discordapp.com/attachments/341486838416015361/586752310441410574/1vWjo0F_1.jpg");
-  }
-}
-
-function make(item) {
-  if (!item) return 'My skillet is ready';
-
-  switch (item.toLowerCase()) {
-    case 'sandwich':
-    case 'burger':
-    case 'hamburger':
-      return ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:";
-    case 'hotdog':
-      return ":bread: :meat_on_bone: -> :hotdog:";
-    case 'pizza':
-      return ":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:";
-    case 'salad':
-      return ":leaves: :tomato: :cucumber: -> :salad:";
-    case 'fries':
-      return ":potato: -> :fries:";
-    case 'popcorn':
-      return ":corn: -> :popcorn:";
-    case 'pasta':
-    case 'spaghetti':
-      return ":bread: :tomato: :cheese: -> :spaghetti:";
-    default:
-      return "I don't have that recipe";
-    }
-}
-
-function order(item) {
-  if (!item) return 'What would you like to order?';
-  switch (item.toLowerCase()) {
-    case 'sandwitch':
-      return (display_card("Arkanin", options, bot));
-    case 'chaor crunchies':
-    case 'dractyl chips':
-      return ":popcorn:";
-    case 'jhunda juice':
-      return ":tumbler_glass:";
-    case 'lomma latte':
-    case 'frafdoccino':
-      return ":coffee:";
-    case 'shimmark shake':
-      return ":milk: :handshake:";
-    case 'Perim Pizza':
-      return ":pizza:";
-    case "blugon burger":
-    case "blügon burger":
-      return ":hamburger:";
-    default:
-      return "Sorry, I don't have that";
   }
 }

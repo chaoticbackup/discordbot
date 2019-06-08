@@ -1,0 +1,33 @@
+{
+    "make": {
+        "sandwich": ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:",
+        "burger": ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:",
+        "hamburger": ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:",
+        "hotdog": ":meat_on_bone: :bread: -> :hotdog:",
+        "pizza": ":bread: :tomato: :cheese: :meat_on_bone: -> :pizza:",
+        "salad": ":leaves: :tomato: :cucumber: -> :salad:",
+        "fries": ":potato: -> :fries:",
+        "popcorn": ":corn: -> :popcorn:",
+        "pasta": ":bread: :tomato: :cheese: -> :spaghetti:",
+        "spaghetti": ":bread: :tomato: :cheese: -> :spaghetti:"
+    },
+    "order": {
+        "Chaor Crunchies": ":popcorn:",
+        "Dractyl Chips": ":popcorn:",
+        "Jhunda Juice": ":tumbler_glass:",
+        "Lomma Latte": ":coffee:",
+        "Frafdoccino": ":coffee:",
+        "Shimmark Shake": ":milk: :handshake:",
+        "Perim Pizza": ":pizza:",
+        "Blügon Burger": ":hamburger:",
+        "Barath Beyond Burritos": ":burrito:",
+        "Frafdo Fries": ":fries:",
+        "Toxic Gust Taco": ":taco:"
+    },
+    "no_emote": [
+        "Tangath Tamales",
+        "Mipedian Meatballs",
+        "Onion Rings of Na'arin"
+    ]
+}
+
