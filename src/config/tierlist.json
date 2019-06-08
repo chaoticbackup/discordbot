@@ -1,0 +1,241 @@
+{
+	"tierlist": {
+		"S": [
+			"Wise Guys",
+        	"Danian Burn",
+        	"LankerTosh",
+			"MaxWreck",
+			"Swim Team",
+			"Strike",
+			"Lankerek"
+		
+		],
+		"A": [
+			"Elementalist",
+			"Hot Air",
+			"Fliandar",
+			"UrsisKanin",
+			"Aszil Courage",
+			"UW Fire"
+		
+		],
+		"B": [
+		
+			"Lyssta Mixed",
+			"Flame On!",
+			"Arrthoa/Water",
+			"No Healing",
+			"Compost",
+			"6 Arms"
+		],
+		"C": [
+			"Blazvatan",
+			"Gorram Air",
+			"Gorram Water",
+			"FireFly",
+			"Kraken",
+			"Enre Tower"
+		],
+		"D": [
+			"Khorror",
+			"CrackTheWhep",
+			"Flying Frogs",
+			"GearEater",
+			"Gintanai",
+			"Four Arms",
+			"Ursis Dagger",
+			"Ocean Man",
+			"Mip Reckless",
+			"Marr Reckless",
+			"Brathe Yourself",
+			"HiveMind"
+		]
+	}, 
+	"decks": {
+		"Lankerek": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891415"
+		},
+		"6 Arms": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891676"
+		},
+		"Enre Tower": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/892503"
+		},
+		"Danian Burn": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/885302"
+		},
+		"LankerTosh": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/887214"
+		},
+		"Wise Guys": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/878631"
+		},
+		"Strike": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/889977"
+		},
+		"Swim Team": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/857240"
+		},
+		"UW Fire": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/858004"
+		},
+		"MaxWreck": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/887555"
+		},
+		"Fliandar": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/861699"
+		},
+		"UrsisKanin": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/881372"
+		},
+		"Aszil Courage": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/858961"
+		},
+		"Hot Air": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/863253"
+		},
+		"Elementalist": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/890595"
+		},
+		"Lyssta Mixed": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/864867"
+		},
+		"Flame On!": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/876475"
+		},
+		"Arrthoa/Water": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/882687"
+		},
+		"No Healing": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/871345"
+		},
+		"Compost": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/858961"
+		},
+		"Khorror": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891446"
+		},
+		"Blazvatan": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/857182"
+		},
+		"Gorram Air": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/871498"
+		},
+		"Gorram Water": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/886676"
+		},
+		"FireFly": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/875968"
+		},
+		"CrackTheWhep": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/838237"
+		},
+		"Flying Frogs": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/888011"
+		},
+		"GearEater": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/882910"
+		},
+		"Gintanai": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/880304"
+		},
+		"Four Arms": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/888459"
+		},
+		"Ursis Dagger": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/863053"
+		},
+		"Mip Reckless": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/885765"
+		},
+		"Marr Reckless": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/885676"
+		},
+		"Brathe Yourself": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891333"
+		},
+		"Kraken": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/821410"
+		},
+		"Ocean Man": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/890772"
+		},
+		"HiveMind": {
+			"info": "",
+			"counter": "",
+			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891443"
+		}
+	}
+}

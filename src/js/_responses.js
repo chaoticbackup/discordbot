@@ -10,6 +10,7 @@ import {banlist, whyban, limited, shakeup} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
 import {servers, channels, users} from '../config/server_ids.json';
+import {tierlist, tierlisttext} from '../config/tierlist.json';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -102,7 +103,6 @@ try {
           send(help(args));
         break;
       /* Cards */
-      case 'c':
       case 'card':
         if (mainserver(message) &&
           (channel.id == "135657678633566208" && message.member.roles.size === 1)
@@ -205,6 +205,10 @@ try {
         break;
       case 'shakeup':
         send(shakeup());
+        break;
+      case 'tierlist':
+        send(tierlist());
+        send(tierlisttext());
         break;
       case 'strong':
       case 'good':
