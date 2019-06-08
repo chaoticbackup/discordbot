@@ -235,8 +235,11 @@ try {
         if (message.deletable) message.delete(); // delete user msg
         break;
       case 'order':
-      case 'make':
         send(order(cleantext(args)));
+        break;
+      case 'make':
+      case 'cook':
+        send(make(cleantext(args)));
         break;
       case 'never':
       case 'nowornever':
@@ -383,12 +386,13 @@ function gone(card) {
   }
 }
 
-function order(item) {
-  if (!item) return 'What would you like to order?';
+function make(item) {
+  if (!item) return 'My skillet is ready';
 
-  switch (item) {
+  switch (item.toLowerCase()) {
     case 'sandwich':
     case 'burger':
+    case 'hamburger':
       return ":bread: :cheese: :bacon: :tomato: :meat_on_bone: :bread: -> :hamburger:";
     case 'hotdog':
       return ":bread: :meat_on_bone: -> :hotdog:";
@@ -403,18 +407,31 @@ function order(item) {
     case 'pasta':
     case 'spaghetti':
       return ":bread: :tomato: :cheese: -> :spaghetti:";
+    default:
+      return "I don't have that recipe";
+    }
+}
+
+function order(item) {
+  if (!item) return 'What would you like to order?';
+  switch (item.toLowerCase()) {
     case 'sandwitch':
       return (display_card("Arkanin", options, bot));
     case 'chaor crunchies':
+    case 'dractyl chips':
       return ":popcorn:";
     case 'jhunda juice':
       return ":tumbler_glass:";
     case 'lomma latte':
     case 'frafdoccino':
       return ":coffee:";
-    // Dractyl Chips
     case 'shimmark shake':
       return ":milk: :handshake:";
+    case 'Perim Pizza':
+      return ":pizza:";
+    case "blugon burger":
+    case "blügon burger":
+      return ":hamburger:";
     default:
       return "Sorry, I don't have that";
   }
