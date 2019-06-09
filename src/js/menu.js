@@ -14,8 +14,6 @@ export function menu() {
 export function make(item) {
   if (!item) return 'My skillet is ready';
 
-  item = item.toLowerCase();
-
   const {make} = require('../config/order.json');
   for (var key in make) {
     if (cleantext(key).indexOf(item) === 0) {
@@ -28,8 +26,6 @@ export function make(item) {
 
 export function order(item) {
   if (!item) return 'What would you like to order?';
-
-  item = item.toLowerCase();
 
   if (item == 'sandwitch')
     return (display_card("Arkanin", options, bot));

@@ -13,6 +13,7 @@ import {rulebook} from './rulebook';
 import {tierlist, tierlisttext} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
 import {menu, make, order} from './menu';
+import {setTribe} from './tribe';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -22,7 +23,8 @@ function mainserver(message) {
 function moderator(message) {
   return Boolean(
     message.member.roles.find(role => role.name==="Administrator") ||
-    message.member.roles.find(role => role.name==="Moderator")
+    message.member.roles.find(role => role.name==="Moderator") ||
+    message.member.roles.find(role => role.name==="Sectional Name")
   );
 }
 
@@ -49,9 +51,11 @@ module.exports = function(message, logger) {
 
   const insertname = (resp, name) => {
     // Replace the mention with the display name
-    if (mentions.length > 0) {
-      if (message.guild)
-        name = bot.guilds.get(message.guild.id).members.get(mentions[0]).displayName;
+    if (message.guild && mentions.length > 0) {
+      let member = bot.guilds.get(message.guild.id).members.get(mentions[0]);
+      if (member) {
+        name = member.displayName;
+      }
     }
     if (name)
       resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
@@ -251,11 +255,17 @@ try {
         break;
       case 'never':
       case 'nowornever':
-        send(nowornever(args));
+        send(nowornever(cleantext(args)));
+        break;
+      case 'join':
+      case 'tribe':
+        if (message.guild && hasPermission("MANAGE_ROLES")) {
+          send(setTribe(args, message, bot));
+        }
         break;
       /* Joke Cards */
       case 'gone':
-        send(gone(args));
+        send(gone(cleantext(args)));
         break;
       /* Moderator Only */
       case 'readthecard':
@@ -284,7 +294,8 @@ try {
       case 'clean':
         if (moderator(message)) {
           args = parseInt(args);
-          if (typeof args == "number" && args <= 20) {
+          if (typeof args !== "number") break;
+          if (args <= 25) {
             if (mentions.length > 0) {
               channel.fetchMessages()
               .then(messages => {
@@ -296,8 +307,13 @@ try {
               });
             }
             else {
-              channel.bulkDelete(args);
+              channel.bulkDelete(args + 1);
             }
+          }
+          else {
+            // only delete the clear command
+            message.delete();
+            channel.send("Enter a number less than 20");
           }
         }
         break;
@@ -371,7 +387,6 @@ function help(args) {
 
 function nowornever(card) {
   const cards = require('../config/nowornever.json');
-  card = cleantext(card); // re-merge string
 
   if (!card) {
     // Return random card
@@ -387,8 +402,6 @@ function nowornever(card) {
 }
 
 function gone(card) {
-  card = cleantext(card).toLowerCase();
-
   if (card = "raimusa") {
     return new RichEmbed().setImage("https://cdn.discordapp.com/attachments/341486838416015361/586752310441410574/1vWjo0F_1.jpg");
   }

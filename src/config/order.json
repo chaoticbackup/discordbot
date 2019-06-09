@@ -12,7 +12,7 @@
         "spaghetti": ":bread: :tomato: :cheese: -> :spaghetti:"
     },
     "order": {
-        "Chaor Crunchies": ":popcorn:",
+        "Chaor Crunchies": ":Chaor: :popcorn:",
         "Dractyl Chips": ":popcorn:",
         "Jhunda Juice": ":tumbler_glass:",
         "Lomma Latte": ":coffee:",
@@ -27,7 +27,8 @@
     "no_emote": [
         "Tangath Tamales",
         "Mipedian Meatballs",
-        "Onion Rings of Na'arin"
+        "Onion Rings of Na'arin",
+        "Maxxoroni and Cheese"
     ]
 }
 
