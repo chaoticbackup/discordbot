@@ -3,10 +3,18 @@ export function cleantext(string) {
   return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
+export function moderator(message) {
+  return Boolean(
+    message.member.roles.find(role => role.name==="Administrator") ||
+    message.member.roles.find(role => role.name==="Moderator") ||
+    message.member.roles.find(role => role.name==="Sectional Name")
+  );
+}
+
 let sr = {}; // stored responses
 export function rndrsp(items, command) {
 	if (items.length == 1) return items[0];
-	
+
 	if (!command) {
 		return items[Math.floor(Math.random()*items.length)];
 	}
@@ -23,7 +31,7 @@ export function rndrsp(items, command) {
 		sr[command].push(rand); // add to just used array
 
 		setTimeout(
-			(() => sr[command].shift()).bind(this), 
+			(() => sr[command].shift()).bind(this),
 			Math.ceil(items.length / 5) * 1000
 		);
 	}

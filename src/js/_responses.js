@@ -1,4 +1,4 @@
-const {cleantext, rndrsp} = require('./shared.js');
+const {cleantext, rndrsp, moderator} = require('./shared.js');
 const rules = require('./rules.js');
 const fs = require('fs-extra');
 const path = require('path');
@@ -18,14 +18,6 @@ import {setTribe} from './tribe';
 function mainserver(message) {
   if (!message.guild) return false;
   return message.guild.id == servers.main;
-}
-
-function moderator(message) {
-  return Boolean(
-    message.member.roles.find(role => role.name==="Administrator") ||
-    message.member.roles.find(role => role.name==="Moderator") ||
-    message.member.roles.find(role => role.name==="Sectional Name")
-  );
 }
 
 module.exports = function(message, logger) {

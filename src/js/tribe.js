@@ -2,7 +2,7 @@ const {cleantext} = require('./shared.js');
 
 export function setTribe(tribe, message, bot) {
 
-    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
+    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
     .forEach((t) => {
         let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
         if (message.member.roles.find(role => role === gr)) {
@@ -31,6 +31,9 @@ export function setTribe(tribe, message, bot) {
         case 'generic':
             tribe = "Tribeless";
             break;
+        case 'frozen':
+            tribe = "Frozen";
+            break;
         default:
             return `${tribe} is not a valid faction`;
     }
@@ -38,8 +41,11 @@ export function setTribe(tribe, message, bot) {
     let guild_role = bot.guilds.get(message.guild.id).roles.find(role => role.name===tribe);
     if (guild_role) {
         message.member.addRole(guild_role);
-        return `You have joined the ${tribe}`;
+        if (tribe = "Frozen")
+            return `Shhhh we haven't been revealed yet`;
+        else
+            return `You have joined the ${tribe}`;
     }
 
-    return `Sorry this guild doesn't have tribel roles`;
+    return `Sorry this guild doesn't have tribal roles`;
 }
