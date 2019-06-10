@@ -13,7 +13,7 @@ import {rulebook} from './rulebook';
 import {tierlist, tierlisttext} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
 import {menu, make, order} from './menu';
-import {setTribe} from './tribe';
+import {joinTribe, leaveTribe, showTribe} from './tribe';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -250,10 +250,18 @@ try {
         send(nowornever(cleantext(args)));
         break;
       case 'join':
-      case 'tribe':
         if (message.guild && hasPermission("MANAGE_ROLES")) {
-          send(setTribe(args, message, bot));
+          send(joinTribe(args, message, bot));
         }
+        break;
+      case 'leave':
+        if (message.guild && hasPermission("MANAGE_ROLES")) {
+          let leaving_tribe = leaveTribe(message, bot);
+          if (leaving_tribe) send(`You have left the ` + leaving_tribe);
+        }
+        break;
+      case 'tribe':
+        send(showTribe(message, bot));
         break;
       /* Joke Cards */
       case 'gone':
