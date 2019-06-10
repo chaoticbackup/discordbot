@@ -46,16 +46,17 @@ export function joinTribe(tribe, message, bot) {
     switch(tribe.toLowerCase()) {
         case 'danian':
             tribe = "Danian";
-            joining_msg = `<:gottahave:400174328215502851>: Yo, you're one of the hive now.`;
+            joining_msg = `<:gottahave:400174328215502851> Yo, you're one of the hive now.`;
             break;
         case 'mipedian':
             tribe = "Mipedian";
-            joining_msg = `<:Shim:315235831927537664>: What's up my dude? heh heh heh, welcome to the fun.`;
+            joining_msg = `<:Shim:315235831927537664> What's up my dude? heh heh heh, welcome to the fun.`;
             break;
         case 'marrillian':
         case "m'arrillian":
+        case 'm’arrillian':
             tribe = "M'arrillian";
-            joining_msg = `<:Mar:294942283273601044>: You'll serve your purpose.`
+            joining_msg = `<:Mar:294942283273601044> You'll serve your purpose.`
             break;
         case 'overworld':
             tribe = "OverWorld";
@@ -64,17 +65,17 @@ export function joinTribe(tribe, message, bot) {
                 joining_msg = "<:Bodal:401553896108982282> I'm still suspicious of your allegiance, but we can use another set of hands.";
             }
             else {
-                joining_msg = `<:Bodal:401553896108982282>: You have joined the mighty forces of the OverWorld.`;
+                joining_msg = `<:Bodal:401553896108982282> You have joined the mighty forces of the OverWorld.`;
             }
             break;
         case 'underworld':
             tribe = "UnderWorld";
-            joining_msg = `<:Chaor:285620681163669506>: Puny humans can still fight for Chaor!`;
+            joining_msg = `<:Chaor:285620681163669506 Puny humans can still fight for Chaor!`;
             break;
         case 'tribeless':
         case 'generic':
             tribe = "Tribeless";
-            joining_msg = `<:creepy:471863166737973268>: 👀`;
+            joining_msg = `<:creepy:471863166737973268> 👀`;
             break;
         case 'frozen':
             tribe = "Frozen";
