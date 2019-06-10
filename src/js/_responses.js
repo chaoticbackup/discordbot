@@ -358,14 +358,14 @@ catch (error) {
 * Responses
 */
 function help(args) {
-  const {help} = require('../config/commands.json');
+  const help = require('../config/help.json');
   let message = "";
 
   if (args) {
     // detailed help
     if (help.hasOwnProperty(args) && help[args].long) {
       message = "```md\n"
-        + help[args].cmd + "```"
+        + help[args].cmd + "\n```"
         + help[args].long;
     }
     else {

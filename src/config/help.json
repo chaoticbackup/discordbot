@@ -1,0 +1,18 @@
+{
+    "start": {"cmd":"I try to be helpful, but can be sassy. I may also pop in to add a quip ;)```md", "short":""},
+    "card": {"cmd": "!card <card>", "short": "returns a card", "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card\nYou can provide ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after =)."},
+    "fullart": {"cmd":"!full, !fullart <card>", "short":"", "long":"You provide a card name, I'll look for its full art."},
+    "find": {"cmd":"!find <name>", "short":"returns a list of card names", "long":"I'll search for names that contain the letters you provide."},
+    "banlist": {"cmd":"!banlist\n!ban, !whyban <card>", "short":"banlist and banned cards", "long":"Ask me about the banlist or why a card is/should be banned.\nSome of my answers are snarky, so you can add ``--serious`` for a proper explaination."},
+    "good": {"cmd":"!good, !strong, !goodstuff, !best <type|tribe> < bp|type >", "short":"takes a card type, or a tribe and type", "long":"Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n``!good M'arrillian Creatures``\n ``!good Attacks 1``"},
+    "documents": {"cmd":"!rulebook, !cr, !errata, !guide", "short":"the important documents"},
+    "rulebook": {"cmd":"!rulebook", "long": "You can ask for a different different rulebooks. If you don't tell me otherwise, I'll return the equivalent of ``!rulebook EN AU``\nFor a list of all rulebooks I have, type ``!rulebook --list``"},
+    "starters": {"cmd":"!starters", "short":"player made starter decks", "long":"I'll provide a list of starter decks. Default are Afjak's TCO starter decks, but you can add --king or --metal for different ones."},
+    "compliment": {"cmd":"!compliment, !flirt <name>", "short":"optional name"},
+    "insult": {"cmd":"!insult, !burn, !roast <name>", "short":"optional name"},
+    "rule": {"cmd":"!rule <rule>", "short":"returns the definition of the rule"},
+    "rate": {"cmd":"!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>", "short": "Rate's a Creature based on its stats."},
+    "tribe": {"cmd":"!tribe\n!join, <tribe name>", "short":"You can join you're favorite tribe! You can only be loyal to one... but you can always switch", "long":"Here are the tribes you can join:\n <:Dan:294942889337683968> Danian, <:Mip:294941790052679690> Mipedian, <:Mar:294942283273601044> M'arrillian, <:OW:294939978897555457> OverWorld, <:UW:294943282943885313> UnderWorld, <:TL:294945357392248833> Tribeless"},
+    "end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``.", "short":""},
+    "command": {"cmd":" ", "long": "This is for when you need help with my help"}
+}
