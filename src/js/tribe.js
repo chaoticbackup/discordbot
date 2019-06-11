@@ -46,11 +46,28 @@ export function joinTribe(tribe, message, bot) {
     switch(tribe.toLowerCase()) {
         case 'danian':
             tribe = "Danian";
-            joining_msg = `<:gottahave:400174328215502851> Yo, you're one of the hive now.`;
+            if (!leaving_tribe) {
+               joining_msg = `<:gottahave:400174328215502851> Yo, you're one of the hive now.`;
+            }
+            else {
+                joining_msg = `<:gottahave:400174328215502851> You've been infected.`;
+
+                if (leaving_tribe == "Mipedian") {
+                    leaving_msg = `<:Shim:315235831927537664> Hey! Return our water!`;
+                }
+                else if (leaving_tribe == "UnderWorld") {
+                    leaving_msg = `<:Chaor:285620681163669506> Bugs, humans? I'll squash you both!`;
+                }
+            }
             break;
         case 'mipedian':
             tribe = "Mipedian";
-            joining_msg = `<:Shim:315235831927537664> What's up my dude? heh heh heh, welcome to the fun.`;
+            if (leaving_tribe == "Danian") {
+                joining_msg = `<:Shim:315235831927537664> Another one purified`;
+            }
+            else {
+                joining_msg = `<:Shim:315235831927537664> What's up my dude? heh heh heh, welcome to the fun.`;
+            }
             break;
         case 'marrillian':
         case "m'arrillian":
@@ -62,7 +79,11 @@ export function joinTribe(tribe, message, bot) {
             tribe = "OverWorld";
             if (leaving_tribe == "UnderWorld") {
                 leaving_msg = "<:Chaor:285620681163669506> How dare you betray me for the OverWorld!";
-                joining_msg = "<:Bodal:401553896108982282> I'm still suspicious of your allegiance, but we can use another set of hands.";
+                joining_msg = "<:ZalThink:565050379499208704> I'm still suspicious of your allegiance, but we can use another set of hands.";
+            }
+            else if (leaving_tribe == "Mipedian") {
+                leaving_msg = "<:Shim:315235831927537664> Look out!";
+                joining_msg = `<:WhyHello:586724104732672000> SURPRISE!`
             }
             else {
                 joining_msg = `<:Bodal:401553896108982282> You have joined the mighty forces of the OverWorld.`;
@@ -70,12 +91,22 @@ export function joinTribe(tribe, message, bot) {
             break;
         case 'underworld':
             tribe = "UnderWorld";
-            joining_msg = `<:Chaor:285620681163669506 Puny humans can still fight for Chaor!`;
+            if (leaving_tribe == "OverWorld") {
+                joining_msg = `<:Chaor:285620681163669506> Ah good! You can tell me all their secrets! `;
+            }
+            else {
+                joining_msg = `<:Chaor:285620681163669506> Puny humans can still fight for Chaor!`;
+            }
             break;
         case 'tribeless':
         case 'generic':
             tribe = "Tribeless";
-            joining_msg = `<:creepy:471863166737973268> 👀`;
+            if (leaving_tribe) {
+                joining_msg = `<:creepy:471863166737973268> You've left your home behind`
+            }
+            else {
+                joining_msg = `<:creepy:471863166737973268> New prey 👀`;
+            }
             break;
         case 'frozen':
             tribe = "Frozen";
