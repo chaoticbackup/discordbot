@@ -1,6 +1,6 @@
 const {cleantext} = require('./shared.js');
 
-export function showTribe() {
+export function showTribe(message, bot) {
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
     .forEach((t) => {
         let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
