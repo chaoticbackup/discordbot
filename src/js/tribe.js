@@ -1,13 +1,15 @@
 const {cleantext} = require('./shared.js');
 
 export function showTribe(message, bot) {
+    let tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
     .forEach((t) => {
         let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
         if (message.member.roles.find(role => role === gr)) {
-            return `You are part of the ` + t;
+            return tribe = `You are part of the ` + t;
         }
     });
+    if (tribe) return tribe;
     return `You have not declared an allegiance`;
 }
 
@@ -46,10 +48,7 @@ export function joinTribe(tribe, message, bot) {
     switch(tribe.toLowerCase()) {
         case 'danian':
             tribe = "Danian";
-            if (!leaving_tribe) {
-               joining_msg = `<:gottahave:400174328215502851> Yo, you're one of the hive now.`;
-            }
-            else {
+            if (leaving_tribe) {
                 joining_msg = `<:gottahave:400174328215502851> You've been infected.`;
 
                 if (leaving_tribe == "Mipedian") {
@@ -58,6 +57,9 @@ export function joinTribe(tribe, message, bot) {
                 else if (leaving_tribe == "UnderWorld") {
                     leaving_msg = `<:Chaor:285620681163669506> Bugs, humans? I'll squash you both!`;
                 }
+            }
+            else {
+                joining_msg = `<:gottahave:400174328215502851> Yo, you're one of the hive now.`;
             }
             break;
         case 'mipedian':
