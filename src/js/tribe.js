@@ -126,6 +126,5 @@ export function joinTribe(tribe, message, bot) {
         }
         return joining_msg;
     }
-
     return `Sorry this guild doesn't have tribal roles`;
 }

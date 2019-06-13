@@ -265,6 +265,7 @@ try {
         break;
       /* Joke Cards */
       case 'gone':
+      case 'fan':
         send(gone(cleantext(args)));
         break;
       /* Moderator Only */
