@@ -58,7 +58,7 @@ export function limited() {
   for (var key in bans) {
     message += "\n" + key;
   }
-  let message = "**Limited :**\n(1 copy of each of the following)";
+  message += "\n=====\n**Limited :**\n(1 copy of each of the following)";
   limited.forEach((key) => {
     message += "\n" + key;
   });

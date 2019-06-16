@@ -130,7 +130,7 @@ try {
       case 'rule':
       case 'ruling':
         if (args.length < 1)
-          channel.send(`"Please provide a rule, or use **!rulebook** for the Rules"`);
+          channel.send(`Please provide a rule, or use **!rulebook** for the Rules`);
         else
         send(rules(args));
         break;
