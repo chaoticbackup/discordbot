@@ -5,8 +5,12 @@ export function banlist(options) {
     return small();
   }
 
+  if (options.includes("limited")) {
+    return limited();
+  }
+
   const {bans, watchlist} = require('../config/bans.json');
-  
+
   let message = "**Community Ban List:**\n=====";
   for (var key in bans) {
     message += "\n" + key;
@@ -49,8 +53,12 @@ export function whyban(card, options=[]) {
 }
 
 export function limited() {
-  const {limited} = require('../config/bans.json');
-  let message = "**Limited Format:**\n(1 copy of each of the following in addition to the banlist)";
+  const {bans, limited} = require('../config/bans.json');
+  let message = "**Banlist and Limited Format:**\n=====";
+  for (var key in bans) {
+    message += "\n" + key;
+  }
+  let message = "**Limited :**\n(1 copy of each of the following)";
   limited.forEach((key) => {
     message += "\n" + key;
   });
@@ -60,12 +68,12 @@ export function limited() {
 export function shakeup() {
   const {shakeup} = require('../config/bans.json');
   let message = "The **Shake Up** list aims to widen the meta";
-  
+
   message += "\n``The following are limited (unique):``";
   shakeup.limited.forEach((key) => {
     message += "\n" + key;
   });
-  
+
   message += "\n``The following are banned:``";
   shakeup.bans.forEach((key) => {
     message += "\n" + key;
