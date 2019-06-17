@@ -1,4 +1,27 @@
-const {cleantext} = require('./shared.js');
+const {cleantext, moderator} = require('./shared.js');
+
+export function brainwash(message, bot, mentions) {
+    let member = message.member;
+
+    if (mentions.length > 0) {
+        if (moderator(message)) {
+            member = bot.guilds.get(message.guild.id).members.get(mentions[0]);
+        }
+        else {
+            return;
+        }
+    }
+
+    let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
+    if (!gr) return "There is no Brainwashed role";
+
+    if (member.roles.find(role => role === gr)) {
+        member.removeRole(gr);
+    }
+    else {
+        member.addRole(gr);
+    }
+}
 
 export function showTribe(message, bot) {
     let tribe = "";
@@ -47,6 +70,7 @@ export function joinTribe(tribe, message, bot) {
     let leaving_msg = "";
     switch(tribe.toLowerCase()) {
         case 'danian':
+        case 'danians':
             tribe = "Danian";
             if (leaving_tribe) {
                 joining_msg = `<:gottahave:400174328215502851> You've been infected.`;
@@ -63,6 +87,7 @@ export function joinTribe(tribe, message, bot) {
             }
             break;
         case 'mipedian':
+        case 'mipedians':
             tribe = "Mipedian";
             if (leaving_tribe == "Danian") {
                 joining_msg = `<:Shim:315235831927537664> Another one purified`;
@@ -74,10 +99,15 @@ export function joinTribe(tribe, message, bot) {
         case 'marrillian':
         case "m'arrillian":
         case 'm’arrillian':
+        case 'marrillians':
+        case "m'arrillians":
+        case 'm’arrillians':
             tribe = "M'arrillian";
             joining_msg = `<:Mar:294942283273601044> You'll serve your purpose.`
             break;
         case 'overworld':
+        case 'overworlder':
+        case 'overworlders':
             tribe = "OverWorld";
             if (leaving_tribe == "UnderWorld") {
                 leaving_msg = "<:Chaor:285620681163669506> How dare you betray me for the OverWorld!";
@@ -92,6 +122,8 @@ export function joinTribe(tribe, message, bot) {
             }
             break;
         case 'underworld':
+        case 'underworlder':
+        case 'underworlders':
             tribe = "UnderWorld";
             if (leaving_tribe == "OverWorld") {
                 joining_msg = `<:Chaor:285620681163669506> Ah good! You can tell me all their secrets! `;

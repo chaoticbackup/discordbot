@@ -55,6 +55,7 @@ process.on('unhandledRejection', (err) => {
 	logger.error(err);
 	bot.destroy().then(() => {
 		const t_bot = new Discord.Client();
+		if (!t_bot.channels.get(channels.errors)) return;
 		t_bot.channels.get(channels.errors).send(err.stack).catch(logger.error);
 		t_bot.destroy();
 	});
