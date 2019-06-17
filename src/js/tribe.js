@@ -12,28 +12,39 @@ export function brainwash(message, bot, mentions) {
         }
     }
 
-    let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
-    if (!gr) return "There is no Brainwashed role";
+    let bw = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
+    if (!bw) return;
 
-    if (member.roles.find(role => role === gr)) {
-        member.removeRole(gr);
+    if (member.roles.find(role => role === bw)) {
+        member.removeRole(bw);
+        return `Your mind is free!`;
     }
     else {
-        member.addRole(gr);
+        member.addRole(bw);
+        return `<:Mar:294942283273601044> You have been brainwashed`;
     }
 }
 
 export function showTribe(message, bot) {
+    let bw = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
+
     let tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
     .forEach((t) => {
         let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
         if (message.member.roles.find(role => role === gr)) {
+            if (bw && message.member.roles.find(role => role === bw)) {
+                return tribe = `You are a brainwashed ` + (() => {
+                    if (t == "OverWorld") return "OverWorlder";
+                    else if (t == "UnderWorld") return "UnderWorlder";
+                    else return t;
+                })();
+            }
             return tribe = `You are part of the ` + t;
         }
     });
     if (tribe) return tribe;
-    return `You have not declared an allegiance`;
+    return `You have not declared an allegiance. Use !join *tribe name*`;
 }
 
 export function leaveTribe(message, bot) {

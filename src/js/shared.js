@@ -3,6 +3,25 @@ export function cleantext(string) {
   return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
+export function tribeplural(tribe) {
+    switch (tribe) {
+        case 'Danian':
+            return "Danians";
+        case 'Mipedian':
+            return "Mipedians";
+        case `M'arrillian`:
+            return `M'arrillians`;
+        case "OverWorld":
+        case "OverWorlder":
+            return "OverWorlders";
+        case "UnderWorld":
+        case "UnderWorlder":
+            return "UnderWorlders";
+        default:
+            return tribe;
+    }
+}
+
 export function moderator(message) {
   return Boolean(
     message.member.roles.find(role => role.name==="Administrator") ||

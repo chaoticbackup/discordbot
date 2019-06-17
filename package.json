@@ -12,7 +12,7 @@
     "rebuild": "npm run stop && npm run forever",
     "stop": "forever stop build/bot.js",
     "clean": "rm -rf build/",
-    "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../discordbot/ \"npm run rebuild\""
+    "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\""
   },
   "repository": {
     "type": "git",
