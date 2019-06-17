@@ -21,8 +21,8 @@ export function full_art(name) {
   }
 }
 
-/* 
-Find a list of names based on input 
+/*
+Find a list of names based on input
 */
 export function find_card(name) {
   if (API.data === "local") {
@@ -93,11 +93,11 @@ function card_local(name, genCounter) {
 /* Return a card to send */
 function card_db(name, options, bot) {
   let results = API.find_cards_by_name(name, options);
-  
+
   if (results.length <= 0) {
     return "That's not a valid card name";
   }
-  
+
   if (name.length > 0) {
     return Response(results[0], options, bot);
   }
@@ -110,21 +110,14 @@ function card_db(name, options, bot) {
 function Response(card, options, bot) {
   // If not a released card
   if (!card.gsx$set) {
-    const embed = new RichEmbed()
-      .setTitle(card.gsx$name)
-      .setColor(API.color(card))
-      .setDescription(card.gsx$ability || "No data available");
-
-      if (card.gsx$image != '') {
-        embed.setURL(API.base_image + card.gsx$image);
-        embed.setImage(API.base_image + card.gsx$image);
-      }
-      else if (card.gsx$spash != '')
-      {
-        embed.setURL(API.base_image + card.gsx$splash);
-        embed.setImage(API.base_image + card.gsx$splash);
-      }
-    return embed;
+    if (card.gsx$image == '') {
+      return new RichEmbed()
+        .setTitle(card.gsx$name)
+        .setColor(API.color(card))
+        .setDescription(card.gsx$ability || "No data available")
+        .setURL(API.base_image + card.gsx$splash)
+        .setImage(API.base_image + card.gsx$splash);
+    }
   }
 
   let Ability = (cardtext) => {
