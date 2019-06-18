@@ -249,6 +249,10 @@ try {
       case 'nowornever':
         send(nowornever(cleantext(args)));
         break;
+      case 'unset':
+      case 'gone':
+        send(gone(cleantext(args)));
+        break;
       case 'tribe':
         if (!args) {
           send(showTribe(message, bot));
@@ -265,6 +269,7 @@ try {
           if (leaving_tribe) send(`You have left the ` + leaving_tribe);
         }
         break;
+      case 'bw':
       case 'brainwash':
         if (message.guild && hasPermission("MANAGE_ROLES")) {
           send(brainwash(message, bot, mentions));
@@ -410,7 +415,18 @@ function nowornever(card) {
 }
 
 function gone(card) {
-  if (card = "raimusa") {
-    return new RichEmbed().setImage("https://cdn.discordapp.com/attachments/341486838416015361/586752310441410574/1vWjo0F_1.jpg");
+  const {One_Chaotic} = require("../config/gonechaotic.json");
+
+  let merge = Object.assign({}, One_Chaotic);
+
+  for (var key in merge) {
+    if (cleantext(key).indexOf(card) === 0) {
+      return new RichEmbed()
+        .setTitle(key)
+        .setURL(merge[key])
+        .setImage(merge[key]);
+    }
   }
+
+  return rndrsp(["Yokkis can't find your card", "I guess that card isn't *gone*"]);
 }
