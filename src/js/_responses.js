@@ -14,6 +14,7 @@ import {tierlist, tierlisttext} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
 import {menu, make, order} from './menu';
 import {joinTribe, leaveTribe, showTribe, brainwash} from './tribe';
+import {lookingForMatch, cancelMatch} from './match_making';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -228,9 +229,21 @@ try {
       case 'wasted':
         send(badultras());
         break;
+      case "lf":
+      case "match":
+        if (message.guild && hasPermission("MANAGE_ROLES")) {
+          if (mainserver(message) && channel.id != channels.match_making) return;
+          send(lookingForMatch(cleantext(args), message, bot));
+        }
+        break;
+      case "cancel":
+        if (message.guild && hasPermission("MANAGE_ROLES")) {
+          if (mainserver(message) && channel.id != channels.match_making) return;
+          send(cancelMatch(message, bot));
+        }
+        break;
       /* Misc */
       case 'rm':
-      case 'delete':
         let lstmsg = bot.user.lastMessage;
         if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
         if (message.deletable) message.delete(); // delete user msg
@@ -305,6 +318,7 @@ try {
         break;
       case 'clear':
       case 'clean':
+      case 'delete':
         if (moderator(message)) {
           args = parseInt(args);
           if (typeof args !== "number") break;
