@@ -19,7 +19,7 @@ export function banlist(options) {
   for (var key in watchlist) {
     message += "\n" + key;
   }
-  message += "\n=====\nYou can ask me why a card was banned with \"!whyban --serious *card name*\"";
+  message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
   return message;
 }
 
@@ -35,17 +35,26 @@ function small() {
 export function whyban(card, options=[]) {
   card = cleantext(card);
 
-  const {bans, watchlist, hidden} = require('../config/bans.json');
+  const {bans, watchlist, hidden, jokes} = require('../config/bans.json');
 
   let merge = Object.assign({}, bans, watchlist, hidden);
   for (var key in merge) {
     if (cleantext(key).indexOf(card) === 0) {
-      if (options.includes("serious")) {
-        return `*${key}*:\n${merge[key][0]}`;
+      if (options.includes("joke")) {
+        if (merge[key].length > 1) {
+          return `*${key}*:\n${rndrsp(merge[key].splice(1, merge[key].length), 'bans')}`;
+        }
+        return "Sorry " + key + " doesn't have a joke";
       }
       else {
-        return `*${key}*:\n${rndrsp(merge[key], 'bans')}`;
+        return `*${key}*:\n${merge[key][0]}`;
       }
+    }
+  }
+
+  for (var key in jokes) {
+    if (cleantext(key).indexOf(card) === 0) {
+      return `*${key}*:\n${rndrsp(jokes[key], "bans")}`;
     }
   }
 

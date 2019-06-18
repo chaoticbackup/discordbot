@@ -344,7 +344,7 @@ try {
 }
 catch (error) {
   // Log/Print error
-  logger.error(error);
+  logger.error(error.stack);
 
   // Ignore problems while in development
   if (process.env.NODE_ENV == "development") {

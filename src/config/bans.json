@@ -34,7 +34,7 @@
 			"Did you like that one hit Slash Claw? Want to see it again?"
 		],
 		"Zamool, Lord Van Bloot's Enforcer": [
-			"Being unable to play Mugic or Abilities while your opponent still can is unfair. Getting that consistently is unplayable.",
+			"Mugic or Abilities are a key component of gameplay. Zamool removes this from his opponent while still letting his team use them.",
 			"Do you hate your opponent?",
 			"You must want the UnderWorld to take over Perim.",
 			"Try playing Solitaire when you're bored.",
@@ -80,30 +80,33 @@
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"hidden": {
-		"Agame": ["He's banned for smuggling fan set cards in a competative match."],
-		"Afjak": ["Attempting to ban the judge with the highest level of understanding in the game would result in Chaotic truly becoming chaotic. As everyone interprets the rules their own way, blatant cheating overruns what remains of the community until no one wishes to play and the game subsides into oblivion."],
 		"Aszil, The Young Queen": ["She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give Earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck. Other creatures that give resources have a cost."],
 		"Before the Storm": ["This attack provides Strike Decks a second strike. You'd see ~55 damage. Although not extraordinary damage, since Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration."],
 		"Deadwater Devastation": ["It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options."],
-		"Dwayne": ["Gotta have Dwayne"],
 		"Ginaresh, the Extinquisher": ["Similarly to Illusionary Lake, this card can create an inability to have and gain Fire. As long as you play consistent water attacks, your opponent will not be able to play fire attacks."],
 		"Grounding Grapple": ["Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."],
 		"Headmaster Ankhyja, Seeker of the Art": ["Prevents opponent's interaction with your creatures leading to less strategic games. Stunts decks that rely on targeting opponents."],
 		"Hive Amber": ["See Hive Unsung"],
 		"Hive Unsung": ["When combined with Ramarhvir the Hivebringer, it enables Danains resurrection to be too efficiently and making it very difficult to beat (the game drags on). Hive Unsung can also be used in an infinite combo to allow a one turn win."],
-		"Ixxik": ["https://www.youtube.com/watch?v=rE_TUwYc6Vk"],
-		"KingMaxxor4": ["I won't let you ban him!"],
 		"Malvadine, The King's Herald": ["His high stats, and ability to defend, make him essential in any mono-Mipedian deck. He has strike and Air 5, which makes him versitile in practically all deck types."],
 		"Marksman's Preparation": ["This card has been talked about for similar reasons to Primal Smash. You can treat it as a 2 Build Point attack that deals 30 Damage and helps you cycle and a 0 Cost that deals 0 Damage and clogs your hand until you draw the other. Despite the downside, its a strong burst of damage and cycling effect for low Build Points."],
-		"Maxxor's Torch": ["One hit of this can send any amphibious creature the Shadow Realm. Oops I mean it hits the code out of M'arrillians."],
-		"Metal": ["He wins too many tournaments."],
 		"Na-inna": ["Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combine with a fluidmorpher."],
 		"Najarin's Tower of Song": ["Like Tonal Destruction, this card can be abused by Enre-hep to reduce your opponent's Mugic hand. It's an expensive Mugic that doesn't see play anywhere else."],
-		"Neekwin": ["I'm sure you've seen him in a deck by now", "Oh you thought this was over?", "Can't spell Neekwin without win", "Yeah, I know you're mad about this."],
 		"Skeletal Springs": ["Admititedly, fluidmorphing is a powerful game mechanic. This location not only prevents Fluidmorphing, it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck. So a boost for the player and a potential game breaker for the opponent."],
 		"Song of Transportation": ["Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."],
 		"Ursis": ["A divisive card. Ursis may have no ability (no negative one either), but it does have High Energy, great Power, 3 Mugic counters, and most importantly Creature type Muge."],
 		"Xerium Armor": ["Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check."]
+	},
+	"jokes": {
+		"Agame": ["He's banned for smuggling fan set cards in a competative match."],
+		"Afjak": ["Attempting to ban the judge with the highest level of understanding in the game would result in Chaotic truly becoming chaotic. As everyone interprets the rules their own way, blatant cheating overruns what remains of the community until no one wishes to play and the game subsides into oblivion."],
+		"Dwayne": ["Gotta have Dwayne"],
+		"Ixxik": ["https://www.youtube.com/watch?v=rE_TUwYc6Vk"],
+		"KingMaxxor4": ["I won't let you ban him!"],
+		"Maxxor's Torch": ["One hit of this can send any amphibious creature the Shadow Realm. Oops I mean it hits the code out of M'arrillians."],
+		"Metal": ["He wins too many tournaments."],
+		"Neekwin": ["I'm sure you've seen him in a deck by now", "Oh you thought this was over?", "Can't spell Neekwin without win", "Yeah, I know you're mad about this."],
+		"Raimusa": ["I'll be back any day now..."]
 	},
 	"shakeup": {
 		"limited": [
