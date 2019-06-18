@@ -251,7 +251,7 @@ try {
         break;
       case 'unset':
       case 'gone':
-        send(gone(cleantext(args)));
+        send(gone(cleantext(args), bot));
         break;
       case 'tribe':
         if (!args) {
@@ -414,10 +414,25 @@ function nowornever(card) {
   }
 }
 
-function gone(card) {
-  const {One_Chaotic} = require("../config/gonechaotic.json");
+function gone(card, bot) {
+  const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("../config/gonechaotic.json");
 
-  let merge = Object.assign({}, One_Chaotic);
+  let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
+
+  if (card.toLowerCase()==="nakan") {
+    let line = ""
+      + "88" + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
+      + "76" + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "
+      + "23" + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " "
+      + "41" + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " "
+      + "| " + "59" + " E";
+
+    return new RichEmbed()
+      .setTitle("Nakan")
+      .setURL(merge["Nakan"])
+      .setDescription(line)
+      .setImage(merge["Nakan"]);
+  }
 
   if (card) {
     for (var key in merge) {

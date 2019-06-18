@@ -1,5 +1,5 @@
 {
-    "One_Chaotic": {
+    "GoneChaotic": {
         "Ancient Melody": "https://i.imgur.com/IkCrVZF.jpg",
         "Aliecs": "https://i.imgur.com/8geWzBz.jpg",
         "Baritone Barrage": "https://i.imgur.com/FR4uoYp.jpg",
@@ -101,5 +101,11 @@
         "Yokkis' Scepter": "https://i.imgur.com/qJ9pidr.jpg",
         "Zalvar": "https://i.imgur.com/tFW1M5q.jpg",
         "Zentu'al": "https://i.imgur.com/ImvCUB4.jpg"
+    },
+    "Gone2Chaotic": {
+
+    },
+    "GoneChaotic3": {
+
     }
 }
