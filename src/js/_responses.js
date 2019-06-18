@@ -419,14 +419,22 @@ function gone(card) {
 
   let merge = Object.assign({}, One_Chaotic);
 
-  for (var key in merge) {
-    if (cleantext(key).indexOf(card) === 0) {
-      return new RichEmbed()
-        .setTitle(key)
-        .setURL(merge[key])
-        .setImage(merge[key]);
+  if (card) {
+    for (var key in merge) {
+      if (cleantext(key).indexOf(card) === 0) {
+        return new RichEmbed()
+          .setTitle(key)
+          .setURL(merge[key])
+          .setImage(merge[key]);
+      }
     }
+    return rndrsp(["Yokkis can't find your card", "I guess that card isn't *gone*"]);
   }
 
-  return rndrsp(["Yokkis can't find your card", "I guess that card isn't *gone*"]);
+  let keys = Object.keys(merge);
+  card = rndrsp(keys);
+  return new RichEmbed()
+    .setTitle(card)
+    .setURL(merge[card])
+    .setImage(merge[card]);
 }
