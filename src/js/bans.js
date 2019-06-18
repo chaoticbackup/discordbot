@@ -44,7 +44,9 @@ export function whyban(card, options=[]) {
         if (merge[key].length > 1) {
           return `*${key}*:\n${rndrsp(merge[key].splice(1, merge[key].length), 'bans')}`;
         }
-        return "Sorry " + key + " doesn't have a joke";
+        else {
+          return "Sorry " + key + " doesn't have a joke";
+        }
       }
       else {
         return `*${key}*:\n${merge[key][0]}`;
