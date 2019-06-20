@@ -18,7 +18,10 @@ export function checkSass(mentions, message) {
     return ('Don\'t @ the Oracle. He sees everything anyway');
 
   if (mentions.indexOf('279331985955094529') !== -1) {// ChaoticBacktalk
-    if (content.match(new RegExp(/did.+(king).+(make|create)/, "i"))) {
+    if (content.match(new RegExp(/love/, "i"))) {
+      response = `❤️ you too`;
+    }
+    else if (content.match(new RegExp(/did.+(king).+(make|create)/, "i"))) {
       response = (rndrsp(tags["daddy"]));
     }
     else if (content.match(new RegExp(/who.+(made|created)/, "i"))) {
@@ -34,4 +37,4 @@ export function checkSass(mentions, message) {
   }
 
   return response;
-} 
+}

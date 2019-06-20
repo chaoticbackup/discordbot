@@ -219,6 +219,7 @@ function Response(card, options, bot) {
 }
 
 export function read_card(name, options) {
+  name = cleantext(name);
   let results = API.find_cards_by_name(name);
 
   if (results.length > 0) {

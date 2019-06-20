@@ -1,4 +1,5 @@
-const {cleantext} = require('./shared.js');
+import {cleantext} from './shared';
+import {display_card} from './database/card';
 
 export function menu() {
   const {order} = require('../config/order.json');
@@ -37,5 +38,5 @@ export function order(item) {
     }
   }
 
-  return "Sorry, I don't have that";
+  return "Sorry, I don't have that. Use !menu";
 }

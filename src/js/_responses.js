@@ -296,13 +296,15 @@ try {
       /* Moderator Only */
       case 'readthecard':
         if (hasPermission("SEND_TTS_MESSAGES")) {
-          if (mainserver(message) && moderator(message)
-            && (channel.id == channels.bot_commands || channel.id == "293610368947716096")) {
-            send(read_card(args, options), {tts: true});
+          if (mainserver(message)) {
+            if (channel.id == channels.bot_commands || channel.id == "293610368947716096") {
+              if (!moderator(message)) {
+                send(read_card(args, options));
+              }
+            }
+            else return;
           }
-          else {
-            send(read_card(args, options), {tts: true});
-          }
+          send(read_card(args, options), {tts: true});
         }
         break;
       case 'haxxor':
