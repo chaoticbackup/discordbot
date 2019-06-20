@@ -9,7 +9,7 @@
     "build": "babel src -d build --copy-files",
     "prod": "npm run build && node build/bot.js",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
-    "rebuild": "npm run stop && npm run forever",
+    "rebuild": "npm run stop; npm run forever",
     "stop": "forever stop build/bot.js",
     "clean": "rm -rf build/",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\""
