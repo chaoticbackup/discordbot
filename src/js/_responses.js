@@ -122,16 +122,16 @@ try {
         send(rate_card(args, options, bot));
         break;
       /* Rule */
-      case 'rules':
+      case 'ruling':
         if (args.length < 1) {
           send(rules("all"));
           break;
         }
         /* falls through */
       case 'rule':
-      case 'ruling':
+      case 'rules':
         if (args.length < 1)
-          channel.send(`Please provide a rule, or use **!rulebook** for the Rules`);
+          channel.send(`Please provide a rule, or use **!rulebook** or **!guide**`);
         else
         send(rules(args));
         break;

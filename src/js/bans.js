@@ -60,7 +60,7 @@ export function whyban(card, options=[]) {
     }
   }
 
-  return rndrsp(["That card isn't banned. :D", `Oh lucky you, ${card} isn't banned`]);
+  return rndrsp(["That card isn't banned", `Oh lucky you, ${card} isn't banned`]);
 }
 
 export function limited() {
