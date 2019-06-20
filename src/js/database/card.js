@@ -218,7 +218,7 @@ function Response(card, options, bot) {
     .setImage(API.base_image + card.gsx$image);
 }
 
-export function read_card(name, options) {
+export function read_card(name, options, bot) {
   name = cleantext(name);
   let results = API.find_cards_by_name(name);
 

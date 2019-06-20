@@ -12,11 +12,11 @@ export function menu() {
   return message;
 }
 
-export function make(item) {
+export function make(item, options, bot) {
   if (!item) return 'My skillet is ready';
 
   if (item == 'sandwitch')
-    return (display_card("Arkanin", [], bot));
+    return (display_card("Arkanin", options, bot));
 
   const {make} = require('../config/order.json');
   for (var key in make) {

@@ -252,11 +252,11 @@ try {
         send(menu());
         break;
       case 'order':
-        send(order(cleantext(args)));
+        send(order(cleantext(args, options, bot)));
         break;
       case 'make':
       case 'cook':
-        send(make(cleantext(args)));
+        send(make(cleantext(args, options, bot)));
         break;
       case 'never':
       case 'nowornever':
@@ -299,13 +299,13 @@ try {
           if (mainserver(message)) {
             if (channel.id == channels.bot_commands || channel.id == "293610368947716096") {
               if (!moderator(message)) {
-                send(read_card(args, options));
+                send(read_card(args, options, bot));
                 return;
               }
             }
             else return;
           }
-          send(read_card(args, options), {tts: true});
+          send(read_card(args, options, bot), {tts: true});
         }
         break;
       case 'haxxor':
