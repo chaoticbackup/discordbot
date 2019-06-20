@@ -15,6 +15,9 @@ export function menu() {
 export function make(item) {
   if (!item) return 'My skillet is ready';
 
+  if (item == 'sandwitch')
+    return (display_card("Arkanin", [], bot));
+
   const {make} = require('../config/order.json');
   for (var key in make) {
     if (cleantext(key).indexOf(item) === 0) {
@@ -27,9 +30,6 @@ export function make(item) {
 
 export function order(item) {
   if (!item) return 'What would you like to order?';
-
-  if (item == 'sandwitch')
-    return (display_card("Arkanin", options, bot));
 
   const {order} = require('../config/order.json');
   for (var key in order) {

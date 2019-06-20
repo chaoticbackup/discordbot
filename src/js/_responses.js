@@ -300,6 +300,7 @@ try {
             if (channel.id == channels.bot_commands || channel.id == "293610368947716096") {
               if (!moderator(message)) {
                 send(read_card(args, options));
+                return;
               }
             }
             else return;
