@@ -256,7 +256,10 @@ try {
         break;
       case 'make':
       case 'cook':
-        send(make(cleantext(args, options, bot)));
+        if (args == 'sandwitch')
+          send(display_card("Arkanin", options, bot));
+        else
+          send(make(cleantext(args, options, bot)));
         break;
       case 'never':
       case 'nowornever':

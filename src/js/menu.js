@@ -12,11 +12,8 @@ export function menu() {
   return message;
 }
 
-export function make(item, options, bot) {
+export function make(item) {
   if (!item) return 'My skillet is ready';
-
-  if (item == 'sandwitch')
-    return (display_card("Arkanin", options, bot));
 
   const {make} = require('../config/order.json');
   for (var key in make) {
