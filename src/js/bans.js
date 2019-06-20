@@ -42,7 +42,7 @@ export function whyban(card, options=[]) {
     if (cleantext(key).indexOf(card) === 0) {
       if (options.includes("joke")) {
         if (merge[key].length > 1) {
-          return `*${key}*:\n${rndrsp(merge[key].splice(1, merge[key].length), 'bans')}`;
+          return `*${key}*:\n${rndrsp(merge[key].slice(1, merge[key].length), key)}`;
         }
         else {
           return "Sorry " + key + " doesn't have a joke";
@@ -56,7 +56,7 @@ export function whyban(card, options=[]) {
 
   for (var key in jokes) {
     if (cleantext(key).indexOf(card) === 0) {
-      return `*${key}*:\n${rndrsp(jokes[key], "bans")}`;
+      return `*${key}*:\n${rndrsp(jokes[key], key)}`;
     }
   }
 

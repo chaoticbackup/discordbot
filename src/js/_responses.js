@@ -256,7 +256,7 @@ try {
         break;
       case 'make':
       case 'cook':
-        if (args == 'sandwitch')
+        if (cleantext(args) == 'sandwitch')
           send(display_card("Arkanin", options, bot));
         else
           send(make(cleantext(args, options, bot)));
@@ -466,8 +466,7 @@ function gone(card, bot) {
     return rndrsp(["Yokkis can't find your card", "I guess that card isn't *gone*"]);
   }
 
-  let keys = Object.keys(merge);
-  card = rndrsp(keys);
+  card = rndrsp(Object.keys(merge));
   return new RichEmbed()
     .setTitle(card)
     .setURL(merge[card])
