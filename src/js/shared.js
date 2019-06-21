@@ -3,6 +3,12 @@ export function cleantext(string) {
   return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
+export function escape_text(text) {
+  return text
+    .replace(/\(|\)/g, (match) => {return ("\\"+match)})
+    .replace(/’/g, '\'');
+}
+
 export function tribeplural(tribe) {
     switch (tribe) {
         case 'Danian':

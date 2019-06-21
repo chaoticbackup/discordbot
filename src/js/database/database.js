@@ -1,5 +1,6 @@
 import loki from 'lokijs';
 import fs from 'fs';
+import {escape_text} from "../shared";
 const fetch =  require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
@@ -127,14 +128,10 @@ class API {
     });
   }
 
-  escape_text(text) {
-    return text
-      .replace(/\(|\)/g, (match) => {return ("\\"+match)})
-      .replace(/’/g, '\'');
-  }
+
 
   find_card_name(text) {
-    text = this.escape_text(text);
+    text = escape_text(text);
 
     return this.filter.chain().find({'$or': [
       {'gsx$name': {'$regex': new RegExp(text, 'i')}},
@@ -144,12 +141,12 @@ class API {
 
   /* Finding cards in the database by name */
   find_cards_by_name(name, options) {
-    name = this.escape_text(name);
+    name = escape_text(name);
 
     let filters = [];
     if (options && options.length > 0) {
       options = options.join(" ").toLowerCase();
-      
+
       let type = (/type=([\w]{2,})/).exec(options);
       if (type) filters.push({'gsx$type': {'$regex': new RegExp(type[1], 'i')}});
 
@@ -168,7 +165,7 @@ class API {
   }
 
   color(card) {
-    if (card.gsx$type == "Battlegear") 
+    if (card.gsx$type == "Battlegear")
       return "#aebdce";
     if (card.gsx$type == "Locations")
       return "#419649";
@@ -188,7 +185,7 @@ class API {
       case "Generic":
        if (card.gsx$type == "Creatures")
         return "#b5b5b5";
-       else 
+       else
         return "#4f545c";
     }
     return "#56687e"; // Default color

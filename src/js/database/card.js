@@ -1,5 +1,5 @@
 const { RichEmbed } = require('discord.js');
-import {rndrsp, cleantext} from '../shared.js';
+import {rndrsp, cleantext, escape_text} from '../shared.js';
 const API = require('./database.js').default;
 
 export function full_art(name) {
@@ -42,9 +42,11 @@ export function find_card(name) {
   let response = "";
   if (results.length > 15) response = "First 15 matches:\n";
   results.splice(0, 15).forEach((card) => {
-    response += card.gsx$name.replace(new RegExp(name, 'i'), (match) => {
-      return `**${match}**`;
-    }) + '\n';
+    response += card.gsx$name.replace(
+      new RegExp(escape_text(name), 'i'), (match) => {
+        return `**${match}**`;
+      }
+    ) + '\n';
   });
 
   return response;
