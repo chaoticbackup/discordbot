@@ -210,10 +210,16 @@ try {
           send(banlist(options));
         break;
       case 'limited':
-        send(limited());
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else
+          send(limited());
         break;
       case 'shakeup':
-        send(shakeup());
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else
+          send(shakeup());
         break;
       case 'tierlist':
         if (!args && (mainserver(message) && channel.id != channels.bot_commands))
