@@ -51,15 +51,20 @@ export async function leaveTribe(guild, member) {
     .forEach(async (t) => {
         let gr = guild.roles.find(role => role.name===t);
         if (member.roles.find(role => role === gr)) {
-            leaving_tribe = t;
-            await member.removeRole(gr);
+            await member.removeRole(gr).then(leaving_tribe = t);
         }
     });
     return leaving_tribe;
 }
 
 export async function joinTribe(tribe, guild, member) {
-    let leaving_tribe = await leaveTribe(guild, member);
+    let leaving_tribe = "";
+    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
+    .forEach((t) => {
+        if (member.roles.find(role => role === guild.roles.find(role => role.name===t))) {
+            leaving_tribe = t;
+        }
+    });
 
     let joining_msg = "";
     let leaving_msg = "";
@@ -146,18 +151,26 @@ export async function joinTribe(tribe, guild, member) {
     }
 
     let guild_role = guild.roles.find(role => role.name===tribe);
-    // console.log(guild_role.name, leaving_tribe, tribe);
+    let remove_role = guild.roles.find(role => role.name===leaving_tribe);
+
     if (guild_role) {
         member.addRole(guild_role);
+
         if (leaving_tribe == tribe) {
-            return `You are alread part of the ${tribe}.`;
+            return `You are already part of the ${tribe}.`;
         }
-        else if (leaving_msg != "") {
+        else if (remove_role) {
+            member.removeRole(remove_role);
+        }
+
+        if (leaving_msg != "") {
             return leaving_msg + '\n' + joining_msg;
         }
         else {
           return joining_msg;
         }
     }
-    return `Sorry this guild doesn't have the ${tribe} role`;
+    else {
+        return `Sorry this guild doesn't have the ${tribe} role`;
+    }
 }
