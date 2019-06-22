@@ -61,21 +61,7 @@ export function leaveTribe(message, bot) {
 }
 
 export function joinTribe(tribe, message, bot) {
-    let leaving_tribe = "";
-    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
-    .forEach((t) => {
-        let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
-        if (message.member.roles.find(role => role === gr)) {
-            if (tribe == t) return leaving_tribe = "stay";
-            else {
-                message.member.removeRole(gr);
-                leaving_tribe = t;
-            }
-        }
-    });
-
-    if (leaving_tribe == "stay")
-        return `You're already part of the ${tribe}.`
+    let leaving_tribe = leaveTribe(message, bot);
 
     let joining_msg = "";
     let leaving_msg = "";
@@ -161,13 +147,18 @@ export function joinTribe(tribe, message, bot) {
             return `${tribe} is not a valid faction`;
     }
 
+    if (leaving_tribe == tribe) {
+        joining_msg = `You are alread part of the ${tribe}.`;
+        leaving_msg = "";
+    }
+
     let guild_role = bot.guilds.get(message.guild.id).roles.find(role => role.name===tribe);
     if (guild_role) {
         message.member.addRole(guild_role);
         if (leaving_msg != "") {
             return leaving_msg + '\n' + joining_msg;
         }
-        return joining_msg;
+        else return joining_msg;
     }
-    return `Sorry this guild doesn't have tribal roles`;
+    return `Sorry this guild doesn't have the ${tribe} role`;
 }
