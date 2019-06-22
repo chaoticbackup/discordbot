@@ -298,6 +298,12 @@ try {
       case 'bw':
       case 'brainwash':
         if (guild && hasPermission("MANAGE_ROLES")) {
+          if (mentions.length > 0) {
+            if (moderator(message)) {
+              send(brainwash(guild, guild.members.get(mentions[0]), mentions));
+            }
+            else break;
+          }
           send(brainwash(guild, guildMember, mentions));
         }
         break;

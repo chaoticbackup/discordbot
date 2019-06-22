@@ -1,15 +1,6 @@
 const {cleantext, moderator} = require('./shared.js');
 
 export function brainwash(guild, member, mentions) {
-    if (mentions.length > 0) {
-        if (moderator(message)) {
-            member = bot.guilds.get(message.guild.id).members.get(mentions[0]);
-        }
-        else {
-            return;
-        }
-    }
-
     let bw = guild.roles.find(role => role.name==="Brainwashed");
     if (!bw) return;
 
