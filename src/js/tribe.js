@@ -1,8 +1,6 @@
 const {cleantext, moderator} = require('./shared.js');
 
-export function brainwash(message, bot, mentions) {
-    let member = message.member;
-
+export function brainwash(guild, member, mentions) {
     if (mentions.length > 0) {
         if (moderator(message)) {
             member = bot.guilds.get(message.guild.id).members.get(mentions[0]);
@@ -12,7 +10,7 @@ export function brainwash(message, bot, mentions) {
         }
     }
 
-    let bw = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
+    let bw = guild.roles.find(role => role.name==="Brainwashed");
     if (!bw) return;
 
     if (member.roles.find(role => role === bw)) {
@@ -25,15 +23,15 @@ export function brainwash(message, bot, mentions) {
     }
 }
 
-export function showTribe(message, bot) {
-    let bw = bot.guilds.get(message.guild.id).roles.find(role => role.name==="Brainwashed");
+export function showTribe(guild, member) {
+    let bw = guild.roles.find(role => role.name==="Brainwashed");
 
     let tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
     .forEach((t) => {
-        let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
-        if (message.member.roles.find(role => role === gr)) {
-            if (bw && message.member.roles.find(role => role === bw)) {
+        let gr = guild.roles.find(role => role.name===t);
+        if (member.roles.find(role => role === gr)) {
+            if (bw && member.roles.find(role => role === bw)) {
                 return tribe = `You are a brainwashed ` + (() => {
                     if (t == "OverWorld") return "OverWorlder";
                     else if (t == "UnderWorld") return "UnderWorlder";
@@ -47,21 +45,21 @@ export function showTribe(message, bot) {
     return `You have not declared an allegiance. Use !join *tribe name*`;
 }
 
-export function leaveTribe(message, bot) {
+export async function leaveTribe(guild, member) {
     let leaving_tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
-    .forEach((t) => {
-        let gr = bot.guilds.get(message.guild.id).roles.find(role => role.name===t);
-        if (message.member.roles.find(role => role === gr)) {
-            message.member.removeRole(gr);
+    .forEach(async (t) => {
+        let gr = guild.roles.find(role => role.name===t);
+        if (member.roles.find(role => role === gr)) {
             leaving_tribe = t;
+            await member.removeRole(gr);
         }
     });
     return leaving_tribe;
 }
 
-export function joinTribe(tribe, message, bot) {
-    let leaving_tribe = leaveTribe(message, bot);
+export async function joinTribe(tribe, guild, member) {
+    let leaving_tribe = await leaveTribe(guild, member);
 
     let joining_msg = "";
     let leaving_msg = "";
@@ -147,18 +145,19 @@ export function joinTribe(tribe, message, bot) {
             return `${tribe} is not a valid faction`;
     }
 
-    if (leaving_tribe == tribe) {
-        joining_msg = `You are alread part of the ${tribe}.`;
-        leaving_msg = "";
-    }
-
-    let guild_role = bot.guilds.get(message.guild.id).roles.find(role => role.name===tribe);
+    let guild_role = guild.roles.find(role => role.name===tribe);
+    // console.log(guild_role.name, leaving_tribe, tribe);
     if (guild_role) {
-        message.member.addRole(guild_role);
-        if (leaving_msg != "") {
+        member.addRole(guild_role);
+        if (leaving_tribe == tribe) {
+            return `You are alread part of the ${tribe}.`;
+        }
+        else if (leaving_msg != "") {
             return leaving_msg + '\n' + joining_msg;
         }
-        else return joining_msg;
+        else {
+          return joining_msg;
+        }
     }
     return `Sorry this guild doesn't have the ${tribe} role`;
 }

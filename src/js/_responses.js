@@ -21,7 +21,7 @@ function mainserver(message) {
   return message.guild.id == servers.main;
 }
 
-module.exports = function(message, logger) {
+module.exports = async function(message, logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
@@ -31,21 +31,31 @@ module.exports = function(message, logger) {
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
   const mentions = Array.from(message.mentions.users.keys());
+  const {guild, guildMember} = await async function() {
+    if (!message.guild) return {guild: null, guildMember: null};
+    let guild = bot.guilds.get(message.guild.id);
+    let guildMember;
+    if (message.member) guildMember = message.member;
+    else {
+      await guild.fetchMember(message.author).then((member) => guildMember = member);
+    }
+    return {guild: guild, guildMember: guildMember}
+  }();
 
   // Prevents sending an empty message
   const send = (msg, options) => {
-    if (msg) channel.send(msg, options).catch(logger.error);
+    if (msg) channel.send(msg, options).catch(error => logger.error(error.stack));
   }
 
   const hasPermission = (permission) => {
     if (!message.guild) return false;
-    return bot.guilds.get(message.guild.id).me.hasPermission(permission);
+    return guild.me.hasPermission(permission);
   }
 
   const insertname = (resp, name) => {
     // Replace the mention with the display name
-    if (message.guild && mentions.length > 0) {
-      let member = bot.guilds.get(message.guild.id).members.get(mentions[0]);
+    if (guild && mentions.length > 0) {
+      let member = guild.members.get(mentions[0]);
       if (member) {
         name = member.displayName;
       }
@@ -231,15 +241,15 @@ try {
         break;
       case "lf":
       case "match":
-        if (message.guild && hasPermission("MANAGE_ROLES")) {
+        if (guild && hasPermission("MANAGE_ROLES")) {
           if (mainserver(message) && channel.id != channels.match_making) return;
-          send(lookingForMatch(cleantext(args), message, bot));
+          send(lookingForMatch(cleantext(args), guild, guildMember));
         }
         break;
       case "cancel":
-        if (message.guild && hasPermission("MANAGE_ROLES")) {
+        if (guild && hasPermission("MANAGE_ROLES")) {
           if (mainserver(message) && channel.id != channels.match_making) return;
-          send(cancelMatch(message, bot));
+          send(cancelMatch(guild, guildMember));
         }
         break;
       /* Misc */
@@ -271,24 +281,24 @@ try {
         break;
       case 'tribe':
         if (!args) {
-          send(showTribe(message, bot));
+          send(showTribe(guild, guildMember));
           break;
         }
       case 'join':
-        if (message.guild && hasPermission("MANAGE_ROLES")) {
-          send(joinTribe(args, message, bot));
+        if (guild && hasPermission("MANAGE_ROLES")) {
+          send(await joinTribe(args, guild, guildMember));
         }
         break;
       case 'leave':
-        if (message.guild && hasPermission("MANAGE_ROLES")) {
-          let leaving_tribe = leaveTribe(message, bot);
+        if (guild && hasPermission("MANAGE_ROLES")) {
+          let leaving_tribe = await leaveTribe(guild, guildMember);
           if (leaving_tribe) send(`You have left the ` + leaving_tribe);
         }
         break;
       case 'bw':
       case 'brainwash':
-        if (message.guild && hasPermission("MANAGE_ROLES")) {
-          send(brainwash(message, bot, mentions));
+        if (guild && hasPermission("MANAGE_ROLES")) {
+          send(brainwash(guild, guildMember, mentions));
         }
         break;
       /* Joke Cards */
