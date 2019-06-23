@@ -1,4 +1,5 @@
 require('@babel/polyfill');
+const API = require('./api.js')
 const Discord = require('discord.js');
 const winston = require('winston');
 const auth = require('./auth.json');
@@ -17,6 +18,9 @@ const logger = winston.createLogger({
 		new winston.transports.Console()
 	]
 });
+
+// Initialize the API
+API(logger);
 
 // Initialize Discord Bot
 const bot = new Discord.Client({autoReconnect: true});

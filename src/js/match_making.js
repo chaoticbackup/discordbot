@@ -8,18 +8,20 @@ export function lookingForMatch(type, guild, member) {
         match = "untap_match";
         type = "untap";
     }
-    let gr = guild.roles.find(role => role.name===match);
-    if (gr) {
-        member.addRole(gr);
+    let role = guild.roles.find(role => role.name===match);
+    if (role) {
+        member.addRole(role);
+        if(role.mentionable)
+            type = `<@&${role.id}>`;
         return `You are looking for a ${type} match`;
     }
 }
 
 export function cancelMatch(guild, member) {
     ["untap_match", "tts_match"].forEach((t) => {
-        let gr = guild.roles.find(role => role.name===t);
-        if (member.roles.find(role => role === gr)) {
-            member.removeRole(gr);
+        let role = guild.roles.find(role => role.name===t);
+        if (member.roles.find(role => role === role)) {
+            member.removeRole(role);
         }
     });
 

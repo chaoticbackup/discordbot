@@ -1,11 +1,11 @@
 {
   "name": "chaoticbacktalk",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set NODE_ENV=development&& babel-node src/bot.js",
+    "dev": "set NODE_ENV=development&& babel-watch src/bot.js",
     "build": "babel src -d build --copy-files",
     "prod": "npm run build && node build/bot.js",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
@@ -43,6 +43,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/preset-env": "^7.4.5",
+    "babel-watch": "^7.0.0",
     "forever": "^1.0.0",
     "git-auto-pull": "^1.0.9",
     "webpack": "^3.12.0"
