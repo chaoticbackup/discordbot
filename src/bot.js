@@ -1,4 +1,4 @@
-require('babel-polyfill');
+require('@babel/polyfill');
 const Discord = require('discord.js');
 const winston = require('winston');
 const auth = require('./auth.json');
