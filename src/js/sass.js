@@ -1,7 +1,7 @@
 const {rndrsp} = require('./shared.js');
+const {sass, tags} = require('../config/sass.json');
 
 export function checkSass(mentions, message) {
-  const {sass, tags} = require('../config/sass.json');
   let content = message.content;
 
   if (mentions.length > 0)
