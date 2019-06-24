@@ -12,16 +12,23 @@ export function checkSass(mentions, message) {
   }
 
   if (content.match(/(end of combat|combat end|end of turn).*?\?/i)) {
-    if (content.match(/element/)) {
+    if (content.match(/(fire|water|earth|air|element)/i)) {
       return "Creatures will regain their Scanned elements at the end of the turn";
+    }
+    if (content.match(/(stats|disciplines|energy)/i)) {
+      return "Creature's disciplines and energy are reset to their Scanned values at the end of the turn. Any innate modifiers are reapplied.";
     }
     return "Abilities last until the end of turn unless otherwise printed on the card.";
   }
 
   if (content.match(/(stack).*?\?/i)) {
-    const myreg = new RegExp("(element|fire|water|earth|air|outperform|exaust|strike|swift|support|intimidate|recklessness)", "i");
+    const myreg = new RegExp("(((element|water|fire|air|earth)(proof)?|intimidate\s?(energy|courage|wisdom|power|speed)?|(outperform|exaust)\s?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)\s?[0-9x]*)", "i");
     if (content.match(myreg)) {
-      return "Yes, that stacks.";
+      let match = myreg.exec(content);
+      return "Yes, " + match[1] + " stacks.";
+    }
+    if (content.match(/hive/i)) {
+      return "Abilities granted by hive stack.";
     }
     return "No, only abilities with numerical quantities are cumulative (stack). Current examples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift";
   }
