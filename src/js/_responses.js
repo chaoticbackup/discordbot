@@ -310,7 +310,9 @@ try {
             }
             else break;
           }
-          send(brainwash(guild, guildMember, mentions));
+          else {
+            send(brainwash(guild, guildMember, mentions));
+          }
         }
         break;
       /* Joke Cards */
