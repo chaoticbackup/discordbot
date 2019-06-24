@@ -215,7 +215,10 @@ try {
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else
-          send(banlist(options));
+          channel.send(banlist(options))
+          .then(() => {
+            donate(channel);
+          });
         break;
       case 'limited':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
