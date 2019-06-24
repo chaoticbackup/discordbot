@@ -5,7 +5,7 @@ export function checkSass(mentions, message) {
   let content = message.content;
 
   if (mentions.length > 0)
-    return checkMentions(mentions, mentions);
+    return checkMentions(mentions, message);
 
   if (content.match(/indefinitely/)) {
     return "No, the ability only lasts until the end of turn.";
