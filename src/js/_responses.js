@@ -109,7 +109,19 @@ try {
         if (!args && (mainserver(message) && channel.id != channels.bot_commands))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
-          send(help(args));
+          if (args) {
+            send(help(args));
+          }
+          else {
+            channel.send(help())
+            .then(() => {
+              channel.send(
+                new RichEmbed()
+                  .setTitle("Support the development of Chaotic BackTalk")
+                  .setURL("https://www.paypal.me/ChaoticBackup")
+              );
+            });
+          }
         break;
       /* Cards */
       case 'card':
