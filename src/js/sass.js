@@ -4,12 +4,31 @@ export function checkSass(mentions, message) {
   const {sass, tags} = require('../config/sass.json');
   let content = message.content;
 
+  if (mentions.length > 0)
+    return checkMentions(mentions, mentions);
+
+  if (content.match(/(end of combat|combat end|end of turn).*?\?/i)) {
+    if (content.match(/indefinitely/)) {
+      return "No, the ability only lasts until the end of turn.";
+    }
+    if (content.match(/element/)) {
+      return "Creatures will regain their Scanned elements at the end of the turn";
+    }
+    return "Abilities last until the end of turn unless otherwise printed on the card.";
+  }
+
+  if (content.match(/(stack).*?\?/i)) {
+    return "Yes, abilities with numerical quantities, (such as Strike, Elementproof, and Swift) are cumulative (stack).";
+  }
+
   for (var key in sass) {
     if (content.match(new RegExp(key, "i")))
       return rndrsp(sass[key]);
   }
 
-  if (mentions.length <= 0) return;
+}
+
+function checkMentions(mentions, message) {
   let response = "";
 
   // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4

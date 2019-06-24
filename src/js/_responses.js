@@ -146,6 +146,7 @@ try {
           break;
         }
         /* falls through */
+      case 'keyword':
       case 'rule':
       case 'rules':
         if (args.length < 1)

@@ -6,8 +6,7 @@
 		"rule 34": ["not on this server we don't"],
 		"wombo combo": ["that ain't falco"],
 		"assume[ ][^ ]*( )?gender": ["keep that to Tumblr"],
-		"(the lava pond\\?)": ["https://cdn.discordapp.com/attachments/279820713794338816/521116041426894881/THE_LAVA_POND.gif"],
-		"end of turn\\?": ["6.4.1. The last step in a player’s turn is the Recovery Step. During the Recovery Step, the following events occur simultaneously:\n1.) All damage is removed from Creatures in play and Creature's disciplines are set to their base value (reapply innate modifiers).\n2.) All effects which are not tracked by an *innate ability* or a *counter* and don’t have a *specified duration* or last \"until end of turn\" also end now. All such effects end simultaneously and cannot result in a Creature being destroyed."]
+		"(the lava pond\\?)": ["https://cdn.discordapp.com/attachments/279820713794338816/521116041426894881/THE_LAVA_POND.gif"]
 	},
 	"tags": {
 		"daddy": ["Yeah he did!", "He's the best daddy!", "*big smile*", "Sometimes I'm bad and don't behave him."],
