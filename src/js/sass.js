@@ -5,7 +5,7 @@ export function checkSass(mentions, message) {
   let content = message.content;
 
   if (mentions.length > 0)
-    return checkMentions(mentions, message);
+    return checkMentions(mentions, content);
 
   if (content.match(/indefinitely/)) {
     return "No, the ability only lasts until the end of turn.";
@@ -40,7 +40,7 @@ export function checkSass(mentions, message) {
 
 }
 
-function checkMentions(mentions, message) {
+function checkMentions(mentions, content) {
   let response = "";
 
   // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4
