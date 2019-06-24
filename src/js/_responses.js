@@ -115,11 +115,7 @@ try {
           else {
             channel.send(help())
             .then(() => {
-              channel.send(
-                new RichEmbed()
-                  .setTitle("Support the development of Chaotic BackTalk")
-                  .setURL("https://www.paypal.me/ChaoticBackup")
-              );
+              donate(channel);
             });
           }
         break;
@@ -271,6 +267,12 @@ try {
         }
         break;
       /* Misc */
+      case 'donate':
+        donate(channel);
+        break;
+      case 'collection':
+        send("https://chaoticbackup.github.io/collection/");
+        break;
       case 'rm':
         let lstmsg = bot.user.lastMessage;
         if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
@@ -426,6 +428,14 @@ catch (error) {
 /*
 * Responses
 */
+function donate(channel) {
+  channel.send(
+    new RichEmbed()
+      .setTitle("Support the development of Chaotic BackTalk")
+      .setURL("https://www.paypal.me/ChaoticBackup")
+  );
+}
+
 function help(args) {
   const help = require('../config/help.json');
   let message = "";

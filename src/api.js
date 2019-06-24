@@ -15,8 +15,16 @@ module.exports = function(logger) {
     }
 
     app.get('/card/:cardName', (req, res) => {
-        res.send('Hello World!');
-        console.log(req);
+        let name = decodeURI(req.params.cardName)
+        let cards = API.find_cards_by_name(name, []);
+
+        if (cards.length > 0) {
+            let image = API.base_image + cards[0].gsx$image;
+            res.send({image: image});
+        }
+        else {
+            res.status(404).send("Card not found");
+        }
     });
 
     app.listen(port, () => logger.info('Card API listening on port ' + port));

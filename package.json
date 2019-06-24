@@ -5,7 +5,7 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set NODE_ENV=development&& babel-watch src/bot.js",
+    "dev": "set NODE_ENV=development&& babel-node src/bot.js",
     "build": "babel src -d build --copy-files",
     "prod": "npm run build && node build/bot.js",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
