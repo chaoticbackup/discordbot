@@ -7,10 +7,11 @@ export function checkSass(mentions, message) {
   if (mentions.length > 0)
     return checkMentions(mentions, mentions);
 
+  if (content.match(/indefinitely/)) {
+    return "No, the ability only lasts until the end of turn.";
+  }
+
   if (content.match(/(end of combat|combat end|end of turn).*?\?/i)) {
-    if (content.match(/indefinitely/)) {
-      return "No, the ability only lasts until the end of turn.";
-    }
     if (content.match(/element/)) {
       return "Creatures will regain their Scanned elements at the end of the turn";
     }
@@ -18,7 +19,11 @@ export function checkSass(mentions, message) {
   }
 
   if (content.match(/(stack).*?\?/i)) {
-    return "Yes, abilities with numerical quantities, (such as Strike, Elementproof, and Swift) are cumulative (stack).";
+    const myreg = new RegExp("(element|fire|water|earth|air|outperform|exaust|strike|swift|support|intimidate|recklessness)", "i");
+    if (content.match(myreg)) {
+      return "Yes, that stacks.";
+    }
+    return "No, only abilities with numerical quantities are cumulative (stack). Current examples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift";
   }
 
   for (var key in sass) {
