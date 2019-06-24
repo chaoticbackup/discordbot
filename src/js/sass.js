@@ -21,7 +21,7 @@ export function checkSass(mentions, message) {
     return "Abilities last until the end of turn unless otherwise printed on the card.";
   }
 
-  if (content.match(/(stack).*?\?/i)) {
+  if (content.match(/(stack|cumulative).*?\?/i)) {
     const myreg = new RegExp("(((element|water|fire|air|earth)(proof)?|intimidate\s?(energy|courage|wisdom|power|speed)?|(outperform|exaust)\s?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)\s?[0-9x]*)", "i");
     if (content.match(myreg)) {
       let match = myreg.exec(content);
