@@ -441,8 +441,8 @@ catch (error) {
 function donate(channel) {
   channel.send(
     new RichEmbed()
-      .setTitle("Support the development of Chaotic BackTalk")
-      .setURL("https://www.paypal.me/ChaoticBackup")
+      .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
+      .setTitle("Donate")
   );
 }
 
