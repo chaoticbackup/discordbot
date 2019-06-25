@@ -29,7 +29,7 @@ const fp = new ForumPosts(bot);
 bot.on('ready', function (evt) {
 	logger.info('Logged in as: ' + bot.user);
 	bot.user.setActivity('!commands');
-	// fp.checkMessages();
+	fp.checkMessages();
 });
 
 // Automatically reconnect if the bot disconnects due to inactivity

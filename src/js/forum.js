@@ -5,7 +5,7 @@ const virtualConsole = new jsdom.VirtualConsole();
 virtualConsole.sendTo(console);
 
 const config = {
-	"seconds": 60,
+	"seconds": 120,
 	"default_channel": "135657678633566208",
 	"test_channel": "504052742201933827",
 	"forum": "http://chaoticbackup.forumotion.com"
@@ -30,7 +30,7 @@ function hm(date) {
 
 const monthTable = {
 	"Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3,
-	"May": 4, "Jun": 5, "Jul": 6, "Aug": 7, 
+	"May": 4, "Jun": 5, "Jul": 6, "Aug": 7,
 	"Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
 };
 
@@ -74,7 +74,7 @@ module.exports = class ForumPosts {
 
 	expireLink(id) {
 		this.links.push(id)
-		setTimeout((() => this.links.shift()).bind(this), 5*60*1000);
+		setTimeout((() => this.links.shift()).bind(this), 10*60*1000); // 10 minutes
 	}
 
 	checkMessages() {
