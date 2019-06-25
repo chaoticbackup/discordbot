@@ -14,6 +14,12 @@ module.exports = function(logger) {
         return;
     }
 
+    app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
+
     app.get('/card/:cardName', (req, res) => {
         let name = decodeURI(req.params.cardName)
         let cards = API.find_cards_by_name(name, []);
