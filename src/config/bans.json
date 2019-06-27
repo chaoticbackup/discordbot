@@ -56,14 +56,11 @@
 		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor. So by giving him this additional energy you distribute (30+50-5)/5 x 15 (225) worth of disciplines."]
 	},
 	"limited": [
-		"Anarkiar",
-		"Drabe",
 		"Dror'niq",
 		"Interlude of Interruption",
 		"Lanker",
 		"Malvadine, The King's Herald",
 		"Neekwin",
-		"Talisman of the Mandiblor",
 		"Tangath Toborn, In Training",
 		"Tartarek, Psi Overloader",
 		"Ursis"
