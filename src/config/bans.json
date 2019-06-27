@@ -6,6 +6,7 @@
 		"Bi-Mowercycle": ["This card is very meta warping, there are very few Battlegear that can go on support creatures and Bi-Mowercycle is the most consistently good. Bi-Mowercycle allows you to give any Creature Range and Swift without hindering their Battlegear choice. This results in it appearing in a lot of decks. Which means you almost always need to include Defender, since defenders aren't ubiquitous, this hinders deck variety."],
 		"Cadence Clash": ["Cadence Clash became a necessary card. To play a Mugic, you'd have to run two Cadence Clashes just to counter your opponent's two Cadence Clashes. When using Clash on a Clash, it returns to their hand, so now they can Clash the next Mugic you play too."],
 		"Elemental Elegy": ["This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. Against non-elemental Creatures, it becomes a \"Song of Stasis\" to stall the attack of a Creature. Because of its dual nature, it provides too much advantage."],
+		"Ikkatosh, The Aich King": ["His ability gives significant advantage to cards that were already designed strong to offset their lack of elements. Cards like Aivenna and Anarkiar surpass other fighters with the extraordinary energy and Outperform."],
 		"Illusionary Lake": ["Water is the most common element in the game. This location's preventing the gain of Water ensures a win against any deck that relies on Water."],
 		"Imaginary Walls": ["Reducing 10 damage per attack is strong. Even a modest energy M'arrillian or Minion could be able to take 4 or more attacks than usual because of the reduction.\nReturning a Mugic is not a sufficient benefit for the opposing player to counter act the battle's damage reduction."],
 		"Lord Van Bloot, Servant of Aa'unne": [
@@ -28,6 +29,7 @@
 			"Your opponent didn't need Mugic Counters anyway."
 		],
 		"Tonal Destruction" : ["This card is good if you just want to limit your opponent. But gets out of hand when combined with Enre-hep, High Muge or Lore, High Muge by allowing you to strip 4+ of the Mugic from your opponent's hand."],
+		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. The Creature can be placed anywhere on the board, allowing them to jump next to their opponents support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."],
 		"Twister of Elements": ["This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality."],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
@@ -51,11 +53,7 @@
 			"One shot, one code."
 		],
 		"Hune Paltanin": ["She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage and completely counters burn archtypes."],
-		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor. So by giving him this additional energy you distribute (30+50-5)/5 x 15 (225) worth of disciplines."],
-		"Tartarek, Psi Overloader":
-			["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.",
-			"Tartarek is a Warbeast-like creature without Recklessness. On top of two Mugicians, and a decent Wisdom increasing Ability, he can easily destroy Chieftains. To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
-		"Talisman of the Mandiblor": ["You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. Unlike other resurrection cards, the Creature can be placed anywhere on the board, allowing them to jump next to your support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter."]
+		"Lanker": ["Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor. So by giving him this additional energy you distribute (30+50-5)/5 x 15 (225) worth of disciplines."]
 	},
 	"limited": [
 		"Anarkiar",
@@ -94,6 +92,9 @@
 		"Najarin's Tower of Song": ["Like Tonal Destruction, this card can be abused by Enre-hep to reduce your opponent's Mugic hand. It's an expensive Mugic that doesn't see play anywhere else."],
 		"Skeletal Springs": ["Admititedly, fluidmorphing is a powerful game mechanic. This location not only prevents Fluidmorphing, it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck. So a boost for the player and a potential game breaker for the opponent."],
 		"Song of Transportation": ["Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."],
+		"Tartarek, Psi Overloader":
+			["On his own a very playable card, two Elements, two very good Disciplines, good Energy and two Mugic Counters.\nOn top of an already good card, his effect lets you easily destroy a play style involving Chieftains.",
+			"Tartarek is a Warbeast-like creature without Recklessness. On top of two Mugicians, and a decent Wisdom increasing Ability, he can easily destroy Chieftains. To add insult to injury, Tartarek's Brainwashed ability is the same. His ability is the perfect cover. Who would suspect a guy whose abilities never change?"],
 		"Ursis": ["A divisive card. Ursis may have no ability (no negative one either), but it does have High Energy, great Power, 3 Mugic counters, and most importantly Creature type Muge."],
 		"Xerium Armor": ["Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check."]
 	},
