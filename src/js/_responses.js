@@ -190,7 +190,7 @@ try {
       case 'starters':
         if (options.includes("metal")) send(commands["starter"][1]);
         else if (options.includes("king")) send(commands["starter"][2]);
-        else send(commands["starter"][2]);
+        else send(commands["starter"][1]);
         break;
       /* Banlist and Alternative Formats */
       case 'ban':
