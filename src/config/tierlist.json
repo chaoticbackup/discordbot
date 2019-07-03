@@ -2,234 +2,241 @@
 	"tierlist": {
 		"S": [
 			"Wise Guys",
+			"LankerTosh",
         	"Danian Burn",
-        	"LankerTosh",
+        	"Swimming Team",
 			"MaxWreck",
-			"Swim Team",
-			"Strike",
-			"Lankerek"
-
+			"Bodal's Boys"
 		],
 		"A": [
+			"Dror'niq",
+			"Strike",
+			"Lankerek",
 			"Elementalist",
-			"Hot Air",
-			"Fliandar",
-			"UrsisKanin",
-			"Aszil Courage",
-			"UW Fire"
-
+			"Fire and Brimstone",
+			"Aszil Courage"
 		],
 		"B": [
-
+			"UW Burn",
+			"Fliandar",
+			"UrsisKanin",
 			"Lyssta Mixed",
-			"Flame On!",
-			"Arrthoa/Water",
-			"No Healing",
-			"Compost",
-			"6 Arms"
+			"6 Arms",
+			"Flame On!"
 		],
 		"C": [
+			"No Healing",
+			"Aszil Compost",
 			"Blazvatan",
-			"Gorram Air",
-			"Gorram Water",
-			"FireFly",
-			"Kraken"
+			"Gorram Malvadine",
+			"Gorram Neekwin",
+			"Firefly"
 		],
 		"D": [
-			"Khorror",
-			"CrackTheWhep",
-			"Flying Frogs",
-			"GearEater",
+			"Kraken"
 			"Gintanai",
-			"Four Arms",
 			"Ursis Dagger",
 			"Ocean Man",
-			"Mip Reckless",
-			"Marr Reckless",
-			"Brathe Yourself",
-			"HiveMind"
+			"Flying Frogs",
+			"GearEater",
+			"Gan'trak Bladez",
+			"Reckless Mip",
+			"Reckless Marr"
 		]
 	},
 	"decks": {
-		"Lankerek": {
-			"info": "",
-			"counter": "",
-			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891415"
-		},
-		"6 Arms": {
-			"info": "",
-			"counter": "",
-			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/891676"
-		},
-		"Danian Burn": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1564-danian-burn"
-		},
-		"LankerTosh": {
-			"info": "",
-			"counter": "",
-			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/887214"
-		},
-		"Wise Guys": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1563-wise-guys"
-		},
-		"Strike": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1568-strike"
-		},
-		"Swim Team": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1567-swimming-team"
-		},
-		"UW Fire": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1575-uw-burn"
-		},
-		"MaxWreck": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1566-maxwreck"
-		},
-		"Fliandar": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1572-fliandar-mixed"
-		},
-		"UrsisKanin": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin"
-		},
 		"Aszil Courage": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1574-aszil-courage"
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1574-aszil-courage"
 		},
-		"Hot Air": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1571-hot-air-rises"
-		},
-		"Elementalist": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1570-elementalist-ow-update"
-		},
-		"Lyssta Mixed": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1576-lyssta-mixed"
-		},
-		"Flame On!": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1577-flame-on"
-		},
-		"Arrthoa/Water": {
-			"info": "",
-			"counter": "",
-			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/882687"
-		},
-		"No Healing": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1579-no-healing"
-		},
-		"Compost": {
-			"info": "",
-			"counter": "",
-			"url": "http://www.tradecardsonline.com/im/showDeck/deck_id/858961"
-		},
-		"Khorror": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1588-khorror"
+		"Arrthoa": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://www.tradecardsonline.com/im/showDeck/deck_id/882687"
 		},
 		"Blazvatan": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1582-blazvatan"
-		},
-		"Gorram Air": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine"
-		},
-		"Gorram Water": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin"
-		},
-		"FireFly": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1585-firefly"
-		},
-		"CrackTheWhep": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep"
-		},
-		"Flying Frogs": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1590-flying-frogs"
-		},
-		"GearEater": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1591-ilx-geareater"
-		},
-		"Gintanai": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai"
-		},
-		"Four Arms": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
-		},
-		"Ursis Dagger": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger"
-		},
-		"Mip Reckless": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1596-mipedian-reckless"
-		},
-		"Marr Reckless": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1597-marr-reckless"
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1582-blazvatan"
 		},
 		"Brathe Yourself": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself"
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself"
 		},
-		"Kraken": {
+		"Bodal's Boys": {
 			"info": "",
 			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1586-kraken"
+			"url": "http://chaoticbackup.forumotion.com/t1602-bodal-s-boys"
 		},
-		"Ocean Man": {
+		"Aszil Compost": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1580-aszil-compost"
+		},
+		"CrackTheWhep": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep"
+		},
+		"Danian Burn": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1564-danian-burn"
+		},
+		"Dror'niq": {
 			"info": "",
 			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1595-ocean-man"
+			"url": "http://chaoticbackup.forumotion.com/t1603-drorniq"
+		},
+		"Elementalist": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1570-elementalist-ow-update"
+		},
+		"FireFly": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1585-firefly"
+		},
+		"Flame On!": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1577-flame-on"
+		},
+		"Flying Frogs": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1590-flying-frogs"
+		},
+		"Four Arms": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
+		},
+		"Fliandar": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1572-fliandar-mixed"
+		},
+		"Gan'trak Bladez": {
+			"url": "http://chaoticbackup.forumotion.com/t1601-gan-trak-update"
+		},
+		"Gorram Air": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine"
+		},
+		"Gorram Water": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin"
+		},
+		"GearEater": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1591-ilx-geareater"
+		},
+		"Gintanai": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1592-gintanai"
 		},
 		"HiveMind": {
-			"info": "",
-			"counter": "",
-			"url": "http://chaoticbackup.forumotion.com/t1599-hivemind"
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1599-hivemind"
+		},
+		"Fire and Brimstone": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1571-hot-air-rises"
+		},
+		"Khorror": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1588-khorror"
+		},
+		"Kraken": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1586-kraken"
+		},
+		"LankerTosh": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1565-lanarkiar"
+		},
+		"Lankerek": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1569-lankerek"
+		},
+		"Lyssta Mixed": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1576-lyssta-mixed"
+		},
+		"Mip Reckless": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1596-mipedian-reckless"
+		},
+		"Marr Reckless": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1597-marr-reckless"
+		},
+		"MaxWreck": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1566-maxwreck"
+		},
+		"No Healing": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1579-no-healing"
+		},
+		"Ocean Man": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1595-ocean-man"
+		},
+		"Strike": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1568-strike"
+		},
+		"Swimming Team": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1567-swimming-team"
+		},
+		"Ursis Dagger": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger"
+		},
+		"UrsisKanin": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin"
+		},
+		"UW Burn": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1575-uw-burn"
+		},
+		"Wise Guys": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1563-wise-guys"
+		},
+		"6 Arms": {
+		    "info": "",
+		    "counter": "",
+		    "url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
 		}
 	}
 }
