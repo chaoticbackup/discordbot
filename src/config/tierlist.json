@@ -30,18 +30,18 @@
 			"Blazvatan",
 			"Gorram Malvadine",
 			"Gorram Neekwin",
-			"Firefly"
+			"FireFly"
 		],
 		"D": [
-			"Kraken"
+			"Kraken",
 			"Gintanai",
 			"Ursis Dagger",
 			"Ocean Man",
 			"Flying Frogs",
 			"GearEater",
 			"Gan'trak Bladez",
-			"Reckless Mip",
-			"Reckless Marr"
+			"Mip Reckless",
+			"Marr Reckless"
 		]
 	},
 	"decks": {
@@ -123,12 +123,12 @@
 		"Gan'trak Bladez": {
 			"url": "http://chaoticbackup.forumotion.com/t1601-gan-trak-update"
 		},
-		"Gorram Air": {
+		"Gorram Malvadine": {
 		    "info": "",
 		    "counter": "",
 		    "url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine"
 		},
-		"Gorram Water": {
+		"Gorram Neekwin": {
 		    "info": "",
 		    "counter": "",
 		    "url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin"
