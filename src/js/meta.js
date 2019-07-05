@@ -6,11 +6,15 @@ export function tierlist(tier) {
 
     if (tier) {
         tier = tier.toUpperCase();
-        let message = "";
-        tierlist[tier].forEach((deck) => {
-            message += `${deck}: ${decks[deck].url}\n`;
-        });
-        embed.addField(`${tier} Decks`, message, true);
+        if (tier == "CM") tier = "S";
+        if (tierlist.hasOwnProperty(tier)) {
+            let message = "";
+            tierlist[tier].forEach((deck) => {
+                message += `${deck}: ${decks[deck].url}\n`;
+            });
+            embed.addField(`${tier} Decks`, message, true);
+        }
+        else return "That is not a tier";
     }
     else {
        for (var tier in tierlist) {
