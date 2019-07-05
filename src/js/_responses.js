@@ -263,10 +263,9 @@ try {
       case 'funstuff':
         send(funstuff());
         break;
-      case 'bad':
-      case 'badstuff':
       case 'badultras':
       case 'wasted':
+      case 'wastedultras':
         send(badultras());
         break;
       case "lf":
