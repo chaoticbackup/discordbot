@@ -64,6 +64,26 @@
 		"Vial of Liquid Thought",
 		"Zamool"
 	],
+	"noble": [
+		"Aer'dak",
+		"Bi-Mowercycle",
+		"Dror'niq",
+		"Lanker",
+		"Melody of the Meek",
+		"Numin Voidland",
+		"Tonal Destruction",
+		"Vial of Liquid Thought",
+		"Xelfe"
+	],
+	"pauper": [
+		"Dror'niq",
+		"Ivelaan",
+		"Na-inna",
+		"Numin Voidland",
+		"Lam'inkal",
+		"Lanker",
+		"Tonal Destruction"
+	],
 	"reasons": {
 		"Aer'dak": ["It's very easy with effects like Xelfe and Bi-Mowercycle to give 4-6 of your opponent's creatures range. Letting you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants can win before the first combat."],
 		"Aszil, The Young Queen": ["She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give Earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck. Other creatures that give resources have a cost."],

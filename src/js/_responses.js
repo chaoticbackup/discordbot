@@ -7,7 +7,7 @@ const {RichEmbed} = require('discord.js');
 import {rate_card} from './database/rate';
 import {full_art, find_card, display_card, read_card} from './database/card';
 import {goodstuff, badultras, funstuff} from './goodstuff';
-import {banlist, whyban, limited_list, shakeup_list} from './bans';
+import {banlist, whyban} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
 import {tierlist, tierlisttext} from './meta';
@@ -205,37 +205,45 @@ try {
       case 'whyban':
         if (mentions.length > 0) {
           channel.send("Player's aren't cards, silly");
-          break;
         }
         else if (args.length > 0) {
           send(whyban(args, options));
-          break;
         }
-        /* falls through */
+        break;
       case 'banlist':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else {
           channel.send(banlist(options))
           .then(() => {
-            donate(channel);
+            if (options.length == 0)
+              donate(channel);
           });
         }
         break;
       case 'limited':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else
-          send(limited_list())
-          .then(() => {
-            donate(channel);
-          });
+        else {
+          options.push("limited");
+          send(banlist(options));
+        }
+        break;
+      case 'pauper':
+        options.push("pauper");
+        send(banlist(options));
+        break;
+      case 'noble':
+        options.push('noble');
+        send(banlist(options));
         break;
       case 'shakeup':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else
-          send(shakeup_list());
+        else {
+          options.push("shakeup");
+          send(banlist(options));
+        }
         break;
       case 'tierlist':
         if (!args && (mainserver(message) && channel.id != channels.bot_commands))

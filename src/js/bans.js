@@ -1,5 +1,6 @@
 const {rndrsp, cleantext} = require('./shared.js');
-const {bans, watchlist, limited, small, reasons, jokes, shakeup, three} = require('../config/bans.json');
+const {bans, watchlist, limited, small, reasons,
+  jokes, shakeup, three, pauper, noble} = require('../config/bans.json');
 
 export function whyban(card, options=[]) {
   card = cleantext(card);
@@ -31,17 +32,25 @@ export function whyban(card, options=[]) {
 
 export function banlist(options) {
   if (options.includes("small") || options.includes("short")) {
-    return small_list();
+    return list_small();
   }
-
-  if (options.includes("limited")) {
-    return limited_list();
+  else if (options.includes("limited")) {
+    return list_limited();
   }
-
-  if (options.includes("3v3")) {
+  else if (options.includes("pauper")) {
+    return list_pauper();
+  }
+  else if (options.includes("noble")) {
+    return list_noble();
+  }
+  else if (options.includes("3v3")) {
     return list_3v3();
   }
 
+  return list_standard();
+}
+
+function list_standard() {
   let message = "**Community Ban List:**\n=====";
   bans.forEach((key) => {
     message += "\n" + key;
@@ -56,7 +65,7 @@ export function banlist(options) {
   return message;
 }
 
-export function small_list() {
+function list_small() {
   let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
   small.forEach((key) => {
     message += "\n" + key;
@@ -64,7 +73,7 @@ export function small_list() {
   return message;
 }
 
-export function limited_list() {
+function list_limited() {
   let message = "**Banlist and Limited Format:**\n=====";
   bans.forEach((key) => {
     message += "\n" + key;
@@ -78,7 +87,7 @@ export function limited_list() {
   return message;
 }
 
-export function list_3v3() {
+function list_3v3() {
   let message = "**Banlist for 3 Creature Format:**\n=====";
   three.forEach((key) => {
     message += "\n" + key;
@@ -87,7 +96,23 @@ export function list_3v3() {
   return message;
 }
 
-export function shakeup_list() {
+function list_pauper() {
+  let message = "**Pauper (Commons and Uncommons)**\nBanned Cards:\n====="
+  pauper.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
+function list_noble() {
+  let message = "**Noble (Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
+  noble.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
+function list_shakeup() {
   let message = "The **Shake Up** list aims to widen the meta";
 
   message += "\n``The following are limited (unique):``";
