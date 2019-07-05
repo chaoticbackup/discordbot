@@ -34,8 +34,7 @@ function gs(filter, options) {
   switch (filter[0].toLowerCase()) {
     case 'creature':
     case 'creatures':
-      message = `**Strong Creatures:**`;
-      message += Creatures();
+      message += "Please specify a tribe:\n``!good <tribe> creatures``";
       break;
     case 'mugic':
       message = `**Strong Mugic:**`;
@@ -91,20 +90,10 @@ function gs(filter, options) {
   return message;
 }
 
-function Creatures() {
-  let msg = "";
-  [].concat(goodstuff.Creatures["Danian"], goodstuff.Creatures["M'arrillian"], 
-    goodstuff.Creatures["Mipedian"], goodstuff.Creatures["OverWorld"], 
-    goodstuff.Creatures["UnderWorld"], goodstuff.Creatures["Generic"]).sort().forEach((card) => {
-      msg += "\n" + card;
-  });
-  return msg;
-}
-
 function Mugic() {
   let msg = "";
-  [].concat(goodstuff.Mugic["Danian"], goodstuff.Mugic["M'arrillian"], 
-    goodstuff.Mugic["Mipedian"], goodstuff.Mugic["OverWorld"], 
+  [].concat(goodstuff.Mugic["Danian"], goodstuff.Mugic["M'arrillian"],
+    goodstuff.Mugic["Mipedian"], goodstuff.Mugic["OverWorld"],
     goodstuff.Mugic["UnderWorld"], goodstuff.Mugic["Generic"]).sort().forEach((card) => {
       msg += "\n" + card;
   });
