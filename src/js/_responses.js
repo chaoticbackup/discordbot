@@ -10,7 +10,7 @@ import {goodstuff, badultras, funstuff} from './goodstuff';
 import {banlist, whyban} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
-import {tierlist, tierlisttext} from './meta';
+import {tierlist} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
 import {menu, make, order} from './menu';
 import {joinTribe, leaveTribe, showTribe, brainwash} from './tribe';
@@ -246,11 +246,18 @@ try {
         }
         break;
       case 'tierlist':
-        if (!args && (mainserver(message) && channel.id != channels.bot_commands))
-          channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
+        if (!args) {
+          if ((mainserver(message) && channel.id != channels.bot_commands))
+            channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
+          else {
+            channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1h9QOd2sk1KD4WK91FLy5CQPcar4twGlA'))
+            .then(() => {
+              send(tierlist());
+            });
+          }
+        }
         else {
-          send(tierlist());
-          send(tierlisttext());
+          send(tierlist(cleantext(args)));
         }
         break;
       case 'strong':
