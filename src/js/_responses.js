@@ -10,7 +10,7 @@ import {goodstuff, badultras, funstuff} from './goodstuff';
 import {banlist, whyban} from './bans';
 import {checkSass} from './sass';
 import {rulebook} from './rulebook';
-import {tierlist} from './meta';
+import {tier} from './meta';
 import {servers, channels, users} from '../config/server_ids.json';
 import {menu, make, order} from './menu';
 import {joinTribe, leaveTribe, showTribe, brainwash} from './tribe';
@@ -245,6 +245,11 @@ try {
           send(banlist(options));
         }
         break;
+      case 'tier':
+        if (!args) {
+          channel.send("Supply a tier or use ``!tierlist``");
+          break;
+        }
       case 'tierlist':
         if (!args) {
           if ((mainserver(message) && channel.id != channels.bot_commands))
@@ -252,12 +257,12 @@ try {
           else {
             channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1h9QOd2sk1KD4WK91FLy5CQPcar4twGlA'))
             .then(() => {
-              send(tierlist());
+              send(tier());
             });
           }
         }
         else {
-          send(tierlist(cleantext(args)));
+          send(tier(cleantext(args)));
         }
         break;
       case 'strong':
@@ -513,7 +518,7 @@ function gone(card, bot) {
 
   let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
 
-  if (card.toLowerCase()==="nakan") {
+  if (card==="nakan") {
     let line = ""
       + "88" + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
       + "76" + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "

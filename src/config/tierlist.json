@@ -44,6 +44,59 @@
 			"Marr Reckless"
 		]
 	},
+	"tribes": {
+		"Danian": [
+			"Aszil Courage",
+			"Aszil Compost",
+			"Danian Burn",
+			"Fliandar",
+			"HiveMind"
+		],
+		"M'arrillian": [
+			"FireFly",
+			"Gan'trak Bladez",
+			"Marr Reckless"
+		],
+		"Mipedian": [
+			"Blazvatan",
+			"Four Arms",
+			"Gintanai",
+			"Khorror",
+			"Mip Reckless",
+			"Strike"
+		],
+		"Mixed": [
+			"Brathe Yourself",
+			"CrackTheWhep",
+			"Dror'niq",
+			"Flying Frogs",
+			"Gorram Malvadine",
+			"Gorram Neekwin",
+			"GearEater",
+			"Kraken",
+			"LankerTosh",
+			"Lankerek",
+			"Lyssta Mixed",
+			"No Healing",
+			"Ocean Man",
+			"Swimming Team",
+			"Ursis Dagger",
+			"UrsisKanin",
+			"6 Arms"
+		],
+		"OverWorld": [
+			"Arrthoa",
+			"Bodal's Boys",
+			"Elementalist",
+			"MaxWreck",
+			"Wise Guys"
+		],
+		"UnderWorld": [
+			"Flame On!",
+			"Fire and Brimstone",
+			"UW Burn"
+		]
+	},
 	"decks": {
 		"Aszil Courage": {
 		    "counters": [],
