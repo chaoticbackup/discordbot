@@ -222,6 +222,7 @@ try {
         }
         break;
       case 'limited':
+      case 'restricted':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else {

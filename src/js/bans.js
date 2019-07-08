@@ -74,12 +74,12 @@ function list_small() {
 }
 
 function list_limited() {
-  let message = "**Banlist and Limited Format:**\n=====";
+  let message = "**Banlist and Restricted Format:**\n=====";
   bans.forEach((key) => {
     message += "\n" + key;
   });
 
-  message += "\n=====\n**Limited :**\n(1 copy of each of the following)";
+  message += "\n=====\n**Restricted :**\n(1 copy of each of the following)";
   limited.forEach((key) => {
     message += "\n" + key;
   });
