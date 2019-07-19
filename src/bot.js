@@ -46,6 +46,7 @@ bot.on('guildMemberAdd', (member) => {
 	if (member.displayName.match(new RegExp("(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then((err) => {
 			logger.warn('Banned: ' + member.displayName);
+			bot.channels.get(channels.staff).send('Banned: ' + member.displayName);
 			// Delete the welcome message
 			let meebot = bot.users.get('159985870458322944');
 			if (meebot) setTimeout(() => {
