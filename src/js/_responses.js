@@ -371,7 +371,7 @@ try {
         if (/*mainserver(message) &&*/ guildMember) {
           switch(cleantext(args)) {
             case 'list':
-              let message = "List of Quebec Members";
+              let message = "List of Quebec Members\n";
               guild.fetchMembers().then((guild) => {
                 guild.members.find(member => {
                   if (member.roles.find(role => role.name==="quebec")) {
@@ -383,11 +383,11 @@ try {
               break;
             case 'join':
               guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you are a quebec member");
+              channel.send("you are a Quebec member");
               break;
             case 'leave':
               guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you are a quebec member");
+              channel.send("you left Quebec");
               break;
             default:
               channel.send("!quebec list/join/leave");
