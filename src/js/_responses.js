@@ -363,10 +363,15 @@ try {
           }
         }
         break;
-      /* Joke Cards */
       case 'gone':
       case 'fan':
         send(gone(cleantext(args)));
+        break;
+      case 'quebec':
+        if (mainserver(message) && guildMember) {
+          guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+          channel.send("you are a quebec member");
+        }
         break;
       /* Moderator Only */
       case 'readthecard':
