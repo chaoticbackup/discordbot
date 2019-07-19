@@ -368,14 +368,18 @@ try {
         send(gone(cleantext(args)));
         break;
       case 'quebec':
-        if (mainserver(message) && guildMember) {
+        if (/*mainserver(message) &&*/ guildMember) {
           switch(cleantext(args)) {
             case 'list':
-              let message = "";
-              guild.members.fetch().find(role => role.name==="quebec").forEach((member) => {
-                message += member.displayName + "\n";
+              let message = "List of Quebec Members";
+              guild.fetchMembers().then((guild) => {
+                guild.members.find(member => {
+                  if (member.roles.find(role => role.name==="quebec")) {
+                    message += member.displayName + "\n";
+                  }
+                });
+                send(message);
               });
-              send(message);
               break;
             case 'join':
               guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
