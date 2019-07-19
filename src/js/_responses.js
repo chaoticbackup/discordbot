@@ -375,6 +375,7 @@ try {
               guild.members.fetch().find(role => role.name==="quebec").forEach((member) => {
                 message += member.displayName + "\n";
               });
+              send(message);
               break;
             case 'join':
               guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
