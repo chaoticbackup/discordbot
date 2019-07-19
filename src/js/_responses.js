@@ -369,8 +369,25 @@ try {
         break;
       case 'quebec':
         if (mainserver(message) && guildMember) {
-          guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
-          channel.send("you are a quebec member");
+          switch(cleantext(args)) {
+            case 'list':
+              let message = "";
+              guild.members.fetch().find(role => role.name==="quebec").forEach((member) => {
+                message += member.displayName + "\n";
+              });
+              break;
+            case 'join':
+              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+              channel.send("you are a quebec member");
+              break;
+            case 'leave':
+              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+              channel.send("you are a quebec member");
+              break;
+            default:
+              channel.send("!quebec list/join/leave");
+          }
+
         }
         break;
       /* Moderator Only */
