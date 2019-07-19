@@ -141,7 +141,9 @@ class API {
 
   /* Finding cards in the database by name */
   find_cards_by_name(name, options) {
-    name = escape_text(name);
+    name = escape_text(name).replace(/,([^\s]+)/, (str, p1) => {
+      return ", " + p1;
+    });
 
     let filters = [];
     if (options && options.length > 0) {
