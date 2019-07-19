@@ -381,7 +381,7 @@ try {
               channel.send("you are a quebec member");
               break;
             case 'leave':
-              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+              guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
               channel.send("you are a quebec member");
               break;
             default:
