@@ -43,7 +43,7 @@ bot.on('message', msg => responses.call(bot, msg, logger));
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {
-	if (member.displayName.match(new RegExp("(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
+	if (member.displayName.match(new RegExp("(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then((err) => {
 			logger.warn('Banned: ' + member.displayName);
 			// Delete the welcome message
