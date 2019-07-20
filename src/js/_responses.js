@@ -207,7 +207,13 @@ try {
           channel.send("Player's aren't cards, silly");
         }
         else if (args.length > 0) {
-          send(whyban(args, options));
+          if (mainserver(message) && channel.id == channels.bot_commands) {
+            send(whyban(args, options));
+          }
+          else {
+            channel.send("Please ask me in <#387805334657433600>");
+            if (message.deletable) message.delete();
+          }
         }
         break;
       case 'banlist':
