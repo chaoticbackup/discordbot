@@ -122,7 +122,7 @@ try {
       /* Cards */
       case 'card':
         if (mainserver(message) &&
-          (channel.id == "135657678633566208" && message.member.roles.size === 1)
+          (channel.id != channels.bot_commands && message.member.roles.size === 1)
         ) {
           send("Please ask me in <#387805334657433600>");
           break;
@@ -212,7 +212,6 @@ try {
           }
           else {
             channel.send("Please ask me in <#387805334657433600>");
-            if (message.deletable) message.delete();
           }
         }
         break;
@@ -442,6 +441,7 @@ try {
                 );
                 if (b_messages.size > 0)
                   channel.bulkDelete(b_messages);
+                  message.delete();
               });
             }
             else {
