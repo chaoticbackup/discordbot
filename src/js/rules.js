@@ -1,13 +1,13 @@
 var pdfjsLib = require('pdfjs-dist');
 const {cleantext} = require('./shared.js');
 const glossary = require('../config/glossary');
-const rules = require('../config/rules.json');
+const faq = require('../config/faq.json');
 
 module.exports = function(rule) {
 
 	if (rule == "all") {
 		let response = "";
-		for (let key in rules) {
+		for (let key in faq) {
 			response += key + "\n";
 		}
 		return response;
@@ -15,7 +15,7 @@ module.exports = function(rule) {
 
 	rule = cleantext(rule);
 
-	let merge = Object.assign({}, rules, glossary);
+	let merge = Object.assign({}, faq, glossary);
 
 	for (var key in merge) {
 	  if (cleantext(key).indexOf(rule) === 0)
