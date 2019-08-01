@@ -185,7 +185,7 @@ try {
       case 'guide':
         channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
         break;
-      case 'repository':
+      case 'gallery':
         channel.send("https://imgur.com/a/RTH55");
         break;
       /* Starters */
