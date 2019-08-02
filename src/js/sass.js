@@ -22,7 +22,7 @@ export function checkSass(mentions, message) {
   }
 
   if (content.match(/(stack|cumulative).*?\?/i)) {
-    const myreg = new RegExp("(((element|water|fire|air|earth)(proof)?|intimidate\s?(energy|courage|wisdom|power|speed)?|(outperform|exaust)\s?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)\s?[0-9x]*)", "i");
+    const myreg = new RegExp("(((element|water|fire|air|earth)(proof)?|intimidate\s?(energy|courage|wisdom|power|speed)?|(outperform|exaust)\s?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)", "i");
     if (content.match(myreg)) {
       let match = myreg.exec(content);
       return "Yes, " + match[1] + " stacks.";
@@ -30,7 +30,7 @@ export function checkSass(mentions, message) {
     if (content.match(/hive/i)) {
       return "Abilities granted by hive stack.";
     }
-    return "No, only abilities with numerical quantities are cumulative (stack). Current examples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift";
+    return "Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift";
   }
 
   for (var key in sass) {
