@@ -43,6 +43,9 @@ export function banlist(options) {
   else if (options.includes("noble")) {
     return list_noble();
   }
+  else if (options.includes("shakeup")) {
+    return list_shakeup();
+  }
   else if (options.includes("3v3")) {
     return list_3v3();
   }
