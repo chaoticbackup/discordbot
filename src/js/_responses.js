@@ -140,12 +140,9 @@ try {
         send(rate_card(args, options, bot));
         break;
       /* Rule */
-      case 'ruling':
-        if (args.length < 1) {
-          send(rules("all"));
-          break;
-        }
-        /* falls through */
+      case 'faq':
+        send(faq(args));
+        break;
       case 'keyword':
       case 'rule':
       case 'rules':
@@ -549,6 +546,26 @@ function nowornever(card) {
       return `${cards[key]}`;
     }
   }
+}
+
+function faq(q) {
+  const faq = require('../config/faq.json');
+  q = cleantext(q);
+
+  if (!q) {
+    let response = "";
+    for (let key in faq) {
+      response += key + "\n";
+    }
+    return response;
+  }
+
+  for (var key in faq) {
+    if (key.indexOf(q) === 0)
+      return `${faq[key]}`;
+  }
+
+  return `This might be a glossary term or you need to ask an experienced player.`;
 }
 
 function gone(card, bot) {

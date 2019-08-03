@@ -1,25 +1,14 @@
 var pdfjsLib = require('pdfjs-dist');
 const {cleantext} = require('./shared.js');
 const glossary = require('../config/glossary');
-const faq = require('../config/faq.json');
 
 module.exports = function(rule) {
 
-	if (rule == "all") {
-		let response = "";
-		for (let key in faq) {
-			response += key + "\n";
-		}
-		return response;
-	}
-
 	rule = cleantext(rule);
 
-	let merge = Object.assign({}, faq, glossary);
-
-	for (var key in merge) {
+	for (var key in glossary) {
 	  if (cleantext(key).indexOf(rule) === 0)
-	    return `*${key}*:\n${merge[key]}`;
+	    return `*${key}*:\n${glossary[key]}`;
 	}
 
 	return `I'm not sure, but you can check the Player Guide:\n<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>`;
