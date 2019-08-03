@@ -242,6 +242,7 @@ try {
         options.push("pauper");
         send(banlist(options));
         break;
+      case 'peasant':
       case 'noble':
         options.push('noble');
         send(banlist(options));

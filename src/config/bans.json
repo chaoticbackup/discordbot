@@ -64,25 +64,16 @@
 		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
+	"pauper": [
+		"Dror'niq"
+	],
 	"noble": [
 		"Aer'dak",
 		"Bi-Mowercycle",
 		"Dror'niq",
-		"Lanker",
 		"Melody of the Meek",
 		"Numin Voidland",
-		"Tonal Destruction",
-		"Vial of Liquid Thought",
-		"Xelfe"
-	],
-	"pauper": [
-		"Dror'niq",
-		"Ivelaan",
-		"Lam'inkal",
-		"Lanker",
-		"Na-inna",
-		"Numin Voidland",
-		"Tonal Destruction"
+		"Vial of Liquid Thought"
 	],
 	"reasons": {
 		"Aer'dak": ["It's very easy with effects like Xelfe and Bi-Mowercycle to give 4-6 of your opponent's creatures range. Letting you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants can win before the first combat."],
