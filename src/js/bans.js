@@ -100,7 +100,7 @@ function list_3v3() {
 }
 
 function list_pauper() {
-  let message = "**Pauper (Commons and Uncommons)**\nBanned Cards:\n====="
+  let message = "**Pauper (Printed Commons and Uncommons)**\nBanned Cards:\n====="
   pauper.forEach((key) => {
     message += "\n" + key;
   });
