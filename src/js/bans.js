@@ -118,7 +118,7 @@ function list_noble() {
 function list_shakeup() {
   let message = "The **Shake Up** list aims to widen the meta";
 
-  message += "\n``The following are limited (unique):``";
+  message += "\n``The following are limited to one copy:``";
   shakeup.limited.forEach((key) => {
     message += "\n" + key;
   });
