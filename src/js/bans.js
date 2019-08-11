@@ -1,6 +1,6 @@
 const {rndrsp, cleantext} = require('./shared.js');
 const {bans, watchlist, limited, small, reasons,
-  jokes, shakeup, three, pauper, noble} = require('../config/bans.json');
+  jokes, three, pauper, noble} = require('../config/bans.json');
 
 export function whyban(card, options=[]) {
   card = cleantext(card);
@@ -42,9 +42,6 @@ export function banlist(options) {
   }
   else if (options.includes("noble")) {
     return list_noble();
-  }
-  else if (options.includes("shakeup")) {
-    return list_shakeup();
   }
   else if (options.includes("3v3")) {
     return list_3v3();
@@ -112,21 +109,5 @@ function list_noble() {
   noble.forEach((key) => {
     message += "\n" + key;
   });
-  return message;
-}
-
-function list_shakeup() {
-  let message = "The **Shake Up** list aims to widen the meta";
-
-  message += "\n``The following are limited to one copy:``";
-  shakeup.limited.forEach((key) => {
-    message += "\n" + key;
-  });
-
-  message += "\n``The following are banned:``";
-  shakeup.bans.forEach((key) => {
-    message += "\n" + key;
-  });
-
   return message;
 }

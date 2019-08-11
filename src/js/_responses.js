@@ -182,9 +182,6 @@ try {
       case 'guide':
         channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
         break;
-      case 'gallery':
-        channel.send("https://imgur.com/a/RTH55");
-        break;
       /* Starters */
       case 'starter':
       case 'starters':
@@ -243,14 +240,6 @@ try {
       case 'noble':
         options.push('noble');
         send(banlist(options));
-        break;
-      case 'shakeup':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
-          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else {
-          options.push("shakeup");
-          send(banlist(options));
-        }
         break;
       case 'tier':
         if (!args) {
