@@ -1,6 +1,6 @@
 const {rndrsp, cleantext} = require('./shared.js');
 const {bans, watchlist, limited, small, reasons,
-  jokes, three, pauper, noble} = require('../config/bans.json');
+  jokes, three, pauper, noble, rotation} = require('../config/bans.json');
 
 export function whyban(card, options=[]) {
   card = cleantext(card);
@@ -45,6 +45,9 @@ export function banlist(options) {
   }
   else if (options.includes("3v3")) {
     return list_3v3();
+  }
+  else if (options.includes("rotation") || options.includes("rotate")) {
+    return list_rotation();
   }
 
   return list_standard();
@@ -107,6 +110,14 @@ function list_pauper() {
 function list_noble() {
   let message = "**Noble (Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
   noble.forEach((key) => {
+    message += "\n" + key;
+  });
+  return message;
+}
+
+function list_rotation() {
+  let message = "**Set Rotation**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
+  rotation.forEach((key) => {
     message += "\n" + key;
   });
   return message;
