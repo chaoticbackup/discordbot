@@ -72,8 +72,25 @@
 		"Bi-Mowercycle",
 		"Cadence Clash",
 		"Dror'niq",
-		"Melody of the Meek",
-		"Xelfe"
+		"Imaginary Walls",
+		"Melody of the Meek"
+	],
+	"rotation": [
+		"Aer'dak",
+		"AZAIA Mindscrying Chamber",
+		"Bi-Mowercycle",
+		"Cadence Clash",
+		"Illusionary Lake",
+		"Lord van Bloot, Servant of Aa'une",
+		"Najarin, Fluidmorpher's Foe",
+		"Numin Voidland",
+		"Primal Smash",
+		"Rao'pa Sahkk, Condensation Ceremony",
+		"Supercooled Rain",
+		"Talisman of the Mandiblor",
+		"Tonal Destruction",
+		"Vial of Liquid Thought",
+		"Zamool, Lord van Bloot's Enforcer"
 	],
 	"reasons": {
 		"Aer'dak": ["It's very easy with effects like Xelfe and Bi-Mowercycle to give 4-6 of your opponent's creatures range. Letting you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants can win before the first combat."],
@@ -159,22 +176,5 @@
 		"Metal": ["He wins too many tournaments."],
 		"Neekwin": ["I'm sure you've seen him in a deck by now", "Oh you thought this was over?", "Can't spell Neekwin without win", "Yeah, I know you're mad about this."],
 		"Raimusa": ["I'll be back any day now..."]
-	},
-	"rotation": [
-		"Aer'dak",
-		"AZAIA Mindscrying Chamber",
-		"Bi-Mowercycle",
-		"Cadence Clash",
-		"Illusionary Lake",
-		"Lord van Bloot, Servant of Aa'une",
-		"Najarin, Fluidmorpher's Foe",
-		"Numin Voidland",
-		"Primal Smash",
-		"Rao'pa Sahkk, Condensation Ceremony",
-		"Supercooled Rain",
-		"Talisman of the Mandiblor",
-		"Tonal Destruction",
-		"Vial of Liquid Thought",
-		"Zamool, Lord van Bloot's Enforcer"
-	]
+	}
 }

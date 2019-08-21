@@ -69,7 +69,7 @@ function list_standard() {
 }
 
 function list_small() {
-  let message = "**Short Banlist:**\n(Removes the minimum amount of game breaking cards)";
+  let message = "**Short Banlist:**\n(Minimum amount of game breaking cards)";
   small.forEach((key) => {
     message += "\n" + key;
   });
@@ -91,7 +91,7 @@ function list_limited() {
 }
 
 function list_3v3() {
-  let message = "**Banlist for 3 Creature Format:**\n=====";
+  let message = "**Banlist for 3 Creature Format:**\n=====(Unsupported)";
   three.forEach((key) => {
     message += "\n" + key;
   });
