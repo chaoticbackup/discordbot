@@ -77,12 +77,12 @@ function list_small() {
 }
 
 function list_limited() {
-  let message = "**Banlist and Restricted Format:**\n=====";
+  let message = "**Restricted Format:**\n=====(Unsupported)";
   bans.forEach((key) => {
     message += "\n" + key;
   });
 
-  message += "\n=====\n**Restricted :**\n(1 copy of each of the following)";
+  message += "\n=====\n**Restricted :**\n(Max 1 copy of each of the following)";
   limited.forEach((key) => {
     message += "\n" + key;
   });
@@ -108,7 +108,7 @@ function list_pauper() {
 }
 
 function list_noble() {
-  let message = "**Noble (Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
+  let message = "**Noble (Printed Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
   noble.forEach((key) => {
     message += "\n" + key;
   });
