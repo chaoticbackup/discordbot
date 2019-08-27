@@ -17,7 +17,7 @@ export function rate_card(text, options, bot) {
   }
   let card = results[0];
   if (card.gsx$type != "Creatures") return `${card.gsx$name} is not a Creature`;
-  if (card.gsx$name == "Aa'une the Avatar, Avatar") return `${card.gsx$name} does not have variable stats.`;
+  if (card.gsx$name == "Aa'une the Oligarch, Avatar") return `${card.gsx$name} does not have variable stats.`;
 
   let error = "";
 
