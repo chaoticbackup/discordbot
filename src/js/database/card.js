@@ -209,6 +209,7 @@ function Response(card, options, bot) {
     if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
       modstat = -10;
     }
+    if (card.gsx$name == "Aa'une the Oligarch, Avatar") modstat = 0;
     resp += "\n" + Disciplines(modstat);
   }
 
