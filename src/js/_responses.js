@@ -190,6 +190,46 @@ try {
         else send(commands["starter"][1]);
         break;
       /* Banlist and Alternative Formats */
+      case 'legacy':
+      case 'banlist':
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+          channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else {
+          channel.send(banlist(options))
+          .then(() => {
+            if (options.length == 0)
+              donate(channel);
+          });
+        }
+        break;
+      case 'limited':
+      case 'restricted':
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else {
+          options.push("limited");
+          send(banlist(options));
+        }
+        break;
+      case 'rotation':
+      case 'rotate':
+      case 'modern':
+        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
+        else {
+          options.push("rotation");
+          send(banlist(options));
+        }
+        break;
+      case 'pauper':
+        options.push("pauper");
+        send(banlist(options));
+        break;
+      case 'peasant':
+      case 'noble':
+        options.push('noble');
+        send(banlist(options));
+        break;
       case 'ban':
         if (mentions.length > 0) {
           if (mentions.indexOf('279331985955094529') !== -1)
@@ -217,45 +257,8 @@ try {
           }
         }
         break;
-      case 'banlist':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
-          channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else {
-          channel.send(banlist(options))
-          .then(() => {
-            if (options.length == 0)
-              donate(channel);
-          });
-        }
-        break;
-      case 'limited':
-      case 'restricted':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
-          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else {
-          options.push("limited");
-          send(banlist(options));
-        }
-        break;
-      case 'rotation':
-      case 'rotate':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
-          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else {
-          options.push("rotation");
-          send(banlist(options));
-        }
-        break;
-      case 'pauper':
-        options.push("pauper");
-        send(banlist(options));
-        break;
-      case 'peasant':
-      case 'noble':
-        options.push('noble');
-        send(banlist(options));
-        break;
       case 'tier':
+      case 'meta':
         if (!args) {
           channel.send("Supply a tier or use ``!tierlist``");
           break;

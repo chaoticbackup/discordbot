@@ -31,10 +31,7 @@ export function whyban(card, options=[]) {
 }
 
 export function banlist(options) {
-  if (options.includes("small") || options.includes("short")) {
-    return list_small();
-  }
-  else if (options.includes("limited")) {
+  if (options.includes("limited")) {
     return list_limited();
   }
   else if (options.includes("pauper")) {
@@ -43,18 +40,15 @@ export function banlist(options) {
   else if (options.includes("noble")) {
     return list_noble();
   }
-  else if (options.includes("3v3")) {
-    return list_3v3();
-  }
-  else if (options.includes("rotation") || options.includes("rotate")) {
+  else if (options.includes("rotation") || options.includes("modern")) {
     return list_rotation();
   }
 
-  return list_standard();
+  return list_legacy();
 }
 
-function list_standard() {
-  let message = "**Community Ban List:**\n=====";
+function list_legacy() {
+  let message = "**Legacy Ban List:**\n=====";
   bans.forEach((key) => {
     message += "\n" + key;
   });
@@ -65,14 +59,6 @@ function list_standard() {
   });
 
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
-  return message;
-}
-
-function list_small() {
-  let message = "**Short Banlist:**\n(Minimum amount of game breaking cards)";
-  small.forEach((key) => {
-    message += "\n" + key;
-  });
   return message;
 }
 
@@ -90,14 +76,6 @@ function list_limited() {
   return message;
 }
 
-function list_3v3() {
-  let message = "**Banlist for 3 Creature Format:**\n=====(Unsupported)";
-  three.forEach((key) => {
-    message += "\n" + key;
-  });
-
-  return message;
-}
 
 function list_pauper() {
   let message = "**Pauper (Printed Commons and Uncommons)**\nBanned Cards:\n====="
@@ -116,7 +94,7 @@ function list_noble() {
 }
 
 function list_rotation() {
-  let message = "**Set Rotation**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
+  let message = "**Modern Format**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
   rotation.forEach((key) => {
     message += "\n" + key;
   });
