@@ -45,7 +45,7 @@ export function banlist(options) {
 }
 
 function list_legacy() {
-  let message = "**Legacy Ban List:**\n=====";
+  let message = "**Community Ban List:**\n=====";
   bans.forEach((key) => {
     message += "\n" + key;
   });
@@ -76,7 +76,7 @@ function list_noble() {
 }
 
 function list_rotation() {
-  let message = "**Modern Format**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
+  let message = "**Modern**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
   rotation.forEach((key) => {
     message += "\n" + key;
   });
