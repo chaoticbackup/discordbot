@@ -31,7 +31,7 @@ export function whyban(card, options=[]) {
 }
 
 export function banlist(options) {
-  else if (options.includes("pauper")) {
+  if (options.includes("pauper")) {
     return list_pauper();
   }
   else if (options.includes("noble")) {
@@ -76,7 +76,7 @@ function list_noble() {
 }
 
 function list_rotation() {
-  let message = "**Modern**\n(Printed Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, and Promos)\nBanned Cards:\n=====";
+  let message = "**Modern**\n(Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards)\nBanned Cards:\n=====";
   rotation.forEach((key) => {
     message += "\n" + key;
   });
