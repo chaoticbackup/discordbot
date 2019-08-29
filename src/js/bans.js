@@ -31,9 +31,6 @@ export function whyban(card, options=[]) {
 }
 
 export function banlist(options) {
-  if (options.includes("limited")) {
-    return list_limited();
-  }
   else if (options.includes("pauper")) {
     return list_pauper();
   }
@@ -61,21 +58,6 @@ function list_legacy() {
   message += "\n=====\nYou can ask me why a card was banned with \"!whyban *card name*\"";
   return message;
 }
-
-function list_limited() {
-  let message = "**Restricted Format:**\n=====(Unsupported)";
-  bans.forEach((key) => {
-    message += "\n" + key;
-  });
-
-  message += "\n=====\n**Restricted :**\n(Max 1 copy of each of the following)";
-  limited.forEach((key) => {
-    message += "\n" + key;
-  });
-
-  return message;
-}
-
 
 function list_pauper() {
   let message = "**Pauper (Printed Commons and Uncommons)**\nBanned Cards:\n====="

@@ -191,6 +191,7 @@ try {
         break;
       /* Banlist and Alternative Formats */
       case 'legacy':
+      case 'standard':
       case 'banlist':
         if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
@@ -200,15 +201,6 @@ try {
             if (options.length == 0)
               donate(channel);
           });
-        }
-        break;
-      case 'limited':
-      case 'restricted':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
-          channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
-        else {
-          options.push("limited");
-          send(banlist(options));
         }
         break;
       case 'rotation':

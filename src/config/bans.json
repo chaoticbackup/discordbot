@@ -31,17 +31,6 @@
 		"Lanker",
 		"Tartarek, Psi Overloader"
 	],
-	"limited": [
-		"Anarkiar",
-		"Drabe",
-		"Dror'niq",
-		"Lanker",
-		"Malvadine, The King's Herald",
-		"Tangath Toborn, In Training",
-		"Tartarek, Psi Overloader",
-		"Ulmquad",
-		"Ursis"
-	],
 	"pauper": [
 		"Dror'niq"
 	],
@@ -54,14 +43,13 @@
 		"Melody of the Meek"
 	],
 	"rotation": [
-		"Bi-Mowercycle",
+		"Aer'dak",
 		"Cadence Clash",
 		"Illusionary Lake",
 		"Imaginary Walls",
 		"Lord van Bloot, Servant of Aa'une",
 		"Najarin, Fluidmorpher's Foe",
 		"Numin Voidland",
-		"Primal Smash",
 		"Rao'pa Sahkk, Condensation Ceremony",
 		"Supercooled Rain",
 		"Tonal Destruction",
