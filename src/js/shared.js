@@ -31,8 +31,7 @@ export function tribeplural(tribe) {
 export function moderator(message) {
   return Boolean(
     message.member.roles.find(role => role.name==="Administrator") ||
-    message.member.roles.find(role => role.name==="Moderator") ||
-    message.member.roles.find(role => role.name==="Sectional Name")
+    message.member.roles.find(role => role.name==="Moderator")
   );
 }
 

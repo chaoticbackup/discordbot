@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const winston = require('winston');
 const auth = require('./auth.json');
 const ForumPosts = require('./js/forum.js');
-const responses = require('./js/_responses.js');
+const responses = require('./_responses.js');
 const {channels} = require('./config/server_ids.json');
 
 // Configure logger settings

@@ -1,20 +1,22 @@
-const {cleantext, rndrsp, moderator} = require('./shared.js');
-const rules = require('./rules.js');
+const {cleantext, rndrsp, moderator} = require('./js/shared.js');
+const rules = require('./js/rules.js');
 const fs = require('fs-extra');
 const path = require('path');
-const API = require('./database/database.js').default;
+const API = require('./js/database/database.js').default;
 const {RichEmbed} = require('discord.js');
-import {rate_card} from './database/rate';
-import {full_art, find_card, display_card, read_card} from './database/card';
-import {goodstuff, badultras, funstuff} from './goodstuff';
-import {banlist, whyban} from './bans';
-import {checkSass} from './sass';
-import {rulebook} from './rulebook';
-import {tier} from './meta';
-import {servers, channels, users} from '../config/server_ids.json';
-import {menu, make, order} from './menu';
-import {joinTribe, leaveTribe, showTribe, brainwash} from './tribe';
-import {lookingForMatch, cancelMatch} from './match_making';
+const commands = require('./config/commands.json');
+
+import {rate_card} from './js/database/rate';
+import {full_art, find_card, display_card, read_card} from './js/database/card';
+import {goodstuff, badultras, funstuff} from './js/goodstuff';
+import {banlist, whyban} from './js/bans';
+import {checkSass} from './js/sass';
+import {rulebook} from './js/rulebook';
+import {tier} from './js/meta';
+import {servers, channels, users} from './config/server_ids.json';
+import {menu, make, order} from './js/menu';
+import {joinTribe, leaveTribe, showTribe, brainwash} from './js/tribe';
+import {lookingForMatch, cancelMatch} from './js/match_making';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -30,55 +32,22 @@ module.exports = async function(message, logger) {
   const bot = this;
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
-  const mentions = Array.from(message.mentions.users.keys());
-  const {guild, guildMember} = await async function() {
-    if (!message.guild) return {guild: null, guildMember: null};
-    let guild = bot.guilds.get(message.guild.id);
-    let guildMember;
-    if (message.member) guildMember = message.member;
-    else {
-      await guild.fetchMember(message.author).then((member) => guildMember = member);
-    }
-    return {guild: guild, guildMember: guildMember}
-  }();
 
   // Prevents sending an empty message
   const send = (msg, options) => {
     if (msg) channel.send(msg, options).catch(error => logger.error(error.stack));
   }
 
-  const hasPermission = (permission) => {
-    if (!message.guild) return false;
-    return guild.me.hasPermission(permission);
-  }
-
-  const insertname = (resp, name) => {
-    // Replace the mention with the display name
-    if (guild && mentions.length > 0) {
-      let member = guild.members.get(mentions[0]);
-      if (member) {
-        name = member.displayName;
-      }
-    }
-    if (name)
-      resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
-    else
-      resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
-    return resp;
-  }
-
 try {
-
   // It will listen for messages that will start with `!` or `c!`
   if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
-    const commands = require('../config/commands.json');
 
     let args = (() => {
       if (content.charAt(1) == "!") return content.substring(2);
       else return content.substring(1);
     })().split(' ');
 
-    let cmd = args[0].toLowerCase().trim();
+    const cmd = args[0].toLowerCase().trim();
 
     let options = [];
     args = args.splice(1).join(" ").replace(/(?:--|—)([^\s]+)/g, (match, p1) => {
@@ -88,6 +57,49 @@ try {
 
     if (options.includes("help")) {
       return send(help(cmd));
+    }
+
+    /**`
+    *   Reduced command set
+    */
+
+    if (message.guild && message.guild.id == servers.trading) 
+      return trading_server(cmd, args, options, bot, send);
+
+    /**
+    *   Main bot code (full commands)
+    */
+
+    const mentions = Array.from(message.mentions.users.keys());
+    const {guild, guildMember} = await async function() {
+      if (!message.guild) return {guild: null, guildMember: null};
+      let guild = bot.guilds.get(message.guild.id);
+      let guildMember;
+      if (message.member) guildMember = message.member;
+      else {
+        await guild.fetchMember(message.author).then((member) => guildMember = member);
+      }
+      return {guild: guild, guildMember: guildMember}
+    }();
+
+    const hasPermission = (permission) => {
+      if (!message.guild) return false;
+      return guild.me.hasPermission(permission);
+    }
+
+    const insertname = (resp, name) => {
+      // Replace the mention with the display name
+      if (guild && mentions.length > 0) {
+        let member = guild.members.get(mentions[0]);
+        if (member) {
+          name = member.displayName;
+        }
+      }
+      if (name)
+        resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
+      else
+        resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
+      return resp;
     }
 
     /* Commands */
@@ -458,6 +470,9 @@ try {
     return;
   }
 
+  // Reduced commands
+  if (message.guild && message.guild.id == servers.trading) return;
+
   if (content.substring(0, 4).toLowerCase() == "#ban") {
     let name = (content.charAt(5) == " ") ? content.substring(6) : content.substring(5);
     return send(whyban(name));
@@ -491,6 +506,20 @@ catch (error) {
 }
 }
 
+function trading_server(cmd, args, options, bot, send) {
+  switch(cmd) {
+    case 'card':
+    send(display_card(args, options, bot));
+    break;
+  case 'find':
+    send(find_card(args));
+    break;
+  case 'rate':
+    send(rate_card(args, options, bot));
+    break;
+  }
+}
+
 /*
 * Responses
 */
@@ -503,7 +532,7 @@ function donate(channel) {
 }
 
 function help(args) {
-  const help = require('../config/help.json');
+  const help = require('./config/help.json');
   let message = "";
 
   if (args) {
@@ -531,7 +560,7 @@ function help(args) {
 }
 
 function nowornever(card) {
-  const cards = require('../config/nowornever.json');
+  const cards = require('./config/nowornever.json');
 
   if (!card) {
     // Return random card
@@ -547,7 +576,7 @@ function nowornever(card) {
 }
 
 function faq(q) {
-  const faq = require('../config/faq.json');
+  const faq = require('./config/faq.json');
   q = cleantext(q);
 
   if (!q) {
@@ -567,7 +596,7 @@ function faq(q) {
 }
 
 function gone(card, bot) {
-  const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("../config/gonechaotic.json");
+  const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("./config/gonechaotic.json");
 
   let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
 
