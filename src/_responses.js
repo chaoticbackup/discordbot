@@ -32,6 +32,7 @@ module.exports = async function(message, logger) {
   const bot = this;
   const content = message.content;
   const channel = bot.channels.get(message.channel.id);
+  const mentions = Array.from(message.mentions.users.keys());
 
   // Prevents sending an empty message
   const send = (msg, options) => {
@@ -63,14 +64,13 @@ try {
     *   Reduced command set
     */
 
-    if (message.guild && message.guild.id == servers.trading) 
+    if (message.guild && message.guild.id == servers.trading)
       return trading_server(cmd, args, options, bot, send);
 
     /**
     *   Main bot code (full commands)
     */
 
-    const mentions = Array.from(message.mentions.users.keys());
     const {guild, guildMember} = await async function() {
       if (!message.guild) return {guild: null, guildMember: null};
       let guild = bot.guilds.get(message.guild.id);
@@ -491,7 +491,10 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  bot.channels.get(channels.errors).send(error.stack).catch(logger.error);
+  let server_source = message.guild ? message.guild.name : "";
+  bot.channels.get(channels.errors)
+    .send(server_source + ":\n"+ error.stack)
+    .finally(logger.error);
 
   // Ignore programmer errors (keep running)
   if (
