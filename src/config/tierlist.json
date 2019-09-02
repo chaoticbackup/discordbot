@@ -1,47 +1,41 @@
 {
 	"tierlist": {
 		"S": [
-			"Wise Guys",
+			"Dror'niq",
 			"LankerTosh",
-        	"Danian Burn",
+			"Wise Guys",
         	"Swimming Team",
-			"MaxWreck",
-			"Bodal's Boys"
+        	"MaxWreck"
 		],
 		"A": [
-			"Dror'niq",
-			"Strike",
 			"Lankerek",
 			"Elementalist",
-			"Fire and Brimstone",
-			"Aszil Courage"
-		],
-		"B": [
+			"Strike",
 			"UW Burn",
-			"Fliandar",
+			"Fire and Brimstone",
 			"UrsisKanin",
+			"Aszil Courage",
+			"Fliandar",
 			"Lyssta Mixed",
 			"6 Arms",
-			"Flame On!"
+			"Flame On!",
+			"Bodal's Boys"
 		],
-		"C": [
+		"B": [
 			"No Healing",
 			"Aszil Compost",
 			"Blazvatan",
 			"Gorram Malvadine",
-			"Gorram Neekwin",
-			"FireFly"
-		],
-		"D": [
-			"Kraken",
-			"Gintanai",
 			"Ursis Dagger",
+			"Kraken"
+		],
+		"C": [
+			"Gintanai",
 			"Ocean Man",
-			"Flying Frogs",
+			"FireFly",
 			"GearEater",
 			"Gan'trak Bladez",
-			"Mip Reckless",
-			"Marr Reckless"
+			"Mip Reckless"
 		]
 	},
 	"tribes": {

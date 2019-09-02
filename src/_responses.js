@@ -272,7 +272,7 @@ try {
           if ((mainserver(message) && channel.id != channels.bot_commands))
             channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
           else {
-            channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1h9QOd2sk1KD4WK91FLy5CQPcar4twGlA'))
+            channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh'))
             .then(() => {
               send(tier());
             });
