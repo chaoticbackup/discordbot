@@ -118,7 +118,7 @@ module.exports = class ForumPosts {
 				else this.expireLink(id);
 
 				let fullurl = config.forum + topicurl;
-				let author = ($(newPost).children().filter('strong').children().children().children().text());
+				let author = ($(newPost).children().filter('strong').children().text());
 				let topic = ($(newPost).children().filter('a').first().attr('title'));
 				let message = `${author} posted on "${topic}" -> <${fullurl}>`;
 				this.bot.channels.get(this.channel).send(message);
