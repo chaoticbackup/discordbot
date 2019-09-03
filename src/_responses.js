@@ -248,18 +248,9 @@ try {
           channel.send("Player's aren't cards, silly");
         }
         else if (args.length > 0) {
-          if (mainserver(message)) {
-            if (options.includes("joke") || channel.id == channels.bot_commands) {
-              send(whyban(args, options));
-            }
-            else {
-              channel.send("Please ask me in <#387805334657433600>");
-            }
-          }
-          else {
-            send(whyban(args, options));
-          }
+          send(whyban(args, options));
         }
+        else channel.send("Please provide a card or use !banlist");
         break;
       case 'tier':
       case 'meta':
