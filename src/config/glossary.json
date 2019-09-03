@@ -58,7 +58,7 @@
 	"Fire Damage": "Damage dealt by an attack with the fire elemental type played by a creature with the fire elemental type. See Elemental Type.",
 	"Fire X": "See \"Element X\"",
 	"Fireproof X": "See \"Elementproof X\"",
-	"Fluidmorph": "When a Creature you control deals Water damage, this Creature gains 1 Mugic Counter.\n1. You must deal attack damage (is a non-zero amount).\n2. Your engaged Creature must have water.\n3. The Attack must be Water Attack.\nExample: Invader's Tactics will trigger Fluidmorph. Inner Flood without a damage modifier will not.",
+	"Fluidmorph": "When a Creature you control deals Water damage, put a Mugic Counter on this creature.\n1. You must deal attack damage (is a non-zero amount).\n2. Your engaged Creature must have water.\n3. The Attack must be Water Attack.\nExample: Invader's Tactics will trigger Fluidmorph. Inner Flood without a damage modifier will not.",
 	"Game Size": "Game size is simply the total number of spaces on each player’s side of the Battleboard. This game size determines the number of allowed choices for Creatures, Battlegear, and Mugic at the start of the game.",
 	"General Discard": "Battlegear, Creatures, and Mugic are placed here after they are used/destroyed.",
 	"Generic Mugic": "Mugic Cards without a tribal affiliation are known as \"Generic\" Mugic and may be played by Creatures of any Tribe.",
