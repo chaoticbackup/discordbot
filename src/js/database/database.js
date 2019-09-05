@@ -1,5 +1,6 @@
 import loki from 'lokijs';
-import fs from 'fs';
+import fs from 'fs-extra';
+import path from 'path';
 import {escape_text} from "../shared";
 const fetch =  require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
@@ -17,6 +18,15 @@ class API {
   static getInstance() {
     if (!this.instance) { this.instance = new API(); }
     return this.instance;
+  }
+
+  rebuild() {
+    return new Promise((resolve, reject) => {
+      fs.remove(path.join(__dirname, '../../db'), (error) => {
+        this.instance = new API();
+        return resolve(this.instance);
+      });
+    });
   }
 
   static path(spreadsheetID) {

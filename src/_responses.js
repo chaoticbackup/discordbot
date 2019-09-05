@@ -1,7 +1,5 @@
 const {cleantext, rndrsp, moderator} = require('./js/shared.js');
 const rules = require('./js/rules.js');
-const fs = require('fs-extra');
-const path = require('path');
 const API = require('./js/database/database.js').default;
 const {RichEmbed} = require('discord.js');
 const commands = require('./config/commands.json');
@@ -375,7 +373,7 @@ try {
         send(gone(cleantext(args)));
         break;
       case 'quebec':
-        if (/*mainserver(message) &&*/ guildMember) {
+        if (mainserver(message)) {
           switch(cleantext(args)) {
             case 'list':
               let message = "List of Quebec Members\n";
@@ -418,13 +416,10 @@ try {
         }
         break;
       case 'haxxor':
-        if (mainserver(message) && moderator(message)) {
+        if (message.member.id === "140143063711481856") {
           channel.send('Resetting...')
           .then(msg => {
-            fs.remove(path.join(__dirname, '../db'), (err) => {
-              new API();
-              bot.destroy();
-            });
+            API.rebuild().then(() => bot.destroy());
           });
         }
         break;
@@ -482,7 +477,7 @@ catch (error) {
   }
 
   // Send Error to Bot Testing Server
-  let server_source = message.guild ? message.guild.name : "";
+  let server_source = message.guild ? message.guild.name : "DM";
   bot.channels.get(channels.errors)
     .send(server_source + ":\n"+ error.stack)
     .finally(logger.error);
