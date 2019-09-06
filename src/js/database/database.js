@@ -22,7 +22,7 @@ class API {
 
   rebuild() {
     return new Promise((resolve, reject) => {
-      fs.remove(path.join(__dirname, '../../db'), (error) => {
+      fs.remove(path.resolve(__dirname, '../../db'), (error) => {
         this.instance = new API();
         return resolve(this.instance);
       });
