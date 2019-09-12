@@ -52,7 +52,7 @@ try {
     args = args.splice(1).join(" ").replace(/(?:--|—)([^\s]+)/g, (match, p1) => {
       options.push(p1);
       return "";
-    }).trim();
+    }).split("\n")[0].trim();
 
     if (options.includes("help")) {
       return send(help(cmd));
