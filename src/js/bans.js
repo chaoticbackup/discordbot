@@ -1,6 +1,6 @@
 const {rndrsp, cleantext} = require('./shared.js');
 const {bans, watchlist, limited, small, reasons,
-  jokes, three, pauper, noble, rotation} = require('../config/bans.json');
+  jokes, pauper, noble, modern} = require('../config/bans.json');
 
 export function whyban(card, options=[]) {
   card = cleantext(card);
@@ -77,7 +77,7 @@ function list_noble() {
 
 function list_rotation() {
   let message = "**Modern**\n(Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards)\nBanned Cards:\n=====";
-  rotation.forEach((key) => {
+  modern.forEach((key) => {
     message += "\n" + key;
   });
   return message;
