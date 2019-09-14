@@ -21,11 +21,11 @@ export function checkSass(mentions, message) {
     return "Abilities last until the end of turn unless otherwise printed on the card.";
   }
 
-  if (content.match(/(stack|cumulative).*?\?/i)) {
-    const myreg = new RegExp("(((element|water|fire|air|earth)(proof)?|intimidate\s?(energy|courage|wisdom|power|speed)?|(outperform|exaust)\s?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)", "i");
+  if (content.match(/(stack\?|cumulative.*?\?)/i)) {
+    const myreg = new RegExp("((elementproof|(water|fire|air|earth)(proof|[ ][0-9x]+)|intimidate(\s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(\s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?", "i");
     if (content.match(myreg)) {
       let match = myreg.exec(content);
-      return "Yes, " + match[1] + " stacks.";
+      return "Yes, " + match[0] + " stacks.";
     }
     if (content.match(/hive/i)) {
       return "Abilities granted by hive stack.";

@@ -68,7 +68,7 @@ function list_pauper() {
 }
 
 function list_noble() {
-  let message = "**Noble (Printed Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
+  let message = "**Noble (Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
   noble.forEach((key) => {
     message += "\n" + key;
   });
@@ -76,7 +76,7 @@ function list_noble() {
 }
 
 function list_rotation() {
-  let message = "**Modern**\n(Cards from: M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards)\nBanned Cards:\n=====";
+  let message = "**Modern**\n(M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards)\nBanned Cards:\n=====";
   modern.forEach((key) => {
     message += "\n" + key;
   });
