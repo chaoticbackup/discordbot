@@ -200,6 +200,29 @@ function Response(card, options, bot) {
     resp += "\n**Brainwashed**\n" + Ability(card.gsx$brainwashed);
   }
 
+  if (card.gsx$loyal) {
+    resp += "\n\n**";
+    if (card.gsx$unique) {
+      resp += "Unique, Loyal";
+    }
+    else if (card.gsx$legendary) {
+      resp += "Legendary, Loyal";
+    }
+    else {
+      resp += (card.gsx$loyal !== 1 ? card.gsx$loyal : "Loyal");
+      if (card.gsx$tribe === "M'arrillian") {
+        resp += " - M'arrillians or Minions";
+      }
+    }
+    resp += "**";
+  }
+  else if (card.gsx$unique) {
+    resp += "\n\n**Unique**";
+  }
+  else if (card.gsx$legendary) {
+    resp += "\n\n**Legendary**";
+  }
+
   if (card.gsx$energy > 0) {
     let modstat = 0;
     if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
