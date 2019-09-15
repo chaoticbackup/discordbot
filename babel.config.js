@@ -1,7 +1,7 @@
 module.exports = function (api) {
   api.cache(true);
 
-  const presets = ["@babel/env"];
+  const presets = ["@babel/preset-env"];
   const plugins = [
     // stage 3
     ["@babel/plugin-proposal-decorators", { "legacy": true }],

@@ -201,7 +201,7 @@ function Response(card, options, bot) {
   }
 
   if (card.gsx$loyal) {
-    resp += "\n\n**";
+    resp += "\n**";
     if (card.gsx$unique) {
       resp += "Unique, Loyal";
     }
@@ -210,9 +210,9 @@ function Response(card, options, bot) {
     }
     else {
       resp += (card.gsx$loyal == "1" ? "Loyal" : card.gsx$loyal);
-      if (card.gsx$tribe === "M'arrillian") {
-        resp += " - M'arrillians or Minions";
-      }
+    }
+    if (card.gsx$type === "Creatures" && card.gsx$tribe === "M'arrillian") {
+      resp += " - M'arrillians or Minions";
     }
     resp += "**";
   }
