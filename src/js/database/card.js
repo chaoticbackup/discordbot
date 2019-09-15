@@ -209,7 +209,7 @@ function Response(card, options, bot) {
       resp += "Legendary, Loyal";
     }
     else {
-      resp += (card.gsx$loyal !== 1 ? card.gsx$loyal : "Loyal");
+      resp += (card.gsx$loyal == "1" ? "Loyal" : card.gsx$loyal);
       if (card.gsx$tribe === "M'arrillian") {
         resp += " - M'arrillians or Minions";
       }
