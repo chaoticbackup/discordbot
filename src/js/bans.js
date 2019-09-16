@@ -1,9 +1,19 @@
 const {rndrsp, cleantext} = require('./shared.js');
-const {bans, watchlist, limited, small, reasons,
+const {bans, watchlist, detailed, reasons,
   jokes, pauper, noble, modern} = require('../config/bans.json');
 
 export function whyban(card, options=[]) {
   card = cleantext(card);
+
+  if (options.includes("detailed")) {
+    for (var key in detailed) {
+      if (cleantext(key).indexOf(card) === 0) {
+        return `*${key}*:\n${detailed[key]}`;
+      }
+    }
+
+    return "This ban doesn't have a more detailed explaination";
+  }
 
   for (var key in reasons) {
     if (cleantext(key).indexOf(card) === 0) {
