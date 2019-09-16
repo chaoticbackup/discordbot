@@ -5,14 +5,15 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set NODE_ENV=development&& babel-node src/bot.js",
-    "build": "babel src -d build --copy-files",
+    "dev": "set NODE_ENV=development&& babel-node src/bot.js --extensions \".js,.ts\"",
+    "build": "babel src -d build --copy-files --extensions \".js,.ts\"",
     "prod": "npm run build && node build/bot.js",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
     "rebuild": "npm run stop; npm run forever",
     "stop": "forever stop build/bot.js",
     "clean": "rm -rf build/",
-    "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\""
+    "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\"",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -41,10 +42,12 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-proposal-json-strings": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.6.0",
     "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.6.0",
     "babel-watch": "^7.0.0",
     "forever": "^1.0.0",
     "git-auto-pull": "^1.0.9",
