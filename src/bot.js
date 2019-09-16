@@ -1,3 +1,4 @@
+require('@babel/polyfill');
 const winston = require('winston');
 const auth = require('./auth.json');
 const responses = require('./_responses.js');

@@ -1,9 +1,12 @@
 module.exports = function (api) {
   api.cache(true);
 
-  const presets = ["@babel/preset-env"];
+  const presets = [
+    "@babel/preset-env"
+  ];
   const plugins = [
     // stage 3
+    ["@babel/plugin-transform-runtime", { "regenerator": true }],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-syntax-import-meta",
