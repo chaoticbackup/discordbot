@@ -5,5 +5,7 @@
 	"asi": true,
 	"sub": true,
 	"-W014": true,
-	"-W008": true
+	"-W008": true,
+	"unused": true,
+	"undef": true
 }	

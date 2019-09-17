@@ -5,7 +5,7 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set NODE_ENV=development&& babel-node src/bot.js --extensions \".js,.ts\"",
+    "dev": "set NODE_ENV=development&& babel-watch src/bot.js --extensions \".js,.ts\"",
     "build": "babel src -d build --copy-files --extensions \".js,.ts\"",
     "prod": "npm run build && node build/bot.js",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
@@ -48,6 +48,7 @@
     "@babel/plugin-transform-runtime": "^7.6.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.6.0",
+    "@types/node": "^12.7.5",
     "babel-watch": "^7.0.0",
     "forever": "^1.0.0",
     "git-auto-pull": "^1.0.9",

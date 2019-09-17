@@ -4,7 +4,7 @@ const auth = require('./auth.json');
 const responses = require('./_responses.js');
 
 import API from './api.js';
-import {Client} from 'discord.js';
+import Discord from 'discord.js';
 import ForumPosts from './js/forum.js';
 import {channels} from './config/server_ids.json';
 
@@ -24,7 +24,7 @@ const logger = winston.createLogger({
 API(logger);
 
 // Initialize Discord Bot
-const bot = new Client({autoReconnect: true});
+const bot = new Discord.Client({autoReconnect: true});
 const fp = new ForumPosts(bot);
 
 bot.on('ready', function (evt) {
