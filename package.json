@@ -52,6 +52,7 @@
     "babel-watch": "^7.0.0",
     "forever": "^1.0.0",
     "git-auto-pull": "^1.0.9",
+    "typescript": "^3.6.3",
     "webpack": "^3.12.0"
   }
 }

@@ -1,6 +1,4 @@
-const {cleantext, moderator} = require('./shared.js');
-
-export function brainwash(guild, member, mentions) {
+export function brainwash(guild, member) {
     let bw = guild.roles.find(role => role.name==="Brainwashed");
     if (!bw) return;
 
@@ -23,20 +21,22 @@ export function showTribe(guild, member) {
         let gr = guild.roles.find(role => role.name===t);
         if (member.roles.find(role => role === gr)) {
             if (bw && member.roles.find(role => role === bw)) {
-                return tribe = `You are a brainwashed ` + (() => {
+                tribe = `You are a brainwashed ` + (() => {
                     if (t == "OverWorld") return "OverWorlder";
                     else if (t == "UnderWorld") return "UnderWorlder";
                     else return t;
                 })();
+                return;
             }
-            return tribe = `You are part of the ` + t;
+            tribe = `You are part of the ` + t;
+            return;
         }
     });
     if (tribe) return tribe;
     return `You have not declared an allegiance. Use !join *tribe name*`;
 }
 
-export async function leaveTribe(guild, member) {
+export const leaveTribe = async (guild, member) => {
     let leaving_tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
     .forEach(async (t) => {
@@ -48,7 +48,7 @@ export async function leaveTribe(guild, member) {
     return leaving_tribe;
 }
 
-export async function joinTribe(tribe, guild, member) {
+export const joinTribe = async (tribe, guild, member) => {
     let leaving_tribe = "";
     ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
     .forEach((t) => {

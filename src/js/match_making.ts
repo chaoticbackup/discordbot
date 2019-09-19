@@ -1,4 +1,6 @@
-export function lookingForMatch(type, guild, member) {
+import {Guild, GuildMember, Role} from 'discord.js'
+
+export function lookingForMatch(type:string, guild: Guild, member: GuildMember ) {
     // all, untap, tts
     let match = "";
     if (type.toLowerCase() == "tts") {
@@ -8,7 +10,7 @@ export function lookingForMatch(type, guild, member) {
         match = "untap_match";
         type = "untap";
     }
-    let role = guild.roles.find(role => role.name===match);
+    let role = guild.roles.find((role: Role) => role.name===match);
     if (role) {
         member.addRole(role);
         if(role.mentionable)
@@ -17,10 +19,10 @@ export function lookingForMatch(type, guild, member) {
     }
 }
 
-export function cancelMatch(guild, member) {
+export function cancelMatch(guild: Guild, member: GuildMember) {
     ["untap_match", "tts_match"].forEach((t) => {
-        let role = guild.roles.find(role => role.name===t);
-        if (member.roles.find(role => role === role)) {
+        let role = guild.roles.find((role: Role) => role.name===t);
+        if (member.roles.find((role: Role) => role === role)) {
             member.removeRole(role);
         }
     });

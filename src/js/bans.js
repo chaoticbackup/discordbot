@@ -6,7 +6,7 @@ export function whyban(card, options=[]) {
   card = cleantext(card);
 
   if (options.includes("detailed")) {
-    for (var key in detailed) {
+    for (let key in detailed) {
       if (cleantext(key).indexOf(card) === 0) {
         return `*${key}*:\n${detailed[key]}`;
       }
@@ -15,7 +15,7 @@ export function whyban(card, options=[]) {
     return "This ban doesn't have a more detailed explaination";
   }
 
-  for (var key in reasons) {
+  for (let key in reasons) {
     if (cleantext(key).indexOf(card) === 0) {
       if (options.includes("joke")) {
         if (reasons[key].length > 1) {
@@ -31,7 +31,7 @@ export function whyban(card, options=[]) {
     }
   }
 
-  for (var key in jokes) {
+  for (let key in jokes) {
     if (cleantext(key).indexOf(card) === 0) {
       return `*${key}*:\n${rndrsp(jokes[key], key)}`;
     }
@@ -70,7 +70,7 @@ function list_legacy() {
 }
 
 function list_pauper() {
-  let message = "**Pauper (Printed Commons and Uncommons)**\nBanned Cards:\n====="
+  let message = "**Pauper (Commons and Uncommons)**\nBanned Cards:\n====="
   pauper.forEach((key) => {
     message += "\n" + key;
   });

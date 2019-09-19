@@ -1,4 +1,6 @@
+
 {
+	"node": true,
 	"esversion": 6,
 	"eqeqeq": false,
 	"trailingcomma": false,
@@ -6,6 +8,7 @@
 	"sub": true,
 	"-W014": true,
 	"-W008": true,
+	"-W119": true,
 	"unused": true,
 	"undef": true
 }	

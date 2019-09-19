@@ -369,12 +369,12 @@ try {
         if (guild && hasPermission("MANAGE_ROLES")) {
           if (mentions.length > 0) {
             if (moderator(message)) {
-              send(brainwash(guild, guild.members.get(mentions[0]), mentions));
+              send(brainwash(guild, guild.members.get(mentions[0])));
             }
             else break;
           }
           else {
-            send(brainwash(guild, guildMember, mentions));
+            send(brainwash(guild, guildMember));
           }
         }
         break;
