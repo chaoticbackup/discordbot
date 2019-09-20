@@ -141,30 +141,28 @@ try {
           return;
         }
         case 'quebec': {
-          if (mainserver(message)) {
-            switch(cleantext(args)) {
-              case 'list':
-                let message = "List of Quebec Members\n";
-                guild.fetchMembers().then((guild) => {
-                  guild.members.find(member => {
-                    if (member.roles.find(role => role.name==="quebec")) {
-                      message += member.displayName + "\n";
-                    }
-                  });
-                  send(message);
+          switch(cleantext(args)) {
+            case 'list':
+              let message = "List of Quebec Members\n";
+              guild.fetchMembers().then((guild) => {
+                guild.members.find(member => {
+                  if (member.roles.find(role => role.name==="quebec")) {
+                    message += member.displayName + "\n";
+                  }
                 });
-                break;
-              case 'join':
-                guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
-                channel.send("you are a Quebec member");
-                break;
-              case 'leave':
-                guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
-                channel.send("you left Quebec");
-                break;
-              default:
-                channel.send("!quebec list/join/leave");
-            }
+                send(message);
+              });
+              break;
+            case 'join':
+              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+              channel.send("you are a Quebec member");
+              break;
+            case 'leave':
+              guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
+              channel.send("you left Quebec");
+              break;
+            default:
+              channel.send("!quebec list/join/leave");
           }
           return;
         }
