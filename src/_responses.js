@@ -116,6 +116,7 @@ try {
     if (guild && guild.id == servers.international) {
 
       switch(cmd) {
+        case 'colour':
         case 'color': {
           args = args.split(" ");
           if (args.length < 1) break;
