@@ -119,11 +119,10 @@ try {
         case 'colour':
         case 'color': {
           args = args.split(" ");
-          if (args.length < 1) break;
+          if (args.length < 2) break;
           switch(cleantext(args[0])) {
             case 'set': {
               const color = guild.roles.find(role => role.name == cleantext(args[1]));
-  
               if (color) {
                 guildMember.addRole(color);
                 send(`Now you're name is ${uppercase(args[1])}!`);
@@ -139,8 +138,8 @@ try {
               }
             break;
           }
+          return;
         }
-        break;
         case 'quebec': {
           if (mainserver(message)) {
             switch(cleantext(args)) {
@@ -167,8 +166,8 @@ try {
                 channel.send("!quebec list/join/leave");
             }
           }
+          return;
         }
-        break;
       }
     }
 
