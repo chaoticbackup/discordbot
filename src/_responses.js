@@ -114,10 +114,10 @@ try {
      * International Server
      */
     if (guild && guild.id == servers.international) {
-      args = args.split(" ");
 
       switch(cmd) {
         case 'color': {
+          args = args.split(" ");
           if (args.length < 1) break;
           switch(cleantext(args[0])) {
             case 'set': {
