@@ -11,7 +11,7 @@ import {banlist, whyban} from './js/bans';
 import {checkSass} from './js/sass';
 import {rulebook} from './js/rulebook';
 import {tier} from './js/meta';
-import {servers, channels, users} from './config/server_ids.json';
+import {servers, channels } from './config/server_ids.json';
 import {menu, make, order} from './js/menu';
 import {joinTribe, leaveTribe, showTribe, brainwash} from './js/tribe';
 import {lookingForMatch, cancelMatch} from './js/match_making';
@@ -19,6 +19,10 @@ import {lookingForMatch, cancelMatch} from './js/match_making';
 function mainserver(message) {
   if (!message.guild) return false;
   return message.guild.id == servers.main;
+}
+
+function uppercase(word) {
+  return word[0].toUpperCase() + word.slice(1);
 }
 
 module.exports = async function(message, logger) {
@@ -41,6 +45,11 @@ try {
   // It will listen for messages that will start with `!` or `c!`
   if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
 
+    /**
+     * Turns the first 'word' after the command character into the `cmd`
+     * Merges the remaining array of words into `args`
+     */
+
     let args = (() => {
       if (content.charAt(1) == "!") return content.substring(2);
       else return content.substring(1);
@@ -58,17 +67,18 @@ try {
       return send(help(cmd));
     }
 
-    /**`
-    *   Reduced command set
+    /**
+    *   Reduced command sets for other servers
     */
 
     if (message.guild && message.guild.id == servers.trading)
       return trading_server(cmd, args, options, bot, send);
 
     /**
-    *   Main bot code (full commands)
+    *  Helper functions
     */
 
+    // If the message was sent in a guild, returns the `guild` and `guildMember`
     const {guild, guildMember} = await async function() {
       if (!message.guild) return {guild: null, guildMember: null};
       let guild = bot.guilds.get(message.guild.id);
@@ -85,8 +95,8 @@ try {
       return guild.me.hasPermission(permission);
     }
 
+    // Replace the mention with the display name
     const insertname = (resp, name) => {
-      // Replace the mention with the display name
       if (guild && mentions.length > 0) {
         let member = guild.members.get(mentions[0]);
         if (member) {
@@ -94,13 +104,76 @@ try {
         }
       }
       if (name)
-        resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1, p2) => {return p1.replace(/x/i, name)});
+        resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match, p1) => {return p1.replace(/x/i, name)});
       else
         resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match, p1) => {return p1});
       return resp;
     }
 
-    /* Commands */
+    /**
+     * International Server
+     */
+    if (guild && guild.id == servers.international) {
+      args = args.split(" ");
+
+      switch(cmd) {
+        case 'color': {
+          if (args.length < 1) break;
+          switch(cleantext(args[0])) {
+            case 'set': {
+              const color = guild.roles.find(role => role.name == cleantext(args[1]));
+  
+              if (color) {
+                guildMember.addRole(color);
+                send(`Now you're name is ${uppercase(args[1])}!`);
+              }
+              else send("Sorry I don't have that color role");
+            }
+            break;
+            case 'remove': {
+                const color = guild.roles.find(role => role.name == cleantext(args[1]));
+                if (color) {
+                  guildMember.removeRole(color);
+                }
+              }
+            break;
+          }
+        }
+        break;
+        case 'quebec': {
+          if (mainserver(message)) {
+            switch(cleantext(args)) {
+              case 'list':
+                let message = "List of Quebec Members\n";
+                guild.fetchMembers().then((guild) => {
+                  guild.members.find(member => {
+                    if (member.roles.find(role => role.name==="quebec")) {
+                      message += member.displayName + "\n";
+                    }
+                  });
+                  send(message);
+                });
+                break;
+              case 'join':
+                guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
+                channel.send("you are a Quebec member");
+                break;
+              case 'leave':
+                guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
+                channel.send("you left Quebec");
+                break;
+              default:
+                channel.send("!quebec list/join/leave");
+            }
+          }
+        }
+        break;
+      }
+    }
+
+    /**
+    *   Main bot code (full commands)
+    */
     switch(cmd) {
       case 'help':
         if (content.charAt(0) == "!") {
@@ -381,34 +454,6 @@ try {
       case 'gone':
       case 'fan':
         send(gone(cleantext(args)));
-        break;
-      case 'quebec':
-        if (mainserver(message)) {
-          switch(cleantext(args)) {
-            case 'list':
-              let message = "List of Quebec Members\n";
-              guild.fetchMembers().then((guild) => {
-                guild.members.find(member => {
-                  if (member.roles.find(role => role.name==="quebec")) {
-                    message += member.displayName + "\n";
-                  }
-                });
-                send(message);
-              });
-              break;
-            case 'join':
-              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you are a Quebec member");
-              break;
-            case 'leave':
-              guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you left Quebec");
-              break;
-            default:
-              channel.send("!quebec list/join/leave");
-          }
-
-        }
         break;
       /* Moderator Only */
       case 'readthecard':
