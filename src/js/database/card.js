@@ -217,10 +217,10 @@ function Response(card, options, bot) {
     resp += "**";
   }
   else if (card.gsx$unique) {
-    resp += "\n\n**Unique**";
+    resp += "\n**Unique**";
   }
   else if (card.gsx$legendary) {
-    resp += "\n\n**Legendary**";
+    resp += "\n**Legendary**";
   }
 
   if (card.gsx$energy > 0) {

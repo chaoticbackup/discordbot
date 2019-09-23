@@ -40,7 +40,7 @@ export function checkSass(mentions, message) {
 
 }
 
-function checkMentions(mentions, content) {
+function checkMentions(mentions, content, message) {
   let response = "";
 
   // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4

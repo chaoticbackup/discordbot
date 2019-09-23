@@ -25,7 +25,7 @@ function uppercase(word) {
   return word[0].toUpperCase() + word.slice(1);
 }
 
-module.exports = async function(message, logger) {
+export default (async (message, logger) => {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
@@ -546,7 +546,7 @@ catch (error) {
   // restart bot if unknown error
   bot.destroy();
 }
-}
+})
 
 function trading_server(cmd, args, options, bot, send) {
   switch(cmd) {

@@ -1,9 +1,9 @@
 const API = require('./js/database/database.js').default;
 const express = require('express');
-const app = express()
+const app = express();
 const port = 3000;
 
-module.exports = function(logger) {
+export default (logger) => {
     // Initialize card API
     // Disabled if api.json is missing or set to false
     try {
@@ -21,7 +21,7 @@ module.exports = function(logger) {
     });
 
     app.get('/card/:cardName', (req, res) => {
-        let name = decodeURI(req.params.cardName)
+        let name = decodeURI(req.params.cardName);
         let cards = API.find_cards_by_name(name, []);
 
         if (cards.length > 0) {
