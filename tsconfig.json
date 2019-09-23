@@ -10,7 +10,7 @@
       "noEmit": true,
       // Enable strictest settings like strictNullChecks & noImplicitAny.
       // "strict": true,
-      "noImplicitAny": false,
+      "noImplicitAny": true,
       "noImplicitThis": true,
       "strictNullChecks": true,
       "alwaysStrict": false,

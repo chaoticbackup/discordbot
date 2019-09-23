@@ -11,25 +11,35 @@ import {banlist, whyban} from './js/bans';
 import {checkSass} from './js/sass';
 import {rulebook} from './js/rulebook';
 import {tier} from './js/meta';
-import {servers, channels } from './config/server_ids.json';
+import {servers} from './config/server_ids.json';
 import {menu, make, order} from './js/menu';
 import {joinTribe, leaveTribe, showTribe, brainwash} from './js/tribe';
 import {lookingForMatch, cancelMatch} from './js/match_making';
+import {meetup} from './js/meetups';
 
 function mainserver(message) {
   if (!message.guild) return false;
-  return message.guild.id == servers.main;
+  return message.guild.id == servers.main.id;
+}
+
+function is_channel(guild, channel, name) {
+  if (!(name && guild && servers[guild])) return false;
+  return channel.id == servers[guild].channels[name];
+}
+
+function bot_commands(channel) {
+  return is_channel("main", channel, "bot_commands");
 }
 
 function uppercase(word) {
   return word[0].toUpperCase() + word.slice(1);
 }
 
-export default (async (message, logger) => {
+export default (async function(message, logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
-  if (process.env.NODE_ENV == "development" && !(message.guild && message.guild.id == servers.develop)) return;
+  if (process.env.NODE_ENV == "development" && (message.guild && !(message.guild.id == servers.international.id))) return;
 
   const bot = this;
   const content = message.content;
@@ -71,7 +81,7 @@ try {
     *   Reduced command sets for other servers
     */
 
-    if (message.guild && message.guild.id == servers.trading)
+    if (message.guild && message.guild.id == servers.trading.id)
       return trading_server(cmd, args, options, bot, send);
 
     /**
@@ -113,8 +123,7 @@ try {
     /**
      * International Server
      */
-    if (guild && guild.id == servers.international) {
-
+    if (guild && guild.id == servers.international.id) {
       switch(cmd) {
         case 'colour':
         case 'color': {
@@ -139,6 +148,14 @@ try {
             break;
           }
           return;
+        }
+        case 'region':
+        case 'regions': {
+          meetup(guildMember, guild, args.split(" ")).then((msg) => {
+            console.log(msg);
+            send(msg);
+          });
+          break;
         }
         case 'quebec': {
           switch(cleantext(args)) {
@@ -176,7 +193,7 @@ try {
       case 'help':
         if (content.charAt(0) == "!") {
           let rtn_str = "Use **!commands** or **c!help**";
-          if (mainserver(message) && channel.id != channels.bot_commands) {
+          if (mainserver(message) && !bot_commands(channel)) {
             rtn_str += " in <#387805334657433600>";
           }
           if (bot.users.get('159985870458322944')) //meebot
@@ -187,7 +204,7 @@ try {
         }
         /* falls through */
       case 'commands':
-        if (!args && (mainserver(message) && channel.id != channels.bot_commands))
+        if (!args && (mainserver(message) && !bot_commands(channel)))
           channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
         else
           if (args) {
@@ -203,7 +220,7 @@ try {
       /* Cards */
       case 'card':
         if (mainserver(message) &&
-          (channel.id != channels.bot_commands && message.member.roles.size === 1)
+          (!bot_commands(channel) && message.member.roles.size === 1)
         ) {
           send("Please ask me in <#387805334657433600>");
           break;
@@ -274,7 +291,7 @@ try {
       case 'legacy':
       case 'standard':
       case 'banlist':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+        if (mainserver(message) && (!bot_commands(channel) && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else {
           channel.send(banlist(options))
@@ -287,7 +304,7 @@ try {
       case 'rotation':
       case 'rotate':
       case 'modern':
-        if (mainserver(message) && (channel.id != channels.bot_commands && channel.id != 418856983018471435 && channel.id !=473975360342458368))
+        if (mainserver(message) && (!bot_commands(channel) && channel.id != 418856983018471435 && channel.id !=473975360342458368))
           channel.send("To keep the channel from clogging up, can you ask me in <#387805334657433600>?");
         else {
           options.push("rotation");
@@ -318,7 +335,7 @@ try {
         }
         else if (args.length > 0) {
           if (options.includes("detailed")) {
-            if (mainserver(message) && channel.id != channels.bot_commands) {
+            if (mainserver(message) && !bot_commands(channel)) {
               channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
             }
             else {
@@ -339,7 +356,7 @@ try {
         }
       case 'tierlist':
         if (!args) {
-          if ((mainserver(message) && channel.id != channels.bot_commands))
+          if ((mainserver(message) && !bot_commands(channel)))
             channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
           else {
             channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh'))
@@ -370,13 +387,13 @@ try {
       case "lf":
       case "match":
         if (guild && hasPermission("MANAGE_ROLES")) {
-          if (mainserver(message) && channel.id != channels.match_making) return;
+          if (mainserver(message) && is_channel("main", channel, "match_making")) return;
           send(lookingForMatch(cleantext(args), guild, guildMember));
         }
         break;
       case "cancel":
         if (guild && hasPermission("MANAGE_ROLES")) {
-          if (mainserver(message) && channel.id != channels.match_making) return;
+          if (mainserver(message) && is_channel("main", channel, "match_making")) return;
           send(cancelMatch(guild, guildMember));
         }
         break;
@@ -457,7 +474,7 @@ try {
       case 'readthecard':
         if (hasPermission("SEND_TTS_MESSAGES")) {
           if (mainserver(message)) {
-            if (channel.id == channels.bot_commands || channel.id == "293610368947716096") {
+            if (bot_commands(channel) || channel.id == "293610368947716096") {
               if (!moderator(message)) {
                 send(read_card(args, options, bot));
                 return;
@@ -510,7 +527,7 @@ try {
   }
 
   // Reduced commands
-  if (message.guild && message.guild.id == servers.trading) return;
+  if (message.guild && message.guild.id == servers.trading.id) return;
 
   if (content.substring(0, 4).toLowerCase() == "#ban") {
     let name = (content.charAt(5) == " ") ? content.substring(6) : content.substring(5);
@@ -531,7 +548,7 @@ catch (error) {
 
   // Send Error to Bot Testing Server
   let server_source = message.guild ? message.guild.name : "DM";
-  bot.channels.get(channels.errors)
+  bot.channels.get(servers.develop.channels.errors)
     .send(server_source + ":\n"+ error.stack)
     .finally(logger.error);
 

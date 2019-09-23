@@ -1,12 +1,13 @@
 require('@babel/polyfill/noConflict');
 const winston = require('winston');
 const auth = require('./auth.json');
-const responses = require('./_responses.js');
+
+import Discord from 'discord.js';
 
 import API from './api.js';
-import Discord from 'discord.js';
+import responses from './_responses.js';
 import ForumPosts from './js/forum.js';
-import {channels} from './config/server_ids.json';
+import {servers} from './config/server_ids.json';
 
 // Configure logger settings
 const logger = winston.createLogger({
@@ -47,7 +48,7 @@ bot.on('guildMemberAdd', (member) => {
 	if (member.displayName.match(new RegExp("(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then((err) => {
 			logger.warn('Banned: ' + member.displayName);
-			bot.channels.get(channels.staff).send('Banned: ' + member.displayName);
+			bot.channels.get(servers.main.channels.staff).send('Banned: ' + member.displayName);
 			// Delete the welcome message
 			let meebot = bot.users.get('159985870458322944');
 			if (meebot) setTimeout(() => {
@@ -58,11 +59,13 @@ bot.on('guildMemberAdd', (member) => {
 });
 
 process.on('unhandledRejection', (err) => {
-	logger.error(err);
+	const error = err ? err.stack : err;
+	logger.error(error);
 	bot.destroy().then(() => {
 		const t_bot = new Discord.Client();
-		if (!t_bot.channels.get(channels.errors)) return;
-		t_bot.channels.get(channels.errors).send(err.stack).catch(logger.error);
+		let channel = t_bot.channels.get(servers.develop.channels.errors);
+		if (!channel) return;
+		channel.send(error).catch(logger.error);
 		t_bot.destroy();
 	});
 });
