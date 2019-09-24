@@ -39,7 +39,7 @@ export default (async function(message, logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
-  if (process.env.NODE_ENV == "development" && (message.guild && !(message.guild.id == servers.international.id))) return;
+  if (process.env.NODE_ENV == "development" && (message.guild && (message.guild.id == servers.main.id))) return;
 
   const bot = this;
   const content = message.content;

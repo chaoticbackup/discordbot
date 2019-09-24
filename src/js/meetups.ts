@@ -69,6 +69,10 @@ class MeetupsAPI {
         return new Member(member);
     }
 
+    getMembersInRegion = async (region: Region): Promise<Member[]> => {
+        return region.members;
+    }
+
     findMemberRegionIndex = async(member: GuildMember, region: Region): Promise<number> => {
         return this.getMembersInRegion(region).then((members: Member[]) => {
            return members.findIndex((mb) => mb.id === member.id);
@@ -98,10 +102,6 @@ class MeetupsAPI {
             }));
         });
     }
-
-    getMembersInRegion = async (region: Region): Promise<Member[]> => {
-        return region.members;
-    }
 }
 
 const MeetupsDB = new MeetupsAPI();
@@ -113,7 +113,7 @@ const asyncForEach = async (array: any[], callback: any) => {
   }
 
 /**
- * @param member the user who sent the message
+ * @param user the user who sent the message
  * @param args array of text from the message
  * @example
  * // !region <list|>
@@ -124,8 +124,8 @@ const asyncForEach = async (array: any[], callback: any) => {
  * // !region <regionName> <join|leave>
  * // !region <regionName> <add|remove> <@guildMember>
  */
-export const meetup = async (member: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
-    const moderator = Boolean(member.roles.find(role => role.name == "lord emperor"));
+export const meetup = async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
+    const moderator = Boolean(user.roles.find(role => role.name == "lord emperor"));
 
     const regionList = async (regions: Region[]) => {
         let msg = "List of Regions:\n";
@@ -269,22 +269,33 @@ export const meetup = async (member: GuildMember, guild: Guild, args: string[], 
                     case 'list': 
                         return MeetupsDB.getMembersInRegion(region).then(memberList);
                     case 'join':
-                        return MeetupsDB.addMemberToRegion(member, region)
+                        return MeetupsDB.addMemberToRegion(user, region)
                         .then(() => {
-                            return `${member.displayName} joined ${region.name}`
+                            return `${user.displayName} joined ${region.name}`
                         })
                         .catch((err: Error) => {
                             return err.message;
                         });
                     case 'leave':
-                        return MeetupsDB.removeMemberFromRegion(member, region)
+                        return MeetupsDB.removeMemberFromRegion(user, region)
                         .then(() => {
-                            return `${member.displayName} left ${region.name}`
+                            return `${user.displayName} left ${region.name}`
                         })
                         .catch((err: Error) => {
                             return err.message;
                         });
-                    case 'ping': break; // TODO
+                    case 'ping':
+                        return MeetupsDB.getMembersInRegion(region)
+                        .then(async (members: Member[]) => {
+                            let msg = "";
+                            await asyncForEach(members, async (mb: Member) => {
+                                msg += `<@!${mb.id}> `;
+                            });
+                            return Promise.resolve(msg);
+                        })
+                        .catch((err: Error) => {
+                            return err.message;
+                        });
                     default: return Promise.resolve(
                         `!region ${args[0]} <join|leave|list>\n`
                     );
