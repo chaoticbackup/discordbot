@@ -3,6 +3,7 @@ const winston = require('winston');
 const auth = require('./auth.json');
 
 import Discord from 'discord.js';
+import fs from 'fs-extra';
 
 import API from './api.js';
 import responses from './_responses.js';
@@ -20,6 +21,11 @@ const logger = winston.createLogger({
 		new winston.transports.Console()
 	]
 });
+
+// Create DB folder if not exists
+if (!fs.existsSync(__dirname + "/db")) {
+	fs.mkdirSync(__dirname + "/db");
+}
 
 // Initialize the API
 API(logger);

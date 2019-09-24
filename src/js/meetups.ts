@@ -47,7 +47,7 @@ class MeetupsAPI {
 
     getRegion = async (regionName: string): Promise<Region> => {
         const region = this.regions.findOne({name: regionName});
-        if (!region) throw new Error(`Region "${region}" does not exist`);
+        if (!region) throw new Error(`Region "${regionName}" does not exist`);
         return region;
     }
 

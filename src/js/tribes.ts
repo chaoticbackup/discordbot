@@ -1,6 +1,41 @@
-export function brainwash(guild, member) {
+import { Guild, GuildMember } from 'discord.js';
+
+const tribes = ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"];
+
+export const tribe = (
+    guild: Guild, member: GuildMember, 
+    permission: boolean, args: string[]
+    ): Promise<string> => {
+
+        if (!guild) Promise.resolve("You can only use this command in a guild with roles");
+
+        let param = args[0].toLowerCase();
+
+        if (param == '' || param == 'show') return displayTribe(guild, member);
+
+        if (!permission) return Promise.resolve("I need the ``MANAGE_ROLES`` permission");
+
+        if (args.length < 2) {
+            return Promise.resolve("!tribe <join|leave> <tribeName>");
+        }
+
+        if (param == "join") {
+            return joinTribe(guild, member, args[1]);
+        }
+
+        if (param == "leave" ) {
+            return leaveTribe(guild, member, args[1])
+            .then(tribe => {
+                return `You have left the ` + tribe;
+            });
+        }
+
+        return Promise.resolve("");
+}
+
+export const brainwash = async (guild: Guild, member: GuildMember): Promise<string> => {
     let bw = guild.roles.find(role => role.name==="Brainwashed");
-    if (!bw) return;
+    if (!bw) return `No "Brainwashed" role.`;
 
     if (member.roles.find(role => role === bw)) {
         member.removeRole(bw);
@@ -12,12 +47,11 @@ export function brainwash(guild, member) {
     }
 }
 
-export function showTribe(guild, member) {
+const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
     let bw = guild.roles.find(role => role.name==="Brainwashed");
 
     let tribe = "";
-    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless"]
-    .forEach((t) => {
+    tribes.forEach((t) => {
         let gr = guild.roles.find(role => role.name===t);
         if (member.roles.find(role => role === gr)) {
             if (bw && member.roles.find(role => role === bw)) {
@@ -36,22 +70,20 @@ export function showTribe(guild, member) {
     return `You have not declared an allegiance. Use !join *tribe name*`;
 }
 
-export const leaveTribe = async (guild, member) => {
+const leaveTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
     let leaving_tribe = "";
-    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
-    .forEach(async (t) => {
+    tribes.forEach(async (t) => {
         let gr = guild.roles.find(role => role.name===t);
         if (member.roles.find(role => role === gr)) {
-            await member.removeRole(gr).then(leaving_tribe = t);
+            await member.removeRole(gr).then(() => leaving_tribe = t);
         }
     });
     return leaving_tribe;
 }
 
-export const joinTribe = async (tribe, guild, member) => {
+const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
     let leaving_tribe = "";
-    ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"]
-    .forEach((t) => {
+    tribes.forEach((t) => {
         if (member.roles.find(role => role === guild.roles.find(role => role.name===t))) {
             leaving_tribe = t;
         }

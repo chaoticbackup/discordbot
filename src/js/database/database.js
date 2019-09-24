@@ -5,6 +5,8 @@ import {escape_text} from "../shared";
 const fetch =  require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
+const db_path = path.resolve(__dirname, '../../db/cards');
+
 class API {
   instance = null;
   data = "";
@@ -22,7 +24,9 @@ class API {
 
   rebuild() {
     return new Promise((resolve, reject) => {
-      fs.remove(path.resolve(__dirname, '../../db'), (error) => {
+      fs.remove(db_path, (error) => {
+        if (error) return reject(error);
+
         this.instance = new API();
         return resolve(this.instance);
       });
@@ -57,12 +61,12 @@ class API {
       });
       this.urls = urls;
 
-      if (!fs.existsSync(__dirname + '/../../db')) {
-        fs.mkdirSync(__dirname + '/../../db');
+      if (!fs.existsSync(db_path)) {
+        fs.mkdirSync(db_path);
       }
 
       // setup database from spreadsheet data
-      this.db = new loki(`${__dirname}/../../db/chaotic_${this.format}.db`, {
+      this.db = new loki(path.resolve(db_path, `chaotic_${this.format}.db`), {
         autosave: true,
         autoload: true,
         autoloadCallback: this.databaseInitialize.bind(this),

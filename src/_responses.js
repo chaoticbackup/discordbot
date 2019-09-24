@@ -13,7 +13,7 @@ import {rulebook} from './js/rulebook';
 import {tier} from './js/meta';
 import {servers} from './config/server_ids.json';
 import {menu, make, order} from './js/menu';
-import {joinTribe, leaveTribe, showTribe, brainwash} from './js/tribe';
+import {tribe, brainwash} from './js/tribes';
 import {lookingForMatch, cancelMatch} from './js/match_making';
 import {meetup} from './js/meetups';
 
@@ -433,21 +433,13 @@ try {
       case 'gone':
         send(gone(cleantext(args), bot));
         break;
-      case 'tribe':
-        if (!args) {
-          send(showTribe(guild, guildMember));
-          break;
-        }
       case 'join':
-        if (guild && hasPermission("MANAGE_ROLES")) {
-          send(await joinTribe(args, guild, guildMember));
-        }
-        break;
       case 'leave':
-        if (guild && hasPermission("MANAGE_ROLES")) {
-          let leaving_tribe = await leaveTribe(guild, guildMember);
-          if (leaving_tribe) send(`You have left the ` + leaving_tribe);
-        }
+        channel.send("Use ``!tribe <join|leave>`` or ``!region <regionName> <join|leave>``")
+        break;
+      case 'tribe':
+        tribe(guild, guildMember, hasPermission("MANAGE_ROLES"), args.split(" "))
+        .then(send);
         break;
       case 'bw':
       case 'brainwash':
@@ -485,8 +477,12 @@ try {
       case 'haxxor':
         if (message.member.id === "140143063711481856") {
           channel.send('Resetting...')
-          .then(msg => {
-            API.rebuild().then(() => bot.destroy());
+          .then(() => {
+            API.rebuild()
+            .then(() => bot.destroy())
+            .catch((err) => {
+              send(err.message);
+            });
           });
         }
         break;
