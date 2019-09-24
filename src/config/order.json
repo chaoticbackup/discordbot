@@ -12,23 +12,25 @@
         "spaghetti": ":bread: :tomato: :cheese: -> :spaghetti:"
     },
     "order": {
+        "Barath Beyond Burritos": ":burrito:",
+        "Blügon Burger": ":hamburger:",
         "Chaor Crunchies": "<:Chaor:285620681163669506> :popcorn:",
         "Dractyl Chips": ":popcorn:",
+        "Frafdo Fries": ":fries:",
+        "Frafdoccino": ":coffee:",
         "Jhunda Juice": ":tumbler_glass:",
         "Lomma Latte": ":coffee:",
-        "Frafdoccino": ":coffee:",
-        "Shimmark Shake": ":milk: :handshake:",
+        "Maxxoroni and Cheese": ":spaghetti: :cheese:",
+        "Mipedian Meatballs": "<:meatballs:626061128274935830>",
+        "Onion Rings of Na'arin": "<:onion:626062134303784991> :ring:",
         "Perim Pizza": ":pizza:",
-        "Blügon Burger": ":hamburger:",
-        "Barath Beyond Burritos": ":burrito:",
-        "Frafdo Fries": ":fries:",
+        "Shimmark Shake": ":milk: :handshake:",
+        "Tangath Tamales": "<:tamales:626060263665434645>",
         "Toxic Gust Taco": ":taco:"
     },
     "no_emote": [
-        "Tangath Tamales",
-        "Mipedian Meatballs",
-        "Onion Rings of Na'arin",
-        "Maxxoroni and Cheese"
     ]
 }
+
+
 
