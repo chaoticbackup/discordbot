@@ -384,13 +384,13 @@ try {
       case "lf":
       case "match":
         if (guild && hasPermission("MANAGE_ROLES")) {
-          if (mainserver(message) && is_channel("main", channel, "match_making")) return;
+          if (mainserver(message) && !is_channel("main", channel, "match_making")) return;
           send(lookingForMatch(cleantext(args), guild, guildMember));
         }
         break;
       case "cancel":
         if (guild && hasPermission("MANAGE_ROLES")) {
-          if (mainserver(message) && is_channel("main", channel, "match_making")) return;
+          if (mainserver(message) && !is_channel("main", channel, "match_making")) return;
           send(cancelMatch(guild, guildMember));
         }
         break;
