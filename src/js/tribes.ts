@@ -2,7 +2,7 @@ import { Guild, GuildMember } from 'discord.js';
 
 const tribes = ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"];
 
-export const tribe = (
+export const tribe = async (
     guild: Guild, member: GuildMember, 
     permission: boolean, args: string[]
     ): Promise<string> => {

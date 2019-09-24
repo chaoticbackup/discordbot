@@ -151,7 +151,7 @@ try {
         }
         case 'region':
         case 'regions': {
-          meetup(guildMember, guild, args.split(" ")).then(send);
+          meetup(guildMember, guild, args.split(" "), mentions).then(send);
           break;
         }
         case 'quebec': {
