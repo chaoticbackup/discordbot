@@ -9,6 +9,10 @@ class Region {
 
 class Member {
     public id: Snowflake;
+
+    constructor(member: GuildMember) {
+        this.id = member.id;
+    }
 }
 
 class MeetupsAPI {
@@ -37,13 +41,13 @@ class MeetupsAPI {
 
     addRegion = async (regionName: string) => {
         const region = this.regions.findOne({ name: regionName});
-        if (region) throw new Error("Region already exists");
+        if (region) throw new Error(`Region "${region}" already exists`);
         this.regions.insert({name: regionName, members: []});
     }
 
     getRegion = async (regionName: string): Promise<Region> => {
         const region = this.regions.findOne({name: regionName});
-        if (!region) throw new Error("Region does not exist");
+        if (!region) throw new Error(`Region "${region}" does not exist`);
         return region;
     }
 
@@ -55,17 +59,44 @@ class MeetupsAPI {
         return this.regions.chain().simplesort('name').data();
     }
 
-    addMemberToRegion = async (member: Member, regionName: string) => {
-        this.regions.findAndUpdate({name: regionName}, ((rg: Region) => {
-            rg.members.push(member);
+    renameRegion = async (region: Region, newName: string) => {
+        return this.regions.findAndUpdate({name: region.name}, ((rg: Region) => {
+            rg.name = newName;
         }));
     }
 
-    removeMemberFromRegion = async (member: Member, regionName: string) => {
-        this.regions.findAndUpdate({name: regionName}, ((rg: Region) => {
-            let i = rg.members.findIndex((mb) => mb === member);
-            if (i > 0) rg.members.splice(i, 1);
-        }));
+    convertGuildMember = (member: GuildMember): Member => {
+        return new Member(member);
+    }
+
+    findMemberRegionIndex = async(member: GuildMember, region: Region): Promise<number> => {
+        return this.getMembersInRegion(region).then((members: Member[]) => {
+           return members.findIndex((mb) => mb.id === member.id);
+        });
+    }
+
+    addMemberToRegion = async (member: GuildMember, region: Region) => {
+        return this.findMemberRegionIndex(member, region).then((i: number) => {
+            if (i >= 0) {
+                throw new Error(`${member.displayName} is already in ${region.name}`);
+            }
+
+            this.regions.findAndUpdate({name: region.name}, ((rg: Region) => {
+                rg.members.push(this.convertGuildMember(member));
+            }));
+        });
+    }
+
+    removeMemberFromRegion = async (member: GuildMember, region: Region) => {
+        return this.findMemberRegionIndex(member, region).then((i: number) => {
+            if (i < 0) {
+                throw new Error(`${member.displayName} is not a member of ${region.name}`);
+            }
+
+            this.regions.findAndUpdate({name: region.name}, ((rg: Region) => {
+               rg.members.splice(i, 1);
+            }));
+        });
     }
 
     getMembersInRegion = async (region: Region): Promise<Member[]> => {
@@ -75,22 +106,24 @@ class MeetupsAPI {
 
 const MeetupsDB = new MeetupsAPI();
 
+
+
 /**
  * @param member the user who sent the message
  * @param args array of text from the message
  * @example
- * // !region <list>
+ * // !region <list|>
  * // !region <add|remove> <regionName> 
+ * // !region <rename> <regionName> <newName>
+ * 
  * // !region <regionName> <list|>
  * // !region <regionName> <join|leave>
- * // !region <regionName> <add|remove> <guildMember>
+ * // !region <regionName> <add|remove> <@guildMember>
  */
 export const meetup = async (member: GuildMember, guild: Guild, args: string[]): Promise<String> => {
     const moderator = Boolean(member.roles.find(role => role.name == "lord emperor"));
 
-    console.log(args, args.length);
-
-    const regionList = (regions: Region[]) => {
+    const regionList = async (regions: Region[]) => {
         let msg = "List of Regions:\n";
         regions.forEach((region) => {
             msg += region.name + "\n";
@@ -98,9 +131,10 @@ export const meetup = async (member: GuildMember, guild: Guild, args: string[]):
         return Promise.resolve(msg);
     }
 
-    const memberList = (members: Member[]) => {
+    const memberList = async (members: Member[]) => {
+        if (members.length == 0) return Promise.resolve("No members");
         let msg = "List of Members:\n";
-        members.forEach(async (member) => {
+        await members.forEach(async (member) => {
             const gl: GuildMember = await guild.fetchMember(member.id);
             msg += gl.displayName + "\n";
         });
@@ -108,14 +142,12 @@ export const meetup = async (member: GuildMember, guild: Guild, args: string[]):
     }
 
     if (args[0] == '') {
-        return MeetupsDB.getRegionList()
-        .then(regionList);
+        return MeetupsDB.getRegionList().then(regionList);
     }
-
+        
     switch(args[0].toLowerCase()) {
         case 'list': {
-            return MeetupsDB.getRegionList()
-            .then(regionList);
+            return MeetupsDB.getRegionList().then(regionList);
         }
         case 'add': {
             if (moderator) {
@@ -142,6 +174,20 @@ export const meetup = async (member: GuildMember, guild: Guild, args: string[]):
             }
         }
         break;
+        case 'rename': {
+            if (moderator) {
+                if (args.length < 2) return "!region add <regionName>";
+                return MeetupsDB.getRegion(args[1])
+                .then((region: Region) => {
+                    return MeetupsDB.renameRegion(region, args[2]);
+                })
+                .catch((err: Error) => {return err.message})
+                .then(() => {
+                    return `Renamed ${args[1]} -> ${args[2]}`;
+                });
+            }
+        }
+        break;
         // Assume user provided region name
         default: {
             try {
@@ -157,12 +203,20 @@ export const meetup = async (member: GuildMember, guild: Guild, args: string[]):
                     case 'list': 
                         return MeetupsDB.getMembersInRegion(region).then(memberList);
                     case 'join':
-                        return MeetupsDB.addMemberToRegion(member, args[0]).then(() => {
+                        return MeetupsDB.addMemberToRegion(member, region)
+                        .then(() => {
                             return `${member.displayName} joined ${region.name}`
+                        })
+                        .catch((err: Error) => {
+                            return err.message;
                         });
                     case 'leave':
-                        return MeetupsDB.removeMemberFromRegion(member, args[0]).then(() => {
+                        return MeetupsDB.removeMemberFromRegion(member, region)
+                        .then(() => {
                             return `${member.displayName} left ${region.name}`
+                        })
+                        .catch((err: Error) => {
+                            return err.message;
                         });
                     default: return Promise.resolve(
                         `!region ${args[1]} <join|leave|list>\n` +
