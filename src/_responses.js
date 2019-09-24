@@ -1,5 +1,4 @@
 const {cleantext, rndrsp, moderator} = require('./js/shared.js');
-const rules = require('./js/rules.js');
 const API = require('./js/database/database.js').default;
 const {RichEmbed} = require('discord.js');
 const commands = require('./config/commands.json');
@@ -244,7 +243,7 @@ try {
         if (args.length < 1)
           channel.send(`Please provide a rule, or use **!rulebook** or **!guide**`);
         else
-        send(rules(args));
+          send(glossary(args));
         break;
       /* Compliments */
       case 'flirt':
@@ -625,6 +624,20 @@ function nowornever(card) {
       return `${cards[key]}`;
     }
   }
+}
+
+function glossary(rule) {
+  rule = cleantext(rule);
+  const g = require('../config/glossary');
+
+
+	for (var key in g) {
+	  if (cleantext(key).indexOf(rule) === 0)
+	    return `*${key}*:\n${g[key]}`;
+	}
+
+  return `I'm not sure, but you can check the Player Guide:\n` +
+    `<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>`;
 }
 
 function faq(q) {

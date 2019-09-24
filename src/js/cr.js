@@ -1,17 +1,6 @@
 var pdfjsLib = require('pdfjs-dist');
-const {cleantext} = require('./shared.js');
-const glossary = require('../config/glossary');
 
 module.exports = function(rule) {
-
-	rule = cleantext(rule);
-
-	for (var key in glossary) {
-	  if (cleantext(key).indexOf(rule) === 0)
-	    return `*${key}*:\n${glossary[key]}`;
-	}
-
-	return `I'm not sure, but you can check the Player Guide:\n<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>`;
 
 /* This is ignored */
 	pdfjsLib.getDocument("./ComprehensiveRules.pdf").then((doc) => {
