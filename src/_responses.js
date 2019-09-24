@@ -628,8 +628,7 @@ function nowornever(card) {
 
 function glossary(rule) {
   rule = cleantext(rule);
-  const g = require('../config/glossary');
-
+  const g = require('./config/glossary');
 
 	for (var key in g) {
 	  if (cleantext(key).indexOf(rule) === 0)
