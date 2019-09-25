@@ -1,15 +1,15 @@
 import {cleantext} from './shared';
 import { RichEmbed } from 'discord.js';
-import {tierlist, decks, tribes} from '../config/tierlist.json';
+const {tierlist, decks, tribes} = require('../config/tierlist.json');
 
-export function tier(tier) {
+export function tier(tier: string) {
     const embed = new RichEmbed();
 
     if (tier && tier.toLowerCase() != "list") {
         for (let key in tribes) {
           if (cleantext(key) == cleantext(tier)) {
             let message = `**${key} Decks:**\n`;
-            tribes[key].forEach((deck) => {
+            tribes[key].forEach((deck: string) => {
               message += `${deck}: ${decks[deck].url}\n`;
             });
             return embed.setDescription(message);
@@ -20,7 +20,7 @@ export function tier(tier) {
         if (tier == "CM") tier = "S";
         if (tierlist.hasOwnProperty(tier)) {
             let message = "";
-            tierlist[tier].forEach((deck) => {
+            tierlist[tier].forEach((deck: string) => {
                 message += `${deck}: ${decks[deck].url}\n`;
             });
             return embed.addField(`${tier} Decks`, message, true);
@@ -30,7 +30,7 @@ export function tier(tier) {
     else {
        for (let tier in tierlist) {
            let message = "";
-           tierlist[tier].forEach((deck) => {
+           tierlist[tier].forEach((deck: string) => {
                message += `${deck}: ${decks[deck].url}\n`;
            });
            embed.addField(tier, message, true);
