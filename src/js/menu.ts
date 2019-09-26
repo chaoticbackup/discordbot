@@ -1,4 +1,4 @@
-import {cleantext} from './shared';
+import {cleantext} from './common';
 const {order, make} = require ('../config/menu.json');
 
 export {

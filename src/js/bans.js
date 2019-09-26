@@ -1,4 +1,4 @@
-const {rndrsp, cleantext} = require('./shared.js');
+const {rndrsp, cleantext} = require('./common');
 const {bans, watchlist, detailed, reasons,
   jokes, pauper, noble, modern} = require('../config/bans.json');
 

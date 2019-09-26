@@ -1,7 +1,7 @@
 import loki from 'lokijs';
 import fs from 'fs-extra';
 import path from 'path';
-import {escape_text} from "../shared";
+import {escape_text} from "../common";
 const fetch =  require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 

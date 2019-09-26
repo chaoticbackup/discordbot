@@ -1,4 +1,4 @@
-const {rndrsp} = require('./shared.js');
+const {rndrsp} = require('./common');
 const {sass, tags} = require('../config/sass.json');
 
 export function checkSass(mentions, message) {

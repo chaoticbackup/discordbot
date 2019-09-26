@@ -1,20 +1,23 @@
-const {cleantext, rndrsp, moderator} = require('./js/shared.js');
 const API = require('./js/database/database.js').default;
 const {RichEmbed} = require('discord.js');
 const commands = require('./config/commands.json');
+const {servers} = require('./config/server_ids.json');
 
-import {rate_card} from './js/database/rate';
-import {full_art, find_card, display_card, read_card} from './js/database/card';
-import {goodstuff, badultras, funstuff} from './js/goodstuff';
-import {banlist, whyban} from './js/bans';
-import {checkSass} from './js/sass';
-import {rulebook} from './js/rulebook';
-import {tier} from './js/meta';
-import {servers} from './config/server_ids.json';
-import {menu, make, order} from './js/menu';
-import {tribe, brainwash} from './js/tribes';
-import {lookingForMatch, cancelMatch} from './js/match_making';
-import {meetup} from './js/meetups';
+import {
+  cleantext, rndrsp, moderator, uppercase,
+  rate_card,
+  full_art, find_card, display_card, read_card,
+  goodstuff, badultras, funstuff,
+  banlist, whyban,
+  checkSass,
+  rulebook,
+  tier,
+  menu, make, order,
+  tribe, brainwash,
+  lookingForMatch, cancelMatch,
+  meetup,
+  speakers
+} from './js';
 
 function mainserver(message) {
   if (!message.guild) return false;
@@ -30,15 +33,11 @@ function bot_commands(channel) {
   return is_channel("main", channel, "bot_commands");
 }
 
-function uppercase(word) {
-  return word[0].toUpperCase() + word.slice(1);
-}
-
 export default (async function(message, logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
-  if (process.env.NODE_ENV == "development" && (message.guild && (message.guild.id == servers.main.id))) return;
+  if (process.env.NODE_ENV == "development" && (!message.guild || (message.guild.id == servers.main.id))) return;
 
   const bot = this;
   const content = message.content;
@@ -152,32 +151,6 @@ try {
         case 'regions': {
           meetup(guildMember, guild, args.split(" "), mentions).then(send);
           break;
-        }
-        case 'quebec': {
-          switch(cleantext(args)) {
-            case 'list':
-              let message = "List of Quebec Members\n";
-              guild.fetchMembers().then((guild) => {
-                guild.members.find(member => {
-                  if (member.roles.find(role => role.name==="quebec")) {
-                    message += member.displayName + "\n";
-                  }
-                });
-                send(message);
-              });
-              break;
-            case 'join':
-              guildMember.addRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you are a Quebec member");
-              break;
-            case 'leave':
-              guildMember.removeRole(guild.roles.find(role => role.name==="quebec"));
-              channel.send("you left Quebec");
-              break;
-            default:
-              channel.send("!quebec list/join/leave");
-          }
-          return;
         }
       }
     }
@@ -457,6 +430,13 @@ try {
       case 'gone':
       case 'fan':
         send(gone(cleantext(args)));
+        break;
+      /* Languages */
+      case 'speak':
+      case 'speaker':
+      case 'speakers':
+      case 'language':
+        speakers(guildMember, guild, args.split(" ")).then(send);
         break;
       /* Moderator Only */
       case 'readthecard':

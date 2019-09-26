@@ -1,8 +1,8 @@
-import {cleantext} from './shared';
+import {cleantext} from './common';
 import { RichEmbed } from 'discord.js';
 const {tierlist, decks, tribes} = require('../config/tierlist.json');
 
-export function tier(tier: string) {
+export default (tier: string) => {
     const embed = new RichEmbed();
 
     if (tier && tier.toLowerCase() != "list") {

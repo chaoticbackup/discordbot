@@ -1,5 +1,5 @@
 const { RichEmbed } = require('discord.js');
-import {rndrsp, cleantext, escape_text} from '../shared.js';
+import {rndrsp, cleantext, escape_text} from '../common';
 const API = require('./database.js').default;
 
 export function full_art(name) {

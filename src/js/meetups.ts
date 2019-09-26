@@ -1,5 +1,6 @@
 import { Guild, GuildMember, Snowflake } from 'discord.js';
 import loki, { Collection } from 'lokijs';
+import {asyncForEach} from './common';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Region {
@@ -106,12 +107,6 @@ class MeetupsAPI {
 
 const MeetupsDB = new MeetupsAPI();
 
-const asyncForEach = async (array: any[], callback: any) => {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
-    }
-  }
-
 /**
  * @param user the user who sent the message
  * @param args array of text from the message
@@ -124,7 +119,7 @@ const asyncForEach = async (array: any[], callback: any) => {
  * // !region <regionName> <join|leave>
  * // !region <regionName> <add|remove> <@guildMember>
  */
-export const meetup = async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
+export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
     const moderator = Boolean(user.roles.find(role => role.name == "lord emperor"));
 
     const regionList = async (regions: Region[]) => {

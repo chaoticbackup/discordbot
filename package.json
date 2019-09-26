@@ -4,7 +4,7 @@
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "start": "set NODE_ENV=development&& babel-watch src/bot.js --extensions \".js,.ts\"",
+    "start": "NODE_ENV=development babel-watch src/bot.js --extensions \".js,.ts\"",
     "prebuild": "if [ -f err.log ]; then mv err.log err.old.log; fi",
     "build": "babel src -d build --copy-files --extensions \".js,.ts\"",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
