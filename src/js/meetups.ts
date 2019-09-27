@@ -135,6 +135,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
         let msg = "List of Members:\n";
         await asyncForEach(members, async (mb: Member) => {
             const gl: GuildMember = await guild.fetchMember(mb.id);
+            console.log(gl.displayName);
             msg += gl.displayName + "\n";
         });
         return Promise.resolve(msg);
@@ -254,9 +255,8 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                             }
                         }
                         break;
-                        default: return Promise.resolve(
-                            `!region ${args[0]} <add|remove> <guildMember>`
-                        );
+                        default: 
+                            return Promise.resolve(`!region ${args[0]} <add|remove> <guildMember>`);
                     }
                 }
 
@@ -269,7 +269,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                             return `${user.displayName} joined ${region.name}`
                         })
                         .catch((err: Error) => {
-                            return err.message;
+                            throw new Error(err.message);
                         });
                     case 'leave':
                         return MeetupsDB.removeMemberFromRegion(user, region)
@@ -277,7 +277,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                             return `${user.displayName} left ${region.name}`
                         })
                         .catch((err: Error) => {
-                            return err.message;
+                            throw new Error(err.message);
                         });
                     case 'ping':
                         return MeetupsDB.getMembersInRegion(region)
@@ -286,22 +286,21 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                             await asyncForEach(members, async (mb: Member) => {
                                 msg += `<@!${mb.id}> `;
                             });
-                            return Promise.resolve(msg);
+                            return msg;
                         })
                         .catch((err: Error) => {
-                            return err.message;
+                            throw new Error(err.message);
                         });
-                    default: return Promise.resolve(
-                        `!region ${args[0]} <join|leave|list>\n`
-                    );
+                    default: 
+                        return Promise.resolve(`!region ${args[0]} <join|leave|list>\n`);
                 }
             }
             catch (err) {
-                return err.message; 
+                return Promise.resolve(err.message); 
             }
         }
     }
 
-    return Promise.resolve("");
+    return Promise.resolve("!region <regionName> <join|leave|ping|list|>");
 }
 
