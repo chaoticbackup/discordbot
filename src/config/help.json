@@ -12,7 +12,7 @@
     "insult": {"cmd":"!insult, !burn, !roast <name>", "short":"optional name"},
     "rule": {"cmd":"!rule <rule>", "short":"returns the definition of the rule"},
     "rate": {"cmd":"!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>", "short": "Rate's a Creature based on its stats."},
-    "tribe": {"cmd":"!tribe\n!join, <tribe name>", "short":"You can join you're favorite tribe! You can only be loyal to one... but you can always switch", "long":"Here are the tribes you can join:\n <:Dan:294942889337683968> Danian, <:Mip:294941790052679690> Mipedian, <:Mar:294942283273601044> M'arrillian, <:OW:294939978897555457> OverWorld, <:UW:294943282943885313> UnderWorld, <:TL:294945357392248833> Tribeless"},
+    "tribe": {"cmd":"!tribe <join|leave|list> <tribe name>", "short":"You can join you're favorite tribe (or lack thereof)! You can only be loyal to one... but you can always switch", "long":"Here are the tribes you can join:\n <:Dan:294942889337683968> Danian, <:Mip:294941790052679690> Mipedian, <:Mar:294942283273601044> M'arrillian, <:OW:294939978897555457> OverWorld, <:UW:294943282943885313> UnderWorld, <:TL:294945357392248833> Tribeless"},
     "end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``.", "short":""},
     "command": {"cmd":" ", "long": "This is for when you need help with my help"}
 }
