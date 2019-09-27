@@ -1,4 +1,6 @@
-import { Message } from "discord.js";
+import { GuildMember, Guild, Channel, PermissionResolvable } from "discord.js";
+
+const {servers} = require('../config/server_ids.json');
 
 export function uppercase(word: string) {
   return word[0].toUpperCase() + word.slice(1);
@@ -38,13 +40,6 @@ export function tribe_plural(tribe: string) {
         default:
             return tribe;
     }
-}
-
-export function moderator(message: Message) {
-  return Boolean(
-    message.member.roles.find(role => role.name==="Administrator") ||
-    message.member.roles.find(role => role.name==="Moderator")
-  );
 }
 
 class RandomResponse {
@@ -87,3 +82,21 @@ export function reload(module: any) {
   delete require.cache[require.resolve(module)];
   return require(module);
 }
+
+export function isModerator(member: GuildMember): boolean {
+  return Boolean(
+   member.roles.find(role => role.name==="Administrator") ||
+   member.roles.find(role => role.name==="Moderator")
+  );
+}
+
+export const hasPermission = (guild: Guild, permission: PermissionResolvable): boolean => {
+  if (!guild) return false;
+  return guild.me.hasPermission(permission);
+}
+
+export function is_channel(guild: string, channel: Channel, name: string): boolean {
+  if (!(name && guild && servers[guild])) return false;
+  return channel.id == servers[guild].channels[name];
+}
+

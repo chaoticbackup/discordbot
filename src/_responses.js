@@ -4,7 +4,7 @@ const commands = require('./config/commands.json');
 const {servers} = require('./config/server_ids.json');
 
 import {
-  cleantext, rndrsp, moderator, uppercase,
+  cleantext, rndrsp, isModerator, uppercase, hasPermission, is_channel,
   rate_card,
   full_art, find_card, display_card, read_card,
   goodstuff, badultras, funstuff,
@@ -22,11 +22,6 @@ import {
 function mainserver(message) {
   if (!message.guild) return false;
   return message.guild.id == servers.main.id;
-}
-
-function is_channel(guild, channel, name) {
-  if (!(name && guild && servers[guild])) return false;
-  return channel.id == servers[guild].channels[name];
 }
 
 function bot_commands(channel) {
@@ -98,10 +93,7 @@ try {
       return {guild: guild, guildMember: guildMember}
     }();
 
-    const hasPermission = (permission) => {
-      if (!message.guild) return false;
-      return guild.me.hasPermission(permission);
-    }
+
 
     // Replace the mention with the display name
     const insertname = (resp, name) => {
@@ -348,20 +340,20 @@ try {
       case 'funstuff':
         send(funstuff());
         break;
-      case 'badultras':
       case 'wasted':
       case 'wastedultras':
+      case 'badultras':
         send(badultras());
         break;
       case "lf":
       case "match":
-        if (guild && hasPermission("MANAGE_ROLES")) {
+        if (hasPermission(guild, "MANAGE_ROLES")) {
           if (mainserver(message) && !is_channel("main", channel, "match_making")) return;
           send(lookingForMatch(cleantext(args), guild, guildMember));
         }
         break;
       case "cancel":
-        if (guild && hasPermission("MANAGE_ROLES")) {
+        if (hasPermission(guild, "MANAGE_ROLES")) {
           if (mainserver(message) && !is_channel("main", channel, "match_making")) return;
           send(cancelMatch(guild, guildMember));
         }
@@ -410,22 +402,13 @@ try {
         channel.send("Use ``!tribe <join|leave>`` or ``!region <regionName> <join|leave>``")
         break;
       case 'tribe':
-        tribe(guild, guildMember, hasPermission("MANAGE_ROLES"), args.split(" "))
+        tribe(guild, guildMember, args.split(" "))
         .then(send);
         break;
       case 'bw':
       case 'brainwash':
-        if (guild && hasPermission("MANAGE_ROLES")) {
-          if (mentions.length > 0) {
-            if (moderator(message)) {
-              send(brainwash(guild, guild.members.get(mentions[0])));
-            }
-            else break;
-          }
-          else {
-            send(brainwash(guild, guildMember));
-          }
-        }
+        brainwash(guild, guildMember, mentions)
+        .then(send);
         break;
       case 'gone':
       case 'fan':
@@ -440,10 +423,10 @@ try {
         break;
       /* Moderator Only */
       case 'readthecard':
-        if (hasPermission("SEND_TTS_MESSAGES")) {
+        if (hasPermission(guild, "SEND_TTS_MESSAGES")) {
           if (mainserver(message)) {
             if (bot_commands(channel) || channel.id == "293610368947716096") {
-              if (!moderator(message)) {
+              if (!isModerator(message.member)) {
                 send(read_card(args, options, bot));
                 return;
               }
@@ -468,7 +451,7 @@ try {
       case 'clear':
       case 'clean':
       case 'delete':
-        if (moderator(message)) {
+        if (isModerator(message.member)) {
           args = parseInt(args);
           if (typeof args !== "number") break;
           if (args <= 25) {

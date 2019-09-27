@@ -1,10 +1,10 @@
 import { Guild, GuildMember } from 'discord.js';
+import { hasPermission, isModerator, asyncForEach } from './common';
 
 const tribes = ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", "Tribeless", "Frozen"];
 
 export const tribe = async (
-    guild: Guild, member: GuildMember, 
-    permission: boolean, args: string[]
+    guild: Guild, member: GuildMember, args: string[]
     ): Promise<string> => {
 
         if (!guild) Promise.resolve("You can only use this command in a guild with roles");
@@ -13,7 +13,9 @@ export const tribe = async (
 
         if (param == '' || param == 'show') return displayTribe(guild, member);
 
-        if (!permission) return Promise.resolve("I need the ``MANAGE_ROLES`` permission");
+        if (!hasPermission(guild, "MANAGE_ROLES")) {
+            return Promise.resolve("I need the ``MANAGE_ROLES`` permission");
+        }
 
         if (args.length < 2) {
             return Promise.resolve("!tribe <join|leave> <tribeName>");
@@ -33,18 +35,45 @@ export const tribe = async (
         return Promise.resolve("");
 }
 
-export const brainwash = async (guild: Guild, member: GuildMember): Promise<string> => {
-    let bw = guild.roles.find(role => role.name==="Brainwashed");
-    if (!bw) return `No "Brainwashed" role.`;
+export const brainwash = async (
+    guild: Guild, member: GuildMember, mentions: string[]
+    ): Promise<string> => {
+        if (!hasPermission(guild, "MANAGE_ROLES")) {
+            return "I need the ``MANAGE_ROLES`` permission";
+        }
 
-    if (member.roles.find(role => role === bw)) {
-        member.removeRole(bw);
-        return `Your mind is free!`;
-    }
-    else {
-        member.addRole(bw);
-        return `<:Mar:294942283273601044> You have been brainwashed`;
-    }
+        let bw = guild.roles.find(role => role.name==="Brainwashed");
+        if (!bw) {
+            return `This guild has no "Brainwashed" role`;
+        }
+
+        const moderator = isModerator(member);
+
+        const brainwashMember = async (member: GuildMember) => {
+            if (member.roles.find(role => role === bw)) {
+                member.removeRole(bw);
+                return `Your mind is free!`;
+            }
+            else {
+                member.addRole(bw);
+                return `<:Mar:294942283273601044> You have been brainwashed`;
+            }
+        }
+
+        if (mentions.length > 0) {
+            if (moderator) {
+                await asyncForEach(mentions, async (id: string) => {
+                    await guild.fetchMember(id)
+                    .then(brainwashMember)
+                });
+                return Promise.resolve("");
+            }
+        }
+        else {
+            return brainwashMember(member);
+        }
+
+        return Promise.resolve("");
 }
 
 const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
