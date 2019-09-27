@@ -92,15 +92,18 @@ class MeetupsAPI {
         });
     }
 
+    removeMemberFromRegionByIndex = async (i: number, region: Region) => {
+        this.regions.findAndUpdate({name: region.name}, ((rg: Region) => {
+            rg.members.splice(i, 1);
+        }));
+    }
+
     removeMemberFromRegion = async (member: GuildMember, region: Region) => {
         return this.findMemberRegionIndex(member, region).then((i: number) => {
             if (i < 0) {
                 throw new Error(`${member.displayName} is not a member of ${region.name}`);
             }
-
-            this.regions.findAndUpdate({name: region.name}, ((rg: Region) => {
-               rg.members.splice(i, 1);
-            }));
+            this.removeMemberFromRegionByIndex(i, region);
         });
     }
 }
@@ -122,21 +125,31 @@ const MeetupsDB = new MeetupsAPI();
 export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
     const moderator = Boolean(user.roles.find(role => role.name == "lord emperor"));
 
-    const regionList = async (regions: Region[]) => {
+    const regionList = async (): Promise<string> => {
+        const regions: Region[] = await MeetupsDB.getRegionList();
+
         let msg = "List of Regions:\n";
         regions.forEach((region) => {
             msg += region.name + "\n";
         });
+        
         return Promise.resolve(msg);
     }
 
-    const memberList = async (members: Member[]) => {
+    const memberList = async (region: Region): Promise<string> => {
+        const members: Member[] = await MeetupsDB.getMembersInRegion(region);
+
         if (members.length == 0) return Promise.resolve("No members");
+
         let msg = "List of Members:\n";
-        await asyncForEach(members, async (mb: Member) => {
-            const gl: GuildMember = await guild.fetchMember(mb.id);
-            console.log(gl.displayName);
-            msg += gl.displayName + "\n";
+        await asyncForEach(members, async (mb: Member, i: number) => {
+            await guild.fetchMember(mb.id)
+            .then((gl: GuildMember) => {
+                msg += gl.displayName + "\n";
+            })
+            .catch((err) => {
+                MeetupsDB.removeMemberFromRegionByIndex(i, region);
+            });
         });
         return Promise.resolve(msg);
     }
@@ -196,7 +209,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                 .catch((err: Error) => {throw err});
 
                 if (args.length < 2) {
-                    return MeetupsDB.getMembersInRegion(region).then(memberList);
+                    return memberList(region);
                 }
 
                 let param = args[1].toLowerCase();
@@ -262,7 +275,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
 
                 switch(param) {
                     case 'list': 
-                        return MeetupsDB.getMembersInRegion(region).then(memberList);
+                        return memberList(region);
                     case 'join':
                         return MeetupsDB.addMemberToRegion(user, region)
                         .then(() => {
@@ -303,4 +316,3 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
 
     return Promise.resolve("!region <regionName> <join|leave|ping|list|>");
 }
-
