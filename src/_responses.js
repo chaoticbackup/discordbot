@@ -144,6 +144,12 @@ try {
           meetup(guildMember, guild, args.split(" "), mentions).then(send);
           break;
         }
+        case 'watch':
+          send("Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n"
+            + "Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n"
+            + "Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4"
+          );
+        break;
       }
     }
 
@@ -359,12 +365,6 @@ try {
         }
         break;
       /* Misc */
-      case 'watch':
-        send("Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n"
-          + "Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n"
-          + "Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4"
-        );
-        break;
       case 'donate':
         donate(channel);
         break;
