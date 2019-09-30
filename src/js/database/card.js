@@ -120,6 +120,7 @@ function Response(card, options, bot) {
     // If not a released card
   if (!card.gsx$set) {
     if (card.gsx$image == '') {
+      if (options.includes("text") || options.includes("stats")) return "No card data available";
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(API.color(card))
@@ -131,6 +132,45 @@ function Response(card, options, bot) {
 
   // Formatting to include an image or just the card text
   const textOnly = Boolean(options.indexOf("text") != -1);
+
+  const Disciplines = (modstat = 0) => {
+    let line = ""
+      + eval(`${card.gsx$courage}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
+      + eval(`${card.gsx$power}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "
+      + eval(`${card.gsx$wisdom}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " "
+      + eval(`${card.gsx$speed}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " "
+      + "| " + eval(`${card.gsx$energy}+${modstat/2}`) + "\u00A0E";
+    return line;
+  }
+
+  const Stats = () => {
+    let resp = "";
+    if (card.gsx$energy > 0) {
+      let modstat = 0;
+      if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
+       && !(options.indexOf("min") > -1)) {
+        modstat = 10;
+      }
+      if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
+        modstat = -10;
+      }
+      if (card.gsx$name == "Aa'une the Oligarch, Avatar") modstat = 0;
+      resp += Disciplines(modstat);
+    }
+
+    return addNewLine(resp, textOnly);
+  }
+
+  if (options.indexOf("stats") != -1) {
+    if (card.gsx$type == "Creatures") {
+      return new RichEmbed()
+        .setTitle(card.gsx$name)
+        .setColor(API.color(card))
+        .setDescription(Stats())
+        .setURL(API.base_image + card.gsx$image);
+    }
+    else return "Only Creatures have stats";
+  }
 
   const TypeLine = () => {
     if (!textOnly) return "";
@@ -179,6 +219,21 @@ function Response(card, options, bot) {
     }
   });
 
+  const el_inactive = input => {
+    switch (input) {
+      case "Fire":
+        return bot.emojis.find(emoji => emoji.name=="fireinactive");
+      case "Air":
+        return bot.emojis.find(emoji => emoji.name=="airinactive");
+      case "Earth":
+        return bot.emojis.find(emoji => emoji.name=="earthinactive");
+      case "Water":
+        return bot.emojis.find(emoji => emoji.name=="waterinactive");
+      default:
+        return "";
+    }
+  }
+
   // Discipline icons
   const dis = ((input) => {
     switch (input) {
@@ -198,9 +253,9 @@ function Response(card, options, bot) {
   const tribe = (input) => {
     switch (input) {
       case "OverWorld":
-        return bot.emojis.find(emoji => emoji.name==="Ow");
+        return bot.emojis.find(emoji => emoji.name==="OW");
       case "UnderWorld":
-        return bot.emojis.find(emoji => emoji.name==="Uw");
+        return bot.emojis.find(emoji => emoji.name==="UW");
       case "M'arrillian":
         return bot.emojis.find(emoji => emoji.name==="Mar");
       case "Mipedian":
@@ -226,11 +281,9 @@ function Response(card, options, bot) {
       case "Danian":
         return bot.emojis.find(emoji => emoji.name==="DanCounter");
       default:
-        return bot.emojis.find(emoji => emoji.name==="GenCounter");
+        return bot.emojis.find(emoji => emoji.name==="TLCounter");
     }
   })();
-
-
 
   const Ability = (cardtext) => {
 
@@ -248,30 +301,18 @@ function Response(card, options, bot) {
     else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
   }
 
-  const Disciplines = (modstat = 0) => {
-    let line = ""
-      + eval(`${card.gsx$courage}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
-      + eval(`${card.gsx$power}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "
-      + eval(`${card.gsx$wisdom}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " "
-      + eval(`${card.gsx$speed}+${modstat}`) + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " "
-      + "| " + eval(`${card.gsx$energy}+${modstat/2}`) + "\u00A0E";
-    return line;
-  }
-
   const BuildRestrictions = () => {
     if (!textOnly) return "";
     let resp = "";
     if (card.gsx$loyal) {
       resp += "**";
       if (card.gsx$unique) {
-        resp += "Unique, Loyal";
+        resp += "Unique, ";
       }
       else if (card.gsx$legendary) {
-        resp += "Legendary, Loyal";
+        resp += "Legendary, ";
       }
-      else {
-        resp += (card.gsx$loyal == "1" ? "Loyal" : card.gsx$loyal);
-      }
+      resp += (card.gsx$loyal == "1" ? "Loyal" : "Loyal - " + card.gsx$loyal);
       if (card.gsx$type === "Creatures" && card.gsx$tribe === "M'arrillian") {
         resp += " - M'arrillians or Minions";
       }
@@ -293,24 +334,6 @@ function Response(card, options, bot) {
     else return "";
   }
 
-  const Stats = () => {
-    let resp = "";
-    if (card.gsx$energy > 0) {
-      let modstat = 0;
-      if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
-       && !(options.indexOf("min") > -1)) {
-        modstat = 10;
-      }
-      if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
-        modstat = -10;
-      }
-      if (card.gsx$name == "Aa'une the Oligarch, Avatar") modstat = 0;
-      resp += Disciplines(modstat);
-    }
-
-    return addNewLine(resp, textOnly);
-  }
-
   const Elements = () => {
     let resp = "";
 
@@ -320,13 +343,23 @@ function Response(card, options, bot) {
           resp += el(element) + " ";
         }
         else {
-          resp += "- ";
+          resp += el_inactive(element) + " ";
         }
       });
       resp.trim();
     }
     else if (card.gsx$type == "Attacks") {
-
+      resp += card.gsx$base + " | ";
+      ["Fire", "Air", "Earth", "Water"].forEach((element) => {
+        let dmg = card[`gsx$${element.toLowerCase()}`];
+        if (dmg && dmg >= 0) {
+          resp += el(element) + " " + dmg + " ";
+        }
+        else {
+          resp += el_inactive(element) + " ";
+        }
+      });
+      resp += "\n\n";
     }
     else return "";
 
@@ -385,6 +418,10 @@ function Response(card, options, bot) {
     body += "Initiative: " + Initiative();
   }
 
+  if (textOnly && card.gsx$type == "Attacks") {
+    body += Elements();
+  }
+
   body += Ability(card.gsx$ability);
 
   if (card.gsx$brainwashed){
@@ -398,12 +435,9 @@ function Response(card, options, bot) {
   }
 
   body += Stats();
-
-  if (textOnly) {
-    body += Elements();
-  }
   
   if (textOnly && card.gsx$type == "Creatures") {
+    body += Elements();
     body += " | " + MugicAbility();
   }
 

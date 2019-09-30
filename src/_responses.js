@@ -198,6 +198,10 @@ try {
         options.push("text");
         send(display_card(args, options, bot));
         break;
+      case 'stats':
+        options.push("stats");
+        send(display_card(args, options, bot));
+        break;
       case 'full':
       case 'fullart':
         send(full_art(args));
