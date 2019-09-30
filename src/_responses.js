@@ -32,7 +32,7 @@ export default (async function(message, logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // Dev Server Only
-  if (process.env.NODE_ENV == "development" && (!message.guild || (message.guild.id == servers.main.id))) return;
+  if (process.env.NODE_ENV == "development" && (!message.guild || (message.guild.id != servers.develop.id))) return;
 
   const bot = this;
   const content = message.content;
@@ -192,6 +192,10 @@ try {
           send("Please ask me in <#387805334657433600>");
           break;
         }
+        send(display_card(args, options, bot));
+        break;
+      case 'text': 
+        options.push("text");
         send(display_card(args, options, bot));
         break;
       case 'full':
