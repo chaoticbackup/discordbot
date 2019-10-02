@@ -124,7 +124,7 @@ try {
               const color = guild.roles.find(role => role.name == cleantext(args[1]));
               if (color) {
                 guildMember.addRole(color);
-                send(`Now you're name is ${uppercase(args[1])}!`);
+                send(`Now your name is ${uppercase(args[1])}!`);
               }
               else send("Sorry I don't have that color role");
             }
