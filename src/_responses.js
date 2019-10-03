@@ -7,7 +7,7 @@ import {
   cleantext, rndrsp, isModerator, uppercase, hasPermission, is_channel,
   rate_card,
   full_art, find_card, display_card, read_card,
-  goodstuff, badultras, funstuff,
+  goodstuff, funstuff,
   banlist, whyban,
   checkSass,
   rulebook,
@@ -357,7 +357,7 @@ try {
       case 'wasted':
       case 'wastedultras':
       case 'badultras':
-        send(badultras());
+        channel.send("This command has been removed");
         break;
       case "lf":
       case "match":

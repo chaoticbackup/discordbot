@@ -1,17 +1,8 @@
-const {badultras, agame, goodstuff} = require('../config/goodstuff.json');
+const {agame, goodstuff} = require('../config/goodstuff.json');
 
 export {
-  bu as badultras,
   fs as funstuff,
   gs as goodstuff
-}
-
-function bu() {
-  let message = "**List of Wasted Ultras**";
-  badultras.forEach((key) => {
-    message += "\n" + key;
-  });
-  return message;
 }
 
 function fs(filter) {
