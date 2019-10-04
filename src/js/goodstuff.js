@@ -5,7 +5,7 @@ export {
   gs as goodstuff
 }
 
-function fs(filter) {
+function fs() {
   let message = "";
   agame.sort().forEach((card) => {
     message += card + "\n";
