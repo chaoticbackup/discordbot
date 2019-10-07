@@ -201,6 +201,24 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
             }
         }
         break;
+        case 'details': {
+            if (moderator) {
+                return MeetupsDB.getRegionList()
+                .then((regions: Region[]) => {
+                    let msg = "Number of members per region:\n";
+                    regions.forEach((region: Region) => {
+                        if (region.members.length == 0)
+                            msg += `${region.name} (no members)\n`;
+                        else if (region.members.length == 1)
+                            msg += `${region.name} (1 member)\n`;
+                        else
+                            msg += `${region.name} (${region.members.length} members)\n`;
+                    });
+                    return msg;
+                });
+            }
+        }
+        break;
         // Assume user provided region name
         default: {
             try {
