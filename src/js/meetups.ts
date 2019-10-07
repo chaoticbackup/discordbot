@@ -110,6 +110,11 @@ class MeetupsAPI {
 
 const MeetupsDB = new MeetupsAPI();
 
+const rmSpecialChars = (text: string): string => {
+    text = text.replace("é","e");
+    return text;
+}
+
 /**
  * @param user the user who sent the message
  * @param args array of text from the message
@@ -222,7 +227,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
         // Assume user provided region name
         default: {
             try {
-                const region: Region = await MeetupsDB.getRegion(args[0])
+                const region: Region = await MeetupsDB.getRegion(rmSpecialChars(args[0]))
                 .then((regions: Region) => {return regions})
                 .catch((err: Error) => {throw err});
 
