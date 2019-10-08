@@ -1,4 +1,4 @@
-const {agame, goodstuff} = require('../config/goodstuff.json');
+const {agame, goodstuff} = require('../../config/goodstuff.json');
 
 export {
   fs as funstuff,

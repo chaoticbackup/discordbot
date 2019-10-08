@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js');
+import {RichEmbed} from 'discord.js';
 import {rndrsp, cleantext, escape_text} from '../common';
 const API = require('./database.js').default;
 
@@ -74,8 +74,6 @@ function card_local(name, genCounter) {
     }
     else return cardtext.replace(/:GenCounter:/gi, 'MC');
   }
-
-  name = cleantext(name);
 
   if (!name) {
     // Return random card
@@ -457,7 +455,6 @@ function Response(card, options, bot) {
 }
 
 export function read_card(name, options) {
-  name = cleantext(name);
   let results = API.find_cards_by_name(name);
 
   if (results.length > 0) {

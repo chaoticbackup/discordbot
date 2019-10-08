@@ -66,10 +66,6 @@ try {
       return "";
     }).split("\n")[0].trim();
 
-    if (options.includes("help")) {
-      return send(help(cmd));
-    }
-
     /**
     *   Reduced command sets for other servers
     */
@@ -157,73 +153,6 @@ try {
     *   Main bot code (full commands)
     */
     switch(cmd) {
-      case 'help':
-        if (content.charAt(0) == "!") {
-          let rtn_str = "Use **!commands** or **c!help**";
-          if (mainserver(message) && !bot_commands(channel)) {
-            rtn_str += " in <#387805334657433600>";
-          }
-          if (bot.users.get('159985870458322944')) //meebot
-            setTimeout(() => channel.send(rtn_str), 500);
-          else
-            channel.send(rtn_str);
-          break;
-        }
-        /* falls through */
-      case 'commands':
-        if (!args && (mainserver(message) && !bot_commands(channel)))
-          channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
-        else
-          if (args) {
-            send(help(args));
-          }
-          else {
-            channel.send(help())
-            .then(() => {
-              donate(channel);
-            });
-          }
-        break;
-      /* Cards */
-      case 'card':
-        if (mainserver(message) &&
-          (!bot_commands(channel) && message.member.roles.size === 1)
-        ) {
-          send("Please ask me in <#387805334657433600>");
-          break;
-        }
-        send(display_card(args, options, bot));
-        break;
-      case 'text': 
-        options.push("text");
-        send(display_card(args, options, bot));
-        break;
-      case 'stats':
-        options.push("stats");
-        send(display_card(args, options, bot));
-        break;
-      case 'full':
-      case 'fullart':
-        send(full_art(args));
-        break;
-      case 'find':
-        send(find_card(args));
-        break;
-      case 'rate':
-        send(rate_card(args, options, bot));
-        break;
-      /* Rule */
-      case 'faq':
-        send(faq(args));
-        break;
-      case 'keyword':
-      case 'rule':
-      case 'rules':
-        if (args.length < 1)
-          channel.send(`Please provide a rule, or use **!rulebook** or **!guide**`);
-        else
-          send(glossary(args));
-        break;
       /* Compliments */
       case 'flirt':
       case 'compliment':
@@ -242,27 +171,8 @@ try {
       case 'joke':
         send(rndrsp(commands["joke"], 'joke'));
         break;
-      /* Documents */
-      case 'rulebook':
-        send(rulebook(args, options));
-        break;
-      case 'cr':
-        channel.send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
-        break;
-      case 'errata':
-        channel.send("<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>");
-        break;
-      case 'guide':
-        channel.send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
-        break;
-      /* Starters */
-      case 'starter':
-      case 'starters':
-        if (options.includes("metal")) send(commands["starter"][1]);
-        else if (options.includes("king")) send(commands["starter"][2]);
-        else send(commands["starter"][1]);
-        break;
-      /* Banlist and Alternative Formats */
+
+      /* Banlist and Formats */
       case 'legacy':
       case 'standard':
       case 'banlist':
@@ -323,27 +233,7 @@ try {
         }
         else channel.send("Please provide a card or use !banlist");
         break;
-      case 'tier':
-      case 'meta':
-        if (!args) {
-          channel.send("Supply a tier or use ``!tierlist``");
-          break;
-        }
-      case 'tierlist':
-        if (!args) {
-          if ((mainserver(message) && !bot_commands(channel)))
-            channel.send("To be curtious to other conversations, ask me in <#387805334657433600> :)");
-          else {
-            channel.send(new RichEmbed().setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh'))
-            .then(() => {
-              send(tier());
-            });
-          }
-        }
-        else {
-          send(tier(cleantext(args)));
-        }
-        break;
+
       case 'strong':
       case 'good':
       case 'best':
@@ -540,131 +430,4 @@ function trading_server(cmd, args, options, bot, send) {
     send(rate_card(args, options, bot));
     break;
   }
-}
-
-/*
-* Responses
-*/
-function donate(channel) {
-  channel.send(
-    new RichEmbed()
-      .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
-      .setTitle("Donate")
-  );
-}
-
-function help(args) {
-  const help = require('./config/help.json');
-  let message = "";
-
-  if (args) {
-    // detailed help
-    if (help.hasOwnProperty(args) && help[args].long) {
-      message = "```md\n"
-        + help[args].cmd + "\n```"
-        + help[args].long;
-    }
-    else {
-      message = "Sorry, I don't have additional information about that command";
-    }
-  }
-  else {
-    // help list
-    for (var key in help) {
-      if (help[key].hasOwnProperty("short")) {
-        message += "\n" + help[key].cmd + "\n";
-        if (help[key].short !== "")
-          message += "> (" + help[key].short + ")\n";
-      }
-    }
-  }
-  return message;
-}
-
-function nowornever(card) {
-  const cards = require('./config/nowornever.json');
-
-  if (!card) {
-    // Return random card
-    var keys = Object.keys(cards);
-    return `${cards[keys[keys.length * Math.random() << 0]]}`;
-  }
-
-  for (var key in cards) {
-    if (cleantext(key).indexOf(card) === 0) {
-      return `${cards[key]}`;
-    }
-  }
-}
-
-function glossary(rule) {
-  rule = cleantext(rule);
-  const g = require('./config/glossary');
-
-	for (var key in g) {
-	  if (cleantext(key).indexOf(rule) === 0)
-	    return `*${key}*:\n${g[key]}`;
-	}
-
-  return `I'm not sure, but you can check the Player Guide:\n` +
-    `<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>`;
-}
-
-function faq(q) {
-  const faq = require('./config/faq.json');
-  q = cleantext(q);
-
-  if (!q) {
-    let response = "";
-    for (let key in faq) {
-      response += key + "\n";
-    }
-    return response;
-  }
-
-  for (var key in faq) {
-    if (key.indexOf(q) === 0)
-      return `${faq[key]}`;
-  }
-
-  return `This might be a glossary term or you need to ask an experienced player.`;
-}
-
-function gone(card, bot) {
-  const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("./config/gonechaotic.json");
-
-  let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
-
-  if (card==="nakan") {
-    let line = ""
-      + "88" + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "
-      + "76" + bot.emojis.find(emoji => emoji.name==="Power").toString() + " "
-      + "23" + bot.emojis.find(emoji => emoji.name==="Wisdom").toString() + " "
-      + "41" + bot.emojis.find(emoji => emoji.name==="Speed").toString() + " "
-      + "| " + "59" + " E";
-
-    return new RichEmbed()
-      .setTitle("Nakan")
-      .setURL(merge["Nakan"])
-      .setDescription(line)
-      .setImage(merge["Nakan"]);
-  }
-
-  if (card) {
-    for (var key in merge) {
-      if (cleantext(key).indexOf(card) === 0) {
-        return new RichEmbed()
-          .setTitle(key)
-          .setURL(merge[key])
-          .setImage(merge[key]);
-      }
-    }
-    return rndrsp(["Yokkis can't find your card", "I guess that card isn't *gone*"]);
-  }
-
-  card = rndrsp(Object.keys(merge));
-  return new RichEmbed()
-    .setTitle(card)
-    .setURL(merge[card])
-    .setImage(merge[card]);
 }

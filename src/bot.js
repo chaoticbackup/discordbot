@@ -1,14 +1,14 @@
 require('@babel/polyfill/noConflict');
-const winston = require('winston');
-const auth = require('./auth.json');
-
+import winston from 'winston';
 import Discord from 'discord.js';
 import fs from 'fs-extra';
 
-import API from './api.js';
-import responses from './_responses.js';
-import ForumPosts from './js/forum.js';
-import {servers} from './config/server_ids.json';
+import API from './api';
+import responses from './responses';
+import ForumPosts from './forum';
+
+const auth = require('./auth.json');
+const {servers} = require('./config/server_ids.json');
 
 // Configure logger settings
 const logger = winston.createLogger({
@@ -69,6 +69,8 @@ process.on('unhandledRejection', (err) => {
 	logger.error(error);
 	bot.destroy().then(() => {
 		const t_bot = new Discord.Client();
+		t_bot.login(auth.token);
+
 		let channel = t_bot.channels.get(servers.develop.channels.errors);
 		if (!channel) return;
 		channel.send(error).catch(logger.error);

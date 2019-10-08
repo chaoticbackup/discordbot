@@ -1,13 +1,11 @@
-const {rndrsp, cleantext} = require('./common');
+const {rndrsp, cleantext} = require('../common');
 const {bans, watchlist, detailed, reasons,
-  jokes, pauper, noble, modern} = require('../config/bans.json');
+  jokes, pauper, noble, modern} = require('../../config/bans.json');
 
-export function whyban(card, options=[]) {
-  card = cleantext(card);
-
+export function whyban(name, options=[]) {
   if (options.includes("detailed")) {
     for (let key in detailed) {
-      if (cleantext(key).indexOf(card) === 0) {
+      if (cleantext(key).indexOf(name) === 0) {
         return `*${key}*:\n${detailed[key]}`;
       }
     }
@@ -16,7 +14,7 @@ export function whyban(card, options=[]) {
   }
 
   for (let key in reasons) {
-    if (cleantext(key).indexOf(card) === 0) {
+    if (cleantext(key).indexOf(name) === 0) {
       if (options.includes("joke")) {
         if (reasons[key].length > 1) {
           return `*${key}*:\n${rndrsp(reasons[key].slice(1, reasons[key].length), key)}`;
@@ -32,12 +30,12 @@ export function whyban(card, options=[]) {
   }
 
   for (let key in jokes) {
-    if (cleantext(key).indexOf(card) === 0) {
+    if (cleantext(key).indexOf(name) === 0) {
       return `*${key}*:\n${rndrsp(jokes[key], key)}`;
     }
   }
 
-  return rndrsp(["That card isn't banned", `Oh lucky you, ${card} isn't banned`]);
+  return rndrsp(["That card isn't banned", `Oh lucky you, ${name} isn't banned`]);
 }
 
 export function banlist(options) {

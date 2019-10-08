@@ -1,13 +1,13 @@
-import {cleantext} from './common';
+import {cleantext} from '../common';
 import { RichEmbed } from 'discord.js';
-const {tierlist, decks, tribes} = require('../config/tierlist.json');
+const {tierlist, decks, tribes} = require('../../config/tierlist.json');
 
-export default (tier: string) => {
+export default (tier?: string) => {
     const embed = new RichEmbed();
 
-    if (tier && tier.toLowerCase() != "list") {
+    if (tier && tier != "list") {
         for (let key in tribes) {
-          if (cleantext(key) == cleantext(tier)) {
+          if (cleantext(key) == tier) {
             let message = `**${key} Decks:**\n`;
             tribes[key].forEach((deck: string) => {
               message += `${deck}: ${decks[deck].url}\n`;

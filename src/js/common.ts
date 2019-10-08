@@ -6,8 +6,10 @@ export function uppercase(word: string) {
   return word[0].toUpperCase() + word.slice(1);
 }
 
-export function cleantext(string: string) {
-  //strip comma and apostrophy
+/**
+ * turn lowercase, remove commas and apostrophies
+ */
+export function cleantext(string: string): string {
   return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
@@ -45,7 +47,7 @@ export function tribe_plural(tribe: string) {
 class RandomResponse {
   sr: any = {}; // stored responses
 
-  rndrsp = (items: any, command: any) => {
+  rndrsp = (items: any, command?: any) => {
     let sr: any = this.sr;
 
     if (items.length == 1) return items[0];
