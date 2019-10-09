@@ -3,8 +3,6 @@ import {cleantext, rndrsp} from './common';
 const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("../config/gonechaotic.json");
 
 export default function(name: string, bot: Client) {
-
-  
     let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
   
     if (name==="nakan") {

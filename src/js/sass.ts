@@ -1,11 +1,13 @@
+import {Message} from 'discord.js';
 const {rndrsp} = require('./common');
 const {sass, tags} = require('../config/sass.json');
+const {users} = require('../config/server_ids.json');
 
-export function checkSass(mentions, message) {
+export function checkSass(message: Message, mentions: string[] ) {
   let content = message.content;
 
   if (mentions.length > 0)
-    return checkMentions(mentions, content);
+    return checkMentions(message, mentions);
 
   if (content.match(/indefinitely/)) {
     return "No, the ability only lasts until the end of turn.";
@@ -23,11 +25,12 @@ export function checkSass(mentions, message) {
 
   if (content.match(/(stack\?|cumulative.*?\?)/i)) {
     const myreg = new RegExp("((elementproof|(water|fire|air|earth)(proof|[ ][0-9x]+)|intimidate(\s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(\s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?", "i");
-    if (content.match(myreg)) {
+    if (myreg.test(content)) {
       let match = myreg.exec(content);
+      // @ts-ignore
       return "Yes, " + match[0] + " stacks.";
     }
-    if (content.match(/hive/i)) {
+    if (new RegExp("hive", "i").test(content)) {
       return "Abilities granted by hive stack.";
     }
     return "Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift";
@@ -40,32 +43,34 @@ export function checkSass(mentions, message) {
 
 }
 
-function checkMentions(mentions, content, message) {
-  let response = "";
+function checkMentions(message: Message, mentions: string[]): string {
+  const content = message.content;
 
-  // if (mentions.indexOf('140143063711481856') !== -1) //kingmaxor4
-
-  if (mentions.indexOf('279788856285331457') !== -1) // Afjak
+  if (mentions.indexOf(users.afjak) !== -1)
     return ('Don\'t @ the Oracle. He sees everything anyway');
 
-  if (mentions.indexOf('279331985955094529') !== -1) {// ChaoticBacktalk
+  if (mentions.indexOf(users.me) !== -1) {
     if (content.match(new RegExp(/love/, "i"))) {
-      response = `❤️ you too`;
+      return `❤️ you too`;
     }
     else if (content.match(new RegExp(/did.+(king).+(make|create)/, "i"))) {
-      response = (rndrsp(tags["daddy"]));
+      return (rndrsp(tags["daddy"]));
     }
     else if (content.match(new RegExp(/who.+(made|created)/, "i"))) {
+      let displayName: string;
       try {
-        let displayname = this.guilds.get(message.guild.id).members.get("140143063711481856").displayName;
-        response = `${displayname} taught me Chaotic`;
+        // @ts-ignore
+        displayName = message.guild.members.get(users.daddy).displayName;
       }
-      catch(err) {}
+      catch(err) {
+        displayName = `<@${users.daddy}>`;
+      }
+      return `${displayName} taught me Chaotic`;
     }
     else {
-      response = (rndrsp(tags["hello"], 'hello'));
+      return (rndrsp(tags["hello"], 'hello'));
     }
   }
 
-  return response;
+  return "";
 }

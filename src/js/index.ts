@@ -2,6 +2,7 @@ export * from './common';
 
 export * from './database/rate';
 export * from './database/card';
+export {default as API} from './database/database';
 
 export * from './gameplay/goodstuff';
 export * from './gameplay/bans';
@@ -14,6 +15,7 @@ export {default as tier} from './gameplay/meta';
 export * from './menu';
 export * from './tribes';
 export * from './sass';
+export * from './insult_compliment';
 export {default as color} from './color'; 
 export {default as nowornever} from './nowornever';
 export {default as gone} from './gone';

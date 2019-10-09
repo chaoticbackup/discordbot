@@ -1,16 +1,14 @@
 import {RichEmbed, Message, Guild, Client, GuildMember} from 'discord.js';
 import { Logger } from 'winston';
-
-const API = require('./js/database/database.js').default;
-const commands = require('./config/commands.json');
-const {servers} = require('./config/server_ids.json');
-
 import {Channel, SendFunction} from './js/definitions';
 
+const {starter, joke} = require('./config/commands.json');
+const {servers, users} = require('./config/server_ids.json');
+
 import {
-    cleantext, rndrsp, isModerator, uppercase, hasPermission, is_channel,
-    rate_card,
-    full_art, find_card, display_card, read_card,
+    API,
+    can_send, cleantext, rndrsp, isModerator, hasPermission, is_channel,
+    rate_card, full_art, find_card, display_card, read_card,
     goodstuff, funstuff,
     banlist, whyban,
     checkSass,
@@ -23,7 +21,9 @@ import {
     speakers,
     color,
     faq,
-    glossary
+    glossary,
+    gone, nowornever,
+    compliment, insult
 } from './js';
 
 export default (async function(message: Message, logger: Logger) {
@@ -56,7 +56,7 @@ export default (async function(message: Message, logger: Logger) {
     }
   
     // If no commands check message content for quips
-    send(checkSass.call(bot, mentions, message));
+    send(checkSass(message, mentions));
 
   } catch (error) {
     // Log/Print error
@@ -84,7 +84,14 @@ export default (async function(message: Message, logger: Logger) {
   }
 });
 
-const command_response = async (bot: Client, mentions: string[], message: Message, send: SendFunction) => {
+/**
+ * Switch statement for commands 
+ * @param bot 
+ * @param mentions 
+ * @param message 
+ * @param send 
+ */
+const command_response = async (bot: Client, mentions: string[], message: Message, send: SendFunction): Promise<void> => {
   
   const {cmd, args, options} = parseCommand(message.content);
 
@@ -93,44 +100,32 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
   }
 
   /**
-    * Trading Server
+    * Trading Server (Limited functions)
     */
   if (message.guild && message.guild.id == servers.trading.id) {
     switch(cmd) {
       case 'card':
-        send(display_card(args, options, bot));
-        break;
+        return send(display_card(args, options, bot));
       case 'find':
-        send(find_card(args));
-        break;
+        return send(find_card(args));
       case 'rate':
-        send(rate_card(args, options, bot));
+        return send(rate_card(args, options, bot));
+      case 'help':
+        if (message.content.charAt(0) == "!") {
+          return send("Use **!commands** or **c!help**");
+        } // falls through with c!help
+      case 'commands':
+        if (args) return send(help(flatten(args)));
         break;
     }
-    // Limited functions
     return;
   }
 
   const channel = message.channel;
   const {guild, guildMember} = <{guild: Guild, guildMember: GuildMember}> await messageGuild(message);
 
-  // Function to replace the mention with the display name
-  const insertname = (resp: string, name: string) => {
-    if (guild && mentions.length > 0) {
-      let member = guild.members.get(mentions[0]);
-      if (member) {
-        name = member.displayName;
-      }
-    }
-    if (name)
-      resp = resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (match: any, p1: string) => {return p1.replace(/x/i, name)});
-    else
-      resp = resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (match: any, p1: string) => {return p1});
-    return resp;
-  }
-
   /** 
-    * International Server
+    * International Server only
     */
   if (guild && guild.id == servers.international.id) {
     switch(cmd) {
@@ -155,6 +150,183 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     * Full command set
     */
   switch(cmd) {
+  /*
+   * Gameplay
+   */
+
+    /* Cards */
+   case 'card':
+      if (message.member.roles.size === 1 && !can_send(message)) break;
+      return send(display_card(flatten(args), options, bot));
+    case 'text':
+      options.push("text");
+      return send(display_card(flatten(args), options, bot));
+    case 'stats':
+      options.push("text");
+      return send(display_card(flatten(args), options, bot));
+    case 'full':
+    case 'fullart':
+      return send(full_art(flatten(args)));
+    case 'find':
+      return send(find_card(flatten(args)));
+    case 'rate':
+      return send(rate_card(flatten(args), options, bot));
+    case 'readthecard': {
+      if (isModerator(guildMember) && hasPermission(guild, "SEND_TTS_MESSAGES")) {
+        return send(read_card(args, options), {tts: true});
+      }
+      return send(read_card(flatten(args), options));
+    }
+
+    /* Rules */
+    case 'faq':
+      return send(faq(flatten(args)));
+    case 'keyword':
+    case 'rule':
+    case 'rules':
+      if (args.length < 1)
+        return send(`Please provide a rule, or use **!rulebook** or **!guide**`);
+      return send(glossary(flatten(args)));
+
+    /* Documents */
+    case 'rulebook':
+      return send(rulebook(args, options));
+    case 'cr':
+    case 'comprehensive': 
+      return send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
+    case 'errata':
+      return send("<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>");
+    case 'guide':
+      return send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
+
+    /* Starters */
+    case 'starter':
+    case 'starters':
+      if (options.includes("metal")) 
+        return send(starter[1]);
+      else if (options.includes("king")) 
+        return send(starter[2]);
+      return send(starter[1]);
+
+    /* Banlist and Formats */
+    case 'banlist':
+      return send(banlist(guild, channel, options));
+    case 'legacy':
+    case 'standard':
+      return send(banlist(guild, channel));
+    case 'rotation':
+    case 'modern':
+      return send(banlist(guild, channel, ["modern"]));
+    case 'pauper':
+      return send(banlist(guild, channel, ["pauper"]));
+    case 'peasant':
+    case 'noble':
+      return send(banlist(guild, channel, ["nobel"]));
+
+    /* Whyban */
+    case 'ban':
+      if (mentions.length > 0) {
+        if (mentions.indexOf('279331985955094529') !== -1)
+          return send("You try to ban me? I'll ban you!");
+        return send("I'm not in charge of banning players");
+      } //fallthrough
+    case 'whyban':
+      if (mentions.length > 0)
+        return send("Player's aren't cards, silly");
+      return send(whyban(args.join(" "), guild, channel, options));
+
+    /* Goodstuff */
+    case 'strong':
+    case 'good':
+    case 'goodstuff':
+      return send(goodstuff(args));
+
+    /* Meta and Tierlist */
+    case 'tier':
+    case 'meta':
+      if (args.length == 0)
+        return send("Supply a tier or use ``!tierlist``")
+      // falls through if args
+    case 'tierlist': {
+      if (args.length > 0) return send(tier(flatten(args)));
+      if (can_send(message)) {
+        return send(new RichEmbed()
+          .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
+        )
+        .then(() => send(tier()));
+      }
+    } break;
+
+    /* Matchmaking */
+    case "lf":
+    case 'lookingfor':
+    case "match":
+      return send(lookingForMatch(cleantext(args[0]), channel, guild, guildMember));
+    case "cancel":
+      return send(cancelMatch(channel, guild, guildMember));
+    
+  /*
+   * Misc
+   */
+    case 'donate':
+      return donate(channel);
+
+    case 'collection':
+      return send("https://chaoticbackup.github.io/collection/");
+
+    case 'fun':
+    case 'funstuff':
+    case 'agame':
+      return send(funstuff());  
+
+    /* Cooking */
+    case 'menu':
+      return send(menu());
+    case 'order':
+      return send(order(flatten(args)));
+    case 'make':
+    case 'cook':
+      if (flatten(args) === "sandwitch")
+        return send(display_card("Arkanin", options, bot));
+      else
+        return send(make(flatten(args)));
+    
+    /* Tribes */
+    case 'tribe':
+      return tribe(guild, guildMember, args).then(send);
+    case 'bw':
+    case 'brainwash':
+      return brainwash(guild, guildMember, mentions).then(send);
+
+    /* Languages */
+    case 'speak':
+    case 'speaker':
+    case 'speakers':
+    case 'language':
+      return speakers(guildMember, guild, args).then(send);
+
+    /* Now or Never */
+    case 'never':
+    case 'nowornever':
+      return send(nowornever(flatten(args)));
+
+    /* Gone Chaotic (fan) */
+    case 'gone':
+    case 'fan':
+    case 'unset':
+      return send(gone(flatten(args), bot));
+
+    /* Compliments, Insults, Jokes */
+    case 'flirt':
+    case 'compliment':
+      return send(compliment(guild, mentions, args.join(" ")));
+    case 'burn':
+    case 'roast':
+    case 'insult':
+      return send(insult(guild, mentions, args.join(" ")));
+    case 'joke':
+      return send(rndrsp(joke, "joke"));
+
     /* Help */
     case 'help':
       if (message.content.charAt(0) == "!") {
@@ -167,114 +339,34 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
         else
           send(rtn_str);
         break;
+      } // falls through with c!help
+    case 'commands': {
+      if (args) return send(help(flatten(args)));
+      if (can_send(message)) {
+        send(help()).then(() => donate(channel));
       }
-      // falls through
-    case 'commands':
-      if (args) {
-        send(help(flatten(args)));
-      }
-      else {
-        if (!bot_commands(channel)) break;
-        send(help())
-        .then(() => {
-          donate(channel);
-        });
-      }
-      break;
-
+    } break;
+      
   /*
-   * Gameplay
+   * Moderation
    */
+  case 'rm':
+    if (!(parseInt(flatten(args)) > 0)) {
+      return rm(bot, message);
+    }
+    // fallthrough if number provided
+  case 'clear':
+  case 'clean':
+  case 'delete':
+    return clear(parseInt(flatten(args)), message, mentions);
 
-    /* Cards */
-   case 'card':
-      if (message.member.roles.size === 1 && !bot_commands(channel)) break;
-      send(display_card(flatten(args), options, bot));
-      break;
-    case 'text':
-      options.push("text");
-      send(display_card(flatten(args), options, bot));
-      break;
-    case 'stats':
-      options.push("text");
-      send(display_card(flatten(args), options, bot));
-      break;
-    case 'full':
-    case 'fullart':
-      send(full_art(flatten(args)));
-      break;
-    case 'find':
-      send(find_card(flatten(args)));
-      break;
-    case 'rate':
-      send(rate_card(flatten(args), options, bot));
-      break;
+  /* Hard reset bot */
+  case 'haxxor':
+    return haxxor(message, bot);
 
-    /* Rules */
-    case 'faq':
-      send(faq(flatten(args)));
-      break;
-    case 'keyword':
-    case 'rule':
-    case 'rules':
-      if (args.length < 1)
-        send(`Please provide a rule, or use **!rulebook** or **!guide**`);
-      else
-        send(glossary(flatten(args)));
-      break;
-
-    /* Documents */
-    case 'rulebook':
-      send(rulebook(args, options))
-      break;
-    case 'comprehensive': 
-    case 'cr':
-      send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
-      break;
-    case 'errata':
-      send("<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>");
-      break;
-    case 'guide':
-      send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
-      break;
-
-    /* Starters */
-    case 'starter':
-    case 'starters':
-      if (options.includes("metal")) send(commands["starter"][1]);
-      else if (options.includes("king")) send(commands["starter"][2]);
-      else send(commands["starter"][1]);
-      break;
-
-    /* Banlist and Formats */
-
-    /* Meta and Tierlist */
-    case 'tier':
-    case 'meta':
-      if (args.length == 0) {
-        send("Supply a tier or use ``!tierlist``")
-        break;
-      }
-    case 'tierlist':
-      if (args.length > 0) {
-        if (!bot_commands(channel)) break;
-        send(new RichEmbed()
-          .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
-        )
-        .then(() => {
-          send(tier());
-        });
-      }
-      else {
-        send(tier(flatten(args)));
-      }
-      break;
-
-    default:
-      break;
+  // Not a recognized command
+  default: break;
   }
-
-  return;
 }
 
 /*
@@ -286,25 +378,12 @@ function flatten(args: string[]): string {
   return cleantext(args.join(" "));
 }
 
-function mainserver(guild: Guild | null): boolean {
-  if (!guild) return false;
-  return (guild.id == servers.main.id);
-}
-
 function donate(channel: Channel) {
   channel.send(
     new RichEmbed()
       .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
       .setTitle("Donate")
   );
-}
-
-function bot_commands(channel: Channel, msg?: string): boolean {
-  if (is_channel("main", channel, "bot_commands")) {
-    channel.send(msg || "To be curtious to other conversations, ask me in <#387805334657433600> :)");
-    return false;
-  }
-  return true;
 }
 
 function help(str?: string) {
@@ -379,3 +458,48 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
 
   return {guild: guild, guildMember: guildMember};
 };
+
+function rm(bot: Client, message: Message) {
+  let lstmsg = bot.user.lastMessage;
+  if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
+  if (message.deletable) message.delete(); // delete user msg
+}
+
+function clear(amount: number, message: Message, mentions: string[] = []): void {
+  if (isModerator(message.member) && hasPermission(message.guild, "MANAGE_MESSAGES")) {
+    if (amount <= 25) {
+      if (mentions.length > 0) {
+        message.channel.fetchMessages()
+        .then(messages => {
+          let b_messages = messages.filter(m =>
+            mentions.includes(m.author.id)
+          );
+          if (b_messages.size > 0)
+            message.channel.bulkDelete(b_messages);
+            message.delete();
+        });
+      }
+      else {
+        message.channel.bulkDelete(amount + 1);
+      }
+    }
+    else {
+      // only delete the clear command
+      message.channel.send("Enter a number less than 20");
+      message.delete();
+    }
+  }
+}
+
+function haxxor(message: Message, bot: Client): void {
+  if (message.member.id === users.daddy
+    || (message.guild && message.guild.id === servers.main.id && isModerator(message.member))
+  ) {
+    message.channel.send('Resetting...');
+    API.rebuild()
+    .then(() => bot.destroy())
+    .catch((err) => {
+      message.channel.send(err.message);
+    });
+  }
+}
