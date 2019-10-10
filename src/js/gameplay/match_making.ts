@@ -5,9 +5,14 @@ const {servers} = require("../../config/server_ids.json");
 
 const types = ["untap_match", "tts_match"];
 
+function canMatch(guild: Guild, channel: Channel): boolean {
+    if (!(guild && hasPermission(guild, "MANAGE_ROLES"))) return false;
+    if (guild.id === servers.main.id && channel.id !== servers.main.channels.match_making) return false;
+    return true;
+}
+
 export function lookingForMatch(type: string, channel: Channel, guild: Guild, member: GuildMember) {
-    if (!(guild && hasPermission(guild, "MANAGE_ROLES"))) return;
-    if (guild.id === servers.main.id && channel.id !== servers.main.match_making) return;
+    if (!canMatch(guild, channel)) return;
 
     if (!type) type = "untap";
     else if (types.indexOf(type) === -1) {
@@ -23,8 +28,7 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
 }
 
 export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {
-    if (!(guild && hasPermission(guild, "MANAGE_ROLES"))) return;
-    if (guild.id === servers.main.id && channel.id !== servers.main.match_making) return;
+    if (!canMatch(guild, channel)) return;
 
     types.forEach((t) => {
         let role = guild.roles.find((role: Role) => role.name===t);
