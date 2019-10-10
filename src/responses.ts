@@ -263,7 +263,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     case "lf":
     case 'lookingfor':
     case "match":
-      return send(lookingForMatch(cleantext(args[0]), channel, guild, guildMember));
+      return send(lookingForMatch(args[0], channel, guild, guildMember));
     case "cancel":
       return send(cancelMatch(channel, guild, guildMember));
     
@@ -463,7 +463,8 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
 
 function rm(bot: Client, message: Message) {
   let lstmsg = bot.user.lastMessage;
-  if (lstmsg && lstmsg.deletable) lstmsg.delete(); // lstmsg.deletable
+  // console.log(lstmsg.deletable, message.deletable);
+  if (lstmsg && lstmsg.deletable) lstmsg.delete();
   if (message.deletable) message.delete(); // delete user msg
 }
 

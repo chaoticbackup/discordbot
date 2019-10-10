@@ -9,7 +9,8 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
     if (!(guild && hasPermission(guild, "MANAGE_ROLES"))) return;
     if (guild.id === servers.main.id && channel.id !== servers.main.match_making) return;
 
-    if (types.indexOf(type) === -1) {
+    if (!type) type = "untap";
+    else if (types.indexOf(type) === -1) {
         type = "untap";
     }
 
