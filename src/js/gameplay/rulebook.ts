@@ -1,5 +1,10 @@
-export function rulebook(args, options) {
-  const {languages, rulebook} = require('../config/commands.json');
+const {languages, rulebook} = require('../../config/commands.json');
+
+function rule_url(url: string) {
+  return ("https://drive.google.com/file/d/" + url + "/view");
+}
+
+export default function(args: string[], options: string[]) {
 
   let message = "";
   if (options.includes("list")) {
@@ -15,16 +20,10 @@ export function rulebook(args, options) {
     return message;
   }
 
-  function rule_url(url) {
-    return ("https://drive.google.com/file/d/" + url + "/view");
-  }
-
   // Default is English AU
-  if (!args) {
+  if (args.length === 0) {
     return rule_url(rulebook["EN"]["AU"]);
   }
-
-  args = args.split(' ');
 
   let lang = args[0].toUpperCase();
   if (rulebook.hasOwnProperty(lang)) {

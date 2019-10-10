@@ -47,6 +47,7 @@
     "@babel/plugin-transform-runtime": "^7.6.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.6.0",
+    "@types/fs-extra": "^8.0.0",
     "@types/lokijs": "^1.5.2",
     "@types/node": "^12.7.5",
     "babel-eslint": "^10.0.3",

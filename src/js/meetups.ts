@@ -127,7 +127,7 @@ const rmSpecialChars = (text: string): string => {
  * // !region <regionName> <join|leave>
  * // !region <regionName> <add|remove> <@guildMember>
  */
-export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<String> => {
+export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<string> => {
     const moderator = Boolean(user.roles.find(role => role.name == "lord emperor"));
 
     const regionList = async (): Promise<string> => {
