@@ -57,23 +57,22 @@ export function is_channel(guild: string, channel: Channel, name: string): boole
 /* Overloaded */
 export function can_send(message: Message, msg?: string): boolean;
 export function can_send(guild: Guild, channel: Channel, msg?: string): boolean;
-export function can_send(arg1: any, ...rest: any): boolean {
-  let guild: Guild;
-  let channel: Channel;
-  let msg: string;
+export function can_send<A extends Message | Guild, B extends Channel | undefined>
+(arg1: A, arg2: B, msg?: string): boolean {
+  let guild: Guild | undefined;
+  let channel: Channel | undefined;
 
   if (arg1 instanceof Message) {
     guild = arg1.guild;
     channel = arg1.channel;
-    msg = rest;
   }
   else {
-    guild = arg1;
-    channel = rest[0];
-    msg = rest[1] || null;
+    guild = (arg1 instanceof Guild) ? arg1 : undefined;
+    channel = (arg2 as Channel) ? arg2 : undefined;
   }
 
   if (!guild) return true;
+  if (!channel) return false;
   if (guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
     channel.send(msg || "To be curtious to other conversations, ask me in <#387805334657433600> :)");
     return false;

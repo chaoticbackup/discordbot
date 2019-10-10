@@ -157,7 +157,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
 
     /* Cards */
    case 'card':
-      if (message.member.roles.size === 1 && !can_send(message)) break;
+      if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
       return send(display_card(flatten(args), options, bot));
     case 'text':
       options.push("text");
@@ -437,7 +437,7 @@ function parseCommand(content: string):
   let cmd = result.split(" ")[0].toLowerCase().trim();
 
   let options: string[] = [];
-  result = result.replace(/(?:--|—)([^\s]+)/g, (match: any, p1: string) => {
+  result = result.replace(/(?:--|—)([^\s]+)/g, (_match: any, p1: string) => {
     options.push(p1); return "";
   });
 
