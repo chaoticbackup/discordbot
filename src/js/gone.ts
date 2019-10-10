@@ -5,6 +5,8 @@ const {GoneChaotic, Gone2Chaotic, GoneChaotic3} = require("../config/gonechaotic
 export default function(name: string, bot: Client) {
     let merge = Object.assign({}, GoneChaotic, Gone2Chaotic, GoneChaotic3);
   
+    name = cleantext(name);
+    
     if (name==="nakan") {
       let line = ""
         + "88" + bot.emojis.find(emoji => emoji.name==="Courage").toString() + " "

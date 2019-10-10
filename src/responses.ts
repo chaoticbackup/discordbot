@@ -375,7 +375,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
 
 // Takes the arg list and turns it into cleaned text
 function flatten(args: string[]): string {
-  return cleantext(args.join(" "));
+  return (args.join(" ")).toLowerCase();
 }
 
 function donate(channel: Channel) {

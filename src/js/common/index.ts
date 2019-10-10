@@ -20,7 +20,7 @@ export function cleantext(string: string): string {
 /**
  * escapes parenthasis
  */
-export function escape_text(text: string) {
+export function escape_text(text: string): string {
   return text
     .replace(/\(|\)/g, (match) => {return ("\\"+match)})
     .replace(/’/g, '\'');

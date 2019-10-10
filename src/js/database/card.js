@@ -1,5 +1,5 @@
 import {RichEmbed} from 'discord.js';
-import {rndrsp, cleantext, escape_text} from '../common';
+import {rndrsp, escape_text} from '../common';
 const API = require('./database.js').default;
 
 export function full_art(name) {
@@ -82,7 +82,7 @@ function card_local(name, genCounter) {
   }
 
   for (var key in cards) {
-    if (cleantext(key).indexOf(name) === 0) {
+    if ((key).toLowerCase().indexOf(name) === 0) {
       return `${GenericCounter(cards[key], genCounter)}`;
     }
   }

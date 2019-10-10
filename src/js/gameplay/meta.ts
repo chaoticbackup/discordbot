@@ -28,12 +28,12 @@ export default (tier?: string) => {
         else return "That is not a tier";
     }
     else {
-       for (let tier in tierlist) {
+       for (let key in tierlist) {
            let message = "";
-           tierlist[tier].forEach((deck: string) => {
+           tierlist[key].forEach((deck: string) => {
                message += `${deck}: ${decks[deck].url}\n`;
            });
-           embed.addField(tier, message, true);
+           embed.addField(key, message, true);
        };
     }
 

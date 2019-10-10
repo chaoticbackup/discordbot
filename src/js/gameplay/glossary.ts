@@ -4,7 +4,7 @@ const glossary = require('../../config/glossary');
 export default function(rule: string) {
 
     for (var key in glossary) {
-        if (cleantext(key).indexOf(rule) === 0)
+        if (cleantext(key).indexOf(cleantext(rule)) === 0)
             return `*${key}*:\n${glossary[key]}`;
     }
   

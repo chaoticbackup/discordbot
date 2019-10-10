@@ -17,6 +17,8 @@ const _menu = () => {
 
 const _make = (item: string) => {
   if (!item) return 'My skillet is ready';
+  item = cleantext(item);
+
   for (let key in make) {
     if (cleantext(key).indexOf(item) === 0) {
       return `${make[key]}`;
@@ -27,6 +29,8 @@ const _make = (item: string) => {
 
 const _order = (item: string) => {
   if (!item) return 'What would you like to order?';
+  item = cleantext(item);
+  
   for (let key in order) {
     if (cleantext(key).indexOf(item) === 0) {
       return `${order[key]}`;
