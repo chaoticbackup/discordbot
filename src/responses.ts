@@ -234,7 +234,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     case 'whyban':
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
-      return send(whyban(args.join(" "), guild, channel, options));
+      return send(whyban(flatten(args), guild, channel, options));
 
     /* Goodstuff */
     case 'strong':
@@ -354,9 +354,8 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
    * Moderation
    */
   case 'rm':
-    if (!(parseInt(flatten(args)) > 0)) {
+    if (isNaN(parseInt(flatten(args))))
       return rm(bot, message);
-    }
     // fallthrough if number provided
   case 'clear':
   case 'clean':
@@ -437,11 +436,11 @@ function parseCommand(content: string):
   let cmd = result.split(" ")[0].toLowerCase().trim();
 
   let options: string[] = [];
-  result = result.replace(/(?:--|—)([^\s]+)/g, (_match: any, p1: string) => {
+  result = result.replace(/(?:--|—)([^\s]+)([\s]*)/g, (_match: any, p1: string) => {
     options.push(p1); return "";
   });
 
-  let args = result.split("\n")[0].trim().split(" ").splice(1);
+  let args = result.split("\n")[0].split(" ").splice(1);
 
   return {cmd, args, options};
 }

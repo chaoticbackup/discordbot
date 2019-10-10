@@ -74,9 +74,9 @@ export function whyban(
       }
     }
     // Check if its even banned
-    for (let key in bans) {
+    for (let key in reasons) {
       if (cleantext(key).indexOf(cardName) === 0) {
-        return `${name} doesn't have a more detailed explaination`;
+        return `${key} doesn't have a more detailed explaination`;
       }
     }
     return `${name} isn't banned`;
