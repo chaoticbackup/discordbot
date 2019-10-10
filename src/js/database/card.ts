@@ -1,8 +1,8 @@
-import {RichEmbed} from 'discord.js';
+import { RichEmbed, Client, Emoji } from 'discord.js';
 import {rndrsp, escape_text} from '../common';
-const API = require('./database.js').default;
+import API from './database';
 
-export function full_art(name) {
+export function full_art(name: string) {
   let results = API.find_cards_by_name(name);
 
   if (results.length > 0) {
@@ -24,7 +24,7 @@ export function full_art(name) {
 /*
 Find a list of names based on input
 */
-export function find_card(name) {
+export function find_card(name: string) {
   if (API.data === "local") {
     return "Database offline; unable to find cards by name";
   }
@@ -43,7 +43,7 @@ export function find_card(name) {
   if (results.length > 15) response = "First 15 matches:\n";
   results.splice(0, 15).forEach((card) => {
     response += card.gsx$name.replace(
-      new RegExp(escape_text(name), 'i'), (match) => {
+      new RegExp(escape_text(name), 'i'), (match: string) => {
         return `**${match}**`;
       }
     ) + '\n';
@@ -55,7 +55,7 @@ export function find_card(name) {
 /*
   Returning a card
 */
-export function display_card(name, options, bot) {
+export function display_card(name: string, options: string[], bot: Client) {
   if (API.data === "local") {
     return card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
   }
@@ -65,10 +65,10 @@ export function display_card(name, options, bot) {
 }
 
 /* If database hadn't been set up */
-function card_local(name, genCounter) {
+function card_local(name: string, genCounter: Emoji) {
   var cards = require('../config/cards.json');
 
-  function GenericCounter(cardtext, genCounter) {
+  function GenericCounter(cardtext: string, genCounter: Emoji) {
     if (genCounter) {
       return cardtext.replace(/:GenCounter:/gi, genCounter.toString());
     }
@@ -91,7 +91,7 @@ function card_local(name, genCounter) {
 }
 
 /* Return a card to send */
-function card_db(name, options, bot) {
+function card_db(name: string, options: string[], bot: Client) {
   let results = API.find_cards_by_name(name, options);
 
   if (results.length <= 0) {
@@ -107,14 +107,14 @@ function card_db(name, options, bot) {
   }
 }
 
-function addNewLine(entry, isText) {
+function addNewLine(entry: string, isText: boolean) {
   if (entry != "") {
     entry += (isText) ? "\n\n" : "\n";
   }
   return entry;
 }
 
-function Response(card, options, bot) {
+function Response(card: any, options: string[], bot: Client) {
     // If not a released card
   if (!card.gsx$set) {
     if (card.gsx$image == '') {
@@ -202,7 +202,7 @@ function Response(card, options, bot) {
   }
 
   // Element icons
-  const el = ((input) => {
+  const el = ((input: string) => {
     switch (input) {
       case "Fire":
         return bot.emojis.find(emoji => emoji.name=="Fire");
@@ -217,7 +217,7 @@ function Response(card, options, bot) {
     }
   });
 
-  const el_inactive = input => {
+  const el_inactive = (input: string) => {
     switch (input) {
       case "Fire":
         return bot.emojis.find(emoji => emoji.name=="fireinactive");
@@ -233,7 +233,7 @@ function Response(card, options, bot) {
   }
 
   // Discipline icons
-  const dis = ((input) => {
+  const dis = ((input: string) => {
     switch (input) {
       case "Courage":
         return bot.emojis.find(emoji => emoji.name=="Courage");
@@ -248,7 +248,7 @@ function Response(card, options, bot) {
     }
   });
 
-  const tribe = (input) => {
+  const tribe = (input: string) => {
     switch (input) {
       case "OverWorld":
         return bot.emojis.find(emoji => emoji.name==="OW");
@@ -283,7 +283,7 @@ function Response(card, options, bot) {
     }
   })();
 
-  const Ability = (cardtext) => {
+  const Ability = (cardtext: string) => {
 
     cardtext = cardtext.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
       return el(p1) + match;
@@ -365,7 +365,7 @@ function Response(card, options, bot) {
   }
 
   const MugicAbility = () => {
-    let amount = 0;
+    let amount: any = 0;
     let resp = "";
 
     if (card.gsx$type == "Creatures") {
@@ -387,7 +387,7 @@ function Response(card, options, bot) {
 
   const Initiative = () => {
 
-    let init = card.gsx$initiative;
+    let init: string = card.gsx$initiative;
 
     init = init.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
       return el(p1) + match;
@@ -454,7 +454,7 @@ function Response(card, options, bot) {
   return CardMsg;
 }
 
-export function read_card(name, options) {
+export function read_card(name: string, options: string[]) {
   let results = API.find_cards_by_name(name);
 
   if (results.length > 0) {

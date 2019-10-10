@@ -103,19 +103,20 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     * Trading Server (Limited functions)
     */
   if (message.guild && message.guild.id == servers.trading.id) {
+    let text = flatten(args);
     switch(cmd) {
       case 'card':
-        return send(display_card(args, options, bot));
+        return send(display_card(text, options, bot));
       case 'find':
-        return send(find_card(args));
+        return send(find_card(text));
       case 'rate':
-        return send(rate_card(args, options, bot));
+        return send(rate_card(text, options, bot));
       case 'help':
         if (message.content.charAt(0) == "!") {
           return send("Use **!commands** or **c!help**");
         } // falls through with c!help
       case 'commands':
-        if (args) return send(help(flatten(args)));
+        if (text) return send(help(text));
         break;
     }
     return;
@@ -173,7 +174,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return send(rate_card(flatten(args), options, bot));
     case 'readthecard': {
       if (isModerator(guildMember) && hasPermission(guild, "SEND_TTS_MESSAGES")) {
-        return send(read_card(args, options), {tts: true});
+        return send(read_card(flatten(args), options), {tts: true});
       }
       return send(read_card(flatten(args), options));
     }
@@ -253,7 +254,8 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
         return send(new RichEmbed()
           .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
         )
-        .then(() => send(tier()));
+        .then(() => send(tier()))
+        .then(() => send(donate()));
       }
     } break;
 
@@ -269,7 +271,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
    * Misc
    */
     case 'donate':
-      return donate(channel);
+      return send(donate());
 
     case 'collection':
       return send("https://chaoticbackup.github.io/collection/");
@@ -341,9 +343,10 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
         break;
       } // falls through with c!help
     case 'commands': {
-      if (args) return send(help(flatten(args)));
+      if (args.length > 0) return send(help(flatten(args)));
       if (can_send(message)) {
-        send(help()).then(() => donate(channel));
+        return send(help())
+        .then(() => send(donate()));
       }
     } break;
       
@@ -378,8 +381,8 @@ function flatten(args: string[]): string {
   return (args.join(" ")).toLowerCase();
 }
 
-function donate(channel: Channel) {
-  channel.send(
+function donate(): RichEmbed {
+  return(
     new RichEmbed()
       .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
       .setTitle("Donate")
