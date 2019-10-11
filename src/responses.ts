@@ -117,7 +117,9 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
         } // falls through with c!help
       case 'commands':
         if (text) return send(help(text));
-        break;
+        return send("```md\n!card <card>\n!find <text>\n" +
+          "!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>\n```"
+        );
     }
     return;
   }
@@ -184,7 +186,6 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return send(faq(flatten(args)));
     case 'keyword':
     case 'rule':
-    case 'rules':
       if (args.length < 1)
         return send(`Please provide a rule, or use **!rulebook** or **!guide**`);
       return send(glossary(flatten(args)));
@@ -237,6 +238,8 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return send(whyban(flatten(args), guild, channel, options));
 
     /* Goodstuff */
+    case 'best': 
+      return send("Use !good"); // TODO deprecate
     case 'strong':
     case 'good':
     case 'goodstuff':
