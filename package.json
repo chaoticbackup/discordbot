@@ -5,8 +5,8 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "NODE_ENV=development babel-watch src/bot.js --extensions \".js,.ts\"",
-    "prebuild": "if [ -f err.log ]; then mv err.log err.old.log; fi",
-    "build": "babel src -d build --copy-files --extensions \".js,.ts\"",
+    "prebuild": "if [ -f err.log ]; then mv err.log err.old.log; fi; if [ -d src/db ]; then rm -rf src/db; fi",
+    "build": "babel src -d build --copy-files --ignore **src/db/* --extensions \".js,.ts\"",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
     "rebuild": "npm run stop; npm run forever",
     "stop": "forever stop build/bot.js",
