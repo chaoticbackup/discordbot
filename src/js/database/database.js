@@ -1,11 +1,15 @@
 import loki from 'lokijs';
 import fs from 'fs-extra';
 import path from 'path';
-import {escape_text} from "../common";
+import {escape_text, db_path} from "../common";
 const fetch =  require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
-const db_path = path.resolve(__dirname, '../../db/cards');
+const db_folder = path.resolve(db_path, "cards");
+// ensure cards folder exists
+if (!fs.existsSync(db_folder)) {
+  fs.mkdirSync(db_folder);
+}
 
 class API {
   instance = null;
@@ -24,7 +28,7 @@ class API {
 
   rebuild() {
     return new Promise((resolve, reject) => {
-      fs.remove(db_path, (error) => {
+      fs.remove(db_folder, (error) => {
         if (error) return reject(error);
 
         this.instance = new API();
@@ -46,33 +50,22 @@ class API {
     let filterdb = new loki("filter.db");
     this.filter = filterdb.addCollection('filter');
 
+    // Setup urls
     let urls = {};
-    this.getSpreadsheet(this.path(API.base_spreadsheet), (data) => {
-      // If no data, use the json file
-      if (data == null) {
-        console.error("Falling back on local database");
-        this.data = "local";
-        return;
-      }
-      // Setup urls
-      data.forEach((d) => {
-        if (!urls[d.gsx$type.$t]) urls[d.gsx$type.$t] = {};
-        urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
-      });
-      this.urls = urls;
+    let data = require('../../config/meta_spreadsheet.json');
+    data.forEach((d) => {
+      if (!urls[d.gsx$type.$t]) urls[d.gsx$type.$t] = {};
+      urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
+    });
+    this.urls = urls;
 
-      if (!fs.existsSync(db_path)) {
-        fs.mkdirSync(db_path);
-      }
-
-      // setup database from spreadsheet data
-      this.db = new loki(path.resolve(db_path, `chaotic_${this.format}.db`), {
-        autosave: true,
-        autoload: true,
-        autoloadCallback: this.databaseInitialize.bind(this),
-        autosaveInterval: 4000,
-        adapter: new LokiFSStructuredAdapter()
-      });
+    // setup database from spreadsheet data
+    this.db = new loki(path.resolve(db_folder, `chaotic_${this.format}.db`), {
+      autosave: true,
+      autoload: true,
+      autoloadCallback: this.databaseInitialize.bind(this),
+      autosaveInterval: 4000,
+      adapter: new LokiFSStructuredAdapter()
     });
   }
 
@@ -80,6 +73,11 @@ class API {
     fetch(spreadsheet)
     .then((response) => {
       return response.json();
+    })
+    .catch(err => {
+      console.error("Falling back on local database");
+      this.data = "local";
+      callback(null);
     })
     .then((json) => {
       return callback(json.feed.entry);
@@ -129,7 +127,7 @@ class API {
   }
 
   async getSpreadsheetData(spreadsheet, type, callback) {
-    this.getSpreadsheet(spreadsheet, (data) => {
+    return this.getSpreadsheet(spreadsheet, (data) => {
       callback(data.map((item) => {
         let temp = {};
         delete item.content;

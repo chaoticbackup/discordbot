@@ -1,6 +1,6 @@
 import {Guild} from 'discord.js';
 import { rndrsp } from './common';
-const {compliment, insult} = require('../config/commands.json');
+const commands = require('../config/commands.json');
 
 export {
     c as compliment,
@@ -17,7 +17,7 @@ function i(guild: Guild, mentions: string[], name: string): string {
     return flirt_dirt("insult", guild, mentions, name);
 }
 
-function flirt_dirt(command: string, guild: Guild, mentions: string[], name: string): string {
+function flirt_dirt(command: "compliment" | "insult", guild: Guild, mentions: string[], name: string): string {
     // Function to replace the mention with the display name
     const insertname = (resp: string) => {
         if (guild && mentions.length > 0) {
@@ -33,5 +33,6 @@ function flirt_dirt(command: string, guild: Guild, mentions: string[], name: str
         return resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (_match: any, p1: string) => {return p1;});
     }
 
-    return insertname(rndrsp(compliment, command));
+
+    return insertname(rndrsp(commands[command], command));
 }

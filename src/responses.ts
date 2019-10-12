@@ -466,7 +466,6 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
 
 function rm(bot: Client, message: Message) {
   let lstmsg = bot.user.lastMessage;
-  // console.log(lstmsg.deletable, message.deletable);
   if (lstmsg && lstmsg.deletable) lstmsg.delete();
   if (message.deletable) message.delete(); // delete user msg
 }

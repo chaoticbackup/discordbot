@@ -1,4 +1,4 @@
-const API = require('./js/database/database.js').default;
+import API from './js';
 const express = require('express');
 const app = express();
 const port = 3000;

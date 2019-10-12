@@ -6,6 +6,11 @@ const {servers} = require('../../config/server_ids.json');
 
 export const rndrsp = (new RandomResponse()).rndrsp;
 
+export {default as db_path} from './db_path';
+
+/**
+ * turns the first letter uppercase
+ */
 export function uppercase(word: string) {
   return word[0].toUpperCase() + word.slice(1);
 }

@@ -1,6 +1,7 @@
 import { Guild, GuildMember, Snowflake } from 'discord.js';
 import loki, { Collection } from 'lokijs';
-import {asyncForEach} from './common';
+import path from 'path';
+import {asyncForEach, db_path} from './common';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Region {
@@ -31,7 +32,7 @@ class MeetupsAPI {
     }
     
     constructor() {
-        this.db = new loki(`${__dirname}/../db/regions.db`, {
+        this.db = new loki(path.resolve(db_path, `regions.db`), {
             autosave: true,
             autoload: true,
             autoloadCallback: this.databaseInitialize.bind(this),

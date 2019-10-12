@@ -1,9 +1,8 @@
 require('@babel/polyfill/noConflict');
 import winston from 'winston';
 import Discord from 'discord.js';
-import fs from 'fs-extra';
 
-import API from './api';
+import CardAPI from './api';
 import responses from './responses';
 import ForumPosts from './forum';
 
@@ -22,13 +21,8 @@ const logger = winston.createLogger({
 	]
 });
 
-// Create DB folder if not exists
-if (!fs.existsSync(__dirname + "/db")) {
-	fs.mkdirSync(__dirname + "/db");
-}
-
 // Initialize the API
-API(logger);
+CardAPI(logger);
 
 // Initialize Discord Bot
 const bot = new Discord.Client();
