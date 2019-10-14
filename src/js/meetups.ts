@@ -160,7 +160,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
         return Promise.resolve(msg);
     }
 
-    if (args[0] == '') {
+    if (args.length === 0 || args[0] == '') {
         return MeetupsDB.getRegionList().then(regionList);
     }
         
