@@ -326,6 +326,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     case 'speaker':
     case 'speakers':
     case 'language':
+    case 'languages':
       return speakers(guildMember, guild, args).then(send);
 
     /* Now or Never */
