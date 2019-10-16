@@ -26,15 +26,17 @@ import {
     compliment, insult
 } from './js';
 
+const development = (process.env.NODE_ENV == "development");
+
 export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
   if (message.author.bot) return;
-  // Dev Server Only
-  if (process.env.NODE_ENV == "development" && (!message.guild || (message.guild.id != servers.develop.id))) return;
+  // No Dev on Main Server
+  if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
 
   //@ts-ignore
   const bot: Client = this; 
-  const content: String = message.content;
+  let content: string = message.content;
   const mentions: string[] = Array.from(message.mentions.users.keys());
   
   // Prevents sending an empty message
@@ -44,6 +46,11 @@ export default (async function(message: Message, logger: Logger) {
   }
 
   try {
+    // Dev command prefix
+    if (development && content.substring(0, 2) == "d!") {
+      return command_response(bot, mentions, message, send);
+    }
+    
     // If the message is a command
     if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
       return command_response(bot, mentions, message, send);
@@ -93,7 +100,14 @@ export default (async function(message: Message, logger: Logger) {
  */
 const command_response = async (bot: Client, mentions: string[], message: Message, send: SendFunction): Promise<void> => {
   
-  const {cmd, args, options} = parseCommand(message.content);
+  let content: string = message.content;
+
+  // strip prefix from test commands
+  if (development && content.charAt(0) == "d") {
+    content = content.slice(1);
+  }
+
+  const {cmd, args, options} = parseCommand(content);
 
   if (options.includes("help")) {
     return send(help(cmd));
@@ -112,7 +126,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       case 'rate':
         return send(rate_card(text, options, bot));
       case 'help':
-        if (message.content.charAt(0) == "!") {
+        if (content.charAt(0) == "!") {
           return send("Use **!commands** or **c!help**");
         } // falls through with c!help
       case 'commands':
@@ -159,13 +173,16 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
 
     /* Cards */
    case 'card':
+   case 'cards':
       if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
-      return send(display_card(flatten(args), options, bot));
+      return flatten(args).split(";").forEach((name: string) => {
+        send(display_card(name.trim(), options, bot));
+      });
     case 'text':
       options.push("text");
       return send(display_card(flatten(args), options, bot));
     case 'stats':
-      options.push("text");
+      options.push("stats");
       return send(display_card(flatten(args), options, bot));
     case 'full':
     case 'fullart':
@@ -334,7 +351,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
 
     /* Help */
     case 'help':
-      if (message.content.charAt(0) == "!") {
+      if (content.charAt(0) == "!") {
         let rtn_str = "Use **!commands** or **c!help**";
         if (!is_channel("main", channel, "bot_commands")) {
           rtn_str += " in <#387805334657433600>";
@@ -427,7 +444,7 @@ function help(str?: string) {
 function parseCommand(content: string): 
  {cmd: string, args: string[], options: string[]} 
 {
-  let result: any;
+  let result: string;
 
   if (content.charAt(1) == "!") {
     result = (content.substring(2));
@@ -436,14 +453,15 @@ function parseCommand(content: string):
     result = (content.substring(1));
   }
  
-  let cmd = result.split(" ")[0].toLowerCase().trim();
+  let cmd = result.split(" ")[0].toLowerCase();
 
   let options: string[] = [];
-  result = result.replace(/(?:--|—)([^\s]+)([\s]*)/g, (_match: any, p1: string) => {
+  result = result.replace(/(?:--|—)([^\s]+)([ \t]*)/g, (_match: any, p1: string) => {
     options.push(p1); return "";
   });
 
-  let args = result.split("\n")[0].split(" ").splice(1);
+  // only looks at first line for input
+  let args = result.split("\n")[0].trim().split(" ").splice(1);
 
   return {cmd, args, options};
 }

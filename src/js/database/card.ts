@@ -57,7 +57,7 @@ export function find_card(name: string) {
 */
 export function display_card(name: string, options: string[], bot: Client) {
   if (API.data === "local") {
-    return card_local(name, bot.emojis.find(emoji => emoji.name==="GenCounter"));
+    return card_local(name, bot);
   }
   else {
     return card_db(name, options, bot);
@@ -65,8 +65,9 @@ export function display_card(name: string, options: string[], bot: Client) {
 }
 
 /* If database hadn't been set up */
-function card_local(name: string, genCounter: Emoji) {
-  var cards = require('../config/cards.json');
+function card_local(name: string, bot: Client) {
+  let cards = require('../config/cards.json');
+  let genCounter = bot.emojis.find(emoji => emoji.name==="GenCounter");
 
   function GenericCounter(cardtext: string, genCounter: Emoji) {
     if (genCounter) {
