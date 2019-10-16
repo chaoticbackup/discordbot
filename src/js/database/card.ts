@@ -99,6 +99,10 @@ function card_db(name: string, options: string[], bot: Client) {
     return "That's not a valid card name";
   }
 
+  if (options.includes("text") || options.includes("details")) {
+    options.push("detailed");
+  }
+
   if (name.length > 0) {
     return Response(results[0], options, bot);
   }
@@ -119,7 +123,10 @@ function Response(card: any, options: string[], bot: Client) {
     // If not a released card
   if (!card.gsx$set) {
     if (card.gsx$image == '') {
-      if (options.includes("text") || options.includes("stats")) return "No card data available";
+      if (options.includes("detailed") || options.includes("stats")) {
+        return "No card data available";
+      }
+      
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(API.color(card))
@@ -130,7 +137,7 @@ function Response(card: any, options: string[], bot: Client) {
   }
 
   // Formatting to include an image or just the card text
-  const textOnly = Boolean(options.indexOf("text") != -1);
+  const textOnly = Boolean(options.includes("detailed"));
 
   const Disciplines = (modstat = 0) => {
     let line = ""
@@ -455,7 +462,7 @@ function Response(card: any, options: string[], bot: Client) {
   return CardMsg;
 }
 
-export function read_card(name: string, options: string[]) {
+export function ability_only(name: string, options: string[]) {
   let results = API.find_cards_by_name(name);
 
   if (results.length > 0) {

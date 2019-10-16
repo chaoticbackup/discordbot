@@ -8,7 +8,7 @@ const {servers, users} = require('./config/server_ids.json');
 import {
     API,
     can_send, cleantext, rndrsp, isModerator, hasPermission, is_channel,
-    rate_card, full_art, find_card, display_card, read_card,
+    rate_card, full_art, find_card, display_card, ability_only,
     goodstuff, funstuff,
     banlist, whyban,
     checkSass,
@@ -178,6 +178,8 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return flatten(args).split(";").forEach((name: string) => {
         send(display_card(name.trim(), options, bot));
       });
+    case 'ability':
+      return send(ability_only(flatten(args), options));
     case 'text':
       options.push("text");
       return send(display_card(flatten(args), options, bot));
@@ -193,10 +195,9 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return send(rate_card(flatten(args), options, bot));
     case 'readthecard': {
       if (isModerator(guildMember) && hasPermission(guild, "SEND_TTS_MESSAGES")) {
-        return send(read_card(flatten(args), options), {tts: true});
+        return send(ability_only(flatten(args), options), {tts: true});
       }
-      return send(read_card(flatten(args), options));
-    }
+    } return;
 
     /* Rules */
     case 'faq':
@@ -353,7 +354,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     case 'help':
       if (content.charAt(0) == "!") {
         let rtn_str = "Use **!commands** or **c!help**";
-        if (!is_channel("main", channel, "bot_commands")) {
+        if (guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
           rtn_str += " in <#387805334657433600>";
         }
         if (bot.users.get('159985870458322944')) //meebot
