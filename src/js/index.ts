@@ -19,5 +19,5 @@ export * from './insult_compliment';
 export {default as color} from './color'; 
 export {default as nowornever} from './nowornever';
 export {default as gone} from './gone';
-export {default as meetup} from './meetups';
+export {default as meetup} from './regions';
 export {default as speakers} from './speakers';
