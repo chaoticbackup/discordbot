@@ -1,27 +1,31 @@
 {
     "start": {"cmd":"I try to be helpful, but can be sassy. I may also pop in to add a quip ;)```md", "short":""},
     "card": {
-        "cmd": "!card <card>", 
-        "short": "returns a card", 
-        "long": "Provide a card name and I'll return the card's text as well as its picture. Without a card, I'll return a random card\nYou can provide ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after the =)."
+        "cmd": "!card <card-name|>", 
+        "short": "returns a card; has many options", 
+        "long": "Provide a card name and I'll return the card's text as well as its picture.\nWithout a card, I'll return a random card\nYou can use ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after the =).\nAdditional options are ``--min``, ``--max``, ``--detailed``, ``--text``, ``--stats``"
+    },
+    "stats": {
+        "cmd": "!stats <card-name|>",
+        "short": "returns the stats of a card"
     },
     "text": {
-        "cmd": "!text <card>",
+        "cmd": "!text <card-name|>",
         "short": "returns the text and attributes of a card without the image"
     },
     "fullart": {
-        "cmd":"!full, !fullart <card>", 
+        "cmd":"!full, !fullart <card-name>", 
         "short":"", 
         "long":"You provide a card name, I'll look for its full art."
     },
     "find": {
-        "cmd":"!find <text>", 
-        "short":"returns card names that contain that text", 
+        "cmd":"!find <input>", 
+        "short":"returns card names that contain supplied input", 
         "long":"I'll search for card names that contain the letters you provide."
     },
     "banlist": {
-        "cmd":"!banlist\n!ban, !whyban <card>",
-        "short":"banlist and banned cards",
+        "cmd":"!banlist\n!ban, !whyban <card-name>",
+        "short":"", 
         "long":"Ask me about the banlist or why a card is/should be banned.\nThere are different formats with their own banlists."
     },
     "tierlist": {
@@ -47,7 +51,7 @@
         "short":"the important documents"
     },
     "rulebook": {
-        "cmd":"!rulebook", 
+        "cmd":"!rulebook <language|> <set|>", 
         "long": "You can ask for a different different rulebooks. If you don't tell me otherwise, I'll return the equivalent of ``!rulebook EN AU``\nFor a list of all rulebooks I have, type ``!rulebook --list``"
     },
     "faq": {
