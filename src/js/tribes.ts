@@ -6,15 +6,18 @@ const tribes = ["Danian", "Mipedian", "M'arrillian", "OverWorld", "UnderWorld", 
 export const tribe = async (
     guild: Guild, member: GuildMember, args: string[]
     ): Promise<string> => {
-
-        if (!guild) Promise.resolve("You can only use this command in a guild with roles");
-
-        let param = args[0].toLowerCase();
-
-        if (param == '' || param == 'show') return displayTribe(guild, member);
+        if (!guild) {
+            return Promise.resolve("You can only use this command in a guild with roles");
+        }
 
         if (!hasPermission(guild, "MANAGE_ROLES")) {
             return Promise.resolve("I need the ``MANAGE_ROLES`` permission");
+        }
+
+        let param;
+
+        if (args.length == 0 || args[0] == '' || (param = args[0].toLowerCase()) == "show") {
+            return displayTribe(guild, member)
         }
 
         if (args.length < 2) {
@@ -32,7 +35,7 @@ export const tribe = async (
             });
         }
 
-        return Promise.resolve("");
+        return Promise.resolve("!tribe <join|leave> <tribeName>");
 }
 
 export const brainwash = async (

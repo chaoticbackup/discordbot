@@ -15,7 +15,7 @@ function fs() {
 
 function gs(args: string[]) {
 
-  if (!args || args[0] == '') {
+  if (args.length == 0 || args[0] == '') {
     return "Due to the length, I can't send all the cards.\nPlease specify a card type/tribe";
   }
 

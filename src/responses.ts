@@ -355,7 +355,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     case 'help':
       if (content.charAt(0) == "!") {
         let rtn_str = "Use **!commands** or **c!help**";
-        if (guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
+        if (guild && guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
           rtn_str += " in <#387805334657433600>";
         }
         if (bot.users.get('159985870458322944')) //meebot

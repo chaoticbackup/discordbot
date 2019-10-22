@@ -32,7 +32,8 @@
 		"Tartarek, Psi Overloader"
 	],
 	"pauper": [
-		"Dror'niq"
+		"Dror'niq",
+		"Casters' Warsong"
 	],
 	"noble": [
 		"Aer'dak",
@@ -62,6 +63,7 @@
 		"Bi-Mowercycle": ["This card is very meta warping, there are very few Battlegear that can go on support creatures and Bi-Mowercycle is the most consistently good. Bi-Mowercycle allows you to give any Creature Range and Swift without hindering their Battlegear choice. This results in it appearing in a lot of decks. Which means you almost always need to include Defender, since defenders aren't ubiquitous, this hinders deck variety."],
 		"Bodal, Flamedrill Researcher": ["Mostly due to his Expend Earth ability. There are a couple scary things but the most potent is an combo involving Olkiex, Scout's Monocular, Lam'inkal, and Destructozooka (and Droskin).\nEquip Bodal with Destructazooka. When you fluidmorph, Olkiex triggers to flip Destructazooka down, use Scout's Monocular to flip it back up and give Bodal earth. This will let you bring back a Battlegear every attack."],
 		"Cadence Clash": ["Cadence Clash became a necessary card. To play a Mugic, you'd have to run two Cadence Clashes just to counter your opponent's two Cadence Clashes. When using Clash on a Clash, it returns to their hand, so now they can Clash the next Mugic you play too."],
+		"Casters' Warsong": ["In pauper, the availability of this Mugic gives advantage to the prevailant \"burn\" archtypes and can be a filler card in already good decks with a Muge (eg. Danian compost)."],
 		"Deadwater Devastation": ["It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options."],
 		"Dror'niq": [
 		    "His first ability allows him to deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nAlthough his second ability takes 4 Mugic Counters, he can use it while unengaged and it essentially provides Recklessness 10 for 30-50 damage in a typical combat.",

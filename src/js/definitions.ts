@@ -1,6 +1,6 @@
-import Discord, {RichEmbed, StringResolvable, MessageOptions, Attachment} from 'discord.js';
+import {Channel as DiscordChannel, RichEmbed, StringResolvable, MessageOptions, Attachment} from 'discord.js';
 
-export interface Channel extends Discord.Channel {
+export interface Channel extends DiscordChannel {
     send(arg0: string | RichEmbed, arg1?:any): Promise<any>;
   };
   
