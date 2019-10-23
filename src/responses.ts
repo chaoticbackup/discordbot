@@ -144,7 +144,11 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
   /** 
     * International Server only
     */
-  if (guild && guild.id == servers.international.id) {
+  if (guild && (
+      guild.id == servers.international.id
+      || guild.id == servers.unchained.id
+    )
+  ) {
     switch(cmd) {
       case 'colour':
       case 'color':

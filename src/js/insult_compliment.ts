@@ -24,7 +24,6 @@ function flirt_dirt(command: "compliment" | "insult", guild: Guild, mentions: st
             let member = guild.members.get(mentions[0]);
             if (member) name = member.displayName;
         }
-        console.log(name, Boolean(name));
         if (name) {
             return resp.replace(/\{\{.+?\|(x*(.*?)|(.*?)x*)\}\}/ig, (_match: any, p1: string) => {
                 return p1.replace(/x/i, name);

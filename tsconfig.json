@@ -21,6 +21,9 @@
       "isolatedModules": true,
       // Import non-ES modules as default imports.
       "esModuleInterop": true,
+      // Allow default imports from modules with no default export (e.g 
+      // import React from "React")
+      "allowSyntheticDefaultImports": true,
       // Include modules imported with .json extension.
       "resolveJsonModule": true,
       // List of folders to include type definitions from.
