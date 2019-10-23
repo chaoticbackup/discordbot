@@ -81,7 +81,7 @@
     },
     "language": {
         "cmd":"!language <join|leave|list> <language>",
-        "short":"Connect with other players of the same language!"
+        "short":"Connect with other players of the same language!",
         "long":"Here are the languages you can join:\n French"
     },
     "end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``.", "short":""},
