@@ -32,7 +32,7 @@ export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // No Dev on Main Server
-  if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
+  // if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
 
   //@ts-ignore
   const bot: Client = this; 
@@ -69,8 +69,8 @@ export default (async function(message: Message, logger: Logger) {
     // Log/Print error
     logger.error(error.stack);
   
-    // Ignore problems while in development
-    if (process.env.NODE_ENV == "development") return;
+    // Don't log problems while in development
+    if (development) return;
   
     // Send Error to Bot Testing Server
     let server_source = message.guild ? message.guild.name : "DM";

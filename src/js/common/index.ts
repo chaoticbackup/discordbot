@@ -16,14 +16,14 @@ export function uppercase(word: string) {
 }
 
 /**
- * turn lowercase, remove commas and apostrophies
+ * turn lowercase, remove commas and apostrophes
  */
 export function cleantext(string: string): string {
   return string.toLowerCase().replace(/[,\'’\-]/g, '');
 }
 
 /**
- * escapes parenthasis
+ * escapes parenthesis
  */
 export function escape_text(text: string): string {
   return text
@@ -56,7 +56,7 @@ export const hasPermission = (guild: Guild, permission: PermissionResolvable): b
 
 export function is_channel(guild: string, channel: Channel, name: string): boolean {
   if (!(guild && servers[guild])) return false;
-  if (servers[guild].hasOwnProperty("channels")) return false;
+  if (!servers[guild].hasOwnProperty("channels")) return false;
   return channel.id == servers[guild].channels[name];
 }
 
@@ -80,7 +80,7 @@ export function can_send<A extends Message | Guild, B extends Channel | undefine
   if (!guild) return true;
   if (!channel) return false;
   if (guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
-    channel.send(msg || "To be curtious to other conversations, ask me in <#387805334657433600> :)");
+    channel.send(msg || `To be courteous to other conversations, ask me in <#${servers.main.channels.bot_commands}> :)`);
     return false;
   }
   return true;

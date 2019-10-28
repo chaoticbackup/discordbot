@@ -1,15 +1,17 @@
 import {Message} from 'discord.js';
-import {rndrsp, is_channel} from './common';
+import {rndrsp, can_send, is_channel} from './common';
 const {sass, tags} = require('../config/sass.json');
-const {users} = require('../config/server_ids.json');
+const {users, servers} = require('../config/server_ids.json');
 
 export function checkSass(message: Message, mentions: string[] ) {
 
   if (mentions.length > 0)
     return checkMentions(message, mentions);
 
-  if (is_channel("main", message.channel, "bot_commands")) 
-    return "Please use another channel for conversations";
+  if (message.guild && message.guild.id === servers.main.id
+    && is_channel("main", message.channel, "bot_commands")) {
+    return "Please use another channel for conversations"
+  }
 
   const content = message.content;
 

@@ -49,7 +49,7 @@ bot.on('disconnect', (CloseEvent) => {
 	});
 });
 
-// Respones
+// Responses
 bot.on('message', msg => responses.call(bot, msg, logger));
 
 // Ban Spam
