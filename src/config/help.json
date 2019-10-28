@@ -25,7 +25,7 @@
     },
     "banlist": {
         "cmd":"!banlist\n!ban, !whyban <card-name>",
-        "short":"", 
+        "short":"You can use `!format` for the list of formats", 
         "long":"Ask me about the banlist or why a card is/should be banned.\nThere are different formats with their own banlists."
     },
     "tierlist": {

@@ -23,7 +23,7 @@ import {
     faq,
     glossary,
     gone, nowornever,
-    compliment, insult
+    compliment, insult, formats
 } from './js';
 
 const development = (process.env.NODE_ENV == "development");
@@ -32,7 +32,7 @@ export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
   if (message.author.bot) return;
   // No Dev on Main Server
-  // if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
+  if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
 
   //@ts-ignore
   const bot: Client = this; 
@@ -258,6 +258,8 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
       return send(whyban(flatten(args), guild, channel, options));
+    case 'formats':
+      return send(formats());
 
     /* Goodstuff */
     case 'best': 
@@ -283,6 +285,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
         .then(() => send(donate()));
       }
     } break;
+
 
     /* Matchmaking */
     case "lf":

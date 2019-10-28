@@ -1,10 +1,24 @@
 import { Channel } from '../definitions';
 import { Guild } from 'discord.js';
-import { rndrsp, cleantext, is_channel, can_send } from './../common';
+import { rndrsp, cleantext, is_channel, can_send, uppercase } from './../common';
 
 const {servers} = require("../../config/server_ids.json");
-const {bans, watchlist, detailed, reasons,
-  jokes, pauper, noble, modern} = require('../../config/bans.json');
+const ban_lists = require('../../config/bans.json');
+const {formats, watchlist, detailed, reasons, jokes} = ban_lists;
+
+export {
+  f as formats
+}
+
+function f() {
+  let message = "Community Formats:\n";
+
+  for (let format in formats) {
+    message += `**${uppercase(format)}**: ${formats[format]}\n`;
+  }
+
+  return message;
+}
 
 export function banlist(guild: Guild, channel: Channel, options: string[] = []) {
   
@@ -19,12 +33,16 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
 
   let message = "";
 
-  // Standard
-  if (options.length == 0) {
-    message = "**Community Ban List:**\n=====";
-    bans.forEach((key: string) => {
+  const list_bans = (_format: string) => {
+    message = `**${uppercase(_format)}:**\n${formats[_format]}\n==Banned Cards==`;
+    ban_lists[_format].forEach((key: string) => {
       message += "\n" + key;
     });
+  }
+
+  // Standard
+  if (options.length == 0 || options.includes("standard")) {
+    list_bans("standard");
     message += "\n=====\n**Watchlist:** (not banned)"
     watchlist.forEach((key: string) => {
       message += "\n" + key;
@@ -33,24 +51,18 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
   }
   // Pauper
   else if (options.includes("pauper")) {
-    message = "**Pauper (Commons and Uncommons)**\nBanned Cards:\n====="
-    pauper.forEach((key: string) => {
-      message += "\n" + key;
-    });
+    list_bans("pauper");
   }
   // Nobel
   else if (options.includes("nobel")) {
-    message = "**Noble (Commons, Uncommons, and Rares)**\nBanned Cards:\n====="
-    noble.forEach((key: string) => {
-      message += "\n" + key;
-    });
+    list_bans("nobel");
   }
   // Modern
   else if (options.includes("modern")) {
-    message = "**Modern**\n(M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards)\nBanned Cards:\n=====";
-    modern.forEach((key: string) => {
-      message += "\n" + key;
-    });
+    list_bans("modern");
+  }
+  else {
+    message = "Not a supported format";
   }
 
   return message;
@@ -63,7 +75,7 @@ export function whyban(
 
   let cardName = cleantext(name);
 
-  // Check if long explaination requested
+  // Check if long explanation requested
   if (options.includes("detailed")) {
     if (guild && channel && guild.id == servers.main.id) {
       if (!can_send(guild, channel)) return "";
@@ -76,7 +88,7 @@ export function whyban(
     // Check if its even banned
     for (let key in reasons) {
       if (cleantext(key).indexOf(cardName) === 0) {
-        return `${key} doesn't have a more detailed explaination`;
+        return `${key} doesn't have a more detailed explanation`;
       }
     }
     return `${name} isn't banned`;
