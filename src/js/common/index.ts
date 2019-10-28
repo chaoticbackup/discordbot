@@ -55,7 +55,8 @@ export const hasPermission = (guild: Guild, permission: PermissionResolvable): b
 }
 
 export function is_channel(guild: string, channel: Channel, name: string): boolean {
-  if (!(name && guild && servers[guild])) return false;
+  if (!(guild && servers[guild])) return false;
+  if (servers[guild].hasOwnProperty("channels")) return false;
   return channel.id == servers[guild].channels[name];
 }
 

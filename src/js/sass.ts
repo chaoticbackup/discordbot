@@ -1,15 +1,19 @@
 import {Message} from 'discord.js';
-const {rndrsp} = require('./common');
+import {rndrsp, is_channel} from './common';
 const {sass, tags} = require('../config/sass.json');
 const {users} = require('../config/server_ids.json');
 
 export function checkSass(message: Message, mentions: string[] ) {
-  let content = message.content;
 
   if (mentions.length > 0)
     return checkMentions(message, mentions);
 
-  if (content.match(/indefinitely/)) {
+  if (is_channel("main", message.channel, "bot_commands")) 
+    return "Please use another channel for conversations";
+
+  const content = message.content;
+
+  if (content.match(/indefinitely.*?\?/)) {
     return "No, the ability only lasts until the end of turn.";
   }
 

@@ -63,7 +63,7 @@ export default (async function(message: Message, logger: Logger) {
     }
   
     // If no commands check message content for quips
-    send(checkSass(message, mentions));
+    return send(checkSass(message, mentions));
 
   } catch (error) {
     // Log/Print error
