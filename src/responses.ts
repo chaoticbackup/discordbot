@@ -245,7 +245,7 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
       return send(banlist(guild, channel, ["pauper"]));
     case 'peasant':
     case 'noble':
-      return send(banlist(guild, channel, ["nobel"]));
+      return send(banlist(guild, channel, ["noble"]));
 
     /* Whyban */
     case 'ban':

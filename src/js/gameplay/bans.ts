@@ -53,9 +53,9 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
   else if (options.includes("pauper")) {
     list_bans("pauper");
   }
-  // Nobel
-  else if (options.includes("nobel")) {
-    list_bans("nobel");
+  // Noble
+  else if (options.includes("noble")) {
+    list_bans("noble");
   }
   // Modern
   else if (options.includes("modern")) {
