@@ -8,7 +8,7 @@
 		"highlander": "Creatures, Mugic, and Battlegear are all treated as Unique",
 		"legacy": "No banned cards"
 	},
-	"bans": [
+	"standard": [
 		"Aer'dak",
 		"AZAIA Mindscrying Chamber",
 		"Bi-Mowercycle",
