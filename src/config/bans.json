@@ -1,12 +1,12 @@
 {
 	"formats": {
-		"standard": "All sets and rarities allowed",
+		"standard": "All cards with banlist",
 		"pauper": "Commons and Uncommons only",
 		"noble": "Commons, Uncommons, and Rares only",
 		"modern": "M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards",
 		"limited": "3 Creatures, Battlegear, Mugic, 5 Locations, 10 Attacks",
 		"highlander": "Creatures, Mugic, and Battlegear are all treated as Unique",
-		"legacy": "All cards allowed"
+		"legacy": "No banned cards"
 	},
 	"bans": [
 		"Aer'dak",
