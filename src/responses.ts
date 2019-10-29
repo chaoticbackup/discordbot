@@ -235,9 +235,10 @@ const command_response = async (bot: Client, mentions: string[], message: Messag
     /* Banlist and Formats */
     case 'banlist':
       return send(banlist(guild, channel, options));
-    case 'legacy':
     case 'standard':
       return send(banlist(guild, channel));
+    case 'legacy':
+      return send(banlist(guild, channel, ["legacy"]));
     case 'rotation':
     case 'modern':
       return send(banlist(guild, channel, ["modern"]));

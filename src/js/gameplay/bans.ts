@@ -49,6 +49,10 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
     });
     message += "\n=====\nYou can find out why a card was banned with \"!whyban *card name*\"";
   }
+  // Legacy
+  else if (options.includes("legacy")) {
+    message = "**Legacy**\nNo cards banned";
+  }
   // Pauper
   else if (options.includes("pauper")) {
     list_bans("pauper");
