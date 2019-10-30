@@ -50,7 +50,7 @@ export default (async function(message: Message, logger: Logger) {
     }
 
     // Prevents double bot responses on production servers
-    if (development && !message.guild || (message.guild.id != servers.develop.id)) {
+    if (development && (!message.guild || message.guild.id != servers.develop.id)) {
       return;
     }
     
