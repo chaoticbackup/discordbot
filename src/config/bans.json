@@ -5,7 +5,7 @@
 		"noble": "Commons, Uncommons, and Rares only",
 		"modern": "M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards",
 		"limited": "3 Creatures, Battlegear, Mugic, 5 Locations, 10 Attacks",
-		"highlander": "Creatures, Mugic, and Battlegear are all treated as Unique",
+		"highlander": "All Creatures, Mugic, and Battlegear are treated as Unique",
 		"legacy": "No banned cards"
 	},
 	"standard": [

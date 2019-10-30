@@ -31,8 +31,6 @@ const development = (process.env.NODE_ENV == "development");
 export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
   if (message.author.bot) return;
-  // No Dev on Main Server
-  if (development && (!message.guild || (message.guild.id == servers.main.id))) return;
 
   //@ts-ignore
   const bot: Client = this; 
@@ -45,10 +43,15 @@ export default (async function(message: Message, logger: Logger) {
     return Promise.resolve();
   }
 
-  try {
+  return new Promise(() => {
     // Dev command prefix
     if (development && content.substring(0, 2) == "d!") {
       return command_response(bot, mentions, message, send);
+    }
+
+    // Prevents double bot responses on production servers
+    if (development && !message.guild || (message.guild.id != servers.develop.id)) {
+      return;
     }
     
     // If the message is a command
@@ -64,20 +67,20 @@ export default (async function(message: Message, logger: Logger) {
   
     // If no commands check message content for quips
     return send(checkSass(message, mentions));
-
-  } catch (error) {
+  })
+  .catch((error) => {
     // Log/Print error
     logger.error(error.stack);
-  
+      
     // Don't log problems while in development
     if (development) return;
-  
+
     // Send Error to Bot Testing Server
     let server_source = message.guild ? message.guild.name : "DM";
 
     (<Channel> bot.channels.get(servers.develop.channels.errors))
     .send(server_source + ":\n"+ error.stack);
-  
+
     // Ignore programmer errors (keep running)
     if (
       error.name === "ReferenceError" ||
@@ -85,10 +88,11 @@ export default (async function(message: Message, logger: Logger) {
     ) {
       return;
     }
-  
+
     // restart bot if unknown error
     bot.destroy();
-  }
+  });
+  
 });
 
 /**
