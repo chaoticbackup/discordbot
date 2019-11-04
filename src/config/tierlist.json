@@ -26,6 +26,7 @@
 			"Aszil Compost",
 			"Blazvatan",
 			"Gorram Malvadine",
+			"Muge's Dagger", 
 			"Ursis Dagger",
 			"Kraken"
 		],
@@ -71,6 +72,7 @@
 			"LankerTosh",
 			"Lankerek",
 			"Lyssta Mixed",
+			"Muge's Dagger",
 			"No Healing",
 			"Ocean Man",
 			"Swimming Team",
@@ -212,6 +214,10 @@
 		"MaxWreck": {
 		    "counters": [],
 		    "url": "http://chaoticbackup.forumotion.com/t1566-maxwreck"
+		},
+		"Muge's Dagger": {
+			"counters": [],
+			"url": "http://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan"
 		},
 		"No Healing": {
 		    "counters": [],
