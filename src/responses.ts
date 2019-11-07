@@ -7,7 +7,7 @@ const {servers, users} = require('./config/server_ids.json');
 
 import {
     API,
-    can_send, cleantext, rndrsp, isModerator, hasPermission, is_channel,
+    can_send, rndrsp, isModerator, hasPermission, is_channel,
     rate_card, full_art, find_card, display_card, ability_only,
     goodstuff, funstuff,
     banlist, whyban,
@@ -46,7 +46,7 @@ export default (async function(message: Message, logger: Logger) {
   return new Promise(() => {
     // Dev command prefix
     if (development && content.substring(0, 2) == "d!") {
-      return command_response(bot, mentions, message, send);
+      return command_response(bot, message, mentions, send);
     }
 
     // Prevents double bot responses on production servers
@@ -56,17 +56,15 @@ export default (async function(message: Message, logger: Logger) {
     
     // If the message is a command
     if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
-      return command_response(bot, mentions, message, send);
+      return command_response(bot, message, mentions, send);
     }
 
-    // #ban
-    if (content.substring(0, 4).toLowerCase() == "#ban") {
-      let name = (content.charAt(5) == " ") ? content.substring(6) : content.substring(5);
-      return send(whyban(name));
-    }
-  
     // If no commands check message content for quips
-    return send(checkSass(message, mentions));
+    if (message.guild && 
+      (message.guild.id == servers.main.id || message.guild.id == servers.develop.id)
+    ) {
+      return checkSass(bot, message, mentions, send);
+    } 
   })
   .catch((error) => {
     // Log/Print error
@@ -102,7 +100,7 @@ export default (async function(message: Message, logger: Logger) {
  * @param message 
  * @param send 
  */
-const command_response = async (bot: Client, mentions: string[], message: Message, send: SendFunction): Promise<void> => {
+const command_response = async (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> => {
   
   let content: string = message.content;
 
