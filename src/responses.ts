@@ -263,6 +263,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(whyban(flatten(args), guild, channel, options));
     case 'formats':
       return send(formats());
+    // Joke
+    case 'banhammer':
+      return send(display_card("The Doomhammer", [], bot));
 
     /* Goodstuff */
     case 'best': 
