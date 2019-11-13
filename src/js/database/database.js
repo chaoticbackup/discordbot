@@ -74,7 +74,7 @@ class API {
     .then((response) => {
       return response.json();
     })
-    .catch(err => {
+    .catch(() => {
       console.error("Falling back on local database");
       this.data = "local";
       callback(null);

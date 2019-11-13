@@ -8,7 +8,7 @@ const {servers, users} = require('./config/server_ids.json');
 import {
     API,
     can_send, rndrsp, isModerator, hasPermission, is_channel,
-    rate_card, full_art, find_card, display_card, ability_only,
+    rate_card, full_art, find_card, display_card,
     goodstuff, funstuff,
     banlist, whyban,
     checkSass,
@@ -185,7 +185,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         send(display_card(name.trim(), options, bot));
       });
     case 'ability':
-      return send(ability_only(flatten(args), options));
+      options.push("ability");
+      return send(display_card(flatten(args), options, bot));
     case 'text':
       options.push("text");
       return send(display_card(flatten(args), options, bot));
@@ -201,7 +202,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(rate_card(flatten(args), options, bot));
     case 'readthecard': {
       if (isModerator(guildMember) && hasPermission(guild, "SEND_TTS_MESSAGES")) {
-        return send(ability_only(flatten(args), options), {tts: true});
+        options.push("ability");
+        return send(display_card(flatten(args), options, bot), {tts: true});
       }
     } return;
 
