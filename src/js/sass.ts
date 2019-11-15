@@ -25,7 +25,7 @@ export async function checkSass(bot: Client, message: Message, mentions: string[
       cardRgx = new RegExp(cardRgx);
       let result;
       while ((result = cardRgx.exec(content)) !== null) {
-        let card = display_card(result[1].toLowerCase(), [], bot);
+        let card = display_card(result[1].toLowerCase(), ["text"], bot);
         if (card instanceof RichEmbed) send(card);
       }
       return;
