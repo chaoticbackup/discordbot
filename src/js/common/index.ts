@@ -60,11 +60,13 @@ export function is_channel(guild: string, channel: Channel, name: string): boole
   return channel.id == servers[guild].channels[name];
 }
 
-/* Overloaded */
-export function can_send(message: Message, msg?: string): boolean;
-export function can_send(guild: Guild, channel: Channel, msg?: string): boolean;
+/**
+ * @param msg Supply a custom message to send, or `null` if no message is to be sent
+ */
+export function can_send(message: Message, msg?: string | null): boolean;
+export function can_send(guild: Guild, channel: Channel, msg?: string | null): boolean;
 export function can_send<A extends Message | Guild, B extends Channel | undefined>
-(arg1: A, arg2: B, msg?: string): boolean {
+(arg1: A, arg2: B, msg?: string | null): boolean {
   let guild: Guild | undefined;
   let channel: Channel | undefined;
 
@@ -79,8 +81,11 @@ export function can_send<A extends Message | Guild, B extends Channel | undefine
 
   if (!guild) return true;
   if (!channel) return false;
-  if (guild.id == servers.main.id && !is_channel("main", channel, "bot_commands")) {
-    channel.send(msg || `To be courteous to other conversations, ask me in <#${servers.main.channels.bot_commands}> :)`);
+  console.log(guild.id);
+  if (guild.id === servers.main.id && !is_channel("main", channel, "bot_commands")) {
+    if (msg !== null) {
+      channel.send(msg || `To be courteous to other conversations, ask me in <#${servers.main.channels.bot_commands}> :)`);
+    }
     return false;
   }
   return true;

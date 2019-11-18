@@ -1,6 +1,6 @@
 import {Channel} from '../definitions';
 import {Guild, GuildMember, Role} from 'discord.js'
-import { hasPermission, is_channel } from '../common';
+import { hasPermission } from '../common';
 const {servers} = require("../../config/server_ids.json");
 
 const types = ["untap_match", "tts_match"];

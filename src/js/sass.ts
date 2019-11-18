@@ -70,11 +70,14 @@ export async function checkSass(bot: Client, message: Message, mentions: string[
 
 }
 
-function checkMentions(message: Message, mentions: string[]): string {
+function checkMentions(message: Message, mentions: string[]): string | undefined {
   const content = message.content;
 
-  if (mentions.indexOf(users.afjak) !== -1)
+  if (mentions.indexOf(users.afjak) !== -1) {
+    if (message.channel.id === servers.main.ruling_questions) return;
     return ('Don\'t @ the Oracle. He sees everything anyway');
+  }
+    
 
   if (mentions.indexOf(users.me) !== -1) {
     if (content.match(new RegExp(/love/, "i"))) {
@@ -99,5 +102,5 @@ function checkMentions(message: Message, mentions: string[]): string {
     }
   }
 
-  return "";
+  return;
 }
