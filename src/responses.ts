@@ -7,6 +7,7 @@ const {servers, users} = require('./config/server_ids.json');
 
 import {
     API,
+    help,
     can_send, rndrsp, isModerator, hasPermission, is_channel,
     rate_card, full_art, find_card, display_card,
     goodstuff, funstuff,
@@ -27,6 +28,11 @@ import {
 } from './js';
 
 const development = (process.env.NODE_ENV == "development");
+
+// Servers which have access to the full command list
+const full_command_servers = [
+  servers.main.id, servers.develop.id, servers.international.id, servers.unchained.id
+];
 
 export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
@@ -116,35 +122,53 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   }
 
   /**
-    * Trading Server (Limited functions)
+    * Public Servers (Limited functions)
     */
-  if (message.guild && message.guild.id == servers.trading.id) {
-    let text = flatten(args);
+  if (message.guild && !full_command_servers.includes(message.guild.id)) {
     switch(cmd) {
       case 'card':
-        return send(display_card(text, options, bot));
+      case 'cards':
+        return flatten(args).split(";").forEach((name: string) => {
+          send(display_card(name.trim(), options, bot));
+        });
+      case 'ability':
+        options.push("ability");
+        return send(display_card(flatten(args), options, bot));
+      case 'text':
+        options.push("text");
+        return send(display_card(flatten(args), options, bot));
+      case 'stats':
+        options.push("stats");
+        return send(display_card(flatten(args), options, bot));
+      case 'full':
+      case 'fullart':
+        return send(full_art(flatten(args)));
       case 'find':
-        return send(find_card(text));
+        return send(find_card(flatten(args)));
       case 'rate':
-        return send(rate_card(text, options, bot));
+        return send(rate_card(flatten(args), options, bot));
       case 'help':
         if (content.charAt(0) == "!") {
           return send("Use **!commands** or **c!help**");
         } // falls through with c!help
       case 'commands':
+        let text = flatten(args);
         if (text) return send(help(text));
-        return send("```md\n!card <card>\n!find <text>\n" +
-          "!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>\n```"
-        );
+        const keys = ["start", "card", "stats", "text", "fullart", "find", "rate", "end"];
+        let msg = help("", keys)
+          + "\nFor my full feature set check out the main server https://discord.gg/chaotic";
+        return send(msg)
+          .then(() => send(donate()));
+      default:
+        return;
     }
-    return;
   }
 
   const channel = message.channel;
   const {guild, guildMember} = <{guild: Guild, guildMember: GuildMember}> await messageGuild(message);
 
   /** 
-    * International Server only
+    * Special Server exclusive commands
     */
   if (guild && (
       guild.id == servers.international.id
@@ -423,34 +447,6 @@ function donate(): RichEmbed {
       .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
       .setTitle("Donate")
   );
-}
-
-function help(str?: string) {
-  const help = require('./config/help.json');
-  let message = "";
-
-  if (str) {
-    // detailed help
-    if (help.hasOwnProperty(str) && help[str].long) {
-      message = "```md\n"
-        + help[str].cmd + "\n```"
-        + help[str].long;
-    }
-    else {
-      message = "Sorry, I don't have additional information about that command";
-    }
-  }
-  else {
-    // help list
-    for (var key in help) {
-      if (help[key].hasOwnProperty("short")) {
-        message += "\n" + help[key].cmd + "\n";
-        if (help[key].short !== "")
-          message += "> (" + help[key].short + ")\n";
-      }
-    }
-  }
-  return message;
 }
 
 /**

@@ -1,4 +1,5 @@
 export * from './common';
+export {default as help} from './help';
 
 export * from './database/rate';
 export * from './database/card';
