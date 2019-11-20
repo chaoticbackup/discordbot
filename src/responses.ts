@@ -291,7 +291,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(formats());
     // Joke
     case 'banhammer':
-      return send(display_card("The Doomhammer", [], bot));
+      return send(display_card("The Doomhammer", ["image"], bot));
 
     /* Goodstuff */
     case 'best': 
@@ -349,7 +349,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'make':
     case 'cook':
       if (flatten(args) === "sandwitch")
-        return send(display_card("Arkanin", options, bot));
+        return send(display_card("Arkanin", ["image"], bot));
       else
         return send(make(flatten(args)));
     
