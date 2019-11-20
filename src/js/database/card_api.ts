@@ -51,8 +51,8 @@ function Response(card: any, options: string[], bot: Client) {
     return new RichEmbed()
     .setTitle(card.gsx$name)
     .setColor(API.color(card))
-    .setURL(API.base_image + card.gsx$name)
-    .setImage(API.base_image + card.gsx$name);
+    .setURL(API.base_image + card.gsx$image)
+    .setImage(API.base_image + card.gsx$image);
   }
 
   // Ability only
