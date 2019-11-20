@@ -289,9 +289,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(whyban(flatten(args), guild, channel, options));
     case 'formats':
       return send(formats());
-    // Joke
-    case 'banhammer':
-      return send(display_card("The Doomhammer", ["image"], bot));
 
     /* Goodstuff */
     case 'best': 
@@ -335,6 +332,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'collection':
       return send("https://chaoticbackup.github.io/collection/");
+
+    case 'banhammer': {
+      return send(display_card("The Doomhammer", ["image"], bot));
+    }
 
     case 'fun':
     case 'funstuff':
@@ -414,6 +415,22 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   /*
    * Moderation
    */
+  // case 'banhammer': {
+  //   if (isModerator(guildMember) && mentions.length > 1) {
+  //     message.mentions.members.forEach(member => {
+  //       const reason = args.join(" ");
+  //       if (!isModerator(member) && member.bannable) {
+  //         if (reason !== "") member.ban({reason});
+  //         else member.ban();
+  //       }
+  //       else {
+  //         send(member.displayName + "cannot be banned");
+  //       }
+  //     });
+  //   }
+  //   return send(display_card("The Doomhammer", ["image"], bot));
+  // }
+  
   case 'rm':
     if (isNaN(parseInt(flatten(args))))
       return rm(bot, message);
