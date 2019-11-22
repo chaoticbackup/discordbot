@@ -33,7 +33,7 @@ export default class ScanQuest {
         this.creatures = creatures.filter((creature) =>
             creature.gsx$avatar && creature.gsx$avatar !== ""
         );
-        this.randomTime(0.0166667, 8); // Between 1 second and 8 minutes
+        this.randomTime(0.0166667, 4); // Between 1 second and 4 minutes
     }
 
 
@@ -46,7 +46,7 @@ export default class ScanQuest {
      * sets the next iterval to send a creature
      */
     randomTime(min: number, max: number): void {
-        let interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
+        const interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
         this.timeout = setTimeout(() => {this.sendCreature()}, interval);
     }
 
@@ -71,6 +71,6 @@ export default class ScanQuest {
         // @ts-ignore bot will always be defined
         this.bot.channels.get(this.channel).send(message);
 
-        this.randomTime(4, 32);
+        this.randomTime(1, 30);
     }
 }
