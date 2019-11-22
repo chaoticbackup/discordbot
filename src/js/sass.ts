@@ -19,7 +19,9 @@ export async function checkSass(bot: Client, message: Message, mentions: string[
   }
 
   // [[cardname]]
-  if (message.channel.id !== servers.main.channels.other_games) {
+  if (message.channel.id !== servers.main.channels.other_games
+    && message.channel.id !== servers.main.channels.bot_commands
+    ) {
     let cardRgx = (/\[{2}(.*?)\]{2}/g);
     if (cardRgx.test(content)) {
       cardRgx = new RegExp(cardRgx);
