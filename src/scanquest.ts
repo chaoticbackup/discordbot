@@ -16,16 +16,16 @@ export default class ScanQuest {
     timeout: NodeJS.Timeout;
     last: number = -1;
 
-    constructor(bot: Client) {
-        this.bot = bot;
+    constructor() {
         this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
     }
 
-    start() {
+    start(bot: Client) {
+        this.bot = bot;
         // Check to see if database has been initialized
         if (!API.data) {
             // Try again in a second
-            setTimeout(() => {this.start()}, 1000);
+            setTimeout(() => {this.start(bot)}, 1000);
             return;
         }
         if (API.data === "local") return;

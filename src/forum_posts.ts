@@ -72,12 +72,12 @@ export default class ForumPosts {
     links: string[] = [];
     timeout: NodeJS.Timeout;
 
-    constructor(bot: Client) {
-        this.bot = bot;
+    constructor() {
         this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
     }
 
-    start() {
+    start(bot: Client) {
+        this.bot = bot;
         this.checkMessages();
     }
 

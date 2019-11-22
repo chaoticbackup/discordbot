@@ -3,7 +3,7 @@ import winston from 'winston';
 import Discord from 'discord.js';
 
 import responses from './responses';
-import CardAPI from './forum_api';
+import ForumAPI from './forum_api';
 import ForumPosts from './forum_posts';
 import ScanQuest from './scanquest';
 
@@ -24,9 +24,9 @@ const logger = winston.createLogger({
 
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
-const fp = new ForumPosts(bot);
-const sq = new ScanQuest(bot);
-const api = new CardAPI(logger);
+const fp = new ForumPosts();
+const sq = new ScanQuest();
+const api = new ForumAPI(logger);
 
 let main = false;
 // Disabled freatures if api.json is missing or set to false
@@ -47,8 +47,8 @@ bot.on('ready', () => {
 	bot.user.setActivity('!commands');
 
 	if (main) {
-		fp.start();
-		sq.start();
+		fp.start(bot);
+		sq.start(bot);
 	}
 
 });
