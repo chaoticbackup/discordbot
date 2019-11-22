@@ -393,24 +393,25 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Help */
     case 'help':
-      if (content.charAt(0) == "!") {
+      if (guildMember && content.charAt(0) == "!") {
         let rtn_str = "Use **!commands** or **c!help**";
-        if (!can_send(guild, channel, null)) {
-          rtn_str += " in <#387805334657433600>";
-        }
         if (bot.users.get('159985870458322944')) //meebot
           setTimeout(() => send(rtn_str), 500);
         else
           send(rtn_str);
         break;
       } // falls through with c!help
+    case 'cmd':
     case 'commands': {
       if (args.length > 0) return send(help(flatten(args)));
-      if (can_send(message)) {
-        return send(help())
-        .then(() => send(donate()));
+      if (guildMember) {
+        guildMember.send(help())
+          .then(() => {guildMember.send(donate())});
+        return;
       }
-    } break;
+      return send(help())
+        .then(() => send(donate()));
+    }
       
   /*
    * Moderation
