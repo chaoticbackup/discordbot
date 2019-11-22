@@ -2,9 +2,10 @@ require('@babel/polyfill/noConflict');
 import winston from 'winston';
 import Discord from 'discord.js';
 
-import CardAPI from './api';
 import responses from './responses';
-import ForumPosts from './forum';
+import CardAPI from './forum_api';
+import ForumPosts from './forum_posts';
+import ScanQuest from './scanquest';
 
 const auth = require('./auth.json');
 const {servers} = require('./config/server_ids.json');
@@ -21,22 +22,42 @@ const logger = winston.createLogger({
 	]
 });
 
-// Initialize the API
-CardAPI(logger);
-
-// Initialize Discord Bot
+// Initialize Discord Bot and server components
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
+const sq = new ScanQuest(bot);
+const api = new CardAPI(logger);
+
+let main = false;
+// Disabled freatures if api.json is missing or set to false
+if (process.env.NODE_ENV !== "development") {
+	try {
+		const api = require('./api.json');
+		if (api != false) main = true;
+	}
+	catch (e) {	}
+}
+
+if (main) {
+	api.start();
+}
 
 bot.on('ready', () => {
 	logger.info('Logged in as: ' + bot.user);
 	bot.user.setActivity('!commands');
-	fp.checkMessages();
+
+	if (main) {
+		fp.start();
+		sq.start();
+	}
+
 });
 
 // Automatically reconnect if the bot disconnects
 let stackTrace = "";
 bot.on('disconnect', (CloseEvent) => {
+	fp.stop();
+	sq.stop();
 	logger.warn('Reconnecting, ' + CloseEvent.code);
 	bot.login(auth.token)
 	.then(() => {

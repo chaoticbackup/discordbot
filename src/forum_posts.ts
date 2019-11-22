@@ -1,13 +1,14 @@
 import { JSDOM, VirtualConsole } from "jsdom";
 import jquery from "jquery";
 import { Client, RichEmbed } from "discord.js";
+const {servers} = require('./config/server_ids.json');
 const virtualConsole = new VirtualConsole();
 virtualConsole.sendTo(console);
 
 const config = {
     "seconds": 120,
-    "default_channel": "135657678633566208",
-    "test_channel": "504052742201933827",
+    "default_channel": servers.main.channels.gen_1,
+    "test_channel": servers.develop.channels.gen,
     "forum": "http://chaoticbackup.forumotion.com",
     "expire": 10
 }
@@ -69,17 +70,26 @@ export default class ForumPosts {
     bot: Client;
     channel: string;
     links: string[] = [];
+    timeout: NodeJS.Timeout;
 
     constructor(bot: Client) {
         this.bot = bot;
         this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
     }
 
+    start() {
+        this.checkMessages();
+    }
+
+    stop() {
+        clearTimeout(this.timeout);
+    }
+
     expiredLink(id: string): boolean {
         if (this.links.includes(id)) return true;
         this.links.push(id)
         setTimeout(
-            (() => this.links.shift()).bind(this), 
+            () => {this.links.shift()}, 
             config.expire*60*1000
         );
         return false;
@@ -142,7 +152,7 @@ export default class ForumPosts {
 
         });
 
-        setTimeout(this.checkMessages.bind(this), config.seconds*1000);
+        this.timeout = setTimeout(() => {this.checkMessages()}, config.seconds*1000);
 
     }
 

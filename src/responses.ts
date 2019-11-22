@@ -291,8 +291,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(formats());
 
     /* Goodstuff */
-    case 'best': 
-      return send("Use !good"); // TODO deprecate
     case 'strong':
     case 'good':
     case 'goodstuff':
@@ -396,7 +394,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (guildMember && content.charAt(0) == "!") {
         let rtn_str = "Use **!commands** or **c!help**";
         if (bot.users.get('159985870458322944')) //meebot
-          setTimeout(() => send(rtn_str), 500);
+          setTimeout(() => {send(rtn_str)}, 500);
         else
           send(rtn_str);
         break;

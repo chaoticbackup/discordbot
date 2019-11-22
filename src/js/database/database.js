@@ -109,6 +109,7 @@ class API {
         this.mergeDB(type);
       }
     });
+    this.data = "api";
   }
 
   async setupType(type) {
@@ -140,8 +141,9 @@ class API {
     });
   }
 
-
-
+  /**
+   * Given a string of characters returns all cards that contain them
+   */
   find_card_name(text) {
     text = escape_text(text);
 
@@ -151,7 +153,9 @@ class API {
     ]}).simplesort('gsx$name').data();
   }
 
-  /* Finding cards in the database by name */
+  /**
+   *  Finds cards in the database by name 
+   */
   find_cards_by_name(name, options) {
     name = escape_text(name).replace(/,([^\s]+)/, (str, p1) => {
       return ", " + p1;

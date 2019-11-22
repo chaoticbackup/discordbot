@@ -1,4 +1,4 @@
-const API = require('./database.js').default;
+import API from './database';
 
 export function rate_card(text, options, bot) {
   let name;
