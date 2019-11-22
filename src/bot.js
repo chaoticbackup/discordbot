@@ -35,9 +35,7 @@ if (process.env.NODE_ENV !== "development") {
 		const api = require('./api.json');
 		if (api != false) main = true;
 	}
-	catch (e) {
-		bot.channels.get(servers.develop.channels.bot_commands).send(e);
-	}
+	catch (e) {	}
 }
 
 if (main) {

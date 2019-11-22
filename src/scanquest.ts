@@ -36,7 +36,6 @@ export default class ScanQuest {
         this.randomTime(0.0166667, 4); // Between 1 second and 4 minutes
     }
 
-
     stop() {
         clearTimeout(this.timeout);
     }
@@ -47,6 +46,7 @@ export default class ScanQuest {
      */
     randomTime(min: number, max: number): void {
         const interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
+        this.bot.channels.get(servers.develop.channels.bot_commands).send(interval);
         this.timeout = setTimeout(() => {this.sendCreature()}, interval);
     }
 
