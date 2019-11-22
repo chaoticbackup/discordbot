@@ -46,6 +46,7 @@ export default class ScanQuest {
      */
     randomTime(min: number, max: number): void {
         const interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
+        // @ts-ignore bot will always be defined
         this.bot.channels.get(servers.develop.channels.bot_commands).send(interval);
         this.timeout = setTimeout(() => {this.sendCreature()}, interval);
     }
@@ -71,6 +72,6 @@ export default class ScanQuest {
         // @ts-ignore bot will always be defined
         this.bot.channels.get(this.channel).send(message);
 
-        this.randomTime(1, 30);
+        this.randomTime(2, 30);
     }
 }
