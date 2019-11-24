@@ -1,4 +1,5 @@
 import { RichEmbed } from 'discord.js';
+import color from './card_color';
 import API from './database';
 
 export function full_art(name: string) {
@@ -7,7 +8,7 @@ export function full_art(name: string) {
   if (results.length > 0) {
     let card = results[0];
     if (card.gsx$splash) return new RichEmbed()
-      .setColor(API.color(card))
+      .setColor(color(card))
       .setTitle(card.gsx$name)
       .setURL(API.base_image + card.gsx$splash)
       .setImage(API.base_image + card.gsx$splash);

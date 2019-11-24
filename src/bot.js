@@ -24,8 +24,8 @@ const logger = winston.createLogger({
 
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
-const fp = new ForumPosts();
-const sq = new ScanQuest();
+const fp = new ForumPosts(bot);
+const sq = new ScanQuest(bot);
 const api = new ForumAPI(logger);
 
 let main = false;
@@ -47,8 +47,8 @@ bot.on('ready', () => {
 	bot.user.setActivity('!commands');
 
 	if (main) {
-		fp.start(bot);
-		sq.start(bot);
+		fp.start();
+		sq.start();
 	}
 
 });

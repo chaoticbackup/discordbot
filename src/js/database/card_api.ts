@@ -1,7 +1,9 @@
 import { RichEmbed, Client, Emoji } from 'discord.js';
 import {rndrsp, escape_text} from '../common';
+import color from './card_color';
 import API from './database';
 import Icons from './bot_icons'
+import { Card } from '../definitions';
 
 export default function(name: string, options: string[], bot: Client) {
   let results = API.find_cards_by_name(name, options);
@@ -23,13 +25,13 @@ export default function(name: string, options: string[], bot: Client) {
 }
 
 type props = {
-  card: any;
+  card: Card;
   options: string[];
   textOnly: boolean;
   icons: Icons;
 }
 
-function Response(card: any, options: string[], bot: Client) {
+function Response(card: Card, options: string[], bot: Client) {
   // Not a released card
   if (!card.gsx$set) {
     if (card.gsx$image == '') {
@@ -39,7 +41,7 @@ function Response(card: any, options: string[], bot: Client) {
       
       return new RichEmbed()
         .setTitle(card.gsx$name)
-        .setColor(API.color(card))
+        .setColor(color(card))
         .setDescription(card.gsx$ability || "No data available")
         .setURL(API.base_image + card.gsx$splash)
         .setImage(API.base_image + card.gsx$splash);
@@ -50,7 +52,7 @@ function Response(card: any, options: string[], bot: Client) {
   if (options.includes("image")) {
     return new RichEmbed()
     .setTitle(card.gsx$name)
-    .setColor(API.color(card))
+    .setColor(color(card))
     .setURL(API.base_image + card.gsx$image)
     .setImage(API.base_image + card.gsx$image);
   }
@@ -71,7 +73,7 @@ function Response(card: any, options: string[], bot: Client) {
     if (card.gsx$type == "Creatures") {
       return new RichEmbed()
         .setTitle(card.gsx$name)
-        .setColor(API.color(card))
+        .setColor(color(card))
         .setDescription(Stats({icons, card, options, textOnly: false}))
         .setURL(API.base_image + card.gsx$image);
     }
@@ -123,7 +125,7 @@ function Response(card: any, options: string[], bot: Client) {
   const CardMsg = new RichEmbed()
     .setTitle(card.gsx$name)
     .setURL(API.base_image + card.gsx$image)
-    .setColor(API.color(card))
+    .setColor(color(card))
     .setDescription(body);
 
   if (!textOnly) {
@@ -249,6 +251,7 @@ const Elements = (props: props) => {
   else if (card.gsx$type == "Attacks") {
     resp += card.gsx$base + " | ";
     ["Fire", "Air", "Earth", "Water"].forEach((element) => {
+      // @ts-ignore
       let dmg = card[`gsx$${element.toLowerCase()}`];
       if (dmg && dmg >= 0) {
         resp += elements(element) + " " + dmg + " ";
