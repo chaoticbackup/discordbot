@@ -34,9 +34,15 @@ export async function checkSass(bot: Client, message: Message, mentions: string[
     }
   }
 
-  // if (is_channel("main", message.channel, "bot_commands") {
+  // if (is_channel(message, "bot_commands") {
   //   return "Please use another channel for conversations"
   // }
+
+  if (is_channel(message, "general_chat_1")) {
+    if (content.match(/want[s]?.*?(to)?battle/i)) {
+      return send("Have you tried asking in <#" + servers.main.channels.match_making + ">?")
+    }
+  }
 
   if (content.match(/indefinitely.*?\?/)) {
     return send("Abilities last until the end of turn unless otherwise printed on the card.");

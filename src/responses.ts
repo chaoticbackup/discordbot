@@ -8,7 +8,7 @@ const {servers, users} = require('./config/server_ids.json');
 import {
     API,
     help,
-    can_send, rndrsp, isModerator, hasPermission, is_channel,
+    can_send, rndrsp, isModerator, hasPermission,
     rate_card, full_art, find_card, display_card,
     goodstuff, funstuff,
     banlist, whyban,

@@ -1,6 +1,6 @@
 import { Channel } from './../definitions';
 import RandomResponse from './RandomResponse';
-import { GuildMember, Guild, PermissionResolvable, Message } from "discord.js";
+import { GuildMember, Guild, PermissionResolvable, Message, TextChannel } from "discord.js";
 
 const {servers} = require('../../config/server_ids.json');
 
@@ -55,13 +55,36 @@ export function hasPermission(guild: Guild, permission: PermissionResolvable): b
   return guild.me.hasPermission(permission);
 }
 
-export function is_channel(guild: string, channel: Channel, name: string): boolean {
-  if (!(guild && servers[guild])) return false;
-  if (!servers[guild].hasOwnProperty("channels")) return false;
-  return channel.id == servers[guild].channels[name];
+/**
+ * Checks whether a channel is the specified name
+ * @param guild Optionally specify which guild this channel should be in (default main)
+ */
+export function is_channel(message: Message, name: string): boolean;
+export function is_channel(channel: Channel, name: string, guild?: string): boolean ;
+export function is_channel<A extends Message | Channel>
+(arg1: A, name: string, guild?: string) {
+
+  if (arg1 instanceof Message) {
+    let channel = arg1.channel;
+    if (channel instanceof TextChannel) {
+      return (channel.name === name);
+    }
+    return false;
+  }
+  else if (arg1 instanceof TextChannel) {
+    let channel = arg1;
+    if (!guild) guild = "main";
+    if (!servers[guild]) return false;
+    if (!servers[guild].hasOwnProperty("channels")) return false;
+    return channel.id == servers[guild].channels[name];
+  }
+
+  return false;
 }
 
 /**
+ * Main server only. Checks if the channel is bot commands,
+ * otherwise asks to use the command in bot commands.
  * @param msg Supply a custom message to send, or `null` if no message is to be sent
  */
 export function can_send(message: Message, msg?: string | null): boolean;
@@ -82,8 +105,7 @@ export function can_send<A extends Message | Guild, B extends Channel | undefine
 
   if (!guild) return true;
   if (!channel) return false;
-  console.log(guild.id);
-  if (guild.id === servers.main.id && !is_channel("main", channel, "bot_commands")) {
+  if (guild.id === servers.main.id && !is_channel(channel, "bot_commands")) {
     if (msg !== null) {
       channel.send(msg || `To be courteous to other conversations, ask me in <#${servers.main.channels.bot_commands}> :)`);
     }

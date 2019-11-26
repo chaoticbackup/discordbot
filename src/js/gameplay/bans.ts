@@ -23,9 +23,9 @@ function f() {
 export function banlist(guild: Guild, channel: Channel, options: string[] = []) {
   
   if (guild && guild.id == servers.main.id) {
-    if (!(is_channel("main", channel, "bot_commands")
-      || is_channel("main", channel, "banlist_discussion")
-      || is_channel("main", channel, "meta_analysis")
+    if (!(is_channel(channel, "bot_commands")
+      || is_channel(channel, "banlist_discussion")
+      || is_channel(channel, "meta_analysis")
       )) {
         return (`I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers.main.channels.bot_commands}>?`);
       }
