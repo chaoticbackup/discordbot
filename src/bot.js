@@ -27,7 +27,6 @@ const logger = winston.createLogger({
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
 const sq = new ScanQuest(bot);
-const api = new ForumAPI(logger);
 
 let main = false;
 // Disabled freatures if api.json is missing or set to false
@@ -40,7 +39,7 @@ if (process.env.NODE_ENV !== "development") {
 }
 
 if (main) {
-	api.start();
+	ForumAPI(logger);
 }
 
 bot.on('ready', () => {

@@ -5,16 +5,6 @@ const app = express();
 const port = 3000;
 
 export default (logger: Logger) => {
-    // Initialize card API
-    // Disabled if api.json is missing or set to false
-    try {
-        const api = require('./api.json');
-        if (api == false) return;
-    }
-    catch (e) {
-        return;
-    }
-
     app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
