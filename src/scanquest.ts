@@ -34,7 +34,7 @@ export default class ScanQuest {
         this.creatures = creatures.filter((creature) =>
             creature.gsx$avatar && creature.gsx$avatar !== ""
         );
-        this.randomTime(0.0166667, 10);
+        this.randomTime(30, 60);
     }
 
     stop() {

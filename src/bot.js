@@ -7,6 +7,7 @@ import ForumAPI from './forum_api';
 import ForumPosts from './forum_posts';
 import ScanQuest from './scanquest';
 
+const {RequestError} = require('request-promise/errors');
 const auth = require('./auth.json');
 const {servers} = require('./config/server_ids.json');
 
@@ -89,6 +90,9 @@ bot.on('guildMemberAdd', (member) => {
 });
 
 process.on('unhandledRejection', (err) => {
+	if (err instanceof RequestError) {
+		return;
+	}
 	stackTrace = (err && err.stack) ? err.stack : err;
 	bot.destroy();
 });
