@@ -7,7 +7,6 @@ import ForumAPI from './forum_api';
 import ForumPosts from './forum_posts';
 import ScanQuest from './scanquest';
 
-const {RequestError} = require('request-promise/errors');
 const auth = require('./auth.json');
 const {servers} = require('./config/server_ids.json');
 
@@ -43,7 +42,6 @@ if (main) {
 }
 
 bot.on('ready', () => {
-	logger.info('Logged in as: ' + bot.user);
 	bot.user.setActivity('!commands');
 
 	if (main) {
@@ -89,13 +87,12 @@ bot.on('guildMemberAdd', (member) => {
 });
 
 process.on('unhandledRejection', (err) => {
-	if (err instanceof RequestError) {
-		return;
-	}
 	stackTrace = (err && err.stack) ? err.stack : err;
 	bot.destroy();
 });
 
 /* LOGIN */
-bot.login(auth.token);
+bot.login(auth.token).then(() => {
+	logger.info('Logged in as: ' + bot.user);
+});
 // bot.login(auth.token).then(() => {throw new Error()});

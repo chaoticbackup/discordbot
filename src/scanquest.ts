@@ -26,7 +26,7 @@ export default class ScanQuest {
         // Check to see if database has been initialized
         if (!API.data) {
             // Try again in a second
-            setTimeout(() => {this.start()}, 1000);
+            this.timeout = setTimeout(() => {this.start()}, 1000);
             return;
         }
         if (API.data === "local") return;
