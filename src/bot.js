@@ -1,6 +1,6 @@
 require('@babel/polyfill/noConflict');
 import winston from 'winston';
-import Discord from 'discord.js';
+import Discord, {Status} from 'discord.js';
 
 import responses from './responses';
 import ForumAPI from './forum_api';
@@ -52,21 +52,22 @@ bot.on('ready', () => {
 });
 
 // Automatically reconnect if the bot disconnects
-let stackTrace = "";
 bot.on('disconnect', (CloseEvent) => {
 	fp.stop();
 	sq.stop();
 	logger.warn('Reconnecting, ' + CloseEvent.code);
-	bot.login(auth.token)
-	.then(() => {
-		if (stackTrace) {
-			logger.error(stackTrace);
-			let channel = bot.channels.get(servers.develop.channels.errors);
-			if (channel) channel.send(stackTrace).catch(logger.error);
-			stackTrace = "";
-		}
-	});
+	bot.login(auth.token).then(() => {sendError()});
 });
+
+let stackTrace = "";
+function sendError() {
+	if (stackTrace) {
+		logger.error(stackTrace);
+		let channel = bot.channels.get(servers.develop.channels.errors);
+		if (channel) channel.send(stackTrace).catch(logger.error);
+		stackTrace = "";
+	}
+}
 
 // Responses
 bot.on('message', msg => responses.call(bot, msg, logger));
@@ -88,7 +89,8 @@ bot.on('guildMemberAdd', (member) => {
 
 process.on('unhandledRejection', (err) => {
 	stackTrace = (err && err.stack) ? err.stack : err;
-	bot.destroy();
+	if (bot.status === Status.READY) sendError();
+	else bot.destroy();
 });
 
 /* LOGIN */
