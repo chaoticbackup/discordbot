@@ -60,11 +60,11 @@ bot.on('disconnect', (CloseEvent) => {
 });
 
 let stackTrace = "";
-function sendError() {
+const sendError = () => {
 	if (stackTrace) {
-		logger.error(stackTrace);
 		let channel = bot.channels.get(servers.develop.channels.errors);
 		if (channel) channel.send(stackTrace).catch(logger.error);
+		else logger.error(stackTrace);
 		stackTrace = "";
 	}
 }

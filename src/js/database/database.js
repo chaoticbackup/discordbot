@@ -145,7 +145,9 @@ class API {
    * Given a string of characters returns all cards that contain them
    */
   find_card_name(text) {
-    text = escape_text(text);
+    text = escape_text(text).replace(/,([^\s]+)/, (str, p1) => {
+      return ", " + p1;
+    });
 
     return this.filter.chain().find({'$or': [
       {'gsx$name': {'$regex': new RegExp(text, 'i')}},
