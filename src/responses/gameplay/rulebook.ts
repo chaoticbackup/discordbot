@@ -1,4 +1,4 @@
-const {languages, rulebook} = require('../config/commands.json');
+const {languages, rulebook} = require('../config/rulebooks.json');
 
 function rule_url(url: string) {
   return ("https://drive.google.com/file/d/" + url + "/view");

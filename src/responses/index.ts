@@ -30,7 +30,8 @@ import checkSass from './sass';
 import servers from '../common/servers';
 import users from '../common/users';
 
-const {starter, joke} = require('./config/commands.json');
+const joke = require('./config/jokes.json');
+const starter = require('./config/starters.json');
 
 const development = (process.env.NODE_ENV == "development");
 

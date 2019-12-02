@@ -1,14 +1,16 @@
 import { Guild } from 'discord.js';
 import { rndrsp } from '../../common';
-const commands = require('../config/commands.json');
 
-export { c as compliment, i as insult };
+const commands = {
+    insult: require('../config/insults.json'), 
+    compliment: require('../config/compliments.json')
+};
 
-function c(guild: Guild, mentions: string[], name: string): string {
+export function compliment (guild: Guild, mentions: string[], name: string): string {
     return flirt_dirt("compliment", guild, mentions, name);
 }
 
-function i(guild: Guild, mentions: string[], name: string): string {
+export function insult (guild: Guild, mentions: string[], name: string): string {
     if (mentions.indexOf('279331985955094529') !== -1)
         return ("<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>");
     return flirt_dirt("insult", guild, mentions, name);

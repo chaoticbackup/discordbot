@@ -12,7 +12,7 @@ const config = {
 export default class ScanQuest {
     bot: Client;
     channel: string;
-    creatures: any[];
+    creatures: Creature[];
     timeout: NodeJS.Timeout;
     last: number = -1;
 
