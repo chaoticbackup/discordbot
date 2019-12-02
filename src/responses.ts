@@ -173,6 +173,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   if (guild && (
       guild.id == servers.international.id
       || guild.id == servers.unchained.id
+      || guild.id == servers.develop.id
     )
   ) {
     switch(cmd) {
