@@ -41,11 +41,15 @@ const servers: Server[] = [
             },
             {
                 name: "bot_commands",
-                id: "135657678633566208"
+                id: "387805334657433600"
             },
             {
                 name: "match_making",
                 id: "278314121198305281"
+            },
+            {
+                name: "ruling_questions",
+                id: "468785561533153290"
             },
             {
                 name: "banlist_discussion",
@@ -58,10 +62,6 @@ const servers: Server[] = [
             {
                 name: "other_games",
                 id: "286993363175997440"
-            },
-            {
-                name: "ruling_questions",
-                id: "468785561533153290"
             },
         ]
     }),
