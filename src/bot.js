@@ -3,12 +3,13 @@ import winston from 'winston';
 import Discord, {Status} from 'discord.js';
 
 import responses from './responses';
-import ForumAPI from './forum_api';
-import ForumPosts from './forum_posts';
-import ScanQuest from './scanquest';
+import ForumAPI from './forum/api';
+import ForumPosts from './forum/posts';
+import ScanQuest from './scanquest/scanquest';
+
+import servers from './common/servers';
 
 const auth = require('./auth.json');
-const {servers} = require('./config/server_ids.json');
 
 // Configure logger settings
 const logger = winston.createLogger({
@@ -62,7 +63,7 @@ bot.on('disconnect', (CloseEvent) => {
 let stackTrace = "";
 const sendError = () => {
 	if (stackTrace) {
-		let channel = bot.channels.get(servers.develop.channels.errors);
+		let channel = bot.channels.get(servers("develop").channel("errors"));
 		if (channel) channel.send(stackTrace).catch(logger.error);
 		else logger.error(stackTrace);
 		stackTrace = "";
@@ -77,7 +78,7 @@ bot.on('guildMemberAdd', (member) => {
 	if (member.displayName.match(new RegExp("(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then(() => {
 			logger.warn('Banned: ' + member.displayName);
-			bot.channels.get(servers.main.channels.staff).send('Banned: ' + member.displayName);
+			bot.channels.get(servers("main").channel("staff")).send('Banned: ' + member.displayName);
 			// Delete the welcome message
 			let meebot = bot.users.get('159985870458322944');
 			if (meebot) setTimeout(() => {
