@@ -14,6 +14,7 @@ import { funstuff, goodstuff } from './gameplay/goodstuff';
 import { cancelMatch, lookingForMatch } from './gameplay/match_making';
 import tier from './gameplay/meta';
 import rulebook from './gameplay/rulebook';
+import starters from './gameplay/starters';
 
 import color from './misc/color';
 import gone from './misc/gone';
@@ -31,7 +32,6 @@ import servers from '../common/servers';
 import users from '../common/users';
 
 const joke = require('./config/jokes.json');
-const starter = require('./config/starters.json');
 
 const development = (process.env.NODE_ENV == "development");
 
@@ -261,11 +261,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Starters */
     case 'starter':
     case 'starters':
-      if (options.includes("metal")) 
-        return send(starter[1]);
-      else if (options.includes("king")) 
-        return send(starter[2]);
-      return send(starter[1]);
+      return send(starters(options));
 
     /* Banlist and Formats */
     case 'banlist':
