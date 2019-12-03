@@ -393,25 +393,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'joke':
       return send(rndrsp(joke, "joke"));
       
-      /* Trivia */
+    /* Trivia */
     case 'whistle':
-      {
-        whistle();
-        return;
-      }
+      return send(whistle(guildMember));
     case 'trivia':
-      if (isModerator(guildMember) == true)
-      {
-        trivia(guildMember);
-        return send("You are now Trivia Master!");
-      }
-      else
-        return send("Tsk tsk, only mods can host trivia night!")
+      return send(trivia(guildMember));
     case 'answer':
-      {
-        answer(messageGuild);
-        return guildMember.send("Your response has been recorded!");
-      }
+      return send(answer(guildMember, args.join(" ")));
+
     /* Help */
     case 'help':
       if (guildMember && content.charAt(0) == "!") {
