@@ -1,6 +1,5 @@
 import { RichEmbed } from 'discord.js';
-import { API } from '../../database';
-import color from './card_color';
+import { API, color } from '../../database';
 
 export default function (name: string) {
   let results = API.find_cards_by_name(name);

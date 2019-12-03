@@ -4,6 +4,7 @@ import { Logger } from 'winston';
 import { can_send, hasPermission, isModerator, rndrsp } from '../common';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
+import ScanQuest from '../scanquest/scanquest';
 
 import { display_card, find_card, full_art, rate_card } from './card';
 
@@ -400,6 +401,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(trivia(guildMember));
     case 'answer':
       return send(answer(guildMember, args.join(" ")));
+
+    /* Scan */
+    case 'scan':
+      if (ScanQuest.enabled) {
+        return ScanQuest.scan(guildMember, send);
+      }
 
     /* Help */
     case 'help':

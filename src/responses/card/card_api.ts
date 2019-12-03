@@ -1,9 +1,8 @@
 import { Client, Emoji, RichEmbed } from 'discord.js';
 import { rndrsp } from '../../common';
-import { API } from '../../database';
+import { API, color } from '../../database';
 import { Card } from '../../definitions';
-import Icons from './bot_icons';
-import color from './card_color';
+import Icons from '../../common/bot_icons';
 
 export default function(name: string, options: string[], bot: Client) {
   let results = API.find_cards_by_name(name, options);
