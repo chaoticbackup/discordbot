@@ -395,15 +395,23 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       
       /* Trivia */
     case 'whistle':
-      return;
+      {
+        whistle();
+        return;
+      }
     case 'trivia':
-      if (isModerator(message.author) == true)
+      if (isModerator(guildMember) == true)
+      {
+        trivia(guildMember);
         return send("You are now Trivia Master!");
+      }
       else
         return send("Tsk tsk, only mods can host trivia night!")
     case 'answer':
-      return guildMember.send("Your response has been recorded!");
-
+      {
+        answer(messageGuild);
+        return guildMember.send("Your response has been recorded!");
+      }
     /* Help */
     case 'help':
       if (guildMember && content.charAt(0) == "!") {
