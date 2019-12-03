@@ -20,6 +20,7 @@ import color from './misc/color';
 import gone from './misc/gone';
 import help from './misc/help';
 import { compliment, insult } from './misc/insult_compliment';
+import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
 import meetup from './misc/regions';
@@ -391,7 +392,26 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(insult(guild, mentions, args.join(" ")));
     case 'joke':
       return send(rndrsp(joke, "joke"));
-
+      
+      /* Trivia */
+    case 'whistle':
+      {
+        whistle();
+        return;
+      }
+    case 'trivia':
+      if (isModerator(guildMember) == true)
+      {
+        trivia(guildMember);
+        return send("You are now Trivia Master!");
+      }
+      else
+        return send("Tsk tsk, only mods can host trivia night!")
+    case 'answer':
+      {
+        answer(messageGuild);
+        return guildMember.send("Your response has been recorded!");
+      }
     /* Help */
     case 'help':
       if (guildMember && content.charAt(0) == "!") {
