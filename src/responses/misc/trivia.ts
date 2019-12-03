@@ -25,13 +25,14 @@ function w() {
     }
 }
 
-function t() {
-    if(isModerator(message.author))
-        triviaMaster = message.author;
+function t(host: GuildMember) {
+    if(isModerator(host))
+        triviaMaster = host;
 }
 
 function a(answer: string) {
     if (questiontime == true) {
+        answer.slice(6);
         responses += answer; 
         message.author.displayName += answer;
     }
