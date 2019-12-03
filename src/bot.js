@@ -43,7 +43,6 @@ if (main) {
 }
 
 bot.on('ready', () => {
-	sq.start();
 	if (main) {
 		fp.start();
 		sq.start();
