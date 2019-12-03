@@ -34,6 +34,9 @@ export function whistle(member: GuildMember): string {
 //sets a guildmember as the trivia master
 export function trivia (member: GuildMember): string {
     if (isModerator(member)) {
+        if (triviaMaster && triviaMaster.id === member.id) {
+            return "You area already the host";
+        }
         triviaMaster = member;
         responses = [];
         return ("You are now Trivia Master!");
