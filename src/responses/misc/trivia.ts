@@ -8,7 +8,7 @@ type Response = {
 
 let questiontime = false;
 let responses: Response[]; 
-let triviaMaster: GuildMember;
+let triviaMaster: GuildMember | null;
 
 // It's the command that manages timing, like the whistle of a ref.
 export function whistle(member: GuildMember): string {
@@ -25,7 +25,7 @@ export function whistle(member: GuildMember): string {
             });
             responses = [];
             triviaMaster.send(message);
-            return "Question time is over, messages have been sent to the trivia host";
+            return "Question time is over, messages have been sent to the Trivia Master";
         }
     }
     return "You're not the host";
@@ -34,14 +34,20 @@ export function whistle(member: GuildMember): string {
 //sets a guildmember as the trivia master
 export function trivia (member: GuildMember): string {
     if (isModerator(member)) {
-        if (triviaMaster && triviaMaster.id === member.id) {
-            return "You are already the host";
+        if (triviaMaster) {
+            if (triviaMaster.id === member.id) {
+                triviaMaster = null;
+                return "You stopped hosting Trivia Night";
+            }
+            return "Sorry " + triviaMaster.displayName + " is already hosting";
         }
-        triviaMaster = member;
-        responses = [];
-        return ("You are now Trivia Master!");
+        else {
+            triviaMaster = member;
+            responses = [];
+            return ("You are now Trivia Master!");
+        }
     }
-    return ("Tsk tsk, only mods can host trivia night!")
+    return ("Tsk tsk, only mods can host Trivia Night!")
 }
 
 //how a trivia player sends a response to the bot
