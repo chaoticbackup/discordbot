@@ -115,7 +115,7 @@ class ScanQuest {
         // @ts-ignore bot will always be defined
         this.bot.channels.get(this.channel).send(message);
 
-        this.randomTime(60, 300);
+        this.randomTime(30, 300);
     }
 
     private randomStat(stat: string | number, range: number): string {
@@ -144,6 +144,8 @@ class ScanQuest {
             name: creature.gsx$name,
             card: message
         }
+
+        this.players = [];
     }
 }
 
