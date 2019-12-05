@@ -412,6 +412,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (cleantext(flatten(args)).includes("borth")) {
         return send(display_card("borth-day", ["image"], bot));
       }
+      break;
     }
 
     /* Help */
@@ -469,7 +470,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     return haxxor(message, bot);
 
   // Not a recognized command
-  default: break;
+  default: return;
   }
 }
 
