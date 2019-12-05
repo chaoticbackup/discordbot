@@ -1,7 +1,7 @@
 import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
 import { Logger } from 'winston';
 
-import { can_send, hasPermission, isModerator, rndrsp } from '../common';
+import { can_send, hasPermission, isModerator, rndrsp, cleantext } from '../common';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
 import ScanQuest from '../scanquest/scanquest';
@@ -407,6 +407,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (ScanQuest.enabled) {
         return ScanQuest.scan(guildMember, send);
       }
+
+    case 'happy': {
+      if (cleantext(flatten(args)).includes("borth")) {
+        return send(display_card("borth-day", ["image"], bot));
+      }
+    }
 
     /* Help */
     case 'help':

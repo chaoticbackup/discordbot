@@ -146,13 +146,11 @@ const Disciplines = (modstat = 0, props: props) => {
   const {card} = props;
   const {disciplines} = props.icons;
 
-  let line = ""
-    + eval(`${card.gsx$courage}+${modstat}`) + disciplines("Courage") + " "
+  return eval(`${card.gsx$courage}+${modstat}`) + disciplines("Courage") + " "
     + eval(`${card.gsx$power}+${modstat}`) + disciplines("Power") + " "
     + eval(`${card.gsx$wisdom}+${modstat}`) + disciplines("Wisdom") + " "
     + eval(`${card.gsx$speed}+${modstat}`) + disciplines("Speed") + " "
     + "| " + eval(`${card.gsx$energy}+${modstat/2}`) + "\u00A0E";
-  return line;
 }
 
 const Stats = (props: props) => {
