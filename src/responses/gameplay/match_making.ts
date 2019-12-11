@@ -30,8 +30,8 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
 export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {
     if (!canMatch(guild, channel)) return;
 
-    types.forEach((t) => {
-        let role = guild.roles.find((role: Role) => role.name===t);
+    types.forEach((type) => {
+        let role = guild.roles.find((role: Role) => role.name===`${type}_match`);
         if (member.roles.find((role: Role) => role === role)) {
             member.removeRole(role);
         }
