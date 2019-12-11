@@ -3,7 +3,7 @@ import { hasPermission } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 
-const types = ["untap_match", "tts_match"];
+const types = ["untap", "tts"];
 
 function canMatch(guild: Guild, channel: Channel): boolean {
     if (!(guild && hasPermission(guild, "MANAGE_ROLES"))) return false;
