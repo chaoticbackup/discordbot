@@ -1,5 +1,5 @@
-import {CardType} from './../../definitions.d';
-import { RichEmbed, ColorResolvable } from 'discord.js';
+import {CardType} from '../../definitions';
+import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
 
 /**
@@ -9,7 +9,6 @@ import Icons from '../../common/bot_icons';
 export class Scan {
     name: string;
     type: CardType;
-    color: ColorResolvable;
 
     constructor(type: CardType) {
         this.type = type;

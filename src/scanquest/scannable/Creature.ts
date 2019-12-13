@@ -30,7 +30,6 @@ export class ScannableCreature implements Scannable {
             this.card.wisdom = this.randomStat(creature.gsx$wisdom, 20);
             this.card.speed = this.randomStat(creature.gsx$speed, 20);
             this.card.energy = this.randomStat(creature.gsx$energy, 10);
-            this.card.color = color(creature);
         }
         else {
             creature = (creature as CreatureScan);
@@ -40,7 +39,6 @@ export class ScannableCreature implements Scannable {
             this.card.wisdom = creature.wisdom;
             this.card.speed = creature.speed;
             this.card.energy = creature.energy;
-            this.card.color = creature.color;
         }
     }
 
@@ -64,6 +62,8 @@ export class ScannableCreature implements Scannable {
     getCard(icons: Icons) {
         const {disciplines} = icons;
 
+        const card = API.find_cards_by_name(this.card.name)[0] as Creature;
+
         const body
             = this.card.courage.toString() + disciplines("Courage") + " "
             + this.card.power.toString() + disciplines("Power") + " "
@@ -71,14 +71,12 @@ export class ScannableCreature implements Scannable {
             + this.card.speed.toString() + disciplines("Speed") + " "
             + "| " + this.card.energy.toString() + "\u00A0E";
 
-        const image = API.find_cards_by_name(this.card.name)[0]!.gsx$image;
-
         return new RichEmbed()
             .setTitle(this.card.name)
-            .setColor(this.card.color)
+            .setColor(color(card))
             .setDescription(body)
-            .setURL(API.base_image + image)
-            .setImage(API.base_image + image);
+            .setURL(API.base_image + card.gsx$image)
+            .setImage(API.base_image + card.gsx$image);
     }
     
 }

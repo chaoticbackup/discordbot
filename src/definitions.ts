@@ -8,9 +8,9 @@ export interface SendFunction extends Function {
   (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<any>
 }
 
-type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
+export type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
 
-interface BaseCard {
+export interface BaseCard {
   gsx$name: string;
   gsx$tags?: string;
   gsx$type: CardType;
@@ -26,8 +26,6 @@ interface BaseCard {
   gsx$loyal: number | string;
 }
 
-export type Card = Attack & Battlegear & Creature & Location & Mugic;
-
 export interface Attack extends BaseCard {
   gsx$fire: number | string;
   gsx$air: number | string;
@@ -37,7 +35,9 @@ export interface Attack extends BaseCard {
   gsx$bp: number | string;
 }
 
-export interface Battlegear extends BaseCard {}
+export interface Battlegear extends BaseCard {
+  gsx$subtype: string;
+}
 
 export interface Creature extends BaseCard {
   gsx$tribe: string;
@@ -50,10 +50,12 @@ export interface Creature extends BaseCard {
   gsx$brainwashed: string;
   gsx$mugicability: string | number;
   gsx$avatar: string;
+  gsx$subtype: string;
 }
 
 export interface Location extends BaseCard {
   gsx$initiative: string;
+  gsx$subtype: string;
 }
 
 export interface Mugic extends BaseCard {
@@ -62,3 +64,4 @@ export interface Mugic extends BaseCard {
 }
 
 
+export type Card = Attack | Battlegear | Creature | Location | Mugic;

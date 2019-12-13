@@ -1,7 +1,7 @@
 import { Client, Emoji, RichEmbed } from 'discord.js';
 import { rndrsp } from '../../common';
 import { API, color } from '../../database';
-import { Card } from '../../definitions';
+import { Attack, Battlegear, Card, Creature, Location, Mugic } from '../../definitions';
 import Icons from '../../common/bot_icons';
 
 export default function(name: string, options: string[], bot: Client) {
@@ -58,8 +58,8 @@ function Response(card: Card, options: string[], bot: Client) {
 
   // Ability only
   if (options.includes("ability")) {
-    if (options.includes("brainwashed") && card.gsx$brainwashed) {
-      return card.gsx$name + "\n" + card.gsx$brainwashed;
+    if (options.includes("brainwashed") && (card as Creature).gsx$brainwashed) {
+      return card.gsx$name + "\n" + (card as Creature).gsx$brainwashed;
     }
     else {
       return card.gsx$name + "\n" + card.gsx$ability;
@@ -82,9 +82,8 @@ function Response(card: Card, options: string[], bot: Client) {
   // Formatting to include an image or just the card text
   const textOnly = Boolean(options.includes("detailed"));
 
-  const mc = icons.mc(card.gsx$tribe);
+  const mc = icons.mc((card as Creature | Mugic).gsx$tribe);
   const props = {card, options, icons, textOnly};
-
 
   /* Response Body */
   let body = TypeLine(props);
@@ -103,8 +102,8 @@ function Response(card: Card, options: string[], bot: Client) {
 
   body += Ability(card.gsx$ability, mc, props);
 
-  if (card.gsx$brainwashed){
-    body += "**Brainwashed**\n" + Ability(card.gsx$brainwashed, mc, props);
+  if ((card as Creature).gsx$brainwashed){
+    body += "**Brainwashed**\n" + Ability((card as Creature).gsx$brainwashed, mc, props);
   }
 
   body += BuildRestrictions(props);
@@ -143,7 +142,7 @@ const addNewLine = (entry: string, isText: boolean) => {
 }
 
 const Disciplines = (modstat = 0, props: props) => {
-  const {card} = props;
+  const card = props.card as Creature;
   const {disciplines} = props.icons;
 
   return eval(`${card.gsx$courage}+${modstat}`) + disciplines("Courage") + " "
@@ -157,7 +156,7 @@ const Stats = (props: props) => {
   const {card, options, textOnly} = props;
 
   let resp = "";
-  if (card.gsx$energy > 0) {
+  if ((card as Creature).gsx$energy > 0) {
     let modstat = 0;
     if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
      && !(options.indexOf("min") > -1)) {
@@ -180,21 +179,21 @@ const TypeLine = (props: props) => {
 
   if (card.gsx$type == "Attacks") {
     resp = icons.attacks() 
-      + ` Attack - ${card.gsx$bp} Build Points`;
+      + ` Attack - ${(card as Attack).gsx$bp} Build Points`;
   }
   else if (card.gsx$type == "Battlegear") {
     resp = icons.battlegear() 
       + ` Battlegear${card.gsx$types.length > 0 ? " - " + card.gsx$types : ""}`;
   }
   else if (card.gsx$type == "Creatures") {
-    let tribe = card.gsx$tribe;
+    let tribe = (card as Creature).gsx$tribe;
     let types = card.gsx$types;
     let past = false;
     if (types.toLowerCase().includes("past")) {
       past = true;
       types = types.replace(/past /i, '');
     }
-    resp = icons.tribes(card.gsx$tribe)
+    resp = icons.tribes((card as Creature).gsx$tribe)
       + " Creature - " + (past ? "Past " : "") + (tribe == "Generic" ? "" : tribe + " ") + types;
   }
   else if (card.gsx$type == "Locations") {
@@ -202,8 +201,8 @@ const TypeLine = (props: props) => {
       + ` Location${card.gsx$types.length > 0 ? " - " + card.gsx$types : ""}`;
   }
   else if (card.gsx$type == "Mugic") {
-    resp = icons.tribes(card.gsx$tribe)
-      + ` Mugic - ${card.gsx$tribe}`;
+    resp = icons.tribes((card as Mugic).gsx$tribe)
+      + ` Mugic - ${(card as Mugic).gsx$tribe}`;
   }
   else return "";
 
@@ -236,7 +235,7 @@ const Elements = (props: props) => {
 
   if (card.gsx$type == "Creatures") {
     ["Fire", "Air", "Earth", "Water"].forEach((element) => {
-      if (card.gsx$elements.includes(element)) {
+      if ((card as Creature).gsx$elements.includes(element)) {
         resp += elements(element) + " ";
       }
       else {
@@ -246,7 +245,7 @@ const Elements = (props: props) => {
     resp.trim();
   }
   else if (card.gsx$type == "Attacks") {
-    resp += card.gsx$base + " | ";
+    resp += (card as Attack).gsx$base + " | ";
     ["Fire", "Air", "Earth", "Water"].forEach((element) => {
       // @ts-ignore
       let dmg = card[`gsx$${element.toLowerCase()}`];
@@ -270,11 +269,11 @@ const MugicAbility = (mc: Emoji, props: props) => {
   let resp = "";
 
   if (card.gsx$type == "Creatures") {
-    amount = card.gsx$mugicability;
+    amount = (card as Creature).gsx$mugicability;
     if (amount == 0) return "";
   }
   else if (card.gsx$type == "Mugic") {
-    amount = card.gsx$cost;
+    amount = (card as Mugic).gsx$cost;
     if (amount == 0) return "0";
     if (amount == "X") return "X";
   }
@@ -300,7 +299,7 @@ const BuildRestrictions = (props: props) => {
       resp += "Legendary, ";
     }
     resp += (card.gsx$loyal == "1" ? "Loyal" : "Loyal - " + card.gsx$loyal);
-    if (card.gsx$type === "Creatures" && card.gsx$tribe === "M'arrillian") {
+    if (card.gsx$type === "Creatures" && (card as Creature).gsx$tribe === "M'arrillian") {
       resp += " - M'arrillians or Minions";
     }
     resp += "**";
@@ -316,22 +315,19 @@ const BuildRestrictions = (props: props) => {
 }
 
 export const Initiative = (props: props) => {
-  const {card} = props;
+  const card = props.card as Location;
   const {elements, disciplines, tribes} = props.icons;
 
-  let init = card.gsx$initiative;
-
-  init = init.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
-    return elements(p1) + match;
-  });
-
-  init = init.replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
-    return disciplines(p1) + match;
-  });
-
-  init = init.replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
-    return tribes(p1) + match;
-  }); 
+  let init = card.gsx$initiative
+    .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
+      return elements(p1) + match;
+    })
+    .replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
+      return disciplines(p1) + match;
+    })
+    .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
+      return tribes(p1) + match;
+    }); 
 
   return addNewLine(init, true);
 }

@@ -20,12 +20,10 @@ export class ScannableLocation implements Scannable {
         if ((location as Location).gsx$name !== undefined) {
             location = (location as Location);
             this.card.name = location.gsx$name;
-            this.card.color = color(location);
         }
         else {
             location = (location as LocationScan);
             this.card.name = location.name;
-            this.card.color = location.color;
         }
     }
 
@@ -34,16 +32,16 @@ export class ScannableLocation implements Scannable {
     }
 
     getCard(icons: Icons) {
-        const card = API.find_cards_by_name(this.card.name)[0];
+        const card = API.find_cards_by_name(this.card.name)[0] as Location;
 
         const body
             = Initiative({card, icons, options: [], textOnly: true});
 
         return new RichEmbed()
             .setTitle(this.card.name)
-            .setColor(this.card.color)
+            .setColor(color(card))
             .setDescription(body)
-            .setURL(API.base_image + card.image)
-            .setImage(API.base_image + card.image);
+            .setURL(API.base_image + card.gsx$image)
+            .setImage(API.base_image + card.gsx$image);
     }
 }
