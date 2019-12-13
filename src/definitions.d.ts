@@ -8,10 +8,12 @@ export interface SendFunction extends Function {
   (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<any>
 }
 
+type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
+
 interface BaseCard {
   gsx$name: string;
   gsx$tags?: string;
-  gsx$type: "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
+  gsx$type: CardType;
   gsx$set: string;
   gsx$rarity: string;
   gsx$image: string;

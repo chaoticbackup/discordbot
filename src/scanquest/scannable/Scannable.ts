@@ -1,7 +1,6 @@
-import { RichEmbed } from 'discord.js';
+import {CardType} from './../../definitions.d';
+import { RichEmbed, ColorResolvable } from 'discord.js';
 import Icons from '../../common/bot_icons';
-
-type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
 
 /**
  * @param name The name of the card
@@ -10,6 +9,7 @@ type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
 export class Scan {
     name: string;
     type: CardType;
+    color: ColorResolvable;
 
     constructor(type: CardType) {
         this.type = type;

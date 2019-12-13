@@ -78,7 +78,10 @@ const sendError = () => {
 }
 
 // Responses
-bot.on('message', msg => responses.call(bot, msg, logger));
+bot.on('message', msg => {
+	responses.call(bot, msg, logger);
+	ScanQuest.monitor(msg);
+});
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {

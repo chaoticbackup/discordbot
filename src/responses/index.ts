@@ -53,7 +53,7 @@ export default (async function(message: Message, logger: Logger) {
   
   // Prevents sending an empty message
   const send: SendFunction = (msg, options) => {
-    if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack))
+    if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack));
     return Promise.resolve();
   }
 
@@ -401,16 +401,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(trivia(guildMember));
     case 'answer':
       return send(answer(guildMember, args.join(" ")));
-
-    /* Scan */
-    case 'scan':
-      if (ScanQuest.enabled) {
-        return ScanQuest.scan(guildMember, send);
-      }
-    case 'list':
-      if (ScanQuest.enabled) {
-        return ScanQuest.list(guildMember, send);
-      }
 
     case 'happy': {
       if (cleantext(flatten(args)).includes("borth")) {

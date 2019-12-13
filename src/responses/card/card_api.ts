@@ -315,11 +315,11 @@ const BuildRestrictions = (props: props) => {
   return addNewLine(resp, textOnly);
 }
 
-const Initiative = (props: props) => {
+export const Initiative = (props: props) => {
   const {card} = props;
   const {elements, disciplines, tribes} = props.icons;
 
-  let init: string = card.gsx$initiative;
+  let init = card.gsx$initiative;
 
   init = init.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
     return elements(p1) + match;

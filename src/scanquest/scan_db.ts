@@ -1,3 +1,4 @@
+import {ScannableLocation, LocationScan} from './scannable/Location';
 import loki, { Collection } from 'lokijs';
 import path from 'path';
 import db_path from '../database/db_path';
@@ -41,6 +42,10 @@ class ScanQuestDB {
         player.scans.forEach((scan) => {
             if (scan.type === "Creatures") {
                 const result = new ScannableCreature(scan as CreatureScan);
+                resp += result.toString() + "\n";
+            }
+            else if (scan.type === "Locations") {
+                const result = new ScannableLocation(scan as LocationScan);
                 resp += result.toString() + "\n";
             }
         });

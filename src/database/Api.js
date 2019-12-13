@@ -97,7 +97,7 @@ class API {
   }
 
   async databaseInitialize() {
-    await this.asyncForEach(["attacks","battlegear", "creatures", "locations", "mugic"],
+    await this.asyncForEach(["Attacks", "Battlegear", "Creatures", "Locations", "Mugic"],
       (type) => {
         // check if the db already exists in memory
         let entries = this.db.getCollection(type);

@@ -1,4 +1,4 @@
-import { Client, GuildMember, RichEmbed } from 'discord.js';
+import { Client, GuildMember, RichEmbed, Message, DMChannel } from 'discord.js';
 import { Logger } from 'winston';
 import Icons from '../common/bot_icons';
 import servers from '../common/servers';
@@ -7,6 +7,7 @@ import { Channel, SendFunction } from '../definitions';
 import ScanCreature from './scanfunction/Creature';
 import { Scannable } from './scannable/Scannable';
 import ScanQuestDB from './scan_db';
+import ScanLocation from './scanfunction/Location';
 
 const config = {
     "default_channel": servers("main").channel("bot_commands"),
@@ -15,18 +16,19 @@ const config = {
 
 class ScanQuest {
     private static instance: ScanQuest;
-
-    private bot: Client;
-    private logger: Logger;
     private channel: string;
     private timeout: NodeJS.Timeout;
     private lastScan: Scannable;
     private db: ScanQuestDB;
     private scan_creature: ScanCreature;
+    private scan_locations: ScanLocation;
     icons: Icons;
+    bot: Client;
+    logger: Logger;
 
     constructor() {
         this.db = new ScanQuestDB();
+        this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
     }
 
     // Singleton
@@ -38,12 +40,7 @@ class ScanQuest {
     init(bot: Client, logger: Logger): ScanQuest {
         this.bot = bot;
         this.logger = logger;
-        this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
         return this;
-    }
-
-    enabled(): boolean {
-        return this.bot === undefined;
     }
 
     start() {
@@ -61,16 +58,63 @@ class ScanQuest {
         // Initialize components
         this.icons = new Icons(this.bot);
         this.scan_creature = new ScanCreature();
+        this.scan_locations = new ScanLocation();
 
         this.logger.info("ScanQuest has started on channel <#" + this.channel + ">");
-        this.randomTime(10, 30);
+        this.randomTime(.01, .03);
     }
 
     stop() {
         clearTimeout(this.timeout);
     }
 
-    async scan(player: GuildMember, send: SendFunction): Promise<void> {
+    monitor(message: Message) {
+        if (message.author.bot) return;
+
+        // TODO only monitor the channels the bot is configured for
+
+        if (message.channel.id === this.channel || message.channel instanceof DMChannel) {
+            // Prevents sending an empty message
+            const send: SendFunction = (msg, options) => {
+                if (msg) return message.channel.send(msg, options)
+                    .catch(error => this.logger.error(error.stack));
+                return Promise.resolve();
+            }
+
+            let result: string | undefined;
+
+            if (message.content.charAt(1) === "!") {
+                result = message.content.substring(2);
+            }
+            else if (message.content.charAt(0) === "!") {
+                result = message.content.substring(1);
+            }
+            
+            if (result !== undefined) {
+                let cmd = result.split(" ")[0].toLowerCase();
+
+                /* Scan */
+                switch (cmd) {
+                    case 'scan':
+                        if (this.bot !== undefined) {
+                            this.scan(message.member, send);
+                        }
+                        return;
+                    case 'list':
+                        if (this.bot !== undefined) {
+                            this.list(message.member, send);
+                        }
+                        return;
+                }
+
+                // TODO decrease timer countdown with activity
+            }
+
+        }
+
+    }
+
+    private async scan(player: GuildMember, send: SendFunction): Promise<void> {
         const lastScan = this.lastScan;
         if (!lastScan) {
             return send("There is no scannable card");
@@ -83,7 +127,7 @@ class ScanQuest {
         return send("You've already scanned this " + lastScan.card.name);
     }
 
-    async list(player: GuildMember, send: SendFunction): Promise<void> {
+    private async list(player: GuildMember, send: SendFunction): Promise<void> {
         return send(await this.db.list(player.id));
     }
 
@@ -96,16 +140,21 @@ class ScanQuest {
         this.timeout = setTimeout(() => {this.sendCard()}, interval);
     }
 
-
     /**
      * Sends a card image to the configed channel
      */
     private sendCard() {
         let image: RichEmbed;
 
-        // Only doing creatures for now
-        [this.lastScan, image] = this.scan_creature.generate();
-
+        // Creatures spawn more often than locations
+        let rnd = Math.floor(Math.random() * 10);
+        if (rnd > 2) {
+            [this.lastScan, image] = this.scan_creature.generate();
+        }
+        else {
+            [this.lastScan, image] = this.scan_locations.generate();
+        }
+    
         (this.bot.channels.get(this.channel) as Channel).send(image);
 
         this.randomTime(30, 300);

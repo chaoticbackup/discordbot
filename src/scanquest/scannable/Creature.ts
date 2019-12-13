@@ -1,4 +1,4 @@
-import { ColorResolvable, RichEmbed } from 'discord.js';
+import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
@@ -10,7 +10,6 @@ export class CreatureScan extends Scan {
     wisdom: number;
     speed: number;
     energy: number;
-    color: ColorResolvable;
 
     constructor() {
         super("Creatures");
