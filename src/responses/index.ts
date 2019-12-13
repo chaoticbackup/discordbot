@@ -407,6 +407,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (ScanQuest.enabled) {
         return ScanQuest.scan(guildMember, send);
       }
+    case 'list':
+      if (ScanQuest.enabled) {
+        return ScanQuest.list(guildMember, send);
+      }
 
     case 'happy': {
       if (cleantext(flatten(args)).includes("borth")) {

@@ -19,26 +19,23 @@ class Member {
 }
 
 class MeetupsAPI {
-    private db: Loki;
     private regions: Collection<Region>;
-
-    async databaseInitialize() {
-        let regions = this.db.getCollection("regions") as Collection<Region>;
-        if (regions === null) {
-            this.regions = this.db.addCollection("regions");
-        }
-        else {
-            this.regions = regions;
-        }
-    }
     
     constructor() {
-        this.db = new loki(path.resolve(db_path, `regions.db`), {
+        const db = new loki(path.resolve(db_path, `regions.db`), {
             autosave: true,
             autoload: true,
-            autoloadCallback: this.databaseInitialize.bind(this),
             autosaveInterval: 4000,
-            adapter: new LokiFSStructuredAdapter()
+            adapter: new LokiFSStructuredAdapter(),
+            autoloadCallback: () => {
+                let regions = db.getCollection("regions") as Collection<Region>;
+                if (regions === null) {
+                    this.regions = db.addCollection("regions");
+                }
+                else {
+                    this.regions = regions;
+                }
+            }
         });
     }
 

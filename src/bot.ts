@@ -8,6 +8,7 @@ import ForumPosts from './forum/posts';
 import ScanQuest from './scanquest/scanquest';
 
 import servers from './common/servers';
+import { Channel } from './definitions';
 
 const auth = require('./auth.json');
 
@@ -33,13 +34,15 @@ let main = false;
 if (process.env.NODE_ENV !== "development") {
 	try {
 		const api = require('./api.json');
-		if (api != false) main = true;
+		if (api != false) {
+			main = true;
+			ForumAPI(logger);
+		}
 	}
-	catch (e) {	}
+	catch (e) { }
 }
-
-if (main) {
-	ForumAPI(logger);
+else if (process.env.APP_ENV === "test") {
+	main = true;
 }
 
 bot.on('ready', () => {
@@ -66,7 +69,9 @@ const sendError = () => {
 		logger.error(stackTrace);
 		if (process.env.NODE_ENV !== "development") {
 			let channel = bot.channels.get(servers("develop").channel("errors"));
-			if (channel) channel.send(stackTrace).catch(logger.error);
+			if (channel) {
+				(channel as Channel).send(stackTrace).catch(logger.error);
+			}
 		}
 		stackTrace = "";
 	}
@@ -79,18 +84,21 @@ bot.on('message', msg => responses.call(bot, msg, logger));
 bot.on('guildMemberAdd', (member) => {
 	if (member.displayName.match(new RegExp("(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)", "i"))) {
 		if (member.bannable) member.ban().then(() => {
-			logger.warn('Banned: ' + member.displayName);
+			// @ts-ignore
 			bot.channels.get(servers("main").channel("staff")).send('Banned: ' + member.displayName);
-			// Delete the welcome message
+			// Delete the meebot welcome message
 			let meebot = bot.users.get('159985870458322944');
 			if (meebot) setTimeout(() => {
-				if (meebot.lastMessage && meebot.lastMessage.deletable) meebot.lastMessage.delete();
+				if (meebot!.lastMessage && meebot!.lastMessage.deletable) {
+					meebot!.lastMessage.delete();
+				}
 			}, 500);
 		});
 	}
 });
 
 process.on('unhandledRejection', (err) => {
+	// @ts-ignore
 	stackTrace = (err && err.stack) ? err.stack : err;
 	// Status.READY
 	if (bot.status === 0) sendError();

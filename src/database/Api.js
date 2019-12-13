@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
-import { escape_text } from "../common";
+import {escape_text} from "../common";
 import db_path from './db_path';
 
 const fetch =  require('node-fetch');
@@ -66,7 +66,6 @@ class API {
       autosave: true,
       autoload: true,
       autoloadCallback: this.databaseInitialize.bind(this),
-      autosaveInterval: 4000,
       adapter: new LokiFSStructuredAdapter()
     });
   }
@@ -99,18 +98,19 @@ class API {
 
   async databaseInitialize() {
     await this.asyncForEach(["attacks","battlegear", "creatures", "locations", "mugic"],
-    async (type) => {
-      // check if the db already exists in memory
-      let entries = this.db.getCollection(type);
-      if (entries === null) {
-        this[type] = this.db.addCollection(type);
-        this.setupType(type);
+      (type) => {
+        // check if the db already exists in memory
+        let entries = this.db.getCollection(type);
+        if (entries === null) {
+          this[type] = this.db.addCollection(type);
+          this.setupType(type);
+        }
+        else {
+          this[type] = entries;
+          this.mergeDB(type);
+        }
       }
-      else {
-        this[type] = entries;
-        this.mergeDB(type);
-      }
-    });
+    );
     this.data = "api";
   }
 

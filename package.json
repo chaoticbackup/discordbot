@@ -4,15 +4,17 @@
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "start": "NODE_ENV=development babel-watch src/bot.js --extensions \".js,.ts\"",
+    "start": "NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
+    "start:scan": "APP_ENV=test NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
     "prebuild": "if [ -f err.log ]; then mv err.log err.old.log; fi; if [ -d src/db ]; then rm -rf src/db; fi",
-    "build": "babel src -d build --copy-files --extensions \".js,.ts\"",
+    "build": "babel src -d build --delete-dir-on-start --copy-files --extensions \".js,.ts\"",
     "forever": "npm run build && forever -o out.log -e err.log start build/bot.js",
     "rebuild": "npm run stop; npm run forever",
     "stop": "forever stop build/bot.js",
     "clean": "rm -rf build/",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\"",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "format": "prettier-eslint --write \"src/**/*(.ts|.js)\""
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,9 @@
     "bufferutil": "^4.0.1",
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
+    "forever": "^1.0.0",
     "fs-extra": "^8.1.0",
+    "git-auto-pull": "^1.0.9",
     "jquery": "^3.4.1",
     "jsdom": "^13.2.0",
     "lokijs": "^1.5.8",
@@ -45,6 +49,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/plugin-syntax-import-meta": "^7.7.4",
+    "@babel/plugin-transform-arrow-functions": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
@@ -54,11 +59,12 @@
     "@types/jsdom": "^12.2.4",
     "@types/lokijs": "^1.5.2",
     "@types/node": "^12.12.12",
-    "babel-eslint": "^10.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
     "babel-watch": "^7.0.0",
     "eslint": "^6.7.0",
-    "forever": "^1.0.0",
-    "git-auto-pull": "^1.0.9",
+    "eslint-plugin-babel": "^5.3.0",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0",
     "typescript": "^3.7.2"
   }
 }

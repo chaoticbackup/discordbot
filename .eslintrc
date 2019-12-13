@@ -3,20 +3,33 @@
     "node": true,
     "es6": true
   },
-  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": { 
-    "ecmaVersion": 8,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "modules": true,
-      "experimentalObjectRestSpread": true
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      "legacyDecorators": true
     }
   },
   "globals": {},
   "rules": {
-    "eqeqeq": 0,
-    "dot-notation": 0,
-    "no-unused-vars": 1,
-    "no-undef": 2
-  }
+    "eqeqeq": "off",
+    "dot-notation": "off",
+    "no-unused-vars": "warn",
+    "no-undef": "error",
+    "no-useless-escape": "off",
+    "no-empty": "off",
+    "object-curly-spacing": ["warn", "never", {"objectsInObjects": false, "arraysInObjects": false}]
+  },
+  "plugins": [
+    "babel",
+    "@typescript-eslint"
+  ]
 }

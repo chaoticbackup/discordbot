@@ -1,0 +1,85 @@
+import { ColorResolvable, RichEmbed } from 'discord.js';
+import Icons from '../../common/bot_icons';
+import { API, color } from '../../database';
+import { Creature } from '../../definitions';
+import { Scan, Scannable } from './Scannable';
+
+export class CreatureScan extends Scan {
+    courage: number;
+    power: number;
+    wisdom: number;
+    speed: number;
+    energy: number;
+    color: ColorResolvable;
+
+    constructor() {
+        super("Creatures");
+    }
+}
+
+export class ScannableCreature implements Scannable {
+    card: CreatureScan;
+
+    constructor(creature: Creature | CreatureScan)
+    {
+        this.card = new CreatureScan();
+        if ((creature as Creature).gsx$name !== undefined) {
+            creature = (creature as Creature);
+            this.card.name = creature.gsx$name;
+            this.card.courage = this.randomStat(creature.gsx$courage, 20);
+            this.card.power = this.randomStat(creature.gsx$power, 20);
+            this.card.wisdom = this.randomStat(creature.gsx$wisdom, 20);
+            this.card.speed = this.randomStat(creature.gsx$speed, 20);
+            this.card.energy = this.randomStat(creature.gsx$energy, 10);
+            this.card.color = color(creature);
+        }
+        else {
+            creature = (creature as CreatureScan);
+            this.card.name = creature.name;
+            this.card.courage = creature.courage;
+            this.card.power = creature.power;
+            this.card.wisdom = creature.wisdom;
+            this.card.speed = creature.speed;
+            this.card.energy = creature.energy;
+            this.card.color = creature.color;
+        }
+    }
+
+    private randomStat(stat: string | number, range: number): number {
+        if (typeof stat === 'string') stat = parseInt(stat);
+        const rnd = Math.floor(Math.random() * (range / 5 + 1));
+        return (stat - (range / 2) + 5 * rnd);
+    }
+
+    toString() {
+        return (
+            this.card.name + " " +
+            this.card.courage.toString() + " " +
+            this.card.power.toString() + " " +
+            this.card.wisdom.toString() + " " +
+            this.card.speed.toString() + " " +
+            this.card.energy.toString()
+        );        
+    }
+
+    getCard(icons: Icons) {
+        const {disciplines} = icons;
+
+        const body
+            = this.card.courage.toString() + disciplines("Courage") + " "
+            + this.card.power.toString() + disciplines("Power") + " "
+            + this.card.wisdom.toString() + disciplines("Wisdom") + " "
+            + this.card.speed.toString() + disciplines("Speed") + " "
+            + "| " + this.card.energy.toString() + "\u00A0E";
+
+        const image = API.find_cards_by_name(this.card.name)[0]!.gsx$image;
+
+        return new RichEmbed()
+            .setTitle(this.card.name)
+            .setColor(this.card.color)
+            .setDescription(body)
+            .setURL(API.base_image + image)
+            .setImage(API.base_image + image);
+    }
+    
+}

@@ -5,7 +5,7 @@ export interface Channel extends Discord.Channel {
 }
   
 export interface SendFunction extends Function {
-    (msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<any>
+  (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<any>
 }
 
 interface BaseCard {
