@@ -39,7 +39,7 @@ export function trivia (member: GuildMember): string {
                 triviaMaster = null;
                 return "You stopped hosting Trivia Night";
             }
-            return "Sorry " + triviaMaster.displayName + " is already hosting";
+            return "Sorry " + triviaMaster.user.username + " is already hosting";
         }
         else {
             triviaMaster = member;
@@ -53,7 +53,7 @@ export function trivia (member: GuildMember): string {
 //how a trivia player sends a response to the bot
 export function answer (member: GuildMember, answer: string): string {
     if (questiontime) {
-        responses.push({name: member.displayName, answer});
+        responses.push({name: member.user.username, answer});
         return "Your response has been recorded!";
     }
     return "There's no active question currently";
