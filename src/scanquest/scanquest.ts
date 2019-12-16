@@ -8,9 +8,10 @@ import ScanCreature from './scanfunction/Creature';
 import { Scannable } from './scannable/Scannable';
 import ScanQuestDB from './scan_db';
 import ScanLocation from './scanfunction/Location';
+import ScanBattlegear from './scanfunction/Battlegear';
 
 const config = {
-    "default_channel": servers("main").channel("bot_commands"),
+    "default_channel": servers("main").channel("perim"),
     "test_channel": servers("develop").channel("bot_commands")
 }
 
@@ -22,6 +23,7 @@ class ScanQuest {
     private db: ScanQuestDB;
     private scan_creature: ScanCreature;
     private scan_locations: ScanLocation;
+    private scan_battlegear: ScanBattlegear;
     icons: Icons;
     bot: Client;
     logger: Logger;
@@ -59,6 +61,7 @@ class ScanQuest {
         this.icons = new Icons(this.bot);
         this.scan_creature = new ScanCreature();
         this.scan_locations = new ScanLocation();
+        this.scan_battlegear = new ScanBattlegear();
 
         this.logger.info("ScanQuest has started on channel <#" + this.channel + ">");
         this.randomTime(.01, .03);
@@ -146,13 +149,16 @@ class ScanQuest {
     private sendCard() {
         let image: RichEmbed;
 
-        // Creatures spawn more often than locations
-        let rnd = Math.floor(Math.random() * 10);
-        if (rnd > 2) {
-            [this.lastScan, image] = this.scan_creature.generate();
+        // Creatures spawn more often than locations and battlegear
+        let rnd = Math.floor(Math.random() * 20);
+        if (rnd < 4) {
+            [this.lastScan, image] = this.scan_locations.generate();
+        }
+        else if (rnd < 5) {
+            [this.lastScan, image] = this.scan_battlegear.generate();
         }
         else {
-            [this.lastScan, image] = this.scan_locations.generate();
+            [this.lastScan, image] = this.scan_creature.generate();
         }
     
         (this.bot.channels.get(this.channel) as Channel).send(image);

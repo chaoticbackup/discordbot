@@ -1,3 +1,4 @@
+import {ScannableBattlegear, BattlegearScan} from './scannable/Battlegear';
 import {ScannableLocation, LocationScan} from './scannable/Location';
 import loki, { Collection } from 'lokijs';
 import path from 'path';
@@ -46,6 +47,10 @@ class ScanQuestDB {
             }
             else if (scan.type === "Locations") {
                 const result = new ScannableLocation(scan as LocationScan);
+                resp += result.toString() + "\n";
+            }
+            else if (scan.type === "Battlegear") {
+                const result = new ScannableBattlegear(scan as BattlegearScan);
                 resp += result.toString() + "\n";
             }
         });

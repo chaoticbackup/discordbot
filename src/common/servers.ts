@@ -63,6 +63,10 @@ const servers: Server[] = [
                 name: "other_games",
                 id: "286993363175997440"
             },
+            {
+                name: "perim",
+                id: "656156361029320704"
+            },
         ]
     }),
     new Server ({
