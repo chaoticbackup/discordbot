@@ -5,8 +5,11 @@ import path from 'path';
 import db_path from '../database/db_path';
 import { CreatureScan, ScannableCreature } from './scannable/Creature';
 import { Scan, Scannable } from './scannable/Scannable';
+<<<<<<< HEAD
 import { Message, DMChannel, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
+=======
+>>>>>>> wip per server scan
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Player {
@@ -14,8 +17,16 @@ class Player {
     public scans: Scan[];
 }
 
+class Server {
+    public id: string;
+    public points: number;
+    public channel: string;
+    public lastScan: Scannable | null;
+}
+
 class ScanQuestDB {
     private players: Collection<Player>;
+    private servers: Collection<Server>;
     private db: Loki;
 
     constructor() {
@@ -30,6 +41,14 @@ class ScanQuestDB {
                 }
                 else {
                     this.players = players;
+                }
+
+                let servers = this.db.getCollection("servers") as Collection<Server>;
+                if (servers === null) {
+                    this.servers = this.db.addCollection("servers");
+                }
+                else {
+                    this.servers = servers;
                 }
             }
         });

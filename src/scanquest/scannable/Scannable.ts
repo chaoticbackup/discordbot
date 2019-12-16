@@ -4,7 +4,7 @@ import Icons from '../../common/bot_icons';
 
 /**
  * @param name The name of the card
- * @param image The image that is spawned
+ * @param type The type of card
 */
 export class Scan {
     name: string;

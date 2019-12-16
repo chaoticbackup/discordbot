@@ -83,6 +83,7 @@ export default class ScanQuest {
 
     stop() {
         clearTimeout(this.timeout);
+        // save all data into database
     }
 
     async monitor(message: Message) {
@@ -91,6 +92,7 @@ export default class ScanQuest {
         // TODO only monitor the server the bot is configured for
 
         // TODO decrease timer countdown with activity
+        // Assign point value to next spawn, size of messages decrease from point value
 
         // Prevents sending an empty message
         const send: SendFunction = (msg, options) => {
