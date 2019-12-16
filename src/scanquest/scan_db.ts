@@ -40,18 +40,18 @@ class ScanQuestDB {
         }
 
         let resp = "";
-        player.scans.forEach((scan) => {
+        player.scans.forEach((scan, i) => {
             if (scan.type === "Creatures") {
                 const result = new ScannableCreature(scan as CreatureScan);
-                resp += result.toString() + "\n";
+                resp += i + ") " + result.toString() + "\n";
             }
             else if (scan.type === "Locations") {
                 const result = new ScannableLocation(scan as LocationScan);
-                resp += result.toString() + "\n";
+                resp += i + ") " + result.toString() + "\n";
             }
             else if (scan.type === "Battlegear") {
                 const result = new ScannableBattlegear(scan as BattlegearScan);
-                resp += result.toString() + "\n";
+                resp += i + ") " + result.toString() + "\n";
             }
         });
 
