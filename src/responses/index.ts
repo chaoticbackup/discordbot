@@ -396,11 +396,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       
     /* Trivia */
     case 'whistle':
-      return send(whistle(message.member));
+      return send(whistle(guildMember));
     case 'trivia':
-      return send(trivia(message.member));
+      return send(trivia(guildMember));
     case 'answer':
-      return send(answer(message.member, args.join(" ")));
+      return send(answer(guildMember || message.author, args.join(" ")));
 
     case 'happy': {
       if (cleantext(flatten(args)).includes("borth")) {

@@ -1,4 +1,4 @@
-import { GuildMember } from 'discord.js';
+import { GuildMember, User } from 'discord.js';
 import { isModerator } from '../../common';
 
 type Response = {
@@ -39,7 +39,7 @@ export function trivia (member: GuildMember): string {
                 triviaMaster = null;
                 return "You stopped hosting Trivia Night";
             }
-            return "Sorry " + triviaMaster.user.username + " is already hosting";
+            return "Sorry " + triviaMaster.displayName + " is already hosting";
         }
         else {
             triviaMaster = member;
@@ -51,9 +51,12 @@ export function trivia (member: GuildMember): string {
 }
 
 //how a trivia player sends a response to the bot
-export function answer (member: GuildMember, answer: string): string {
+export function answer (member: GuildMember | User, answer: string): string {
     if (questiontime) {
-        responses.push({name: member.user.username, answer});
+        if (member instanceof GuildMember) 
+            responses.push({name: member.displayName, answer});
+        else if (member instanceof User)
+            responses.push({name: member.username, answer});
         return "Your response has been recorded!";
     }
     return "There's no active question currently";
