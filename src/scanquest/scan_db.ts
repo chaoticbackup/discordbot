@@ -60,7 +60,7 @@ class ScanQuestDB {
 
     save = async (id: string, card: Scan): Promise<boolean> => {
         const player = this.findOne({id: id});
-        if (player.scans.length === 0 || player.scans[0].name !== card.name) {
+        if (player.scans.length === 0 || player.scans[player.scans.length - 1].name !== card.name) {
             player.scans.push(card);
             this.players.update(player);
             return Promise.resolve(true);

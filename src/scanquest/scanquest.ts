@@ -1,48 +1,44 @@
-import { Client, GuildMember, RichEmbed, Message, DMChannel } from 'discord.js';
+import { Client, DMChannel, Message, RichEmbed } from 'discord.js';
+import fs from 'fs-extra';
 import { Logger } from 'winston';
 import Icons from '../common/bot_icons';
 import servers from '../common/servers';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
+import ScanBattlegear from './scanfunction/Battlegear';
 import ScanCreature from './scanfunction/Creature';
+import ScanLocation from './scanfunction/Location';
+import { BattlegearScan, ScannableBattlegear } from './scannable/Battlegear';
+import { CreatureScan, ScannableCreature } from './scannable/Creature';
+import { LocationScan, ScannableLocation } from './scannable/Location';
 import { Scannable } from './scannable/Scannable';
 import ScanQuestDB from './scan_db';
-import ScanLocation from './scanfunction/Location';
-import ScanBattlegear from './scanfunction/Battlegear';
+import users from '../common/users';
 
 const config = {
     "default_channel": servers("main").channel("perim"),
     "test_channel": servers("develop").channel("bot_commands")
 }
 
-class ScanQuest {
-    private static instance: ScanQuest;
+const file = "last_spawn.json";
+
+export default class ScanQuest {
+    private db: ScanQuestDB;
     private channel: string;
     private timeout: NodeJS.Timeout;
-    private lastScan: Scannable;
-    private db: ScanQuestDB;
     private scan_creature: ScanCreature;
     private scan_locations: ScanLocation;
     private scan_battlegear: ScanBattlegear;
-    icons: Icons;
+    private lastScan: Scannable | null;
     bot: Client;
     logger: Logger;
+    icons: Icons;
 
-    constructor() {
+    constructor(bot: Client, logger: Logger) {
         this.db = new ScanQuestDB();
         this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
-    }
-
-    // Singleton
-    static getInstance(): ScanQuest {
-        if (!ScanQuest.instance) ScanQuest.instance = new ScanQuest();
-        return ScanQuest.instance;
-    }
-
-    init(bot: Client, logger: Logger): ScanQuest {
         this.bot = bot;
         this.logger = logger;
-        return this;
     }
 
     start() {
@@ -53,8 +49,17 @@ class ScanQuest {
             return;
         }
         if (API.data === "local") {
-            this.logger.info("ScanQuest has failed to start. Database is down");
+            this.logger.info("ScanQuest cannot start. Database is down");
             return;
+        }
+
+        // load previous card spawn
+        if (fs.existsSync(file)) {
+            fs.readFile(file, async (err, data) => {
+                if (!err) {
+                    this.lastScan = await this.loadScan(JSON.parse(data.toString()));
+                }
+            });
         }
 
         // Initialize components
@@ -64,74 +69,111 @@ class ScanQuest {
         this.scan_battlegear = new ScanBattlegear();
 
         this.logger.info("ScanQuest has started on channel <#" + this.channel + ">");
-        this.randomTime(.01, .03);
+
+        if (process.env.NODE_ENV === "development") {
+            this.randomTime(.01, .3);
+        }
+        else {
+            this.randomTime(10, 30); 
+        }
     }
 
     stop() {
         clearTimeout(this.timeout);
     }
 
-    monitor(message: Message) {
-        if (message.author.bot) return;
+    async monitor(message: Message) {
+        if (this.bot === undefined || message.author.bot) return;
 
-        // TODO only monitor the channels the bot is configured for
+        // TODO only monitor the server the bot is configured for
 
-        if (message.channel.id === this.channel || message.channel instanceof DMChannel) {
-            // Prevents sending an empty message
-            const send: SendFunction = (msg, options) => {
-                if (msg) return message.channel.send(msg, options)
-                    .catch(error => this.logger.error(error.stack));
-                return Promise.resolve();
-            }
+        // TODO decrease timer countdown with activity
 
-            let result: string | undefined;
+        // Prevents sending an empty message
+        const send: SendFunction = (msg, options) => {
+            if (msg) return message.channel.send(msg, options)
+                .catch(error => this.logger.error(error.stack));
+            return Promise.resolve();
+        }
+        
+        let result: string | undefined;
 
-            if (message.content.charAt(1) === "!") {
-                result = message.content.substring(2);
-            }
-            else if (message.content.charAt(0) === "!") {
-                result = message.content.substring(1);
-            }
-            
-            if (result !== undefined) {
-                let cmd = result.split(" ")[0].toLowerCase();
+        if (message.content.charAt(1) === "!") {
+            result = message.content.substring(2);
+        }
+        else if (message.content.charAt(0) === "!") {
+            result = message.content.substring(1);
+        }
+        
+        if (result !== undefined) {
+            let cmd = result.split(" ")[0].toLowerCase();
 
-                /* Scan */
-                switch (cmd) {
-                    case 'scan':
-                        if (this.bot !== undefined) {
-                            this.scan(message.member, send);
-                        }
-                        return;
-                    case 'list':
-                        if (this.bot !== undefined) {
-                            this.list(message.member, send);
-                        }
-                        return;
-                }
+            /* Scan */
+            switch (cmd) {
+                case 'scan':
+                    if (message.channel.id === this.channel) {
+                        this.scan(message.member.id, send);
+                    }
+                    return;
+                case 'list':
+                    if (message.channel.id === this.channel || message.channel instanceof DMChannel) {
+                        this.list(message.author.id, send);
+                    }
+                    return;
+                case 'load': 
+                    if (message.author.id === users("daddy").id) {
+                        let args: string[] = result.split(" ").splice(1);
+                        let id = args[0];
+                        let type = args[1];
+                        let content = args.splice(1).join(" ");
+                        let info = content.substr(content.indexOf(' ') + 1);
 
-                // TODO decrease timer countdown with activity
+                        this.db.save(id, (await this.loadScan({type, info}))!.card);
+                    }
             }
 
         }
 
     }
 
-    private async scan(player: GuildMember, send: SendFunction): Promise<void> {
+    private async loadScan(lastSpawn: {type: string, info: any}): Promise<Scannable | null> {
+        if (lastSpawn.type === "Creatures") {
+            let crScan = new CreatureScan();
+            [
+                crScan.name, crScan.courage, crScan.power, 
+                crScan.wisdom, crScan.speed, crScan.energy
+            ] = lastSpawn.info.split(/ (?=[0-9]+)/);
+            return new ScannableCreature(crScan);
+        }
+        else if (lastSpawn.type === "Battlegear") {
+            let bgScan = new BattlegearScan();
+            bgScan.name = lastSpawn.info;
+            return new ScannableBattlegear(bgScan);
+        }
+        else if (lastSpawn.type === "Locations") {
+            let locScan = new LocationScan();
+            locScan.name = lastSpawn.info;
+            return new ScannableLocation(locScan);
+        }
+
+        return null; // This shouldn't be null unless error in json file
+    }
+
+    private async scan(id: string, send: SendFunction): Promise<void> {
         const lastScan = this.lastScan;
         if (!lastScan) {
             return send("There is no scannable card");
         }
 
-        if (await this.db.save(player.id, lastScan.card)) {
+        if (await this.db.save(id, lastScan.card)) {
             return send(lastScan.getCard(this.icons));
         }
 
         return send("You've already scanned this " + lastScan.card.name);
     }
 
-    private async list(player: GuildMember, send: SendFunction): Promise<void> {
-        return send(await this.db.list(player.id));
+    private async list(id: string, send: SendFunction): Promise<void> {
+        return send(await this.db.list(id));
     }
 
     /**
@@ -160,13 +202,18 @@ class ScanQuest {
         else {
             [this.lastScan, image] = this.scan_creature.generate();
         }
-    
+
         (this.bot.channels.get(this.channel) as Channel).send(image);
 
         this.randomTime(30, 300);
+
+        let lastSpawn = JSON.stringify({
+            type: this.lastScan.card.type,
+            info: this.lastScan.toString()
+        });
+
+        fs.writeFile(file, lastSpawn);
     }
 
 
 }
-
-export default ScanQuest.getInstance();

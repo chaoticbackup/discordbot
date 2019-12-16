@@ -27,7 +27,7 @@ const logger = winston.createLogger({
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
-const sq = ScanQuest.init(bot, logger);
+const sq = new ScanQuest(bot, logger);
 
 let main = false;
 // Disabled freatures if api.json is missing or set to false
@@ -80,7 +80,7 @@ const sendError = () => {
 // Responses
 bot.on('message', msg => {
 	responses.call(bot, msg, logger);
-	ScanQuest.monitor(msg);
+	sq.monitor(msg);
 });
 
 // Ban Spam

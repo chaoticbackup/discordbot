@@ -1,7 +1,5 @@
 *.pem
 auth.json
-api.json
-scan.json
 package-lock.json
 *.log
 node_modules/
@@ -9,3 +7,4 @@ build/
 db/
 .vscode/
 yarn.lock
+/*.json
