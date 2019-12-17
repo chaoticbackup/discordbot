@@ -115,7 +115,7 @@ export default class ScanQuest {
             switch (cmd) {
                 case 'scan':
                     if (message.channel.id === this.recieve_channel) {
-                        this.scan(message.member.id, send);
+                        this.scan(message.author.id, send);
                     }
                     return;
                 case 'list':
