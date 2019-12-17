@@ -16,7 +16,8 @@ import ScanQuestDB from './scan_db';
 import users from '../common/users';
 
 const config = {
-    "default_channel": servers("main").channel("perim"),
+    "send_channel": servers("main").channel("perim"),
+    "recieve_channel": servers("main").channel("bot_commands"),
     "test_channel": servers("develop").channel("bot_commands")
 }
 
@@ -24,7 +25,8 @@ const file = "last_spawn.json";
 
 export default class ScanQuest {
     private db: ScanQuestDB;
-    private channel: string;
+    private send_channel: string;
+    private recieve_channel: string;
     private timeout: NodeJS.Timeout;
     private scan_creature: ScanCreature;
     private scan_locations: ScanLocation;
@@ -36,7 +38,8 @@ export default class ScanQuest {
 
     constructor(bot: Client, logger: Logger) {
         this.db = new ScanQuestDB();
-        this.channel = (process.env.NODE_ENV != "development") ? config.default_channel : config.test_channel;
+        this.send_channel = (process.env.NODE_ENV != "development") ? config.send_channel : config.test_channel;
+        this.recieve_channel = (process.env.NODE_ENV != "development") ? config.recieve_channel : config.test_channel;
         this.bot = bot;
         this.logger = logger;
     }
@@ -68,13 +71,13 @@ export default class ScanQuest {
         this.scan_locations = new ScanLocation();
         this.scan_battlegear = new ScanBattlegear();
 
-        this.logger.info("ScanQuest has started on channel <#" + this.channel + ">");
+        this.logger.info("ScanQuest has started on channel <#" + this.send_channel + ">");
 
         if (process.env.NODE_ENV === "development") {
             this.randomTime(.01, .3);
         }
         else {
-            this.randomTime(10, 30); 
+            this.randomTime(10, 60); 
         }
     }
 
@@ -111,12 +114,12 @@ export default class ScanQuest {
             /* Scan */
             switch (cmd) {
                 case 'scan':
-                    if (message.channel.id === this.channel) {
+                    if (message.channel.id === this.recieve_channel) {
                         this.scan(message.member.id, send);
                     }
                     return;
                 case 'list':
-                    if (message.channel.id === this.channel || message.channel instanceof DMChannel) {
+                    if (message.channel.id === this.recieve_channel || message.channel instanceof DMChannel) {
                         this.list(message.author.id, send);
                     }
                     return;
@@ -203,7 +206,7 @@ export default class ScanQuest {
             [this.lastScan, image] = this.scan_creature.generate();
         }
 
-        (this.bot.channels.get(this.channel) as Channel).send(image);
+        (this.bot.channels.get(this.send_channel) as Channel).send(image);
 
         this.randomTime(30, 300);
 
