@@ -1,6 +1,7 @@
 import {CardType} from '../../definitions';
 import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
+import {Code} from '../scan_db/code';
 
 /**
  * @param name The name of the card
@@ -9,6 +10,7 @@ import Icons from '../../common/bot_icons';
 export class Scan {
     name: string;
     type: CardType;
+    code: Code;
 
     constructor(type: CardType) {
         this.type = type;

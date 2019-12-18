@@ -10,7 +10,7 @@ export default abstract class ScanFunction {
     /**
      * Returns a random card from the list of given cards
      */
-    randomCard(cards: BaseCard[]): any {
+    protected randomCard(cards: BaseCard[]): any {
         let rnd;
         do {
             rnd = Math.floor(Math.random() * cards.length);

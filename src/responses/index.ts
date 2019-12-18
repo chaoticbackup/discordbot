@@ -32,6 +32,7 @@ import checkSass from './sass';
 
 import servers from '../common/servers';
 import users from '../common/users';
+import parseCommand from '../common/parse_command';
 
 const joke = require('./config/jokes.json');
 
@@ -481,36 +482,6 @@ function donate(): RichEmbed {
       .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
       .setTitle("Donate")
   );
-}
-
-/**
-  * Turns the first 'word' after the command character into the `cmd`
-  * Merges the remaining array of words into `args`
-  * Strips `options` from string and returns as array
-  */
-function parseCommand(content: string): 
- {cmd: string, args: string[], options: string[]} 
-{
-  let result: string;
-
-  if (content.charAt(1) == "!") {
-    result = (content.substring(2));
-  } 
-  else {
-    result = (content.substring(1));
-  }
- 
-  let cmd = result.split(" ")[0].toLowerCase();
-
-  let options: string[] = [];
-  result = result.replace(/(?:--|—)([^\s]+)([ \t]*)/g, (_match: any, p1: string) => {
-    options.push(p1); return "";
-  });
-
-  // only looks at first line for input
-  let args = result.split("\n")[0].trim().split(" ").splice(1);
-
-  return {cmd, args, options};
 }
 
 /**

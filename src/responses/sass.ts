@@ -1,5 +1,5 @@
 import { Client, Message, RichEmbed } from 'discord.js';
-import { is_channel, rndrsp } from '../common';
+import { is_channel, rndrsp, escape_text } from '../common';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './gameplay/bans';
@@ -12,7 +12,9 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (mentions.length > 0) return send(checkMentions(message, mentions));
 
-  const content = message.content;
+  if (message.content.substring(0, 2) === "``") return;
+
+  const content = escape_text(message.content);
 
   // #ban
   if (content.substring(0, 4).toLowerCase() == "#ban") {
