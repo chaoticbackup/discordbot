@@ -120,7 +120,7 @@ export default class ScanQuest {
                     return;
                 case 'list':
                     if (message.channel.id === this.recieve_channel || message.channel instanceof DMChannel) {
-                        this.list(message.author.id, send);
+                        return send(await this.db.list(message));
                     }
                     return;
                 case 'load': 
@@ -173,10 +173,6 @@ export default class ScanQuest {
         }
 
         return send("You've already scanned this " + lastScan.card.name);
-    }
-
-    private async list(id: string, send: SendFunction): Promise<void> {
-        return send(await this.db.list(id));
     }
 
     /**

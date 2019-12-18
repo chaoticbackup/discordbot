@@ -4,7 +4,9 @@ import loki, { Collection } from 'lokijs';
 import path from 'path';
 import db_path from '../database/db_path';
 import { CreatureScan, ScannableCreature } from './scannable/Creature';
-import { Scan } from './scannable/Scannable';
+import { Scan, Scannable } from './scannable/Scannable';
+import { Message, DMChannel, TextChannel } from 'discord.js';
+import { FieldsEmbed } from 'discord-paginationembed';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Player {
@@ -33,33 +35,44 @@ class ScanQuestDB {
         });
     }
 
-    list = async (id: string): Promise<string> => {
-        let player = this.findOne({id: id});
+    list = async (message: Message): Promise<void> => {
+        let player = this.findOnePlayer({id: message.author.id});
         if (player.scans.length === 0) {
-            return "You have no scans";
+            message.channel.send("You have no scans");
+            return;
         }
-
-        let resp = "";
+    
+        let resp: string[] = [];
         player.scans.forEach((scan, i) => {
+            let result: Scannable | undefined;
             if (scan.type === "Creatures") {
-                const result = new ScannableCreature(scan as CreatureScan);
-                resp += i + ") " + result.toString() + "\n";
+                result = new ScannableCreature(scan as CreatureScan);
             }
             else if (scan.type === "Locations") {
-                const result = new ScannableLocation(scan as LocationScan);
-                resp += i + ") " + result.toString() + "\n";
+                result = new ScannableLocation(scan as LocationScan);
             }
             else if (scan.type === "Battlegear") {
-                const result = new ScannableBattlegear(scan as BattlegearScan);
-                resp += i + ") " + result.toString() + "\n";
+                result = new ScannableBattlegear(scan as BattlegearScan);
+            }
+
+            if (result) {
+                resp.push(`${i+1}) ${result.toString()}`);
             }
         });
-
-        return Promise.resolve(resp);
+    
+        const Pagination = new FieldsEmbed<string>()
+            .setAuthorizedUsers([message.author.id])
+            .setChannel(message.channel as (TextChannel | DMChannel))
+            .setElementsPerPage((message.channel instanceof TextChannel) ? 10 : 20)
+            .setPageIndicator(true)
+            .setArray(resp)
+            .formatField("Scans", el => el);
+    
+        return Pagination.build();
     }
 
     save = async (id: string, card: Scan): Promise<boolean> => {
-        const player = this.findOne({id: id});
+        const player = this.findOnePlayer({id: id});
         if (player.scans.length === 0 || player.scans[player.scans.length - 1].name !== card.name) {
             player.scans.push(card);
             this.players.update(player);
@@ -68,7 +81,7 @@ class ScanQuestDB {
         return Promise.resolve(false);
     }
 
-    private findOne({id}: {id: string}) {
+    private findOnePlayer({id}: {id: string}) {
         let player = this.players.findOne({id: id});
         if (player === null) {
             player = this.players.insert({id, scans: []}) as Player & LokiObj;
