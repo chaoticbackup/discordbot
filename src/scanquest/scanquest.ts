@@ -77,7 +77,7 @@ export default class ScanQuest {
             this.randomTime(.01, .3);
         }
         else {
-            this.randomTime(60, 240); 
+            this.randomTime(120, 240); 
         }
     }
 
@@ -204,7 +204,7 @@ export default class ScanQuest {
 
         (this.bot.channels.get(this.send_channel) as Channel).send(image);
 
-        this.randomTime(120, 480);
+        this.randomTime(240, 360);
 
         let lastSpawn = JSON.stringify({
             type: this.lastScan.card.type,
