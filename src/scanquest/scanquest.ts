@@ -204,7 +204,7 @@ export default class ScanQuest {
 
         (this.bot.channels.get(this.send_channel) as Channel).send(image);
 
-        this.randomTime(240, 360);
+        this.randomTime(300, 400);
 
         let lastSpawn = JSON.stringify({
             type: this.lastScan.card.type,
