@@ -14,7 +14,9 @@ module.exports = function (api) {
     "@babel/proposal-object-rest-spread",
     ["@babel/plugin-proposal-class-properties", {"loose": false}],
     "@babel/plugin-proposal-json-strings",
-    "@babel/plugin-transform-arrow-functions"
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+    "@babel/plugin-proposal-optional-chaining"
   ];
 
 
