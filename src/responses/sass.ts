@@ -41,7 +41,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // }
 
   if (is_channel(message, "general_chat_1")) {
-    if (content.match(/want[s]?.*?(to)?battle/i)) {
+    if (content.match(/want[s]?\s?(to)?\s?battle[^a-z\s]*/i)) {
       return send("Have you tried asking in <#" + servers("main").channel("match_making") + ">?")
     }
   }
