@@ -75,7 +75,7 @@
         "short": "rate's a Creature based on its stats."
     },
     "tribe": {
-        "cmd":"!tribe <join|leave|list> <tribe>", 
+        "cmd":"!tribe <join|leave|list> <tribe|>", 
         "short":"you can join your favorite tribe (or lack thereof)", 
         "long":"Here are the tribes you can join:\n <:Dan:294942889337683968> Danian, <:Mip:294941790052679690> Mipedian, <:Mar:294942283273601044> M'arrillian, <:OW:294939978897555457> OverWorld, <:UW:294943282943885313> UnderWorld, <:TL:294945357392248833> Tribeless\nYou can only be loyal to one... but you can always switch."
     },
