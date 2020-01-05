@@ -99,7 +99,7 @@ const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> 
         }
     });
     if (tribe) return tribe;
-    return `You have not declared an allegiance. Use !join *tribe name*`;
+    return `You have not declared an allegiance. Use !tribe join *tribe name*`;
 }
 
 const leaveTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
