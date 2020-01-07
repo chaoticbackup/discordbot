@@ -97,9 +97,7 @@ export default (async function(message: Message, logger: Logger) {
     if (
       error.name === "ReferenceError" ||
       error.name === "SyntaxError"
-    ) {
-      return;
-    }
+    ) return;
 
     // restart bot if unknown error
     bot.destroy();

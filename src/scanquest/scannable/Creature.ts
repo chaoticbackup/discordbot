@@ -23,8 +23,8 @@ export class ScannableCreature implements Scannable {
     {
         this.card = new CreatureScan();
         if ((creature as Creature).gsx$name !== undefined) {
-            if(creature.gsx$name == "Aa'une the Oligarch, Avatar") {
-                creature = (creature as Creature);
+            creature = (creature as Creature);
+            if (creature.gsx$name == "Aa'une the Oligarch, Avatar") {
                 this.card.name = creature.gsx$name;
                 this.card.courage = 200;
                 this.card.power = 200;
@@ -33,7 +33,6 @@ export class ScannableCreature implements Scannable {
                 this.card.energy = 100;
             }
             else {
-                creature = (creature as Creature);
                 this.card.name = creature.gsx$name;
                 this.card.courage = this.randomStat(creature.gsx$courage, 20);
                 this.card.power = this.randomStat(creature.gsx$power, 20);
