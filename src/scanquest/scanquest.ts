@@ -124,9 +124,10 @@ export default class ScanQuest {
                     }
                     return;
                 case 'reroll':
-                     if (message.author.id === users("daddy").id) {
-                         this.sendCard();
-                     }
+                    if (message.author.id === users("daddy").id) {
+                        clearTimeout(this.timeout);
+                        this.sendCard();
+                    }
                     return;
                 case 'load': 
                     if (message.author.id === users("daddy").id) {
