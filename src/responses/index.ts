@@ -4,9 +4,8 @@ import { Logger } from 'winston';
 import { can_send, hasPermission, isModerator, rndrsp, cleantext } from '../common';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
-import ScanQuest from '../scanquest/scanquest';
 
-import { display_card, find_card, full_art, rate_card } from './card';
+import { display_card, find_card, full_art, rate_card, display_token } from './card';
 
 import { banlist, formats, whyban } from './gameplay/bans';
 import faq from './gameplay/faq';
@@ -237,6 +236,17 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(display_card(flatten(args), options, bot), {tts: true});
       }
     } return;
+    case 'parasite': {
+      if (args[0] === "token") {
+        return send(display_token('parasite ' + flatten(args.slice(1))));
+      }
+      else {
+        return send(display_token('parasite ' + flatten(args)));
+      }
+    }
+    case 'token': {
+      return send(display_token(flatten(args)));
+    }
 
     /* Rules */
     case 'faq':
