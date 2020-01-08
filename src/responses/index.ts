@@ -422,7 +422,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0) return send(help(flatten(args)));
       if (guildMember) {
         guildMember.send(help())
-          .then(() => {guildMember.send(donate())});
+          .then(() => {guildMember.send(donate())})
+          .catch(() => {
+            send(help());
+          });
         return;
       }
       return send(help())
