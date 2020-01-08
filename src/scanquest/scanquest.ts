@@ -123,6 +123,11 @@ export default class ScanQuest {
                         return send(await this.db.list(message));
                     }
                     return;
+                case 'reroll':
+                     if (message.author.id === users("daddy").id) {
+                         this.sendCard();
+                     }
+                    return;
                 case 'load': 
                     if (message.author.id === users("daddy").id) {
                         let args: string[] = result.split(" ").splice(1);
