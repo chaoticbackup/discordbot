@@ -412,7 +412,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'happy': {
       if (cleantext(flatten(args)).includes("borth")) {
-        return send(display_card("borth-day", ["image"], bot));
+        return send(gone("borth-day", bot));
       }
       break;
     }
