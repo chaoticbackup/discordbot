@@ -1,11 +1,7 @@
 {
-  "env": {
-    "node": true,
-    "es6": true
-  },
+  "env": { "node": true, "es6": true },
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "eslint:recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": { 
@@ -13,9 +9,11 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "modules": true,
-      "jsx": true,
       "experimentalObjectRestSpread": true,
       "legacyDecorators": true
+    },
+    "babelOptions": {
+      "configFile": "babel.config.js"
     }
   },
   "globals": {},
@@ -29,7 +27,53 @@
     "object-curly-spacing": ["warn", "never", {"objectsInObjects": false, "arraysInObjects": false}]
   },
   "plugins": [
-    "babel",
-    "@typescript-eslint"
+    "babel"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "env": { "node": true, "es6": true },
+      "extends": [
+        "standard",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended"
+      ],
+      "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "ecmaVersion": 2019,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "plugins": [
+        "babel",
+        "standard",
+        "@typescript-eslint"
+      ],
+      "rules": {
+        // Typescript only
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-unused-vars": "off",
+        // Common
+        "brace-style": "off",
+        "camelcase": "off",
+        "comma-dangle": ["error", {
+          "arrays": "only-multiline",
+          "objects": "only-multiline",
+          "imports": "never",
+          "exports": "never",
+          "functions": "never"
+        }],
+        "indent": ["error", 4, {
+          "SwitchCase": 1
+        }],
+        "jsx-quotes": ["error", "prefer-double"],
+        "max-len": ["error", { "code": 120 }],
+        "prefer-promise-reject-errors": "off",
+        "semi": "off",
+        "space-before-function-paren": "off"
+      }
+    }
   ]
 }

@@ -53,15 +53,6 @@ export default class ScanQuest {
 
         this.logger.info("ScanQuest has started");
 
-<<<<<<< HEAD
-        if (process.env.NODE_ENV === "development") {
-            this.randomTime(.01, .3);
-        }
-        else {
-            this.randomTime(120, 240); 
-        }
-=======
->>>>>>> wip multiscan progress
     }
 
     stop() {
@@ -92,6 +83,12 @@ export default class ScanQuest {
                     return;
                 case 'list':
                     return list(this.db, message, options);
+                case 'reroll':
+                    if (message.author.id === users("daddy").id) {
+                        clearTimeout(this.timeout);
+                        this.sendCard();
+                    }
+                    return;
                 case 'load': 
                     if (message.author.id === users("daddy").id) {
                         let id = args[0];
@@ -162,11 +159,6 @@ export default class ScanQuest {
 
         (this.bot.channels.get(this.send_channel) as Channel).send(image);
 
-<<<<<<< HEAD
-        this.randomTime(300, 400);
-
-=======
->>>>>>> wip multiscan progress
         let lastSpawn = JSON.stringify({
             type: lastScan.card.type,
             info: lastScan.toString()

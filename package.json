@@ -13,8 +13,8 @@
     "stop": "forever stop build/bot.js",
     "clean": "rm -rf build/",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"npm run rebuild\"",
-    "tsc": "tsc",
-    "format": "prettier-eslint --write \"src/**/*(.ts|.js)\""
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}'",
+    "lint:fix": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/polyfill": "^7.7.0",
     "@babel/runtime": "^7.7.4",
     "bufferutil": "^4.0.1",
@@ -39,6 +38,7 @@
     "path": "^0.12.7",
     "pdfjs-dist": "^2.2.228",
     "request-promise": "^4.2.5",
+    "typescript": "^3.7.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -50,6 +50,7 @@
     "@babel/plugin-proposal-json-strings": "^7.7.4",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/plugin-syntax-import-meta": "^7.7.4",
     "@babel/plugin-transform-arrow-functions": "^7.7.4",
@@ -64,12 +65,15 @@
     "@types/node": "^12.12.12",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
+    "babel-eslint": "^10.0.3",
     "babel-watch": "^7.0.0",
     "eslint": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
     "eslint-plugin-babel": "^5.3.0",
-    "prettier-eslint": "^9.0.1",
-    "prettier-eslint-cli": "^5.0.0",
-    "typescript": "^3.7.2"
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
   },
   "peerDependencies": {
     "request": "^2.88.0"
