@@ -1,4 +1,3 @@
-import {Initiative} from '../../responses/card/card_api';
 import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
@@ -31,7 +30,8 @@ export class ScannableBattlegear implements Scannable {
         return this.card.name;
     }
 
-    getCard(icons: Icons) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getCard(_icons: Icons) {
         const card = API.find_cards_by_name(this.card.name)[0] as Battlegear;
 
         return new RichEmbed()

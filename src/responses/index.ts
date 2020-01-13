@@ -46,7 +46,7 @@ export default (async function(message: Message, logger: Logger) {
   //Ignore bot messages
   if (message.author.bot) return;
 
-  //@ts-ignore
+  // @ts-ignore
   const bot: Client = this; 
   let content: string = message.content;
   const mentions: string[] = Array.from(message.mentions.users.keys());
@@ -171,7 +171,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   }
 
   const channel = message.channel;
-  const {guild, guildMember} = <{guild: Guild, guildMember: GuildMember}> await messageGuild(message);
+  const {guild, guildMember} = <{guild: Guild; guildMember: GuildMember}> await messageGuild(message);
 
   /** 
     * Special Server exclusive commands
@@ -501,7 +501,7 @@ function donate(): RichEmbed {
  * If the message was sent in a guild, returns the `guild` and `guildMember`
  */
 async function messageGuild(message: Message): 
-Promise<{guild: Guild | null, guildMember: GuildMember | null}> 
+Promise<{guild: Guild | null; guildMember: GuildMember | null}> 
 {
   if (!message.guild) return {guild: null, guildMember: null};
 
@@ -511,7 +511,7 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
     : await guild.fetchMember(message.author).then((member) => guildMember = member);
 
   return {guild: guild, guildMember: guildMember};
-};
+}
 
 function rm(bot: Client, message: Message) {
   let lstmsg = bot.user.lastMessage;

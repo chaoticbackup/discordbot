@@ -5,7 +5,7 @@ import { Scannable } from '../scannable/Scannable';
 type Image = RichEmbed;
 
 export default abstract class ScanFunction {
-    protected lastRandom: number = -1;
+    protected lastRandom = -1;
 
     /**
      * Returns a random card from the list of given cards

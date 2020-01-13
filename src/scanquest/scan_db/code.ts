@@ -4,7 +4,7 @@ import ScanQuestDB from './scan_db';
 export function generateCode(db: ScanQuestDB): Code {
     // 0-9 A-F
     // 48-57 65-70
-    let code: string = "";
+    let code = "";
     let digit = 0;
     do {
         while (digit < 12) {

@@ -1,4 +1,3 @@
-import {Card} from './../../definitions';
 import {CardType} from '../../definitions';
 import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';

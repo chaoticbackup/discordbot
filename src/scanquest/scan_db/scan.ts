@@ -15,7 +15,7 @@ Promise<RichEmbed | string | undefined> => {
 
     // (db.usedcodes.find({code: {'$eq': code}}))
 
-    if (await db.save(id, server.lastScan.card)) {
+    if ((await db.save(id, server.lastScan.card)) !== null) {
         return server.lastScan.getCard(icons);
     }
 

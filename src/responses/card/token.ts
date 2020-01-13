@@ -15,7 +15,7 @@ export default function (name: string) {
 
     if (!name) return;
 
-    name = name.replace(/[^a-z0-9 _]/i, "").trimEnd();
+    name = name.replace(/[^a-z0-9 _]/i, "").trimRight();
 
     if (!/.*[0-9]$/.test(name)) {
         name += '1';

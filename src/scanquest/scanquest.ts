@@ -115,7 +115,7 @@ export default class ScanQuest {
 
     }
 
-    private async loadScan(lastSpawn: {type: string, info: any}): Promise<Scannable | null> {
+    private async loadScan(lastSpawn: {type: string; info: any}): Promise<Scannable | null> {
         if (lastSpawn.type === "Creatures") {
             let crScan = new CreatureScan();
             [

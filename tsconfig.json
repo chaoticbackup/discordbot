@@ -26,6 +26,12 @@
       "allowSyntheticDefaultImports": true,
       // Include modules imported with .json extension.
       "resolveJsonModule": true,
+      // Library files to be used in the project
+      "lib": [
+        "esnext"
+      ],
+      // Specifies module code generation
+      "module": "esnext",
       // List of folders to include type definitions from.
       "typeRoots": [
         "./node_modules/@types",
