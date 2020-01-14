@@ -3,6 +3,8 @@ const glossary = require('../config/glossary');
 
 export default function(rule: string) {
 
+    rule = rule.replace(/^(at )*(the )/i, "");
+
     for (var key in glossary) {
         if (cleantext(key).indexOf(cleantext(rule)) === 0)
             return `*${key}*:\n${glossary[key]}`;
