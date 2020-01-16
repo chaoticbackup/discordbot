@@ -5,19 +5,19 @@ import { Attack, Battlegear, Card, Creature, Location, Mugic } from '../../defin
 import Icons from '../../common/bot_icons';
 
 export default function(name: string, options: string[], bot: Client) {
-  let results = API.find_cards_by_name(name, options);
+  const results = API.find_cards_by_name(name, options);
 
   if (results.length <= 0) {
     return "That's not a valid card name";
   }
 
-  if (options.includes("text") || options.includes("details")) {
-    options.push("detailed");
+  if (options.includes('text') || options.includes('details')) {
+    options.push('detailed');
   }
-  
+
   // Random card
   if (!name) {
-    return Response(rndrsp(results, "card"), options, bot);
+    return Response(rndrsp(results, 'card'), options, bot);
   }
 
   return Response(results[0], options, bot);
@@ -33,77 +33,77 @@ type props = {
 function Response(card: Card, options: string[], bot: Client) {
   // Not a released card
   if (!card.gsx$set) {
-    if (card.gsx$image == '') {
-      if (options.includes("detailed") || options.includes("ability") || options.includes("stats")) {
-        return "No card data available";
+    if (card.gsx$image === '') {
+      if (options.includes('detailed') || options.includes('ability') || options.includes('stats')) {
+        return 'No card data available';
       }
-      
+
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(color(card))
-        .setDescription(card.gsx$ability || "No data available")
+        .setDescription(card.gsx$ability || 'No data available')
         .setURL(API.base_image + card.gsx$splash)
         .setImage(API.base_image + card.gsx$splash);
     }
   }
 
   // Image only
-  if (options.includes("image")) {
+  if (options.includes('image')) {
     return new RichEmbed()
-    .setTitle(card.gsx$name)
-    .setColor(color(card))
-    .setURL(API.base_image + card.gsx$image)
-    .setImage(API.base_image + card.gsx$image);
+      .setTitle(card.gsx$name)
+      .setColor(color(card))
+      .setURL(API.base_image + card.gsx$image)
+      .setImage(API.base_image + card.gsx$image);
   }
 
   // Ability only
-  if (options.includes("ability")) {
-    if (options.includes("brainwashed") && (card as Creature).gsx$brainwashed) {
-      return card.gsx$name + "\n" + (card as Creature).gsx$brainwashed;
+  if (options.includes('ability')) {
+    if (options.includes('brainwashed') && (card as Creature).gsx$brainwashed) {
+      return card.gsx$name + '\n' + (card as Creature).gsx$brainwashed;
     }
     else {
-      return card.gsx$name + "\n" + card.gsx$ability;
+      return card.gsx$name + '\n' + card.gsx$ability;
     }
   }
 
   const icons = new Icons(bot);
 
-  if (options.includes("stats")) {
-    if (card.gsx$type == "Creatures") {
+  if (options.includes('stats')) {
+    if (card.gsx$type === 'Creatures') {
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(color(card))
-        .setDescription(Stats({icons, card, options, textOnly: false}))
+        .setDescription(Stats({ icons, card, options, textOnly: false }))
         .setURL(API.base_image + card.gsx$image);
     }
-    else return "Only Creatures have stats";
+    else return 'Only Creatures have stats';
   }
 
   // Formatting to include an image or just the card text
-  const textOnly = Boolean(options.includes("detailed"));
+  const textOnly = Boolean(options.includes('detailed'));
 
   const mc = icons.mc((card as Creature | Mugic).gsx$tribe);
-  const props = {card, options, icons, textOnly};
+  const props = { card, options, icons, textOnly };
 
   /* Response Body */
   let body = TypeLine(props);
 
-  if (textOnly && card.gsx$type == "Mugic") {
-    body += MugicAbility(mc, props) + "\n\n";
+  if (textOnly && card.gsx$type === 'Mugic') {
+    body += MugicAbility(mc, props) + '\n\n';
   }
 
-  if (textOnly && card.gsx$type == "Locations") {
-    body += "Initiative: " + Initiative(props);
+  if (textOnly && card.gsx$type === 'Locations') {
+    body += 'Initiative: ' + Initiative(props);
   }
 
-  if (textOnly && card.gsx$type == "Attacks") {
+  if (textOnly && card.gsx$type === 'Attacks') {
     body += Elements(props);
   }
 
   body += Ability(card.gsx$ability, mc, props);
 
-  if ((card as Creature).gsx$brainwashed){
-    body += "**Brainwashed**\n" + Ability((card as Creature).gsx$brainwashed, mc, props);
+  if ((card as Creature).gsx$brainwashed) {
+    body += '**Brainwashed**\n' + Ability((card as Creature).gsx$brainwashed, mc, props);
   }
 
   body += BuildRestrictions(props);
@@ -113,10 +113,10 @@ function Response(card: Card, options: string[], bot: Client) {
   }
 
   body += Stats(props);
-  
-  if (textOnly && card.gsx$type == "Creatures") {
+
+  if (textOnly && card.gsx$type === 'Creatures') {
     body += Elements(props);
-    body += " | " + MugicAbility(mc, props);
+    body += ' | ' + MugicAbility(mc, props);
   }
 
   /* Card Embed */
@@ -128,44 +128,45 @@ function Response(card: Card, options: string[], bot: Client) {
 
   if (!textOnly) {
     CardMsg
-    .setImage(API.base_image + card.gsx$image);
+      .setImage(API.base_image + card.gsx$image);
   }
-  
+
   return CardMsg;
 }
 
 const addNewLine = (entry: string, isText: boolean) => {
-  if (entry != "") {
-    entry += (isText) ? "\n\n" : "\n";
+  if (entry !== '') {
+    entry += (isText) ? '\n\n' : '\n';
   }
   return entry;
 }
 
 const Disciplines = (modstat = 0, props: props) => {
   const card = props.card as Creature;
-  const {disciplines} = props.icons;
+  const { disciplines } = props.icons;
 
-  return eval(`${card.gsx$courage}+${modstat}`) + disciplines("Courage") + " "
-    + eval(`${card.gsx$power}+${modstat}`) + disciplines("Power") + " "
-    + eval(`${card.gsx$wisdom}+${modstat}`) + disciplines("Wisdom") + " "
-    + eval(`${card.gsx$speed}+${modstat}`) + disciplines("Speed") + " "
-    + "| " + eval(`${card.gsx$energy}+${modstat/2}`) + "\u00A0E";
+  /* eslint-disable no-eval */
+  return eval(`${card.gsx$courage}+${modstat}`) + disciplines('Courage') + ' '
+    + eval(`${card.gsx$power}+${modstat}`) + disciplines('Power') + ' '
+    + eval(`${card.gsx$wisdom}+${modstat}`) + disciplines('Wisdom') + ' '
+    + eval(`${card.gsx$speed}+${modstat}`) + disciplines('Speed') + ' '
+    + '| ' + eval(`${card.gsx$energy}+${modstat / 2}`) + '\u00A0E';
 }
 
 const Stats = (props: props) => {
-  const {card, options, textOnly} = props;
+  const { card, options, textOnly } = props;
 
-  let resp = "";
+  let resp = '';
   if ((card as Creature).gsx$energy > 0) {
     let modstat = 0;
-    if ((options.indexOf("max") > -1 || options.indexOf("thicc") > -1)
-     && !(options.indexOf("min") > -1)) {
+    if ((options.indexOf('max') > -1 || options.indexOf('thicc') > -1)
+     && !(options.indexOf('min') > -1)) {
       modstat = 10;
     }
-    if (options.indexOf("min") > -1 && !(options.indexOf("max") > -1)) {
+    if (options.indexOf('min') > -1 && !(options.indexOf('max') > -1)) {
       modstat = -10;
     }
-    if (card.gsx$name == "Aa'une the Oligarch, Avatar") modstat = 0;
+    if (card.gsx$name === "Aa'une the Oligarch, Avatar") modstat = 0;
     resp += Disciplines(modstat, props);
   }
 
@@ -173,45 +174,45 @@ const Stats = (props: props) => {
 }
 
 const TypeLine = (props: props) => {
-  const {card, textOnly, icons} = props;
-  if (!textOnly) return "";
+  const { card, textOnly, icons } = props;
+  if (!textOnly) return '';
   let resp;
 
-  if (card.gsx$type == "Attacks") {
-    resp = icons.attacks() 
+  if (card.gsx$type === 'Attacks') {
+    resp = icons.attacks()
       + ` Attack - ${(card as Attack).gsx$bp} Build Points`;
   }
-  else if (card.gsx$type == "Battlegear") {
-    resp = icons.battlegear() 
-      + ` Battlegear${card.gsx$types.length > 0 ? " - " + card.gsx$types : ""}`;
+  else if (card.gsx$type === 'Battlegear') {
+    resp = icons.battlegear()
+      + ` Battlegear${card.gsx$types.length > 0 ? ' - ' + card.gsx$types : ''}`;
   }
-  else if (card.gsx$type == "Creatures") {
-    let tribe = (card as Creature).gsx$tribe;
+  else if (card.gsx$type === 'Creatures') {
+    const tribe = (card as Creature).gsx$tribe;
     let types = card.gsx$types;
     let past = false;
-    if (types.toLowerCase().includes("past")) {
+    if (types.toLowerCase().includes('past')) {
       past = true;
       types = types.replace(/past /i, '');
     }
     resp = icons.tribes((card as Creature).gsx$tribe)
-      + " Creature - " + (past ? "Past " : "") + (tribe == "Generic" ? "" : tribe + " ") + types;
+      + ' Creature - ' + (past ? 'Past ' : '') + (tribe === 'Generic' ? '' : tribe + ' ') + types;
   }
-  else if (card.gsx$type == "Locations") {
+  else if (card.gsx$type === 'Locations') {
     resp = icons.locations()
-      + ` Location${card.gsx$types.length > 0 ? " - " + card.gsx$types : ""}`;
+      + ` Location${card.gsx$types.length > 0 ? ' - ' + card.gsx$types : ''}`;
   }
-  else if (card.gsx$type == "Mugic") {
+  else if (card.gsx$type === 'Mugic') {
     resp = icons.tribes((card as Mugic).gsx$tribe)
       + ` Mugic - ${(card as Mugic).gsx$tribe}`;
   }
-  else return "";
+  else return '';
 
   return addNewLine(resp, true);
 }
 
 const Ability = (cardtext: string, mc: Emoji, props: props) => {
-  const {textOnly} = props;
-  const {elements, disciplines} = props.icons;
+  const { textOnly } = props;
+  const { elements, disciplines } = props.icons;
 
   cardtext = cardtext.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
     return elements(p1) + match;
@@ -220,7 +221,7 @@ const Ability = (cardtext: string, mc: Emoji, props: props) => {
   cardtext = cardtext.replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
     return disciplines(p1) + match;
   });
-  
+
   cardtext = addNewLine(cardtext, textOnly);
 
   if (mc) return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
@@ -228,54 +229,54 @@ const Ability = (cardtext: string, mc: Emoji, props: props) => {
 }
 
 const Elements = (props: props) => {
-  const {card} = props;
-  const {elements, el_inactive} = props.icons;
+  const { card } = props;
+  const { elements, el_inactive } = props.icons;
 
-  let resp = "";
+  let resp = '';
 
-  if (card.gsx$type == "Creatures") {
-    ["Fire", "Air", "Earth", "Water"].forEach((element) => {
+  if (card.gsx$type === 'Creatures') {
+    ['Fire', 'Air', 'Earth', 'Water'].forEach((element) => {
       if ((card as Creature).gsx$elements.includes(element)) {
-        resp += elements(element) + " ";
+        resp += elements(element) + ' ';
       }
       else {
-        resp += el_inactive(element) + " ";
+        resp += el_inactive(element) + ' ';
       }
     });
     resp.trim();
   }
-  else if (card.gsx$type == "Attacks") {
-    resp += (card as Attack).gsx$base + " | ";
-    ["Fire", "Air", "Earth", "Water"].forEach((element) => {
+  else if (card.gsx$type === 'Attacks') {
+    resp += (card as Attack).gsx$base + ' | ';
+    ['Fire', 'Air', 'Earth', 'Water'].forEach((element) => {
       // @ts-ignore
-      let dmg = card[`gsx$${element.toLowerCase()}`];
+      const dmg = card[`gsx$${element.toLowerCase()}`];
       if (dmg && dmg >= 0) {
-        resp += elements(element) + " " + dmg + " ";
+        resp += elements(element) + ' ' + dmg + ' ';
       }
       else {
-        resp += el_inactive(element) + " ";
+        resp += el_inactive(element) + ' ';
       }
     });
-    resp += "\n\n";
+    resp += '\n\n';
   }
-  else return "";
+  else return '';
 
   return resp;
 }
 
 const MugicAbility = (mc: Emoji, props: props) => {
-  const {card} = props;
+  const { card } = props;
   let amount: any = 0;
-  let resp = "";
+  let resp = '';
 
-  if (card.gsx$type == "Creatures") {
+  if (card.gsx$type === 'Creatures') {
     amount = (card as Creature).gsx$mugicability;
-    if (amount == 0) return "";
+    if (amount === 0 || amount === '0') return '';
   }
-  else if (card.gsx$type == "Mugic") {
+  else if (card.gsx$type === 'Mugic') {
     amount = (card as Mugic).gsx$cost;
-    if (amount == 0) return "0";
-    if (amount == "X") return "X";
+    if (amount === 0 || amount === '0') return '0';
+    if (amount === 'X') return 'X';
   }
 
   for (let i = 0; i < amount; i++) {
@@ -286,29 +287,29 @@ const MugicAbility = (mc: Emoji, props: props) => {
 }
 
 const BuildRestrictions = (props: props) => {
-  const {card, textOnly} = props;
-  if (!textOnly) return "";
+  const { card, textOnly } = props;
+  if (!textOnly) return '';
 
-  let resp = "";
+  let resp = '';
   if (card.gsx$loyal) {
-    resp += "**";
+    resp += '**';
     if (card.gsx$unique) {
-      resp += "Unique, ";
+      resp += 'Unique, ';
     }
     else if (card.gsx$legendary) {
-      resp += "Legendary, ";
+      resp += 'Legendary, ';
     }
-    resp += (card.gsx$loyal == "1" ? "Loyal" : "Loyal - " + card.gsx$loyal);
-    if (card.gsx$type === "Creatures" && (card as Creature).gsx$tribe === "M'arrillian") {
+    resp += (card.gsx$loyal === '1' ? 'Loyal' : 'Loyal - ' + card.gsx$loyal);
+    if (card.gsx$type === 'Creatures' && (card as Creature).gsx$tribe === "M'arrillian") {
       resp += " - M'arrillians or Minions";
     }
-    resp += "**";
+    resp += '**';
   }
   else if (card.gsx$unique) {
-    resp += "**Unique**";
+    resp += '**Unique**';
   }
   else if (card.gsx$legendary) {
-    resp += "**Legendary**";
+    resp += '**Legendary**';
   }
 
   return addNewLine(resp, textOnly);
@@ -316,9 +317,9 @@ const BuildRestrictions = (props: props) => {
 
 export const Initiative = (props: props) => {
   const card = props.card as Location;
-  const {elements, disciplines, tribes} = props.icons;
+  const { elements, disciplines, tribes } = props.icons;
 
-  let init = card.gsx$initiative
+  const init = card.gsx$initiative
     .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
       return elements(p1) + match;
     })
@@ -327,14 +328,14 @@ export const Initiative = (props: props) => {
     })
     .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
       return tribes(p1) + match;
-    }); 
+    });
 
   return addNewLine(init, true);
 }
 
 const FlavorText = (props: props) => {
-  const {card} = props;
-  let resp = `*${card.gsx$flavortext}*`;
-  if (resp != "**") return addNewLine(resp, true);
-  else return "";
+  const { card } = props;
+  const resp = `*${card.gsx$flavortext}*`;
+  if (resp !== '**') return addNewLine(resp, true);
+  else return '';
 }

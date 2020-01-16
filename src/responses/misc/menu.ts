@@ -4,9 +4,9 @@ const {order, make} = require ('../config/menu.json');
 export { _menu as menu, _make as make, _order as order };
 
 const _menu = () => {
-  let message = "**Port Court Menu**\n=====";
-  for (let key in order) {
-    message += "\n" + key;
+  let message = '**Port Court Menu**\n=====';
+  for (const key in order) {
+    message += '\n' + key;
   }
   return message;
 }
@@ -15,7 +15,7 @@ const _make = (item: string) => {
   if (!item) return 'My skillet is ready';
   item = cleantext(item);
 
-  for (let key in make) {
+  for (const key in make) {
     if (cleantext(key).indexOf(item) === 0) {
       return `${make[key]}`;
     }
@@ -26,8 +26,8 @@ const _make = (item: string) => {
 const _order = (item: string) => {
   if (!item) return 'What would you like to order?';
   item = cleantext(item);
-  
-  for (let key in order) {
+
+  for (const key in order) {
     if (cleantext(key).indexOf(item) === 0) {
       return `${order[key]}`;
     }

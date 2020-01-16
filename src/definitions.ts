@@ -3,12 +3,12 @@ import Discord, {RichEmbed, StringResolvable, MessageOptions, Attachment} from '
 export interface Channel extends Discord.Channel {
     send(arg0: string | RichEmbed, arg1?:any): Promise<any>;
 }
-  
+
 export interface SendFunction extends Function {
   (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<any>
 }
 
-export type CardType = "Attacks" | "Battlegear" | "Creatures" | "Locations" | "Mugic";
+export type CardType = 'Attacks' | 'Battlegear' | 'Creatures' | 'Locations' | 'Mugic';
 
 export interface BaseCard {
   gsx$name: string;
@@ -62,6 +62,5 @@ export interface Mugic extends BaseCard {
   gsx$tribe: string;
   gsx$cost: number | string;
 }
-
 
 export type Card = Attack | Battlegear | Creature | Location | Mugic;

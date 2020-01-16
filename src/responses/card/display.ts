@@ -8,7 +8,7 @@ import card_local from './card_local';
 */
 export default function (name: string, options: string[], bot: Client) {
   /* If database hadn't been set up */
-  if (API.data === "local") {
+  if (API.data === 'local') {
     return card_local(name, bot);
   }
   else {

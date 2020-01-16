@@ -24,7 +24,7 @@
     "no-undef": "error",
     "no-useless-escape": "off",
     "no-empty": "off",
-    "object-curly-spacing": ["warn", "never", {"objectsInObjects": false, "arraysInObjects": false}]
+    "object-curly-spacing": ["warn", "always", {"objectsInObjects": false, "arraysInObjects": false}]
   },
   "plugins": [
     "babel"
@@ -52,10 +52,7 @@
         "@typescript-eslint"
       ],
       "rules": {
-        // Typescript only
         "@typescript-eslint/no-explicit-any": "off",
-        "no-unused-vars": "off",
-        // Common
         "brace-style": "off",
         "camelcase": "off",
         "comma-dangle": ["error", {
@@ -65,11 +62,19 @@
           "exports": "never",
           "functions": "never"
         }],
-        "indent": ["error", 4, {
+        "eqeqeq": "warn",
+        "func-call-spacing": "off",
+        "indent": ["error", 2, {
           "SwitchCase": 1
         }],
         "jsx-quotes": ["error", "prefer-double"],
         "max-len": ["error", { "code": 120 }],
+        "no-eval": "warn",
+        "no-fallthrough": "off",
+        "no-unused-vars": "off",
+        "no-useless-escape": "off",
+        "object-curly-spacing": ["error", "always", {"objectsInObjects": false, "arraysInObjects": false}],
+        "operator-linebreak": "off",
         "prefer-promise-reject-errors": "off",
         "semi": "off",
         "space-before-function-paren": "off"

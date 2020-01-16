@@ -35,22 +35,22 @@ import parseCommand from '../common/parse_command';
 
 const joke = require('./config/jokes.json');
 
-const development = (process.env.NODE_ENV == "development");
+const development = (process.env.NODE_ENV == 'development');
 
 // Servers which have access to the full command list
 const full_command_servers = [
-  servers("main").id, servers("develop").id, servers("international").id, servers("unchained").id
+  servers('main').id, servers('develop').id, servers('international').id, servers('unchained').id
 ];
 
 export default (async function(message: Message, logger: Logger) {
-  //Ignore bot messages
+  // Ignore bot messages
   if (message.author.bot) return;
 
   // @ts-ignore
-  const bot: Client = this; 
-  let content: string = message.content;
+  const bot: Client = this;
+  const content: string = message.content;
   const mentions: string[] = Array.from(message.mentions.users.keys());
-  
+
   // Prevents sending an empty message
   const send: SendFunction = (msg, options) => {
     if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack));
@@ -59,71 +59,69 @@ export default (async function(message: Message, logger: Logger) {
 
   return new Promise(() => {
     // Dev command prefix
-    if (development && content.substring(0, 2) == "d!") {
+    if (development && content.substring(0, 2) == 'd!') {
       return command_response(bot, message, mentions, send);
     }
 
     // Prevents double bot responses on production servers
-    if (development && (!message.guild || message.guild.id != servers("develop").id)) {
+    if (development && (!message.guild || message.guild.id != servers('develop').id)) {
       return;
     }
-    
+
     // If the message is a command
-    if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == "c!") {
+    if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == 'c!') {
       return command_response(bot, message, mentions, send);
     }
 
     // If no commands check message content for quips
-    if (message.guild && 
-      (message.guild.id == servers("main").id || message.guild.id == servers("develop").id)
+    if (message.guild &&
+      (message.guild.id == servers('main').id || message.guild.id == servers('develop').id)
     ) {
       return checkSass(bot, message, mentions, send);
-    } 
+    }
   })
-  .catch((error) => {
+    .catch((error) => {
     // Log/Print error
-    logger.error(error.stack);
-      
-    // Don't log problems while in development
-    if (development) return;
+      logger.error(error.stack);
 
-    // Send Error to Bot Testing Server
-    let server_source = message.guild ? message.guild.name : "DM";
+      // Don't log problems while in development
+      if (development) return;
 
-    (<Channel> bot.channels.get(servers("develop").channel("errors")))
-    .send(server_source + ":\n"+ error.stack);
+      // Send Error to Bot Testing Server
+      const server_source = message.guild ? message.guild.name : 'DM';
 
-    // Ignore programmer errors (keep running)
-    if (
-      error.name === "ReferenceError" ||
-      error.name === "SyntaxError"
-    ) return;
+      (<Channel> bot.channels.get(servers('develop').channel('errors')))
+        .send(server_source + ':\n' + error.stack);
 
-    // restart bot if unknown error
-    bot.destroy();
-  });
-  
+      // Ignore programmer errors (keep running)
+      if (
+        error.name === 'ReferenceError' ||
+      error.name === 'SyntaxError'
+      ) return;
+
+      // restart bot if unknown error
+      bot.destroy();
+    });
 });
 
 /**
- * Switch statement for commands 
- * @param bot 
- * @param mentions 
- * @param message 
- * @param send 
+ * Switch statement for commands
+ * @param bot
+ * @param mentions
+ * @param message
+ * @param send
  */
 const command_response = async (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> => {
-  
   let content: string = message.content;
 
   // strip prefix from test commands
-  if (development && content.charAt(0) == "d") {
+  if (development && content.charAt(0) == 'd') {
     content = content.slice(1);
   }
 
   const {cmd, args, options} = parseCommand(content);
 
-  if (options.includes("help")) {
+  if (options.includes('help')) {
     return send(help(cmd));
   }
 
@@ -131,20 +129,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     * Public Servers (Limited functions)
     */
   if (message.guild && !full_command_servers.includes(message.guild.id)) {
-    switch(cmd) {
+    switch (cmd) {
       case 'card':
       case 'cards':
-        return flatten(args).split(";").forEach((name: string) => {
+        return flatten(args).split(';').forEach((name: string) => {
           send(display_card(name.trim(), options, bot));
         });
       case 'ability':
-        options.push("ability");
+        options.push('ability');
         return send(display_card(flatten(args), options, bot));
       case 'text':
-        options.push("text");
+        options.push('text');
         return send(display_card(flatten(args), options, bot));
       case 'stats':
-        options.push("stats");
+        options.push('stats');
         return send(display_card(flatten(args), options, bot));
       case 'full':
       case 'fullart':
@@ -154,15 +152,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
       case 'help':
-        if (content.charAt(0) == "!") {
-          return send("Use **!commands** or **c!help**");
+        if (content.charAt(0) == '!') {
+          return send('Use **!commands** or **c!help**');
         } // falls through with c!help
       case 'commands':
-        let text = flatten(args);
+        const text = flatten(args);
         if (text) return send(help(text));
-        const keys = ["start", "card", "stats", "text", "fullart", "find", "rate", "end"];
-        let msg = help("", keys)
-          + "\nFor my full feature set check out the main server https://discord.gg/chaotic";
+        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'end'];
+        const msg = help('', keys)
+          + '\nFor my full feature set check out the main server https://discord.gg/chaotic';
         return send(msg)
           .then(() => send(donate()));
       default:
@@ -173,16 +171,16 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   const channel = message.channel;
   const {guild, guildMember} = <{guild: Guild; guildMember: GuildMember}> await messageGuild(message);
 
-  /** 
+  /**
     * Special Server exclusive commands
     */
   if (guild && (
-      guild.id == servers("international").id
-      || guild.id == servers("unchained").id
-      || guild.id == servers("develop").id
-    )
+    guild.id == servers('international').id
+      || guild.id == servers('unchained').id
+      || guild.id == servers('develop').id
+  )
   ) {
-    switch(cmd) {
+    switch (cmd) {
       case 'colour':
       case 'color':
         return color(args, guild, guildMember, send);
@@ -190,9 +188,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'regions':
         return meetup(guildMember, guild, args, mentions).then(send);
       case 'watch':
-        return send("Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n"
-          + "Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n"
-          + "Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4"
+        return send('Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n'
+          + 'Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n'
+          + 'Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4'
         );
       default:
         // If no special commands, continue to full command set
@@ -203,26 +201,26 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   /**
     * Full command set
     */
-  switch(cmd) {
+  switch (cmd) {
   /*
    * Gameplay
    */
 
     /* Cards */
-   case 'card':
-   case 'cards':
+    case 'card':
+    case 'cards':
       if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
-      return flatten(args).split(";").forEach((name: string) => {
+      return flatten(args).split(';').forEach((name: string) => {
         send(display_card(name.trim(), options, bot));
       });
     case 'ability':
-      options.push("ability");
+      options.push('ability');
       return send(display_card(flatten(args), options, bot));
     case 'text':
-      options.push("text");
+      options.push('text');
       return send(display_card(flatten(args), options, bot));
     case 'stats':
-      options.push("stats");
+      options.push('stats');
       return send(display_card(flatten(args), options, bot));
     case 'full':
     case 'fullart':
@@ -232,13 +230,13 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'rate':
       return send(rate_card(flatten(args), options, bot));
     case 'readthecard': {
-      if (isModerator(guildMember) && hasPermission(guild, "SEND_TTS_MESSAGES")) {
-        options.push("ability");
+      if (isModerator(guildMember) && hasPermission(guild, 'SEND_TTS_MESSAGES')) {
+        options.push('ability');
         return send(display_card(flatten(args), options, bot), {tts: true});
       }
     } return;
     case 'parasite': {
-      if (args[0] === "token") {
+      if (args[0] === 'token') {
         return send(display_token('parasite ' + flatten(args.slice(1))));
       }
       else {
@@ -255,19 +253,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'keyword':
     case 'rule':
       if (args.length < 1)
-        return send(`Please provide a rule, or use **!rulebook** or **!guide**`);
+      { return send('Please provide a rule, or use **!rulebook** or **!guide**'); }
       return send(glossary(flatten(args)));
 
     /* Documents */
     case 'rulebook':
       return send(rulebook(args, options));
     case 'cr':
-    case 'comprehensive': 
-      return send("<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>");
+    case 'comprehensive':
+      return send('<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>');
     case 'errata':
-      return send("<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>");
+      return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
     case 'guide':
-      return send("<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>");
+      return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
 
     /* Starters */
     case 'starter':
@@ -280,26 +278,26 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'standard':
       return send(banlist(guild, channel));
     case 'legacy':
-      return send(banlist(guild, channel, ["legacy"]));
+      return send(banlist(guild, channel, ['legacy']));
     case 'rotation':
     case 'modern':
-      return send(banlist(guild, channel, ["modern"]));
+      return send(banlist(guild, channel, ['modern']));
     case 'pauper':
-      return send(banlist(guild, channel, ["pauper"]));
+      return send(banlist(guild, channel, ['pauper']));
     case 'peasant':
     case 'noble':
-      return send(banlist(guild, channel, ["noble"]));
+      return send(banlist(guild, channel, ['noble']));
 
     /* Whyban */
     case 'ban':
       if (mentions.length > 0) {
         if (mentions.indexOf('279331985955094529') !== -1)
-          return send("You try to ban me? I'll ban you!");
+        { return send("You try to ban me? I'll ban you!"); }
         return send("I'm not in charge of banning players");
-      } //fallthrough
+      } // fallthrough
     case 'whyban':
       if (mentions.length > 0)
-        return send("Player's aren't cards, silly");
+      { return send("Player's aren't cards, silly"); }
       return send(whyban(flatten(args), guild, channel, options));
     case 'formats':
       return send(formats());
@@ -314,7 +312,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'tier':
     case 'meta':
       if (args.length == 0)
-        return send("Supply a tier or use ``!tierlist``")
+      { return send('Supply a tier or use ``!tierlist``') }
       // falls through if args
     case 'tierlist': {
       if (args.length > 0) return send(tier(flatten(args)));
@@ -322,37 +320,36 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(new RichEmbed()
           .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
         )
-        .then(() => send(tier()))
-        .then(() => send(donate()));
+          .then(() => send(tier()))
+          .then(() => send(donate()));
       }
     } break;
 
-
     /* Matchmaking */
-    case "lf":
+    case 'lf':
     case 'lookingfor':
-    case "match":
+    case 'match':
       return send(lookingForMatch(args[0], channel, guild, guildMember));
-    case "cancel":
+    case 'cancel':
       return send(cancelMatch(channel, guild, guildMember));
-    
-  /*
+
+      /*
    * Misc
    */
     case 'donate':
       return send(donate());
 
     case 'collection':
-      return send("https://chaoticbackup.github.io/collection/");
+      return send('https://chaoticbackup.github.io/collection/');
 
     case 'banhammer': {
-      return send(display_card("The Doomhammer", ["image"], bot));
+      return send(display_card('The Doomhammer', ['image'], bot));
     }
 
     case 'fun':
     case 'funstuff':
     case 'agame':
-      return send(funstuff());  
+      return send(funstuff());
 
     /* Cooking */
     case 'menu':
@@ -361,11 +358,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(order(flatten(args)));
     case 'make':
     case 'cook':
-      if (flatten(args) === "sandwitch")
-        return send(display_card("Arkanin", ["image"], bot));
+      if (flatten(args) === 'sandwitch')
+      { return send(display_card('Arkanin', ['image'], bot)); }
       else
-        return send(make(flatten(args)));
-    
+      { return send(make(flatten(args))); }
+
     /* Tribes */
     case 'tribe':
       return tribe(guild, guildMember, args).then(send);
@@ -395,37 +392,37 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Compliments, Insults, Jokes */
     case 'flirt':
     case 'compliment':
-      return send(compliment(guild, mentions, args.join(" ")));
+      return send(compliment(guild, mentions, args.join(' ')));
     case 'burn':
     case 'roast':
     case 'insult':
-      return send(insult(guild, mentions, args.join(" ")));
+      return send(insult(guild, mentions, args.join(' ')));
     case 'joke':
-      return send(rndrsp(joke, "joke"));
-      
+      return send(rndrsp(joke, 'joke'));
+
     /* Trivia */
     case 'whistle':
       return send(whistle(guildMember));
     case 'trivia':
       return send(trivia(guildMember));
     case 'answer':
-      return send(answer(guildMember || message.author, args.join(" ")));
+      return send(answer(guildMember || message.author, args.join(' ')));
 
     case 'happy': {
-      if (cleantext(flatten(args)).includes("borth")) {
-        return send(gone("borth-day", bot));
+      if (cleantext(flatten(args)).includes('borth')) {
+        return send(gone('borth-day', bot));
       }
       break;
     }
 
     /* Help */
     case 'help':
-      if (guildMember && content.charAt(0) == "!") {
-        let rtn_str = "Use **!commands** or **c!help**";
-        if (bot.users.get('159985870458322944')) //meebot
-          setTimeout(() => {send(rtn_str)}, 500);
+      if (guildMember && content.charAt(0) == '!') {
+        const rtn_str = 'Use **!commands** or **c!help**';
+        if (bot.users.get('159985870458322944')) // meebot
+        { setTimeout(() => { send(rtn_str) }, 500); }
         else
-          send(rtn_str);
+        { send(rtn_str); }
         break;
       } // falls through with c!help
     case 'cmd':
@@ -433,7 +430,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0) return send(help(flatten(args)));
       if (guildMember) {
         guildMember.send(help())
-          .then(() => {guildMember.send(donate())})
+          .then(() => { guildMember.send(donate()) })
           .catch(() => {
             send(help());
           });
@@ -442,41 +439,41 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(help())
         .then(() => send(donate()));
     }
-      
-  /*
+
+    /*
    * Moderation
    */
-  // case 'banhammer': {
-  //   if (isModerator(guildMember) && mentions.length > 1) {
-  //     message.mentions.members.forEach(member => {
-  //       const reason = args.join(" ");
-  //       if (!isModerator(member) && member.bannable) {
-  //         if (reason !== "") member.ban({reason});
-  //         else member.ban();
-  //       }
-  //       else {
-  //         send(member.displayName + "cannot be banned");
-  //       }
-  //     });
-  //   }
-  //   return send(display_card("The Doomhammer", ["image"], bot));
-  // }
-  
-  case 'rm':
-    if (isNaN(parseInt(flatten(args))))
-      return rm(bot, message);
+    // case 'banhammer': {
+    //   if (isModerator(guildMember) && mentions.length > 1) {
+    //     message.mentions.members.forEach(member => {
+    //       const reason = args.join(" ");
+    //       if (!isModerator(member) && member.bannable) {
+    //         if (reason !== "") member.ban({reason});
+    //         else member.ban();
+    //       }
+    //       else {
+    //         send(member.displayName + "cannot be banned");
+    //       }
+    //     });
+    //   }
+    //   return send(display_card("The Doomhammer", ["image"], bot));
+    // }
+
+    case 'rm':
+      if (isNaN(parseInt(flatten(args))))
+      { return rm(bot, message); }
     // fallthrough if number provided
-  case 'clear':
-  case 'clean':
-  case 'delete':
-    return clear(parseInt(flatten(args)), message, mentions);
+    case 'clear':
+    case 'clean':
+    case 'delete':
+      return clear(parseInt(flatten(args)), message, mentions);
 
-  /* Hard reset bot */
-  case 'haxxor':
-    return haxxor(message, bot);
+      /* Hard reset bot */
+    case 'haxxor':
+      return haxxor(message, bot);
 
-  // Not a recognized command
-  default: return;
+      // Not a recognized command
+    default:
   }
 }
 
@@ -486,27 +483,27 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
 // Takes the arg list and turns it into cleaned text
 function flatten(args: string[]): string {
-  return (args.join(" ")).toLowerCase();
+  return (args.join(' ')).toLowerCase();
 }
 
 function donate(): RichEmbed {
-  return(
+  return (
     new RichEmbed()
-      .setDescription("[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)")
-      .setTitle("Donate")
+      .setDescription('[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)')
+      .setTitle('Donate')
   );
 }
 
 /**
  * If the message was sent in a guild, returns the `guild` and `guildMember`
  */
-async function messageGuild(message: Message): 
-Promise<{guild: Guild | null; guildMember: GuildMember | null}> 
+async function messageGuild(message: Message):
+Promise<{guild: Guild | null; guildMember: GuildMember | null}>
 {
   if (!message.guild) return {guild: null, guildMember: null};
 
-  let guild: Guild = message.guild;
-  let guildMember: GuildMember = (message.member) 
+  const guild: Guild = message.guild;
+  let guildMember: GuildMember = (message.member)
     ? message.member
     : await guild.fetchMember(message.author).then((member) => guildMember = member);
 
@@ -514,24 +511,24 @@ Promise<{guild: Guild | null; guildMember: GuildMember | null}>
 }
 
 function rm(bot: Client, message: Message) {
-  let lstmsg = bot.user.lastMessage;
+  const lstmsg = bot.user.lastMessage;
   if (lstmsg && lstmsg.deletable) lstmsg.delete();
   if (message.deletable) message.delete(); // delete user msg
 }
 
 function clear(amount: number, message: Message, mentions: string[] = []): void {
-  if (isModerator(message.member) && hasPermission(message.guild, "MANAGE_MESSAGES")) {
+  if (isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES')) {
     if (amount <= 25) {
       if (mentions.length > 0) {
         message.channel.fetchMessages()
-        .then(messages => {
-          let b_messages = messages.filter(m =>
-            mentions.includes(m.author.id)
-          );
-          if (b_messages.size > 0)
-            message.channel.bulkDelete(b_messages);
+          .then(messages => {
+            const b_messages = messages.filter(m =>
+              mentions.includes(m.author.id)
+            );
+            if (b_messages.size > 0)
+            { message.channel.bulkDelete(b_messages); }
             message.delete();
-        });
+          });
       }
       else {
         message.channel.bulkDelete(amount + 1);
@@ -539,21 +536,21 @@ function clear(amount: number, message: Message, mentions: string[] = []): void 
     }
     else {
       // only delete the clear command
-      message.channel.send("Enter a number less than 20");
+      message.channel.send('Enter a number less than 20');
       message.delete();
     }
   }
 }
 
 function haxxor(message: Message, bot: Client): void {
-  if (message.member.id === users("daddy").id
-    || (message.guild && message.guild.id === servers("main").id && isModerator(message.member))
+  if (message.member.id === users('daddy').id
+    || (message.guild && message.guild.id === servers('main').id && isModerator(message.member))
   ) {
     message.channel.send('Resetting...');
     API.rebuild()
-    .then(() => bot.destroy())
-    .catch((err) => {
-      message.channel.send(err.message);
-    });
+      .then(() => bot.destroy())
+      .catch((err) => {
+        message.channel.send(err.message);
+      });
   }
 }

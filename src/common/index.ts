@@ -1,4 +1,4 @@
-import { Guild, GuildMember, PermissionResolvable } from "discord.js";
+import { Guild, GuildMember, PermissionResolvable } from 'discord.js';
 import RandomResponse from './RandomResponse';
 
 export const rndrsp = (new RandomResponse()).rndrsp;
@@ -24,7 +24,7 @@ export function cleantext(string: string): string {
  */
 export function escape_text(text: string): string {
   return text
-    .replace(/\(|\)/g, (match) => {return ("\\"+match)})
+    .replace(/\(|\)/g, (match) => { return ('\\' + match) })
     .replace(/’/g, '\'');
 }
 
@@ -41,9 +41,9 @@ export function reload(module: any) {
 
 export function isModerator(member: GuildMember): boolean {
   return Boolean(
-    member.roles.find(role => role.name==="Administrator") ||
-    member.roles.find(role => role.name==="Moderator") ||
-    member.roles.find(role => role.name==="Sectional Mod")
+    member.roles.find(role => role.name === 'Administrator') ||
+    member.roles.find(role => role.name === 'Moderator') ||
+    member.roles.find(role => role.name === 'Sectional Mod')
   );
 }
 
@@ -54,19 +54,19 @@ export function hasPermission(guild: Guild, permission: PermissionResolvable): b
 
 export function tribe_plural(tribe: string) {
   switch (tribe) {
-      case 'Danian':
-          return "Danians";
-      case 'Mipedian':
-          return "Mipedians";
-      case `M'arrillian`:
-          return `M'arrillians`;
-      case "OverWorld":
-      case "OverWorlder":
-          return "OverWorlders";
-      case "UnderWorld":
-      case "UnderWorlder":
-          return "UnderWorlders";
-      default:
-          return tribe;
+    case 'Danian':
+      return 'Danians';
+    case 'Mipedian':
+      return 'Mipedians';
+    case 'M\'arrillian':
+      return 'M\'arrillians';
+    case 'OverWorld':
+    case 'OverWorlder':
+      return 'OverWorlders';
+    case 'UnderWorld':
+    case 'UnderWorlder':
+      return 'UnderWorlders';
+    default:
+      return tribe;
   }
 }

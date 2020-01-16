@@ -1,4 +1,4 @@
-import { Guild, Message } from "discord.js";
+import { Guild, Message } from 'discord.js';
 import { Channel } from '../definitions';
 import { is_channel } from './is_channel';
 import servers from './servers';
@@ -26,11 +26,11 @@ export function can_send<A extends Message | Guild, B extends Channel | undefine
 
   if (!guild) return true;
   if (!channel) return false;
-  if (guild.id === servers("main").id && !is_channel(channel, "bot_commands")) {
+  if (guild.id === servers('main').id && !is_channel(channel, 'bot_commands')) {
     if (msg !== null) {
-      channel.send(msg || `To be courteous to other conversations, ask me in <#${servers("main").channel("bot_commands")}> :)`);
+      channel.send(msg || `To be courteous to other conversations, ask me in <#${servers('main').channel('bot_commands')}> :)`);
     }
     return false;
   }
   return true;
-};
+}
