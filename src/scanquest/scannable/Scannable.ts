@@ -13,7 +13,7 @@ export class Scan {
     code: Code;
 
     constructor(type: CardType) {
-        this.type = type;
+      this.type = type;
     }
 }
 
@@ -26,4 +26,3 @@ export interface Scannable {
     toString(): string;
     getCard(icons?: Icons): RichEmbed;
 }
-
