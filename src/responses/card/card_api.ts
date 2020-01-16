@@ -11,7 +11,7 @@ export default function(name: string, options: string[], bot: Client) {
     return "That's not a valid card name";
   }
 
-  if (options.includes('text') || options.includes('details')) {
+  if (options.includes('text') || options.includes('ability')) {
     options.push('detailed');
   }
 
@@ -34,7 +34,7 @@ function Response(card: Card, options: string[], bot: Client) {
   // Not a released card
   if (!card.gsx$set) {
     if (card.gsx$image === '') {
-      if (options.includes('detailed') || options.includes('ability') || options.includes('stats')) {
+      if (options.includes('detailed') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
 
@@ -56,8 +56,8 @@ function Response(card: Card, options: string[], bot: Client) {
       .setImage(API.base_image + card.gsx$image);
   }
 
-  // Ability only
-  if (options.includes('ability')) {
+  // Read ability only
+  if (options.includes('read')) {
     if (options.includes('brainwashed') && (card as Creature).gsx$brainwashed) {
       return card.gsx$name + '\n' + (card as Creature).gsx$brainwashed;
     }
@@ -108,7 +108,7 @@ function Response(card: Card, options: string[], bot: Client) {
 
   body += BuildRestrictions(props);
 
-  if (textOnly) {
+  if (textOnly && !options.includes('ability')) {
     body += FlavorText(props);
   }
 

@@ -5,12 +5,12 @@ import { API } from '../../database';
 */
 export default function (name: string) {
   /* Potential input formats
-        parasite orange
-        parasite_orange
-        parasite orange 1
-        parasite orange1
-        parasite_orange 1
-        parasite_orange1 // ideal
+    parasite orange
+    parasite_orange
+    parasite orange 1
+    parasite orange1
+    parasite_orange 1
+    parasite_orange1 // ideal
     */
 
   if (!name) return;

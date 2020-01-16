@@ -31,7 +31,7 @@ export default async (user: GuildMember, guild: Guild, args: string[]): Promise<
     return Promise.resolve(msg);
   }
 
-  if (args.length == 0 || args[0] == '') return languageList();
+  if (args.length === 0 || args[0] === '') return languageList();
 
   const language = args[0].toLowerCase();
   const role: Role = guild.roles.find(role => role.name === `${language}${suffix}`);

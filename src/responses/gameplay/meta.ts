@@ -1,15 +1,15 @@
 import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
-const {tierlist, decks, tribes} = require('../config/tierlist.json');
+const { tierlist, decks, tribes } = require('../config/tierlist.json');
 
 export default (tier?: string) => {
   const embed = new RichEmbed();
 
-  if (tier && tier != 'list') {
+  if (tier && tier !== 'list') {
     tier = cleantext(tier);
 
     for (const key in tribes) {
-      if (cleantext(key) == tier) {
+      if (cleantext(key) === tier) {
         let message = `**${key} Decks:**\n`;
         tribes[key].forEach((deck: string) => {
           message += `${deck}: ${decks[deck].url}\n`;
@@ -19,8 +19,8 @@ export default (tier?: string) => {
     }
 
     tier = tier.toUpperCase();
-    if (tier == 'CM') tier = 'S';
-    if (tierlist.hasOwnProperty(tier)) {
+    if (tier === 'CM') tier = 'S';
+    if ({}.hasOwnProperty.call(tierlist, tier)) {
       let message = '';
       tierlist[tier].forEach((deck: string) => {
         message += `${deck}: ${decks[deck].url}\n`;

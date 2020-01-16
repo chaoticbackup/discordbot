@@ -40,13 +40,13 @@ export default class Icons {
     elements = (input: string) => {
       switch (input) {
         case 'Fire':
-          return this.bot.emojis.find(emoji => emoji.name == 'Fire');
+          return this.bot.emojis.find(emoji => emoji.name === 'Fire');
         case 'Air':
-          return this.bot.emojis.find(emoji => emoji.name == 'Air');
+          return this.bot.emojis.find(emoji => emoji.name === 'Air');
         case 'Earth':
-          return this.bot.emojis.find(emoji => emoji.name == 'Earth');
+          return this.bot.emojis.find(emoji => emoji.name === 'Earth');
         case 'Water':
-          return this.bot.emojis.find(emoji => emoji.name == 'Water');
+          return this.bot.emojis.find(emoji => emoji.name === 'Water');
         default:
           return '';
       }
@@ -56,13 +56,13 @@ export default class Icons {
     el_inactive = (input: string) => {
       switch (input) {
         case 'Fire':
-          return this.bot.emojis.find(emoji => emoji.name == 'fireinactive');
+          return this.bot.emojis.find(emoji => emoji.name === 'fireinactive');
         case 'Air':
-          return this.bot.emojis.find(emoji => emoji.name == 'airinactive');
+          return this.bot.emojis.find(emoji => emoji.name === 'airinactive');
         case 'Earth':
-          return this.bot.emojis.find(emoji => emoji.name == 'earthinactive');
+          return this.bot.emojis.find(emoji => emoji.name === 'earthinactive');
         case 'Water':
-          return this.bot.emojis.find(emoji => emoji.name == 'waterinactive');
+          return this.bot.emojis.find(emoji => emoji.name === 'waterinactive');
         default:
           return '';
       }
@@ -72,13 +72,13 @@ export default class Icons {
     disciplines = (input: string) => {
       switch (input) {
         case 'Courage':
-          return this.bot.emojis.find(emoji => emoji.name == 'Courage');
+          return this.bot.emojis.find(emoji => emoji.name === 'Courage');
         case 'Power':
-          return this.bot.emojis.find(emoji => emoji.name == 'Power');
+          return this.bot.emojis.find(emoji => emoji.name === 'Power');
         case 'Wisdom':
-          return this.bot.emojis.find(emoji => emoji.name == 'Wisdom');
+          return this.bot.emojis.find(emoji => emoji.name === 'Wisdom');
         case 'Speed':
-          return this.bot.emojis.find(emoji => emoji.name == 'Speed');
+          return this.bot.emojis.find(emoji => emoji.name === 'Speed');
         default:
           return '';
       }

@@ -1,5 +1,5 @@
 import { Guild, GuildMember, Snowflake } from 'discord.js';
-import loki, { Collection } from 'lokijs';
+import Loki, { Collection } from 'lokijs';
 import path from 'path';
 import { asyncForEach } from '../../common';
 import db_path from '../../database/db_path';
@@ -22,7 +22,7 @@ class MeetupsAPI {
     private regions: Collection<Region>;
 
     constructor() {
-      const db = new loki(path.resolve(db_path, 'regions.db'), {
+      const db = new Loki(path.resolve(db_path, 'regions.db'), {
         autosave: true,
         autoload: true,
         autosaveInterval: 4000,
@@ -40,13 +40,13 @@ class MeetupsAPI {
     }
 
     addRegion = async (regionName: string) => {
-      const region = this.regions.findOne({ name: regionName});
+      const region = this.regions.findOne({ name: regionName });
       if (region) throw new Error(`Region "${region}" already exists`);
-      this.regions.insert({name: regionName, members: []});
+      this.regions.insert({ name: regionName, members: []});
     }
 
     getRegion = async (regionName: string): Promise<Region> => {
-      const region = this.regions.findOne({name: regionName});
+      const region = this.regions.findOne({ name: regionName });
       if (!region) throw new Error(`Region "${regionName}" does not exist`);
       return region;
     }
@@ -60,7 +60,7 @@ class MeetupsAPI {
     }
 
     renameRegion = async (region: Region, newName: string) => {
-      return this.regions.findAndUpdate({name: region.name}, (rg: Region) => {
+      return this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
         rg.name = newName;
       });
     }
@@ -85,14 +85,14 @@ class MeetupsAPI {
           throw new Error(`${member.displayName} is already in ${region.name}`);
         }
 
-        this.regions.findAndUpdate({name: region.name}, (rg: Region) => {
+        this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
           rg.members.push(this.convertGuildMember(member));
         });
       });
     }
 
     removeMemberFromRegionByIndex = async (i: number, region: Region) => {
-      this.regions.findAndUpdate({name: region.name}, (rg: Region) => {
+      this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
         rg.members.splice(i, 1);
       });
     }
@@ -127,7 +127,7 @@ const rmSpecialChars = (text: string): string => {
  * // !region <regionName> <add|remove> <@guildMember>
  */
 export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<string> => {
-  const moderator = Boolean(user.roles.find(role => role.name == 'lord emperor'));
+  const moderator = Boolean(user.roles.find(role => role.name === 'lord emperor'));
 
   const regionList = async (): Promise<string> => {
     const regions: Region[] = await MeetupsDB.getRegionList();
@@ -143,7 +143,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
   const memberList = async (region: Region): Promise<string> => {
     const members: Member[] = await MeetupsDB.getMembersInRegion(region);
 
-    if (members.length == 0) return Promise.resolve('No members');
+    if (members.length === 0) return Promise.resolve('No members');
 
     let msg = `List of Members: (${members.length})\n`;
     const displayNames: string[] = [];
@@ -166,7 +166,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
     return Promise.resolve(msg);
   }
 
-  if (args.length === 0 || args[0] == '') {
+  if (args.length === 0 || args[0] === '') {
     return MeetupsDB.getRegionList().then(regionList);
   }
 
@@ -174,7 +174,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
     case 'list': {
       return MeetupsDB.getRegionList().then(regionList);
     }
-    case 'add': {
+    case 'add':
       if (moderator) {
         if (args.length < 2) return '!region add <regionName>';
         return MeetupsDB.addRegion(args[1])
@@ -183,9 +183,8 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
           })
           .catch((err: Error) => { return err.message });
       }
-    }
       break;
-    case 'remove': {
+    case 'remove':
       if (moderator) {
         if (args.length < 2) return '!region add <regionName>';
         return MeetupsDB.getRegion(args[1])
@@ -197,9 +196,8 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
             return `Removed region ${args[1]}`;
           });
       }
-    }
       break;
-    case 'rename': {
+    case 'rename':
       if (moderator) {
         if (args.length < 2) return '!region add <regionName>';
         return MeetupsDB.getRegion(args[1])
@@ -211,23 +209,21 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
             return `Renamed ${args[1]} -> ${args[2]}`;
           });
       }
-    }
       break;
-    case 'details': {
+    case 'details':
       return MeetupsDB.getRegionList()
         .then((regions: Region[]) => {
           let msg = 'Number of members per region:\n';
           regions.forEach((region: Region) => {
-            if (region.members.length == 0)
+            if (region.members.length === 0)
             { msg += `${region.name} (no members)\n`; }
-            else if (region.members.length == 1)
+            else if (region.members.length === 1)
             { msg += `${region.name} (1 member)\n`; }
             else
             { msg += `${region.name} (${region.members.length} members)\n`; }
           });
           return msg;
         });
-    }
     // Assume user provided region name
     default: {
       try {
@@ -243,7 +239,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
 
         if (mentions.length > 0) {
           switch (param) {
-            case 'add': {
+            case 'add':
               if (moderator) {
                 const added: string[] = [];
                 await asyncForEach(mentions, async (id: string) => {
@@ -267,9 +263,8 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                 }
                 return Promise.resolve(`No users were added to ${region.name}`);
               }
-            }
               break;
-            case 'remove': {
+            case 'remove':
               if (moderator) {
                 const removed: string[] = [];
                 await asyncForEach(mentions, async (id: string) => {
@@ -293,7 +288,6 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
                 }
                 return Promise.resolve(`No users were removed from ${region.name}`);
               }
-            }
               break;
             default:
               return Promise.resolve(`!region ${args[0]} <add|remove> <guildMember>`);

@@ -1,5 +1,5 @@
-import {ScannableBattlegear, BattlegearScan} from './scannable/Battlegear';
-import {ScannableLocation, LocationScan} from './scannable/Location';
+import { ScannableBattlegear, BattlegearScan } from './scannable/Battlegear';
+import { ScannableLocation, LocationScan } from './scannable/Location';
 import Loki, { Collection } from 'lokijs';
 import path from 'path';
 import db_path from '../database/db_path';
@@ -14,16 +14,8 @@ class Player {
     public scans: Scan[];
 }
 
-class Server {
-    public id: string;
-    public points: number;
-    public channel: string;
-    public lastScan: Scannable | null;
-}
-
 class ScanQuestDB {
     private players: Collection<Player>;
-    private servers: Collection<Server>;
     private db: Loki;
 
     constructor() {
@@ -39,20 +31,12 @@ class ScanQuestDB {
           else {
             this.players = players;
           }
-
-          const servers = this.db.getCollection('servers') as Collection<Server>;
-          if (servers === null) {
-            this.servers = this.db.addCollection('servers');
-          }
-          else {
-            this.servers = servers;
-          }
         }
       });
     }
 
     list = async (message: Message): Promise<void> => {
-      const player = this.findOnePlayer({id: message.author.id});
+      const player = this.findOnePlayer({ id: message.author.id });
       if (player.scans.length === 0) {
         message.channel.send('You have no scans');
         return;
@@ -88,7 +72,7 @@ class ScanQuestDB {
     }
 
     save = async (id: string, card: Scan): Promise<boolean> => {
-      const player = this.findOnePlayer({id: id});
+      const player = this.findOnePlayer({ id: id });
       if (player.scans.length === 0 || player.scans[player.scans.length - 1].name !== card.name) {
         player.scans.push(card);
         this.players.update(player);
@@ -97,10 +81,10 @@ class ScanQuestDB {
       return Promise.resolve(false);
     }
 
-    private findOnePlayer({id}: {id: string}) {
-      let player = this.players.findOne({id: id});
+    private findOnePlayer({ id }: {id: string}) {
+      let player = this.players.findOne({ id: id });
       if (player === null) {
-        player = this.players.insert({id, scans: []}) as Player & LokiObj;
+        player = this.players.insert({ id, scans: []}) as Player & LokiObj;
       }
       return player;
     }

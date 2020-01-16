@@ -32,7 +32,7 @@ export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember)
 
   types.forEach((type) => {
     const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
-    if (member.roles.find((role: Role) => role === role)) {
+    if (member.roles.find((r) => role === r)) {
       member.removeRole(role);
     }
   });

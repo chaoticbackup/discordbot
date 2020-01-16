@@ -34,7 +34,7 @@ let main = false;
 if (process.env.NODE_ENV !== 'development') {
   try {
     const api = require('./api.json');
-    if (api != false) {
+    if (!api) {
       main = true;
       ForumAPI(logger);
     }
@@ -93,7 +93,7 @@ bot.on('guildMemberAdd', (member) => {
       const meebot = bot.users.get('159985870458322944');
       if (meebot) { setTimeout(() => {
         if (meebot!.lastMessage && meebot!.lastMessage.deletable) {
-					meebot!.lastMessage.delete();
+          meebot!.lastMessage.delete();
         }
       }, 500); }
     }); }

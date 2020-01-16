@@ -4,7 +4,7 @@ import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 
 const ban_lists = require('../config/bans.json');
-const {formats, watchlist, detailed, reasons, jokes} = ban_lists;
+const { formats, watchlist, detailed, reasons, jokes } = ban_lists;
 
 export { f as formats };
 
@@ -19,11 +19,12 @@ function f() {
 }
 
 export function banlist(guild: Guild, channel: Channel, options: string[] = []) {
-  if (guild && guild.id == servers('main').id) {
+  if (guild && guild.id === servers('main').id) {
     if (!(is_channel(channel, 'bot_commands')
       || is_channel(channel, 'banlist_discussion')
       || is_channel(channel, 'meta_analysis')
     )) {
+      // eslint-disable-next-line max-len
       return (`I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`);
     }
   }
@@ -38,7 +39,7 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
   }
 
   // Standard
-  if (options.length == 0 || options.includes('standard')) {
+  if (options.length === 0 || options.includes('standard')) {
     list_bans('standard');
     message += '\n=====\n**Watchlist:** (not banned)'
     watchlist.forEach((key: string) => {
@@ -74,13 +75,13 @@ export function whyban(
 ): string | undefined {
   if (guild && channel && !can_send(guild, channel)) return;
 
-  if (name == '') return 'Please provide a card or use !banlist';
+  if (!name) return 'Please provide a card or use !banlist';
 
   const cardName = cleantext(name);
 
   // Check if long explanation requested
   if (options.includes('detailed')) {
-    if (guild && channel && guild.id == servers('main').id) {
+    if (guild && channel && guild.id === servers('main').id) {
       if (!can_send(guild, channel)) return '';
     }
     for (const key in detailed) {

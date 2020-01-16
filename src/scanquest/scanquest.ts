@@ -1,9 +1,8 @@
-import { Client, DMChannel, Message, RichEmbed, Snowflake } from 'discord.js';
+import { Client, DMChannel, Message, RichEmbed } from 'discord.js';
 import fs from 'fs-extra';
 import { Logger } from 'winston';
 import Icons from '../common/bot_icons';
-import users from '../common/users';
-import parseCommand from '../common/parse_command';
+import servers from '../common/servers';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
 import ScanBattlegear from './scanfunction/Battlegear';
@@ -14,21 +13,33 @@ import { CreatureScan, ScannableCreature } from './scannable/Creature';
 import { LocationScan, ScannableLocation } from './scannable/Location';
 import { Scannable } from './scannable/Scannable';
 import ScanQuestDB from './scan_db';
+import users from '../common/users';
+
+const config = {
+  send_channel: servers('main').channel('perim'),
+  recieve_channel: servers('main').channel('bot_commands'),
+  test_channel: servers('develop').channel('bot_commands')
+}
 
 const file = 'last_spawn.json';
 
 export default class ScanQuest {
     private db: ScanQuestDB;
+    private send_channel: string;
+    private recieve_channel: string;
     private timeout: NodeJS.Timeout;
     private scan_creature: ScanCreature;
     private scan_locations: ScanLocation;
     private scan_battlegear: ScanBattlegear;
+    private lastScan: Scannable | null;
     bot: Client;
     logger: Logger;
     icons: Icons;
 
     constructor(bot: Client, logger: Logger) {
       this.db = new ScanQuestDB();
+      this.send_channel = (process.env.NODE_ENV !== 'development') ? config.send_channel : config.test_channel;
+      this.recieve_channel = (process.env.NODE_ENV !== 'development') ? config.recieve_channel : config.test_channel;
       this.bot = bot;
       this.logger = logger;
     }
@@ -45,43 +56,73 @@ export default class ScanQuest {
         return;
       }
 
+      // load previous card spawn
+      if (fs.existsSync(file)) {
+        fs.readFile(file, async (err, data) => {
+          if (!err) {
+            this.lastScan = await this.loadScan(JSON.parse(data.toString()));
+          }
+        });
+      }
+
       // Initialize components
       this.icons = new Icons(this.bot);
       this.scan_creature = new ScanCreature();
       this.scan_locations = new ScanLocation();
       this.scan_battlegear = new ScanBattlegear();
 
-      this.logger.info('ScanQuest has started');
+      this.logger.info('ScanQuest has started on channel <#' + this.send_channel + '>');
+
+      if (process.env.NODE_ENV === 'development') {
+        this.randomTime(0.01, 0.3);
+      }
+      else {
+        this.randomTime(120, 240);
+      }
     }
 
     stop() {
-      // save all data into database
+      clearTimeout(this.timeout);
     }
 
     async monitor(message: Message) {
       if (this.bot === undefined || message.author.bot) return;
 
+      // TODO only monitor the server the bot is configured for
+
+      // TODO decrease timer countdown with activity
+
       // Prevents sending an empty message
-      const send: SendFunction = async (msg, options) => {
+      const send: SendFunction = (msg, options) => {
         if (msg) { return message.channel.send(msg, options)
           .catch(error => this.logger.error(error.stack)); }
         return Promise.resolve();
       }
 
-      const content = message.content;
+      let result: string | undefined;
 
-      if (content.charAt(0) === '!' || content.charAt(1) === '!') {
-        const {cmd, args, options} = parseCommand(content);
+      if (message.content.charAt(1) === '!') {
+        result = message.content.substring(2);
+      }
+      else if (message.content.charAt(0) === '!') {
+        result = message.content.substring(1);
+      }
+
+      if (result !== undefined) {
+        const cmd = result.split(' ')[0].toLowerCase();
 
         /* Scan */
         switch (cmd) {
           case 'scan':
-            if (message.guild) {
-              // return send(await scan(this.db, message.guild.id, message.author.id, this.icons));
+            if (message.channel.id === this.recieve_channel) {
+              this.scan(message.author.id, send);
             }
             return;
           case 'list':
-            // return list(this.db, message, options);
+            if (message.channel.id === this.recieve_channel || message.channel instanceof DMChannel) {
+              return send(await this.db.list(message));
+            }
+            return;
           case 'reroll':
             if (message.author.id === users('daddy').id) {
               clearTimeout(this.timeout);
@@ -90,28 +131,19 @@ export default class ScanQuest {
             return;
           case 'load':
             if (message.author.id === users('daddy').id) {
+              const args: string[] = result.split(' ').splice(1);
               const id = args[0];
               const type = args[1];
               const content = args.splice(1).join(' ');
               const info = content.substr(content.indexOf(' ') + 1);
 
-              this.db.save(id, (await this.loadScan({type, info}))!.card);
+              this.db.save(id, (await this.loadScan({ type, info }))!.card);
             }
-
-          default:
         }
-      }
-      else {
-
-        // TODO only monitor the server the bot is configured for
-
-        // TODO decrease timer countdown with activity
-        // Assign point value to next spawn, size of messages decrease from point value
-
       }
     }
 
-    private async loadScan(lastSpawn: {type: string; info: any}): Promise<Scannable | null> {
+    private async loadScan(lastSpawn: {type: string, info: any}): Promise<Scannable | null> {
       if (lastSpawn.type === 'Creatures') {
         const crScan = new CreatureScan();
         [
@@ -131,33 +163,56 @@ export default class ScanQuest {
         return new ScannableLocation(locScan);
       }
 
-      return null; // This shouldn't be null unless error in json
+      return null; // This shouldn't be null unless error in json file
+    }
+
+    private async scan(id: string, send: SendFunction): Promise<void> {
+      const lastScan = this.lastScan;
+      if (!lastScan) {
+        return send('There is no scannable card');
+      }
+
+      if (await this.db.save(id, lastScan.card)) {
+        return send(lastScan.getCard(this.icons));
+      }
+
+      return send("You've already scanned this " + lastScan.card.name);
+    }
+
+    /**
+     * Takes a min and max number in minutes and
+     * sets the next iterval to send a creature
+     */
+    private randomTime(min: number, max: number): void {
+      const interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
+      this.timeout = setTimeout(() => { this.sendCard() }, interval);
     }
 
     /**
      * Sends a card image to the configed channel
      */
     private sendCard() {
-      let lastScan: Scannable;
       let image: RichEmbed;
 
       // Creatures spawn more often than locations and battlegear
       const rnd = Math.floor(Math.random() * 20);
       if (rnd < 4) {
-        [lastScan, image] = this.scan_locations.generate();
+        [this.lastScan, image] = this.scan_locations.generate();
       }
       else if (rnd < 5) {
-        [lastScan, image] = this.scan_battlegear.generate();
+        [this.lastScan, image] = this.scan_battlegear.generate();
       }
       else {
-        [lastScan, image] = this.scan_creature.generate();
+        [this.lastScan, image] = this.scan_creature.generate();
       }
 
-      // (this.bot.channels.get(this.send_channel) as Channel).send(image);
+      (this.bot.channels.get(this.send_channel) as Channel).send(image);
+
+      this.randomTime(300, 400);
 
       const lastSpawn = JSON.stringify({
-        type: lastScan.card.type,
-        info: lastScan.toString()
+        type: this.lastScan.card.type,
+        info: this.lastScan.toString()
       });
 
       fs.writeFile(file, lastSpawn);

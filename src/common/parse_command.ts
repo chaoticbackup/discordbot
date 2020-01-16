@@ -8,7 +8,7 @@ export default function parseCommand(content: string):
 {
   let result: string;
 
-  if (content.charAt(1) == '!') {
+  if (content.charAt(1) === '!') {
     result = (content.substring(2));
   }
   else {
@@ -25,5 +25,5 @@ export default function parseCommand(content: string):
   // only looks at first line for input
   const args = result.split('\n')[0].trim().split(' ').splice(1);
 
-  return {cmd, args, options};
+  return { cmd, args, options };
 }

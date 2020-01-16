@@ -1,4 +1,4 @@
-import Discord, {RichEmbed, StringResolvable, MessageOptions, Attachment} from 'discord.js';
+import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment } from 'discord.js';
 
 export interface Channel extends Discord.Channel {
     send(arg0: string | RichEmbed, arg1?:any): Promise<any>;
@@ -24,6 +24,8 @@ export interface BaseCard {
   gsx$unique: number | string;
   gsx$legendary: number | string;
   gsx$loyal: number | string;
+  gsx$alt?: string;
+  gsx$alt2?: string;
 }
 
 export interface Attack extends BaseCard {

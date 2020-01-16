@@ -4,8 +4,8 @@ type User = {
 }
 
 export default function (name: string): User {
-  const user = users.find(user => user.name == name);
-  if (user == undefined) return {name: '', id: ''};
+  const user = users.find(user => user.name === name);
+  if (user === undefined) return { name: '', id: '' };
   return user;
 }
 

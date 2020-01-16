@@ -4,7 +4,7 @@ export default class RandomResponse {
     rndrsp = <T>(items: T[], command?: string): T => {
       const sr: any = this.sr;
 
-      if (items.length == 1) return items[0];
+      if (items.length === 1) return items[0];
 
       if (!command) {
         return items[Math.floor(Math.random() * items.length)];

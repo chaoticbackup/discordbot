@@ -15,19 +15,20 @@ const config = {
 
 function hm(date: string[]) {
   const h12 = date[date.length - 1];
-  const time = ((h12 == 'am' || h12 == 'pm') ? date[date.length - 2] : date[date.length - 1]).split(':');
-  let hour, minute;
+  const time = ((h12 === 'am' || h12 === 'pm') ? date[date.length - 2] : date[date.length - 1]).split(':');
+  let hour;
 
-  if (h12 == 'pm')
+  if (h12 === 'pm')
   { hour = (parseInt(time[0]) < 12) ? parseInt(time[0]) + 12 : parseInt(time[0]); }
-  else if (h12 == 'am')
+  else if (h12 === 'am')
+  // eslint-disable-next-line eqeqeq
   { hour = (parseInt(time[0]) == 12) ? parseInt(time[0]) - 12 : parseInt(time[0]); }
   else {
     hour = parseInt(time[0]);
   }
-  minute = parseInt(time[1]);
+  const minute = parseInt(time[1]);
 
-  return {hour: hour, minute: minute};
+  return { hour, minute };
 }
 
 const monthTable: any = {
@@ -47,7 +48,7 @@ const monthTable: any = {
 
 function md(date: string[]) {
   let month, day;
-  if (date[date.length - 2] == '-') {
+  if (date[date.length - 2] === '-') {
     month = monthTable[date[2]];
     day = date[1];
   }
@@ -55,22 +56,22 @@ function md(date: string[]) {
     month = monthTable[date[1]];
     day = date[2].slice(0, -1);
   }
-  return {month: month, day: parseInt(day)};
+  return { month: month, day: parseInt(day) };
 }
 
 function newDate(dateTime: string): Date {
   // Tue 27 Feb 2018 - 14:31
   const date = dateTime.split(' ');
   const year = parseInt(date[3]);
-  const {month, day} = md(date);
-  const {hour, minute} = hm(date);
+  const { month, day } = md(date);
+  const { hour, minute } = hm(date);
 
   return new Date(year, month, day, hour, minute);
 }
 
 function post_time_diff(date: string[], currenttime: Date) {
   const post_time = new Date(currenttime.getTime());
-  const {hour, minute} = hm(date);
+  const { hour, minute } = hm(date);
   post_time.setHours(hour, minute);
   return (currenttime.getTime() - post_time.getTime());
 }
@@ -83,7 +84,7 @@ export default class ForumPosts {
 
     constructor(bot: Client) {
       this.bot = bot;
-      this.channel = (process.env.NODE_ENV != 'development') ? config.default_channel : config.test_channel;
+      this.channel = (process.env.NODE_ENV !== 'development') ? config.default_channel : config.test_channel;
     }
 
     start() {
@@ -108,7 +109,7 @@ export default class ForumPosts {
       // Simulated Browser
       JSDOM.fromURL(
         config.forum,
-        {virtualConsole}
+        { virtualConsole }
       )
         .then((dom) => {
           // const document = dom.window.document;
@@ -131,8 +132,8 @@ export default class ForumPosts {
               const date = ($(element).text()).split(' ');
               if (date.length <= 1) return;
 
-              if (date[0] == 'Yesterday') return; // midnight misses
-              if (date[0] == 'Today') {
+              if (date[0] === 'Yesterday') return; // midnight misses
+              if (date[0] === 'Today') {
                 if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
                   newPosts.push(latest[index]);
                 }

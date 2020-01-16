@@ -1,5 +1,5 @@
 import { cleantext } from '../../common';
-const {order, make} = require ('../config/menu.json');
+const { order, make } = require ('../config/menu.json');
 
 export { _menu as menu, _make as make, _order as order };
 

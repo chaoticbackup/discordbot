@@ -16,11 +16,11 @@ export const tribe = async (
 
   let param;
 
-  if (args.length == 0 || args[0] == '' || (param = args[0].toLowerCase()) == 'show') {
+  if (args.length === 0 || args[0] === '' || (param = args[0].toLowerCase()) === 'show') {
     return displayTribe(guild, member)
   }
 
-  if (param == 'leave') {
+  if (param === 'leave') {
     return leaveTribe(guild, member)
       .then(msg => {
         return msg;
@@ -31,7 +31,7 @@ export const tribe = async (
     return Promise.resolve('!tribe <join|leave> <tribeName>');
   }
 
-  if (param == 'join') {
+  if (param === 'join') {
     return joinTribe(guild, member, args[1]);
   }
 
@@ -88,8 +88,8 @@ const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> 
     if (member.roles.find(role => role === gr)) {
       if (bw && member.roles.find(role => role === bw)) {
         tribe = 'You are a brainwashed ' + (() => {
-          if (t == 'OverWorld') return 'OverWorlder';
-          else if (t == 'UnderWorld') return 'UnderWorlder';
+          if (t === 'OverWorld') return 'OverWorlder';
+          else if (t === 'UnderWorld') return 'UnderWorlder';
           else return t;
         })();
         return;
@@ -135,10 +135,10 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
       if (leaving_tribe) {
         joining_msg = '<:gottahave:400174328215502851> You\'ve been infected.';
 
-        if (leaving_tribe == 'Mipedian') {
+        if (leaving_tribe === 'Mipedian') {
           leaving_msg = '<:Shim:315235831927537664> Hey! Return our water!';
         }
-        else if (leaving_tribe == 'UnderWorld') {
+        else if (leaving_tribe === 'UnderWorld') {
           leaving_msg = '<:Chaor:285620681163669506> Bugs, humans? I\'ll squash you both!';
         }
       }
@@ -149,7 +149,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
     case 'mipedian':
     case 'mipedians':
       tribe = 'Mipedian';
-      if (leaving_tribe == 'Danian') {
+      if (leaving_tribe === 'Danian') {
         joining_msg = '<:Shim:315235831927537664> Another one purified';
       }
       else {
@@ -169,11 +169,12 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
     case 'overworlder':
     case 'overworlders':
       tribe = 'OverWorld';
-      if (leaving_tribe == 'UnderWorld') {
+      if (leaving_tribe === 'UnderWorld') {
         leaving_msg = '<:Chaor:285620681163669506> How dare you betray me for the OverWorld!';
+        // eslint-disable-next-line max-len
         joining_msg = "<:ZalThink:565050379499208704> I'm still suspicious of your allegiance, but we can use another set of hands.";
       }
-      else if (leaving_tribe == 'Mipedian') {
+      else if (leaving_tribe === 'Mipedian') {
         leaving_msg = '<:Shim:315235831927537664> Look out!';
         joining_msg = '<:WhyHello:586724104732672000> SURPRISE!'
       }
@@ -185,7 +186,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
     case 'underworlder':
     case 'underworlders':
       tribe = 'UnderWorld';
-      if (leaving_tribe == 'OverWorld') {
+      if (leaving_tribe === 'OverWorld') {
         joining_msg = '<:Chaor:285620681163669506> Ah good! You can tell me all their secrets! ';
       }
       else {
@@ -216,14 +217,14 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
   if (guild_role) {
     member.addRole(guild_role);
 
-    if (leaving_tribe == tribe) {
+    if (leaving_tribe === tribe) {
       return `You are already part of the ${tribe}.`;
     }
     else if (remove_role) {
       member.removeRole(remove_role);
     }
 
-    if (leaving_msg != '') {
+    if (leaving_msg !== '') {
       return leaving_msg + '\n' + joining_msg;
     }
     else {

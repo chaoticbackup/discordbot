@@ -1,4 +1,4 @@
-const {languages, rulebook} = require('../config/rulebooks.json');
+const { languages, rulebook } = require('../config/rulebooks.json');
 
 function rule_url(url: string) {
   return ('https://drive.google.com/file/d/' + url + '/view');
@@ -25,9 +25,9 @@ export default function(args: string[], options: string[]) {
   }
 
   const lang = args[0].toUpperCase();
-  if (rulebook.hasOwnProperty(lang)) {
+  if ({}.hasOwnProperty.call(rulebook, lang)) {
     if (args.length === 1) {
-      if (rulebook[lang].hasOwnProperty('AU')) {
+      if ({}.hasOwnProperty.call(rulebook[lang], 'AU')) {
         return rule_url(rulebook[lang].AU);
       }
       else {
@@ -36,7 +36,7 @@ export default function(args: string[], options: string[]) {
     }
     else {
       const set = args[1].toUpperCase();
-      if (rulebook[lang].hasOwnProperty(set)) {
+      if ({}.hasOwnProperty.call(rulebook[lang], set)) {
         return rule_url(rulebook[lang][set]);
       }
       else {

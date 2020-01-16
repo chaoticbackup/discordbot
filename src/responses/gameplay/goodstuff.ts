@@ -1,4 +1,4 @@
-const {agame, goodstuff} = require('../config/goodstuff.json');
+const { agame, goodstuff } = require('../config/goodstuff.json');
 
 export { fs as funstuff, gs as goodstuff };
 
@@ -11,7 +11,7 @@ function fs() {
 }
 
 function gs(args: string[]) {
-  if (args.length == 0 || args[0] == '') {
+  if (args.length === 0 || args[0] === '') {
     return "Due to the length, I can't send all the cards.\nPlease specify a card type/tribe";
   }
 
@@ -109,13 +109,13 @@ function Tribe(tribe: string, type: string) {
   let msg = '';
   // If specified mugic or creatures
   if (type) {
-    if (type.toLowerCase() == 'creatures') {
+    if (type.toLowerCase() === 'creatures') {
       msg = `**Strong ${tribe} Creatures**`;
       goodstuff.Creatures[tribe].forEach((card: string) => {
         msg += '\n' + card;
       });
     }
-    if (type.toLowerCase() == 'mugic') {
+    if (type.toLowerCase() === 'mugic') {
       msg = `**Strong ${tribe} Mugic**`;
       goodstuff.Mugic[tribe].forEach((card: string) => {
         msg += '\n' + card;

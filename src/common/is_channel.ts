@@ -22,7 +22,7 @@ export function is_channel<A extends Message | Channel>
     if (!guild) guild = 'main';
     const server = servers(guild);
     if (server.channels.length === 0) return false;
-    return channel.id == server.channel(name);
+    return channel.id === server.channel(name);
   }
 
   return false;

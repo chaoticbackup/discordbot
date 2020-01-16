@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
-import {escape_text} from "../common";
+import { escape_text } from "../common";
 import db_path from './db_path';
 
 const fetch =  require('node-fetch');
@@ -151,9 +151,9 @@ class API {
       return ", " + p1;
     });
 
-    return this.filter.chain().find({'$or': [
-      {'gsx$name': {'$regex': new RegExp(text, 'i')}},
-      {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${text}`, 'gi')}}
+    return this.filter.chain().find({ '$or': [
+      { 'gsx$name': { '$regex': new RegExp(text, 'i') }},
+      { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${text}`, 'gi') }}
     ]}).simplesort('gsx$name').data();
   }
 
@@ -170,19 +170,19 @@ class API {
       options = options.join(" ").toLowerCase();
 
       let type = (/type=([\w]{2,})/).exec(options);
-      if (type) filters.push({'gsx$type': {'$regex': new RegExp(type[1], 'i')}});
+      if (type) filters.push({ 'gsx$type': { '$regex': new RegExp(type[1], 'i') }});
 
       let tribe = (/tribe=([\w']{2,})/).exec(options);
-      if (tribe) filters.push({'gsx$tribe': {'$regex': new RegExp(tribe[1], 'i')}});
+      if (tribe) filters.push({ 'gsx$tribe': { '$regex': new RegExp(tribe[1], 'i') }});
     }
 
     // Search by name
-    return this.filter.chain().find({'$and': [
-      {'$or': [
-        {'gsx$name': {'$regex': new RegExp("^"+name, 'i')}},
-        {'gsx$tags': {'$regex': new RegExp(`(^|\\s)${name}`, 'gi')}}
+    return this.filter.chain().find({ '$and': [
+      { '$or': [
+        { 'gsx$name': { '$regex': new RegExp("^"+name, 'i') }},
+        { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${name}`, 'gi') }}
       ]},
-      {'$and': filters}
+      { '$and': filters }
     ]}).simplesort('gsx$name').data();
   }
 

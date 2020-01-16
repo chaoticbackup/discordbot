@@ -1,6 +1,6 @@
 import { Client, RichEmbed } from 'discord.js';
 import { cleantext, rndrsp } from '../../common';
-const {Custom, GoneChaotic, Gone2Chaotic, GoneChaotic3} = require('../config/gonechaotic.json');
+const { Custom, GoneChaotic, Gone2Chaotic, GoneChaotic3 } = require('../config/gonechaotic.json');
 
 export default function(name: string, bot: Client) {
   const merge = Object.assign({}, Custom, GoneChaotic, Gone2Chaotic, GoneChaotic3);

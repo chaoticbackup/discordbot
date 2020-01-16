@@ -1,4 +1,4 @@
-import {Initiative} from '../../responses/card/card_api';
+import { Initiative } from '../../responses/card/card_api';
 import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
@@ -34,7 +34,7 @@ export class ScannableLocation implements Scannable {
       const card = API.find_cards_by_name(this.card.name)[0] as Location;
 
       const body
-            = Initiative({card, icons, options: [], textOnly: true});
+            = Initiative({ card, icons, options: [], textOnly: true });
 
       return new RichEmbed()
         .setTitle(this.card.name)

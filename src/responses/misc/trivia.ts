@@ -13,7 +13,7 @@ let triviaMaster: GuildMember | null;
 // It's the command that manages timing, like the whistle of a ref.
 export function whistle(member: GuildMember): string {
   if (triviaMaster && member.id === triviaMaster.id) {
-    if (questiontime == false) {
+    if (!questiontime) {
       questiontime = true;
       return 'Users may now submit their answers';
     }
@@ -54,9 +54,9 @@ export function trivia (member: GuildMember): string {
 export function answer (member: GuildMember | User, answer: string): string {
   if (questiontime) {
     if (member instanceof GuildMember)
-    { responses.push({name: member.displayName, answer}); }
+    { responses.push({ name: member.displayName, answer }); }
     else if (member instanceof User)
-    { responses.push({name: member.username, answer}); }
+    { responses.push({ name: member.username, answer }); }
     return 'Your response has been recorded!';
   }
   return "There's no active question currently";

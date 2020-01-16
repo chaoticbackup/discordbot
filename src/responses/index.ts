@@ -35,7 +35,7 @@ import parseCommand from '../common/parse_command';
 
 const joke = require('./config/jokes.json');
 
-const development = (process.env.NODE_ENV == 'development');
+const development = (process.env.NODE_ENV === 'development');
 
 // Servers which have access to the full command list
 const full_command_servers = [
@@ -59,23 +59,23 @@ export default (async function(message: Message, logger: Logger) {
 
   return new Promise(() => {
     // Dev command prefix
-    if (development && content.substring(0, 2) == 'd!') {
+    if (development && content.substring(0, 2) === 'd!') {
       return command_response(bot, message, mentions, send);
     }
 
     // Prevents double bot responses on production servers
-    if (development && (!message.guild || message.guild.id != servers('develop').id)) {
+    if (development && (!message.guild || message.guild.id !== servers('develop').id)) {
       return;
     }
 
     // If the message is a command
-    if (content.charAt(0) == '!' || content.substring(0, 2).toLowerCase() == 'c!') {
+    if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!') {
       return command_response(bot, message, mentions, send);
     }
 
     // If no commands check message content for quips
     if (message.guild &&
-      (message.guild.id == servers('main').id || message.guild.id == servers('develop').id)
+      (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
     ) {
       return checkSass(bot, message, mentions, send);
     }
@@ -115,11 +115,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   let content: string = message.content;
 
   // strip prefix from test commands
-  if (development && content.charAt(0) == 'd') {
+  if (development && content.charAt(0) === 'd') {
     content = content.slice(1);
   }
 
-  const {cmd, args, options} = parseCommand(content);
+  const { cmd, args, options } = parseCommand(content);
 
   if (options.includes('help')) {
     return send(help(cmd));
@@ -146,13 +146,13 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(display_card(flatten(args), options, bot));
       case 'full':
       case 'fullart':
-        return send(full_art(flatten(args)));
+        return send(full_art(flatten(args), options));
       case 'find':
         return send(find_card(flatten(args)));
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
       case 'help':
-        if (content.charAt(0) == '!') {
+        if (content.charAt(0) === '!') {
           return send('Use **!commands** or **c!help**');
         } // falls through with c!help
       case 'commands':
@@ -169,15 +169,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   }
 
   const channel = message.channel;
-  const {guild, guildMember} = <{guild: Guild; guildMember: GuildMember}> await messageGuild(message);
+  const { guild, guildMember } = <{guild: Guild; guildMember: GuildMember}> await messageGuild(message);
 
   /**
     * Special Server exclusive commands
     */
   if (guild && (
-    guild.id == servers('international').id
-      || guild.id == servers('unchained').id
-      || guild.id == servers('develop').id
+    guild.id === servers('international').id
+      || guild.id === servers('unchained').id
+      || guild.id === servers('develop').id
   )
   ) {
     switch (cmd) {
@@ -224,17 +224,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(display_card(flatten(args), options, bot));
     case 'full':
     case 'fullart':
-      return send(full_art(flatten(args)));
+      return send(full_art(flatten(args), options));
+    case 'altart':
+      options.push('alt');
+      return send(full_art(flatten(args), options));
     case 'find':
       return send(find_card(flatten(args)));
     case 'rate':
       return send(rate_card(flatten(args), options, bot));
-    case 'readthecard': {
+    case 'readthecard':
       if (isModerator(guildMember) && hasPermission(guild, 'SEND_TTS_MESSAGES')) {
-        options.push('ability');
-        return send(display_card(flatten(args), options, bot), {tts: true});
+        options.push('read');
+        return send(display_card(flatten(args), options, bot), { tts: true });
       }
-    } return;
+      return;
     case 'parasite': {
       if (args[0] === 'token') {
         return send(display_token('parasite ' + flatten(args.slice(1))));
@@ -311,10 +314,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Meta and Tierlist */
     case 'tier':
     case 'meta':
-      if (args.length == 0)
+      if (args.length === 0)
       { return send('Supply a tier or use ``!tierlist``') }
       // falls through if args
-    case 'tierlist': {
+    case 'tierlist':
       if (args.length > 0) return send(tier(flatten(args)));
       if (can_send(message)) {
         return send(new RichEmbed()
@@ -323,8 +326,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
           .then(() => send(tier()))
           .then(() => send(donate()));
       }
-    } break;
-
+      return;
     /* Matchmaking */
     case 'lf':
     case 'lookingfor':
@@ -417,7 +419,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Help */
     case 'help':
-      if (guildMember && content.charAt(0) == '!') {
+      if (guildMember && content.charAt(0) === '!') {
         const rtn_str = 'Use **!commands** or **c!help**';
         if (bot.users.get('159985870458322944')) // meebot
         { setTimeout(() => { send(rtn_str) }, 500); }
@@ -500,14 +502,14 @@ function donate(): RichEmbed {
 async function messageGuild(message: Message):
 Promise<{guild: Guild | null; guildMember: GuildMember | null}>
 {
-  if (!message.guild) return {guild: null, guildMember: null};
+  if (!message.guild) return { guild: null, guildMember: null };
 
   const guild: Guild = message.guild;
-  let guildMember: GuildMember = (message.member)
+  const guildMember: GuildMember = (message.member)
     ? message.member
-    : await guild.fetchMember(message.author).then((member) => guildMember = member);
+    : await guild.fetchMember(message.author).then((member) => member);
 
-  return {guild: guild, guildMember: guildMember};
+  return { guild: guild, guildMember: guildMember };
 }
 
 function rm(bot: Client, message: Message) {

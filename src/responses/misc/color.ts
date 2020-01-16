@@ -7,7 +7,7 @@ export default function(args: string[], guild: Guild, guildMember: GuildMember, 
 
   switch (cleantext(args[0])) {
     case 'set': {
-      const color = guild.roles.find(role => role.name == cleantext(args[1]));
+      const color = guild.roles.find(role => role.name === cleantext(args[1]));
       if (color) {
         guildMember.addRole(color);
         send(`Now your name is ${uppercase(args[1])}!`);
@@ -16,7 +16,7 @@ export default function(args: string[], guild: Guild, guildMember: GuildMember, 
     }
       break;
     case 'remove': {
-      const color = guild.roles.find(role => role.name == cleantext(args[1]));
+      const color = guild.roles.find(role => role.name === cleantext(args[1]));
       if (color) {
         guildMember.removeRole(color);
         send(`Your name is no longer ${uppercase(args[1])}!`);

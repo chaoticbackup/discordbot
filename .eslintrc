@@ -29,6 +29,9 @@
   "plugins": [
     "babel"
   ],
+  "ignorePatterns": [
+    "build/"
+  ],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -62,19 +65,22 @@
           "exports": "never",
           "functions": "never"
         }],
-        "eqeqeq": "warn",
         "func-call-spacing": "off",
         "indent": ["error", 2, {
           "SwitchCase": 1
         }],
         "jsx-quotes": ["error", "prefer-double"],
-        "max-len": ["error", { "code": 120 }],
+        "max-len": ["error", { "code": 132 }],
         "no-eval": "warn",
+        "no-case-declarations": "off",
+        "no-empty": ["warn", { "allowEmptyCatch": true }],
         "no-fallthrough": "off",
         "no-unused-vars": "off",
+        "no-use-before-define": "off",
         "no-useless-escape": "off",
         "object-curly-spacing": ["error", "always", {"objectsInObjects": false, "arraysInObjects": false}],
         "operator-linebreak": "off",
+        "prefer-const": "warn",
         "prefer-promise-reject-errors": "off",
         "semi": "off",
         "space-before-function-paren": "off"

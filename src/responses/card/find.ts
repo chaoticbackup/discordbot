@@ -15,7 +15,7 @@ export default function (name: string) {
 
   const results = API.find_card_name(name);
 
-  if (results.length == 0) {
+  if (results.length === 0) {
     return 'No cards match this search';
   }
 
