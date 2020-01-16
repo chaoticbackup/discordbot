@@ -31,7 +31,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
       cardRgx = new RegExp(cardRgx);
       let result;
       while ((result = cardRgx.exec(content)) !== null) {
-        const card = display_card(result[1].toLowerCase(), ['text'], bot);
+        const card = display_card(result[1].toLowerCase(), ['ability'], bot);
         if (card instanceof RichEmbed) send(card);
       }
       return;
