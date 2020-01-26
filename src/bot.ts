@@ -34,7 +34,7 @@ let main = false;
 if (process.env.NODE_ENV !== 'development') {
   try {
     const api = require('./api.json');
-    if (!api) {
+    if (!!api) {
       main = true;
       ForumAPI(logger);
     }

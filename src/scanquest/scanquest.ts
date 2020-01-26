@@ -99,6 +99,8 @@ export default class ScanQuest {
         return Promise.resolve();
       }
 
+      if (!API.data) return send("Scanquest has not started");
+
       let result: string | undefined;
 
       if (message.content.charAt(1) === '!') {
