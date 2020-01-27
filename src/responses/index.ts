@@ -538,7 +538,7 @@ function clear(amount: number, message: Message, mentions: string[] = []): void 
 }
 
 function haxxor(message: Message, bot: Client): void {
-  if (message.member.id === users('daddy').id
+  if (message.member.id === users('daddy')
     || (message.guild && message.guild.id === servers('main').id && isModerator(message.member))
   ) {
     message.channel.send('Resetting...');

@@ -1,25 +1,14 @@
-type User = {
-    id: string;
-    name: string;
+import { Snowflake } from 'discord.js';
+
+export default function (name: string): Snowflake {
+  const user = users[name];
+  if (user) return user;
+  else return '';
 }
 
-export default function (name: string): User {
-  const user = users.find(user => user.name === name);
-  if (user === undefined) return { name: '', id: '' };
-  return user;
-}
-
-const users: User[] = [
-  {
-    name: 'me',
-    id: '279331985955094529'
-  },
-  {
-    name: 'daddy',
-    id: '140143063711481856'
-  },
-  {
-    name: 'afjak',
-    id: '279788856285331457'
-  }
-];
+const users: Record<string, string> =
+{
+  me: '279331985955094529',
+  daddy: '140143063711481856',
+  afjak: '279788856285331457'
+};

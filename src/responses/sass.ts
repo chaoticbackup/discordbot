@@ -84,12 +84,12 @@ export default async function (bot: Client, message: Message, mentions: string[]
 function checkMentions(message: Message, mentions: string[]): string | undefined {
   const content = message.content;
 
-  if (mentions.indexOf(users('afjak').id) !== -1) {
+  if (mentions.indexOf(users('afjak')) !== -1) {
     if (message.channel.id === servers('main').channel('ruling_questions')) return;
     return ('Don\'t @ the Oracle. He sees everything anyway');
   }
 
-  if (mentions.indexOf(users('me').id) !== -1) {
+  if (mentions.indexOf(users('me')) !== -1) {
     if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';
     }
@@ -100,10 +100,10 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       let displayName: string;
       try {
         // @ts-ignore
-        displayName = message.guild.members.get(users.daddy).displayName;
+        displayName = message.guild.members.get(users('daddy')).displayName;
       }
       catch (err) {
-        displayName = `<@${users('daddy').id}>`;
+        displayName = `<@${users('daddy')}>`;
       }
       return `${displayName} taught me Chaotic`;
     }

@@ -21,7 +21,7 @@ export function is_channel<A extends Message | Channel>
     const channel = arg1;
     if (!guild) guild = 'main';
     const server = servers(guild);
-    if (server.channels.length === 0) return false;
+    if (Object.keys(server.channels).length === 0) return false;
     return channel.id === server.channel(name);
   }
 
