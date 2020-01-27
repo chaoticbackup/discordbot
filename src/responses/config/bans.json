@@ -14,6 +14,7 @@
 		"Bi-Mowercycle",
 		"Bodal, Flamedrill Researcher",
 		"Cadence Clash",
+		"Dror'niq",
 		"Elemental Elegy",
 		"Hune Paltanin",
 		"Illusionary Lake",
@@ -36,9 +37,9 @@
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"watchlist": [
-		"Dror'niq",
 		"Ikkatosh, The Aich King",
 		"Lanker",
+		"Lore, Ancestral Caller",
 		"Tartarek, Psi Overloader"
 	],
 	"pauper": [
@@ -96,6 +97,7 @@
 		    "Bowser steals your stars, Lord van Bloot steals your elements.",
 		    "Its okay, you think, your opponent queued up with a discipline based deck."
 		],
+		"Lore, Ancestral Caller": ["Although this card isn't banworthy in terms of its power level, it limits some deck building. Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore."],
 		"Lore's Chamber of Recall": ["Although this card isn't banworthy in terms of its power level, it limits some deck building and it's banned for the effort to enable more decks."],
 		"Malvadine, The King's Herald": ["His high stats, and ability to defend, make him essential in any mono-Mipedian deck. He has strike and Air 5, which makes him versitile in practically all deck types."],
 		"Marksman's Preparation": ["This card has been talked about for similar reasons to Primal Smash. You can treat it as a 2 Build Point attack that deals 30 Damage and helps you cycle and a 0 Cost that deals 0 Damage and clogs your hand until you draw the other. Despite the downside, its a strong burst of damage and cycling effect for low Build Points."],
