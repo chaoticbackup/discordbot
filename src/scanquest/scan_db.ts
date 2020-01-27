@@ -84,7 +84,7 @@ class ScanQuestDB {
     private findOnePlayer({ id }: {id: string}) {
       let player = this.players.findOne({ id: id });
       if (player === null) {
-        player = this.players.insert({ id, scans: []}) as Player & LokiObj;
+        player = this.players.insert({ id, scans: [] }) as Player & LokiObj;
       }
       return player;
     }

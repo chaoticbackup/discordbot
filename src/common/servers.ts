@@ -22,7 +22,7 @@ type Channel = {
 
 export default function (name: string): Server {
   const server = servers.find(server => server.name === name);
-  if (server === undefined) return new Server({ name: '', id: '', channels: []});
+  if (server === undefined) return new Server({ name: '', id: '', channels: [] });
   return server;
 }
 

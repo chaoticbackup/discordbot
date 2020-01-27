@@ -42,7 +42,7 @@ class MeetupsAPI {
     addRegion = async (regionName: string) => {
       const region = this.regions.findOne({ name: regionName });
       if (region) throw new Error(`Region "${region}" already exists`);
-      this.regions.insert({ name: regionName, members: []});
+      this.regions.insert({ name: regionName, members: [] });
     }
 
     getRegion = async (regionName: string): Promise<Region> => {
@@ -216,11 +216,11 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
           let msg = 'Number of members per region:\n';
           regions.forEach((region: Region) => {
             if (region.members.length === 0)
-            { msg += `${region.name} (no members)\n`; }
+              msg += `${region.name} (no members)\n`
             else if (region.members.length === 1)
-            { msg += `${region.name} (1 member)\n`; }
+              msg += `${region.name} (1 member)\n`
             else
-            { msg += `${region.name} (${region.members.length} members)\n`; }
+              msg += `${region.name} (${region.members.length} members)\n`
           });
           return msg;
         });

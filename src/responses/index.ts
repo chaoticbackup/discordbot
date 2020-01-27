@@ -28,6 +28,7 @@ import speakers from './misc/speakers';
 import { brainwash, tribe } from './misc/tribes';
 
 import checkSass from './sass';
+import logs from './logs';
 
 import servers from '../common/servers';
 import users from '../common/users';
@@ -59,26 +60,21 @@ export default (async function(message: Message, logger: Logger) {
 
   return new Promise(() => {
     // Dev command prefix
-    if (development && content.substring(0, 2) === 'd!') {
+    if (development && content.substring(0, 2) === 'd!')
       return command_response(bot, message, mentions, send);
-    }
 
     // Prevents double bot responses on production servers
-    if (development && (!message.guild || message.guild.id !== servers('develop').id)) {
+    if (development && (!message.guild || message.guild.id !== servers('develop').id))
       return;
-    }
 
     // If the message is a command
-    if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!') {
+    if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
       return command_response(bot, message, mentions, send);
-    }
 
     // If no commands check message content for quips
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
-    ) {
-      return checkSass(bot, message, mentions, send);
-    }
+    ) return checkSass(bot, message, mentions, send);
   })
     .catch((error) => {
     // Log/Print error
@@ -94,10 +90,8 @@ export default (async function(message: Message, logger: Logger) {
         .send(server_source + ':\n' + error.stack);
 
       // Ignore programmer errors (keep running)
-      if (
-        error.name === 'ReferenceError' ||
-      error.name === 'SyntaxError'
-      ) return;
+      if (error.name === 'ReferenceError' || error.name === 'SyntaxError')
+        return;
 
       // restart bot if unknown error
       bot.destroy();
@@ -115,15 +109,13 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   let content: string = message.content;
 
   // strip prefix from test commands
-  if (development && content.charAt(0) === 'd') {
+  if (development && content.charAt(0) === 'd')
     content = content.slice(1);
-  }
 
   const { cmd, args, options } = parseCommand(content);
 
-  if (options.includes('help')) {
+  if (options.includes('help'))
     return send(help(cmd));
-  }
 
   /**
     * Public Servers (Limited functions)
@@ -152,9 +144,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
       case 'help':
-        if (content.charAt(0) === '!') {
+        if (content.charAt(0) === '!')
           return send('Use **!commands** or **c!help**');
-        } // falls through with c!help
+        // falls through with c!help
       case 'commands':
         const text = flatten(args);
         if (text) return send(help(text));
@@ -239,12 +231,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       }
       return;
     case 'parasite': {
-      if (args[0] === 'token') {
+      if (args[0] === 'token')
         return send(display_token('parasite ' + flatten(args.slice(1))));
-      }
-      else {
+
+      else
         return send(display_token('parasite ' + flatten(args)));
-      }
     }
     case 'token': {
       return send(display_token(flatten(args)));
@@ -256,7 +247,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'keyword':
     case 'rule':
       if (args.length < 1)
-      { return send('Please provide a rule, or use **!rulebook** or **!guide**'); }
+        return send('Please provide a rule, or use **!rulebook** or **!guide**');
       return send(glossary(flatten(args)));
 
     /* Documents */
@@ -295,12 +286,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'ban':
       if (mentions.length > 0) {
         if (mentions.indexOf('279331985955094529') !== -1)
-        { return send("You try to ban me? I'll ban you!"); }
+          return send("You try to ban me? I'll ban you!");
         return send("I'm not in charge of banning players");
       } // fallthrough
     case 'whyban':
       if (mentions.length > 0)
-      { return send("Player's aren't cards, silly"); }
+        return send("Player's aren't cards, silly");
       return send(whyban(flatten(args), guild, channel, options));
     case 'formats':
       return send(formats());
@@ -315,7 +306,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'tier':
     case 'meta':
       if (args.length === 0)
-      { return send('Supply a tier or use ``!tierlist``') }
+        return send('Supply a tier or use ``!tierlist``');
       // falls through if args
     case 'tierlist':
       if (args.length > 0) return send(tier(flatten(args)));
@@ -361,9 +352,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'make':
     case 'cook':
       if (flatten(args) === 'sandwitch')
-      { return send(display_card('Arkanin', ['image'], bot)); }
+        return send(display_card('Arkanin', ['image'], bot));
       else
-      { return send(make(flatten(args))); }
+        return send(make(flatten(args)));
 
     /* Tribes */
     case 'tribe':
@@ -411,9 +402,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(answer(guildMember || message.author, args.join(' ')));
 
     case 'happy': {
-      if (cleantext(flatten(args)).includes('borth')) {
+      if (cleantext(flatten(args)).includes('borth'))
         return send(gone('borth-day', bot));
-      }
+
       break;
     }
 
@@ -422,9 +413,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (guildMember && content.charAt(0) === '!') {
         const rtn_str = 'Use **!commands** or **c!help**';
         if (bot.users.get('159985870458322944')) // meebot
-        { setTimeout(() => { send(rtn_str) }, 500); }
+          setTimeout(() => { send(rtn_str) }, 500);
         else
-        { send(rtn_str); }
+          send(rtn_str);
         break;
       } // falls through with c!help
     case 'cmd':
@@ -463,7 +454,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'rm':
       if (isNaN(parseInt(flatten(args))))
-      { return rm(bot, message); }
+        return rm(bot, message);
     // fallthrough if number provided
     case 'clear':
     case 'clean':
@@ -473,6 +464,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       /* Hard reset bot */
     case 'haxxor':
       return haxxor(message, bot);
+
+    case 'logs':
+      return send(logs(message));
 
       // Not a recognized command
     default:
@@ -528,13 +522,12 @@ function clear(amount: number, message: Message, mentions: string[] = []): void 
               mentions.includes(m.author.id)
             );
             if (b_messages.size > 0)
-            { message.channel.bulkDelete(b_messages); }
+              message.channel.bulkDelete(b_messages);
             message.delete();
           });
       }
-      else {
+      else
         message.channel.bulkDelete(amount + 1);
-      }
     }
     else {
       // only delete the clear command
