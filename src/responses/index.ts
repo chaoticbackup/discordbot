@@ -57,7 +57,7 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
     return Promise.resolve();
   }
 
-  await Promise.resolve(() => {
+  const response = async (): Promise<void> => {
     // Dev command prefix
     if (development && content.substring(0, 2) === 'd!')
       return command_response(bot, message, mentions, send);
@@ -74,7 +74,9 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
     ) return checkSass(bot, message, mentions, send);
-  })
+  };
+
+  return response()
   .catch((error) => {
     // Log/Print error
     logger.error(error.stack);
