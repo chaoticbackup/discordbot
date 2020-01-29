@@ -7,7 +7,6 @@ import { CreatureScan, ScannableCreature } from './scannable/Creature';
 import { Scan, Scannable } from './scannable/Scannable';
 import { Message, DMChannel, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
-import { resolve } from 'dns';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Player {

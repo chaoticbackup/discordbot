@@ -42,6 +42,7 @@ class MeetupsAPI {
     const region = this.regions.findOne({ name: regionName });
     if (region) return Promise.reject(new Error(`Region "${region}" already exists`));
     this.regions.insert({ name: regionName, members: [] });
+    return Promise.resolve(regionName);
   }
 
   getRegion = async (regionName: string): Promise<Region> => {
@@ -52,7 +53,7 @@ class MeetupsAPI {
 
   removeRegion = async (region: Region) => {
     this.regions.remove(region);
-    return Promise.resolve();
+    return Promise.resolve(region);
   }
 
   getRegionList = async (): Promise<Region[]> => {
@@ -80,15 +81,15 @@ class MeetupsAPI {
   }
 
   addMemberToRegion = async (member: GuildMember, region: Region) => {
-    return this.findMemberRegionIndex(member, region).then((i: number) => {
-      if (i >= 0) {
-        throw new Error(`${member.displayName} is already in ${region.name}`);
-      }
+    const i = await this.findMemberRegionIndex(member, region);
+    if (i >= 0) {
+      return Promise.reject(new Error(`${member.displayName} is already in ${region.name}`));
+    }
 
-      this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
-        rg.members.push(this.convertGuildMember(member));
-      });
+    this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
+      rg.members.push(this.convertGuildMember(member));
     });
+    return member;
   }
 
   removeMemberFromRegionByIndex = async (i: number, region: Region) => {
@@ -99,12 +100,12 @@ class MeetupsAPI {
   }
 
   removeMemberFromRegion = async (member: GuildMember, region: Region) => {
-    return this.findMemberRegionIndex(member, region).then(async (i: number) => {
-      if (i < 0) {
-        throw new Error(`${member.displayName} is not a member of ${region.name}`);
-      }
-      return this.removeMemberFromRegionByIndex(i, region);
-    });
+    const i = await this.findMemberRegionIndex(member, region);
+    if (i < 0) {
+      return Promise.reject(new Error(`${member.displayName} is not a member of ${region.name}`));
+    }
+    await this.removeMemberFromRegionByIndex(i, region);
+    return member;
   }
 }
 
