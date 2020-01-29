@@ -5,12 +5,12 @@ import { Scannable } from '../scannable/Scannable';
 type Image = RichEmbed;
 
 export default abstract class ScanFunction {
-  protected lastRandom: number = -1;
+  protected lastRandom = -1;
 
   /**
      * Returns a random card from the list of given cards
      */
-  randomCard(cards: BaseCard[]): BaseCard {
+  protected randomCard(cards: BaseCard[]): any {
     let rnd;
     do {
       rnd = Math.floor(Math.random() * cards.length);

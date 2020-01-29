@@ -1,4 +1,3 @@
-import { Initiative } from '../../responses/card/card_api';
 import { RichEmbed } from 'discord.js';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';

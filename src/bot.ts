@@ -5,7 +5,7 @@ import Discord from 'discord.js';
 import responses from './responses';
 import ForumAPI from './forum/api';
 import ForumPosts from './forum/posts';
-import ScanQuest from './scanquest/scanquest';
+import ScanQuest from './scanquest';
 
 import servers from './common/servers';
 import { Channel } from './definitions';
