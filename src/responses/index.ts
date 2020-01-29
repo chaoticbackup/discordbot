@@ -6,16 +6,24 @@ import { can_send, hasPermission, isModerator, rndrsp, cleantext } from '../comm
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
 
+import servers from '../common/servers';
+import users from '../common/users';
+import parseCommand from '../common/parse_command';
+
 import { display_card, find_card, full_art, rate_card, display_token } from './card';
 
-import { banlist, formats, whyban } from './gameplay/bans';
-import faq from './gameplay/faq';
-import glossary from './gameplay/glossary';
-import { funstuff, goodstuff } from './gameplay/goodstuff';
-import { cancelMatch, lookingForMatch } from './gameplay/match_making';
-import tier from './gameplay/meta';
-import rulebook from './gameplay/rulebook';
-import starters from './gameplay/starters';
+import { banlist, formats, whyban } from './game/bans';
+import faq from './game/faq';
+import glossary from './game/glossary';
+import { funstuff, goodstuff } from './game/goodstuff';
+import { cancelMatch, lookingForMatch } from './misc/match_making';
+import tier from './game/meta';
+import rulebook from './game/rulebook';
+import starters from './game/starters';
+
+import meetup from './joinable/regions';
+import speakers from './joinable/speakers';
+import { brainwash, tribe } from './joinable/tribes';
 
 import color from './misc/color';
 import gone from './misc/gone';
@@ -24,16 +32,9 @@ import { compliment, insult } from './misc/insult_compliment';
 import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
-import meetup from './misc/regions';
-import speakers from './misc/speakers';
-import { brainwash, tribe } from './misc/tribes';
 
 import checkSass from './sass';
 import logs from './logs';
-
-import servers from '../common/servers';
-import users from '../common/users';
-import parseCommand from '../common/parse_command';
 
 const joke = require('./config/jokes.json');
 
@@ -54,7 +55,6 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
   // Prevents sending an empty message
   const send: SendFunction = async (msg, options) => {
     if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack));
-    return Promise.resolve();
   }
 
   const response = async (): Promise<void> => {
@@ -64,7 +64,7 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
 
     // Prevents double bot responses on production servers
     if (development && (!message.guild || message.guild.id !== servers('develop').id))
-      return Promise.resolve();
+      return;
 
     // If the message is a command
     if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
@@ -370,7 +370,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'speakers':
     case 'language':
     case 'languages':
-      return speakers(guildMember, guild, args).then(send);
+      return send(speakers(guildMember, guild, args));
 
     /* Now or Never */
     case 'never':
@@ -537,7 +537,6 @@ async function clear(amount: number, message: Message, mentions: string[] = []):
       message.delete();
     }
   }
-  return Promise.resolve();
 }
 
 function haxxor(message: Message, bot: Client): void {

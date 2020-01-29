@@ -94,9 +94,7 @@ export default class ScanQuest {
 
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
-      if (msg) { return message.channel.send(msg, options)
-      .catch(error => this.logger.error(error.stack)); }
-      return Promise.resolve();
+      if (msg) return message.channel.send(msg, options).catch(error => this.logger.error(error.stack));
     }
 
     if (!API.data) return send('Scanquest has not started');
@@ -122,7 +120,7 @@ export default class ScanQuest {
           return;
         case 'list':
           if (message.channel.id === this.recieve_channel || message.channel instanceof DMChannel) {
-            return send(await this.db.list(message));
+            return this.db.list(message).then(send);
           }
           return;
         case 'reroll':
@@ -139,7 +137,7 @@ export default class ScanQuest {
             const content = args.splice(1).join(' ');
             const info = content.substr(content.indexOf(' ') + 1);
 
-            await this.db.save(id, (this.loadScan({ type, info }))!.card);
+            this.db.save(id, (this.loadScan({ type, info }))!.card).catch(() => {});
           }
       }
     }
