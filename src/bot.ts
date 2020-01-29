@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import winston from 'winston';
 import Discord from 'discord.js';
 
@@ -59,7 +60,7 @@ bot.on('disconnect', (CloseEvent) => {
     fp.stop();
     sq.stop();
   }
-  logger.warn('Reconnecting, ' + CloseEvent.code);
+  logger.warn(`Reconnecting, ${CloseEvent.code}`);
   bot.login(auth.token).then(() => { sendError() });
 });
 
@@ -79,7 +80,7 @@ const sendError = () => {
 
 // Responses
 bot.on('message', msg => {
-  responses.call(bot, msg, logger);
+  responses(bot, msg, logger);
   sq.monitor(msg);
 });
 
@@ -88,12 +89,12 @@ bot.on('guildMemberAdd', (member) => {
   if (member.displayName.match(new RegExp('(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i'))) {
     if (member.bannable) { member.ban().then(() => {
       // @ts-ignore
-      bot.channels.get(servers('main').channel('staff')).send('Banned: ' + member.displayName);
+      bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);
       // Delete the meebot welcome message
       const meebot = bot.users.get('159985870458322944');
       if (meebot) { setTimeout(() => {
-        if (meebot!.lastMessage && meebot!.lastMessage.deletable) {
-          meebot!.lastMessage.delete();
+        if (meebot?.lastMessage?.deletable) {
+          meebot.lastMessage.delete();
         }
       }, 500); }
     }); }
@@ -102,7 +103,7 @@ bot.on('guildMemberAdd', (member) => {
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
-  stackTrace = (err && err.stack) ? err.stack : err;
+  stackTrace = (err?.stack) ? err.stack : err;
   // Status.READY
   if (bot.status === 0) sendError();
   else bot.destroy();
@@ -110,6 +111,6 @@ process.on('unhandledRejection', (err) => {
 
 /* LOGIN */
 bot.login(auth.token).then(() => {
-  logger.info('Logged in as: ' + bot.user);
+  logger.info(`Logged in as: ${bot.user}`);
 });
 // bot.login(auth.token).then(() => {throw new Error()});

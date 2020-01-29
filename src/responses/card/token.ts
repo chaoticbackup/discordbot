@@ -31,11 +31,11 @@ export default function (name: string) {
   }
 }
 
-const tokens = {
+const tokens: {
+  [index: string]: string
+} = {
   parasite_orange1: '0B6oyUfwoM3u1MVBISVVNZnVuOGc',
   parasite_blue1: '0B6oyUfwoM3u1dDAxWUpranN5SHc',
   parasite_orange2: '0B6oyUfwoM3u1RVZrV0FTTms1YkU',
   parasite_blue2: '0B6oyUfwoM3u1T0Rnb3JVc1hCeTQ'
-} as {
-    [index: string]: string;
-}
+};

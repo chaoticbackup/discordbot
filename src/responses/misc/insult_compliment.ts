@@ -6,11 +6,11 @@ const commands = {
   compliment: require('../config/compliments.json')
 };
 
-export function compliment (guild: Guild, mentions: string[], name: string): string {
+export function compliment(guild: Guild, mentions: string[], name: string): string {
   return flirt_dirt('compliment', guild, mentions, name);
 }
 
-export function insult (guild: Guild, mentions: string[], name: string): string {
+export function insult(guild: Guild, mentions: string[], name: string): string {
   if (mentions.indexOf('279331985955094529') !== -1)
   { return ('<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>'); }
   return flirt_dirt('insult', guild, mentions, name);

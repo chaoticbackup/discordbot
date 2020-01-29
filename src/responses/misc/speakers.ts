@@ -14,7 +14,7 @@ export default async (user: GuildMember, guild: Guild, args: string[]): Promise<
     guild.roles.forEach((value: Role) => {
       if (value.name.includes(suffix)) {
         language_count++;
-        msg += languageProper(value.name) + '\n';
+        msg += `${languageProper(value.name)}\n`;
       }
     });
     if (language_count === 0) {
@@ -26,7 +26,7 @@ export default async (user: GuildMember, guild: Guild, args: string[]): Promise<
   const memberList = async (lang: string) => {
     let msg = `List of ${languageProper(lang)} speaking members:\n`;
     role.members.forEach((m) => {
-      msg += m.displayName + '\n';
+      msg += `${m.displayName}\n`;
     });
     return Promise.resolve(msg);
   }

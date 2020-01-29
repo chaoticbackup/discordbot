@@ -24,8 +24,8 @@ export function cleantext(string: string): string {
  */
 export function escape_text(text: string): string {
   return text
-    .replace(/\(|\)/g, (match) => { return ('\\' + match) })
-    .replace(/’/g, '\'');
+  .replace(/\(|\)/g, (match) => { return (`\\${match}`) })
+  .replace(/’/g, '\'');
 }
 
 export async function asyncForEach(array: any[], callback: any) {
@@ -35,6 +35,7 @@ export async function asyncForEach(array: any[], callback: any) {
 }
 
 export function reload(module: any) {
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete require.cache[require.resolve(module)];
   return require(module);
 }

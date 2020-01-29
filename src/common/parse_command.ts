@@ -4,7 +4,7 @@
   * Strips `options` from string and returns as array
   */
 export default function parseCommand(content: string):
- {cmd: string, args: string[], options: string[]}
+{cmd: string, args: string[], options: string[]}
 {
   let result: string;
 

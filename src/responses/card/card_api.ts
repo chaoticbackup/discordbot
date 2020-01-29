@@ -4,7 +4,7 @@ import { API, color } from '../../database';
 import { Attack, Battlegear, Card, Creature, Location, Mugic } from '../../definitions';
 import Icons from '../../common/bot_icons';
 
-export default function(name: string, options: string[], bot: Client) {
+export default function (name: string, options: string[], bot: Client) {
   const results = API.find_cards_by_name(name, options);
 
   if (results.length <= 0) {
@@ -23,11 +23,11 @@ export default function(name: string, options: string[], bot: Client) {
   return Response(results[0], options, bot);
 }
 
-type props = {
-  card: Card;
-  options: string[];
-  textOnly: boolean;
-  icons: Icons;
+interface props {
+  card: Card
+  options: string[]
+  textOnly: boolean
+  icons: Icons
 }
 
 function Response(card: Card, options: string[], bot: Client) {
@@ -39,30 +39,30 @@ function Response(card: Card, options: string[], bot: Client) {
       }
 
       return new RichEmbed()
-        .setTitle(card.gsx$name)
-        .setColor(color(card))
-        .setDescription(card.gsx$ability || 'No data available')
-        .setURL(API.base_image + card.gsx$splash)
-        .setImage(API.base_image + card.gsx$splash);
+      .setTitle(card.gsx$name)
+      .setColor(color(card))
+      .setDescription(card.gsx$ability || 'No data available')
+      .setURL(API.base_image + card.gsx$splash)
+      .setImage(API.base_image + card.gsx$splash);
     }
   }
 
   // Image only
   if (options.includes('image')) {
     return new RichEmbed()
-      .setTitle(card.gsx$name)
-      .setColor(color(card))
-      .setURL(API.base_image + card.gsx$image)
-      .setImage(API.base_image + card.gsx$image);
+    .setTitle(card.gsx$name)
+    .setColor(color(card))
+    .setURL(API.base_image + card.gsx$image)
+    .setImage(API.base_image + card.gsx$image);
   }
 
   // Read ability only
   if (options.includes('read')) {
     if (options.includes('brainwashed') && (card as Creature).gsx$brainwashed) {
-      return card.gsx$name + '\n' + (card as Creature).gsx$brainwashed;
+      return `${card.gsx$name}\n${(card as Creature).gsx$brainwashed}`;
     }
     else {
-      return card.gsx$name + '\n' + card.gsx$ability;
+      return `${card.gsx$name}\n${card.gsx$ability}`;
     }
   }
 
@@ -71,10 +71,10 @@ function Response(card: Card, options: string[], bot: Client) {
   if (options.includes('stats')) {
     if (card.gsx$type === 'Creatures') {
       return new RichEmbed()
-        .setTitle(card.gsx$name)
-        .setColor(color(card))
-        .setDescription(Stats({ icons, card, options, textOnly: false }))
-        .setURL(API.base_image + card.gsx$image);
+      .setTitle(card.gsx$name)
+      .setColor(color(card))
+      .setDescription(Stats({ icons, card, options, textOnly: false }))
+      .setURL(API.base_image + card.gsx$image);
     }
     else return 'Only Creatures have stats';
   }
@@ -89,11 +89,11 @@ function Response(card: Card, options: string[], bot: Client) {
   let body = TypeLine(props);
 
   if (textOnly && card.gsx$type === 'Mugic') {
-    body += MugicAbility(mc, props) + '\n\n';
+    body += `${MugicAbility(mc, props)}\n\n`;
   }
 
   if (textOnly && card.gsx$type === 'Locations') {
-    body += 'Initiative: ' + Initiative(props);
+    body += `Initiative: ${Initiative(props)}`;
   }
 
   if (textOnly && card.gsx$type === 'Attacks') {
@@ -103,7 +103,7 @@ function Response(card: Card, options: string[], bot: Client) {
   body += Ability(card.gsx$ability, mc, props);
 
   if ((card as Creature).gsx$brainwashed) {
-    body += '**Brainwashed**\n' + Ability((card as Creature).gsx$brainwashed, mc, props);
+    body += `**Brainwashed**\n${Ability((card as Creature).gsx$brainwashed, mc, props)}`;
   }
 
   body += BuildRestrictions(props);
@@ -116,19 +116,19 @@ function Response(card: Card, options: string[], bot: Client) {
 
   if (textOnly && card.gsx$type === 'Creatures') {
     body += Elements(props);
-    body += ' | ' + MugicAbility(mc, props);
+    body += ` | ${MugicAbility(mc, props)}`;
   }
 
   /* Card Embed */
   const CardMsg = new RichEmbed()
-    .setTitle(card.gsx$name)
-    .setURL(API.base_image + card.gsx$image)
-    .setColor(color(card))
-    .setDescription(body);
+  .setTitle(card.gsx$name)
+  .setURL(API.base_image + card.gsx$image)
+  .setColor(color(card))
+  .setDescription(body);
 
   if (!textOnly) {
     CardMsg
-      .setImage(API.base_image + card.gsx$image);
+    .setImage(API.base_image + card.gsx$image);
   }
 
   return CardMsg;
@@ -146,11 +146,12 @@ const Disciplines = (modstat = 0, props: props) => {
   const { disciplines } = props.icons;
 
   /* eslint-disable no-eval */
-  return eval(`${card.gsx$courage}+${modstat}`) + disciplines('Courage') + ' '
-    + eval(`${card.gsx$power}+${modstat}`) + disciplines('Power') + ' '
-    + eval(`${card.gsx$wisdom}+${modstat}`) + disciplines('Wisdom') + ' '
-    + eval(`${card.gsx$speed}+${modstat}`) + disciplines('Speed') + ' '
-    + '| ' + eval(`${card.gsx$energy}+${modstat / 2}`) + '\u00A0E';
+  return `${
+    eval(`${card.gsx$courage}+${modstat}`)}${disciplines('Courage')} ${
+    eval(`${card.gsx$power}+${modstat}`)}${disciplines('Power')} ${
+    eval(`${card.gsx$wisdom}+${modstat}`)}${disciplines('Wisdom')} ${
+    eval(`${card.gsx$speed}+${modstat}`)}${disciplines('Speed')} | ${
+    eval(`${card.gsx$energy}+${modstat / 2}`)}\u00A0E`;
 }
 
 const Stats = (props: props) => {
@@ -179,12 +180,12 @@ const TypeLine = (props: props) => {
   let resp;
 
   if (card.gsx$type === 'Attacks') {
-    resp = icons.attacks()
-      + ` Attack - ${(card as Attack).gsx$bp} Build Points`;
+    resp = `${icons.attacks()
+    } Attack - ${(card as Attack).gsx$bp} Build Points`;
   }
   else if (card.gsx$type === 'Battlegear') {
-    resp = icons.battlegear()
-      + ` Battlegear${card.gsx$types.length > 0 ? ' - ' + card.gsx$types : ''}`;
+    resp = `${icons.battlegear()
+    } Battlegear${card.gsx$types.length > 0 ? ` - ${card.gsx$types}` : ''}`;
   }
   else if (card.gsx$type === 'Creatures') {
     const tribe = (card as Creature).gsx$tribe;
@@ -194,16 +195,16 @@ const TypeLine = (props: props) => {
       past = true;
       types = types.replace(/past /i, '');
     }
-    resp = icons.tribes((card as Creature).gsx$tribe)
-      + ' Creature - ' + (past ? 'Past ' : '') + (tribe === 'Generic' ? '' : tribe + ' ') + types;
+    resp = `${icons.tribes((card as Creature).gsx$tribe)
+    } Creature - ${past ? 'Past ' : ''}${tribe === 'Generic' ? '' : `${tribe} `}${types}`;
   }
   else if (card.gsx$type === 'Locations') {
-    resp = icons.locations()
-      + ` Location${card.gsx$types.length > 0 ? ' - ' + card.gsx$types : ''}`;
+    resp = `${icons.locations()
+    } Location${card.gsx$types.length > 0 ? ` - ${card.gsx$types}` : ''}`;
   }
   else if (card.gsx$type === 'Mugic') {
-    resp = icons.tribes((card as Mugic).gsx$tribe)
-      + ` Mugic - ${(card as Mugic).gsx$tribe}`;
+    resp = `${icons.tribes((card as Mugic).gsx$tribe)
+    } Mugic - ${(card as Mugic).gsx$tribe}`;
   }
   else return '';
 
@@ -215,11 +216,11 @@ const Ability = (cardtext: string, mc: Emoji, props: props) => {
   const { elements, disciplines } = props.icons;
 
   cardtext = cardtext.replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
-    return elements(p1) + match;
+    return `${elements(p1)}${match}`;
   });
 
   cardtext = cardtext.replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
-    return disciplines(p1) + match;
+    return `${disciplines(p1)}${match}`;
   });
 
   cardtext = addNewLine(cardtext, textOnly);
@@ -237,24 +238,24 @@ const Elements = (props: props) => {
   if (card.gsx$type === 'Creatures') {
     ['Fire', 'Air', 'Earth', 'Water'].forEach((element) => {
       if ((card as Creature).gsx$elements.includes(element)) {
-        resp += elements(element) + ' ';
+        resp += `${elements(element)} `;
       }
       else {
-        resp += el_inactive(element) + ' ';
+        resp += `${el_inactive(element)} `;
       }
     });
     resp.trim();
   }
   else if (card.gsx$type === 'Attacks') {
-    resp += (card as Attack).gsx$base + ' | ';
+    resp += `${(card as Attack).gsx$base} | `;
     ['Fire', 'Air', 'Earth', 'Water'].forEach((element) => {
       // @ts-ignore
       const dmg = card[`gsx$${element.toLowerCase()}`];
       if (dmg && dmg >= 0) {
-        resp += elements(element) + ' ' + dmg + ' ';
+        resp += `${elements(element)} ${dmg} `;
       }
       else {
-        resp += el_inactive(element) + ' ';
+        resp += `${el_inactive(element)} `;
       }
     });
     resp += '\n\n';
@@ -280,7 +281,7 @@ const MugicAbility = (mc: Emoji, props: props) => {
   }
 
   for (let i = 0; i < amount; i++) {
-    resp += mc;
+    resp += `${mc}`;
   }
 
   return resp;
@@ -299,7 +300,7 @@ const BuildRestrictions = (props: props) => {
     else if (card.gsx$legendary) {
       resp += 'Legendary, ';
     }
-    resp += (card.gsx$loyal === '1' ? 'Loyal' : 'Loyal - ' + card.gsx$loyal);
+    resp += (card.gsx$loyal === '1' ? 'Loyal' : `Loyal - ${card.gsx$loyal}`);
     if (card.gsx$type === 'Creatures' && (card as Creature).gsx$tribe === "M'arrillian") {
       resp += " - M'arrillians or Minions";
     }
@@ -320,15 +321,15 @@ export const Initiative = (props: props) => {
   const { elements, disciplines, tribes } = props.icons;
 
   const init = card.gsx$initiative
-    .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
-      return elements(p1) + match;
-    })
-    .replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
-      return disciplines(p1) + match;
-    })
-    .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
-      return tribes(p1) + match;
-    });
+  .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
+    return `${elements(p1)}${match}`;
+  })
+  .replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
+    return `${disciplines(p1)}${match}`;
+  })
+  .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
+    return `${tribes(p1)}${match}`;
+  });
 
   return addNewLine(init, true);
 }

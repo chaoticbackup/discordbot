@@ -10,8 +10,7 @@ import servers from './servers';
  */
 export function can_send(message: Message, msg?: string | null): boolean;
 export function can_send(guild: Guild, channel: Channel, msg?: string | null): boolean;
-export function can_send<A extends Message | Guild, B extends Channel | undefined>
-(arg1: A, arg2: B, msg?: string | null): boolean {
+export function can_send<A extends Message | Guild, B extends Channel | undefined>(arg1: A, arg2: B, msg?: string | null): boolean {
   let guild: Guild | undefined;
   let channel: Channel | undefined;
 
@@ -28,7 +27,8 @@ export function can_send<A extends Message | Guild, B extends Channel | undefine
   if (!channel) return false;
   if (guild.id === servers('main').id && !is_channel(channel, 'bot_commands')) {
     if (msg !== null) {
-      channel.send(msg || `To be courteous to other conversations, ask me in <#${servers('main').channel('bot_commands')}> :)`);
+      channel.send(msg ?? `To be courteous to other conversations, ask me in <#${servers('main').channel('bot_commands')}> :)`)
+      .catch(() => {});
     }
     return false;
   }

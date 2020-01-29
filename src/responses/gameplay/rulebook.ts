@@ -1,10 +1,10 @@
 const { languages, rulebook } = require('../config/rulebooks.json');
 
 function rule_url(url: string) {
-  return ('https://drive.google.com/file/d/' + url + '/view');
+  return (`https://drive.google.com/file/d/${url}/view`);
 }
 
-export default function(args: string[], options: string[]) {
+export default function (args: string[], options: string[]) {
   let message = '';
   if (options.includes('list')) {
     for (const lan in languages) {
@@ -40,7 +40,7 @@ export default function(args: string[], options: string[]) {
         return rule_url(rulebook[lang][set]);
       }
       else {
-        return "I don't have that set in " + languages[lang];
+        return `I don't have that set in ${languages[lang]}`;
       }
     }
   }

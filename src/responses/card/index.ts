@@ -11,7 +11,7 @@ export { default as display_token } from './token';
 /*
   Returning a card
 */
-export function display_card (name: string, options: string[], bot: Client) {
+export function display_card(name: string, options: string[], bot: Client) {
   /* If database hadn't been set up */
   if (API.data === 'local') {
     return card_local(name, bot);

@@ -12,32 +12,32 @@ export class BattlegearScan extends Scan {
 }
 
 export class ScannableBattlegear implements Scannable {
-    card: BattlegearScan;
+  card: BattlegearScan;
 
-    constructor(battlegear: Battlegear | BattlegearScan) {
-      this.card = new BattlegearScan();
-      if ((battlegear as Battlegear).gsx$name !== undefined) {
-        battlegear = (battlegear as Battlegear);
-        this.card.name = battlegear.gsx$name;
-      }
-      else {
-        battlegear = (battlegear as BattlegearScan);
-        this.card.name = battlegear.name;
-      }
+  constructor(battlegear: Battlegear | BattlegearScan) {
+    this.card = new BattlegearScan();
+    if ((battlegear as Battlegear).gsx$name !== undefined) {
+      battlegear = (battlegear as Battlegear);
+      this.card.name = battlegear.gsx$name;
     }
-
-    toString() {
-      return this.card.name;
+    else {
+      battlegear = (battlegear as BattlegearScan);
+      this.card.name = battlegear.name;
     }
+  }
 
-    getCard(icons: Icons) {
-      const card = API.find_cards_by_name(this.card.name)[0] as Battlegear;
+  toString() {
+    return this.card.name;
+  }
 
-      return new RichEmbed()
-        .setTitle(this.card.name)
-        .setColor(color(card))
-      // .setDescription(body)
-        .setURL(API.base_image + card.gsx$image)
-        .setImage(API.base_image + card.gsx$image);
-    }
+  getCard(icons: Icons) {
+    const card = API.find_cards_by_name(this.card.name)[0] as Battlegear;
+
+    return new RichEmbed()
+    .setTitle(this.card.name)
+    .setColor(color(card))
+    // .setDescription(body)
+    .setURL(API.base_image + card.gsx$image)
+    .setImage(API.base_image + card.gsx$image);
+  }
 }

@@ -8,8 +8,7 @@ import servers from './servers';
  */
 export function is_channel(message: Message, name: string): boolean;
 export function is_channel(channel: Channel, name: string, guild?: string): boolean;
-export function is_channel<A extends Message | Channel>
-(arg1: A, name: string, guild?: string) {
+export function is_channel<A extends Message | Channel>(arg1: A, name: string, guild?: string) {
   if (arg1 instanceof Message) {
     const channel = arg1.channel;
     if (channel instanceof TextChannel) {

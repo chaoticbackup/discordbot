@@ -1,10 +1,10 @@
 const faq = require('../config/faq.json');
 
-export default function(q: string) {
+export default function (q: string) {
   if (!q) {
     let response = '';
     for (const key in faq) {
-      response += key + '\n';
+      response += `${key}\n`;
     }
     return response;
   }

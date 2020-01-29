@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
 import { Logger } from 'winston';
 
@@ -43,29 +44,27 @@ const full_command_servers = [
   servers('main').id, servers('develop').id, servers('international').id, servers('unchained').id
 ];
 
-export default (async function(message: Message, logger: Logger) {
+export default (async function (bot: Client, message: Message, logger: Logger): Promise<void> {
   // Ignore bot messages
   if (message.author.bot) return;
 
-  // @ts-ignore
-  const bot: Client = this;
   const content: string = message.content;
   const mentions: string[] = Array.from(message.mentions.users.keys());
 
   // Prevents sending an empty message
-  const send: SendFunction = (msg, options) => {
+  const send: SendFunction = async (msg, options) => {
     if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack));
     return Promise.resolve();
   }
 
-  return new Promise(() => {
+  await Promise.resolve(() => {
     // Dev command prefix
     if (development && content.substring(0, 2) === 'd!')
       return command_response(bot, message, mentions, send);
 
     // Prevents double bot responses on production servers
     if (development && (!message.guild || message.guild.id !== servers('develop').id))
-      return;
+      return Promise.resolve();
 
     // If the message is a command
     if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
@@ -76,26 +75,26 @@ export default (async function(message: Message, logger: Logger) {
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
     ) return checkSass(bot, message, mentions, send);
   })
-    .catch((error) => {
+  .catch((error) => {
     // Log/Print error
-      logger.error(error.stack);
+    logger.error(error.stack);
 
-      // Don't log problems while in development
-      if (development) return;
+    // Don't log problems while in development
+    if (development) return;
 
-      // Send Error to Bot Testing Server
-      const server_source = message.guild ? message.guild.name : 'DM';
+    // Send Error to Bot Testing Server
+    const server_source = message.guild ? message.guild.name : 'DM';
 
-      (<Channel> bot.channels.get(servers('develop').channel('errors')))
-        .send(server_source + ':\n' + error.stack);
+    (bot.channels.get(servers('develop').channel('errors')) as Channel)
+    .send(`${server_source}:\n${error.stack}`);
 
-      // Ignore programmer errors (keep running)
-      if (error.name === 'ReferenceError' || error.name === 'SyntaxError')
-        return;
+    // Ignore programmer errors (keep running)
+    if (error.name === 'ReferenceError' || error.name === 'SyntaxError')
+      return;
 
-      // restart bot if unknown error
-      bot.destroy();
-    });
+    // restart bot if unknown error
+    bot.destroy();
+  });
 });
 
 /**
@@ -151,17 +150,17 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         const text = flatten(args);
         if (text) return send(help(text));
         const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'end'];
-        const msg = help('', keys)
-          + '\nFor my full feature set check out the main server https://discord.gg/chaotic';
+        const msg = `${help('', keys)
+        }\nFor my full feature set check out the main server https://discord.gg/chaotic`;
         return send(msg)
-          .then(() => send(donate()));
+        .then(async () => send(donate()));
       default:
         return;
     }
   }
 
   const channel = message.channel;
-  const { guild, guildMember } = <{guild: Guild; guildMember: GuildMember}> await messageGuild(message);
+  const { guild, guildMember } = await messageGuild(message) as {guild: Guild, guildMember: GuildMember};
 
   /**
     * Special Server exclusive commands
@@ -232,10 +231,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return;
     case 'parasite': {
       if (args[0] === 'token')
-        return send(display_token('parasite ' + flatten(args.slice(1))));
+        return send(display_token(`parasite ${flatten(args.slice(1))}`));
 
       else
-        return send(display_token('parasite ' + flatten(args)));
+        return send(display_token(`parasite ${flatten(args)}`));
     }
     case 'token': {
       return send(display_token(flatten(args)));
@@ -312,10 +311,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0) return send(tier(flatten(args)));
       if (can_send(message)) {
         return send(new RichEmbed()
-          .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
+        .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
         )
-          .then(() => send(tier()))
-          .then(() => send(donate()));
+        .then(async () => send(tier()))
+        .then(async () => send(donate()));
       }
       return;
     /* Matchmaking */
@@ -422,15 +421,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'commands': {
       if (args.length > 0) return send(help(flatten(args)));
       if (guildMember) {
-        guildMember.send(help())
-          .then(() => { guildMember.send(donate()) })
-          .catch(() => {
-            send(help());
-          });
-        return;
+        return guildMember.send(help())
+        .then(() => { guildMember.send(donate()) })
+        .catch(() => {
+          send(help());
+        });
       }
       return send(help())
-        .then(() => send(donate()));
+      .then(async () => send(donate()));
     }
 
     /*
@@ -485,8 +483,8 @@ function flatten(args: string[]): string {
 function donate(): RichEmbed {
   return (
     new RichEmbed()
-      .setDescription('[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)')
-      .setTitle('Donate')
+    .setDescription('[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)')
+    .setTitle('Donate')
   );
 }
 
@@ -494,7 +492,7 @@ function donate(): RichEmbed {
  * If the message was sent in a guild, returns the `guild` and `guildMember`
  */
 async function messageGuild(message: Message):
-Promise<{guild: Guild | null; guildMember: GuildMember | null}>
+Promise<{guild: Guild | null, guildMember: GuildMember | null}>
 {
   if (!message.guild) return { guild: null, guildMember: null };
 
@@ -508,26 +506,28 @@ Promise<{guild: Guild | null; guildMember: GuildMember | null}>
 
 function rm(bot: Client, message: Message) {
   const lstmsg = bot.user.lastMessage;
-  if (lstmsg && lstmsg.deletable) lstmsg.delete();
+  if (lstmsg?.deletable) lstmsg.delete();
   if (message.deletable) message.delete(); // delete user msg
 }
 
-function clear(amount: number, message: Message, mentions: string[] = []): void {
+async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
   if (isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES')) {
     if (amount <= 25) {
       if (mentions.length > 0) {
-        message.channel.fetchMessages()
-          .then(messages => {
-            const b_messages = messages.filter(m =>
-              mentions.includes(m.author.id)
-            );
-            if (b_messages.size > 0)
-              message.channel.bulkDelete(b_messages);
-            message.delete();
-          });
+        return message.channel.fetchMessages()
+        .then(messages => {
+          const b_messages = messages.filter(m =>
+            mentions.includes(m.author.id)
+          );
+          if (b_messages.size > 0) {
+            message.channel.bulkDelete(b_messages);
+          }
+          message.delete();
+        });
       }
-      else
-        message.channel.bulkDelete(amount + 1);
+      else {
+        message.channel.bulkDelete(amount + 1).catch();
+      }
     }
     else {
       // only delete the clear command
@@ -535,6 +535,7 @@ function clear(amount: number, message: Message, mentions: string[] = []): void 
       message.delete();
     }
   }
+  return Promise.resolve();
 }
 
 function haxxor(message: Message, bot: Client): void {
@@ -543,9 +544,9 @@ function haxxor(message: Message, bot: Client): void {
   ) {
     message.channel.send('Resetting...');
     API.rebuild()
-      .then(() => bot.destroy())
-      .catch((err) => {
-        message.channel.send(err.message);
-      });
+    .then(async () => bot.destroy())
+    .catch((err) => {
+      message.channel.send(err.message);
+    });
   }
 }

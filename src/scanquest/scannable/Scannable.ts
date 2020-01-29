@@ -7,20 +7,20 @@ import Icons from '../../common/bot_icons';
  * @param image The image that is spawned
 */
 export class Scan {
-    name: string;
-    type: CardType;
+  name: string;
+  type: CardType;
 
-    constructor(type: CardType) {
-      this.type = type;
-    }
+  constructor(type: CardType) {
+    this.type = type;
+  }
 }
 
 /**
  * @param card The scanned card characteristics
  */
 export interface Scannable {
-    card: Scan;
+  card: Scan
 
-    toString(): string;
-    getCard(icons?: Icons): RichEmbed;
+  toString(): string
+  getCard(icons?: Icons): RichEmbed
 }

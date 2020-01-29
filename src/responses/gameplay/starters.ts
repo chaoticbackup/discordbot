@@ -8,7 +8,7 @@ export default function (options: string[]): string {
   return display_starter('metal');
 }
 
-function display_starter (name: string) {
+function display_starter(name: string) {
   const starter = starters[name];
   let resp = '';
   Object.keys(starter).forEach((tribe) => {
@@ -17,7 +17,7 @@ function display_starter (name: string) {
   return resp;
 }
 
-function icon (tribe: string): string {
+function icon(tribe: string): string {
   switch (tribe) {
     case 'OverWorld':
       return '<:OW:294939978897555457>';

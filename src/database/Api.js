@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-callback-in-promise */
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
@@ -81,11 +82,11 @@ class API {
       callback(null);
     })
     .then((json) => {
-      return callback(json.feed.entry);
+      callback(json.feed.entry);
     })
     .catch((err) => {
       console.error('parsing failed', err);
-      return callback(null);
+      callback(null);
     });
   }
 

@@ -12,35 +12,35 @@ export class LocationScan extends Scan {
 }
 
 export class ScannableLocation implements Scannable {
-    card: LocationScan;
+  card: LocationScan;
 
-    constructor(location: Location | LocationScan) {
-      this.card = new LocationScan();
-      if ((location as Location).gsx$name !== undefined) {
-        location = (location as Location);
-        this.card.name = location.gsx$name;
-      }
-      else {
-        location = (location as LocationScan);
-        this.card.name = location.name;
-      }
+  constructor(location: Location | LocationScan) {
+    this.card = new LocationScan();
+    if ((location as Location).gsx$name !== undefined) {
+      location = (location as Location);
+      this.card.name = location.gsx$name;
     }
-
-    toString() {
-      return this.card.name;
+    else {
+      location = (location as LocationScan);
+      this.card.name = location.name;
     }
+  }
 
-    getCard(icons: Icons) {
-      const card = API.find_cards_by_name(this.card.name)[0] as Location;
+  toString() {
+    return this.card.name;
+  }
 
-      const body
+  getCard(icons: Icons) {
+    const card = API.find_cards_by_name(this.card.name)[0] as Location;
+
+    const body
             = Initiative({ card, icons, options: [], textOnly: true });
 
-      return new RichEmbed()
-        .setTitle(this.card.name)
-        .setColor(color(card))
-        .setDescription(body)
-        .setURL(API.base_image + card.gsx$image)
-        .setImage(API.base_image + card.gsx$image);
-    }
+    return new RichEmbed()
+    .setTitle(this.card.name)
+    .setColor(color(card))
+    .setDescription(body)
+    .setURL(API.base_image + card.gsx$image)
+    .setImage(API.base_image + card.gsx$image);
+  }
 }

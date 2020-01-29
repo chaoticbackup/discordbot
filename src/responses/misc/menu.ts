@@ -6,7 +6,7 @@ export { _menu as menu, _make as make, _order as order };
 const _menu = () => {
   let message = '**Port Court Menu**\n=====';
   for (const key in order) {
-    message += '\n' + key;
+    message += `\n${key}`;
   }
   return message;
 }

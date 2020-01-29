@@ -17,14 +17,12 @@ export const tribe = async (
   let param;
 
   if (args.length === 0 || args[0] === '' || (param = args[0].toLowerCase()) === 'show') {
-    return displayTribe(guild, member)
+    return displayTribe(guild, member);
   }
 
   if (param === 'leave') {
     return leaveTribe(guild, member)
-      .then(msg => {
-        return msg;
-      });
+    .then(msg => msg);
   }
 
   if (args.length < 2) {
@@ -54,11 +52,11 @@ export const brainwash = async (
 
   const brainwashMember = async (member: GuildMember) => {
     if (member.roles.find(role => role === bw)) {
-      member.removeRole(bw);
+      await member.removeRole(bw);
       return 'Your mind is free!';
     }
     else {
-      member.addRole(bw);
+      await member.addRole(bw);
       return '<:Mar:294942283273601044> You have been brainwashed';
     }
   }
@@ -67,7 +65,7 @@ export const brainwash = async (
     if (moderator) {
       await asyncForEach(mentions, async (id: string) => {
         await guild.fetchMember(id)
-          .then(brainwashMember)
+        .then(brainwashMember)
       });
       return Promise.resolve('');
     }
@@ -79,7 +77,7 @@ export const brainwash = async (
   return Promise.resolve('');
 }
 
-const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
+const displayTribe = (guild: Guild, member: GuildMember): string => {
   const bw = guild.roles.find(role => role.name === 'Brainwashed');
 
   let tribe = '';
@@ -87,14 +85,14 @@ const displayTribe = async (guild: Guild, member: GuildMember): Promise<string> 
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
       if (bw && member.roles.find(role => role === bw)) {
-        tribe = 'You are a brainwashed ' + (() => {
+        tribe = `You are a brainwashed ${(() => {
           if (t === 'OverWorld') return 'OverWorlder';
           else if (t === 'UnderWorld') return 'UnderWorlder';
           else return t;
-        })();
+        })()}`;
         return;
       }
-      tribe = 'You are part of the ' + t;
+      tribe = `You are part of the ${t}`;
     }
   });
   if (tribe) return tribe;
@@ -108,14 +106,15 @@ const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> =>
     if (member.roles.find(role => role === gr)) {
       return new Promise(resolve => {
         member.removeRole(gr)
-          .then(() => {
-            resolve('You have left the ' + t + ' tribe');
-          });
+        .then(() =>
+          resolve(`You have left the ${t} tribe`)
+        )
+        .catch(() => resolve());
       });
     }
   }
 
-  return 'You are not part of a tribe';
+  return Promise.resolve('You are not part of a tribe');
 }
 
 const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
@@ -215,17 +214,17 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
   const remove_role = guild.roles.find(role => role.name === leaving_tribe);
 
   if (guild_role) {
-    member.addRole(guild_role);
+    await member.addRole(guild_role);
 
     if (leaving_tribe === tribe) {
       return `You are already part of the ${tribe}.`;
     }
     else if (remove_role) {
-      member.removeRole(remove_role);
+      await member.removeRole(remove_role);
     }
 
     if (leaving_msg !== '') {
-      return leaving_msg + '\n' + joining_msg;
+      return `${leaving_msg}\n${joining_msg}`;
     }
     else {
       return joining_msg;

@@ -1,23 +1,23 @@
 import { Snowflake } from 'discord.js';
 
 class Server {
-    name: string;
-    id: string;
-    channels: Record<string, Snowflake>;
+  name: string;
+  id: string;
+  channels: Record<string, Snowflake>;
 
-    constructor(
-      { name, id, channels }: {name: string, id: string, channels: Record<string, Snowflake>})
-    {
-      this.name = name;
-      this.id = id;
-      this.channels = channels;
-    }
+  constructor(
+    { name, id, channels }: {name: string, id: string, channels: Record<string, Snowflake>})
+  {
+    this.name = name;
+    this.id = id;
+    this.channels = channels;
+  }
 
-    channel (name: string): Snowflake {
-      const channel = this.channels[name];
-      if (channel) return channel;
-      else return '';
-    }
+  channel(name: string): Snowflake {
+    const channel = this.channels[name];
+    if (channel) return channel;
+    else return '';
+  }
 }
 
 export default function (name: string): Server {

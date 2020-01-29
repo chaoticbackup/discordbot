@@ -1,7 +1,7 @@
 import { cleantext } from '../../common';
 const non = require('../config/nowornever.json');
 
-export default function(name: string) {
+export default function (name: string) {
   if (!name) {
     // Return random card
     const keys = Object.keys(non);

@@ -22,11 +22,11 @@ export default function (name: string) {
   let response = '';
   if (results.length > 15) response = 'First 15 matches:\n';
   results.splice(0, 15).forEach((card) => {
-    response += card.gsx$name.replace(
+    response += `${card.gsx$name.replace(
       new RegExp(escape_text(name), 'i'), (match: string) => {
         return `**${match}**`;
       }
-    ) + '\n';
+    )}\n`;
   });
 
   return response;

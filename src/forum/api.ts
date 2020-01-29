@@ -16,7 +16,7 @@ export default (logger: Logger) => {
     const cards = API.find_cards_by_name(name, []);
 
     if (cards.length > 0) {
-      const image = API.base_image + cards[0].gsx$image;
+      const image = `${API.base_image}${cards[0].gsx$image}`;
       res.send({ image: image });
     }
     else {
@@ -24,5 +24,5 @@ export default (logger: Logger) => {
     }
   });
 
-  app.listen(port, () => logger.info('Card API listening on port ' + port));
+  app.listen(port, () => logger.info(`Card API listening on port ${port}`));
 }

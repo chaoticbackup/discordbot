@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-array-sort-compare */
 const { agame, goodstuff } = require('../config/goodstuff.json');
 
 export { fs as funstuff, gs as goodstuff };
@@ -5,7 +6,7 @@ export { fs as funstuff, gs as goodstuff };
 function fs() {
   let message = '';
   agame.sort().forEach((card: string) => {
-    message += card + '\n';
+    message += `${card}\n`;
   });
   return message;
 }
@@ -62,13 +63,13 @@ function gs(args: string[]) {
     case 'tribeless':
       message = '**Strong Tribeless Creatures:**';
       goodstuff.Creatures.Generic.forEach((card: string) => {
-        message += '\n' + card;
+        message += `\n${card}`;
       });
       break;
     case 'generic':
       message = '**Strong Generic Mugic:**';
       goodstuff.Mugic.Generic.forEach((card: string) => {
-        message += '\n' + card;
+        message += `\n${card}`;
       });
       break;
   }
@@ -81,7 +82,7 @@ function Mugic() {
   [].concat(goodstuff.Mugic.Danian, goodstuff.Mugic["M'arrillian"],
     goodstuff.Mugic.Mipedian, goodstuff.Mugic.OverWorld,
     goodstuff.Mugic.UnderWorld, goodstuff.Mugic.Generic).sort().forEach((card) => {
-    msg += '\n' + card;
+    msg += `\n${card}`;
   });
   return msg;
 }
@@ -90,7 +91,7 @@ function Attacks(bp: string): string {
   let msg = `**Strong ${bp} BP Attacks:**`;
   if (bp && +bp >= 0 && +bp <= 5) {
     goodstuff.Attacks[bp].forEach((card: string) => {
-      msg += '\n' + card;
+      msg += `\n${card}`;
     });
   }
   else return Attacks('1');
@@ -100,7 +101,7 @@ function Attacks(bp: string): string {
 function Type(type: string) {
   let msg = '';
   goodstuff[type].forEach((card: string) => {
-    msg += '\n' + card;
+    msg += `\n${card}`;
   });
   return msg;
 }
@@ -112,22 +113,22 @@ function Tribe(tribe: string, type: string) {
     if (type.toLowerCase() === 'creatures') {
       msg = `**Strong ${tribe} Creatures**`;
       goodstuff.Creatures[tribe].forEach((card: string) => {
-        msg += '\n' + card;
+        msg += `\n${card}`;
       });
     }
     if (type.toLowerCase() === 'mugic') {
       msg = `**Strong ${tribe} Mugic**`;
       goodstuff.Mugic[tribe].forEach((card: string) => {
-        msg += '\n' + card;
+        msg += `\n${card}`;
       });
     }
   }
   else {
     msg = `**Strong ${tribe} Cards:**`;
     [].concat(goodstuff.Mugic[tribe], goodstuff.Creatures[tribe])
-      .sort().forEach((card) => {
-        msg += '\n' + card;
-      });
+    .sort().forEach((card) => {
+      msg += `\n${card}`;
+    });
   }
   return msg;
 }

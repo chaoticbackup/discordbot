@@ -34,7 +34,7 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
   const list_bans = (_format: string) => {
     message = `**${uppercase(_format)}:**\n${formats[_format]}\n==Banned Cards==`;
     ban_lists[_format].forEach((key: string) => {
-      message += '\n' + key;
+      message += `\n${key}`;
     });
   }
 
@@ -43,7 +43,7 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
     list_bans('standard');
     message += '\n=====\n**Watchlist:** (not banned)'
     watchlist.forEach((key: string) => {
-      message += '\n' + key;
+      message += `\n${key}`;
     });
     message += '\n=====\nYou can find out why a card was banned with "!whyban *card name*"';
   }
@@ -105,7 +105,7 @@ export function whyban(
           return `*${key}*:\n${rndrsp(reasons[key].slice(1, reasons[key].length), key)}`;
         }
         else {
-          return 'Sorry ' + key + " doesn't have a joke";
+          return `Sorry ${key} doesn't have a joke`;
         }
       }
       else {

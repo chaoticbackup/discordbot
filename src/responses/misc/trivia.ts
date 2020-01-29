@@ -1,9 +1,9 @@
 import { GuildMember, User } from 'discord.js';
 import { isModerator } from '../../common';
 
-type Response = {
-    name: string;
-    answer: string;
+interface Response {
+  name: string
+  answer: string
 }
 
 let questiontime = false;
@@ -11,7 +11,7 @@ let responses: Response[];
 let triviaMaster: GuildMember | null;
 
 // It's the command that manages timing, like the whistle of a ref.
-export function whistle(member: GuildMember): string {
+export async function whistle(member: GuildMember): Promise<string> {
   if (triviaMaster && member.id === triviaMaster.id) {
     if (!questiontime) {
       questiontime = true;
@@ -24,22 +24,28 @@ export function whistle(member: GuildMember): string {
         message += `${rsp.name} answered: ${rsp.answer}\n`;
       });
       responses = [];
-      triviaMaster.send(message);
-      return 'Question time is over, messages have been sent to the Trivia Master';
+
+      return triviaMaster.send(message)
+      .then(() => {
+        return 'Question time is over, messages have been sent to the Trivia Master';
+      })
+      .catch(() => {
+        return 'Issue sending response to Trivia Master';
+      });
     }
   }
   return "You're not the host";
 }
 
 // sets a guildmember as the trivia master
-export function trivia (member: GuildMember): string {
+export function trivia(member: GuildMember): string {
   if (isModerator(member)) {
     if (triviaMaster) {
       if (triviaMaster.id === member.id) {
         triviaMaster = null;
         return 'You stopped hosting Trivia Night';
       }
-      return 'Sorry ' + triviaMaster.displayName + ' is already hosting';
+      return `Sorry ${triviaMaster.displayName} is already hosting`;
     }
     else {
       triviaMaster = member;
@@ -51,7 +57,7 @@ export function trivia (member: GuildMember): string {
 }
 
 // how a trivia player sends a response to the bot
-export function answer (member: GuildMember | User, answer: string): string {
+export function answer(member: GuildMember | User, answer: string): string {
   if (questiontime) {
     if (member instanceof GuildMember)
     { responses.push({ name: member.displayName, answer }); }

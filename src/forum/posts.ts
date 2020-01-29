@@ -77,90 +77,91 @@ function post_time_diff(date: string[], currenttime: Date) {
 }
 
 export default class ForumPosts {
-    bot: Client;
-    channel: string;
-    links: string[] = [];
-    timeout: NodeJS.Timeout;
+  bot: Client;
+  channel: string;
+  links: string[] = [];
+  timeout: NodeJS.Timeout;
 
-    constructor(bot: Client) {
-      this.bot = bot;
-      this.channel = (process.env.NODE_ENV !== 'development') ? config.default_channel : config.test_channel;
-    }
+  constructor(bot: Client) {
+    this.bot = bot;
+    this.channel = (process.env.NODE_ENV !== 'development') ? config.default_channel : config.test_channel;
+  }
 
-    start() {
-      this.checkMessages();
-    }
+  start() {
+    this.checkMessages();
+  }
 
-    stop() {
-      clearTimeout(this.timeout);
-    }
+  stop() {
+    clearTimeout(this.timeout);
+  }
 
-    expiredLink(id: string): boolean {
-      if (this.links.includes(id)) return true;
-      this.links.push(id)
-      setTimeout(
-        () => { this.links.shift() },
-        config.expire * 60 * 1000
-      );
-      return false;
-    }
+  expiredLink(id: string): boolean {
+    if (this.links.includes(id)) return true;
+    this.links.push(id)
+    setTimeout(
+      () => { this.links.shift() },
+      config.expire * 60 * 1000
+    );
+    return false;
+  }
 
-    checkMessages() {
-      // Simulated Browser
-      JSDOM.fromURL(
-        config.forum,
-        { virtualConsole }
-      )
-        .then((dom) => {
-          // const document = dom.window.document;
-          // const bodyEl = document.body;
-          // console.log(dom.serialize());
-          const $ = jquery(dom.window, true);
+  checkMessages() {
+    // Simulated Browser
+    JSDOM.fromURL(
+      config.forum,
+      { virtualConsole }
+    )
+    .then((dom) => {
+      // const document = dom.window.document;
+      // const bodyEl = document.body;
+      // console.log(dom.serialize());
+      const $ = jquery(dom.window, true);
 
-          // List of new posts
-          const newPosts: HTMLElement[] = [];
+      // List of new posts
+      const newPosts: HTMLElement[] = [];
 
-          const currenttime = newDate($('.current-time').contents().text().split('is ')[1]);
+      const currenttime = newDate($('.current-time').contents().text().split('is ')[1]);
 
-          // Latest posts
-          const latest = $('.row1 > span');
+      // Latest posts
+      const latest = $('.row1 > span');
 
-          latest.contents()
-            // Node.TEXT_NODE
-            .filter((index, element) => element.nodeType === 3)
-            .each((index, element) => {
-              const date = ($(element).text()).split(' ');
-              if (date.length <= 1) return;
+      latest.contents()
+      // Node.TEXT_NODE
+      .filter((index, element) => element.nodeType === 3)
+      .each((index, element) => {
+        const date = ($(element).text()).split(' ');
+        if (date.length <= 1) return;
 
-              if (date[0] === 'Yesterday') return; // midnight misses
-              if (date[0] === 'Today') {
-                if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
-                  newPosts.push(latest[index]);
-                }
-              }
-            });
+        if (date[0] === 'Yesterday') return; // midnight misses
+        if (date[0] === 'Today') {
+          if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
+            newPosts.push(latest[index]);
+          }
+        }
+      });
 
-          newPosts.forEach((newPost, i) => {
-            const topicurl = ($(newPost).children().filter('a.last-post-icon').attr('href'));
+      newPosts.forEach((newPost, i) => {
+        const topicurl = ($(newPost).children().filter('a.last-post-icon').attr('href'));
 
-            if (!topicurl) return;
-            const id = topicurl.split('-')[0];
+        if (!topicurl) return;
+        const id = topicurl.split('-')[0];
 
-            // ignore subsequent notifications per post
-            if (this.expiredLink(id)) return;
+        // ignore subsequent notifications per post
+        if (this.expiredLink(id)) return;
 
-            const fullurl = config.forum + topicurl;
-            const author = ($(newPost).find('span > strong').text());
-            const topic = ($(newPost).find('a').first().attr('title'));
-            const message = new RichEmbed()
-              .setTitle('New Forum Post')
-              .setDescription(`${author} posted on [${topic}](${fullurl})`);
+        const fullurl = config.forum + topicurl;
+        const author = ($(newPost).find('span > strong').text());
+        const topic = ($(newPost).find('a').first().attr('title'));
+        const message = new RichEmbed()
+        .setTitle('New Forum Post')
+        .setDescription(`${author} posted on [${topic}](${fullurl})`);
 
-            // @ts-ignore bot will always be defined
-            this.bot.channels.get(this.channel).send(message);
-          });
-        });
+        // @ts-ignore bot will always be defined
+        this.bot.channels.get(this.channel).send(message);
+      });
+    })
+    .catch(() => {});
 
-      this.timeout = setTimeout(() => { this.checkMessages() }, config.seconds * 1000);
-    }
+    this.timeout = setTimeout(() => { this.checkMessages() }, config.seconds * 1000);
+  }
 }

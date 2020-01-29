@@ -1,7 +1,7 @@
 import { cleantext } from '../../common';
 const glossary = require('../config/glossary');
 
-export default function(rule: string) {
+export default function (rule: string) {
   rule = rule.replace(/^(at )*(the )/i, '');
 
   for (var key in glossary) {

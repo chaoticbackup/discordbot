@@ -8,7 +8,7 @@ function GenericCounter(cardtext: string, genCounter: Emoji) {
   return cardtext.replace(/:GenCounter:/gi, 'MC');
 }
 
-export default function(name: string, bot: Client) {
+export default function (name: string, bot: Client) {
   const genCounter = bot.emojis.find(emoji => emoji.name === 'TLCounter');
 
   // Return random card

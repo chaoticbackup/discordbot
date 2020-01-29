@@ -7,14 +7,16 @@
     "babel"
   ],
   "rules": {
-    "eqeqeq": "off",
     "dot-notation": "off",
+    "eqeqeq": "off",
+    "max-len": ["error", { "code": 132 }],
+    "no-empty": ["warn", { "allowEmptyCatch": true }],
+    "no-eval": "warn",
+    "no-fallthrough": "off",
     "no-unused-vars": "warn",
     "no-undef": "error",
-    "no-useless-escape": "off",
-    "no-empty": "off",
-    "object-curly-spacing": ["error", "always", {"objectsInObjects": false, "arraysInObjects": false}],
-    "max-len": ["error", { "code": 132 }]
+    "no-unexpected-multiline": "error",
+    "object-curly-spacing": ["error", "always", {"objectsInObjects": false, "arraysInObjects": false}]
   },
   "ignorePatterns": [
     "build/"
@@ -34,13 +36,16 @@
         "babelOptions": {
           "configFile": "babel.config.js"
         }
+      },
+      "rules": {
+        "no-empty": "off"
       }
     },
     {
       "files": ["*.ts"],
       "extends": [
         "standard",
-        "plugin:@typescript-eslint/eslint-recommended"
+        "standard-with-typescript"
       ],
       "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
       "parser": "@typescript-eslint/parser",
@@ -50,11 +55,32 @@
         "project": "./tsconfig.json"
       },
       "plugins": [
-        "standard",
-        "@typescript-eslint"
+        "standard"
       ],
       "rules": {
+        "@typescript-eslint/brace-style": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/indent": ["error", 2, {
+          "SwitchCase": 1,
+          "MemberExpression": 0
+        }],
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": ["error", { 
+          "allow": ["arrowFunctions"] 
+        }], // TODO
+        "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true}],
+        "@typescript-eslint/no-misused-promises": "warn",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/space-before-function-paren": ["error", {
+          "anonymous": "always",
+          "named": "never",
+          "asyncArrow": "always"
+        }],
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "brace-style": "off",
         "camelcase": "off",
         "comma-dangle": ["error", {
@@ -64,24 +90,18 @@
           "exports": "never",
           "functions": "never"
         }],
+        "curly": "off",
         "func-call-spacing": "off",
-        "indent": ["error", 2, {
-          "SwitchCase": 1
-        }],
-        "no-eval": "warn",
         "no-case-declarations": "off",
-        "no-empty": ["warn", { "allowEmptyCatch": true }],
-        "no-fallthrough": "off",
-        "no-unused-vars": "off",
+        "no-extra-boolean-cast": "off",
         "no-use-before-define": "off",
         "no-useless-escape": "off",
         "operator-linebreak": "off",
         "prefer-const": "warn",
         "prefer-promise-reject-errors": "off",
+        "prefer-template": "error",
         "semi": "off",
-        "space-before-function-paren": "off",
-        "no-extra-boolean-cast": "off",
-        "curly": "off"
+        "space-before-function-paren": "off"
       }
     }
   ]

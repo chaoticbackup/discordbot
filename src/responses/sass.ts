@@ -32,7 +32,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
       let result;
       while ((result = cardRgx.exec(content)) !== null) {
         const card = display_card(result[1].toLowerCase(), ['ability'], bot);
-        if (card instanceof RichEmbed) send(card);
+        if (card instanceof RichEmbed) send(card).catch(() => {});
       }
       return;
     }
@@ -44,7 +44,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (is_channel(message, 'general_chat_1')) {
     if (content.match(/want[s]?\s?(to)?\s?battle[^a-z\s]*/i)) {
-      return send('Have you tried asking in <#' + servers('main').channel('match_making') + '>?')
+      return send(`Have you tried asking in <#${servers('main').channel('match_making')}>?`)
     }
   }
 
@@ -67,7 +67,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
     if (myreg.test(content)) {
       const match = myreg.exec(content);
       // @ts-ignore
-      return send('Yes, ' + match[0] + ' stacks.');
+      return send(`Yes, ${match[0]} stacks.`);
     }
     if (new RegExp('hive', 'i').test(content)) {
       return send('Abilities granted by hive stack.');

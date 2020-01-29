@@ -17,10 +17,10 @@ export default function (name: string, options: string[]) {
       }
 
       return new RichEmbed()
-        .setColor(color(card))
-        .setTitle(card.gsx$name)
-        .setURL(url)
-        .setImage(url);
+      .setColor(color(card))
+      .setTitle(card.gsx$name)
+      .setURL(url)
+      .setImage(url);
     }
     else {
       return `Sorry, I don't have ${card.gsx$name}'s full art`;
