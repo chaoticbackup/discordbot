@@ -7,6 +7,7 @@ import { CreatureScan, ScannableCreature } from './scannable/Creature';
 import { Scan, Scannable } from './scannable/Scannable';
 import { Message, DMChannel, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
+import { resolve } from 'dns';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 class Player {
@@ -72,13 +73,15 @@ class ScanQuestDB {
   }
 
   save = async (id: string, card: Scan): Promise<boolean> => {
-    const player = this.findOnePlayer({ id: id });
-    if (player.scans.length === 0 || player.scans[player.scans.length - 1].name !== card.name) {
-      player.scans.push(card);
-      this.players.update(player);
-      return Promise.resolve(true);
-    }
-    return Promise.resolve(false);
+    return new Promise((resolve) => {
+      const player = this.findOnePlayer({ id: id });
+      if (player.scans.length === 0 || player.scans[player.scans.length - 1].name !== card.name) {
+        player.scans.push(card);
+        this.players.update(player);
+        return resolve(true);
+      }
+      return resolve(false);
+    });
   }
 
   private findOnePlayer({ id }: {id: string}) {

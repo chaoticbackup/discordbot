@@ -7,11 +7,11 @@ export const tribe = async (
   guild: Guild, member: GuildMember, args: string[]
 ): Promise<string> => {
   if (!guild) {
-    return Promise.resolve('You can only use this command in a guild with roles');
+    return 'You can only use this command in a guild with roles';
   }
 
   if (!hasPermission(guild, 'MANAGE_ROLES')) {
-    return Promise.resolve('I need the ``MANAGE_ROLES`` permission');
+    return 'I need the ``MANAGE_ROLES`` permission';
   }
 
   let param;
@@ -26,14 +26,14 @@ export const tribe = async (
   }
 
   if (args.length < 2) {
-    return Promise.resolve('!tribe <join|leave> <tribeName>');
+    return '!tribe <join|leave> <tribeName>';
   }
 
   if (param === 'join') {
     return joinTribe(guild, member, args[1]);
   }
 
-  return Promise.resolve('!tribe <join|leave> <tribeName>');
+  return '!tribe <join|leave> <tribeName>';
 }
 
 export const brainwash = async (
@@ -50,13 +50,13 @@ export const brainwash = async (
 
   const moderator = isModerator(member);
 
-  const brainwashMember = async (member: GuildMember) => {
+  const brainwashMember = (member: GuildMember) => {
     if (member.roles.find(role => role === bw)) {
-      await member.removeRole(bw);
+      member.removeRole(bw).catch(() => {});
       return 'Your mind is free!';
     }
     else {
-      await member.addRole(bw);
+      member.addRole(bw).catch(() => {});
       return '<:Mar:294942283273601044> You have been brainwashed';
     }
   }
@@ -64,17 +64,15 @@ export const brainwash = async (
   if (mentions.length > 0) {
     if (moderator) {
       await asyncForEach(mentions, async (id: string) => {
-        await guild.fetchMember(id)
-        .then(brainwashMember)
+        await guild.fetchMember(id).then(brainwashMember);
       });
-      return Promise.resolve('');
     }
   }
   else {
     return brainwashMember(member);
   }
 
-  return Promise.resolve('');
+  return '';
 }
 
 const displayTribe = (guild: Guild, member: GuildMember): string => {
@@ -104,17 +102,13 @@ const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> =>
     const t = tribes[i];
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
-      return new Promise(resolve => {
-        member.removeRole(gr)
-        .then(() =>
-          resolve(`You have left the ${t} tribe`)
-        )
-        .catch(() => resolve());
-      });
+      return member.removeRole(gr)
+      .then(() => `You have left the ${t} tribe`)
+      .catch(() => '');
     }
   }
 
-  return Promise.resolve('You are not part of a tribe');
+  return 'You are not part of a tribe';
 }
 
 const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {

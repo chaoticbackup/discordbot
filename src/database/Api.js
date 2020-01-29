@@ -2,7 +2,7 @@
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
-import { escape_text } from "../common";
+import { escape_text, asyncForEach } from "../common";
 import db_path from './db_path';
 
 const fetch =  require('node-fetch');
@@ -90,15 +90,8 @@ class API {
     });
   }
 
-  //https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
-  async asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array)
-    }
-  }
-
   async databaseInitialize() {
-    await this.asyncForEach(["Attacks", "Battlegear", "Creatures", "Locations", "Mugic"],
+    await asyncForEach(["Attacks", "Battlegear", "Creatures", "Locations", "Mugic"],
       (type) => {
         // check if the db already exists in memory
         let entries = this.db.getCollection(type);

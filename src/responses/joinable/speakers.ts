@@ -3,12 +3,12 @@ import { cleantext, uppercase } from '../../common';
 
 const suffix = '_speakers';
 
-export default async (user: GuildMember, guild: Guild, args: string[]): Promise<string> => {
-  const languageProper = (lang: string): string => {
-    return uppercase(lang.replace(suffix, ''))
-  }
+const languageProper = (lang: string): string => {
+  return uppercase(lang.replace(suffix, ''))
+}
 
-  const languageList = async () => {
+export default (user: GuildMember, guild: Guild, args: string[]) => {
+  const languageList = () => {
     let language_count = 0;
     let msg = 'Available languages:\n';
     guild.roles.forEach((value: Role) => {
@@ -18,23 +18,23 @@ export default async (user: GuildMember, guild: Guild, args: string[]): Promise<
       }
     });
     if (language_count === 0) {
-      return Promise.resolve(`This guild has no language "${suffix}" roles`);
+      return `This guild has no language "${suffix}" roles`;
     }
-    return Promise.resolve(msg);
-  }
-
-  const memberList = async (lang: string) => {
-    let msg = `List of ${languageProper(lang)} speaking members:\n`;
-    role.members.forEach((m) => {
-      msg += `${m.displayName}\n`;
-    });
-    return Promise.resolve(msg);
+    return msg;
   }
 
   if (args.length === 0 || args[0] === '') return languageList();
 
   const language = args[0].toLowerCase();
   const role: Role = guild.roles.find(role => role.name === `${language}${suffix}`);
+
+  const memberList = (lang: string) => {
+    let msg = `List of ${languageProper(lang)} speaking members:\n`;
+    role.members.forEach((m) => {
+      msg += `${m.displayName}\n`;
+    });
+    return msg;
+  }
 
   if (!role) return languageList();
 
@@ -56,5 +56,5 @@ export default async (user: GuildMember, guild: Guild, args: string[]): Promise<
     }
   }
 
-  return Promise.resolve('!speakers <language> <join|leave|list|>');
+  return '!speakers <language> <join|leave|list|>';
 }

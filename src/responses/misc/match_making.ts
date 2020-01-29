@@ -11,7 +11,7 @@ function canMatch(guild: Guild, channel: Channel): boolean {
   return true;
 }
 
-export async function lookingForMatch(type: string, channel: Channel, guild: Guild, member: GuildMember) {
+export function lookingForMatch(type: string, channel: Channel, guild: Guild, member: GuildMember) {
   if (!canMatch(guild, channel)) return;
 
   if (!type) type = 'untap';
@@ -21,23 +21,21 @@ export async function lookingForMatch(type: string, channel: Channel, guild: Gui
 
   const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
   if (role) {
-    return member.addRole(role)
-    .then(() => {
-      if (role.mentionable) type = `<@&${role.id}>`;
-      return `You are looking for a ${type} match`;
-    });
+    member.addRole(role).catch(() => {});
+    if (role.mentionable) type = `<@&${role.id}>`;
+    return `You are looking for a ${type} match`;
   }
 }
 
 export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {
   if (!canMatch(guild, channel)) return;
 
-  types.forEach((type) => {
-    const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
+  for (let i = 0; i < types.length; i++) {
+    const role = guild.roles.find((role: Role) => role.name === `${types[i]}_match`);
     if (member.roles.find((r) => role === r)) {
       member.removeRole(role).catch(() => {});
     }
-  });
+  }
 
   return 'You are no longer looking for a match';
 }

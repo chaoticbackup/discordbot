@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
 import { Client, Message, RichEmbed } from 'discord.js';
 import { is_channel, rndrsp, escape_text } from '../common';
-import { SendFunction } from '../definitions';
-import { display_card } from './card';
-import { whyban } from './gameplay/bans';
 import servers from '../common/servers';
 import users from '../common/users';
+
+import { SendFunction } from '../definitions';
+import { display_card } from './card';
+import { whyban } from './game/bans';
 
 const { sass, tags } = require('./config/sass.json');
 
