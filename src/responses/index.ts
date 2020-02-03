@@ -313,7 +313,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0) return send(tier(flatten(args)));
       if (can_send(message)) {
         return send(new RichEmbed()
-        .setImage('https://drive.google.com/uc?id=1f0Mmsx6tVap7uuMjKGWWIlk827sgsjdh')
+        .setImage('https://drive.google.com/uc?id=1BHT-7Kd17KcsbFLxcpyonypSTLenYRhN')
         )
         .then(async () => send(tier()))
         .then(async () => send(donate()));
