@@ -1,7 +1,7 @@
 import { Client, Emoji, RichEmbed } from 'discord.js';
 import { rndrsp } from '../../common';
 import { API, color } from '../../database';
-import { Attack, Battlegear, Card, Creature, Location, Mugic } from '../../definitions';
+import { Attack, Card, Creature, Location, Mugic } from '../../definitions';
 import Icons from '../../common/bot_icons';
 
 export default function (name: string, options: string[], bot: Client) {
