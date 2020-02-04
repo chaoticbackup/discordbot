@@ -1,29 +1,24 @@
 {
 	"tierlist": {
 		"S": [
-			"Dror'niq",
-			"LankerTosh",
 			"Wise Guys",
-        	"Swimming Team",
-        	"MaxWreck"
+			"LankerTosh",
+        	        "Swimming Team",
+        		"Strike"
 		],
 		"A": [
-			"Lankerek",
 			"Elementalist",
-			"Strike",
 			"UW Burn",
 			"Fire and Brimstone",
+			"Bodal's Boys",
+			"Fliandar",
+			"Aszil Compost",
 			"UrsisKanin",
 			"Aszil Courage",
-			"Fliandar",
-			"Lyssta Mixed",
-			"6 Arms",
-			"Flame On!",
-			"Bodal's Boys"
+			"Lyssta Mixed"
 		],
 		"B": [
 			"No Healing",
-			"Aszil Compost",
 			"Blazvatan",
 			"Gorram Malvadine",
 			"Muge's Dagger", 
@@ -34,7 +29,6 @@
 			"Gintanai",
 			"Ocean Man",
 			"FireFly",
-			"GearEater",
 			"Gan'trak Bladez",
 			"Mip Reckless"
 		]
