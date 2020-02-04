@@ -13,7 +13,7 @@ import parseCommand from '../common/parse_command';
 import { display_card, find_card, full_art, rate_card, display_token } from './card';
 
 import { banlist, formats, whyban } from './game/bans';
-import faq from './game/faq';
+import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
 import { cancelMatch, lookingForMatch } from './misc/match_making';
@@ -255,6 +255,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'rulebook':
       return send(rulebook(args, options));
     case 'cr':
+      if (args.length > 0) {
+        return send(cr(flatten(args)));
+      } // fallthrough
     case 'comprehensive':
       return send('<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>');
     case 'errata':
