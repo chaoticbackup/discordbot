@@ -184,6 +184,7 @@ export default class ScanQuest {
      * sets the next iterval to send a creature
      */
   private randomTime(min: number, max: number): void {
+    clearTimeout(this.timeout);
     const interval = Math.floor(((Math.random() * (max - min)) + min) * 60) * 1000;
     this.timeout = setTimeout(() => { this.sendCard() }, interval);
   }
