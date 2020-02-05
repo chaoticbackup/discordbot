@@ -27,10 +27,13 @@ function c(q: string) {
     return 'That\'s not a section number, you can use !comprehensive for the full Comprehensive Rules';
   }
 
-  if (q.length === 1 && q !== '1') {
+  if (
+    (q.length === 1 && q !== '1') ||
+    (q.endsWith('.*') && q.length <= 5)
+  ) {
     return 'Please provide a more specific section';
   }
-  else if (q.length > 5 && q.endsWith('.*')) {
+  else if (q.endsWith('.*')) {
     const section = subRule(q.slice(0, -2));
     if (section !== '') {
       if (section.length >= 2000) {
