@@ -236,67 +236,67 @@
                 "8.6.1.5": "The base and elemental damage values of an Attack Card are only calculated once. Alterations in the game state caused by resolution of text box effects of the Attack Card will not change the base and bonus damage done by the resolving attack.",
             "8.6.2": "Resolve Text effects",
                 "8.6.2.1": "After the base and bonus damage done by the Attack is calculated the instructions found in the text box of the Attack are carried out. These instructions are performed in the order that they are printed on the card, from top to bottom.",
-                "8.6.2.2": "Additional Attack Card Damage. Attack Cards may deal additional damage based on effects in their text box. This damage is added to the Initial Attack Card Damage (see section 8.6.1) to form the Total Attack Card Damage."  
-                "8.6.8.3": "Any innate Attack Card damage modification ability possessed by the defeated Creature (such as Element X) will not be applied as that ability is not in play when the attack resolves. Likewise any other ability on the striking Creature that is not directly referenced by the Attack Card resolution process will not be applied to the damage done by the Attack Card."
-        "8.7": "Handling Resolved Abilities"
-            "8.7.1": "Order of effect evaluation:"
-                "8.7.1.1": "More than one Mugic or ability may have an effect upon a card or modify the same aspect of the game state. When determining the final game effect the abilities are evaluated in the order in which they resolved."
-                "8.7.1.2": "Innate Abilities on Creatures are considered to have resolved at the start of the game or at the time that they reentered play."
-                "8.7.1.3": "Innate Abilities on Location Cards are considered to have resolved at the time which that Location became the Active Location."
-                "8.7.1.4": "Any Innate Abilities on Battlegear are considered to have resolved when that Battlegear was last revealed. For example, a creature with a face-up Torrent Krinth is targeted by Trills of Diminution. That creature will lose Water 5 when Trills resolves.. If that Torrent Krinth was face down when Trills resolved, and was flipped face up afterward, that creature would gain Water 5 because the \“loses all abilities\” effect from Trills of Diminution had already resolved before the Battlegear was revealed."
-            "8.7.2": "Calculating Discipline values"
-                "8.7.2.1": "Discipline values may be raised or lowered by Mugic and abilities in the game."
-                "8.7.2.2": "The final value of a Discipline score is determined by starting with a base value equal to the Scanned Discipline score and then applying any modifications to that Discipline value due to in game abilities. These effects are applied in the order that the effects resolved (See 8.7.1)."
-                "8.7.2.3": "Discipline scores are evaluated continuously in the game. If an effect or Innate Ability that is modifying a Discipline score ends, the values of that Discipline score are immediately adjusted as above. Example: A Creature is equipped with the Battlegear Dragon Pulse that gives it +25 courage. If that Battlegear is destroyed or turned face down the Creature’s courage value will be recalculated in the absence of this bonus. Typically this will result in the loss of 25 courage from that Creature."
-                "8.7.2.4": "Effects which reduce Discipline values may not reduce these values to less than 0. In these cases any further reduction is lost. Any further adjustments to that Discipline value are made as if the indicated effect had reduced the Discipline value by an amount which brought the value to exactly 0."
-                "8.7.2.5": "If a temporary effect would reduce the value of a Discipline to less than 0 only that portion of the value for that Discipline actually removed will be restored when that effect ends. Example: An effect lowers a Creature’s power by 50 until the end of the turn. If the Creature has a printed power value of 40 that Creature’s power will be reduced to 0. At the end of the turn that Creature’s power is returned to 40."
-                "8.7.2.6": "In game effects can not alter the \“Scanned\” value of any of a Creature’s Discipline scores. This value is defined as the number printed on the Creature Card independent of any in game modifications.
-            "8.7.3": "Calculating Energy value"
-                "8.7.3.1": "The Energy value of a Creature may be raised or lowered by Mugic and abilities in the game.
-                "8.7.3.2": "The final Energy value is determined by starting with a base value equal to the Scanned Energy score and then applying any modifications to Energy value due to in game abilities. These effects are applied in the order that the effects resolved (See 8.7.1)."
-                "8.7.3.3": "Energy value is evaluated continuously in the game. If an effect or Innate Ability that is modifying a Energy Value ends, the Energy value is immediately adjusted as above. Example: A Creature is equipped with a Mind Prism that gives it 10 Energy. If that Battlegear is destroyed or turned face down the Creature’s Energy value will be recalculated in the absence of this bonus. Typically this will result in the loss of 10 Energy from that Creature."
-                "8.7.3.4": "Any effect which reduces the current Energy value of a Creature to 0 or less results in the defeat of that Creature. If a change in the Energy value of a damaged Creature results in that Creature having damage equal to or greater than its Energy that Creature and any attached Battlegear is destroyed and placed in the discard pile the next time a player receives priority. These effects do not create or extend a Burst."
-                "8.7.3.5": "In game effects can not alter the \“Scanned\” value of a Creature’s Energy score. This value is defined as the number printed on the Creature Card independent of any in game modifications."
-                "8.7.3.6": "Effects which refer to a Creature’s Current Energy look at the sum of the Creature’s Scanned Energy modified by any existing effects, minus the damage on the creature. For example, a creature with 45 Scanned Energy equipped with Kha’rall Husk Armor that has taken 55 damage has a Current Energy of 40."
-            "8.7.4": "Mandatory Actions"
-                "8.7.4.1": "Some abilities create an effect that states a player \“must\” perform some action. Such effects are known as mandatory and the actions they require are mandatory actions."
-                "8.7.4.2": "A player must fulfill the requirements of a Mandatory action at the first legal opportunity to do so. Example: A player has a Creature adjacent to an in-play Mipedim Mirage. This card states that adjacent Creatures that can move into this space must do so. The Active Player must use his or her first action of the Action Step to satisfy the requirements of the mandatory action by moving an adjacent creature into that space. He or she may not move another Creature until the mandated movement action is satisfied."
-                "8.7.4.3": "If a player has multiple mandatory actions that would need to be fulfilled simultaneously the player may choose which action to fulfill first. If after that action is taken the other mandatory action remains that action must be taken at the next legal opportunity."
-                "8.7.4.4": "Players are not required to take optional actions that would allow them to fulfill mandatory actions in the future. The requirement to fulfill a legal mandatory action only applies to the current game state."
-                "8.7.4.5": "If, after completing a mandatory action that requirement remains, a player must complete the action at the first legal opportunity until the requirement ends."
-        "8.8": "Additional Ability Types"
-            "8.8.1": "Cumulative Abilities"
-                "8.8.1.1": "Cumulative abilities are abilities that reference a specific number as part of their ability structure. Creature abilities of the form [Ability] X are cumulative abilities. Current examples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift."
-                "8.8.1.2": "When a Creature with a cumulative ability gains or loses another copy of the same ability the numerical values of X are combined to generate a final value for that ability. The combined abilities are then treated as one ability with that final value of X for all game purposes."
-                "8.8.1.3": "Any final value of X less than 0 will be treated as 0 for all game purposes. When a cumulative ability has its X value reduced to 0 this ability is considered to be removed from the Creature Card in question while X remains 0."
-                "8.8.1.4": "If a temporary effect reduces the value of a cumulative ability to less than 0 only that portion of the ability actually removed will be restored when that effect ends. \nExample: A Creature with Fire 10 loses Fire 15 until end of turn. This reduces X to 0. At the end of the turn the effect ends and the value of Fire X returns to 10."
-            "8.8.2": "Replacement abilities"
-                "8.8.2.1": "Some abilities state that a given action happens \“instead\” of another game event. These abilities are known as replacement abilities."
-                "8.8.2.2": "All replacement abilities use the word instead somewhere in their text. If this word is not present then the ability is not a replacement ability."
-                "8.8.2.3": "Replacement abilities completely replace the initial game event with the indicated action. The original game event is considered not to have occurred."
-                "8.8.2.4": "If two or more replacement abilities apply to the same game event then the player who controls the affected card or ability chooses the order in which to apply the replacements. Any replacement ability that no longer applies to the replaced event has no effect."
-                "8.8.2.5": "Each replacement ability is only applied once for any particular initial game event. Replacement abilities never apply to themselves."
-            "8.8.3": "Innate Abilities"
-                "8.8.3.1": "An Innate Ability is one which does not have any cost to perform and which does not give a specific time which it occurs. The term \“Innate Ability\” describes a class of abilities and particular Innate Abilities may also have other ability designations. For example, many Innate Abilities are also cumulative abilities."
-                "8.8.3.2": "Examples of Innate Abilities are Swift, Range, and Element X."
-        "8.9": "Duration of Abilities"
-            "8.9.1": "All abilities in the game have an associated duration for the effects that they generate. Unless a card specifies otherwise all effects generated by activated abilities, Triggered Abilities, Attack Cards, and mugic end at the end of the turn in which they were generated. Counters placed on cards remain between turns unless otherwise stated."
-            "8.9.2": "Unless otherwise stated effects generated by innate card abilities last until that card is no longer in play."
-    "9": "Specific Ability Rules"
-        "9.1": "Infection"
-            "9.1.1": "Infection is a binary Creature state. A Creature is either Infected or Uninfected."
-            "9.1.2": "Infecting Creatures"
-                "9.1.2.1": "Creatures are by default Uninfected and may become Infected by card effects."
-                "9.1.2.2": "If a card effect says to Infect a Creature, place a Parasite token on that Creature."
-                "9.1.2.3": "Infected Creatures are always marked with Parasite tokens. These may be Parasite cards or any other distinguishable marker."
-            "9.1.3": "Uninfection"
-                "9.1.3.1": "If a card effect says to Uninfect a Creature, remove all Parasite tokens from that Creature."
-                "9.1.3.2": "To Uninfect a Creature as a cost, that Creature must be Infected. You may not pay an Uninfect cost using an Uninfected Creature."
-                "9.1.3.3": "Mugic and abilities that Uninfect Creatures when they resolve may be targeted at Uninfected Creatures. When they resolve the Uninfect portion of the mugic or ability will do nothing."
-            "9.1.4". "Parasite Tokens"
-                "9.1.4.1": "When an effect results in a Creature becoming Infected a Parasite token is placed on that Creature."
-                "9.1.4.2": "Parasite tokens are not considered cards in Chaotic. They are simply visual indicators that a Creature is Infected."
-                "9.1.4.3": "If a Creature with a Parasite goes to the Discard pile any Parasite tokens on that Creature are removed from the game. This happens simultaneously with the Creature being placed in the Discard pile."
-        "9.2": "Brainwashed"
+                "8.6.2.2": "Additional Attack Card Damage. Attack Cards may deal additional damage based on effects in their text box. This damage is added to the Initial Attack Card Damage (see section 8.6.1) to form the Total Attack Card Damage.",
+                "8.6.8.3": "Any innate Attack Card damage modification ability possessed by the defeated Creature (such as Element X) will not be applied as that ability is not in play when the attack resolves. Likewise any other ability on the striking Creature that is not directly referenced by the Attack Card resolution process will not be applied to the damage done by the Attack Card.",
+        "8.7": "Handling Resolved Abilities",
+            "8.7.1": "Order of effect evaluation:",
+                "8.7.1.1": "More than one Mugic or ability may have an effect upon a card or modify the same aspect of the game state. When determining the final game effect the abilities are evaluated in the order in which they resolved.",
+                "8.7.1.2": "Innate Abilities on Creatures are considered to have resolved at the start of the game or at the time that they reentered play.",
+                "8.7.1.3": "Innate Abilities on Location Cards are considered to have resolved at the time which that Location became the Active Location.",
+                "8.7.1.4": "Any Innate Abilities on Battlegear are considered to have resolved when that Battlegear was last revealed. For example, a creature with a face-up Torrent Krinth is targeted by Trills of Diminution. That creature will lose Water 5 when Trills resolves.. If that Torrent Krinth was face down when Trills resolved, and was flipped face up afterward, that creature would gain Water 5 because the “loses all abilities” effect from Trills of Diminution had already resolved before the Battlegear was revealed.",
+            "8.7.2": "Calculating Discipline values",
+                "8.7.2.1": "Discipline values may be raised or lowered by Mugic and abilities in the game.",
+                "8.7.2.2": "The final value of a Discipline score is determined by starting with a base value equal to the Scanned Discipline score and then applying any modifications to that Discipline value due to in game abilities. These effects are applied in the order that the effects resolved (See 8.7.1).",
+                "8.7.2.3": "Discipline scores are evaluated continuously in the game. If an effect or Innate Ability that is modifying a Discipline score ends, the values of that Discipline score are immediately adjusted as above. Example: A Creature is equipped with the Battlegear Dragon Pulse that gives it +25 courage. If that Battlegear is destroyed or turned face down the Creature’s courage value will be recalculated in the absence of this bonus. Typically this will result in the loss of 25 courage from that Creature.",
+                "8.7.2.4": "Effects which reduce Discipline values may not reduce these values to less than 0. In these cases any further reduction is lost. Any further adjustments to that Discipline value are made as if the indicated effect had reduced the Discipline value by an amount which brought the value to exactly 0.",
+                "8.7.2.5": "If a temporary effect would reduce the value of a Discipline to less than 0 only that portion of the value for that Discipline actually removed will be restored when that effect ends. Example: An effect lowers a Creature’s power by 50 until the end of the turn. If the Creature has a printed power value of 40 that Creature’s power will be reduced to 0. At the end of the turn that Creature’s power is returned to 40.",
+                "8.7.2.6": "In game effects can not alter the “Scanned” value of any of a Creature’s Discipline scores. This value is defined as the number printed on the Creature Card independent of any in game modifications.",
+            "8.7.3": "Calculating Energy value",
+                "8.7.3.1": "The Energy value of a Creature may be raised or lowered by Mugic and abilities in the game.",
+                "8.7.3.2": "The final Energy value is determined by starting with a base value equal to the Scanned Energy score and then applying any modifications to Energy value due to in game abilities. These effects are applied in the order that the effects resolved (See 8.7.1).",
+                "8.7.3.3": "Energy value is evaluated continuously in the game. If an effect or Innate Ability that is modifying a Energy Value ends, the Energy value is immediately adjusted as above. Example: A Creature is equipped with a Mind Prism that gives it 10 Energy. If that Battlegear is destroyed or turned face down the Creature’s Energy value will be recalculated in the absence of this bonus. Typically this will result in the loss of 10 Energy from that Creature.",
+                "8.7.3.4": "Any effect which reduces the current Energy value of a Creature to 0 or less results in the defeat of that Creature. If a change in the Energy value of a damaged Creature results in that Creature having damage equal to or greater than its Energy that Creature and any attached Battlegear is destroyed and placed in the discard pile the next time a player receives priority. These effects do not create or extend a Burst.",
+                "8.7.3.5": "In game effects can not alter the “Scanned” value of a Creature’s Energy score. This value is defined as the number printed on the Creature Card independent of any in game modifications.",
+                "8.7.3.6": "Effects which refer to a Creature’s Current Energy look at the sum of the Creature’s Scanned Energy modified by any existing effects, minus the damage on the creature. For example, a creature with 45 Scanned Energy equipped with Kha’rall Husk Armor that has taken 55 damage has a Current Energy of 40.",
+            "8.7.4": "Mandatory Actions",
+                "8.7.4.1": "Some abilities create an effect that states a player “must” perform some action. Such effects are known as mandatory and the actions they require are mandatory actions.",
+                "8.7.4.2": "A player must fulfill the requirements of a Mandatory action at the first legal opportunity to do so. Example: A player has a Creature adjacent to an in-play Mipedim Mirage. This card states that adjacent Creatures that can move into this space must do so. The Active Player must use his or her first action of the Action Step to satisfy the requirements of the mandatory action by moving an adjacent creature into that space. He or she may not move another Creature until the mandated movement action is satisfied.",
+                "8.7.4.3": "If a player has multiple mandatory actions that would need to be fulfilled simultaneously the player may choose which action to fulfill first. If after that action is taken the other mandatory action remains that action must be taken at the next legal opportunity.",
+                "8.7.4.4": "Players are not required to take optional actions that would allow them to fulfill mandatory actions in the future. The requirement to fulfill a legal mandatory action only applies to the current game state.",
+                "8.7.4.5": "If, after completing a mandatory action that requirement remains, a player must complete the action at the first legal opportunity until the requirement ends.",
+        "8.8": "Additional Ability Types",
+            "8.8.1": "Cumulative Abilities",
+                "8.8.1.1": "Cumulative abilities are abilities that reference a specific number as part of their ability structure. Creature abilities of the form [Ability] X are cumulative abilities. Current examples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift.",
+                "8.8.1.2": "When a Creature with a cumulative ability gains or loses another copy of the same ability the numerical values of X are combined to generate a final value for that ability. The combined abilities are then treated as one ability with that final value of X for all game purposes.",
+                "8.8.1.3": "Any final value of X less than 0 will be treated as 0 for all game purposes. When a cumulative ability has its X value reduced to 0 this ability is considered to be removed from the Creature Card in question while X remains 0.",
+                "8.8.1.4": "If a temporary effect reduces the value of a cumulative ability to less than 0 only that portion of the ability actually removed will be restored when that effect ends. \nExample: A Creature with Fire 10 loses Fire 15 until end of turn. This reduces X to 0. At the end of the turn the effect ends and the value of Fire X returns to 10.",
+            "8.8.2": "Replacement abilities",
+                "8.8.2.1": "Some abilities state that a given action happens “instead” of another game event. These abilities are known as replacement abilities.",
+                "8.8.2.2": "All replacement abilities use the word instead somewhere in their text. If this word is not present then the ability is not a replacement ability.",
+                "8.8.2.3": "Replacement abilities completely replace the initial game event with the indicated action. The original game event is considered not to have occurred.",
+                "8.8.2.4": "If two or more replacement abilities apply to the same game event then the player who controls the affected card or ability chooses the order in which to apply the replacements. Any replacement ability that no longer applies to the replaced event has no effect.",
+                "8.8.2.5": "Each replacement ability is only applied once for any particular initial game event. Replacement abilities never apply to themselves.",
+            "8.8.3": "Innate Abilities",
+                "8.8.3.1": "An Innate Ability is one which does not have any cost to perform and which does not give a specific time which it occurs. The term “Innate Ability” describes a class of abilities and particular Innate Abilities may also have other ability designations. For example, many Innate Abilities are also cumulative abilities.",
+                "8.8.3.2": "Examples of Innate Abilities are Swift, Range, and Element X.",
+        "8.9": "Duration of Abilities",
+            "8.9.1": "All abilities in the game have an associated duration for the effects that they generate. Unless a card specifies otherwise all effects generated by activated abilities, Triggered Abilities, Attack Cards, and mugic end at the end of the turn in which they were generated. Counters placed on cards remain between turns unless otherwise stated.",
+            "8.9.2": "Unless otherwise stated effects generated by innate card abilities last until that card is no longer in play.",
+    "9": "Specific Ability Rules",
+        "9.1": "Infection",
+            "9.1.1": "Infection is a binary Creature state. A Creature is either Infected or Uninfected.",
+            "9.1.2": "Infecting Creatures",
+                "9.1.2.1": "Creatures are by default Uninfected and may become Infected by card effects.",
+                "9.1.2.2": "If a card effect says to Infect a Creature, place a Parasite token on that Creature.",
+                "9.1.2.3": "Infected Creatures are always marked with Parasite tokens. These may be Parasite cards or any other distinguishable marker.",
+            "9.1.3": "Uninfection",
+                "9.1.3.1": "If a card effect says to Uninfect a Creature, remove all Parasite tokens from that Creature.",
+                "9.1.3.2": "To Uninfect a Creature as a cost, that Creature must be Infected. You may not pay an Uninfect cost using an Uninfected Creature.",
+                "9.1.3.3": "Mugic and abilities that Uninfect Creatures when they resolve may be targeted at Uninfected Creatures. When they resolve the Uninfect portion of the mugic or ability will do nothing.",
+            "9.1.4": "Parasite Tokens",
+                "9.1.4.1": "When an effect results in a Creature becoming Infected a Parasite token is placed on that Creature.",
+                "9.1.4.2": "Parasite tokens are not considered cards in Chaotic. They are simply visual indicators that a Creature is Infected.",
+                "9.1.4.3": "If a Creature with a Parasite goes to the Discard pile any Parasite tokens on that Creature are removed from the game. This happens simultaneously with the Creature being placed in the Discard pile.",
+        "9.2": "Brainwashed",
             "9.2.1": "Creatures with the Minion Creature type have Brainwashed text. These Creatures are considered to have two separate game text boxes, only one of which is active at any time while the Creature is in play. The first of these is called the Normal text, while the second is called Brainwashed text."
 }
