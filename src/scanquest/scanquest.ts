@@ -124,13 +124,13 @@ export default class ScanQuest {
           }
           return;
         case 'reroll':
-          if (message.author.id === users('daddy')) {
+          if (message.author.id === users('daddy').id) {
             clearTimeout(this.timeout);
             this.sendCard();
           }
           return;
         case 'load':
-          if (message.author.id === users('daddy')) {
+          if (message.author.id === users('daddy').id) {
             const args: string[] = result.split(' ').splice(1);
             const id = args[0];
             const type = args[1];
