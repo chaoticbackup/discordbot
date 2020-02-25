@@ -50,6 +50,7 @@
 			"Blazvatan",
 			"Four Arms",
 			"Gintanai",
+			"Heard Melody",
 			"Khorror",
 			"Mip Reckless",
 			"Strike"
@@ -172,6 +173,10 @@
 		"Gintanai": {
 		    "counters": [],
 		    "url": "http://chaoticbackup.forumotion.com/t1592-gintanai"
+		},
+		"Heard Melody": {
+		    "counters": [],
+		    "url": "http://chaoticbackup.forumotion.com/t1631-heard-melody"
 		},
 		"HiveMind": {
 		    "counters": [],
