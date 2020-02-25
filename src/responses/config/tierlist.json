@@ -48,7 +48,6 @@
 		],
 		"Mipedian": [
 			"Blazvatan",
-			"Four Arms",
 			"Gintanai",
 			"Heard Melody",
 			"Khorror",
@@ -60,6 +59,7 @@
 			"CrackTheWhep",
 			"Dror'niq",
 			"Flying Frogs",
+			"Four Arms",
 			"GearEater",
 			"Gorram Malvadine",
 			"Gorram Neekwin",
@@ -145,7 +145,7 @@
 		},
 		"Four Arms": {
 		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
+		    "url": "http://chaoticbackup.forumotion.com/t1593-four-arms"
 		},
 		"Fliandar": {
 		    "counters": [],
