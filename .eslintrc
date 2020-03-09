@@ -63,7 +63,7 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/indent": ["error", 2, {
           "SwitchCase": 1,
-          "MemberExpression": 0
+          "MemberExpression": "off"
         }],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-empty-function": ["error", { 
