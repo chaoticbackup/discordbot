@@ -1,5 +1,5 @@
 import { RichEmbed, Snowflake } from 'discord.js';
-import Icons from '../../common/bot_icons';
+import Icons from '../common/bot_icons';
 import ScanQuestDB from './scan_db';
 
 export default async (db: ScanQuestDB, server_id: Snowflake, id: Snowflake, icons: Icons):

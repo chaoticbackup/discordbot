@@ -107,11 +107,7 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
  * @param send
  */
 const command_response = async (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> => {
-  let content: string = message.content;
-
-  // strip prefix from test commands
-  if (development && content.charAt(0) === 'd')
-    content = content.slice(1);
+  const content: string = message.content;
 
   const { cmd, args, options } = parseCommand(content);
 
@@ -165,7 +161,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   const { guild, guildMember } = await messageGuild(message) as {guild: Guild, guildMember: GuildMember};
 
   /**
-    * Special Server exclusive commands
+    * Special server exclusive commands
     */
   if (guild && (
     guild.id === servers('international').id

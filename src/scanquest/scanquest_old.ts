@@ -17,7 +17,7 @@ import users from '../common/users';
 
 const config = {
   send_channel: servers('main').channel('perim'),
-  recieve_channel: servers('main').channel('bot_commands'),
+  receive_channel: servers('main').channel('bot_commands'),
   test_channel: servers('develop').channel('bot_commands')
 }
 
@@ -26,7 +26,7 @@ const file = 'last_spawn.json';
 export default class ScanQuest {
   private readonly db: ScanQuestDB;
   private readonly send_channel: string;
-  private readonly recieve_channel: string;
+  private readonly receive_channel: string;
   private timeout: NodeJS.Timeout;
   private scan_creature: ScanCreature;
   private scan_locations: ScanLocation;
@@ -39,7 +39,7 @@ export default class ScanQuest {
   constructor(bot: Client, logger: Logger) {
     this.db = new ScanQuestDB();
     this.send_channel = (process.env.NODE_ENV !== 'development') ? config.send_channel : config.test_channel;
-    this.recieve_channel = (process.env.NODE_ENV !== 'development') ? config.recieve_channel : config.test_channel;
+    this.receive_channel = (process.env.NODE_ENV !== 'development') ? config.receive_channel : config.test_channel;
     this.bot = bot;
     this.logger = logger;
   }
@@ -114,12 +114,12 @@ export default class ScanQuest {
       /* Scan */
       switch (cmd) {
         case 'scan':
-          if (message.channel.id === this.recieve_channel) {
+          if (message.channel.id === this.receive_channel) {
             return this.scan(message.author.id, send);
           }
           return;
         case 'list':
-          if (message.channel.id === this.recieve_channel || message.channel instanceof DMChannel) {
+          if (message.channel.id === this.receive_channel || message.channel instanceof DMChannel) {
             return this.db.list(message).then(send);
           }
           return;

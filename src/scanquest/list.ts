@@ -1,18 +1,19 @@
 import { TextChannel, Message, DMChannel } from 'discord.js';
 
-import { BattlegearScan, ScannableBattlegear } from '../scannable/Battlegear';
-import { CreatureScan, ScannableCreature } from '../scannable/Creature';
-import { LocationScan, ScannableLocation } from '../scannable/Location';
-import { Embeds, FieldsEmbed, IClientAssets } from 'discord-paginationembed';
+import { BattlegearScan, ScannableBattlegear } from './scannable/Battlegear';
+import { CreatureScan, ScannableCreature } from './scannable/Creature';
+import { LocationScan, ScannableLocation } from './scannable/Location';
+import { FieldsEmbed } from 'discord-paginationembed';
 import ScanQuestDB from './scan_db';
 
 export default async (db: ScanQuestDB, message: Message, options: string[]): Promise<void> => {
-  if (!(
-    message.channel instanceof DMChannel ||
-        (message.guild && db.is_receive_channel(message.guild.id, message.channel.id))
-  )) {
-    return Promise.resolve();
-  }
+  // If not dm or recieve channel
+  if (
+    !(
+      message.channel instanceof DMChannel ||
+      (message.guild && db.is_receive_channel(message.guild.id, message.channel.id))
+    )
+  ) return Promise.resolve();
 
   const player = db.findOnePlayer({ id: message.author.id });
   if (player.scans.length === 0) {
@@ -39,9 +40,10 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
   const Pagination = new FieldsEmbed<string>()
   .setAuthorizedUsers([message.author.id])
   .setChannel(message.channel as (TextChannel | DMChannel))
-  .setElementsPerPage(20)
+  .setElementsPerPage((message.channel instanceof TextChannel) ? 10 : 20)
   .setPageIndicator(true)
-  .setArray(resp);
+  .setArray(resp)
+  .formatField('Scans', el => el);
 
   return Pagination.build();
 }
