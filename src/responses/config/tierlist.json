@@ -1,32 +1,27 @@
 {
 	"tierlist": {
 		"S": [
-			"Dror'niq",
-			"LankerTosh",
 			"Wise Guys",
-        	"Swimming Team",
-        	"MaxWreck"
+			"LankerTosh",
+        	        "Swimming Team",
+        		"Strike"
 		],
 		"A": [
-			"Lankerek",
 			"Elementalist",
-			"Strike",
 			"UW Burn",
 			"Fire and Brimstone",
+			"Bodal's Boys",
+			"Fliandar",
+			"Aszil Compost",
 			"UrsisKanin",
 			"Aszil Courage",
-			"Fliandar",
 			"Lyssta Mixed",
-			"6 Arms",
-			"Flame On!",
-			"Bodal's Boys"
+			"Grantkae Control"
 		],
 		"B": [
 			"No Healing",
-			"Aszil Compost",
 			"Blazvatan",
 			"Gorram Malvadine",
-			"Muge's Dagger", 
 			"Ursis Dagger",
 			"Kraken"
 		],
@@ -34,7 +29,6 @@
 			"Gintanai",
 			"Ocean Man",
 			"FireFly",
-			"GearEater",
 			"Gan'trak Bladez",
 			"Mip Reckless"
 		]
@@ -54,8 +48,8 @@
 		],
 		"Mipedian": [
 			"Blazvatan",
-			"Four Arms",
 			"Gintanai",
+			"Heard Melody",
 			"Khorror",
 			"Mip Reckless",
 			"Strike"
@@ -65,6 +59,7 @@
 			"CrackTheWhep",
 			"Dror'niq",
 			"Flying Frogs",
+			"Four Arms",
 			"GearEater",
 			"Gorram Malvadine",
 			"Gorram Neekwin",
@@ -150,7 +145,7 @@
 		},
 		"Four Arms": {
 		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
+		    "url": "http://chaoticbackup.forumotion.com/t1593-four-arms"
 		},
 		"Fliandar": {
 		    "counters": [],
@@ -171,9 +166,17 @@
 		    "counters": [],
 		    "url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin"
 		},
+		"Grantkae Control": {
+		    "counters": [],
+		    "url": "http://chaoticbackup.forumotion.com/t1633-grantkae-control"
+		},
 		"Gintanai": {
 		    "counters": [],
 		    "url": "http://chaoticbackup.forumotion.com/t1592-gintanai"
+		},
+		"Heard Melody": {
+		    "counters": [],
+		    "url": "http://chaoticbackup.forumotion.com/t1631-heard-melody"
 		},
 		"HiveMind": {
 		    "counters": [],
