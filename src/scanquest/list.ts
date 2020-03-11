@@ -1,8 +1,8 @@
 import { TextChannel, Message, DMChannel } from 'discord.js';
 
-import { BattlegearScan, ScannableBattlegear } from './scannable/Battlegear';
-import { CreatureScan, ScannableCreature } from './scannable/Creature';
-import { LocationScan, ScannableLocation } from './scannable/Location';
+import { BattlegearScan, ScannableBattlegear } from './scanner/Battlegear';
+import { CreatureScan, ScannableCreature } from './scanner/Creature';
+import { LocationScan, ScannableLocation } from './scanner/Location';
 import { FieldsEmbed } from 'discord-paginationembed';
 import ScanQuestDB from './scan_db';
 

@@ -1,7 +1,7 @@
 import { RichEmbed } from 'discord.js';
 import { API } from '../../database';
 import { Location } from '../../definitions';
-import { ScannableLocation } from '../scannable/Location';
+import { ScannableLocation } from '../scanner/Location';
 import ScanFunction from './ScanFunction';
 
 export default class ScanLocation extends ScanFunction {

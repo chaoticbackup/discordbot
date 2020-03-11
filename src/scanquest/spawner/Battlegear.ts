@@ -1,7 +1,7 @@
 import { RichEmbed } from 'discord.js';
 import { API } from '../../database';
 import { Battlegear } from '../../definitions';
-import { ScannableBattlegear } from '../scannable/Battlegear';
+import { ScannableBattlegear } from '../scanner/Battlegear';
 import ScanFunction from './ScanFunction';
 
 export default class ScanBattlegear extends ScanFunction {

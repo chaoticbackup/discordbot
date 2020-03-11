@@ -3,8 +3,9 @@ import Loki, { Collection } from 'lokijs';
 import path from 'path';
 import servers from '../common/servers';
 import db_path from '../database/db_path';
-import { Scan } from './scannable/Scannable';
-import { Code } from './code';
+import Scan from './scanner/Scan';
+import { Code } from './scanner/Code';
+import Scannable from './scanner/Scannable';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Player {
@@ -13,17 +14,17 @@ export class Player {
 }
 
 export class ActiveScan {
-  public scan: Scan;
+  public scannable: Scannable;
   public expires: Date;
 
   get name() {
-    return this.scan.name;
+    return this.scannable.card.name;
   }
 }
 
 interface server {id: string, send_channel: string, receive_channel: string}
 
-export class Server implements server {
+export class Server {
   public id: Snowflake;
   public send_channel: Snowflake;
   public receive_channel: Snowflake;
@@ -39,11 +40,11 @@ export class Server implements server {
   }
 
   public find = (name: string) => {
-    return this.activescans.find(scan => scan.name === name);
+    return this.activescans.find(scan => scan.name.toLowerCase() === name.toLowerCase());
   }
 }
 
-export class UsedCode {
+class UsedCode {
   public code: Code;
 }
 
@@ -90,8 +91,8 @@ class ScanQuestDB {
     });
   }
 
-  public save = async (id: Snowflake, card: Scan) => {
-    const player = this.findOnePlayer({ id: id });
+  public save = async (member_id: Snowflake, card: Scan) => {
+    const player = this.findOnePlayer({ id: member_id });
     player.scans.push(card);
     this.players.update(player);
     return Promise.resolve();
@@ -115,6 +116,28 @@ class ScanQuestDB {
       return this.players.insert({ id, scans: [] }) as Player & LokiObj;
     }
     return player;
+  }
+
+  public generateCode(): Code {
+    // 0-9 A-F
+    // 48-57 65-70
+    let code = '';
+    let digit = 0;
+    do {
+      while (digit < 12) {
+        const rl = (Math.random() * (126 - 45 + 1)) + 45;
+        if (
+          (rl >= 48 && rl <= 57) || (rl >= 65 && rl <= 70)
+        ) {
+          code += `${rl}`;
+          digit++;
+        }
+      }
+    } while (this.usedcodes.find({ code: { $eq: code } }));
+
+    this.usedcodes.insertOne({ code });
+
+    return code;
   }
 }
 

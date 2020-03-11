@@ -4,27 +4,26 @@ import { Logger } from 'winston';
 import { API } from '../database';
 import { SendFunction } from '../definitions';
 
-import Icons from '../common/bot_icons';
+import { flatten } from '../common';
 import parseCommand from '../common/parse_command';
 import users from '../common/users';
-
-import { ScanBattlegear, ScanCreature, ScanLocation } from './scanfunction';
 
 import ScanQuestDB from './scan_db';
 import loadScan from './load';
 import listScans from './list';
+import Spawner from './spawner';
+import Scanner from './scanner';
 
 const development = (process.env.NODE_ENV === 'development');
 
 export default class ScanQuest {
   private readonly db: ScanQuestDB;
   private timeout: NodeJS.Timeout;
-  private scan_creature: ScanCreature;
-  private scan_locations: ScanLocation;
-  private scan_battlegear: ScanBattlegear;
+
   bot: Client;
   logger: Logger;
-  icons: Icons;
+  spawner: Spawner;
+  scanner: Scanner;
 
   constructor(bot: Client, logger: Logger) {
     this.db = new ScanQuestDB();
@@ -45,25 +44,20 @@ export default class ScanQuest {
     }
 
     // Initialize components
-    this.icons = new Icons(this.bot);
-    this.scan_creature = new ScanCreature();
-    this.scan_locations = new ScanLocation();
-    this.scan_battlegear = new ScanBattlegear();
+    this.spawner = new Spawner(this.bot);
+    this.scanner = new Scanner(this.bot, this.db);
 
     this.logger.info('ScanQuest has started on channel');
   }
 
   stop() {
-    // TODO save all data into database
     clearTimeout(this.timeout);
+    // TODO save all data into database?
+    this.spawner.stop();
   }
 
   async monitor(message: Message): Promise<void> {
     if (this.bot === undefined || message.author.bot) return;
-
-    // TODO only monitor the server the bot is configured for
-
-    // TODO decrease timer countdown with activity
 
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
@@ -71,14 +65,17 @@ export default class ScanQuest {
         return message.channel.send(msg, options)
           .catch(error => this.logger.error(error.stack));
       }
-      return Promise.resolve();
     }
 
     const content = message.content;
 
     if (!API.data) {
-      if (content.charAt(0) === '!') return send('Scanquest has not started');
-      return Promise.resolve();
+      if (content.charAt(0) === '!') return send('Scanner has not started');
+      return;
+    }
+    else if (API.data === 'local') {
+      if (content.charAt(0) === '!') return send('Error with bot database');
+      return;
     }
 
     if (
@@ -89,15 +86,14 @@ export default class ScanQuest {
       switch (cmd) {
         case 'scan':
           if (message.guild) {
-            // return send(await scan(this.db, message.guild.id, message.author.id, this.icons));
+            return send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
           }
           return;
         case 'list':
           return listScans(this.db, message, options);
         case 'reroll':
-          if (message.author.id === users('daddy')) {
-            // clearTimeout(this.timeout);
-            // spawn();
+          if (message.author.id === users('daddy') && message.guild) {
+            this.spawner.reroll(message);
           }
           return;
         case 'load':
@@ -112,11 +108,7 @@ export default class ScanQuest {
       }
     }
     else {
-      // TODO only monitor the server the bot is configured for
-
-      // TODO decrease timer countdown with activity
-      // Assign point value to next spawn, size of messages decrease from point value
-      return Promise.resolve();
+      this.spawner.tick(message);
     }
   }
 }

@@ -1,6 +1,6 @@
 import { RichEmbed } from 'discord.js';
 import { BaseCard } from '../../definitions';
-import { Scannable } from '../scannable/Scannable';
+import Scannable from '../scanner/Scannable';
 
 type Image = RichEmbed;
 

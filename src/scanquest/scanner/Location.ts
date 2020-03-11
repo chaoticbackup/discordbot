@@ -1,9 +1,10 @@
-import { Initiative } from '../../responses/card/card_api';
 import { RichEmbed } from 'discord.js';
+import Scan from './Scan';
+import Scannable from './Scannable';
+import { Initiative } from '../../responses/card/card_api';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Location } from '../../definitions';
-import { Scan, Scannable } from './Scannable';
 
 export class LocationScan extends Scan {
   constructor() {

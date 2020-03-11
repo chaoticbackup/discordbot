@@ -2,13 +2,13 @@
 import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
 import { Logger } from 'winston';
 
-import { can_send, hasPermission, isModerator, rndrsp, cleantext } from '../common';
-import { API } from '../database';
-import { Channel, SendFunction } from '../definitions';
-
+import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten } from '../common';
 import servers from '../common/servers';
 import users from '../common/users';
 import parseCommand from '../common/parse_command';
+
+import { API } from '../database';
+import { Channel, SendFunction } from '../definitions';
 
 import { display_card, find_card, full_art, rate_card, display_token } from './card';
 
@@ -475,11 +475,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 /*
 * Support Functions
 */
-
-// Takes the arg list and turns it into cleaned text
-function flatten(args: string[]): string {
-  return (args.join(' ')).toLowerCase();
-}
 
 function donate(): RichEmbed {
   return (

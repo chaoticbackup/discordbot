@@ -1,8 +1,9 @@
 import { RichEmbed } from 'discord.js';
+import Scan from './Scan';
+import Scannable from './Scannable';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Battlegear } from '../../definitions';
-import { Scan, Scannable } from './Scannable';
 
 export class BattlegearScan extends Scan {
   constructor() {
@@ -29,7 +30,7 @@ export class ScannableBattlegear implements Scannable {
     return this.card.name;
   }
 
-  getCard(icons: Icons) {
+  getCard(_icons: Icons) {
     const card = API.find_cards_by_name(this.card.name)[0] as Battlegear;
 
     return new RichEmbed()

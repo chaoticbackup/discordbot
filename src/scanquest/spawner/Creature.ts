@@ -1,7 +1,7 @@
 import { RichEmbed } from 'discord.js';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
-import { ScannableCreature } from '../scannable/Creature';
+import { ScannableCreature } from '../scanner/Creature';
 import ScanFunction from './ScanFunction';
 
 export default class ScanCreature extends ScanFunction {

@@ -1,7 +1,7 @@
-import { BattlegearScan, ScannableBattlegear } from './scannable/Battlegear';
-import { CreatureScan, ScannableCreature } from './scannable/Creature';
-import { LocationScan, ScannableLocation } from './scannable/Location';
-import { Scannable } from './scannable/Scannable';
+import { BattlegearScan, ScannableBattlegear } from './scanner/Battlegear';
+import { CreatureScan, ScannableCreature } from './scanner/Creature';
+import { LocationScan, ScannableLocation } from './scanner/Location';
+import Scannable from './scanner/Scannable';
 
 /**
 * This shouldn't be null unless error in json file

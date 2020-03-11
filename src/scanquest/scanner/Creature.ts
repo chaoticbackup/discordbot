@@ -1,8 +1,9 @@
 import { RichEmbed } from 'discord.js';
+import Scan from './Scan';
+import Scannable from './Scannable';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
-import { Scan, Scannable } from './Scannable';
 
 export class CreatureScan extends Scan {
   courage: number;
