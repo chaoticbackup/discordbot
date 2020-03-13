@@ -14,12 +14,15 @@ import { LocationScan, ScannableLocation } from './scannable/Location';
 import { Scannable } from './scannable/Scannable';
 import ScanQuestDB from './scan_db';
 import users from '../common/users';
+import parseCommand from '../common/parse_command';
 
 const config = {
   send_channel: servers('main').channel('perim'),
   recieve_channel: servers('main').channel('bot_commands'),
   test_channel: servers('develop').channel('bot_commands')
 }
+
+const development = (process.env.NODE_ENV === 'development');
 
 const file = 'last_spawn.json';
 
@@ -99,17 +102,13 @@ export default class ScanQuest {
 
     if (!API.data) return send('Scanquest has not started');
 
-    let result: string | undefined;
+    const content = message.content;
 
-    if (message.content.charAt(1) === '!') {
-      result = message.content.substring(2);
-    }
-    else if (message.content.charAt(0) === '!') {
-      result = message.content.substring(1);
-    }
-
-    if (result !== undefined) {
-      const cmd = result.split(' ')[0].toLowerCase();
+    if (
+      (development && content.substring(0, 2) === 'd!') ||
+      (!development && (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!'))
+    ) {
+      const { cmd, args, options } = parseCommand(content);
 
       /* Scan */
       switch (cmd) {
@@ -124,14 +123,13 @@ export default class ScanQuest {
           }
           return;
         case 'reroll':
-          if (message.author.id === users('daddy')) {
+          if (message.author.id === users('daddy') && message.guild) {
             clearTimeout(this.timeout);
             this.sendCard();
           }
           return;
         case 'load':
           if (message.author.id === users('daddy')) {
-            const args: string[] = result.split(' ').splice(1);
             const id = args[0];
             const type = args[1];
             const content = args.splice(1).join(' ');
