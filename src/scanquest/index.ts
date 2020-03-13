@@ -54,7 +54,6 @@ export default class ScanQuest {
 
   stop() {
     clearTimeout(this.timeout);
-    // TODO save all data into database?
     this.spawner.stop();
   }
 
@@ -82,7 +81,7 @@ export default class ScanQuest {
 
     if (
       (development && content.substring(0, 2) === 'd!') ||
-      (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
+      (!development && (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!'))
     ) {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {

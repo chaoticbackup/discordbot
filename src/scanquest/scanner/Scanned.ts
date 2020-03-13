@@ -6,7 +6,7 @@ import { Code } from './Code';
  * @param image The image that is spawned
  * @param code The unique code of the card
 */
-export default class Scan {
+export default class Scanned {
   name: string;
   type: CardType;
   code: Code;

@@ -94,19 +94,15 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     if (message.author.id === users('brat')) {
       return 'Stop bothering me';
     }
-    if (content.match(new RegExp(/love/, 'i'))) {
+    else if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';
     }
     else if (content.match(new RegExp(/did.+(king).+(make|create)/, 'i'))) {
       return (rndrsp(tags.daddy));
     }
     else if (content.match(new RegExp(/who.+(made|created)/, 'i'))) {
-      let displayName: string;
-      try {
-        // @ts-ignore
-        displayName = message.guild.members.get(users('daddy')).displayName;
-      }
-      catch (err) {
+      let displayName: string | null = message.guild.members.get(users('daddy'))!.displayName;
+      if (displayName === null) {
         displayName = `<@${users('daddy')}>`;
       }
       return `${displayName} taught me Chaotic`;

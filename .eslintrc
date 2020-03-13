@@ -92,6 +92,7 @@
         }],
         "curly": "off",
         "func-call-spacing": "off",
+        "no-dupe-class-members": "off",
         "no-case-declarations": "off",
         "no-extra-boolean-cast": "off",
         "no-use-before-define": "off",

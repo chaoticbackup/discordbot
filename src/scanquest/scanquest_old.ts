@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Client, DMChannel, Message, RichEmbed } from 'discord.js';
 import fs from 'fs-extra';
 import { Logger } from 'winston';

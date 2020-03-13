@@ -120,3 +120,23 @@ bot.login(auth.token).then(() => {
   logger.info(`Logged in as: ${bot.user}`);
 });
 // bot.login(auth.token).then(() => {throw new Error()});
+
+if (process.platform === 'win32') {
+  var rl = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on('SIGINT', function () {
+    // @ts-ignore
+    process.emit('SIGINT');
+  });
+}
+
+process.on('SIGINT', (event) => {
+  if (main) {
+    fp.stop();
+    sq.stop();
+  }
+  process.exit();
+});

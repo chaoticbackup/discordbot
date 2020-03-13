@@ -3,29 +3,30 @@ import Loki, { Collection } from 'lokijs';
 import path from 'path';
 import servers from '../common/servers';
 import db_path from '../database/db_path';
-import Scan from './scanner/Scan';
+import Scanned from './scanner/Scanned';
 import { Code } from './scanner/Code';
-import Scannable from './scanner/Scannable';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Player {
   public id: string;
-  public scans: Scan[];
+  public scans: Scanned[];
 }
 
-interface activescan { scannable: Scannable, expires: Date }
+interface activescan { scan: Scanned, expires: Date }
 
 export class ActiveScan {
-  public scannable: Scannable;
+  public scan: Scanned;
   public expires: Date;
+  public players: Snowflake[];
 
-  constructor({ scannable, expires }: activescan) {
-    this.scannable = scannable;
+  constructor({ scan, expires }: activescan) {
+    this.scan = scan;
     this.expires = expires;
+    this.players = [];
   }
 
   get name() {
-    return this.scannable.card.name;
+    return this.scan.name;
   }
 }
 
@@ -46,10 +47,6 @@ export class Server {
     this.receive_channel = receive_channel;
     this.activescans = [];
     this.remaining = 0;
-  }
-
-  public find = (name: string) => {
-    return this.activescans.find(scan => scan.name.toLowerCase() === name.toLowerCase());
   }
 }
 
@@ -100,8 +97,17 @@ class ScanQuestDB {
     });
   }
 
-  public save = async (member_id: Snowflake, card: Scan) => {
-    const player = this.findOnePlayer({ id: member_id });
+  public async save(player: Player, card: Scanned): Promise<void>;
+  public async save(member_id: Snowflake, card: Scanned): Promise<void>;
+  public async save(arg1: Player | Snowflake, card: Scanned): Promise<void> {
+    let player: Player;
+    if (typeof arg1 === 'string') {
+      player = this.findOnePlayer({ id: arg1 });
+    }
+    else {
+      player = arg1;
+    }
+
     player.scans.push(card);
     this.players.update(player);
     return Promise.resolve();
@@ -119,10 +125,10 @@ class ScanQuestDB {
     return (server.receive_channel === channel_id);
   }
 
-  public findOnePlayer({ id }: {id: Snowflake}) {
-    const player = this.players.findOne({ id: id });
+  public findOnePlayer = ({ id: player_id }: {id: Snowflake}) => {
+    const player = this.players.findOne({ id: player_id });
     if (player === null) {
-      return this.players.insert({ id, scans: [] }) as Player & LokiObj;
+      return this.players.insert({ id: player_id, scans: [] }) as Player & LokiObj;
     }
     return player;
   }
@@ -132,6 +138,7 @@ class ScanQuestDB {
     // 48-57 65-70
     let code = '';
     let digit = 0;
+    // TODO stuck in loop
     do {
       while (digit < 12) {
         const rl = (Math.random() * (126 - 45 + 1)) + 45;
@@ -144,7 +151,7 @@ class ScanQuestDB {
       }
     } while (this.usedcodes.find({ code: { $eq: code } }));
 
-    this.usedcodes.insertOne({ code });
+    this.usedcodes.insert({ code });
 
     return code;
   }

@@ -1,5 +1,5 @@
 import { RichEmbed } from 'discord.js';
-import Scan from './Scan';
+import Scan from './Scanned';
 import Icons from '../../common/bot_icons';
 
 /**

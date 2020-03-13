@@ -28,8 +28,8 @@ export default class Spawner {
   private readonly scan_battlegear: Battlegear;
   private readonly scan_creature: Creature;
   private readonly scan_locations: Location;
-  private timers: Record<Snowflake, Timer>;
-  private debouncer: Record<Snowflake, Amount | null>;
+  private timers: Record<Snowflake, Timer> = {};
+  private debouncer: Record<Snowflake, Amount | null> = {};
   readonly bot: Client;
   readonly db: ScanQuestDB;
 
@@ -49,6 +49,7 @@ export default class Spawner {
         const timeout = setTimeout(() => this.sendCard(server), server.remaining);
         this.timers[server.id] = { timeout, duration: server.remaining };
       }
+      // TODO consider server without timeout
     });
   }
 
@@ -66,8 +67,10 @@ export default class Spawner {
     const id = message.guild.id;
     const server = this.db.servers.findOne({ id });
     if (server) {
-      const { timeout } = this.timers[id];
-      clearTimeout(timeout);
+      if (this.timers[id]) {
+        const { timeout } = this.timers[id];
+        clearTimeout(timeout);
+      }
       this.sendCard(server);
     }
   }
@@ -80,10 +83,13 @@ export default class Spawner {
     const server = this.db.servers.findOne({ id });
     if (!server) return;
 
-    // TODO
-    const reduce = 0;
+    // Ignore short messages
+    if (message.content.length < 25) return;
 
-    if (this.debouncer[id] !== null) {
+    // reduces timer by 1 second per character in messaage
+    const reduce = message.content.length * 1000;
+
+    if (this.debouncer[id] && this.debouncer[id] !== null) {
       this.debouncer[id]!.amount += reduce;
     }
     else {
@@ -94,14 +100,17 @@ export default class Spawner {
 
   reduce(server: Server) {
     const { id } = server;
-    let { timeout, duration } = this.timers[id];
-    const amount = this.debouncer[id]?.amount ?? 0;
-    clearTimeout(timeout);
+    if (this.timers[id]) {
+      let { timeout, duration } = this.timers[id];
+      const amount = this.debouncer[id]?.amount ?? 0;
+      clearTimeout(timeout);
 
-    duration = duration - amount;
+      duration = duration - amount;
 
-    timeout = setTimeout(() => this.sendCard(server), duration)
-    this.timers[id] = { timeout, duration };
+      timeout = setTimeout(() => this.sendCard(server), duration)
+      this.timers[id] = { timeout, duration };
+    }
+
     this.debouncer[id] = null;
   }
 
@@ -113,15 +122,17 @@ export default class Spawner {
     const [scannable, image] = this.selectCard();
 
     const card = API.find_cards_by_name(scannable.card.name)[0] as Card;
-    let active;
-    switch (card.gsx$rarity.toLowerCase()) {
-      case 'ultra rare': active = 8; break;
-      case 'super rare': active = 7; break;
-      case 'rare': active = 6; break;
-      case 'uncommon': active = 5; break;
-      case 'common': active = 4; break;
-      default: active = 4;
-    }
+
+    const active = (() => {
+      switch (card.gsx$rarity.toLowerCase()) {
+        case 'ultra rare': return 8;
+        case 'super rare': return 7;
+        case 'rare': return 6;
+        case 'uncommon': return 5;
+        case 'common': return 4;
+        default: return 4;
+      }
+    })();
 
     // set time active
     const expires = new Date();
@@ -129,7 +140,8 @@ export default class Spawner {
     image.setDescription(`Scan expires in ${active} hours`);
 
     // add to list of active scans
-    server.activescans.push(new ActiveScan({ scannable, expires }));
+    server.activescans.push(new ActiveScan({ scan: scannable.card, expires }));
+    this.db.servers.update(server);
 
     // Set new spawn timer
     const duration = 7 * 60 * 60 * 1000; // 7 Hours

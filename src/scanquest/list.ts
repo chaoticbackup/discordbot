@@ -1,10 +1,7 @@
 import { TextChannel, Message, DMChannel } from 'discord.js';
-
-import { BattlegearScan, ScannableBattlegear } from './scanner/Battlegear';
-import { CreatureScan, ScannableCreature } from './scanner/Creature';
-import { LocationScan, ScannableLocation } from './scanner/Location';
 import { FieldsEmbed } from 'discord-paginationembed';
 import ScanQuestDB from './scan_db';
+import { toScannable } from './scanner';
 
 export default async (db: ScanQuestDB, message: Message, options: string[]): Promise<void> => {
   // If not dm or recieve channel
@@ -23,18 +20,8 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
 
   const resp: string[] = [];
   player.scans.forEach((scan, i) => {
-    if (scan.type === 'Creatures') {
-      const result = new ScannableCreature(scan as CreatureScan);
-      resp.push(`${i}) ${result.toString()}`);
-    }
-    else if (scan.type === 'Locations') {
-      const result = new ScannableLocation(scan as LocationScan);
-      resp.push(`${i}) ${result.toString()}`);
-    }
-    else if (scan.type === 'Battlegear') {
-      const result = new ScannableBattlegear(scan as BattlegearScan);
-      resp.push(`${i}) ${result.toString()}`);
-    }
+    const scannable = toScannable(scan);
+    if (scannable) resp.push(`${i}) ${scannable.toString()}`);
   });
 
   const Pagination = new FieldsEmbed<string>()
