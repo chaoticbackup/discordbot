@@ -24,10 +24,6 @@ export class ActiveScan {
     this.expires = expires;
     this.players = [];
   }
-
-  get name() {
-    return this.scan.name;
-  }
 }
 
 interface server {id: string, send_channel: string, receive_channel: string}
@@ -128,7 +124,7 @@ class ScanQuestDB {
   public findOnePlayer = ({ id: player_id }: {id: Snowflake}) => {
     const player = this.players.findOne({ id: player_id });
     if (player === null) {
-      return this.players.insert({ id: player_id, scans: [] }) as Player & LokiObj;
+      return this.players.insertOne({ id: player_id, scans: [] }) as Player & LokiObj;
     }
     return player;
   }
@@ -151,7 +147,7 @@ class ScanQuestDB {
       }
     } while (this.usedcodes.find({ code: { $eq: code } }));
 
-    this.usedcodes.insert({ code });
+    this.usedcodes.insertOne({ code });
 
     return code;
   }

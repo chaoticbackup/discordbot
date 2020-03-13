@@ -55,11 +55,12 @@ export default class Spawner {
 
   stop() {
     // write timers to database
-    Object.keys(this.timers).forEach((timer) => {
-      clearTimeout(this.timers[timer].timeout);
-      this.db.servers.findAndUpdate({ id: timer }, (server) => {
-        server.remaining = this.timers[timer].duration;
+    Object.keys(this.timers).forEach((server_id) => {
+      clearTimeout(this.timers[server_id].timeout);
+      this.db.servers.findAndUpdate({ id: server_id }, (server) => {
+        server.remaining = this.timers[server_id].duration;
       });
+      // TODO figure out why timers aren't being written
     });
   }
 
@@ -119,7 +120,7 @@ export default class Spawner {
   */
   private sendCard(server: Server) {
     const { send_channel } = server;
-    const [scannable, image] = this.selectCard();
+    const [scannable, image] = this.selectCard(server);
 
     const card = API.find_cards_by_name(scannable.card.name)[0] as Card;
 
@@ -141,19 +142,29 @@ export default class Spawner {
 
     // add to list of active scans
     server.activescans.push(new ActiveScan({ scan: scannable.card, expires }));
+
+    // cleanup old scans
+    // give or take a minute
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - 1);
+
+    server.activescans = server.activescans.filter(scan => {
+      return (scan.expires > now);
+    });
     this.db.servers.update(server);
 
-    // Set new spawn timer
-    const duration = 7 * 60 * 60 * 1000; // 7 Hours
-    const timeout = setTimeout(() => this.sendCard(server), duration);
-    this.timers[send_channel] = { timeout, duration };
+    // Set new spawn timer 7 Hours
+    const duration = 7 * 60 * 60 * 1000;
 
     (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
+
+    const timeout = setTimeout(() => this.sendCard(server), duration);
+    this.timers[send_channel] = { timeout, duration };
   }
 
   // Creatures spawn more often than locations and battlegear
   // TODO more complex spawn logic
-  private selectCard(): [Scannable, RichEmbed] {
+  private selectCard(server: Server): [Scannable, RichEmbed] {
     let scannable: Scannable;
     let image: RichEmbed;
 
@@ -166,6 +177,11 @@ export default class Spawner {
     }
     else {
       [scannable, image] = this.scan_creature.generate();
+    }
+
+    // Don't resend existing scan
+    if (server.activescans.find(scan => scan.scan.name === scannable.card.name)) {
+      return this.selectCard(server);
     }
 
     return [scannable, image];

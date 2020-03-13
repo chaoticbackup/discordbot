@@ -24,32 +24,52 @@ export default class Scanner {
       return 'There is no scannable card';
     }
 
+    // give or take a minute
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - 1);
+
     let selected: ActiveScan | undefined;
     if (args === '') {
-      selected = server.activescans[server.activescans.length - 1];
+      while (true) {
+        selected = server.activescans[server.activescans.length - 1];
+        if (selected.expires < now) {
+          server.activescans.pop();
+          this.db.servers.update(server);
+        }
+        else break;
+      }
+      if (server.activescans.length === 0) {
+        return 'There is no scannable card';
+      }
     }
     else {
       selected = server.activescans.find(scan => {
         return scan.scan.name.toLowerCase() === args;
       });
-    }
-    // TODO remove old scans by date
-    if (selected === undefined) {
-      return `${args} isn't an active scan`;
+      if (
+        selected === undefined
+        || selected.expires < now
+      ) {
+        return `${args} isn't an active scan`;
+      }
     }
 
     const card = selected.scan;
+
     // TODO
     // card.code = this.db.generateCode();
 
     const player = this.db.findOnePlayer({ id: author_id });
-    if (selected.players?.includes(player.id)) {
+    if (!selected.players || selected.players.length === 0) {
+      selected.players = [player.id];
+    }
+    else if (selected.players.includes(player.id)) {
       return `You've already scanned this ${card.name}`;
     } else {
-      selected.players = [player.id];
-      this.db.servers.update(server);
+      selected.players.push(player.id);
     }
 
+    this.db.servers.update(server);
     await this.db.save(player, card);
     return toScannable(card)!.getCard(this.icons);
   }
