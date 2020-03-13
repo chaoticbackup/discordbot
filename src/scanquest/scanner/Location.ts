@@ -34,8 +34,7 @@ export class ScannableLocation implements Scannable {
   getCard(icons: Icons) {
     const card = API.find_cards_by_name(this.card.name)[0] as Location;
 
-    const body
-            = Initiative({ card, icons, options: [], textOnly: true });
+    const body = Initiative({ card, icons, options: [], textOnly: true });
 
     return new RichEmbed()
     .setTitle(this.card.name)

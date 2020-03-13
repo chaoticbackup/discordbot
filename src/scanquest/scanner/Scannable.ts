@@ -9,5 +9,5 @@ export default interface Scannable {
   card: Scan
 
   toString(): string
-  getCard(icons?: Icons): RichEmbed
+  getCard(icons: Icons): RichEmbed
 }

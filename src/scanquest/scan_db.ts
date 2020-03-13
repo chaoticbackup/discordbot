@@ -13,9 +13,16 @@ export class Player {
   public scans: Scan[];
 }
 
+interface activescan { scannable: Scannable, expires: Date }
+
 export class ActiveScan {
   public scannable: Scannable;
   public expires: Date;
+
+  constructor({ scannable, expires }: activescan) {
+    this.scannable = scannable;
+    this.expires = expires;
+  }
 
   get name() {
     return this.scannable.card.name;
@@ -29,6 +36,7 @@ export class Server {
   public send_channel: Snowflake;
   public receive_channel: Snowflake;
   public activescans: ActiveScan[];
+  public remaining: number; // remaining time until next scan
 
   constructor(
     { id, send_channel, receive_channel }: server
@@ -37,6 +45,7 @@ export class Server {
     this.send_channel = send_channel;
     this.receive_channel = receive_channel;
     this.activescans = [];
+    this.remaining = 0;
   }
 
   public find = (name: string) => {
@@ -76,15 +85,15 @@ class ScanQuestDB {
           this.usedcodes = usedcodes;
         }
 
-        const servers = this.db.getCollection('servers') as Collection<Server>;
-        if (servers === null) {
+        const serverCollection = this.db.getCollection('servers') as Collection<Server>;
+        if (serverCollection === null) {
           this.servers = this.db.addCollection('servers');
-          this.servers.add(init_server());
+          this.servers.insertOne(init_server());
         }
         else {
-          this.servers = servers;
+          this.servers = serverCollection;
           if (this.servers.findOne({ id: '135657678633566208' }) === null) {
-            this.servers.add(init_server());
+            this.servers.insertOne(init_server());
           }
         }
       }
@@ -148,11 +157,9 @@ const init_server = (): Server => {
     receive_channel: servers('main').channel('bot_commands'),
     test_channel: servers('develop').channel('bot_commands')
   }
-
   const id = servers('main').id;
   const send_channel = (process.env.NODE_ENV !== 'development') ? config.send_channel : config.test_channel;
   const receive_channel = (process.env.NODE_ENV !== 'development') ? config.receive_channel : config.test_channel;
-
   return new Server({ id, send_channel, receive_channel });
 }
 

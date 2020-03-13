@@ -25,6 +25,7 @@ export default class Scanner {
     }
     else {
       selected = server.find(args);
+      // TODO remove old scans by date
       if (!selected) {
         return `${args} isn't an active scan`;
       }

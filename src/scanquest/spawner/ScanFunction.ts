@@ -2,8 +2,6 @@ import { RichEmbed } from 'discord.js';
 import { BaseCard } from '../../definitions';
 import Scannable from '../scanner/Scannable';
 
-type Image = RichEmbed;
-
 export default abstract class ScanFunction {
   protected lastRandom = -1;
 
@@ -22,5 +20,5 @@ export default abstract class ScanFunction {
   /**
      * returns a scannable card and an image to display
      */
-  abstract generate(): [Scannable, Image];
+  abstract generate(): [Scannable, RichEmbed];
 }

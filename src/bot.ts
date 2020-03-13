@@ -79,10 +79,16 @@ const sendError = () => {
 }
 
 // Responses
-bot.on('message', msg => {
-  responses(bot, msg, logger);
-  sq.monitor(msg);
-});
+if (main) {
+  bot.on('message', msg => {
+    responses(bot, msg, logger);
+    sq.monitor(msg);
+  });
+} else {
+  bot.on('message', msg => {
+    responses(bot, msg, logger);
+  });
+}
 
 // Ban Spam
 bot.on('guildMemberAdd', (member) => {

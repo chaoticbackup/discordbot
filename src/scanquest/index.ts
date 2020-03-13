@@ -13,17 +13,18 @@ import loadScan from './load';
 import listScans from './list';
 import Spawner from './spawner';
 import Scanner from './scanner';
+import Trader from './trader';
 
 const development = (process.env.NODE_ENV === 'development');
 
 export default class ScanQuest {
-  private readonly db: ScanQuestDB;
+  readonly db: ScanQuestDB;
+  readonly bot: Client;
+  readonly logger: Logger;
   private timeout: NodeJS.Timeout;
-
-  bot: Client;
-  logger: Logger;
-  spawner: Spawner;
-  scanner: Scanner;
+  private spawner: Spawner;
+  private scanner: Scanner;
+  private trader: Trader;
 
   constructor(bot: Client, logger: Logger) {
     this.db = new ScanQuestDB();
@@ -44,10 +45,11 @@ export default class ScanQuest {
     }
 
     // Initialize components
-    this.spawner = new Spawner(this.bot);
+    this.spawner = new Spawner(this.bot, this.db);
     this.scanner = new Scanner(this.bot, this.db);
+    this.trader = new Trader(this.bot, this.db);
 
-    this.logger.info('ScanQuest has started on channel');
+    this.logger.info('ScanQuest has started');
   }
 
   stop() {
