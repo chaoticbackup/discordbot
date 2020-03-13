@@ -91,6 +91,9 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
   }
 
   if (mentions.indexOf(users('me')) !== -1) {
+    if (message.author.id === users('brat')) {
+      return 'Stop bothering me';
+    }
     if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';
     }
