@@ -263,7 +263,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'errata':
       return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
     case 'guide':
-      if (args[0].toLowerCase() === 'untap')
+      if (args && args[0].toLowerCase() === 'untap')
         return send('<https://docs.google.com/document/d/1Tyz3o-XU7jXhFmbNBolUxpxKtr35RM_42C6bapUf9Ak/view>');
       return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
 
