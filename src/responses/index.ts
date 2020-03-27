@@ -386,7 +386,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'gone':
     case 'fan':
     case 'unset':
-      return send(gone(flatten(args), bot));
+      return send(gone(flatten(args), bot, options));
 
     /* Compliments, Insults, Jokes */
     case 'flirt':
