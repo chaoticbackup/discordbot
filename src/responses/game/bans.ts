@@ -33,6 +33,7 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
 
   const list_bans = (_format: string) => {
     message = `**${uppercase(_format)}:**\n${formats[_format]}\n==Banned Cards==`;
+    message = "**April Fools Ban List:**\n=====";
     ban_lists[_format].forEach((key: string) => {
       message += `\n${key}`;
     });
