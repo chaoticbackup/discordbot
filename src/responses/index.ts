@@ -409,7 +409,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'happy': {
       if (cleantext(flatten(args)).includes('borth'))
-        return send(gone('borth-day', bot));
+        return send(gone('borth-day', bot, options));
 
       break;
     }
