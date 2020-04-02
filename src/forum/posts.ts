@@ -70,6 +70,7 @@ export default class ForumPosts {
   channel: string;
   links: string[] = [];
   timeout: NodeJS.Timeout;
+  timeouts: NodeJS.Timeout[];
 
   constructor(bot: Client) {
     this.bot = bot;
@@ -82,14 +83,18 @@ export default class ForumPosts {
 
   stop() {
     clearTimeout(this.timeout);
+    this.timeouts.forEach((timeout) => { clearTimeout(timeout) });
   }
 
   expiredLink(id: string): boolean {
     if (this.links.includes(id)) return true;
     this.links.push(id)
-    setTimeout(
-      () => { this.links.shift() },
-      config.expire * 60 * 1000
+    this.timeouts.push(
+      setTimeout(() => {
+        this.links.shift();
+        this.timeouts.shift();
+      },
+      config.expire * 60 * 1000)
     );
     return false;
   }
