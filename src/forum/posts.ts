@@ -31,19 +31,8 @@ function hm(date: string[]) {
   return { hour, minute };
 }
 
-const monthTable: any = {
-  Jan: 0,
-  Feb: 1,
-  Mar: 2,
-  Apr: 3,
-  May: 4,
-  Jun: 5,
-  Jul: 6,
-  Aug: 7,
-  Sep: 8,
-  Oct: 9,
-  Nov: 10,
-  Dec: 11
+const monthTable: Record<string, number> = {
+  Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
 };
 
 function md(date: string[]) {
@@ -124,23 +113,23 @@ export default class ForumPosts {
 
       // Latest posts
       const latest = $('.row1 > span');
+      latest.each((index, element) => {
+        $(element).contents().each((_i, element) => {
+          if (element.nodeType !== 3) return; // Node.TEXT_NODE
 
-      latest.contents()
-      // Node.TEXT_NODE
-      .filter((index, element) => element.nodeType === 3)
-      .each((index, element) => {
-        const date = ($(element).text()).split(' ');
-        if (date.length <= 1) return;
+          const date = ($(element).text()).split(' ');
+          if (date.length <= 1) return;
 
-        if (date[0] === 'Yesterday') return; // midnight misses
-        if (date[0] === 'Today') {
-          if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
-            newPosts.push(latest[index]);
+          if (date[0] === 'Yesterday') return; // midnight misses
+          if (date[0] === 'Today') {
+            if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
+              newPosts.push(latest[index]);
+            }
           }
-        }
+        })
       });
 
-      newPosts.forEach((newPost, i) => {
+      newPosts.forEach((newPost, _i) => {
         const topicurl = ($(newPost).children().filter('a.last-post-icon').attr('href'));
 
         if (!topicurl) return;

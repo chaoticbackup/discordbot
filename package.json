@@ -5,7 +5,8 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "start": "NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
-    "start:scan": "APP_ENV=test NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
+    "start:scan": "APP_ENV=scan NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
+    "start:forum": "APP_ENV=forum NODE_ENV=development babel-watch src/bot.ts --extensions \".js,.ts\"",
     "prebuild": "if [ -f out.log ]; then mv out.log out.old.log; fi; if [ -d src/db ]; then rm -rf src/db; fi; npm install",
     "build": "babel src -d build --delete-dir-on-start --copy-files --extensions \".js,.ts\"",
     "forever": "npm run build && forever -o out.log -e out.log start build/bot.js",

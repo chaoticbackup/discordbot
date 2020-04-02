@@ -13,6 +13,9 @@ require('@babel/polyfill/noConflict');
 
 const auth = require('./auth.json');
 
+const development = process.env.NODE_ENV === 'development';
+let devType = process.env.APP_ENV;
+
 // Configure logger settings
 const logger = winston.createLogger({
   level: 'debug',
@@ -30,36 +33,52 @@ const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
 const sq = new ScanQuest(bot, logger);
 
-let main = false;
 // Disabled freatures if api.json is missing or set to false
-if (process.env.NODE_ENV !== 'development') {
+if (!development) {
   try {
     const api = require('./api.json');
     if (!!api) {
-      main = true;
+      devType = 'all';
       ForumAPI(logger);
     }
   }
   catch (e) { }
 }
-else if (process.env.APP_ENV === 'test') {
-  main = true;
+
+const start = () => {
+  if (devType === 'all') {
+    sq.start();
+    fp.start();
+  }
+  else if (devType === 'scan') {
+    sq.start();
+  }
+  else if (devType === 'forum') {
+    fp.start()
+  }
+}
+
+const stop = () => {
+  if (devType === 'all') {
+    sq.stop();
+    fp.stop();
+  }
+  else if (devType === 'scan') {
+    sq.stop();
+  }
+  else if (devType === 'forum') {
+    fp.stop()
+  }
 }
 
 bot.on('ready', () => {
-  if (main) {
-    fp.start();
-    sq.start();
-  }
+  start();
   bot.user.setActivity('!commands');
 });
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
-  if (main) {
-    fp.stop();
-    sq.stop();
-  }
+  stop();
   logger.warn(`Reconnecting, ${CloseEvent.code}`);
   bot.login(auth.token).then(() => { sendError() });
 });
@@ -68,7 +87,7 @@ let stackTrace = '';
 const sendError = () => {
   if (stackTrace) {
     logger.error(stackTrace);
-    if (process.env.NODE_ENV !== 'development') {
+    if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
         (channel as Channel).send(stackTrace).catch(logger.error);
