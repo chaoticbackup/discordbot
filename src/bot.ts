@@ -137,7 +137,7 @@ const checkSpam = async (msg: Discord.Message) => {
     if (msg.member.bannable) {
       msg.member.ban().then(() => {
         // @ts-ignore
-        bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);
+        bot.channels.get(servers('main').channel('staff')).send(`Banned Spam: ${member.displayName}\nContent: ${msg.content}`);
         if (msg.deletable) msg.delete();
       });
     }
