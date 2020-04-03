@@ -99,11 +99,13 @@ const sendError = () => {
 
 // Responses
 bot.on('message', msg => {
+  checkSpam(msg);
   responses(bot, msg, logger);
   sq.monitor(msg);
 });
 
 // Ban Spam
+const newMembers: Discord.Snowflake[] = [];
 bot.on('guildMemberAdd', (member) => {
   if (member.displayName.match(new RegExp('(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i'))) {
     if (member.bannable) { member.ban().then(() => {
@@ -112,13 +114,37 @@ bot.on('guildMemberAdd', (member) => {
       // Delete the meebot welcome message
       const meebot = bot.users.get('159985870458322944');
       if (meebot) { setTimeout(() => {
-        if (meebot?.lastMessage?.deletable) {
+        if (meebot.lastMessage?.deletable) {
           meebot.lastMessage.delete();
         }
       }, 500); }
     }); }
   }
+  else {
+    newMembers.push(member.id);
+  }
 });
+
+const checkSpam = async (msg: Discord.Message) => {
+  if (!msg.guild) return Promise.resolve();
+  const index = newMembers.indexOf(msg.author.id);
+  if (index < 0) return Promise.resolve();
+
+  // eslint-disable-next-line
+  const regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
+
+  if (regex.test(msg.content)) {
+    if (msg.member.bannable) {
+      msg.member.ban().then(() => {
+        // @ts-ignore
+        bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);
+        if (msg.deletable) msg.delete();
+      });
+    }
+  }
+
+  newMembers.splice(index, 1);
+}
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
