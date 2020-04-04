@@ -61,6 +61,7 @@ function newDate(dateTime: string): Date {
 function post_time_diff(date: string[], currenttime: Date) {
   const post_time = new Date(currenttime.getTime());
   const { hour, minute } = hm(date);
+  if (date[0] === 'Yesterday') post_time.setDate(post_time.getDate() - 1);
   post_time.setHours(hour, minute);
   return (currenttime.getTime() - post_time.getTime());
 }
@@ -70,7 +71,7 @@ export default class ForumPosts {
   channel: string;
   links: string[] = [];
   timeout: NodeJS.Timeout;
-  timeouts: NodeJS.Timeout[];
+  timeouts: NodeJS.Timeout[] = [];
 
   constructor(bot: Client) {
     this.bot = bot;
@@ -88,14 +89,14 @@ export default class ForumPosts {
 
   expiredLink(id: string): boolean {
     if (this.links.includes(id)) return true;
-    this.links.push(id)
-    this.timeouts.push(
-      setTimeout(() => {
+    this.links.push(id);
+    this.timeouts.push(setTimeout(
+      () => {
         this.links.shift();
         this.timeouts.shift();
       },
-      config.expire * 60 * 1000)
-    );
+      config.expire * 60 * 1000
+    ));
     return false;
   }
 
@@ -115,7 +116,6 @@ export default class ForumPosts {
       const newPosts: HTMLElement[] = [];
 
       const currenttime = newDate($('.current-time').contents().text().split('is ')[1]);
-
       // Latest posts
       const latest = $('.row1 > span');
       latest.each((index, element) => {
@@ -125,9 +125,9 @@ export default class ForumPosts {
           const date = ($(element).text()).split(' ');
           if (date.length <= 1) return;
 
-          if (date[0] === 'Yesterday') return; // midnight misses
-          if (date[0] === 'Today') {
-            if ((post_time_diff(date, currenttime)) / 1000 <= (config.seconds)) {
+          if (date[0] === 'Today' || date[0] === 'Yesterday') {
+            const diff = (post_time_diff(date, currenttime)) / 1000;
+            if (diff <= (config.seconds)) {
               newPosts.push(latest[index]);
             }
           }
