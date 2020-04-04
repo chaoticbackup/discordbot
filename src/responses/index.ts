@@ -259,6 +259,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'errata':
       return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
     case 'guide':
+      if (flatten(args) === 'untap')
+        return send('<https://docs.google.com/document/d/1Tyz3o-XU7jXhFmbNBolUxpxKtr35RM_42C6bapUf9Ak/view>');
       return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
 
     /* Starters */
@@ -380,7 +382,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'gone':
     case 'fan':
     case 'unset':
-      return send(gone(flatten(args), bot));
+      return send(gone(flatten(args), bot, options));
 
     /* Compliments, Insults, Jokes */
     case 'flirt':
@@ -403,7 +405,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'happy': {
       if (cleantext(flatten(args)).includes('borth'))
-        return send(gone('borth-day', bot));
+        return send(gone('borth-day', bot, options));
 
       break;
     }
