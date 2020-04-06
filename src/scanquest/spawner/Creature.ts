@@ -18,7 +18,8 @@ export default class ScanCreature extends ScanFunction {
   generate(): [ScannableCreature, RichEmbed] {
     const creature = this.randomCard(this.creatures) as Creature;
     const image = new RichEmbed()
-    .setImage(API.base_image + creature.gsx$avatar);
+    .setImage(API.base_image + creature.gsx$avatar)
+    .setURL(API.base_image + creature.gsx$avatar);
 
     return [new ScannableCreature(creature), image];
   }

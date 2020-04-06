@@ -1,5 +1,5 @@
 import { Client } from 'discord.js';
-import ScanQuestDB from './scan_db';
+import ScanQuestDB from '../scan_db';
 
 export default class Trader {
   readonly bot: Client;

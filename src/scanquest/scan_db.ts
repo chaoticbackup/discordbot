@@ -4,7 +4,7 @@ import path from 'path';
 import servers from '../common/servers';
 import db_path from '../database/db_path';
 import Scanned from './scanner/Scanned';
-import { Code } from './scanner/Code';
+import { Code } from './definitions';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Player {
@@ -21,7 +21,7 @@ export class ActiveScan {
 
   constructor({ scan, expires }: activescan) {
     this.scan = scan;
-    this.expires = expires;
+    this.expires = new Date(expires);
     this.players = [];
   }
 }
@@ -133,19 +133,19 @@ class ScanQuestDB {
     // 0-9 A-F
     // 48-57 65-70
     let code = '';
-    let digit = 0;
-    // TODO stuck in loop
     do {
+      code = '';
+      let digit = 0;
       while (digit < 12) {
-        const rl = (Math.random() * (126 - 45 + 1)) + 45;
+        const rl = Math.floor(Math.random() * (126 - 45 + 1)) + 45;
         if (
           (rl >= 48 && rl <= 57) || (rl >= 65 && rl <= 70)
         ) {
-          code += `${rl}`;
+          code += String.fromCharCode(rl);
           digit++;
         }
       }
-    } while (this.usedcodes.find({ code: { $eq: code } }));
+    } while (this.usedcodes.find({ code: { $eq: code } }).length > 0);
 
     this.usedcodes.insertOne({ code });
 

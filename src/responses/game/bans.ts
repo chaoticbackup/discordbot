@@ -73,7 +73,7 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
 export function whyban(
   name: string, guild?: Guild, channel?: Channel, options: string[] = []
 ): string | undefined {
-  if (guild && channel && !can_send(guild, channel) && !options.includes('joke')) return;
+  if (guild && channel && !options.includes('joke') && !can_send(guild, channel)) return;
 
   if (!name) return 'Please provide a card or use !banlist';
 

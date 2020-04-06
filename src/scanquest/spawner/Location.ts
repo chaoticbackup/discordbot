@@ -19,7 +19,8 @@ export default class ScanLocation extends ScanFunction {
   generate(): [ScannableLocation, RichEmbed] {
     const location = this.randomCard(this.locations) as Location;
     const image = new RichEmbed()
-    .setImage(API.base_image + location.gsx$splash);
+    .setImage(API.base_image + location.gsx$splash)
+    .setURL(API.base_image + location.gsx$splash);
 
     return [new ScannableLocation(location), image];
   }

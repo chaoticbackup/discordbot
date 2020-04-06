@@ -19,7 +19,8 @@ export default class ScanBattlegear extends ScanFunction {
   generate(): [ScannableBattlegear, RichEmbed] {
     const battlegear = this.randomCard(this.battlegear) as Battlegear;
     const image = new RichEmbed()
-    .setImage(API.base_image + battlegear.gsx$splash);
+    .setImage(API.base_image + battlegear.gsx$splash)
+    .setURL(API.base_image + battlegear.gsx$splash);
 
     return [new ScannableBattlegear(battlegear), image];
   }

@@ -32,7 +32,7 @@ export default class Scanner {
     if (args === '') {
       while (true) {
         selected = server.activescans[server.activescans.length - 1];
-        if (selected.expires < now) {
+        if (new Date(selected.expires) < now) {
           server.activescans.pop();
           this.db.servers.update(server);
         }
@@ -48,7 +48,7 @@ export default class Scanner {
       });
       if (
         selected === undefined
-        || selected.expires < now
+        || new Date(selected.expires) < now
       ) {
         return `${args} isn't an active scan`;
       }
@@ -56,8 +56,7 @@ export default class Scanner {
 
     const card = selected.scan;
 
-    // TODO
-    // card.code = this.db.generateCode();
+    card.code = this.db.generateCode();
 
     const player = this.db.findOnePlayer({ id: author_id });
     if (!selected.players || selected.players.length === 0) {

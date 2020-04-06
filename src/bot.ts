@@ -148,7 +148,7 @@ const checkSpam = async (msg: Discord.Message) => {
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
-  stackTrace = (err?.stack) ? err.stack : err;
+  stackTrace = err?.stack ?? err;
   // Status.READY
   if (bot.status === 0) sendError();
   else bot.destroy();
