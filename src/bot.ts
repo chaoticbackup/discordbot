@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 import winston from 'winston';
 import Discord from 'discord.js';
 
@@ -9,7 +12,6 @@ import ScanQuest from './scanquest';
 
 import servers from './common/servers';
 import { Channel } from './definitions';
-require('@babel/polyfill/noConflict');
 
 const auth = require('./auth.json');
 
