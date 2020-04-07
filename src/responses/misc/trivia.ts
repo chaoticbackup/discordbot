@@ -13,7 +13,6 @@ let triviaMaster: GuildMember | null;
 // It's the command that manages timing, like the whistle of a ref.
 export async function whistle(member: GuildMember): Promise<string> {
   if (triviaMaster && member.id === triviaMaster.id) {
-    console.log(triviaMaster.id);
     if (!questiontime) {
       questiontime = true;
       return 'Users may now submit their answers';

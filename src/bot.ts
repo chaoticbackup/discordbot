@@ -60,16 +60,16 @@ const start = () => {
   }
 }
 
-const stop = () => {
+const stop = async () => {
   if (devType === 'all') {
-    sq.stop();
+    await sq.stop();
     fp.stop();
   }
   else if (devType === 'scan') {
-    sq.stop();
+    await sq.stop();
   }
   else if (devType === 'forum') {
-    fp.stop()
+    fp.stop();
   }
 }
 
@@ -174,7 +174,11 @@ if (process.platform === 'win32') {
   });
 }
 
-process.on('SIGINT', (event) => {
-  stop();
-  process.exit();
-});
+const handle: NodeJS.SignalsListener = (_event) => {
+  stop().then(() => {
+    process.exit(); // process exits after db closes
+  });
+}
+
+process.on('SIGINT', handle);
+process.on('SIGTERM', handle);

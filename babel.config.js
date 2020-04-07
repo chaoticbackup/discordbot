@@ -3,8 +3,11 @@ module.exports = function (api) {
 
   const presets = [
     ["@babel/preset-env", {
-      useBuiltIns: "entry", // or "entry"
+      useBuiltIns: "usage", // or "entry"
       corejs: 3,
+      targets: {
+        "node": process.versions.node
+      }
     }],
     '@babel/preset-typescript'
   ];

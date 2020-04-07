@@ -33,7 +33,7 @@ export class Server {
   public send_channel: Snowflake;
   public receive_channel: Snowflake;
   public activescans: ActiveScan[];
-  public remaining: number; // remaining time until next scan
+  public remaining: Date | null; // remaining time until next scan
 
   constructor(
     { id, send_channel, receive_channel }: server
@@ -42,7 +42,7 @@ export class Server {
     this.send_channel = send_channel;
     this.receive_channel = receive_channel;
     this.activescans = [];
-    this.remaining = 0;
+    this.remaining = null;
   }
 }
 
@@ -61,6 +61,7 @@ class ScanQuestDB {
       adapter: new LokiFSStructuredAdapter(),
       autoload: true,
       autosave: true,
+      throttledSaves: false,
       autoloadCallback: () => {
         const players = this.db.getCollection('players') as Collection<Player>;
         if (players === null) {
@@ -90,6 +91,22 @@ class ScanQuestDB {
           }
         }
       }
+    });
+  }
+
+  public async close(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.saveDatabase((err) => {
+        if (err) {
+          console.error(`save error : ${err}`);
+        }
+        this.db.close((err) => {
+          if (err) {
+            console.error(`close error : ${err}`);
+          }
+          resolve();
+        });
+      });
     });
   }
 

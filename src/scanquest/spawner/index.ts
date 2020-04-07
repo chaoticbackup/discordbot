@@ -45,21 +45,31 @@ export default class Spawner {
   start() {
     // get timers from database
     this.db.servers.data.forEach((server) => {
-      if (server.remaining && server.remaining > 0) {
-        const timeout = setTimeout(() => this.sendCard(server), server.remaining);
-        this.timers.set(server.id, { timeout, duration: server.remaining });
+      if (server.remaining) {
+        const duration = (new Date(server.remaining)).getTime() - (new Date()).getTime();
+        console.log(new Date(server.remaining), new Date());
+        if (duration > 1000) {
+          const timeout = setTimeout(() => this.sendCard(server), duration);
+          this.timers.set(server.id, { timeout, duration });
+        }
+        else {
+          this.sendCard(server);
+        }
       }
     });
   }
 
   stop() {
     // write timers to database
-    this.timers.forEach((value, key) => {
-      clearTimeout(value.timeout);
-      let { duration } = value;
-      duration -= this.debouncer.get(key)?.amount ?? 0;
-      this.db.servers.findAndUpdate({ id: key }, (server) => {
-        server.remaining = duration;
+    this.timers.forEach((timer, id) => {
+      let { duration, timeout } = timer;
+      clearTimeout(timeout);
+      duration -= this.debouncer.get(id)?.amount ?? 0;
+
+      this.db.servers.findAndUpdate({ id: id }, (server) => {
+        const remaining = new Date();
+        remaining.setMilliseconds(remaining.getMilliseconds() + duration);
+        server.remaining = remaining;
       });
     });
   }
@@ -88,8 +98,8 @@ export default class Spawner {
     const words = content.split(' ').length;
     if (words < 3 || content.length < 20) return;
 
-    // reduces timer by 1 second per character in messaage
-    const reduce = (content.length) * 1000;
+    // reduces timer by 5 seconds per character in messaage
+    const reduce = (content.length) * 5 * 1000;
 
     if (this.debouncer.has(id)) {
       const { amount } = this.debouncer.get(id) as Amount;
@@ -127,7 +137,7 @@ export default class Spawner {
    * Sends a card image to the configed channel
   */
   private sendCard(server: Server) {
-    const { send_channel } = server;
+    const { id, send_channel } = server;
     const [scannable, image] = this.selectCard(server);
 
     const card = API.find_cards_by_name(scannable.card.name)[0] as Card;
@@ -135,11 +145,22 @@ export default class Spawner {
     const active = (() => {
       switch (card.gsx$rarity.toLowerCase()) {
         case 'ultra rare': return 8;
-        case 'super rare': return 7;
-        case 'rare': return 6;
-        case 'uncommon': return 5;
-        case 'common': return 4;
+        case 'super rare': return 6;
+        case 'rare': return 5;
+        case 'uncommon': return 4;
+        case 'common': return 3;
+        case 'promo': return 7;
         default: return 4;
+      }
+    })()
+    + (() => {
+      switch (card.gsx$type) {
+        case 'Attacks': return 0;
+        case 'Battlegear': return 2;
+        case 'Creatures': return 1;
+        case 'Locations': return 3;
+        case 'Mugic': return 0;
+        default: return 0;
       }
     })();
 
@@ -159,17 +180,15 @@ export default class Spawner {
     // add to list of active scans
     server.activescans.push(new ActiveScan({ scan: scannable.card, expires }));
 
-    // Set new spawn timer 7 Hours
-    const duration = 7 * 60 * 60 * 1000;
-
-    server.remaining = duration;
+    // Set new spawn timer 10 Hours
+    const duration = 10 * 60 * 60 * 1000;
 
     this.db.servers.update(server);
 
     (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
 
     const timeout = setTimeout(() => this.sendCard(server), duration);
-    this.timers.set(send_channel, { timeout, duration });
+    this.timers.set(id, { timeout, duration });
   }
 
   // Creatures spawn more often than locations and battlegear

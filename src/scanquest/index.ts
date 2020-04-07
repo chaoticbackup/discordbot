@@ -52,9 +52,10 @@ export default class ScanQuest {
     this.logger.info('ScanQuest has started');
   }
 
-  stop() {
+  async stop() {
     clearTimeout(this.timeout);
     this.spawner.stop();
+    return this.db.close();
   }
 
   async monitor(message: Message): Promise<void> {
