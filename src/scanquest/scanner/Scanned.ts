@@ -3,15 +3,18 @@ import { Code } from '../definitions';
 
 /**
  * @param name The name of the card
- * @param image The image that is spawned
+ * @param type The type of card it is
  * @param code The unique code of the card
 */
 export default class Scanned {
   name: string;
   type: CardType;
-  code: Code;
+  code?: Code;
 
-  constructor(type: CardType) {
+  constructor(type: CardType, name?: string) {
+    if (name) {
+      this.name = name;
+    }
     this.type = type;
   }
 }

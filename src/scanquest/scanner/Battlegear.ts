@@ -6,8 +6,8 @@ import { API, color } from '../../database';
 import { Battlegear } from '../../definitions';
 
 export class BattlegearScan extends Scan {
-  constructor() {
-    super('Battlegear');
+  constructor(name: string) {
+    super('Battlegear', name);
   }
 }
 
@@ -15,14 +15,13 @@ export class ScannableBattlegear implements Scannable {
   card: BattlegearScan;
 
   constructor(battlegear: Battlegear | BattlegearScan) {
-    this.card = new BattlegearScan();
     if ((battlegear as Battlegear).gsx$name !== undefined) {
       battlegear = (battlegear as Battlegear);
-      this.card.name = battlegear.gsx$name;
+      this.card = new BattlegearScan(battlegear.gsx$name);
     }
     else {
       battlegear = (battlegear as BattlegearScan);
-      this.card.name = battlegear.name;
+      this.card = new BattlegearScan(battlegear.name);
     }
   }
 

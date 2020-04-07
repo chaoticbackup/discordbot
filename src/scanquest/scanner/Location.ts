@@ -7,8 +7,8 @@ import { API, color } from '../../database';
 import { Location } from '../../definitions';
 
 export class LocationScan extends Scan {
-  constructor() {
-    super('Locations');
+  constructor(name: string) {
+    super('Locations', name);
   }
 }
 
@@ -16,14 +16,13 @@ export class ScannableLocation implements Scannable {
   card: LocationScan;
 
   constructor(location: Location | LocationScan) {
-    this.card = new LocationScan();
     if ((location as Location).gsx$name !== undefined) {
       location = (location as Location);
-      this.card.name = location.gsx$name;
+      this.card = new LocationScan(location.gsx$name);
     }
     else {
       location = (location as LocationScan);
-      this.card.name = location.name;
+      this.card = new LocationScan(location.name);
     }
   }
 

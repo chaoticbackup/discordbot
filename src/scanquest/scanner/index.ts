@@ -54,9 +54,7 @@ export default class Scanner {
       }
     }
 
-    const card = selected.scan;
-
-    card.code = this.db.generateCode();
+    const card = Object.assign({}, selected.scan);
 
     const player = this.db.findOnePlayer({ id: author_id });
     if (!selected.players || selected.players.length === 0) {
@@ -67,8 +65,10 @@ export default class Scanner {
     } else {
       selected.players.push(player.id);
     }
-
     this.db.servers.update(server);
+
+    card.code = this.db.generateCode();
+
     await this.db.save(player, card);
     return toScannable(card)!.getCard(this.icons);
   }

@@ -18,13 +18,11 @@ export default function (lastSpawn: {type: string, info: any}): Scannable | null
     return null;
   }
   else if (lastSpawn.type === 'Battlegear') {
-    const bgScan = new BattlegearScan();
-    bgScan.name = lastSpawn.info;
+    const bgScan = new BattlegearScan(lastSpawn.info);
     return new ScannableBattlegear(bgScan);
   }
   else if (lastSpawn.type === 'Locations') {
-    const locScan = new LocationScan();
-    locScan.name = lastSpawn.info;
+    const locScan = new LocationScan(lastSpawn.info);
     return new ScannableLocation(locScan);
   }
 
