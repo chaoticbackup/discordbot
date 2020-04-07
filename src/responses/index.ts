@@ -371,7 +371,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'speakers':
     case 'language':
     case 'languages':
-      return send(speakers(guildMember, guild, args));
+      return speakers(guildMember, guild, args).then(send);
 
     /* Now or Never */
     case 'never':
@@ -397,7 +397,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Trivia */
     case 'whistle':
-      return send(whistle(guildMember));
+      return whistle(guildMember).then(send);
     case 'trivia':
       return send(trivia(guildMember));
     case 'answer':

@@ -95,7 +95,7 @@ export function whyban(
         return `${key} doesn't have a more detailed explanation`;
       }
     }
-    return `${name} isn't banned`;
+    return `${cardName} isn't banned`;
   }
 
   for (const key in reasons) {
@@ -120,5 +120,5 @@ export function whyban(
     }
   }
 
-  return rndrsp(["That card isn't banned", `Oh lucky you, ${name} isn't banned`]);
+  return rndrsp(["That card isn't banned", `Oh lucky you, ${cardName} isn't banned`]);
 }

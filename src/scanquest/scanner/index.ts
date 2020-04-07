@@ -50,7 +50,7 @@ export default class Scanner {
         selected === undefined
         || new Date(selected.expires) < now
       ) {
-        return `${args} isn't an active scan`;
+        return `${args.replace('@', '')} isn't an active scan`;
       }
     }
 

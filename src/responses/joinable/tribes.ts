@@ -201,7 +201,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
       joining_msg = 'Shhhh we haven\'t been revealed yet';
       break;
     default:
-      return `${tribe} is not a valid faction`;
+      return `${tribe.replace('@', '')} is not a valid faction`;
   }
 
   const guild_role = guild.roles.find(role => role.name === tribe);

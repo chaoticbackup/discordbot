@@ -7,7 +7,7 @@ const languageProper = (lang: string): string => {
   return uppercase(lang.replace(suffix, ''))
 }
 
-export default (user: GuildMember, guild: Guild, args: string[]) => {
+export default async (user: GuildMember, guild: Guild, args: string[]) => {
   const languageList = () => {
     let language_count = 0;
     let msg = 'Available languages:\n';

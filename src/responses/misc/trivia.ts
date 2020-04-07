@@ -13,6 +13,7 @@ let triviaMaster: GuildMember | null;
 // It's the command that manages timing, like the whistle of a ref.
 export async function whistle(member: GuildMember): Promise<string> {
   if (triviaMaster && member.id === triviaMaster.id) {
+    console.log(triviaMaster.id);
     if (!questiontime) {
       questiontime = true;
       return 'Users may now submit their answers';
@@ -24,7 +25,7 @@ export async function whistle(member: GuildMember): Promise<string> {
         message += `${rsp.name} answered: ${rsp.answer}\n`;
       });
       responses = [];
-
+      if (message.length === 0) message = 'No one has answered the question';
       return triviaMaster.send(message)
       .then(() => {
         return 'Question time is over, messages have been sent to the Trivia Master';
@@ -34,7 +35,7 @@ export async function whistle(member: GuildMember): Promise<string> {
       });
     }
   }
-  return "You're not the host";
+  return Promise.resolve("You're not the host");
 }
 
 // sets a guildmember as the trivia master
@@ -53,7 +54,7 @@ export function trivia(member: GuildMember): string {
       return ('You are now Trivia Master!');
     }
   }
-  return ('Tsk tsk, only mods can host Trivia Night!')
+  return ('Tsk tsk, only mods can host Trivia Night!');
 }
 
 // how a trivia player sends a response to the bot

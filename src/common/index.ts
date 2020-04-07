@@ -16,7 +16,7 @@ export function uppercase(word: string) {
  * turn lowercase, remove commas and apostrophes
  */
 export function cleantext(string: string): string {
-  return string.toLowerCase().replace(/[,\'’\-]/g, '');
+  return string.toLowerCase().replace(/[,\'’\-\@]/g, '');
 }
 
 // Takes the arg list and turns it into cleaned text
