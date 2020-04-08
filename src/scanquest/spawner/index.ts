@@ -127,6 +127,11 @@ export default class Spawner {
       else {
         timeout = setTimeout(() => this.sendCard(server), duration);
         this.timers.set(id, { timeout, duration });
+        this.db.servers.findAndUpdate({ id: id }, (server) => {
+          const remaining = new Date();
+          remaining.setMilliseconds(remaining.getMilliseconds() + duration);
+          server.remaining = remaining;
+        });
       }
     }
 
@@ -182,6 +187,10 @@ export default class Spawner {
 
     // Set new spawn timer 10 Hours
     const duration = 10 * 60 * 60 * 1000;
+
+    const remaining = new Date();
+    remaining.setMilliseconds(remaining.getMilliseconds() + duration);
+    server.remaining = remaining;
 
     this.db.servers.update(server);
 

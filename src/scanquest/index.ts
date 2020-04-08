@@ -25,6 +25,7 @@ export default class ScanQuest {
   private spawner: Spawner;
   private scanner: Scanner;
   private trader: Trader;
+  private init: boolean = false;
 
   constructor(bot: Client, logger: Logger) {
     this.db = new ScanQuestDB();
@@ -50,6 +51,7 @@ export default class ScanQuest {
     this.trader = new Trader(this.bot, this.db);
 
     this.logger.info('ScanQuest has started');
+    this.init = true;
   }
 
   async stop() {
@@ -59,7 +61,7 @@ export default class ScanQuest {
   }
 
   async monitor(message: Message): Promise<void> {
-    if (this.bot === undefined || message.author.bot) return;
+    if (!this.init || this.bot === undefined || message.author.bot) return;
 
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
@@ -109,7 +111,7 @@ export default class ScanQuest {
           }
       }
     }
-    else {
+    else if (message.guild) {
       this.spawner.tick(message);
     }
   }
