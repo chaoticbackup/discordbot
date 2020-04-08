@@ -47,7 +47,6 @@ export default class Spawner {
     this.db.servers.data.forEach((server) => {
       if (server.remaining) {
         const duration = (new Date(server.remaining)).getTime() - (new Date()).getTime();
-        console.log(new Date(server.remaining), new Date());
         if (duration > 1000) {
           const timeout = setTimeout(() => this.sendCard(server), duration);
           this.timers.set(server.id, { timeout, duration });

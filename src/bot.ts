@@ -162,23 +162,12 @@ bot.login(auth.token).then(() => {
 });
 // bot.login(auth.token).then(() => {throw new Error()});
 
-if (process.platform === 'win32') {
-  var rl = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  rl.on('SIGINT', function () {
-    // @ts-ignore
-    process.emit('SIGINT');
-  });
-}
-
-const handle: NodeJS.SignalsListener = (_event) => {
-  stop().then(() => {
-    process.exit(); // process exits after db closes
-  });
-}
-
-process.on('SIGINT', handle);
-process.on('SIGTERM', handle);
+process.on('message', (message) => {
+  console.log('exit');
+  if (message.action === 'close') {
+    stop().then(() => {
+      console.log('exit');
+      process.exit(); // process exits after db closes
+    });
+  }
+});
