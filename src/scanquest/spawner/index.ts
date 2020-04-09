@@ -24,6 +24,12 @@ interface Amount {
   amount: number
 }
 
+const config = {
+  tick: 3 * 1000, // 3 seconds
+  debounce: 2 * 60 * 1000, // 2 minutes
+  next: 12 * 60 * 60 * 1000 // 12 hours
+}
+
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
   private readonly debouncer: Map<Snowflake, Amount> = new Map();
@@ -98,15 +104,15 @@ export default class Spawner {
     const words = content.split(' ').length;
     if (words < 3 || content.length < 20) return;
 
-    // reduces timer by 5 seconds per character in messaage
-    const reduce = (content.length) * 5 * 1000;
+    // reduces timer by config seconds per character in messaage
+    const reduce = (content.length - 10) * config.tick;
 
     if (this.debouncer.has(id)) {
       const { amount } = this.debouncer.get(id) as Amount;
       this.debouncer.set(id, { amount: amount + reduce });
     }
     else {
-      setTimeout(() => this.reduce(server), 2 * 60 * 1000);
+      setTimeout(() => this.reduce(server), config.debounce);
       this.debouncer.set(id, { amount: reduce });
     }
   }
@@ -185,9 +191,7 @@ export default class Spawner {
     // add to list of active scans
     server.activescans.push(new ActiveScan({ scan: scannable.card, expires }));
 
-    // Set new spawn timer 10 Hours
-    const duration = 10 * 60 * 60 * 1000;
-
+    const duration = config.next;
     const remaining = new Date();
     remaining.setMilliseconds(remaining.getMilliseconds() + duration);
     server.remaining = remaining;
