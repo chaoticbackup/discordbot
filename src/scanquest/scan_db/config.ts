@@ -17,14 +17,14 @@ export default function (db: ScanQuestDB, id: string, args: string[]): string | 
 }
 
 function ignore(db: ScanQuestDB, server: Server, args: string[]): string | undefined {
-  const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)![0] ?? null))?.filter(f => f !== null) ?? [];
+  const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)![1] ?? null))?.filter(f => f !== null) ?? [];
 
   switch (args[0]) {
     case 'add': {
       if (args.length < 2) return;
       const channels = parse(args.slice(1));
       channels.forEach((channel) => {
-        channel = channel.match(/<#([0-9]*)>/)![0] ?? '';
+        channel = channel.match(/<#([0-9]*)>/)![1] ?? '';
         if (channel && !server.ignore_channels.includes(channel)) server.ignore_channels.push(channel);
       })
       db.servers.update(server);
