@@ -98,6 +98,7 @@ export default class ScanQuest {
           }
           return;
         case 'list':
+        case 'scans':
           return listScans(this.db, message, options);
         case 'reroll':
           if (message.author.id === users('daddy') && message.guild) {
