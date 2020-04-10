@@ -19,23 +19,7 @@ npm start
 ```
 
 ### Production Deployment
-To run and build the production server
-```
-npm run prod
-```
 
-If you need it to run in the background (such as on [AWS EC2 Hosting](https://github.com/chaoticbackup/discordbot/wiki/AWS-EC2-Hosting))
-```bash
-npm run forever
-```
-To stop the forever instance
-```bash
-npm run stop
-```
-If the server is currently running and you wish to rebuild new changes
-```bash
-npm run rebuild
-```
 
 Since the project uses Babel, the code gets preprocessed (The prod and forever commands build the project by default)
 ```bash
@@ -44,4 +28,22 @@ npm run build
 You can clean the build folder with
 ```bash
 npm run clean
+```
+To run the production server
+```
+node build/bot.js
+```
+
+If you need it to run in the background (such as on [AWS EC2 Hosting](https://github.com/chaoticbackup/discordbot/wiki/AWS-EC2-Hosting))  
+Install yarn on the host server ([yarn installation](https://classic.yarnpkg.com/en/docs/install/))
+```bash
+yarn forever
+```
+To stop the forever instance
+```bash
+yarn stop
+```
+If the server is currently running and you wish to rebuild new changes
+```bash
+yarn rebuild
 ```
