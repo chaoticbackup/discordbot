@@ -105,7 +105,7 @@ export default class ScanQuest {
           }
           return;
         case 'load':
-          if (message.author.id === users('daddy')) {
+          if (message.author.id === users('daddy') || message.author.id === users('bf')) {
             const id = args[0];
             const type = args[1];
             const content = args.splice(1).join(' ');
@@ -114,6 +114,7 @@ export default class ScanQuest {
             return this.db.save(id, (loadScan({ type, info }))!.card);
           }
           return;
+        case 'spawn':
         case 'perim':
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             return send(this.db.perim(message.guild.id, args));

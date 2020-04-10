@@ -55,7 +55,7 @@ class UsedCode {
 }
 
 const prod = (process.env.NODE_ENV !== 'development');
-const config = {
+const init_config = {
   id: prod ? servers('main').id : servers('develop').id,
   send_channel: prod ? servers('main').channel('perim') : servers('develop').channel('bot_commands'),
   receive_channel: prod ? servers('main').channel('bot_commands') : servers('develop').channel('bot_commands')
@@ -94,12 +94,12 @@ class ScanQuestDB {
           const serverCollection = this.db.getCollection('servers') as Collection<Server>;
           if (serverCollection === null) {
             this.servers = this.db.addCollection('servers');
-            this.servers.insertOne(new Server(config));
+            this.servers.insertOne(new Server(init_config));
           }
           else {
             this.servers = serverCollection;
-            if (this.servers.findOne({ id: config.id }) === null) {
-              this.servers.insertOne(new Server(config));
+            if (this.servers.findOne({ id: init_config.id }) === null) {
+              this.servers.insertOne(new Server(init_config));
             }
           }
           return resolve();
@@ -109,7 +109,7 @@ class ScanQuestDB {
   }
 
   public async close(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.db.saveDatabase((err) => {
         if (err) {
           console.error(`save error : ${err}`);
