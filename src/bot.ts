@@ -80,22 +80,24 @@ bot.on('ready', () => {
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
+  console.log(CloseEvent);
   stop();
   logger.warn(`Reconnecting, ${CloseEvent.code}`);
   bot.login(auth.token).then(() => { sendError() });
 });
 
 let stackTrace = '';
-const sendError = () => {
+const sendError = async () => {
   if (stackTrace) {
-    logger.error(stackTrace);
+    const st = stackTrace;
+    stackTrace = '';
+    logger.error(st);
     if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
-        (channel as Channel).send(stackTrace).catch(logger.error);
+        return (channel as Channel).send(st).catch(logger.error);
       }
     }
-    stackTrace = '';
   }
 }
 
@@ -149,10 +151,11 @@ const checkSpam = async (msg: Discord.Message) => {
 }
 
 process.on('unhandledRejection', (err) => {
+  console.log(err);
   // @ts-ignore
   stackTrace = err?.stack ?? err;
   // Status.READY
-  if (bot.status === 0) sendError();
+  if (bot.status === 0) sendError().then(bot.destroy);
   else bot.destroy();
 });
 
@@ -181,4 +184,3 @@ const handle: NodeJS.SignalsListener = (_event) => {
 }
 
 process.on('SIGINT', handle);
-process.on('SIGTERM', handle);
