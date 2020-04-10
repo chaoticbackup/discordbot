@@ -96,7 +96,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return 'Stop bothering me';
     }
     else if (message.author.id === users('bf')) {
-      return compliment(message.guild, [], `${users('bf')}`);
+      return compliment(message.guild, [users('bf')], '');
     }
     else if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';
