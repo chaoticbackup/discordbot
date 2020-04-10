@@ -90,7 +90,7 @@ export default class Spawner {
     const id = message.guild.id;
     // only monitor the servers the bot is configured for
     const server = this.db.servers.findOne({ id: id });
-    if (!server) return;
+    if (!server || (server.ignore_channels?.includes(message.channel.id) ?? true)) return;
 
     // Ignore short messages
     const content = message.content.replace(/<:.*:[0-9]*>/gi, '');
