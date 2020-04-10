@@ -4,7 +4,7 @@
   "description": "Discord Bot for the Chaotic Discord",
   "author": "Danude Sandstorm",
   "scripts": {
-    "run": "babel --watch src --copy-files --extensions \".js,.ts\" --out-dir build",
+    "run": "babel --delete-dir-on-start --watch src --copy-files --extensions \".js,.ts\" --out-dir build",
     "start": "npm run run && NODE_ENV=development node build/bot.js",
     "start:scan": "APP_ENV=scan NODE_ENV=development node build/bot.js",
     "start:forum": "APP_ENV=forum NODE_ENV=development node build/bot.js",

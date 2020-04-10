@@ -18,7 +18,7 @@ import Trader from './trader';
 const development = (process.env.NODE_ENV === 'development');
 
 export default class ScanQuest {
-  readonly db: ScanQuestDB;
+  private readonly db: ScanQuestDB;
   readonly bot: Client;
   readonly logger: Logger;
   private timeout: NodeJS.Timeout;
@@ -28,9 +28,9 @@ export default class ScanQuest {
   private init: boolean = false;
 
   constructor(bot: Client, logger: Logger) {
-    this.db = new ScanQuestDB();
     this.bot = bot;
     this.logger = logger;
+    this.db = new ScanQuestDB();
   }
 
   start() {
@@ -46,12 +46,16 @@ export default class ScanQuest {
     }
 
     // Initialize components
-    this.spawner = new Spawner(this.bot, this.db);
-    this.scanner = new Scanner(this.bot, this.db);
-    this.trader = new Trader(this.bot, this.db);
+    this.db.start().then(() => {
+      this.spawner = new Spawner(this.bot, this.db);
+      this.scanner = new Scanner(this.bot, this.db);
+      this.trader = new Trader(this.bot, this.db);
 
-    this.logger.info('ScanQuest has started');
-    this.init = true;
+      this.logger.info('ScanQuest has started');
+      this.init = true;
+    }).catch(() => {
+      this.logger.info('ScanQuest did not start');
+    });
   }
 
   async stop() {
@@ -108,6 +112,11 @@ export default class ScanQuest {
             const info = content.substr(content.indexOf(' ') + 1);
 
             return this.db.save(id, (loadScan({ type, info }))!.card);
+          }
+          return;
+        case 'perim':
+          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
+            return send(this.db.perim(message.guild.id, args));
           }
       }
     }

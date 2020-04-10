@@ -32,7 +32,7 @@ export default class Scanner {
     if (args === '') {
       while (true) {
         selected = server.activescans[server.activescans.length - 1];
-        if (new Date(selected.expires) < now) {
+        if (selected === undefined || new Date(selected.expires) < now) {
           server.activescans.pop();
           this.db.servers.update(server);
         }
@@ -46,10 +46,7 @@ export default class Scanner {
       selected = server.activescans.find(scan => {
         return scan.scan.name.toLowerCase() === args;
       });
-      if (
-        selected === undefined
-        || new Date(selected.expires) < now
-      ) {
+      if (selected === undefined || new Date(selected.expires) < now) {
         return `${args.replace('@', '')} isn't an active scan`;
       }
     }

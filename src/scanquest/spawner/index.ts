@@ -1,12 +1,8 @@
+import { Client, Message, Snowflake } from 'discord.js';
 
-import { Client, RichEmbed, Snowflake, Message } from 'discord.js';
-import Battlegear from './Battlegear';
-import Creature from './Creature';
-import Location from './Location';
-import Scannable from '../scanner/Scannable';
-import ScanQuestDB, { Server, ActiveScan } from '../scan_db';
-import { Channel, Card } from '../../definitions';
-import { API } from '../../database';
+import { Channel } from '../../definitions';
+import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
+import Select from './select';
 
 /**
  * @param timeout A javascript timer
@@ -27,24 +23,21 @@ interface Amount {
 const config = {
   tick: 3 * 1000, // 3 seconds
   debounce: 2 * 60 * 1000, // 2 minutes
-  next: 12 * 60 * 60 * 1000 // 12 hours
+  next: 10 * 60 * 60 * 1000 // 12 hours
 }
 
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
   private readonly debouncer: Map<Snowflake, Amount> = new Map();
-  private readonly scan_battlegear: Battlegear;
-  private readonly scan_creature: Creature;
-  private readonly scan_locations: Location;
+
   readonly bot: Client;
   readonly db: ScanQuestDB;
+  readonly select: Select;
 
   constructor(bot: Client, db: ScanQuestDB) {
     this.bot = bot;
     this.db = db;
-    this.scan_battlegear = new Battlegear();
-    this.scan_creature = new Creature();
-    this.scan_locations = new Location();
+    this.select = new Select();
     this.start();
   }
 
@@ -149,36 +142,11 @@ export default class Spawner {
   */
   private sendCard(server: Server) {
     const { id, send_channel } = server;
-    const [scannable, image] = this.selectCard(server);
-
-    const card = API.find_cards_by_name(scannable.card.name)[0] as Card;
-
-    const active = (() => {
-      switch (card.gsx$rarity.toLowerCase()) {
-        case 'ultra rare': return 8;
-        case 'super rare': return 6;
-        case 'rare': return 5;
-        case 'uncommon': return 4;
-        case 'common': return 3;
-        case 'promo': return 7;
-        default: return 4;
-      }
-    })()
-    + (() => {
-      switch (card.gsx$type) {
-        case 'Attacks': return 0;
-        case 'Battlegear': return 2;
-        case 'Creatures': return 1;
-        case 'Locations': return 3;
-        case 'Mugic': return 0;
-        default: return 0;
-      }
-    })();
+    const { scannable, image, duration: active } = this.select.card(server);
 
     // set time active
     const expires = new Date();
     expires.setHours(expires.getHours() + active);
-    image.setTitle(`Scan expires in ${active} hours`);
 
     // cleanup old scans
     // give or take a minute
@@ -202,30 +170,5 @@ export default class Spawner {
 
     const timeout = setTimeout(() => this.sendCard(server), duration);
     this.timers.set(id, { timeout, duration });
-  }
-
-  // Creatures spawn more often than locations and battlegear
-  // TODO more complex spawn logic
-  private selectCard(server: Server): [Scannable, RichEmbed] {
-    let scannable: Scannable;
-    let image: RichEmbed;
-
-    const rnd = Math.floor(Math.random() * 20);
-    if (rnd < 4) {
-      [scannable, image] = this.scan_locations.generate();
-    }
-    else if (rnd < 5) {
-      [scannable, image] = this.scan_battlegear.generate();
-    }
-    else {
-      [scannable, image] = this.scan_creature.generate();
-    }
-
-    // Don't resend existing scan
-    if (server.activescans.find(scan => scan.scan.name === scannable.card.name)) {
-      return this.selectCard(server);
-    }
-
-    return [scannable, image];
   }
 }

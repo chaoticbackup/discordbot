@@ -1,10 +1,12 @@
 import { Snowflake } from 'discord.js';
 import Loki, { Collection } from 'lokijs';
 import path from 'path';
-import servers from '../common/servers';
-import db_path from '../database/db_path';
-import Scanned from './scanner/Scanned';
-import { Code } from './definitions';
+import servers from '../../common/servers';
+import db_path from '../../database/db_path';
+import Scanned from '../scanner/Scanned';
+import { Code } from '../definitions';
+import perim from './config';
+import generateCode from './generateCode';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Player {
@@ -32,6 +34,7 @@ export class Server {
   public id: Snowflake;
   public send_channel: Snowflake;
   public receive_channel: Snowflake;
+  public ignore_channels: Snowflake[];
   public activescans: ActiveScan[];
   public remaining: Date | null; // remaining time until next scan
 
@@ -41,6 +44,7 @@ export class Server {
     this.id = id;
     this.send_channel = send_channel;
     this.receive_channel = receive_channel;
+    this.ignore_channels = [];
     this.activescans = [];
     this.remaining = null;
   }
@@ -50,48 +54,58 @@ class UsedCode {
   public code: Code;
 }
 
+const prod = (process.env.NODE_ENV !== 'development');
+const config = {
+  id: prod ? servers('main').id : servers('develop').id,
+  send_channel: prod ? servers('main').channel('perim') : servers('develop').channel('bot_commands'),
+  receive_channel: prod ? servers('main').channel('bot_commands') : servers('develop').channel('bot_commands')
+}
+
 class ScanQuestDB {
-  private readonly db: Loki;
+  private db: Loki;
   public players: Collection<Player>;
   public servers: Collection<Server>;
   public usedcodes: Collection<UsedCode>;
 
-  constructor() {
-    this.db = new Loki(path.resolve(db_path, 'scanquest.db'), {
-      adapter: new LokiFSStructuredAdapter(),
-      autoload: true,
-      autosave: true,
-      throttledSaves: false,
-      autoloadCallback: () => {
-        const players = this.db.getCollection('players') as Collection<Player>;
-        if (players === null) {
-          this.players = this.db.addCollection('players');
-        }
-        else {
-          this.players = players;
-        }
-
-        const usedcodes = this.db.getCollection('usedcodes') as Collection<UsedCode>;
-        if (usedcodes === null) {
-          this.usedcodes = this.db.addCollection('usedcodes');
-        }
-        else {
-          this.usedcodes = usedcodes;
-        }
-
-        const serverCollection = this.db.getCollection('servers') as Collection<Server>;
-        if (serverCollection === null) {
-          this.servers = this.db.addCollection('servers');
-          this.servers.insertOne(init_server());
-        }
-        else {
-          this.servers = serverCollection;
-          if (this.servers.findOne({ id: '135657678633566208' }) === null) {
-            this.servers.insertOne(init_server());
+  public async start(): Promise<void> {
+    return new Promise((resolve) => {
+      this.db = new Loki(path.resolve(db_path, 'scanquest.db'), {
+        adapter: new LokiFSStructuredAdapter(),
+        autoload: true,
+        autosave: true,
+        throttledSaves: false,
+        autoloadCallback: () => {
+          const players = this.db.getCollection('players') as Collection<Player>;
+          if (players === null) {
+            this.players = this.db.addCollection('players');
           }
+          else {
+            this.players = players;
+          }
+
+          const usedcodes = this.db.getCollection('usedcodes') as Collection<UsedCode>;
+          if (usedcodes === null) {
+            this.usedcodes = this.db.addCollection('usedcodes');
+          }
+          else {
+            this.usedcodes = usedcodes;
+          }
+
+          const serverCollection = this.db.getCollection('servers') as Collection<Server>;
+          if (serverCollection === null) {
+            this.servers = this.db.addCollection('servers');
+            this.servers.insertOne(new Server(config));
+          }
+          else {
+            this.servers = serverCollection;
+            if (this.servers.findOne({ id: config.id }) === null) {
+              this.servers.insertOne(new Server(config));
+            }
+          }
+          return resolve();
         }
-      }
-    });
+      });
+    })
   }
 
   public async close(): Promise<void> {
@@ -146,41 +160,13 @@ class ScanQuestDB {
     return player;
   }
 
-  public generateCode(): Code {
-    // 0-9 A-F
-    // 48-57 65-70
-    let code = '';
-    do {
-      code = '';
-      let digit = 0;
-      while (digit < 12) {
-        const rl = Math.floor(Math.random() * (126 - 45 + 1)) + 45;
-        if (
-          (rl >= 48 && rl <= 57) || (rl >= 65 && rl <= 70)
-        ) {
-          code += String.fromCharCode(rl);
-          digit++;
-        }
-      }
-    } while (this.usedcodes.find({ code: { $eq: code } }).length > 0);
-
-    this.usedcodes.insertOne({ code });
-
-    return code;
+  public generateCode() {
+    return generateCode(this);
   }
-}
 
-// Special setup cases
-const init_server = (): Server => {
-  const config = {
-    send_channel: servers('main').channel('perim'),
-    receive_channel: servers('main').channel('bot_commands'),
-    test_channel: servers('develop').channel('bot_commands')
+  public perim(id: Snowflake, args: string[]) {
+    return perim(this, id, args);
   }
-  const id = servers('main').id;
-  const send_channel = (process.env.NODE_ENV !== 'development') ? config.send_channel : config.test_channel;
-  const receive_channel = (process.env.NODE_ENV !== 'development') ? config.receive_channel : config.test_channel;
-  return new Server({ id, send_channel, receive_channel });
 }
 
 export default ScanQuestDB;
