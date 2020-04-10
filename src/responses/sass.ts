@@ -4,6 +4,7 @@ import { is_channel, rndrsp, escape_text } from '../common';
 import servers from '../common/servers';
 import users from '../common/users';
 
+import { compliment } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './game/bans';
@@ -93,6 +94,9 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
   if (mentions.indexOf(users('me')) !== -1) {
     if (message.author.id === users('brat')) {
       return 'Stop bothering me';
+    }
+    else if (message.author.id === users('bf')) {
+      return compliment(message.guild, [], `${users('bf')}`);
     }
     else if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';

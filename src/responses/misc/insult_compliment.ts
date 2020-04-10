@@ -17,8 +17,6 @@ export function insult(guild: Guild, mentions: string[], name: string): string {
 }
 
 function flirt_dirt(command: 'compliment' | 'insult', guild: Guild, mentions: string[], name: string): string {
-  name = name.replace('@', '');
-
   // Function to replace the mention with the display name
   const insertname = (resp: string) => {
     if (guild && mentions.length > 0) {

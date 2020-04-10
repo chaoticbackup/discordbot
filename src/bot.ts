@@ -80,7 +80,6 @@ bot.on('ready', () => {
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
-  console.log(CloseEvent);
   stop();
   logger.warn(`Reconnecting, ${CloseEvent.code}`);
   bot.login(auth.token).then(() => { sendError() });
@@ -91,7 +90,6 @@ const sendError = async () => {
   if (stackTrace) {
     const st = stackTrace;
     stackTrace = '';
-    logger.error(st);
     if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
@@ -151,7 +149,6 @@ const checkSpam = async (msg: Discord.Message) => {
 }
 
 process.on('unhandledRejection', (err) => {
-  console.log(err);
   // @ts-ignore
   stackTrace = err?.stack ?? err;
   // Status.READY
