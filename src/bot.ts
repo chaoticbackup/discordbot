@@ -75,6 +75,7 @@ const stop = async () => {
 
 bot.on('ready', () => {
   start();
+  logger.info(`Logged in as: ${bot.user}`);
   bot.user.setActivity('!commands');
 });
 
@@ -152,17 +153,20 @@ process.on('unhandledRejection', (err) => {
   // @ts-ignore
   stackTrace = err?.stack ?? err;
   // Status.READY
-  if (bot.status === 0) sendError().then(bot.destroy);
+  if (bot.status === 0) sendError();
   else bot.destroy();
 });
 
 /* LOGIN */
 let timer: NodeJS.Timeout;
 bot.login(auth.token).then(() => {
-  logger.info(`Logged in as: ${bot.user}`);
+  // this will restart the bot if its down
   timer = setInterval(() => {
-    if (bot.status > 1) bot.destroy();
-  }, 30 * 1000);
+    if (bot.status > 1) {
+      logger.warn('bot is down, restarting...');
+      bot.destroy();
+    }
+  }, 120 * 1000);
 });
 // bot.login(auth.token).then(() => {throw new Error()});
 

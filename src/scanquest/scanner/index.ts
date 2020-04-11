@@ -31,15 +31,15 @@ export default class Scanner {
     let selected: ActiveScan | undefined;
     if (args === '') {
       while (true) {
+        if (server.activescans.length === 0) {
+          return 'There is no scannable card';
+        }
         selected = server.activescans[server.activescans.length - 1];
         if (selected === undefined || new Date(selected.expires) < now) {
           server.activescans.pop();
           this.db.servers.update(server);
         }
         else break;
-      }
-      if (server.activescans.length === 0) {
-        return 'There is no scannable card';
       }
     }
     else {
