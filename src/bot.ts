@@ -157,10 +157,22 @@ process.on('unhandledRejection', (err) => {
 });
 
 /* LOGIN */
+let timer: NodeJS.Timeout;
 bot.login(auth.token).then(() => {
   logger.info(`Logged in as: ${bot.user}`);
+  timer = setInterval(() => {
+    if (bot.status > 1) bot.destroy();
+  }, 30 * 1000);
 });
 // bot.login(auth.token).then(() => {throw new Error()});
+
+const handle: NodeJS.SignalsListener = (_event) => {
+  stop().then(() => {
+    process.exit(); // process exits after db closes
+  });
+}
+process.on('SIGINT', handle);
+process.on('SIGTERM', handle);
 
 if (process.platform === 'win32') {
   var rl = require('readline').createInterface({
@@ -174,10 +186,6 @@ if (process.platform === 'win32') {
   });
 }
 
-const handle: NodeJS.SignalsListener = (_event) => {
-  stop().then(() => {
-    process.exit(); // process exits after db closes
-  });
-}
-
-process.on('SIGINT', handle);
+process.on('exit', () => {
+  clearInterval(timer);
+});
