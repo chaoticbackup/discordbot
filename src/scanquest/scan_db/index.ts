@@ -10,8 +10,15 @@ import generateCode from './generateCode';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Player {
-  public id: string;
+  public id: Snowflake;
   public scans: Scanned[];
+  public coins: number;
+
+  constructor(id: Snowflake) {
+    this.id = id;
+    this.scans = [];
+    this.coins = 0;
+  }
 }
 
 interface activescan { scan: Scanned, expires: Date }
@@ -28,7 +35,7 @@ export class ActiveScan {
   }
 }
 
-interface server {id: string, send_channel: string, receive_channel: string}
+interface server {id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake}
 
 export class Server {
   public id: Snowflake;
@@ -127,13 +134,7 @@ class ScanQuestDB {
   public async save(player: Player, card: Scanned): Promise<void>;
   public async save(member_id: Snowflake, card: Scanned): Promise<void>;
   public async save(arg1: Player | Snowflake, card: Scanned): Promise<void> {
-    let player: Player;
-    if (typeof arg1 === 'string') {
-      player = this.findOnePlayer({ id: arg1 });
-    }
-    else {
-      player = arg1;
-    }
+    const player: Player = (typeof arg1 === 'string') ? this.findOnePlayer({ id: arg1 }) : arg1;
 
     player.scans.push(card);
     this.players.update(player);
@@ -155,7 +156,7 @@ class ScanQuestDB {
   public findOnePlayer = ({ id: player_id }: {id: Snowflake}) => {
     const player = this.players.findOne({ id: player_id });
     if (player === null) {
-      return this.players.insertOne({ id: player_id, scans: [] }) as Player & LokiObj;
+      return this.players.insertOne(new Player(player_id)) as Player & LokiObj;
     }
     return player;
   }

@@ -21,9 +21,9 @@ interface Amount {
 }
 
 const config = {
-  tick: 3 * 1000, // 3 seconds
-  debounce: 2 * 60 * 1000, // 2 minutes
-  next: 10 * 60 * 60 * 1000 // 12 hours
+  tick: 3 * 1000, // seconds
+  debounce: 2 * 60 * 1000, // minutes
+  next: 10 * 60 * 60 * 1000 // hours
 }
 
 export default class Spawner {
@@ -98,7 +98,7 @@ export default class Spawner {
     if (words < 3 || content.length < 20) return;
 
     // reduces timer by config seconds per character in messaage
-    const reduce = (content.length - 10) * config.tick;
+    const reduce = (content.length - 5) * config.tick;
 
     if (this.debouncer.has(id)) {
       const { amount } = this.debouncer.get(id) as Amount;

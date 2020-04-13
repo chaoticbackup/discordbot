@@ -111,8 +111,9 @@ export default class ScanQuest {
             const type = args[1];
             const content = args.splice(1).join(' ');
             const info = content.substr(content.indexOf(' ') + 1);
-
-            return this.db.save(id, (loadScan({ type, info }))!.card);
+            const scan = loadScan({ type, info });
+            if (scan) return this.db.save(id, scan.card);
+            return send('Invalid format');
           }
           return;
         case 'spawn':
