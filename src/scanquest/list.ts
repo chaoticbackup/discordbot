@@ -9,7 +9,10 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
   if (
     !(
       message.channel instanceof DMChannel ||
-      (message.guild && db.is_receive_channel(message.guild.id, message.channel.id))
+      (message.guild && (
+        db.is_receive_channel(message.guild.id, message.channel.id) ||
+        message.member.hasPermission('ADMINISTRATOR'))
+      )
     )
   ) return Promise.resolve();
 
