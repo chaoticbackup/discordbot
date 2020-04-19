@@ -5,7 +5,7 @@ import path from 'path';
 import { escape_text, asyncForEach } from "../common";
 import db_path from './db_path';
 
-const fetch =  require('node-fetch');
+const fetch = require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 const db_folder = path.resolve(db_path, "cards");
@@ -73,21 +73,21 @@ class API {
 
   async getSpreadsheet(spreadsheet, callback) {
     fetch(spreadsheet)
-    .then((response) => {
-      return response.json();
-    })
-    .catch(() => {
-      console.error("Falling back on local database");
-      this.data = "local";
-      callback(null);
-    })
-    .then((json) => {
-      callback(json.feed.entry);
-    })
-    .catch((err) => {
-      console.error('parsing failed', err);
-      callback(null);
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .catch(() => {
+        console.error("Falling back on local database");
+        this.data = "local";
+        callback(null);
+      })
+      .then((json) => {
+        callback(json.feed.entry);
+      })
+      .catch((err) => {
+        console.error('parsing failed', err);
+        callback(null);
+      });
   }
 
   async databaseInitialize() {
@@ -119,7 +119,7 @@ class API {
   async mergeDB(type) {
     // Combines into single DB
     let temp = this[type].chain().data();
-    temp.forEach(function(v){ delete v.$loki });
+    temp.forEach(function (v) { delete v.$loki });
     this.filter.insert(temp);
   }
 
@@ -145,10 +145,12 @@ class API {
       return ", " + p1;
     });
 
-    return this.filter.chain().find({ '$or': [
-      { 'gsx$name': { '$regex': new RegExp(text, 'i') }},
-      { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${text}`, 'gi') }}
-    ]}).simplesort('gsx$name').data();
+    return this.filter.chain().find({
+      '$or': [
+        { 'gsx$name': { '$regex': new RegExp(text, 'i') }},
+        { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${text}`, 'gi') }}
+      ]
+    }).simplesort('gsx$name').data();
   }
 
   /**
@@ -171,14 +173,26 @@ class API {
     }
 
     // Search by name
-    return this.filter.chain().find({ '$and': [
-      { '$or': [
-        { 'gsx$name': { '$regex': new RegExp("^"+name, 'i') }},
-        { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${name}`, 'gi') }}
-      ]},
-      { '$and': filters }
-    ]}).simplesort('gsx$name').data();
+    return this.filter.chain().find({
+      '$and': [
+        {
+          '$or': [
+            { 'gsx$name': { '$regex': new RegExp("^" + name, 'i') }},
+            { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${name}`, 'gi') }}
+          ]
+        },
+        { '$and': filters }
+      ]
+    }).simplesort('gsx$name').data();
   }
 
+  /* Wrapper for imgur images */
+  cardImage(card) {
+    if (!card.gsx$ic || card.gsx$ic === '') {
+      return this.base_image + card.gsx$image;
+    } else {
+      return card.gsx$ic;
+    }
+  }
 }
 export default API.getInstance();
