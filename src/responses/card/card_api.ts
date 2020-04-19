@@ -37,23 +37,22 @@ function Response(card: Card, options: string[], bot: Client) {
       if (options.includes('detailed') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
-
       return new RichEmbed()
-      .setTitle(card.gsx$name)
-      .setColor(color(card))
-      .setDescription(card.gsx$ability || 'No data available')
-      .setURL(API.base_image + card.gsx$splash)
-      .setImage(API.base_image + card.gsx$splash);
+        .setTitle(card.gsx$name)
+        .setColor(color(card))
+        .setDescription(card.gsx$ability || 'No data available')
+        .setURL(API.base_image + card.gsx$splash)
+        .setImage(API.base_image + card.gsx$splash);
     }
   }
 
   // Image only
   if (options.includes('image')) {
     return new RichEmbed()
-    .setTitle(card.gsx$name)
-    .setColor(color(card))
-    .setURL(API.base_image + card.gsx$image)
-    .setImage(API.base_image + card.gsx$image);
+      .setTitle(card.gsx$name)
+      .setColor(color(card))
+      .setURL(API.cardImage(card))
+      .setImage(API.cardImage(card));
   }
 
   // Read ability only
@@ -71,10 +70,10 @@ function Response(card: Card, options: string[], bot: Client) {
   if (options.includes('stats')) {
     if (card.gsx$type === 'Creatures') {
       return new RichEmbed()
-      .setTitle(card.gsx$name)
-      .setColor(color(card))
-      .setDescription(Stats({ icons, card, options, textOnly: false }))
-      .setURL(API.base_image + card.gsx$image);
+        .setTitle(card.gsx$name)
+        .setColor(color(card))
+        .setDescription(Stats({ icons, card, options, textOnly: false }))
+        .setURL(API.cardImage(card));
     }
     else return 'Only Creatures have stats';
   }
@@ -121,14 +120,14 @@ function Response(card: Card, options: string[], bot: Client) {
 
   /* Card Embed */
   const CardMsg = new RichEmbed()
-  .setTitle(card.gsx$name)
-  .setURL(API.base_image + card.gsx$image)
-  .setColor(color(card))
-  .setDescription(body);
+    .setTitle(card.gsx$name)
+    .setURL(API.cardImage(card))
+    .setColor(color(card))
+    .setDescription(body);
 
   if (!textOnly) {
     CardMsg
-    .setImage(API.base_image + card.gsx$image);
+      .setImage(API.cardImage(card));
   }
 
   return CardMsg;
@@ -161,7 +160,7 @@ const Stats = (props: props) => {
   if ((card as Creature).gsx$energy > 0) {
     let modstat = 0;
     if ((options.indexOf('max') > -1 || options.indexOf('thicc') > -1)
-     && !(options.indexOf('min') > -1)) {
+      && !(options.indexOf('min') > -1)) {
       modstat = 10;
     }
     if (options.indexOf('min') > -1 && !(options.indexOf('max') > -1)) {
@@ -321,15 +320,15 @@ export const Initiative = (props: props) => {
   const { elements, disciplines, tribes } = props.icons;
 
   const init = card.gsx$initiative
-  .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
-    return `${elements(p1)}${match}`;
-  })
-  .replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
-    return `${disciplines(p1)}${match}`;
-  })
-  .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
-    return `${tribes(p1)}${match}`;
-  });
+    .replace(/(\b((fire)|(air)|(earth)|(water))\b)/gi, (match, p1) => {
+      return `${elements(p1)}${match}`;
+    })
+    .replace(/(\b((courage)|(power)|(wisdom)|(speed))\b)/gi, (match, p1) => {
+      return `${disciplines(p1)}${match}`;
+    })
+    .replace(/(\b((overworld)|(underworld)|(danian)|(mipedian)|(m'arrillian))\b)/gi, (match, p1) => {
+      return `${tribes(p1)}${match}`;
+    });
 
   return addNewLine(init, true);
 }
