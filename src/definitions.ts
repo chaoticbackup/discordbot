@@ -24,6 +24,8 @@ export interface BaseCard {
   gsx$loyal: number | string
   gsx$alt?: string
   gsx$alt2?: string
+  gsx$ic?: string
+  gsx$avatar?: string
 }
 
 export interface Attack extends BaseCard {
