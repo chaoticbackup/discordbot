@@ -54,7 +54,7 @@ function Response(card: Card, options: string[], bot: Client) {
     .setURL(API.base_image + card.gsx$image)
     .setImage(API.base_image + card.gsx$image);
   }
-  else {
+  else if (options.includes('image' && card.gsx$ic != '') {
     return new RichEmbed()
     .setTitle(card.gsx$name)
     .setColor(color(card))
@@ -136,7 +136,7 @@ function Response(card: Card, options: string[], bot: Client) {
     CardMsg
     .setImage(API.base_image + card.gsx$image);
   }
-  else {
+  else if (!textOnly && card.gsx$ic != ''){
     CardMsg
     .setImage(card.gsx$ic)
   }
