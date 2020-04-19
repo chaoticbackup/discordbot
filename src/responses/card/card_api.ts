@@ -37,23 +37,29 @@ function Response(card: Card, options: string[], bot: Client) {
       if (options.includes('detailed') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
-
-      return new RichEmbed()
-      .setTitle(card.gsx$name)
-      .setColor(color(card))
-      .setDescription(card.gsx$ability || 'No data available')
-      .setURL(API.base_image + card.gsx$splash)
-      .setImage(API.base_image + card.gsx$splash);
+        return new RichEmbed()
+        .setTitle(card.gsx$name)
+        .setColor(color(card))
+        .setDescription(card.gsx$ability || 'No data available')
+        .setURL(API.base_image + card.gsx$splash)
+        .setImage(API.base_image + card.gsx$splash);
     }
   }
 
   // Image only
-  if (options.includes('image')) {
+  if (options.includes('image') && card.gsx$ic === '') {
     return new RichEmbed()
     .setTitle(card.gsx$name)
     .setColor(color(card))
     .setURL(API.base_image + card.gsx$image)
     .setImage(API.base_image + card.gsx$image);
+  }
+  else {
+    return new RichEmbed()
+    .setTitle(card.gsx$name)
+    .setColor(color(card))
+    .setURL(card.gsx$ic)
+    .setImage(card.gsx$ic);
   }
 
   // Read ability only
@@ -126,9 +132,13 @@ function Response(card: Card, options: string[], bot: Client) {
   .setColor(color(card))
   .setDescription(body);
 
-  if (!textOnly) {
+  if (!textOnly && card.gsx$ic === '') {
     CardMsg
     .setImage(API.base_image + card.gsx$image);
+  }
+  else {
+    CardMsg
+    .setImage(card.gsx$ic)
   }
 
   return CardMsg;
