@@ -22,5 +22,13 @@
         "Danian": "http://chaoticbackup.forumotion.com/t1551-intro-to-danian-compost",
         "M'arrillian": "http://chaoticbackup.forumotion.com/t1552-intro-to-m-arrillian",
         "Mixed (Ursis)": "http://chaoticbackup.forumotion.com/t1556-intro-to-mixed-ursis"
+    },
+    "ivan": {
+        "OverWorld": "https://chaoticbackup.forumotion.com/t1645-starter-deck-force-of-nature",
+        "UnderWorld": "https://chaoticbackup.forumotion.com/t1646-starter-deck-princess-of-fear-valley",
+        "Mipedian": "https://chaoticbackup.forumotion.com/t1647-starter-deck-champions-of-mipedim",
+        "Danian": "https://chaoticbackup.forumotion.com/t1648-starter-deck-lord-of-infection",
+        "M'arrillian": "https://chaoticbackup.forumotion.com/t1649-starter-deck-under-the-eternal-cold",
+        "Mixed (Ursis)": "https://chaoticbackup.forumotion.com/t1650-starter-deck-awakening-of-ursis"
     }
 }

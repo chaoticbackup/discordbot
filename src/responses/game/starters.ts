@@ -1,10 +1,12 @@
-const starters = require('../config/starters.json');
+const starters = require('../config/starters.json') as Record<string, Record<string, string>>;
 
 export default function (options: string[]): string {
   if (options.includes('metal'))
-  { return display_starter('metal'); }
+    return display_starter('metal');
   else if (options.includes('king'))
-  { return display_starter('king'); }
+    return display_starter('king');
+  else if (options.includes('ivan'))
+    return display_starter('ivan');
   return display_starter('metal');
 }
 
