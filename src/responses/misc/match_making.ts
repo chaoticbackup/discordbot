@@ -22,7 +22,9 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
   const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
   if (role) {
     member.addRole(role).catch(() => {});
-    if (role.mentionable) type = `<@&${role.id}>`;
+    if (role.mentionable) {
+      return `You are looking for a <@&${role.id}>`;
+    }
     return `You are looking for a ${type} match`;
   }
 }
