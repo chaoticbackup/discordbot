@@ -21,7 +21,7 @@ export const tribe = async (
   }
 
   if (param === 'leave') {
-    return leaveTribe(guild, member)
+    return await leaveTribe(guild, member)
     .then(msg => msg);
   }
 
@@ -30,7 +30,7 @@ export const tribe = async (
   }
 
   if (param === 'join') {
-    return joinTribe(guild, member, args[1]);
+    return await joinTribe(guild, member, args[1]);
   }
 
   return '!tribe <join|leave> <tribeName>';
@@ -102,7 +102,7 @@ const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> =>
     const t = tribes[i];
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
-      return member.removeRole(gr)
+      return await member.removeRole(gr)
       .then(() => `You have left the ${t} tribe`)
       .catch(() => '');
     }

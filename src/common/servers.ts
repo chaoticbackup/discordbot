@@ -42,7 +42,7 @@ const servers: Server[] = [
       perim: '656156361029320704'
     }
   }),
-  new Server ({
+  new Server({
     name: 'develop',
     id: '504052742201933824',
     channels: {
@@ -51,7 +51,7 @@ const servers: Server[] = [
       bot_commands: '559935570428559386'
     }
   }),
-  new Server ({
+  new Server({
     name: 'trading',
     id: '617128322593456128',
     channels: {}

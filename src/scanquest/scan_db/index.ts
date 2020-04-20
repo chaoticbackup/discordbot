@@ -75,7 +75,7 @@ class ScanQuestDB {
   public usedcodes: Collection<UsedCode>;
 
   public async start(): Promise<void> {
-    return new Promise((resolve) => {
+    return await new Promise((resolve) => {
       this.db = new Loki(path.resolve(db_path, 'scanquest.db'), {
         adapter: new LokiFSStructuredAdapter(),
         autoload: true,
@@ -116,7 +116,7 @@ class ScanQuestDB {
   }
 
   public async close(): Promise<void> {
-    return new Promise((resolve) => {
+    return await new Promise((resolve) => {
       this.db.saveDatabase((err) => {
         if (err) {
           console.error(`save error : ${err}`);
@@ -138,7 +138,7 @@ class ScanQuestDB {
 
     player.scans.push(card);
     this.players.update(player);
-    return Promise.resolve();
+    return await Promise.resolve();
   }
 
   public is_send_channel = (server_id: Snowflake, channel_id: Snowflake): boolean => {

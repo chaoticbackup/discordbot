@@ -14,7 +14,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
         message.member.hasPermission('ADMINISTRATOR'))
       )
     )
-  ) return Promise.resolve();
+  ) return;
 
   const ids = [message.author.id];
   let player;
@@ -25,7 +25,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     ids.push(user[1]);
     const p = db.players.findOne({ id: ids[1] });
     if (p) player = p;
-    else return Promise.resolve();
+    else return;
   } else {
     player = db.findOnePlayer({ id: ids[0] });
   }
@@ -49,5 +49,5 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
   .setArray(resp)
   .formatField('Scans', el => el);
 
-  return Pagination.build();
+  return await Pagination.build();
 }

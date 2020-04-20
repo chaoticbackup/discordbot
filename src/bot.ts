@@ -94,7 +94,7 @@ const sendError = async () => {
     if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
-        return (channel as Channel).send(st).catch(logger.error);
+        return await (channel as Channel).send(st).catch(logger.error);
       }
     }
   }
@@ -129,20 +129,21 @@ bot.on('guildMemberAdd', (member) => {
 });
 
 const checkSpam = async (msg: Discord.Message) => {
-  if (!msg.guild) return Promise.resolve();
+  if (!msg.guild) return;
   const index = newMembers.indexOf(msg.author.id);
-  if (index < 0) return Promise.resolve();
+  if (index < 0) return;
 
   // eslint-disable-next-line
   const regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
 
   if (regex.test(msg.content)) {
     if (msg.member.bannable) {
-      msg.member.ban().then(() => {
-        // @ts-ignore
-        bot.channels.get(servers('main').channel('staff')).send(`Banned Spam: ${member.displayName}\nContent: ${msg.content}`);
-        if (msg.deletable) msg.delete();
-      });
+      await msg.member.ban()
+      .then(async () => {
+        const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
+        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`)
+      })
+      .then(() => { if (msg.deletable) msg.delete(); });
     }
   }
 

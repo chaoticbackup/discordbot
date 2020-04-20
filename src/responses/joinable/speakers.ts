@@ -45,12 +45,12 @@ export default async (user: GuildMember, guild: Guild, args: string[]) => {
       return memberList(language);
     }
     case 'join': {
-      return user.addRole(role).then(() => {
+      return await user.addRole(role).then(() => {
         return `You joined ${languageProper(language)} speakers`;
       });
     }
     case 'leave': {
-      return user.removeRole(role).then(() => {
+      return await user.removeRole(role).then(() => {
         return `${user.displayName} left ${languageProper(language)} speakers`;
       });
     }

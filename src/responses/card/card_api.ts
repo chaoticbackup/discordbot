@@ -140,7 +140,7 @@ const addNewLine = (entry: string, isText: boolean) => {
   return entry;
 }
 
-const Disciplines = (modstat = 0, props: props) => {
+const Disciplines = (props: props, modstat = 0) => {
   const card = props.card as Creature;
   const { disciplines } = props.icons;
 
@@ -159,15 +159,15 @@ const Stats = (props: props) => {
   let resp = '';
   if ((card as Creature).gsx$energy > 0) {
     let modstat = 0;
-    if ((options.indexOf('max') > -1 || options.indexOf('thicc') > -1)
-      && !(options.indexOf('min') > -1)) {
+    if ((options.includes('max') || options.includes('thicc'))
+      && !(options.includes('min'))) {
       modstat = 10;
     }
-    if (options.indexOf('min') > -1 && !(options.indexOf('max') > -1)) {
+    if (options.includes('min') && !(options.includes('max'))) {
       modstat = -10;
     }
     if (card.gsx$name === "Aa'une the Oligarch, Avatar") modstat = 0;
-    resp += Disciplines(modstat, props);
+    resp += Disciplines(props, modstat);
   }
 
   return addNewLine(resp, textOnly);

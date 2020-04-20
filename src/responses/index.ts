@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
 import { Logger } from 'winston';
@@ -287,7 +288,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Whyban */
     case 'ban':
       if (mentions.length > 0) {
-        if (mentions.indexOf('279331985955094529') !== -1)
+        if (mentions.includes('279331985955094529'))
           return send("You try to ban me? I'll ban you!");
         return send("I'm not in charge of banning players");
       } // fallthrough

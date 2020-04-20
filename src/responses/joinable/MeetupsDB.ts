@@ -40,31 +40,31 @@ class MeetupsAPI {
 
   addRegion = async (regionName: string) => {
     const region = this.regions.findOne({ name: regionName });
-    if (region) return Promise.reject(new Error(`Region "${region}" already exists`));
+    if (region) return await Promise.reject(new Error(`Region "${region.name}" already exists`));
     this.regions.insert({ name: regionName, members: [] });
-    return Promise.resolve(regionName);
-  }
+    return await Promise.resolve(regionName);
+  };
 
   getRegion = async (regionName: string): Promise<Region> => {
     const region = this.regions.findOne({ name: regionName });
-    if (!region) return Promise.reject((`Region "${regionName}" does not exist`));
-    return Promise.resolve(region);
+    if (!region) return await Promise.reject((`Region "${regionName}" does not exist`));
+    return await Promise.resolve(region);
   }
 
   removeRegion = async (region: Region) => {
     this.regions.remove(region);
-    return Promise.resolve(region);
+    return await Promise.resolve(region);
   }
 
   getRegionList = async (): Promise<Region[]> => {
-    return Promise.resolve(this.regions.chain().simplesort('name').data());
+    return await Promise.resolve(this.regions.chain().simplesort('name').data());
   }
 
   renameRegion = async (region: Region, newName: string) => {
     this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
       rg.name = newName;
     });
-    return Promise.resolve();
+    return await Promise.resolve();
   }
 
   convertGuildMember = (member: GuildMember): Member => {
@@ -77,13 +77,13 @@ class MeetupsAPI {
 
   findMemberRegionIndex = async (member: GuildMember, region: Region): Promise<number> => {
     const members: Member[] = this.getMembersInRegion(region);
-    return Promise.resolve(members.findIndex((mb) => mb.id === member.id));
+    return await Promise.resolve(members.findIndex((mb) => mb.id === member.id));
   }
 
   addMemberToRegion = async (member: GuildMember, region: Region) => {
     const i = await this.findMemberRegionIndex(member, region);
     if (i >= 0) {
-      return Promise.reject(new Error(`${member.displayName} is already in ${region.name}`));
+      return await Promise.reject(new Error(`${member.displayName} is already in ${region.name}`));
     }
 
     this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
@@ -96,13 +96,13 @@ class MeetupsAPI {
     this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
       rg.members.splice(i, 1);
     });
-    return Promise.resolve();
+    return await Promise.resolve();
   }
 
   removeMemberFromRegion = async (member: GuildMember, region: Region) => {
     const i = await this.findMemberRegionIndex(member, region);
     if (i < 0) {
-      return Promise.reject(new Error(`${member.displayName} is not a member of ${region.name}`));
+      return await Promise.reject(new Error(`${member.displayName} is not a member of ${region.name}`));
     }
     await this.removeMemberFromRegionByIndex(i, region);
     return member;

@@ -15,7 +15,7 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
   if (!canMatch(guild, channel)) return;
 
   if (!type) type = 'untap';
-  else if (types.indexOf(type) === -1) {
+  else if (!types.includes(type)) {
     type = 'untap';
   }
 

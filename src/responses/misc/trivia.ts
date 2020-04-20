@@ -25,7 +25,7 @@ export async function whistle(member: GuildMember): Promise<string> {
       });
       responses = [];
       if (message.length === 0) message = 'No one has answered the question';
-      return triviaMaster.send(message)
+      return await triviaMaster.send(message)
       .then(() => {
         return 'Question time is over, messages have been sent to the Trivia Master';
       })
@@ -34,7 +34,7 @@ export async function whistle(member: GuildMember): Promise<string> {
       });
     }
   }
-  return Promise.resolve("You're not the host");
+  return "You're not the host";
 }
 
 // sets a guildmember as the trivia master

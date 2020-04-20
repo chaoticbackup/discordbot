@@ -61,7 +61,7 @@ export default class ScanQuest {
   async stop() {
     clearTimeout(this.timeout);
     this.spawner.stop();
-    return this.db.close();
+    return await this.db.close();
   }
 
   async monitor(message: Message): Promise<void> {
@@ -70,7 +70,7 @@ export default class ScanQuest {
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
       if (msg) {
-        return message.channel.send(msg, options)
+        return await message.channel.send(msg, options)
           .catch(error => this.logger.error(error.stack));
       }
     }
@@ -78,11 +78,11 @@ export default class ScanQuest {
     const content = message.content;
 
     if (!API.data) {
-      if (content.charAt(0) === '!') return send('Scanner has not started');
+      if (content.charAt(0) === '!') await send('Scanner has not started');
       return;
     }
     else if (API.data === 'local') {
-      if (content.charAt(0) === '!') return send('Error with bot database');
+      if (content.charAt(0) === '!') await send('Error with bot database');
       return;
     }
 
@@ -94,12 +94,12 @@ export default class ScanQuest {
       switch (cmd) {
         case 'scan':
           if (message.guild) {
-            return send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
+            await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
           }
           return;
         case 'list':
         case 'scans':
-          return listScans(this.db, message, options);
+          return await listScans(this.db, message, options);
         case 'reroll':
           if (message.author.id === users('daddy') && message.guild) {
             this.spawner.reroll(message);
@@ -112,14 +112,14 @@ export default class ScanQuest {
             const content = args.splice(1).join(' ');
             const info = content.substr(content.indexOf(' ') + 1);
             const scan = loadScan({ type, info });
-            if (scan) return this.db.save(id, scan.card);
-            return send('Invalid format');
+            if (scan) return await this.db.save(id, scan.card);
+            return await send('Invalid format');
           }
           return;
         case 'spawn':
         case 'perim':
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
-            return send(this.db.perim(message.guild.id, args));
+            return await send(this.db.perim(message.guild.id, args));
           }
       }
     }

@@ -11,7 +11,7 @@ export function compliment(guild: Guild, mentions: string[], name: string): stri
 }
 
 export function insult(guild: Guild, mentions: string[], name: string): string {
-  if (mentions.indexOf('279331985955094529') !== -1)
+  if (mentions.includes('279331985955094529'))
   { return ('<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>'); }
   return flirt_dirt('insult', guild, mentions, name);
 }

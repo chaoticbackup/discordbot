@@ -34,7 +34,7 @@ let timeout;
 let run_watcher;
 
 /* Start bot */
-const bot_path = path.resolve(__dirname, "build/bot.js");
+const bot_path = "node " + path.resolve(__dirname, "build/bot.js");
 const bot_options = { stdio: 'inherit', shell: true };
 
 const start = () => {

@@ -12,7 +12,7 @@ import { whyban } from './game/bans';
 const { sass, tags } = require('./config/sass.json');
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
-  if (mentions.length > 0) return send(checkMentions(message, mentions));
+  if (mentions.length > 0) return await send(checkMentions(message, mentions));
 
   if (message.content.substring(0, 2) === '``') return;
 
@@ -22,7 +22,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|new|update).*chaotic.*))\?/, 'i');
   if (content.match(back_regex)) {
     const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcment and ping everyone when they do.";
-    return send(response).then((message: Message) => {
+    return await send(response).then((message: Message) => {
       message.react('586395473716445184').catch((err) => { console.log(err) });
     });
   }
@@ -30,7 +30,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // #ban
   if (content.substring(0, 4).toLowerCase() === '#ban') {
     const name = (content.charAt(5) === ' ') ? content.substring(6) : content.substring(5);
-    return send(whyban(name));
+    return await send(whyban(name));
   }
 
   // [[cardname]]
@@ -55,22 +55,22 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (is_channel(message, 'general_chat_1')) {
     if (content.match(/want[s]?\s?(to)?\s?battle[^a-z\s]*/i)) {
-      return send(`Have you tried asking in <#${servers('main').channel('match_making')}>?`)
+      return await send(`Have you tried asking in <#${servers('main').channel('match_making')}>?`)
     }
   }
 
   if (content.match(/indefinitely.*?\?/)) {
-    return send('Abilities last until the end of turn unless otherwise printed on the card.');
+    return await send('Abilities last until the end of turn unless otherwise printed on the card.');
   }
 
   if (content.match(/(end of combat|combat end|end of turn).*?\?/i)) {
     if (content.match(/(fire|water|earth|air|element)/i)) {
-      return send('Creatures will regain their Scanned elements at the end of the turn');
+      return await send('Creatures will regain their Scanned elements at the end of the turn');
     }
     if (content.match(/(stats|disciplines|energy)/i)) {
-      return send("Creature's disciplines and energy are reset to their Scanned values at the end of the turn. Any innate modifiers are reapplied.");
+      return await send("Creature's disciplines and energy are reset to their Scanned values at the end of the turn. Any innate modifiers are reapplied.");
     }
-    return send('Abilities last until the end of turn unless otherwise printed on the card.');
+    return await send('Abilities last until the end of turn unless otherwise printed on the card.');
   }
 
   if (content.match(/(stack\?|cumulative.*?\?)/i)) {
@@ -78,17 +78,17 @@ export default async function (bot: Client, message: Message, mentions: string[]
     if (myreg.test(content)) {
       const match = myreg.exec(content);
       // @ts-ignore
-      return send(`Yes, ${match[0]} stacks.`);
+      return await send(`Yes, ${match[0]} stacks.`);
     }
     if (new RegExp('hive', 'i').test(content)) {
-      return send('Abilities granted by hive stack.');
+      return await send('Abilities granted by hive stack.');
     }
-    return send('Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift');
+    return await send('Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift');
   }
 
   for (const key in sass) {
     if (content.match(new RegExp(key, 'i'))) {
-      return send(rndrsp(sass[key]));
+      return await send(rndrsp(sass[key]));
     }
   }
 }
@@ -96,12 +96,12 @@ export default async function (bot: Client, message: Message, mentions: string[]
 function checkMentions(message: Message, mentions: string[]): string | undefined {
   const content = message.content;
 
-  if (mentions.indexOf(users('afjak')) !== -1) {
+  if (mentions.includes(users('afjak'))) {
     if (message.channel.id === servers('main').channel('ruling_questions')) return;
     return ('Don\'t @ the Oracle. He sees everything anyway');
   }
 
-  if (mentions.indexOf(users('me')) !== -1) {
+  if (mentions.includes(users('me'))) {
     if (message.author.id === users('brat')) {
       return 'Stop bothering me';
     }
