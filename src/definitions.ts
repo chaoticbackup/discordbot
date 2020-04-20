@@ -4,7 +4,7 @@ export interface Channel extends Discord.Channel {
   send(arg0: string | RichEmbed, arg1?: any): Promise<any>
 }
 
-export type SendFunction = (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment) => Promise<any>
+export type SendFunction = (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment) => Promise<any>;
 
 export type CardType = 'Attacks' | 'Battlegear' | 'Creatures' | 'Locations' | 'Mugic';
 

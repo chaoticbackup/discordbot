@@ -1,6 +1,5 @@
 {
 	"sass": {
-		".*(chaotic).*(com|be).*(back).*\\?": ["https://twitter.com/BCGannon32/status/1136027236002291712"],
 		"any day now\\?": ["any day **now**", "Let's Get Chaotic!"],
 		"\\*\\*\\*ANY\\*\\*\\* day now": ["I'm out of clever things to say", "So persistant", "This isn't even my final form"],
 		"rule 34": ["not on this server we don't"],

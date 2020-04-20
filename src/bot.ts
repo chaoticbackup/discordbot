@@ -168,27 +168,14 @@ bot.login(auth.token).then(() => {
     }
   }, 120 * 1000);
 });
-// bot.login(auth.token).then(() => {throw new Error()});
 
 const handle: NodeJS.SignalsListener = (_event) => {
   stop().then(() => {
-    process.exit(); // process exits after db closes
+    process.exit(0); // process exits after db closes
   });
 }
 process.on('SIGINT', handle);
 process.on('SIGTERM', handle);
-
-if (process.platform === 'win32') {
-  var rl = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  rl.on('SIGINT', function () {
-    // @ts-ignore
-    process.emit('SIGINT');
-  });
-}
 
 process.on('exit', () => {
   clearInterval(timer);

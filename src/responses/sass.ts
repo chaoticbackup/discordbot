@@ -18,6 +18,15 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   const content = escape_text(message.content);
 
+  // coming back
+  const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|new|update).*chaotic.*))\?/, 'i');
+  if (content.match(back_regex)) {
+    const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcment and ping everyone when they do.";
+    return send(response).then((message: Message) => {
+      message.react('586395473716445184').catch((err) => { console.log(err) });
+    });
+  }
+
   // #ban
   if (content.substring(0, 4).toLowerCase() === '#ban') {
     const name = (content.charAt(5) === ' ') ? content.substring(6) : content.substring(5);
@@ -77,9 +86,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
     return send('Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift');
   }
 
-  for (var key in sass) {
-    if (content.match(new RegExp(key, 'i')))
-    { return send(rndrsp(sass[key])); }
+  for (const key in sass) {
+    if (content.match(new RegExp(key, 'i'))) {
+      return send(rndrsp(sass[key]));
+    }
   }
 }
 

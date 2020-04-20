@@ -20,7 +20,6 @@ npm start
 
 ### Production Deployment
 
-
 Since the project uses Babel, the code gets preprocessed (The prod and forever commands build the project by default)
 ```bash
 npm run build

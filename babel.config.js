@@ -12,7 +12,6 @@ module.exports = function (api) {
     '@babel/preset-typescript'
   ];
   const plugins = [
-    // stage 3
     ["@babel/plugin-transform-runtime", { "regenerator": true, corejs: 3 }],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-syntax-dynamic-import",
@@ -27,10 +26,13 @@ module.exports = function (api) {
     "@babel/plugin-proposal-export-default-from"
   ];
 
-
+  
   return {
     presets,
     plugins,
+    ignore: [
+      "node_modules"
+    ],
     "comments": false
   };
 }

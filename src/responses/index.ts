@@ -54,7 +54,7 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
 
   // Prevents sending an empty message
   const send: SendFunction = async (msg, options) => {
-    if (msg) return message.channel.send(msg, options).catch(error => logger.error(error.stack));
+    if (msg) return message.channel.send(msg, options).catch(error => { logger.error(error.stack) });
   }
 
   const response = async (): Promise<void> => {
