@@ -5,7 +5,7 @@
   "author": "Danude Sandstorm",
   "scripts": {
     "run": "babel --delete-dir-on-start --watch src --copy-files --extensions \".js,.ts\" --out-dir build",
-    "start": "npm run run && NODE_ENV=development node build/bot.js",
+    "start": "NODE_ENV=development node build/bot.js",
     "start:scan": "APP_ENV=scan NODE_ENV=development node build/bot.js",
     "start:forum": "APP_ENV=forum NODE_ENV=development node build/bot.js",
     "prebuild": "if [ -f out.log ]; then mv out.log out.old.log; fi; if [ -d src/db ]; then rm -rf src/db; fi; yarn install",

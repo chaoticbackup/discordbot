@@ -1,22 +1,31 @@
-const starters = require('../config/starters.json') as Record<string, Record<string, string>>;
+import { Snowflake, RichEmbed, Message } from 'discord.js';
+import users from '../../common/users';
 
-export default function (options: string[]): string {
-  if (options.includes('metal'))
-    return display_starter('metal');
-  else if (options.includes('king'))
-    return display_starter('king');
+type Starter = Record<string, Record<string, {name: string, link: string}>>;
+
+const starters = require('../config/starters.json') as Starter;
+
+export default function (message: Message, options: string[]): RichEmbed {
+  const display_starter = (name: string, id: Snowflake) => {
+    const starter = starters[name];
+
+    let resp = '';
+    Object.keys(starter).forEach((tribe) => {
+      resp += `${icon(tribe)} ${tribe}: [${starter[tribe].name}](${starter[tribe].link})\n`;
+    });
+
+    const displayName: string | undefined = message.guild.members.get(id)?.displayName;
+
+    return new RichEmbed()
+      .setTitle(displayName ? `${displayName}'s Starters` : 'Starter Decks')
+      .setDescription(resp);
+  }
+
+  if (options.includes('king'))
+    return display_starter('king', users('daddy'));
   else if (options.includes('ivan'))
-    return display_starter('ivan');
-  return display_starter('metal');
-}
-
-function display_starter(name: string) {
-  const starter = starters[name];
-  let resp = '';
-  Object.keys(starter).forEach((tribe) => {
-    resp += `${icon(tribe)}${tribe}: <${starter[tribe]}>\n`;
-  });
-  return resp;
+    return display_starter('ivan', users('brat'));
+  return display_starter('metal', users('metal'));
 }
 
 function icon(tribe: string): string {

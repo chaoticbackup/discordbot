@@ -266,7 +266,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Starters */
     case 'starter':
     case 'starters':
-      return send(starters(options));
+      return send(starters(message, options));
 
     /* Banlist and Formats */
     case 'banlist':

@@ -9,26 +9,77 @@
         "M'arrillian": "http://www.tradecardsonline.com/im/showDeck/deck_id/517280"
     },
     "metal": {
-        "OverWorld": "http://chaoticbackup.forumotion.com/t1560-ow-starter_-beauty-in-order",
-        "UnderWorld": "http://chaoticbackup.forumotion.com/t1561-uw-starter_a-lesson-in-tyranny",
-        "Mipedian": "http://chaoticbackup.forumotion.com/t1557-mipedian-starter_-quicksilver",
-        "Danian": "http://chaoticbackup.forumotion.com/t1558-danian-starter_power-in-unity",
-        "M'arrillian": "http://chaoticbackup.forumotion.com/t1559-marr-starter_-fear-the-deep"
+        "OverWorld": {
+            "name": "Beauty in Order",
+            "link": "http://chaoticbackup.forumotion.com/t1560-ow-starter_-beauty-in-order"
+        },
+        "UnderWorld": {
+            "name": "A Lesson in Tyranny",
+            "link": "http://chaoticbackup.forumotion.com/t1561-uw-starter_a-lesson-in-tyranny"
+        },
+        "Mipedian": {
+            "name": "Quicksilver",
+            "link": "http://chaoticbackup.forumotion.com/t1557-mipedian-starter_-quicksilver"
+        },
+        "Danian": {
+            "name": "Power in Unity",
+            "link": "http://chaoticbackup.forumotion.com/t1558-danian-starter_power-in-unity"
+        },
+        "M'arrillian": {
+            "name": "Fear the Deep",
+            "link": "http://chaoticbackup.forumotion.com/t1559-marr-starter_-fear-the-deep"
+        }
     },
     "king": {
-        "OverWorld": "http://chaoticbackup.forumotion.com/t1554-intro-to-overworld",
-        "UnderWorld": "http://chaoticbackup.forumotion.com/t1555-intro-to-underworld",
-        "Mipedian": "http://chaoticbackup.forumotion.com/t1553-intro-to-mipedian-strike",
-        "Danian": "http://chaoticbackup.forumotion.com/t1551-intro-to-danian-compost",
-        "M'arrillian": "http://chaoticbackup.forumotion.com/t1552-intro-to-m-arrillian",
-        "Mixed (Ursis)": "http://chaoticbackup.forumotion.com/t1556-intro-to-mixed-ursis"
+        "OverWorld": {
+            "name": "Intro to OverWorld",
+            "link": "http://chaoticbackup.forumotion.com/t1554-intro-to-overworld"
+        },
+        "UnderWorld": {
+            "name": "Intro to UnderWorld",
+            "link": "http://chaoticbackup.forumotion.com/t1555-intro-to-underworld"
+        },
+        "Mipedian": {
+            "name": "Intro to Mipedian",
+            "link": "http://chaoticbackup.forumotion.com/t1553-intro-to-mipedian-strike"
+        },
+        "Danian": {
+            "name": "Intro to Danian",
+            "link": "http://chaoticbackup.forumotion.com/t1551-intro-to-danian-compost"
+        },
+        "M'arrillian": {
+            "name": "Intro to M'arrillian",
+            "link": "http://chaoticbackup.forumotion.com/t1552-intro-to-m-arrillian"
+        },
+        "Mixed (Ursis)": {
+            "name": "Intro to Mixed (Ursis)",
+            "link": "http://chaoticbackup.forumotion.com/t1556-intro-to-mixed-ursis"
+        }
     },
     "ivan": {
-        "OverWorld": "https://chaoticbackup.forumotion.com/t1645-starter-deck-force-of-nature",
-        "UnderWorld": "https://chaoticbackup.forumotion.com/t1646-starter-deck-princess-of-fear-valley",
-        "Mipedian": "https://chaoticbackup.forumotion.com/t1647-starter-deck-champions-of-mipedim",
-        "Danian": "https://chaoticbackup.forumotion.com/t1648-starter-deck-lord-of-infection",
-        "M'arrillian": "https://chaoticbackup.forumotion.com/t1649-starter-deck-under-the-eternal-cold",
-        "Mixed (Ursis)": "https://chaoticbackup.forumotion.com/t1650-starter-deck-awakening-of-ursis"
+        "OverWorld": {
+            "name": "Force of Nature",
+            "link": "https://chaoticbackup.forumotion.com/t1645-starter-deck-force-of-nature"
+        },
+        "UnderWorld": {
+            "name": "Princess of Fear Valley",
+            "link": "https://chaoticbackup.forumotion.com/t1646-starter-deck-princess-of-fear-valley"
+        },
+        "Mipedian": {
+            "name": "Champions of Mipedim",
+            "link": "https://chaoticbackup.forumotion.com/t1647-starter-deck-champions-of-mipedim"
+        },
+        "Danian": {
+            "name": "Lord of Infection",
+            "link": "https://chaoticbackup.forumotion.com/t1648-starter-deck-lord-of-infection"
+        },
+        "M'arrillian": {
+            "name": "Under the Eternal Cold",
+            "link": "https://chaoticbackup.forumotion.com/t1649-starter-deck-under-the-eternal-cold"
+        },
+        "Mixed (Ursis)": {
+            "name": "Awakening of Ursis",
+            "link": "https://chaoticbackup.forumotion.com/t1650-starter-deck-awakening-of-ursis"
+        }
     }
 }
