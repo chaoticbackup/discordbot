@@ -24,10 +24,6 @@ Since the project uses Babel, the code gets preprocessed (The prod and forever c
 ```bash
 npm run build
 ```
-You can clean the build folder with
-```bash
-npm run clean
-```
 To run the production server
 ```
 node build/bot.js
