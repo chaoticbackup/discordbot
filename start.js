@@ -35,7 +35,7 @@ let run_watcher;
 
 /* Start bot */
 const bot_path = "node " + path.resolve(__dirname, "build/bot.js");
-const bot_options = { stdio: 'inherit', shell: true };
+const bot_options = { stdio: ['inherit', 'pipe', 'inherit'], shell: true };
 
 const start = () => {
   run_watcher = spawn(bot_path, bot_options);
@@ -43,6 +43,10 @@ const start = () => {
   run_watcher.on('exit', (code) => {
     if (code === 0) { logger.info("Files changed, restarting bot"); start(); } 
     else handle_exit('bot', code);
+  });
+  run_watcher.stdout.on('data', data => {
+    console.log(data.toString());
+    if (!init && data.toString().includes('Logged in as:')) { init = true; }
   });
 }
 
@@ -64,14 +68,13 @@ babel_watcher.stdout.on('data', (data) => {
   logger.info(data);
   // Start bot after files are compiled
   if (!init && data.toString().indexOf('Successfully compiled') === 0) {
-    timeout = setTimeout(() => {init = true;}, 500);
     logger.info("Starting development bot");
     start();
   }
 });
 
 /* Watch build folder */
-const restarter = debounced(400, () => { run_watcher.kill('SIGINT'); });
+const restarter = debounced(400, () => { init=false; run_watcher.kill('SIGINT'); });
 const build_watcher = chokidar.watch('build', { persistant: true });
 build_watcher.on('change', (/* path */) => { if (init) restarter(); });
 

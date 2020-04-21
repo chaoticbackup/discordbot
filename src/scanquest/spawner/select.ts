@@ -34,7 +34,7 @@ export default class Select {
         case 'super rare': return 6;
         case 'rare': return 5;
         case 'uncommon': return 4;
-        case 'common': return 3;
+        case 'common': return 4;
         case 'promo': return 7;
         default: return 4;
       }
@@ -44,7 +44,7 @@ export default class Select {
         case 'Attacks': return 0;
         case 'Battlegear': return 2;
         case 'Creatures': return 1;
-        case 'Locations': return 3;
+        case 'Locations': return 4;
         case 'Mugic': return 0;
         default: return 0;
       }

@@ -21,7 +21,7 @@ interface Amount {
 }
 
 const config = {
-  tick: 3 * 1000, // seconds
+  tick: 2 * 1000, // seconds
   debounce: 2 * 60 * 1000, // minutes
   next: 10 * 60 * 60 * 1000 // hours
 }
@@ -119,11 +119,7 @@ export default class Spawner {
       const amount = this.debouncer.get(id)?.amount ?? 0;
       duration -= amount;
 
-      // less than 5 seconds remaining
-      if (duration <= 5000) {
-        this.sendCard(server);
-      }
-      else {
+      if (duration > 5000) {
         timeout = setTimeout(() => this.sendCard(server), duration);
         this.timers.set(id, { timeout, duration });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
@@ -131,6 +127,10 @@ export default class Spawner {
           remaining.setMilliseconds(remaining.getMilliseconds() + duration);
           server.remaining = remaining;
         });
+      }
+      else {
+        // just send if less than 5 seconds remaining
+        this.sendCard(server);
       }
     }
 
