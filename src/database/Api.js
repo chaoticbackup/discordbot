@@ -14,7 +14,7 @@ if (!fs.existsSync(db_folder)) {
   fs.mkdirSync(db_folder);
 }
 
-export class API {
+export default class API {
   instance = null;
   data = "";
   static base_url = "https://spreadsheets.google.com/feeds/list/";
