@@ -14,7 +14,7 @@ if (!fs.existsSync(db_folder)) {
   fs.mkdirSync(db_folder);
 }
 
-class API {
+export class API {
   instance = null;
   data = "";
   static base_url = "https://spreadsheets.google.com/feeds/list/";
@@ -156,7 +156,7 @@ class API {
   /**
    *  Finds cards in the database by name 
    */
-  find_cards_by_name(name, options) {
+  find_cards_by_name(name, options=[]) {
     name = escape_text(name).replace(/,([^\s]+)/, (str, p1) => {
       return ", " + p1;
     });
@@ -195,4 +195,3 @@ class API {
     }
   }
 }
-export default API.getInstance();

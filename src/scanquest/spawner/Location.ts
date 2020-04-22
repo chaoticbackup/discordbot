@@ -9,7 +9,7 @@ export default class ScanLocation extends ScanFunction {
 
   constructor() {
     super();
-    const locations: Location[] = API.find_cards_by_name('', ['type=location']);
+    const locations = API.find_cards_by_name('', ['type=location']) as Location[];
     this.locations = locations.filter((location) => (
       location.gsx$splash && location.gsx$splash !== '' &&
       location.gsx$image && location.gsx$image

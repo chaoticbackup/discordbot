@@ -1,7 +1,6 @@
 import { RichEmbed } from 'discord.js';
 
 import { API } from '../../database';
-import { Card } from '../../definitions';
 import Scannable from '../scanner/Scannable';
 import { Server } from '../scan_db';
 import Battlegear from './Battlegear';
@@ -26,7 +25,7 @@ export default class Select {
   public card(server: Server) {
     const [scannable, image] = this.select(server);
 
-    const card = API.find_cards_by_name(scannable.card.name)[0] as Card;
+    const card = API.find_cards_by_name(scannable.card.name)[0];
 
     const duration = (() => {
       switch (card.gsx$rarity.toLowerCase()) {

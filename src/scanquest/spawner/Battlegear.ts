@@ -9,7 +9,7 @@ export default class ScanBattlegear extends ScanFunction {
 
   constructor() {
     super();
-    const battlegear: Battlegear[] = API.find_cards_by_name('', ['type=battlegear']);
+    const battlegear = API.find_cards_by_name('', ['type=battlegear']) as Battlegear[];
     this.battlegear = battlegear.filter((battlegear) => (
       battlegear.gsx$splash && battlegear.gsx$splash !== '' &&
       battlegear.gsx$image && battlegear.gsx$image !== ''

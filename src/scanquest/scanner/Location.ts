@@ -39,7 +39,7 @@ export class ScannableLocation implements Scannable {
     .setTitle(this.card.name)
     .setColor(color(card))
     .setDescription(body)
-    .setURL(API.base_image + card.gsx$image)
-    .setImage(API.base_image + card.gsx$image);
+    .setURL(API.cardImage(card))
+    .setImage(API.cardImage(card));
   }
 }

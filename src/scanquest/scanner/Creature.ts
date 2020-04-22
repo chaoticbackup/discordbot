@@ -72,7 +72,6 @@ export class ScannableCreature implements Scannable {
 
   getCard(icons: Icons) {
     const { disciplines } = icons;
-
     const card = API.find_cards_by_name(this.card.name)[0] as Creature;
 
     const body = `${
@@ -81,22 +80,12 @@ export class ScannableCreature implements Scannable {
       this.card.wisdom.toString()}${disciplines('Wisdom')} ${
       this.card.speed.toString()}${disciplines('Speed')} | ${
       this.card.energy.toString()}\u00A0E`;
-    
-    if (card.gsx$ic != '') {
-      return new RichEmbed()
+
+    return new RichEmbed()
       .setTitle(this.card.name)
       .setColor(color(card))
       .setDescription(body)
-      .setURL(card.gsx$ic)
-      .setImage(card.gsx$ic);
-    }
-    else {
-      return new RichEmbed()
-      .setTitle(this.card.name)
-      .setColor(color(card))
-      .setDescription(body)
-      .setURL(API.base_image + card.gsx$image)
-      .setImage(API.base_image + card.gsx$image);
-    }
+      .setURL(API.cardImage(card))
+      .setImage(API.cardImage(card));
   }
 }

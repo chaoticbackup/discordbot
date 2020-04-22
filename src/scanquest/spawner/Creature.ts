@@ -9,7 +9,7 @@ export default class ScanCreature extends ScanFunction {
 
   constructor() {
     super();
-    const creatures: Creature[] = API.find_cards_by_name('', ['type=creature']);
+    const creatures = API.find_cards_by_name('', ['type=creature']) as Creature[];
     this.creatures = creatures.filter((creature) =>
       creature.gsx$avatar && creature.gsx$avatar !== ''
     );

@@ -4,7 +4,7 @@ import { Card } from '../../definitions';
 import { rndrsp } from '../../common';
 
 export default function (name: string, options: string[]) {
-  const results = API.find_cards_by_name(name) as Card[];
+  const results = API.find_cards_by_name(name);
   let card: Card;
 
   if (!name) {
