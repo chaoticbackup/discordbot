@@ -23,7 +23,7 @@ interface Amount {
 const config = {
   tick: 2 * 1000, // seconds
   debounce: 2 * 60 * 1000, // minutes
-  next: 10 * 60 * 60 * 1000 // hours
+  next: 8 * 60 * 60 * 1000 // hours
 }
 
 export default class Spawner {
