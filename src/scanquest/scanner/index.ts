@@ -1,4 +1,5 @@
 import { RichEmbed, Client } from 'discord.js';
+import { API } from '../../database';
 import Icons from '../../common/bot_icons';
 import ScanQuestDB, { ActiveScan } from '../scan_db';
 import { ScannableBattlegear, BattlegearScan } from './Battlegear';
@@ -43,27 +44,28 @@ export default class Scanner {
       }
     }
     else {
-      selected = server.activescans.find(scan => {
-        return scan.scan.name.toLowerCase() === args;
-      });
+      const name = API.find_cards_by_name(args)[0]?.gsx$name ?? '';
+      if (name !== '') {
+        selected = server.activescans.find(scan => scan.scan.name === name);
+      }
+
       if (selected === undefined || new Date(selected.expires) < now) {
         return `${args.replace('@', '')} isn't an active scan`;
       }
     }
-
-    const card = Object.assign({}, selected.scan);
 
     const player = this.db.findOnePlayer({ id: author_id });
     if (!selected.players || selected.players.length === 0) {
       selected.players = [player.id];
     }
     else if (selected.players.includes(player.id)) {
-      return `You've already scanned this ${card.name}`;
+      return `You've already scanned this ${selected.scan.name}`;
     } else {
       selected.players.push(player.id);
     }
     this.db.servers.update(server);
 
+    const card = Object.assign({}, selected.scan); // clone card to assign code
     card.code = this.db.generateCode();
 
     await this.db.save(player, card);
