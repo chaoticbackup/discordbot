@@ -1,6 +1,7 @@
 import ScanQuestDB, { Server } from '.';
+import { Snowflake } from 'discord.js';
 
-export default function (db: ScanQuestDB, id: string, args: string[]): string | undefined {
+export default function (db: ScanQuestDB, id: Snowflake, args: string[]): string | undefined {
   if (args.length === 0) {
     // todo this is for init a new server
     return 'Cannot configure a new server at this time';
@@ -12,12 +13,23 @@ export default function (db: ScanQuestDB, id: string, args: string[]): string | 
   }
 
   switch (args[0]) {
+    case 'remaining': return remaining(server);
     case 'ignore': return ignore(db, server, args.slice(1));
     case 'channel': return channel(db, server, args.slice(1));
   }
 }
 
 const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)?.[1] ?? '')).filter((f): f is string => f !== '');
+
+function remaining(server: Server) {
+  const remaining = server.remaining ? new Date((new Date(server.remaining)).valueOf() - (new Date()).valueOf()) : null;
+  if (remaining instanceof Date && !isNaN(remaining.getTime())) {
+    const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).*$/;
+    const d = regex.exec(remaining.toJSON()) as RegExpExecArray;
+    return `${d[4]}:${d[5]}:${d[6]}`;
+  }
+  return 'No scan scheduled';
+}
 
 function channel(db: ScanQuestDB, server: Server, args: string[]): string | undefined {
   switch (args[0]) {
