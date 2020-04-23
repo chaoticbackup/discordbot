@@ -25,22 +25,30 @@ const logger = winston.createLogger({
     ]
 });
 
-const handle_error = (proc, msg) => { logger.error(proc, msg); handle(); }
-const handle_exit = (proc, code) => { logger.error(proc + ' exited with: ' + code); handle(); }
-
 /* globals */
+let exiting = false;
 let init = false;
 let timeout;
 let run_watcher;
 
+const handle_error = (proc, msg) => { logger.error(proc, msg); }
+const handle_exit = (proc, code) => { 
+  if (!exiting) {
+    logger.error(proc + ' exited with: ' + code); 
+    exiting();
+  }
+}
+
 /* Start bot */
 const bot_path = "node " + path.resolve(__dirname, "build/bot.js");
-const bot_options = { stdio: ['inherit', 'pipe', 'inherit'], shell: true };
+const bot_options = { stdio: ['inherit', 'pipe', 'inherit', 'ipc'], shell: true };
 
 const start = () => {
   run_watcher = spawn(bot_path, bot_options);
+  // run_watcher.unref();
   run_watcher.on('error', (err) => handle_error('bot', err));
   run_watcher.on('exit', (code) => {
+    if (exiting) process.exit();
     if (code === 0) { logger.info("Files changed, restarting bot"); start(); } 
     else handle_exit('bot', code);
   });
@@ -91,14 +99,35 @@ if (process.platform === 'win32') {
   });
 }
 
-/* Handle SIGINT */
-const handle = async () => {
-  clearTimeout(timeout);
-  if (run_watcher) run_watcher.kill();
-  babel_watcher.kill();
-  await build_watcher.close();
-  process.exit();
-};
 
-process.on('SIGINT', handle);
-process.on('SIGTERM', handle);
+/* Handle SIGINT */
+const exit = async () => {
+  exiting = true;
+  clearTimeout(timeout);
+  if (!babel_watcher.killed) babel_watcher.kill();
+  if (!run_watcher.killed) {
+    run_watcher.kill();
+
+    build_watcher.close();
+  } else {
+    await build_watcher.close();
+    process.exit();
+  }
+}
+
+process.on('SIGINT', exit);
+process.on('SIGTERM', exit);
+
+// run_watcher.send({ signal: 'SIGINT' });
+// run_watcher.on('message', () => {
+//   process.exit();
+// })
+
+    // process.on('message', (msg) => {
+//   if (msg.signal && msg.signal === 'SIGINT') {
+//     stop().then(() => {
+//       (process as any).send({ signal: msg.signal });
+//       process.exit(1);
+//     });
+//   }
+// });
