@@ -39,7 +39,8 @@
 	"watchlist": [
 		"Ikkatosh, The Aich King",
 		"Lanker",
-		"Tartarek, Psi Overloader"
+		"Psionic Serenade",
+		"Talisman of the Mandiblor"
 	],
 	"pauper": [
 		"Casters' Warsong",
@@ -177,6 +178,9 @@
 		],
 		"Numin Voidland": [
 			"Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their attack damage."
+		],
+		"Psionic Serenade": [
+			"This card makes use of an already defeated resource to swing the tempo of a match. High energy minions are already present throughout the meta, giving their decks another tool can make them too strong. Dealing usually 55-65 damage, this all but guarentines a combat win."
 		],
 		"Primal Smash": [
 			"20 Damage for 1 Build Point with no condition is valued far above other Attacks. Competitive decks become better with its inclusion (especially non-elemental based). Decks that would not include it become worse off compared to the competitive ones and deck archtypes like Bodal's Dagger would still remain worse against top tier decks."
