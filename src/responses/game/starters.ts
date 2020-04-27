@@ -14,10 +14,10 @@ export default function (message: Message, options: string[]): RichEmbed {
       resp += `${icon(tribe)} ${tribe}: [${starter[tribe].name}](${starter[tribe].link})\n`;
     });
 
-    const displayName: string | undefined = message.guild.members.get(id)?.displayName;
-
+    const displayName = message.guild?.members.get(id)?.displayName ?? '';
+    const title = displayName !== '' ? `${displayName}'s Starters` : 'Starter Decks';
     return new RichEmbed()
-      .setTitle(displayName ? `${displayName}'s Starters` : 'Starter Decks')
+      .setTitle(title)
       .setDescription(resp);
   }
 

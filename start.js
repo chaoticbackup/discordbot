@@ -35,7 +35,7 @@ const handle_error = (proc, msg) => { logger.error(proc, msg); }
 const handle_exit = (proc, code) => { 
   if (!exiting) {
     logger.error(proc + ' exited with: ' + code); 
-    exiting();
+    exit();
   }
 }
 
@@ -105,9 +105,8 @@ const exit = async () => {
   exiting = true;
   clearTimeout(timeout);
   if (!babel_watcher.killed) babel_watcher.kill();
-  if (!run_watcher.killed) {
+  if (run_watcher && !run_watcher.killed) {
     run_watcher.kill();
-
     build_watcher.close();
   } else {
     await build_watcher.close();
