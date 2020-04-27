@@ -119,7 +119,10 @@ export default class Spawner {
       const amount = this.debouncer.get(id)?.amount ?? 0;
       duration -= amount;
 
-      if (duration > 5000) {
+      if (duration <= config.debounce) {
+        this.sendCard(server);
+      }
+      else {
         timeout = setTimeout(() => this.sendCard(server), duration);
         this.timers.set(id, { timeout, duration });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
@@ -127,10 +130,6 @@ export default class Spawner {
           remaining.setMilliseconds(remaining.getMilliseconds() + duration);
           server.remaining = remaining;
         });
-      }
-      else {
-        // just send if less than 5 seconds remaining
-        this.sendCard(server);
       }
     }
 
