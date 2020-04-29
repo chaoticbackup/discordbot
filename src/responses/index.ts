@@ -33,6 +33,7 @@ import { compliment, insult } from './misc/insult_compliment';
 import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
+import watch from './misc/watch';
 
 import checkSass from './sass';
 import logs from './logs';
@@ -224,6 +225,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Documents */
     case 'rulebook':
       return send(rulebook(args, options));
+    case 'rulebooks':
+      return send(rulebook([], ['list']));
     case 'cr':
       if (args.length > 0) {
         return send(cr(flatten(args)));
@@ -399,11 +402,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'youtube':
       return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
     case 'watch':
-      return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists?view=50&sort=dd&shelf_id=6');
-      // return send('Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n'
-      //     + 'Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n'
-      //     + 'Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4'
-      // );
+      return send(watch(args, options));
 
     /* Help */
     case 'help':

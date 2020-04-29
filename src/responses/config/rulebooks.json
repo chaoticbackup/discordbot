@@ -1,34 +1,24 @@
 {    
-    "languages": {
-        "DE": "Deutsche",
-        "EN": "English",
-        "ES": "Espanol",
-        "FR": "Français",
-        "IT": "Italiano",
-        "PO": "Português"
+    "DE": {
+        "DOP": "11k1Lrs4lZLh4Cbp_oexx4ZxNorulqeus"
     },
-    "rulebook": {
-        "DE": {
-            "DOP": "11k1Lrs4lZLh4Cbp_oexx4ZxNorulqeus"
-        },
-        "EN": {
-            "DOP": "1ziQTSZdLwTlcD-rC9TLyTOgUordgeTSD",
-            "ZOTH": "1fUSWxAFD2Mvg8VWNXL7wzG2oDNzhLDo3",
-            "SS": "15StPbRn4aHd3gZz04LGuCaWsKB_3ibF0",
-            "MI": "11tIsJGie1EqCogiRMsgpgjcUnGuxw0iN",
-            "AU": "1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT"
-        },
-        "ES": {
-            "DOP": "1JyUnaW9ktx4C_LfZaDmzows5zzvHabKI"
-        },
-        "FR": {
-            "DOP": "1nu4bJV46CYqA1YAa3ddJhG5O9pL0zS5y"
-        },
-        "IT": {
-            "DOP": "1-2ntsxwacWANsrddged8x847m5P1vOCK"
-        },
-        "PO": {
-            "DOP": "1nD0sgrDbh7iUQDh5DMdNv4SO6CNMYYyv"
-        }
+    "EN": {
+        "DOP": "1ziQTSZdLwTlcD-rC9TLyTOgUordgeTSD",
+        "ZOTH": "1fUSWxAFD2Mvg8VWNXL7wzG2oDNzhLDo3",
+        "SS": "15StPbRn4aHd3gZz04LGuCaWsKB_3ibF0",
+        "MI": "11tIsJGie1EqCogiRMsgpgjcUnGuxw0iN",
+        "AU": "1kzkAUXj-xsr19XkVp-cYr5V7QXGgdGMT"
+    },
+    "ES": {
+        "DOP": "1JyUnaW9ktx4C_LfZaDmzows5zzvHabKI"
+    },
+    "FR": {
+        "DOP": "1nu4bJV46CYqA1YAa3ddJhG5O9pL0zS5y"
+    },
+    "IT": {
+        "DOP": "1-2ntsxwacWANsrddged8x847m5P1vOCK"
+    },
+    "PT": {
+        "DOP": "1nD0sgrDbh7iUQDh5DMdNv4SO6CNMYYyv"
     }
 }
