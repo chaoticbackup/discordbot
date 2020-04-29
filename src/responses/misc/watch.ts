@@ -20,7 +20,7 @@ export default function (args: string[], options: string[]) {
       return `${episodes[lang][set]}`;
     }
     else {
-      return `I don't have episodes in ${languages[lang]}`;
+      return `I don't have episodes in ${languages[lang][1]}`;
     }
   }
   else {
