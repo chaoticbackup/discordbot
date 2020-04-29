@@ -26,7 +26,7 @@ import meetup from './joinable/regions';
 import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
 
-import color from './misc/color';
+import color from './joinable/color';
 import gone from './misc/gone';
 import help from './misc/help';
 import { compliment, insult } from './misc/insult_compliment';
@@ -162,33 +162,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   const { guild, guildMember } = await messageGuild(message) as {guild: Guild, guildMember: GuildMember};
 
   /**
-    * Special server exclusive commands
-    */
-  if (guild && (
-    guild.id === servers('international').id
-      || guild.id === servers('unchained').id
-      || guild.id === servers('develop').id
-  )
-  ) {
-    switch (cmd) {
-      case 'colour':
-      case 'color':
-        return color(args, guild, guildMember, send);
-      case 'region':
-      case 'regions':
-        return meetup(guildMember, guild, args, mentions).then(send);
-      case 'watch':
-        return send('Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n'
-          + 'Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n'
-          + 'Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4'
-        );
-      default:
-        // If no special commands, continue to full command set
-        break;
-    }
-  }
-
-  /**
     * Full command set
     */
   switch (cmd) {
@@ -321,6 +294,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         .then(async () => send(donate()));
       }
       return;
+
     /* Matchmaking */
     case 'lf':
     case 'lookingfor':
@@ -329,7 +303,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'cancel':
       return send(cancelMatch(channel, guild, guildMember));
 
-      /*
+    /*
    * Misc
    */
     case 'donate':
@@ -404,12 +378,32 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'answer':
       return send(answer(guildMember || message.author, args.join(' ')));
 
+    /* Happy Borth Day */
     case 'happy': {
       if (cleantext(flatten(args)).includes('borth'))
         return send(gone('borth-day', bot, options));
-
       break;
     }
+
+    /* Color Roles */
+    case 'colour':
+    case 'color':
+      return color(args, guild, guildMember, send);
+
+    /* Regions/Meetups */
+    case 'region':
+    case 'regions':
+      return meetup(guildMember, guild, args, mentions).then(send);
+
+    /* Watch playlists English */
+    case 'youtube':
+      return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
+    case 'watch':
+      return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists?view=50&sort=dd&shelf_id=6');
+      // return send('Season 1: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7bSU1LkQZDw3CjkSzChI-s\n'
+      //     + 'Season 2: https://www.youtube.com/playlist?list=PL0qyeKPgEbR7Fs9lSsfTEjODyoXWdXP6i\n'
+      //     + 'Season 3: https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4'
+      // );
 
     /* Help */
     case 'help':
