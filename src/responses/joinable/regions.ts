@@ -48,7 +48,7 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
  * !region <regionName> <add|remove> <@guildMember>
  */
 export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<string> => {
-  const moderator = Boolean(user.roles.find(role => role.name === 'lord emperor'));
+  const moderator = Boolean(user.hasPermission('ADMINISTRATOR'));
 
   const regionList = async (): Promise<string> => {
     const regions: Region[] = await MeetupsDB.getRegionList();
@@ -79,7 +79,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
       break;
     case 'remove':
       if (moderator) {
-        if (args.length < 2) return '!region add <regionName>';
+        if (args.length < 2) return '!region remove <regionName>';
         return await MeetupsDB.getRegion(args[1])
         .then(async (region) => {
           return await MeetupsDB.removeRegion(region);
@@ -90,7 +90,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
       break;
     case 'rename':
       if (moderator) {
-        if (args.length < 2) return '!region add <regionName>';
+        if (args.length < 3) return '!region rename <regionName> <new name>';
         return await MeetupsDB.getRegion(args[1])
         .then(async (region: Region) => {
           return await MeetupsDB.renameRegion(region, args[2]);
