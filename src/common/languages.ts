@@ -1,5 +1,5 @@
 const languages = {
-  AR: ['عربى', 'Arabic'],
+  AR: ['‎عربى', 'Arabic'],
   CS: ['Čeština', 'Czech'],
   DE: ['Deutsche', 'German'],
   EN: ['English'],
