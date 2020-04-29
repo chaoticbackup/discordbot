@@ -6,7 +6,7 @@ export default function (args: string[], options: string[]) {
     return list(episodes);
   }
 
-  if (args.length < 1) return '!watch <language> <season>';
+  if (args.length < 1) return '!watch --help';
 
   const lang = args[0].toUpperCase();
   if (isLangType(lang) && lang in episodes) {

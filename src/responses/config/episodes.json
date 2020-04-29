@@ -6,12 +6,21 @@
         "3": "https://www.youtube.com/playlist?list=PL0qyeKPgEbR5qdu0i9cyxl8ivUdxihAc4"
     },
     "ES": {
+        "SD": "https://www.youtube.com/channel/UCjdQFLcnfpYXh-0QGU46c0A/videos",
         "1": "https://www.youtube.com/playlist?list=PL0qyeKPgEbR7mkl_sOe1LpT4egPCVUkGN"
     },
     "DE": {
         "1": "https://www.youtube.com/playlist?list=PL0qyeKPgEbR5uKMd8zwXVwYdHt0PyUOp_"
     },
     "PT": {
-        "1": "https://www.youtube.com/playlist?list=PL0qyeKPgEbR7nCFEKKG1xzv4C1VRFKFm-"
+        "1": "https://www.youtube.com/playlist?list=PL0qyeKPgEbR7nCFEKKG1xzv4C1VRFKFm-",
+        "2SD": "https://www.youtube.com/watch?v=oG9mx_sZj_w&list=PLkQlHHlnNlCABncMof3sV2j5GsPXwpvMu"
+    },
+    "AR": {
+        "1SD": "https://www.youtube.com/watch?v=tL_SFCPVJRM&list=PL0b5VxD8pmvufSZF5_AvsjoINvO-bCsVD"
+    },
+    "HR": {
+      "1SD": "https://www.youtube.com/playlist?list=PLtO9yOd8lS_C8Q63zTkXsvmWHlsHQ3osy",
+      "2SD": "https://www.youtube.com/playlist?list=PLtO9yOd8lS_Bk7aBZbBR8J2TWZv-qcczy"  
     }
 }
