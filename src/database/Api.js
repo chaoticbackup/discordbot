@@ -186,12 +186,20 @@ export default class API {
     }).simplesort('gsx$name').data();
   }
 
-  /* Wrapper for imgur images */
+  /* Wrappers for imgur images */
   cardImage(card) {
     if (!card.gsx$ic || card.gsx$ic === '') {
       return this.base_image + card.gsx$image;
     } else {
       return card.gsx$ic;
+    }
+  }
+
+  cardAvatar(card) {
+    if (!card.gsx$ia || card.gsx$ia === '') {
+      return this.base_image + card.gsx$avatar;
+    } else {
+      return card.gsx$ia;
     }
   }
 }

@@ -25,7 +25,7 @@ export interface BaseCard {
   gsx$alt?: string
   gsx$alt2?: string
   gsx$ic?: string
-  gsx$avatar?: string
+  gsx$if?: string
 }
 
 export interface Attack extends BaseCard {
@@ -53,6 +53,7 @@ export interface Creature extends BaseCard {
   gsx$mugicability: string | number
   gsx$avatar: string
   gsx$subtype: string
+  gsx$ia?: string
 }
 
 export interface Location extends BaseCard {

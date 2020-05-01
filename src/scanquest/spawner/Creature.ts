@@ -4,22 +4,24 @@ import { Creature } from '../../definitions';
 import { ScannableCreature } from '../scanner/Creature';
 import ScanFunction from './ScanFunction';
 
+const hasAvatar = (creature: Creature) => {
+  return Boolean(creature.gsx$ia && creature.gsx$ia !== '') || Boolean(creature.gsx$avatar && creature.gsx$avatar !== '');
+}
+
 export default class ScanCreature extends ScanFunction {
   private readonly creatures: Creature[];
 
   constructor() {
     super();
     const creatures = API.find_cards_by_name('', ['type=creature']) as Creature[];
-    this.creatures = creatures.filter((creature) =>
-      creature.gsx$avatar && creature.gsx$avatar !== ''
-    );
+    this.creatures = creatures.filter(hasAvatar);
   }
 
   generate(): [ScannableCreature, RichEmbed] {
     const creature = this.randomCard(this.creatures) as Creature;
     const image = new RichEmbed()
-    .setImage(API.base_image + creature.gsx$avatar)
-    .setURL(API.base_image + creature.gsx$avatar);
+    .setImage(API.cardAvatar(creature))
+    .setURL(API.cardAvatar(creature));
 
     return [new ScannableCreature(creature), image];
   }

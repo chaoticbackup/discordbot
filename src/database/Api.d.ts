@@ -12,4 +12,5 @@ export default class API {
   find_card_name(text: string): Card[];
   find_cards_by_name(name: string, options?: string[]): Card[];
   cardImage(card: Card): string;
+  cardAvatar(card: Card): string;
 }
