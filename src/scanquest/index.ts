@@ -93,7 +93,7 @@ export default class ScanQuest {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {
         case 'scan':
-          if (message.guild) {
+          if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
             await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
           }
           return;
