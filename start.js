@@ -26,6 +26,7 @@ const logger = winston.createLogger({
 });
 
 /* globals */
+const clean = process.argv.includes("--clean");
 let exiting = false;
 let init = false;
 let timeout;
@@ -61,12 +62,16 @@ const start = () => {
 /* Start babel watch */
 const babel_path = path.resolve(__dirname, "node_modules/@babel/cli/bin/babel.js");
 const babel_args = [
-    "--watch", "src", 
-    "--delete-dir-on-start",
+  "--watch", "src"
+].concat(
+  clean ? ["--delete-dir-on-start"] : [],
+  [
     "--extensions", "\".js,.ts\"", 
     "--copy-files", 
     "--out-dir", "build"
-];
+  ]
+);
+
 const babel_options = { stdio: ['inherit', 'pipe', 'inherit'], cwd: __dirname, shell: true };
 
 const babel_watcher = spawn(babel_path, babel_args, babel_options);

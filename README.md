@@ -16,6 +16,11 @@ npm install
 To start the bot in development mode
 ```bash
 npm start
+npm start:scan
+```
+You can add an option to clean build the directory
+```bash
+npm start -- --clean
 ```
 
 ### Production Deployment
