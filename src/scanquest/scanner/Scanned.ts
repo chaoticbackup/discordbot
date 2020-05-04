@@ -1,5 +1,4 @@
-import { CardType } from '../../definitions';
-import { Code } from '../definitions';
+import { CardType, Code } from '../../definitions';
 
 /**
  * @param name The name of the card

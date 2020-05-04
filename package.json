@@ -62,7 +62,7 @@
     "@types/jquery": "^3.3.35",
     "@types/jsdom": "^12.2.4",
     "@types/lokijs": "^1.5.3",
-    "@types/node": "^13.13.1",
+    "@types/node": "^13.13.4",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "babel-eslint": "^10.1.0",

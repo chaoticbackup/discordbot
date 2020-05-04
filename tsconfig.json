@@ -36,13 +36,14 @@
       "typeRoots": [
         "./node_modules/@types",
         "./src/**/*.d.ts"
-      ]
+      ],
+      "skipLibCheck": true
     },
     "include": [
-      "src"
+      "./src"
     ],
     "exclude": [
-      "./build/*",
-      "./node_modules/*"
+      "./build",
+      "./node_modules"
     ]
 }
