@@ -25,8 +25,8 @@ import starters from './game/starters';
 import meetup from './joinable/regions';
 import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
-
 import color from './joinable/color';
+
 import gone from './misc/gone';
 import help from './misc/help';
 import { compliment, insult } from './misc/insult_compliment';
@@ -34,11 +34,12 @@ import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
 import watch from './misc/watch';
+import cupid from './misc/cupid';
 
 import checkSass from './sass';
 import logs from './logs';
 
-const joke = require('./config/jokes.json');
+const joke = require('./config/jokes.json') as string[];
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -403,6 +404,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
     case 'watch':
       return send(watch(args, options));
+
+    case 'cupid':
+      return send(cupid(args, message));
 
     /* Help */
     case 'help':
