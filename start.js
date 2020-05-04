@@ -27,6 +27,7 @@ const logger = winston.createLogger({
 
 /* globals */
 const clean = process.argv.includes("--clean");
+const outdir = "build";
 let exiting = false;
 let init = false;
 let timeout;
@@ -68,7 +69,7 @@ const babel_args = [
   [
     "--extensions", "\".js,.ts\"", 
     "--copy-files", 
-    "--out-dir", "build"
+    "--out-dir", outdir
   ]
 );
 
@@ -88,7 +89,7 @@ babel_watcher.stdout.on('data', (data) => {
 
 /* Watch build folder */
 const restarter = debounced(400, () => { init=false; run_watcher.kill('SIGINT'); });
-const build_watcher = chokidar.watch('build', { persistant: true });
+const build_watcher = chokidar.watch(outdir, { persistant: true });
 build_watcher.on('change', (/* path */) => { if (init) restarter(); });
 
 /* Windows pick up sigint */

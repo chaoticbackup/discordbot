@@ -1,4 +1,4 @@
-import { Client, Message } from 'discord.js';
+import { Client, Message, RichEmbed } from 'discord.js';
 import { Logger } from 'winston';
 
 import { API } from '../database';
@@ -118,6 +118,16 @@ export default class ScanQuest {
           return;
         case 'spawn':
         case 'perim':
+          if (args.length > 0 && args[0] === 'protector') {
+            return await send(
+              new RichEmbed()
+                .setTitle('Click to play Perim Protector')
+                .setURL('https://www.newgrounds.com/portal/view/437825')
+            ).then(async () =>
+              await send('<:kughar:706695875249831946> <:grook:706695825195008052> ' +
+              '<:skithia:706695857055072388> <:takinom:706695840940556338> <:chaor:706695811014066186>')
+            )
+          }
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             return await send(this.db.perim(message.guild.id, args));
           }
