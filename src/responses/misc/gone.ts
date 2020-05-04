@@ -28,7 +28,8 @@ export default function (name: string, bot: Client, options: string[]) {
   if (name) {
     let found = false;
 
-    for (var key in merged) {
+    const keys = Object.keys(merged).sort((a, b) => a.localeCompare(b));
+    for (const key of keys) {
       if (cleantext(key).indexOf(name) === 0) {
         card = key;
         found = true;
