@@ -7,7 +7,7 @@ const languages = {
   FR: ['Français', 'French'],
   HR: ['Hrvatski', 'Croatian'],
   IT: ['Italiano', 'Italian'],
-  IW: ['עברית', 'Hebrew'],
+  IW: ['‎עברית', 'Hebrew'],
   PT: ['Português', 'Portuguese'],
   SK: ['Slovenský', 'Slovak'],
   SR: ['Српски', 'Serbian']

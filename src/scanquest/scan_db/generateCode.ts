@@ -1,4 +1,4 @@
-import { Code } from '../definitions';
+import { Code } from '../../definitions';
 import ScanQuestDB from '.';
 
 export default function (db: ScanQuestDB): Code {

@@ -4,7 +4,7 @@ import path from 'path';
 import servers from '../../common/servers';
 import db_path from '../../database/db_path';
 import Scanned from '../scanner/Scanned';
-import { Code } from '../definitions';
+import { Code } from '../../definitions';
 import perim from './config';
 import generateCode from './generateCode';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');

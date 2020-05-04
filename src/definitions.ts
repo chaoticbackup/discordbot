@@ -67,3 +67,5 @@ export interface Mugic extends BaseCard {
 }
 
 export type Card = Attack | Battlegear | Creature | Location | Mugic;
+
+export type Code = string;
