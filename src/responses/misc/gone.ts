@@ -1,8 +1,8 @@
 import { Client, RichEmbed } from 'discord.js';
 import { cleantext, rndrsp } from '../../common';
-const { Custom, Extra, Gone2Chaotic, GoneChaotic3, Gone4Ever } = require('../config/gonechaotic.json');
+import { Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever } from '../config/gonechaotic.json';
 
-interface temp {
+interface Gone {
   img: string
   type?: string
   alt?: string
@@ -11,7 +11,7 @@ interface temp {
 const cardTypes = ['attack', 'creature', 'battlegear', 'mugic', 'location'];
 
 export default function (name: string, bot: Client, options: string[]) {
-  const merged: Record<string, temp> = Object.assign({}, Custom, Extra, Gone2Chaotic, GoneChaotic3, Gone4Ever);
+  const merged: Record<string, Gone> = Object.assign({}, Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever);
 
   const withStats = (c: number, p: number, w: number, s: number, e: number) => {
     return ''
