@@ -3,6 +3,10 @@ import { cleantext, uppercase } from '../../common';
 import { SendFunction } from '../../definitions';
 
 export default async function (args: string[], guild: Guild, guildMember: GuildMember, send: SendFunction): Promise<void> {
+  if (!guild) {
+    return await send('You can only use this command in a guild with roles');
+  }
+
   if (args.length < 2) return await send('!color <set|remove> <color>');
 
   switch (cleantext(args[0])) {

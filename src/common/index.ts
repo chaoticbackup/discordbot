@@ -29,7 +29,7 @@ export function flatten(args: string[]): string {
  */
 export function escape_text(text: string): string {
   return text
-  .replace(/\(|\)/g, (match) => { return (`\\${match}`) })
+  .replace(/\(|\\|\)/g, (match) => { return (`\\${match}`) })
   .replace(/’/g, '\'');
 }
 

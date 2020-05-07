@@ -48,6 +48,10 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
  * !region <regionName> <add|remove> <@guildMember>
  */
 export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<string> => {
+  if (!guild) {
+    return 'You can only use this command in a guild with roles';
+  }
+
   const moderator = Boolean(user.hasPermission('ADMINISTRATOR'));
 
   const regionList = async (): Promise<string> => {

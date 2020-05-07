@@ -8,6 +8,10 @@ const languageProper = (lang: string): string => {
 }
 
 export default async (user: GuildMember, guild: Guild, args: string[]) => {
+  if (!guild) {
+    return 'You can only use this command in a guild with roles';
+  }
+
   const languageList = () => {
     let language_count = 0;
     let msg = 'Available languages:\n';

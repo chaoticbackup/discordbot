@@ -1,8 +1,8 @@
 import { TextChannel, Message, DMChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
-import ScanQuestDB from './scan_db';
-import { toScannable } from './scanner';
-import users from '../common/users';
+import ScanQuestDB from '../scan_db';
+import { toScannable } from '../scanner';
+import users from '../../common/users';
 
 export default async (db: ScanQuestDB, message: Message, options: string[]): Promise<void> => {
   // If not dm or recieve channel
