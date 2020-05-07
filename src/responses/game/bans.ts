@@ -2,6 +2,7 @@ import { Guild } from 'discord.js';
 import { can_send, cleantext, is_channel, rndrsp, uppercase } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
+import { API } from '../../database';
 
 const ban_lists = require('../config/bans.json');
 const { formats, watchlist, detailed, reasons, jokes } = ban_lists;
@@ -77,7 +78,11 @@ export function whyban(
 
   if (!name) return 'Please provide a card or use !banlist';
 
-  const cardName = cleantext(name);
+  const card = API.find_card_name(cleantext(name))[0] ?? null;
+
+  if (!card) return 'Not a valid card name';
+
+  const cardName = card.gsx$name;
 
   // Check if long explanation requested
   if (options.includes('detailed')) {
@@ -85,13 +90,13 @@ export function whyban(
       if (!can_send(guild, channel)) return '';
     }
     for (const key in detailed) {
-      if (cleantext(key).indexOf(cardName) === 0) {
+      if (key === cardName) {
         return `*${key}*:\n${detailed[key]}`;
       }
     }
     // Check if its even banned
     for (const key in reasons) {
-      if (cleantext(key).indexOf(cardName) === 0) {
+      if (key === cardName) {
         return `${key} doesn't have a more detailed explanation`;
       }
     }
@@ -99,7 +104,7 @@ export function whyban(
   }
 
   for (const key in reasons) {
-    if (cleantext(key).indexOf(cardName) === 0) {
+    if (key === cardName) {
       if (options.includes('joke')) {
         if (reasons[key].length > 1) {
           return `*${key}*:\n${rndrsp(reasons[key].slice(1, reasons[key].length), key)}`;
@@ -115,7 +120,7 @@ export function whyban(
   }
 
   for (const key in jokes) {
-    if (cleantext(key).indexOf(cardName) === 0) {
+    if (key === cardName) {
       return `*${key}*:\n${rndrsp(jokes[key], key)}`;
     }
   }
