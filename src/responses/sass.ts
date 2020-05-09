@@ -103,7 +103,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (message.author.id === users('brat')) {
-      return 'Stop bothering me';
+      return rndrsp(['Stop bothering me', 'So is this what having a younger brother is like?']);
     }
     else if (message.author.id === users('bf')) {
       return compliment(message.guild, [users('bf')], '');
