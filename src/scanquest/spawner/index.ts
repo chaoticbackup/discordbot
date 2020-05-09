@@ -3,6 +3,7 @@ import { Client, Message, Snowflake } from 'discord.js';
 import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
 import Select from './select';
+import servers from '../../common/servers';
 
 /**
  * @param timeout A javascript timer
@@ -166,6 +167,7 @@ export default class Spawner {
     this.db.servers.update(server);
 
     (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
+    (this.bot.channels.get(servers('develop').channel('bot_commands')) as Channel).send(scannable.toString()).catch(() => {});
 
     const timeout = setTimeout(() => this.sendCard(server), duration);
     this.timers.set(id, { timeout, duration });
