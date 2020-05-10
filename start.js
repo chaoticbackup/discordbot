@@ -38,9 +38,9 @@ const kill = (ps) => {
   if (!exiting) {
     ps.send({ signal: 'SIGINT' });
   }
-  else if (os.platform() === 'win32') {
-    exec('taskkill /T /F /pid ' + ps.pid);
-  }
+  // else if (os.platform() === 'win32') {
+  //   exec('taskkill /T /F /pid ' + ps.pid);
+  // }
   else {
     ps.kill("SIGINT");
   }
@@ -48,18 +48,23 @@ const kill = (ps) => {
 
 const handle_error = (proc, msg) => { logger.error(proc, msg); }
 const handle_exit = (proc, code) => { 
-  if (!exiting) {
-    logger.error(proc + ' exited with: ' + code); 
-    exit();
-  }
+  logger.error(proc + ' exited with: ' + code); 
+  exit();
 }
 
 /* Start bot */
-const bot_path = "node " + path.resolve(__dirname, "build/bot.js");
-const bot_options = { stdio: ['inherit', 'pipe', 'inherit', 'ipc'], shell: true };
+const bot_path = path.resolve(__dirname, "build", "bot.js");
+const bot_options = (os.platform() === "win32") ? {
+  stdio: ['pipe', 'pipe', 'pipe', 'ipc'], 
+  env: { NODE_CHANNEL_FD: 3 },
+  shell: false
+} : {
+  stdio: ['inherit', 'pipe', 'inherit', 'ipc'],
+  shell: true
+}
 
 const start = () => {
-  run_watcher = spawn(bot_path, bot_options);
+  run_watcher = spawn("node", [bot_path], bot_options);
   // run_watcher.unref();
   run_watcher.stdout.on('data', data => {
     console.log(data.toString());
@@ -69,12 +74,14 @@ const start = () => {
   run_watcher.on('exit', (code) => {
     if (exiting) { process.exit(); }
     else if (code === 0) { logger.info("Files changed, restarting bot"); start(); } 
-    else handle_exit('bot', code);
+    else {run_watcher.killed = true; handle_exit('bot', code); }
   });
 }
 
 /* Start babel watch */
-const babel_path = path.resolve(__dirname, "node_modules/@babel/cli/bin/babel.js");
+const babel_path = ((os.platform() === "win32") ? 'node ' : '') +
+  path.resolve(__dirname, "node_modules/@babel/cli/bin/babel.js");
+
 const babel_args = [
   "--watch", "src"
 ].concat(
@@ -89,8 +96,6 @@ const babel_args = [
 const babel_options = { stdio: ['inherit', 'pipe', 'inherit'], cwd: __dirname, shell: true };
 
 const babel_watcher = spawn(babel_path, babel_args, babel_options);
-babel_watcher.on('error', (error) => handle_error('babel', error));
-babel_watcher.on('exit', (code) => handle_exit('babel', code));
 babel_watcher.stdout.on('data', (data) => {
   logger.info(data);
   // Start bot after files are compiled
@@ -99,6 +104,14 @@ babel_watcher.stdout.on('data', (data) => {
     start();
   }
 });
+babel_watcher.on('error', (error) => { handle_error('babel', error) });
+babel_watcher.on('exit', (code) => {
+  if (!exiting) {
+    babel_watcher.killed = true;
+    handle_exit('babel', code);
+  }
+});
+
 
 /* Watch build folder */
 const restarter = debounced(500, () => { init=false; kill(run_watcher) });
@@ -113,7 +126,7 @@ if (process.platform === 'win32') {
   });
 
   rl.on('SIGINT', function () {
-    exit();
+    process.kill(process.pid, 'SIGINT');
   });
 }
 
