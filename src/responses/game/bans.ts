@@ -78,7 +78,7 @@ export function whyban(
 
   if (!name) return 'Please provide a card or use !banlist';
 
-  const card = API.find_cards_by_name(cleantext(name))[0] ?? null;
+  const card = API.find_cards_by_name(name)[0] ?? null;
 
   if (!card) return 'Not a valid card name';
 
