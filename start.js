@@ -1,7 +1,8 @@
 const winston = require('winston');
 const chokidar = require('chokidar');
 const path = require('path');
-const { spawn } = require("child_process");
+const { spawn, exec } = require("child_process");
+const os = require('os');
 
 function debounced(delay, fn) {
   let timerId;
@@ -33,6 +34,18 @@ let init = false;
 let timeout;
 let run_watcher;
 
+const kill = (ps) => {
+  if (!exiting) {
+    ps.send({ signal: 'SIGINT' });
+  }
+  else if (os.platform() === 'win32') {
+    exec('taskkill /T /F /pid ' + ps.pid);
+  }
+  else {
+    ps.kill("SIGINT");
+  }
+}
+
 const handle_error = (proc, msg) => { logger.error(proc, msg); }
 const handle_exit = (proc, code) => { 
   if (!exiting) {
@@ -48,15 +61,15 @@ const bot_options = { stdio: ['inherit', 'pipe', 'inherit', 'ipc'], shell: true 
 const start = () => {
   run_watcher = spawn(bot_path, bot_options);
   // run_watcher.unref();
-  run_watcher.on('error', (err) => handle_error('bot', err));
-  run_watcher.on('exit', (code) => {
-    if (exiting) process.exit();
-    if (code === 0) { logger.info("Files changed, restarting bot"); start(); } 
-    else handle_exit('bot', code);
-  });
   run_watcher.stdout.on('data', data => {
     console.log(data.toString());
     if (!init && data.toString().includes('Logged in as:')) { init = true; }
+  });
+  run_watcher.on('error', (err) => handle_error('bot', err));
+  run_watcher.on('exit', (code) => {
+    if (exiting) { process.exit(); }
+    else if (code === 0) { logger.info("Files changed, restarting bot"); start(); } 
+    else handle_exit('bot', code);
   });
 }
 
@@ -88,9 +101,9 @@ babel_watcher.stdout.on('data', (data) => {
 });
 
 /* Watch build folder */
-const restarter = debounced(400, () => { init=false; run_watcher.kill('SIGINT'); });
+const restarter = debounced(500, () => { init=false; kill(run_watcher) });
 const build_watcher = chokidar.watch(outdir, { persistant: true });
-build_watcher.on('change', (/* path */) => { if (init) restarter(); });
+build_watcher.on('change', (/*path*/) => { if (init) { restarter(); } });
 
 /* Windows pick up sigint */
 if (process.platform === 'win32') {
@@ -100,8 +113,7 @@ if (process.platform === 'win32') {
   });
 
   rl.on('SIGINT', function () {
-    // @ts-ignore
-    process.emit('SIGINT');
+    exit();
   });
 }
 
@@ -110,18 +122,17 @@ if (process.platform === 'win32') {
 const exit = async () => {
   exiting = true;
   clearTimeout(timeout);
-  if (!babel_watcher.killed) babel_watcher.kill();
+  if (!babel_watcher.killed) kill(babel_watcher);
+  await build_watcher.close();
   if (run_watcher && !run_watcher.killed) {
-    run_watcher.kill();
-    build_watcher.close();
+    kill(run_watcher);
   } else {
-    await build_watcher.close();
     process.exit();
   }
 }
 
-process.on('SIGINT', exit);
-process.on('SIGTERM', exit);
+process.once('SIGINT', exit);
+process.once('SIGTERM', exit);
 
 // run_watcher.send({ signal: 'SIGINT' });
 // run_watcher.on('message', () => {

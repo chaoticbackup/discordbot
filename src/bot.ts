@@ -170,6 +170,18 @@ bot.login(auth.token).then(() => {
   }, 120 * 1000);
 });
 
+/* Windows pick up sigint */
+if (process.platform === 'win32') {
+  var rl = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on('SIGINT', function () {
+    process.kill(process.pid, 'SIGINT');
+  });
+}
+
 const handle: NodeJS.SignalsListener = (_event) => {
   stop().then(() => {
     process.exit(0); // process exits after db closes
@@ -177,6 +189,10 @@ const handle: NodeJS.SignalsListener = (_event) => {
 }
 process.on('SIGINT', handle);
 process.on('SIGTERM', handle);
+
+process.on('message', (msg) => {
+  if (msg?.signal === 'SIGINT') handle(msg.signal);
+});
 
 process.on('exit', () => {
   clearInterval(timer);
