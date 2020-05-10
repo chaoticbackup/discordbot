@@ -9,7 +9,9 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './game/bans';
 
-const { sass, tags } = require('./config/sass.json');
+type s = Record<string, string[]>;
+
+const { sass, tags } = require('./config/sass.json') as {sass: s, tags: s};
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -103,7 +105,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (message.author.id === users('brat')) {
-      return rndrsp(['Stop bothering me', 'So is this what having a younger brother is like?']);
+      return rndrsp(tags.brat);
     }
     else if (message.author.id === users('bf')) {
       return compliment(message.guild, [users('bf')], '');

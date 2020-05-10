@@ -1,5 +1,5 @@
 import { Guild } from 'discord.js';
-import { can_send, cleantext, is_channel, rndrsp, uppercase } from '../../common';
+import { can_send, is_channel, rndrsp, uppercase } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 import { API } from '../../database';
