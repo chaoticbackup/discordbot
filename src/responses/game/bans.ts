@@ -1,5 +1,5 @@
 import { Guild } from 'discord.js';
-import { can_send, cleantext, is_channel, rndrsp, uppercase } from '../../common';
+import { can_send, is_channel, rndrsp, uppercase } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 import { API } from '../../database';
@@ -78,7 +78,7 @@ export function whyban(
 
   if (!name) return 'Please provide a card or use !banlist';
 
-  const card = API.find_cards_by_name(cleantext(name))[0] ?? null;
+  const card = API.find_cards_by_name(name)[0] ?? null;
 
   if (!card) return 'Not a valid card name';
 

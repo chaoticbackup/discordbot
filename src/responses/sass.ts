@@ -9,7 +9,9 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './game/bans';
 
-const { sass, tags } = require('./config/sass.json');
+type s = Record<string, string[]>;
+
+const { sass, tags } = require('./config/sass.json') as {sass: s, tags: s};
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -21,7 +23,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // coming back
   const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|new|update).*chaotic.*))\?/, 'i');
   if (content.match(back_regex)) {
-    const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcment and ping everyone when they do.";
+    const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcement and ping everyone when they do.";
     return await send(response).then((message: Message) => {
       message.react('586395473716445184').catch((err) => { console.log(err) });
     });
@@ -103,7 +105,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (message.author.id === users('brat')) {
-      return rndrsp(['Stop bothering me', 'So is this what having a younger brother is like?']);
+      return rndrsp(tags.brat);
     }
     else if (message.author.id === users('bf')) {
       return compliment(message.guild, [users('bf')], '');
