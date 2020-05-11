@@ -1,4 +1,5 @@
 import { RichEmbed, Client } from 'discord.js';
+import moment from 'moment';
 import { API } from '../../database';
 import Icons from '../../common/bot_icons';
 import ScanQuestDB, { ActiveScan } from '../scan_db';
@@ -26,8 +27,7 @@ export default class Scanner {
     }
 
     // give or take a minute
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - 1);
+    const now = moment().subtract(1, 'minute');
 
     let selected: ActiveScan | undefined;
     if (args === '') {
@@ -36,7 +36,7 @@ export default class Scanner {
           return 'There is no scannable card';
         }
         selected = server.activescans[server.activescans.length - 1];
-        if (selected === undefined || new Date(selected.expires) < now) {
+        if (selected === undefined || moment(selected.expires).isBefore(now)) {
           server.activescans.pop();
           this.db.servers.update(server);
         }
@@ -49,7 +49,7 @@ export default class Scanner {
         selected = server.activescans.find(scan => scan.scan.name === name);
       }
 
-      if (selected === undefined || new Date(selected.expires) < now) {
+      if (selected === undefined || moment(selected.expires).isBefore(now)) {
         return `${args.replace('@', '')} isn't an active scan`;
       }
     }

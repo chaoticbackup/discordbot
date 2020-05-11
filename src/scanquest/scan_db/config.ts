@@ -22,8 +22,8 @@ export default function (db: ScanQuestDB, id: Snowflake, args: string[]): string
 const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)?.[1] ?? '')).filter((f): f is string => f !== '');
 
 function remaining(server: Server) {
-  const remaining = server.remaining ? new Date((new Date(server.remaining)).valueOf() - (new Date()).valueOf()) : null;
-  if (remaining instanceof Date && !isNaN(remaining.getTime())) {
+  const remaining = server.remaining ? new Date((new Date(server.remaining)).getTime() - (new Date()).getTime()) : null;
+  if (remaining !== null && !isNaN(remaining.getTime())) {
     const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).*$/;
     const d = regex.exec(remaining.toJSON()) as RegExpExecArray;
     return `${d[4]}:${d[5]}:${d[6]}`;

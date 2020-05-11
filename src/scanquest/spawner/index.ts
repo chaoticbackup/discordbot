@@ -1,4 +1,5 @@
 import { Client, Message, Snowflake } from 'discord.js';
+import moment from 'moment';
 
 import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
@@ -47,7 +48,6 @@ export default class Spawner {
     this.db.servers.data.forEach((server) => {
       if (server.remaining) {
         const duration = (new Date(server.remaining)).getTime() - (new Date()).getTime();
-        console.log(new Date(server.remaining), new Date());
         if (duration > 1000) {
           const timeout = setTimeout(() => this.sendCard(server), duration);
           this.timers.set(server.id, { timeout, duration });
@@ -67,9 +67,9 @@ export default class Spawner {
       duration -= this.debouncer.get(id)?.amount ?? 0;
 
       this.db.servers.findAndUpdate({ id: id }, (server) => {
-        const remaining = new Date();
-        remaining.setMilliseconds(remaining.getMilliseconds() + duration);
-        server.remaining = remaining;
+        const remaining = moment();
+        remaining.add(duration, 'milliseconds');
+        server.remaining = remaining.toDate();
       });
     });
   }
@@ -127,9 +127,9 @@ export default class Spawner {
         timeout = setTimeout(() => this.sendCard(server), duration);
         this.timers.set(id, { timeout, duration });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
-          const remaining = new Date();
-          remaining.setMilliseconds(remaining.getMilliseconds() + duration);
-          server.remaining = remaining;
+          const remaining = moment();
+          remaining.add(duration, 'milliseconds');
+          server.remaining = remaining.toDate();
         });
       }
     }
@@ -145,29 +145,30 @@ export default class Spawner {
     const { scannable, image, duration: active } = this.select.card(server);
 
     // set time active
-    const expires = new Date();
-    expires.setHours(expires.getHours() + active);
+    const expires = moment();
+    expires.add(active, 'hours');
 
     // cleanup old scans
     // give or take a minute
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - 1);
+    const now = moment();
+    now.subtract(1, 'minute');
 
     server.activescans = server.activescans.filter(scan => {
-      return (new Date(scan.expires) >= now);
+      return moment(scan.expires).isSameOrAfter(now);
+      // return (new Date(scan.expires) >= now.toDate());
     });
     // add to list of active scans
-    server.activescans.push(new ActiveScan({ scan: scannable.card, expires }));
+    server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
     const duration = config.next;
-    const remaining = new Date();
-    remaining.setMilliseconds(remaining.getMilliseconds() + duration);
-    server.remaining = remaining;
+    const next = moment();
+    const remaining = next.add(duration, 'milliseconds');
+    server.remaining = remaining.toDate();
 
     this.db.servers.update(server);
 
     (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
-    (this.bot.channels.get(servers('develop').channel('bot_commands')) as Channel).send(scannable.toString()).catch(() => {});
+    (this.bot.channels.get(servers('develop').channel('errors')) as Channel).send(scannable.toString()).catch(() => {});
 
     const timeout = setTimeout(() => this.sendCard(server), duration);
     this.timers.set(id, { timeout, duration });
