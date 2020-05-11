@@ -67,8 +67,7 @@ export default class Spawner {
       duration -= this.debouncer.get(id)?.amount ?? 0;
 
       this.db.servers.findAndUpdate({ id: id }, (server) => {
-        const remaining = moment();
-        remaining.add(duration, 'milliseconds');
+        const remaining = moment().add(duration, 'milliseconds');
         server.remaining = remaining.toDate();
       });
     });
@@ -127,8 +126,7 @@ export default class Spawner {
         timeout = setTimeout(() => this.sendCard(server), duration);
         this.timers.set(id, { timeout, duration });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
-          const remaining = moment();
-          remaining.add(duration, 'milliseconds');
+          const remaining = moment().add(duration, 'milliseconds');
           server.remaining = remaining.toDate();
         });
       }
@@ -145,13 +143,11 @@ export default class Spawner {
     const { scannable, image, duration: active } = this.select.card(server);
 
     // set time active
-    const expires = moment();
-    expires.add(active, 'hours');
+    const expires = moment().add(active, 'hours');
 
     // cleanup old scans
     // give or take a minute
-    const now = moment();
-    now.subtract(1, 'minute');
+    const now = moment().subtract(1, 'minute');
 
     server.activescans = server.activescans.filter(scan => {
       return moment(scan.expires).isSameOrAfter(now);
@@ -161,8 +157,7 @@ export default class Spawner {
     server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
     const duration = config.next;
-    const next = moment();
-    const remaining = next.add(duration, 'milliseconds');
+    const remaining = moment().add(duration, 'milliseconds');
     server.remaining = remaining.toDate();
 
     this.db.servers.update(server);
