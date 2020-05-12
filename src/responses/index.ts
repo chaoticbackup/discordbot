@@ -11,7 +11,7 @@ import parseCommand from '../common/parse_command';
 import { API } from '../database';
 import { Channel, SendFunction } from '../definitions';
 
-import { display_card, find_card, full_art, rate_card, display_token } from './card';
+import { display_card, find_card, full_art, rate_card, display_token, avatar } from './card';
 
 import { banlist, formats, whyban } from './game/bans';
 import { cr, faq } from './game/faq';
@@ -117,6 +117,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   if (options.includes('help'))
     return send(help(cmd));
 
+  const parseCards = (args: string[], opts: string[]): void => {
+    return flatten(args).split(';').forEach((name: string) => {
+      send(display_card(name.trim(), opts, bot))
+    });
+  }
+
   /**
     * Public Servers (Limited functions)
     */
@@ -124,18 +130,16 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     switch (cmd) {
       case 'card':
       case 'cards':
-        return flatten(args).split(';').forEach((name: string) => {
-          send(display_card(name.trim(), options, bot));
-        });
+        return parseCards(args, options);
       case 'ability':
         options.push('ability');
-        return send(display_card(flatten(args), options, bot));
+        return parseCards(args, options);
       case 'text':
         options.push('text');
-        return send(display_card(flatten(args), options, bot));
+        return parseCards(args, options);
       case 'stats':
         options.push('stats');
-        return send(display_card(flatten(args), options, bot));
+        return parseCards(args, options);
       case 'full':
       case 'fullart':
         return send(full_art(flatten(args), options));
@@ -175,24 +179,25 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'card':
     case 'cards':
       if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
-      return flatten(args).split(';').forEach((name: string) => {
-        send(display_card(name.trim(), options, bot));
-      });
+      return parseCards(args, options);
     case 'ability':
       options.push('ability');
-      return send(display_card(flatten(args), options, bot));
+      return parseCards(args, options);
     case 'text':
       options.push('text');
-      return send(display_card(flatten(args), options, bot));
+      return parseCards(args, options);
     case 'stats':
       options.push('stats');
-      return send(display_card(flatten(args), options, bot));
+      return parseCards(args, options);
     case 'full':
     case 'fullart':
       return send(full_art(flatten(args), options));
     case 'altart':
       options.push('alt');
       return send(full_art(flatten(args), options));
+    case 'cutout':
+    case 'avatar':
+      return send(avatar(flatten(args)));
     case 'find':
       return send(find_card(flatten(args)));
     case 'rate':
