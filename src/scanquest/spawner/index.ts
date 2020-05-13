@@ -139,33 +139,37 @@ export default class Spawner {
    * Sends a card image to the configed channel
   */
   private sendCard(server: Server) {
+    (this.bot.channels.get(servers('develop').channel('errors')) as Channel)
+    .send(`Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`).catch(() => {});
+
     const { id, send_channel } = server;
-    const { scannable, image, duration: active } = this.select.card(server);
+    try {
+      const { scannable, image, duration: active } = this.select.card(server);
 
-    // set time active
-    const expires = moment().add(active, 'hours');
+      // set time active
+      const expires = moment().add(active, 'hours');
 
-    // cleanup old scans
-    // give or take a minute
-    const now = moment().subtract(1, 'minute');
+      // cleanup old scans
+      server.activescans = server.activescans.filter(scan => {
+        return moment(scan.expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
+      });
 
-    server.activescans = server.activescans.filter(scan => {
-      return moment(scan.expires).isSameOrAfter(now);
-      // return (new Date(scan.expires) >= now.toDate());
-    });
-    // add to list of active scans
-    server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
+      // add to list of active scans
+      server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
-    const duration = config.next;
-    const remaining = moment().add(duration, 'milliseconds');
-    server.remaining = remaining.toDate();
+      const duration = config.next;
+      const remaining = moment().add(duration, 'milliseconds');
+      server.remaining = remaining.toDate();
 
-    this.db.servers.update(server);
+      this.db.servers.update(server);
 
-    (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
-    (this.bot.channels.get(servers('develop').channel('errors')) as Channel).send(scannable.toString()).catch(() => {});
+      (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
 
-    const timeout = setTimeout(() => this.sendCard(server), duration);
-    this.timers.set(id, { timeout, duration });
+      const timeout = setTimeout(() => this.sendCard(server), duration);
+      this.timers.set(id, { timeout, duration });
+    }
+    catch (e) {
+      (this.bot.channels.get(servers('develop').channel('errors')) as Channel).send(e).catch(() => {});
+    }
   }
 }
