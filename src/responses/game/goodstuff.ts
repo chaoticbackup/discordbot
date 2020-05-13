@@ -1,13 +1,15 @@
-type tribes = 'Danian' | 'Mipedian' | 'M\'arrillian' | 'OverWorld' | 'UnderWorld' | 'Generic';
+import { parseTribe, parseType, MugicTribe, CreatureTribe, CardType, generify } from '../../common/card_types';
+
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
 
 interface GoodStuff {
   Attacks: {[key in bp]: string[] }
   Battlegear: string[]
-  Creatures: {[key in tribes]: string[] }
+  Creatures: {[key in CreatureTribe]: string[] }
   Locations: string[]
-  Mugic: {[key in tribes]: string[] }
+  Mugic: {[key in MugicTribe]: string[] }
 }
+
 const { agame, goodstuff } = require('../config/goodstuff.json') as { agame: string[], goodstuff: GoodStuff };
 
 export { fs as funstuff, gs as goodstuff };
@@ -26,54 +28,33 @@ function gs(args: string[]) {
     return "Due to the length, I can't send all the cards.\nPlease specify a card type/tribe";
   }
 
-  let message = '';
-
-  switch (args[0].toLowerCase()) {
-    case 'creature':
-    case 'creatures':
-      return 'Please specify a tribe:\n``!good <tribe> creatures``';
-    case 'mugic':
-      return `**Strong Mugic:**${Mugic()}`;
-    case 'attack':
-    case 'attacks':
-      return Attacks(args[1]);
-    case 'battlegear':
-      return `**Strong Battlegear:**${Type('Battlegear')}`;
-    case 'location':
-    case 'locations':
-      return `**Strong Locations:**${Type('Locations')}`;
-    case 'danian':
-    case 'danians':
-      return Tribe('Danian', args[1]);
-    case 'marrillian':
-    case 'marrillians':
-    case 'm\'arrillian':
-    case 'm\'arrillians':
-      return Tribe("M'arrillian", args[1]);
-    case 'mipedian':
-    case 'mipedians':
-      return Tribe('Mipedian', args[1]);
-    case 'overworld':
-    case 'overworlders':
-      return Tribe('OverWorld', args[1]);
-    case 'underworld':
-    case 'underworlders':
-      return Tribe('UnderWorld', args[1]);
-    case 'tribeless':
-      message = '**Strong Tribeless Creatures:**';
-      goodstuff.Creatures.Generic.forEach((card: string) => {
+  const type = parseType(args[0]);
+  if (type === 'Attacks') return Attacks(args[1]);
+  else if (type === 'Battlegear') return `**Strong Battlegear:**${Type('Battlegear')}`;
+  else if (type === 'Creatures') return 'Please specify a tribe:\n``!good <tribe> creatures``';
+  else if (type === 'Locations') return `**Strong Locations:**${Type('Locations')}`;
+  else if (type === 'Mugic') return `**Strong Mugic:**${Mugic()}`;
+  else {
+    const tribe = parseTribe(args[0]);
+    if (!tribe) { /* */ }
+    else if (args.length > 1) {
+      return Tribe(tribe, parseType(args[1]));
+    }
+    else if (tribe === 'Tribeless') {
+      let message = '**Strong Tribeless Creatures:**';
+      goodstuff.Creatures.Tribeless.forEach((card: string) => {
         message += `\n${card}`;
       });
-      break;
-    case 'generic':
-      message = '**Strong Generic Mugic:**';
+      return message;
+    }
+    else if (tribe === 'Generic') {
+      let message = '**Strong Generic Mugic:**';
       goodstuff.Mugic.Generic.forEach((card: string) => {
         message += `\n${card}`;
       });
-      break;
+      return message;
+    }
   }
-
-  return message;
 }
 
 function Mugic() {
@@ -108,29 +89,30 @@ function Type(type: 'Battlegear' | 'Locations') {
   return msg;
 }
 
-function Tribe(tribe: tribes, type: string) {
+function Tribe(tribe: CreatureTribe | MugicTribe, type: CardType | undefined) {
   let msg = '';
   // If specified mugic or creatures
   if (type) {
-    if (type.toLowerCase() === 'creatures') {
-      msg = `**Strong ${tribe} Creatures**`;
-      goodstuff.Creatures[tribe].forEach((card: string) => {
+    if (type === 'Creatures') {
+      msg = `**Strong ${generify(tribe, type)} ${type}**`;
+      goodstuff[type][generify(tribe, type)].forEach((card: string) => {
         msg += `\n${card}`;
       });
     }
-    else if (type.toLowerCase() === 'mugic') {
-      msg = `**Strong ${tribe} Mugic**`;
-      goodstuff.Mugic[tribe].forEach((card: string) => {
+    else if (type === 'Mugic') {
+      msg = `**Strong ${generify(tribe, type)} ${type}**`;
+      goodstuff[type][generify(tribe, type)].forEach((card: string) => {
         msg += `\n${card}`;
       });
     }
     else {
-      msg = `!good ${tribe} Creatures\n!good ${tribe} Mugic`;
+      msg = `!good ${generify(tribe, 'Creatures')} Creatures\n` +
+        `!good ${generify(tribe, 'Mugic')} Mugic`;
     }
   }
   else {
     msg = `**Strong ${tribe} Cards:**`;
-    [...goodstuff.Mugic[tribe], ...goodstuff.Creatures[tribe]]
+    [...goodstuff.Mugic[generify(tribe, 'Mugic')], ...goodstuff.Creatures[generify(tribe, 'Creatures')]]
     .sort((a, b) => a.localeCompare(b))
     .forEach((card) => {
       msg += `\n${card}`;

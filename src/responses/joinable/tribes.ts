@@ -1,7 +1,8 @@
 import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
+import { CreatureTribes } from '../../common/card_types';
 
-const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
+const tribes = CreatureTribes;
 
 export const tribe = async (
   guild: Guild, member: GuildMember, args: string[]

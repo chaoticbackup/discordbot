@@ -1,4 +1,5 @@
 import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment } from 'discord.js';
+import { CardType } from './common/card_types';
 
 export interface Channel extends Discord.Channel {
   send(arg0: string | RichEmbed, arg1?: any): Promise<any>
@@ -6,7 +7,7 @@ export interface Channel extends Discord.Channel {
 
 export type SendFunction = (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment) => Promise<any>;
 
-export type CardType = 'Attacks' | 'Battlegear' | 'Creatures' | 'Locations' | 'Mugic';
+export type { CardType };
 
 export interface BaseCard {
   gsx$name: string
