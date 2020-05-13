@@ -470,7 +470,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return haxxor(message, bot);
 
     case 'logs':
-      return send(logs(message));
+      return send(logs());
 
       // Not a recognized command
     default:
