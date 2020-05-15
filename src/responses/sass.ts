@@ -95,7 +95,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 }
 
 function checkMentions(message: Message, mentions: string[]): string | undefined {
-  const content = message.content;
+  const content = message.content.replace(`<@!${users('me')}>`, '');
 
   if (mentions.includes(users('afjak'))) {
     if (message.channel.id === servers('main').channel('ruling_questions')) return;
@@ -103,13 +103,11 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
   }
 
   if (mentions.includes(users('me'))) {
-    if (message.author.id === users('brat')) {
-      return rndrsp(tags.brat);
+    if (content.length <= 1) {
+      return (rndrsp(tags.puns, 'pings'));
     }
-    else if (message.author.id === users('bf')) {
-      return compliment(message.guild, [users('bf')], '');
-    }
-    else if (content.match(new RegExp(/love/, 'i'))) {
+
+    if (content.match(new RegExp(/love/, 'i'))) {
       return '❤️ you too';
     }
     else if (content.match(new RegExp(/did.+(king).+(make|create)/, 'i'))) {
@@ -122,8 +120,14 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       }
       return `${displayName} taught me Chaotic`;
     }
+    else if (message.author.id === users('brat')) {
+      return rndrsp(tags.brat);
+    }
+    else if (message.author.id === users('bf')) {
+      return compliment(message.guild, [users('bf')], '');
+    }
     else {
-      return (rndrsp(tags.hello, 'hello'));
+      return rndrsp(tags.hello, 'hello');
     }
   }
 }
