@@ -159,6 +159,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         }\nFor my full feature set check out the main server https://discord.gg/chaotic`;
         return send(msg)
         .then(async () => send(donate()));
+      case 'rm':
+        if (isNaN(parseInt(flatten(args))))
+          return rm(guild, message);
+        break;
       default:
         return;
     }
@@ -458,7 +462,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'rm':
       if (isNaN(parseInt(flatten(args))))
-        return rm(bot, message);
+        return rm(guild, message);
     // fallthrough if number provided
     case 'clear':
     case 'clean':
@@ -505,10 +509,15 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
   return { guild: guild, guildMember: guildMember };
 }
 
-function rm(bot: Client, message: Message) {
-  const lstmsg = bot.user.lastMessage;
-  if (lstmsg?.deletable) lstmsg.delete();
-  if (message.deletable) message.delete(); // delete user msg
+function rm(guild: Guild, message: Message) {
+  if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
+  message.channel.fetchMessages({ limit: 10 })
+  .then(messages => {
+    const msg = messages.find((msg) => msg.author.id === users('me'));
+    if (msg?.author.id === users('me')) {
+      message.channel.bulkDelete([msg, message]);
+    }
+  });
 }
 
 async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
