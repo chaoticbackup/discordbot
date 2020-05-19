@@ -324,6 +324,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'collection':
       return send('https://chaoticbackup.github.io/collection/');
+      
+    case 'portal':
+      return send('https://chaoticbackup.github.io/portal/');
 
     case 'banhammer': {
       return send(display_card('The Doomhammer', ['image'], bot));
