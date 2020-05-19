@@ -161,7 +161,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         .then(async () => send(donate()));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
-          return rm(guild, message);
+          return rm(message.guild, message);
         break;
       default:
         return;
@@ -324,7 +324,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'collection':
       return send('https://chaoticbackup.github.io/collection/');
-      
+
     case 'portal':
       return send('https://chaoticbackup.github.io/portal/');
 
