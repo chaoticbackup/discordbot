@@ -5,8 +5,10 @@ import { ScannableCreature } from '../scanner/Creature';
 import ScanFunction from './ScanFunction';
 
 const hasAvatar = (creature: Creature) => (
-  Boolean(creature.gsx$ia && creature.gsx$ia !== '') ||
-  Boolean(creature.gsx$avatar && creature.gsx$avatar !== '') ||
+  (
+    Boolean(creature.gsx$ia && creature.gsx$ia !== '') ||
+    Boolean(creature.gsx$avatar && creature.gsx$avatar !== '')
+  ) &&
   Boolean(creature.gsx$image && creature.gsx$image !== '')
 )
 
