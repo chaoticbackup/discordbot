@@ -1,5 +1,5 @@
 import { Client, Message, Snowflake } from 'discord.js';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
@@ -11,8 +11,8 @@ import debug from '../../common/debug';
  * @param duration A numberical representation in miliseconds of the remaining time for the timer
  */
 interface Timer {
-  timeout: ReturnType<typeof setTimeout>
-  duration: number
+  timeout: NodeJS.Timeout
+  endTime: Moment
 }
 
 /**
@@ -47,10 +47,11 @@ export default class Spawner {
     // get timers from database
     this.db.servers.data.forEach((server) => {
       if (server.remaining) {
-        const duration = (new Date(server.remaining)).getTime() - (new Date()).getTime();
-        if (duration > 1000) {
-          const timeout = setTimeout(() => this.sendCard(server), duration);
-          this.timers.set(server.id, { timeout, duration });
+        const endTime = moment(server.remaining);
+        const remaining = endTime.diff(moment(), 'milliseconds');
+        if (remaining > config.debounce) {
+          const timeout = setTimeout(() => this.sendCard(server), remaining);
+          this.timers.set(server.id, { timeout, endTime });
         }
         else {
           this.sendCard(server);
@@ -62,9 +63,10 @@ export default class Spawner {
   stop() {
     // write timers to database
     this.timers.forEach((timer, id) => {
-      let { duration, timeout } = timer;
+      const { endTime, timeout } = timer;
+
       clearTimeout(timeout);
-      duration -= this.debouncer.get(id)?.amount ?? 0;
+      const duration = endTime.valueOf() - (this.debouncer.get(id)?.amount ?? 0);
 
       this.db.servers.findAndUpdate({ id: id }, (server) => {
         const remaining = moment().add(duration, 'milliseconds');
@@ -111,26 +113,27 @@ export default class Spawner {
   }
 
   reduce(server: Server) {
-    const { id } = server;
+    const { id, send_channel } = server;
 
     if (this.timers.has(id)) {
-      let { timeout, duration } = this.timers.get(id) as Timer;
+      let { timeout, endTime } = this.timers.get(id) as Timer;
       clearTimeout(timeout);
 
-      const amount = this.debouncer.get(id)?.amount ?? 0;
-      duration -= amount;
+      const amount = (this.debouncer.get(id)?.amount ?? 0);
+      const duration = endTime.valueOf() - (this.debouncer.get(id)?.amount ?? 0);
+      endTime = moment().add(duration, 'milliseconds');
 
-      debug(this.bot, `${id} reduced by ${amount / 1000} seconds. ${duration / 1000} remaining`);
+      // eslint-disable-next-line max-len
+      debug(this.bot, `<#${send_channel}>: ${moment(duration).format('HH:mm:ss')} reduced by ${amount / 1000} seconds. ${moment(duration - amount).format('HH:mm:ss')} remaining`);
 
       if (duration <= config.debounce) {
         this.sendCard(server);
       }
       else {
         timeout = setTimeout(() => this.sendCard(server), duration);
-        this.timers.set(id, { timeout, duration });
+        this.timers.set(id, { timeout, endTime });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
-          const remaining = moment().add(duration, 'milliseconds');
-          server.remaining = remaining.toDate();
+          server.remaining = endTime.toDate();
         });
       }
     }
@@ -160,15 +163,15 @@ export default class Spawner {
       server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
       const duration = config.next;
-      const remaining = moment().add(duration, 'milliseconds');
-      server.remaining = remaining.toDate();
+      const endTime = moment().add(duration, 'milliseconds');
+      server.remaining = endTime.toDate();
 
       this.db.servers.update(server);
 
       (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
 
       const timeout = setTimeout(() => this.sendCard(server), duration);
-      this.timers.set(id, { timeout, duration });
+      this.timers.set(id, { timeout, endTime });
     }
     catch (e) {
       debug(this.bot, e, 'error');
