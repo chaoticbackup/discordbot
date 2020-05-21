@@ -19,7 +19,7 @@ import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
 import { cancelMatch, lookingForMatch } from './misc/match_making';
-import tier from './game/meta';
+import { tierlist, tribelist } from './game/decklists';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
@@ -292,19 +292,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'goodstuff':
       return send(goodstuff(args));
 
-    /* Meta and Tierlist */
-    case 'tier':
-    case 'meta':
-      if (args.length === 0)
-        return send('Supply a tier or use ``!tierlist``');
-      // falls through if args
+    /* Decklists and Tierlist */
+    case 'deck':
+    case 'decks':
+    case 'decklist':
+      return send(tribelist(flatten(args)));
     case 'tierlist':
-      if (args.length > 0) return send(tier(flatten(args)));
+      if (args.length > 0) return send(tierlist(flatten(args)));
       if (can_send(message)) {
-        return send(new RichEmbed()
-        .setImage('https://drive.google.com/uc?id=14l0YvLk-l0G5BaDeW8MFAMKrbBmMpQp5')
-        )
-        .then(async () => send(tier()))
+        return send(tierlist())
         .then(async () => send(donate()));
       }
       return;
