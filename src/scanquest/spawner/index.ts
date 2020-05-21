@@ -66,11 +66,12 @@ export default class Spawner {
       const { endTime, timeout } = timer;
 
       clearTimeout(timeout);
-      const duration = endTime.valueOf() - (this.debouncer.get(id)?.amount ?? 0);
+
+      const amount = (this.debouncer.get(id)?.amount ?? 0);
+      endTime.subtract(amount, 'milliseconds');
 
       this.db.servers.findAndUpdate({ id: id }, (server) => {
-        const remaining = moment().add(duration, 'milliseconds');
-        server.remaining = remaining.toDate();
+        server.remaining = endTime.toDate();
       });
     });
   }
@@ -121,10 +122,10 @@ export default class Spawner {
 
       const amount = (this.debouncer.get(id)?.amount ?? 0);
       const duration = endTime.valueOf() - (this.debouncer.get(id)?.amount ?? 0);
-      endTime = moment().add(duration, 'milliseconds');
+      endTime.subtract(amount, 'milliseconds');
 
       // eslint-disable-next-line max-len
-      debug(this.bot, `<#${send_channel}>: ${moment(duration).format('HH:mm:ss')} reduced by ${amount / 1000} seconds. ${moment(duration - amount).format('HH:mm:ss')} remaining`);
+      debug(this.bot, `<#${send_channel}>: ${moment(duration).format('HH:mm:ss')} reduced by ${amount / 1000} seconds. Timer set for ${moment(duration - amount).format('HH:mm:ss')}`);
 
       if (duration <= config.debounce) {
         this.sendCard(server);
