@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
-import { Logger } from 'winston';
+
+import logger from '../logger';
 
 import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten } from '../common';
 import servers from '../common/servers';
@@ -9,7 +10,7 @@ import users from '../common/users';
 import parseCommand from '../common/parse_command';
 
 import { API } from '../database';
-import { Channel, SendFunction } from '../definitions';
+import { SendFunction } from '../definitions';
 
 import { display_card, find_card, full_art, rate_card, display_token, avatar } from './card';
 
@@ -38,6 +39,7 @@ import cupid from './misc/cupid';
 
 import checkSass from './sass';
 import logs from './logs';
+import debug from '../common/debug';
 
 const joke = require('./config/jokes.json') as string[];
 
@@ -48,7 +50,7 @@ const full_command_servers = [
   servers('main').id, servers('develop').id, servers('international').id, servers('unchained').id
 ];
 
-export default (async function (bot: Client, message: Message, logger: Logger): Promise<void> {
+export default (async function (bot: Client, message: Message): Promise<void> {
   // Ignore bot messages
   if (message.author.bot) return;
 
@@ -90,8 +92,7 @@ export default (async function (bot: Client, message: Message, logger: Logger): 
     // Send Error to Bot Testing Server
     const server_source = message.guild ? message.guild.name : 'DM';
 
-    (bot.channels.get(servers('develop').channel('errors')) as Channel)
-    .send(`${server_source}:\n${error.stack}`);
+    debug(bot, `${server_source}:\n${error.stack}`, 'error');
 
     // Ignore programmer errors (keep running)
     if (error.name === 'ReferenceError' || error.name === 'SyntaxError')

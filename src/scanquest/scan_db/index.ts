@@ -1,6 +1,7 @@
 import { Snowflake } from 'discord.js';
 import Loki, { Collection } from 'lokijs';
 import path from 'path';
+import logger from '../../logger';
 import servers from '../../common/servers';
 import db_path from '../../database/db_path';
 import Scanned from '../scanner/Scanned';
@@ -119,11 +120,11 @@ class ScanQuestDB {
     return await new Promise((resolve) => {
       this.db.saveDatabase((err) => {
         if (err) {
-          console.error(`save error : ${err}`);
+          logger.error(`save error : ${err}`);
         }
         this.db.close((err) => {
           if (err) {
-            console.error(`close error : ${err}`);
+            logger.error(`close error : ${err}`);
           }
           resolve();
         });

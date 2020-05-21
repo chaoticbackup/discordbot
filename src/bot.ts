@@ -2,38 +2,26 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import winston from 'winston';
 import Discord from 'discord.js';
 
+import logger from './logger';
 import responses from './responses';
-import ForumAPI from './forum/api';
+import startForumAPI from './forum/api';
 import ForumPosts from './forum/posts';
 import ScanQuest from './scanquest';
 
 import servers from './common/servers';
 import { Channel } from './definitions';
 
-const auth = require('./auth.json');
+const auth = require('./auth.json') as {token: string};
 
 const development = process.env.NODE_ENV === 'development';
 let devType = process.env.APP_ENV ?? '';
 
-// Configure logger settings
-const logger = winston.createLogger({
-  level: 'debug',
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple()
-  ),
-  transports: [
-    new winston.transports.Console()
-  ]
-});
-
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
-const sq = new ScanQuest(bot, logger);
+const sq = new ScanQuest(bot);
 
 // Disabled freatures if api.json is missing or set to false
 if (!development) {
@@ -41,7 +29,7 @@ if (!development) {
     const api = require('./api.json');
     if (!!api) {
       devType = 'all';
-      ForumAPI(logger);
+      startForumAPI();
     }
   }
   catch (e) { }
@@ -104,7 +92,7 @@ const sendError = async () => {
 // Responses
 bot.on('message', msg => {
   checkSpam(msg);
-  responses(bot, msg, logger);
+  responses(bot, msg);
   sq.monitor(msg);
 });
 

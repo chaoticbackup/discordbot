@@ -1,10 +1,11 @@
-import { API } from '../database';
-import { Logger } from 'winston';
 import express from 'express';
+import { API } from '../database';
+import logger from '../logger';
+
 const app = express();
 const port = 3000;
 
-export default (logger: Logger) => {
+export default () => {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
 import Select from './select';
-import servers from '../../common/servers';
+import debug from '../../common/debug';
 
 /**
  * @param timeout A javascript timer
@@ -112,12 +112,15 @@ export default class Spawner {
 
   reduce(server: Server) {
     const { id } = server;
+
     if (this.timers.has(id)) {
       let { timeout, duration } = this.timers.get(id) as Timer;
       clearTimeout(timeout);
 
       const amount = this.debouncer.get(id)?.amount ?? 0;
       duration -= amount;
+
+      debug(this.bot, `${id} reduced by ${amount / 1000} seconds. ${duration / 1000} remaining`);
 
       if (duration <= config.debounce) {
         this.sendCard(server);
@@ -139,8 +142,7 @@ export default class Spawner {
    * Sends a card image to the configed channel
   */
   private sendCard(server: Server) {
-    (this.bot.channels.get(servers('develop').channel('errors')) as Channel)
-    .send(`Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`).catch(() => {});
+    debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
 
     const { id, send_channel } = server;
     try {
@@ -169,7 +171,7 @@ export default class Spawner {
       this.timers.set(id, { timeout, duration });
     }
     catch (e) {
-      (this.bot.channels.get(servers('develop').channel('errors')) as Channel).send(e).catch(() => {});
+      debug(this.bot, e, 'error');
     }
   }
 }

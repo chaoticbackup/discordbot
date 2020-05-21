@@ -1,5 +1,4 @@
 import { Client, Message, RichEmbed } from 'discord.js';
-import { Logger } from 'winston';
 
 import { API } from '../database';
 import { SendFunction } from '../definitions';
@@ -7,6 +6,7 @@ import { SendFunction } from '../definitions';
 import { flatten } from '../common';
 import parseCommand from '../common/parse_command';
 import users from '../common/users';
+import logger from '../logger';
 
 import ScanQuestDB from './scan_db';
 import loadScan from './load';
@@ -20,16 +20,14 @@ const development = (process.env.NODE_ENV === 'development');
 export default class ScanQuest {
   private readonly db: ScanQuestDB;
   readonly bot: Client;
-  readonly logger: Logger;
   private timeout: NodeJS.Timeout;
   private spawner: Spawner;
   private scanner: Scanner;
   private trader: Trader;
   private init: boolean = false;
 
-  constructor(bot: Client, logger: Logger) {
+  constructor(bot: Client) {
     this.bot = bot;
-    this.logger = logger;
     this.db = new ScanQuestDB();
   }
 
@@ -41,7 +39,7 @@ export default class ScanQuest {
       return;
     }
     if (API.data === 'local') {
-      this.logger.info('ScanQuest cannot start. Database is down');
+      logger.info('ScanQuest cannot start. Database is down');
       return;
     }
 
@@ -51,10 +49,10 @@ export default class ScanQuest {
       this.scanner = new Scanner(this.bot, this.db);
       this.trader = new Trader(this.bot, this.db);
 
-      this.logger.info('ScanQuest has started');
+      logger.info('ScanQuest has started');
       this.init = true;
     }).catch(() => {
-      this.logger.info('ScanQuest did not start');
+      logger.info('ScanQuest did not start');
     });
   }
 
@@ -71,7 +69,7 @@ export default class ScanQuest {
     const send: SendFunction = async (msg, options) => {
       if (msg) {
         return await message.channel.send(msg, options)
-          .catch(error => this.logger.error(error.stack));
+          .catch(error => logger.error(error.stack));
       }
     }
 

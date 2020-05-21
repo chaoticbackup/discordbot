@@ -49,7 +49,8 @@ const servers: Server[] = [
     channels: {
       gen: '504052742201933827',
       errors: '558184649466314752',
-      bot_commands: '559935570428559386'
+      bot_commands: '559935570428559386',
+      debug: '712680358939852883'
     }
   }),
   new Server({
