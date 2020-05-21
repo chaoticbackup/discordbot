@@ -25,6 +25,7 @@ interface Amount {
 const config = {
   tick: 2 * 1000, // seconds
   debounce: 2 * 60 * 1000, // minutes
+  // debounce: 10 * 1000,
   next: 8 * 60 * 60 * 1000 // hours
 }
 
@@ -98,10 +99,14 @@ export default class Spawner {
     // Ignore short messages
     const content = message.content.replace(/<:.*:[0-9]*>/gi, '');
     const words = content.split(' ').length;
-    if (words < 3 || content.length < 20) return;
+    let length = content.length;
+
+    if (words < 3 || length < 20) return;
+
+    if (length > 400) length = 400;
 
     // reduces timer by config seconds per character in messaage
-    const reduce = (content.length - 5) * config.tick;
+    const reduce = (length - 8) * config.tick;
 
     if (this.debouncer.has(id)) {
       const { amount } = this.debouncer.get(id) as Amount;
@@ -121,17 +126,17 @@ export default class Spawner {
       clearTimeout(timeout);
 
       const amount = (this.debouncer.get(id)?.amount ?? 0);
-      const duration = endTime.valueOf() - (this.debouncer.get(id)?.amount ?? 0);
       endTime.subtract(amount, 'milliseconds');
+      const remaining = endTime.diff(moment(), 'milliseconds');
 
       // eslint-disable-next-line max-len
-      debug(this.bot, `<#${send_channel}>: ${moment(duration).format('HH:mm:ss')} reduced by ${amount / 1000} seconds. Timer set for ${moment(duration - amount).format('HH:mm:ss')}`);
+      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('HH:mm:ss')} reduced by ${amount / 1000} seconds. Timer set for ${endTime.format('HH:mm:ss')}. ${remaining / 1000} seconds remaining.`);
 
-      if (duration <= config.debounce) {
+      if (remaining <= config.debounce) {
         this.sendCard(server);
       }
       else {
-        timeout = setTimeout(() => this.sendCard(server), duration);
+        timeout = setTimeout(() => this.sendCard(server), remaining);
         this.timers.set(id, { timeout, endTime });
         this.db.servers.findAndUpdate({ id: id }, (server) => {
           server.remaining = endTime.toDate();
@@ -147,7 +152,6 @@ export default class Spawner {
   */
   private sendCard(server: Server) {
     debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
-    return;
 
     const { id, send_channel } = server;
     try {
