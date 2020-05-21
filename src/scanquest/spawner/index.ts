@@ -147,6 +147,7 @@ export default class Spawner {
   */
   private sendCard(server: Server) {
     debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
+    return;
 
     const { id, send_channel } = server;
     try {
