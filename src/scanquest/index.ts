@@ -74,6 +74,7 @@ export default class ScanQuest {
     }
 
     const content = message.content;
+    const mentions: string[] = Array.from(message.mentions.users.keys());
 
     if (!API.data) {
       if (content.charAt(0) === '!') await send('Scanner has not started');
@@ -112,6 +113,11 @@ export default class ScanQuest {
             const scan = loadScan({ type, info });
             if (scan) return await this.db.save(id, scan.card);
             return await send('Invalid format');
+          }
+          return;
+        case 'trade':
+          if (message.guild) {
+            await this.trader.trade(args, mentions, message);
           }
           return;
         case 'spawn':

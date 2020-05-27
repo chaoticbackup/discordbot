@@ -130,9 +130,10 @@ export default class Spawner {
       const remaining = endTime.diff(moment(), 'milliseconds');
 
       // eslint-disable-next-line max-len
-      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('HH:mm:ss')} reduced by ${amount / 1000} seconds. Timer set for ${endTime.format('HH:mm:ss')}. ${remaining / 1000} seconds remaining.`);
+      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('HH:mm:ss')} reduced by ${amount / 1000} seconds.`);
 
       if (remaining <= config.debounce) {
+        debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
         this.sendCard(server);
       }
       else {
@@ -141,6 +142,7 @@ export default class Spawner {
         this.db.servers.findAndUpdate({ id: id }, (server) => {
           server.remaining = endTime.toDate();
         });
+        debug(this.bot, `Timer set for ${endTime.format('HH:mm:ss')}. ${remaining / 1000} seconds remaining.`);
       }
     }
 
@@ -151,8 +153,6 @@ export default class Spawner {
    * Sends a card image to the configed channel
   */
   private sendCard(server: Server) {
-    debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
-
     const { id, send_channel } = server;
     try {
       const { scannable, image, duration: active } = this.select.card(server);

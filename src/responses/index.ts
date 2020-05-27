@@ -19,7 +19,7 @@ import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
 import { cancelMatch, lookingForMatch } from './misc/match_making';
-import { tierlist, tribelist } from './game/decklists';
+import { tierlist, decklist } from './game/decklists';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
@@ -296,9 +296,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'deck':
     case 'decks':
     case 'decklist':
-      return send(tribelist(flatten(args)));
+      return send(decklist(flatten(args)));
     case 'tierlist':
-      if (args.length > 0) return send(tierlist(flatten(args)));
       if (can_send(message)) {
         return send(tierlist())
         .then(async () => send(donate()));

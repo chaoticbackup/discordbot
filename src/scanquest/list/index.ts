@@ -1,4 +1,4 @@
-import { TextChannel, Message, DMChannel } from 'discord.js';
+import { TextChannel, Message, DMChannel, CollectorFilter } from 'discord.js';
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { parseType, parseTribe, CreatureTribe, generify } from '../../common/card_types';
 import ScanQuestDB from '../scan_db';
@@ -64,6 +64,15 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     '⬇️': (_, instance) => {
       instance.array = (instance.array as scan[]).sort((a: scan, b: scan) => {
         return a.details.localeCompare(b.details);
+      })
+    },
+    '🔎': (_, instance) => {
+      const filter = ((message: Message) => {
+
+      }) as CollectorFilter;
+      message.channel.createMessageCollector(filter, { max: 1, time: 30000 })
+      .on('collect', (m: Message) => {
+
       })
     }
   };

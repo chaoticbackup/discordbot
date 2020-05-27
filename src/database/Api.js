@@ -30,6 +30,7 @@ export default class API {
   }
 
   rebuild() {
+    this.instance = null;
     return new Promise((resolve, reject) => {
       fs.remove(db_folder, (error) => {
         if (error) return reject(error);

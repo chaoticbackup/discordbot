@@ -115,7 +115,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return (rndrsp(tags.daddy));
     }
     else if (content.match(new RegExp(/who.+(made|created)/, 'i'))) {
-      let displayName: string | null = message.guild.members.get(users('daddy'))!.displayName;
+      let displayName: string | null = message.guild.members.get(users('daddy'))?.displayName ?? null;
       if (displayName === null) {
         displayName = `<@${users('daddy')}>`;
       }

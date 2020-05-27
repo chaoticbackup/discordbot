@@ -3,10 +3,10 @@
 		"S": [
 			"Wise Guys",
 			"LankerTosh",
-			"Swimming Team",
-			"Strike"
+			"Swimming Team"
 		],
 		"A": [
+			"Strike",
 			"Elementalist",
 			"UW Burn",
 			"Fire and Brimstone",
@@ -29,230 +29,216 @@
 			"Mip Reckless"
 		]
 	},
-	"tribes": {
-		"Danian": [
-			"Aszil Compost",
-			"Aszil Courage",
-			"Danian Burn",
-			"Fliandar",
-			"HiveMind"
-		],
-		"M'arrillian": [
-			"FireFly",
-			"Gan'trak Bladez",
-			"Marr Reckless"
-		],
-		"Mipedian": [
-			"Blazvatan",
-			"Gintanai",
-			"Heard Melody",
-			"Khorror",
-			"Mip Reckless",
-			"Strike"
-		],
-		"Mixed": [
-			"Brathe Yourself",
-			"CrackTheWhep",
-			"Dror'niq",
-			"Flying Frogs",
-			"Four Arms",
-			"GearEater",
-			"Gorram Malvadine",
-			"Gorram Neekwin",
-			"Kraken",
-			"LankerTosh",
-			"Lankerek",
-			"Lyssta Mixed",
-			"Muge's Dagger",
-			"No Healing",
-			"Ocean Man",
-			"Swimming Team",
-			"Ursis Dagger",
-			"UrsisKanin",
-			"6 Arms"
-		],
-		"OverWorld": [
-			"Arrthoa",
-			"Bodal's Boys",
-			"Elementalist",
-			"MaxWreck",
-			"Wise Guys"
-		],
-		"UnderWorld": [
-			"Fire and Brimstone",
-			"Flame On!",
-			"UW Burn"
-		]
-	},
-	"decks": {
+	"decklist": {
 		"Aszil Compost": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1580-aszil-compost"
+			"url": "http://chaoticbackup.forumotion.com/t1580-aszil-compost",
+			"tribe": "Danian",
+			"tags": ["Aszil, the Young Queen", "Hiadrom", "Illexia, The Danian Queen", "Makanaz", "Compost"]
 		},
 		"Aszil Courage": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1574-aszil-courage"
+			"url": "http://chaoticbackup.forumotion.com/t1574-aszil-courage",
+			"tribe": "Danian",
+			"tags": ["Aszil, the Young Queen", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer"]
 		},
 		"Arrthoa": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1616-arrthoa"
+			"url": "http://chaoticbackup.forumotion.com/t1616-arrthoa",
+			"tribe": "OverWorld",
+			"tags": ["Arrthoa, Captian of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
 		},
 		"Blazvatan": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1582-blazvatan"
+			"url": "http://chaoticbackup.forumotion.com/t1582-blazvatan",
+			"tribe": "Mipedian",
+			"tags": ["Blazvatan", "Ailav", "Kileron, Warbeast of the Dust Storm", "Warbeast"]
 		},
 		"Brathe Yourself": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself"
+			"url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Bodal's Boys": {
-			"info": "",
-			"counters": [],
-			"url": "http://chaoticbackup.forumotion.com/t1602-bodal-s-boys"
+			"url": "http://chaoticbackup.forumotion.com/t1602-bodal-s-boys",
+			"tribe": "OverWorld",
+			"tags": ["Aivenna", "Bodal's Dagger", "Ikkatosh, The Aich King", "Garv"]
 		},
 		"CrackTheWhep": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep"
+			"url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Danian Burn": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1564-danian-burn"
+			"url": "http://chaoticbackup.forumotion.com/t1564-danian-burn",
+			"tribe": "Danian",
+			"tags": []
 		},
 		"Dror'niq": {
-			"info": "",
-			"counters": [],
-			"url": "http://chaoticbackup.forumotion.com/t1603-drorniq"
+			"url": "http://chaoticbackup.forumotion.com/t1603-drorniq",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Elementalist": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1570-elementalist-ow-update"
+			"url": "http://chaoticbackup.forumotion.com/t1570-elementalist-ow-update",
+			"tribe": "OverWorld",
+			"tags": []
 		},
 		"Flame On!": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1577-flame-on"
+			"url": "http://chaoticbackup.forumotion.com/t1577-flame-on",
+			"tribe": "UnderWorld",
+			"tags": []
 		},
 		"FireFly": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1585-firefly"
+			"url": "http://chaoticbackup.forumotion.com/t1585-firefly",
+			"tribe": "M'arrillian",
+			"tags": []
 		},
 		"Flying Frogs": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1590-flying-frogs"
+			"url": "http://chaoticbackup.forumotion.com/t1590-flying-frogs",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Four Arms": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1593-four-arms"
+			"url": "http://chaoticbackup.forumotion.com/t1593-four-arms",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Fliandar": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1572-fliandar-mixed"
+			"url": "http://chaoticbackup.forumotion.com/t1572-fliandar-mixed",
+			"tribe": "Danian",
+			"tags": []
 		},
 		"Gan'trak Bladez": {
-			"url": "http://chaoticbackup.forumotion.com/t1601-gan-trak-update"
+			"url": "http://chaoticbackup.forumotion.com/t1601-gan-trak-update",
+			"tribe": "M'arrillian",
+			"tags": []
 		},
 		"GearEater": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1591-ilx-geareater"
+			"url": "http://chaoticbackup.forumotion.com/t1591-ilx-geareater",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Gorram Malvadine": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine"
+			"url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Gorram Neekwin": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin"
+			"url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Grantkae Control": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1633-grantkae-control"
+			"url": "http://chaoticbackup.forumotion.com/t1633-grantkae-control",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Gintanai": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1592-gintanai"
+			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai",
+			"tribe": "Mipedian",
+			"tags": []
 		},
 		"Heard Melody": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1631-heard-melody"
+			"url": "http://chaoticbackup.forumotion.com/t1631-heard-melody",
+			"tribe": "Mipedian",
+			"tags": []
 		},
 		"HiveMind": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1599-hivemind"
+			"url": "http://chaoticbackup.forumotion.com/t1599-hivemind",
+			"tribe": "Danian",
+			"tags": []
 		},
 		"Fire and Brimstone": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1571-hot-air-rises"
+			"url": "http://chaoticbackup.forumotion.com/t1571-hot-air-rises",
+			"tribe": "UnderWorld",
+			"tags": []
 		},
 		"Khorror": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1588-khorror"
+			"url": "http://chaoticbackup.forumotion.com/t1588-khorror",
+			"tribe": "Mipedian",
+			"tags": []
 		},
 		"Kraken": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1586-kraken"
+			"url": "http://chaoticbackup.forumotion.com/t1586-kraken",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"LankerTosh": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1565-lanarkiar"
+			"url": "http://chaoticbackup.forumotion.com/t1565-lanarkiar",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Lankerek": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1569-lankerek"
+			"url": "http://chaoticbackup.forumotion.com/t1569-lankerek",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Lyssta Mixed": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1576-lyssta-mixed"
+			"url": "http://chaoticbackup.forumotion.com/t1576-lyssta-mixed",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Mip Reckless": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1596-mipedian-reckless"
+			"url": "http://chaoticbackup.forumotion.com/t1596-mipedian-reckless",
+			"tribe": "Mipedian",
+			"tags": []
 		},
 		"Marr Reckless": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1597-marr-reckless"
+			"url": "http://chaoticbackup.forumotion.com/t1597-marr-reckless",
+			"tribe": "M'arrillian",
+			"tags": []
 		},
 		"MaxWreck": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1566-maxwreck"
+			"url": "http://chaoticbackup.forumotion.com/t1566-maxwreck",
+			"tribe": "OverWorld",
+			"tags": []
 		},
 		"Muge's Dagger": {
-			"counters": [],
-			"url": "http://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan"
+			"url": "http://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"No Healing": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1579-no-healing"
+			"url": "http://chaoticbackup.forumotion.com/t1579-no-healing",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Ocean Man": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1595-ocean-man"
+			"url": "http://chaoticbackup.forumotion.com/t1595-ocean-man",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Strike": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1568-strike"
+			"url": "http://chaoticbackup.forumotion.com/t1568-strike",
+			"tribe": "Mipedian",
+			"tags": ["Strike"]
 		},
 		"Swimming Team": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1567-swimming-team"
+			"url": "http://chaoticbackup.forumotion.com/t1567-swimming-team",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"Ursis Dagger": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger"
+			"url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"UrsisKanin": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin"
+			"url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin",
+			"tribe": "Mixed",
+			"tags": []
 		},
 		"UW Burn": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1575-uw-burn"
+			"url": "http://chaoticbackup.forumotion.com/t1575-uw-burn",
+			"tribe": "UnderWorld",
+			"tags": []
 		},
 		"Wise Guys": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1563-wise-guys"
+			"url": "http://chaoticbackup.forumotion.com/t1563-wise-guys",
+			"tribe": "OverWorld",
+			"tags": []
 		},
 		"6 Arms": {
-		    "counters": [],
-		    "url": "http://chaoticbackup.forumotion.com/t1581-6-arms"
+			"url": "http://chaoticbackup.forumotion.com/t1581-6-arms",
+			"tribe": "Mixed",
+			"tags": []
 		}
 	}
 }
