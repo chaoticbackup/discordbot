@@ -63,6 +63,7 @@ export default class Trader {
 
   protected async startTrade(one: GuildMember, two: GuildMember, content: string, send: sendFunction) {
     // In this function, I choose to skip awaiting certain async actions to speed up the interactions
+    // Empty catch statements, because it can still function without these actions succeeding
 
     const response = await send(
       `${two.displayName}, would you like to trade with ${one.displayName}?`
@@ -140,7 +141,7 @@ export default class Trader {
 
 function help(arg?: number) {
   if (arg === 0) return 'Either player may cancel by using ``!trade @tag cancel``';
-  return 'To modify offer, use ``!trade @tag card 1 id, card 1 id, etc.``'
+  return 'To modify offer, use ``!trade @tag scan id, scan id, etc.``'
 }
 
 export function parseScans(content: string): number[] {

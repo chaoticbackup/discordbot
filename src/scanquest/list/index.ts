@@ -8,6 +8,7 @@ import Scanned from '../scanner/Scanned';
 import Scannable from '../scanner/Scannable';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
+import logger from '../../logger';
 
 interface scan {
   index: number
@@ -15,7 +16,7 @@ interface scan {
 }
 
 export default async (db: ScanQuestDB, message: Message, options: string[]): Promise<void> => {
-  // If not dm or recieve channel
+  // If not dm or receive channel
   if (
     !(
       message.channel instanceof DMChannel ||
@@ -60,34 +61,51 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     return;
   }
 
+  const Pagination = new FieldsEmbed<scan>();
+
   const functionEmojis: IFunctionEmoji<scan> = {
     '⬇️': (_, instance) => {
       instance.array = (instance.array as scan[]).sort((a: scan, b: scan) => {
         return a.details.localeCompare(b.details);
       })
     },
-    '🔎': (_, instance) => {
-      const filter = ((message: Message) => {
+    '🔎': (user, instance) => {
+      const msg = `<@!${message.author.id}>, search for cards by name`;
+      message.channel.send(msg)
+      .then(resp => {
+        const filter = ((message: Message) => {
+          return (message.author.id === user.id);
+        }) as CollectorFilter;
 
-      }) as CollectorFilter;
-      message.channel.createMessageCollector(filter, { max: 1, time: 30000 })
-      .on('collect', (m: Message) => {
-
+        const collector = message.channel.createMessageCollector(filter, { max: 1, time: 45000 });
+        collector.on('collect', (message: Message) => {
+          const new_list = list.filter((card) => {
+            return card.details.toLowerCase().startsWith(message.content);
+          });
+          if (new_list.length > 0) {
+            instance.array = new_list;
+            Pagination._loadList(false).catch((e) => { logger.error(e); });
+          }
+          if (message.deletable) message.delete().catch(() => {});
+        });
+        collector.on('end', () => {
+          if (resp.deletable) resp.delete().catch(logger.error);
+        });
       })
+      .catch(logger.error)
     }
   };
 
-  const Pagination = new FieldsEmbed<scan>()
-  .setAuthorizedUsers(ids)
-  .setChannel(message.channel as (TextChannel | DMChannel))
-  .setElementsPerPage((message.channel instanceof TextChannel) ? 10 : 20)
-  .setPageIndicator(true)
-  .setArray(list)
-  .formatField('Scans', el => `${el.index}) ${el.details}`)
-  .setFunctionEmojis(functionEmojis)
-  .setEmojisFunctionAfterNavigation(true);
-
-  return await Pagination.build();
+  await Pagination
+    .setAuthorizedUsers(ids)
+    .setChannel(message.channel as (TextChannel | DMChannel))
+    .setElementsPerPage((message.channel instanceof TextChannel) ? 10 : 20)
+    .setPageIndicator(true)
+    .setArray(list)
+    .formatField('Scans', el => `${el.index}) ${el.details}`)
+    .setFunctionEmojis(functionEmojis)
+    .setEmojisFunctionAfterNavigation(true)
+    .build();
 }
 
 type Filter = (scan: Scanned) => Scannable | undefined;

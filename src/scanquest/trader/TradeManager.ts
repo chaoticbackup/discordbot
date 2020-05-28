@@ -29,27 +29,34 @@ const yes = '🇾';
 export default class {
   readonly db: ScanQuestDB;
   // the key is the combination of user snowflakes
-  private readonly activeTrades: Map<Snowflake, ActiveTrade> = new Map();
-  readonly messages: Collection<Snowflake, Message> = new Collection();
+  private activeTrades: ActiveTrade[] = [];
+  private readonly messages: Collection<Snowflake, Message> = new Collection();
 
   constructor(db: ScanQuestDB) {
     this.db = db;
   }
 
+  protected findQuery(trade: ActiveTrade, one: GuildMember, two: GuildMember) {
+    return Boolean(
+      (trade.one.id === one.id && trade.two.id === two.id) ||
+        (trade.one.id === two.id && trade.two.id === one.id)
+    );
+  }
+
   public find(one: GuildMember, two: GuildMember) {
-    return this.activeTrades.get(one.id + two.id);
+    return this.activeTrades.find(trade => this.findQuery(trade, one, two));
   }
 
   public remove(one: GuildMember, two: GuildMember) {
     const trade = this.find(one, two);
     if (trade) {
-      this.activeTrades.delete(one.id + two.id);
+      this.activeTrades = this.activeTrades.filter(trade => this.findQuery(trade, one, two));
       this.getResponse(trade)?.clearReactions().catch(logger.error);
     }
   }
 
   public add(one: GuildMember, two: GuildMember, response: Message, cards: number[] = []) {
-    this.activeTrades.set(one.id + two.id, {
+    this.activeTrades.push({
       one: {
         id: one.id,
         scans: cards
@@ -66,12 +73,13 @@ export default class {
   }
 
   public update(one: GuildMember, two: GuildMember, update: Partial<ActiveTrade>) {
-    const trade = this.find(one, two);
-    if (trade) {
-      Object.assign(trade, { ...update });
-      this.activeTrades.set(one.id + two.id, trade);
-      this.updateMessage(one, two);
-    }
+    this.activeTrades.map((trade) => {
+      if (this.findQuery(trade, one, two)) {
+        trade = Object.assign(trade, { ...update });
+        this.updateMessage(one, two);
+      }
+      return trade;
+    });
   }
 
   private getResponse(trade: ActiveTrade) {
@@ -81,6 +89,10 @@ export default class {
   private updateMessage(one: GuildMember, two: GuildMember, response?: Message) {
     const trade = this.find(one, two) as ActiveTrade;
     if (!response) response = this.getResponse(trade);
+
+    // swap users if out of order
+    one = (one.id === trade.one.id) ? one : two;
+    two = (two.id === trade.two.id) ? two : one;
 
     const content = `${one.displayName}: ${this.listScans(one, trade.one.scans)}\n` +
       `${two.displayName}: ${this.listScans(two, trade.two.scans)}\n` +
