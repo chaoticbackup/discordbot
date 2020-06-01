@@ -93,7 +93,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     }
   };
 
-  await Pagination
+  Pagination
     .setAuthorizedUsers(ids)
     .setChannel(message.channel as (TextChannel | DMChannel))
     .setElementsPerPage((message.channel instanceof TextChannel) ? 10 : 20)
@@ -101,6 +101,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     .setArray(list)
     .formatField('Scans', el => `${el.index}) ${el.details}`)
     .setFunctionEmojis(functionEmojis)
-    .setEmojisFunctionAfterNavigation(true)
-    .build();
+    .setEmojisFunctionAfterNavigation(true);
+
+  await Pagination.build();
 }
