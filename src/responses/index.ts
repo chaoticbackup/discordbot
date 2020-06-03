@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
+import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'discord.js';
 
 import logger from '../logger';
 
@@ -92,7 +92,7 @@ export default (async function (bot: Client, message: Message): Promise<void> {
     // Send Error to Bot Testing Server
     const server_source = message.guild ? message.guild.name : 'DM';
 
-    debug(bot, `${server_source}:\n${error.stack}`, 'error');
+    debug(bot, `${server_source}:\n${error.stack}`, 'errors');
 
     // Ignore programmer errors (keep running)
     if (error.name === 'ReferenceError' || error.name === 'SyntaxError')
@@ -509,18 +509,25 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
 }
 
 function rm(guild: Guild, message: Message) {
+  if (message.channel instanceof DMChannel) {
+    message.channel.fetchMessages({ limit: 20 })
+    .then(messages => {
+      const msg = messages.find((msg) => msg.author.id === users('me'));
+      console.log(msg);
+      if (msg) msg.delete();
+    });
+    return;
+  }
   if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
   message.channel.fetchMessages({ limit: 10 })
   .then(messages => {
     const msg = messages.find((msg) => msg.author.id === users('me'));
-    if (msg?.author.id === users('me')) {
-      message.channel.bulkDelete([msg, message]);
-    }
+    if (msg) message.channel.bulkDelete([msg, message]);
   });
 }
 
 async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
-  if (isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES')) {
+  if ((isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES'))) {
     if (amount <= 25) {
       if (mentions.length > 0) {
         return message.channel.fetchMessages()
@@ -548,7 +555,7 @@ async function clear(amount: number, message: Message, mentions: string[] = []):
 
 function haxxor(message: Message, bot: Client): void {
   if ((message.member.id === users('daddy') || message.member.id === users('bf'))
-    || (message.guild && message.guild.id === servers('main').id && isModerator(message.member))
+    || (message?.guild.id === servers('main').id && isModerator(message.member))
   ) {
     message.channel.send('Resetting...');
     API.rebuild()

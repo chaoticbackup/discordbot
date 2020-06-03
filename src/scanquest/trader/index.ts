@@ -57,7 +57,7 @@ export default class Trader {
       }
     }
     catch (e) {
-      debug(this.bot, e, 'error');
+      debug(this.bot, e, 'errors');
     }
   }
 

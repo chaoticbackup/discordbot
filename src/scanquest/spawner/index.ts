@@ -180,7 +180,7 @@ export default class Spawner {
       this.timers.set(id, { timeout, endTime });
     }
     catch (e) {
-      debug(this.bot, e, 'error');
+      debug(this.bot, e, 'errors');
     }
   }
 }

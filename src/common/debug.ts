@@ -3,7 +3,7 @@ import logger from '../logger';
 import { Channel } from '../definitions';
 import servers from './servers';
 
-type channels = 'debug' | 'error';
+type channels = 'debug' | 'errors';
 
 export default function (bot: Client, msg: string, channel: channels = 'debug') {
   if (process.env.NODE_ENV === 'development') {
