@@ -554,8 +554,8 @@ async function clear(amount: number, message: Message, mentions: string[] = []):
 }
 
 function haxxor(message: Message, bot: Client): void {
-  if ((message?.member.id === users('daddy') || message?.member.id === users('bf'))
-    || (message?.guild.id === servers('main').id && isModerator(message.member))
+  if ((message.member?.id === users('daddy') || message.member?.id === users('bf'))
+    || (message.guild?.id === servers('main').id && isModerator(message.member))
   ) {
     message.channel.send('Resetting...');
     API.rebuild()
