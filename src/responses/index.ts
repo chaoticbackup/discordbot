@@ -513,7 +513,6 @@ function rm(guild: Guild, message: Message) {
     message.channel.fetchMessages({ limit: 20 })
     .then(messages => {
       const msg = messages.find((msg) => msg.author.id === users('me'));
-      console.log(msg);
       if (msg) msg.delete();
     });
     return;
