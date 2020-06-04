@@ -86,7 +86,7 @@ export default class Trader {
 
       if (reaction.emoji.name === yes) {
         this.trades.update(one, two, { status: TradeStatus.offering });
-        send(`${two.displayName} is willing to trade.\n${help(0)}\n${help()}`).catch(() => {});
+        send(`${two.displayName} is willing to trade with ${one.displayName}.`).catch(() => {});
         await response.react(yes);
         this.acceptTrade(one, two, response, send);
       }
@@ -118,30 +118,25 @@ export default class Trader {
   }
 
   protected postOffer(one: GuildMember, two: GuildMember, content: string) {
-    let offering = 0;
+    let offering = true;
     const cards = parseScans(content);
     const trade = this.trades.find(one, two);
 
     if (trade?.one.id === one.id) {
-      if (trade.one.scans.length > 0) offering = 1;
+      if (trade.one.scans.length > 0) offering = false;
       trade.one.scans = cards;
     }
     else if (trade?.two.id === one.id) {
-      if (trade.two.scans.length > 0) offering = 1;
+      if (trade.two.scans.length > 0) offering = false;
       trade.two.scans = cards;
     }
     this.trades.update(one, two, { ...trade });
 
-    let msg = (offering === 0) ? `${one.displayName} is offering: ` : `${one.displayName} has updated offer: `;
+    let msg = (offering) ? `${one.displayName} is offering: ` : `${one.displayName} has updated offer: `;
     msg += this.trades.listScans(one, cards);
 
     return msg;
   }
-}
-
-function help(arg?: number) {
-  if (arg === 0) return 'Either player may cancel by using ``!trade @tag cancel``';
-  return 'To modify offer, use ``!trade @tag scan id, scan id, etc.``'
 }
 
 export function parseScans(content: string): number[] {

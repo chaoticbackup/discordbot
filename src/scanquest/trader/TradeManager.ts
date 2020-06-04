@@ -96,7 +96,8 @@ export default class {
 
     const content = `${one.displayName}: ${this.listScans(one, trade.one.scans)}\n` +
       `${two.displayName}: ${this.listScans(two, trade.two.scans)}\n` +
-      `When both players press ${yes}, the trade will be completed.\n`;
+      `\n${help(0)}\n${help()}` +
+      `When both players press the ${yes} reaction, the trade will be completed.`;
 
     response?.edit(content).catch(logger.error);
   }
@@ -139,4 +140,9 @@ export default class {
     const response = this.getResponse(trade);
     if (response) this.messages.delete(response.id);
   }
+}
+
+export function help(arg?: number) {
+  if (arg === 0) return 'Either player may cancel by using ``!trade @tag cancel``';
+  return 'To modify offer, use ``!trade @tag scan id, scan id, etc.``'
 }

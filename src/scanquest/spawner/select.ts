@@ -27,27 +27,29 @@ export default class Select {
 
     const card = API.find_cards_by_name(scannable.card.name)[0];
 
-    const duration = (() => {
-      switch (card.gsx$rarity.toLowerCase()) {
-        case 'ultra rare': return 8;
-        case 'super rare': return 6;
-        case 'rare': return 5;
-        case 'uncommon': return 4;
-        case 'common': return 4;
-        case 'promo': return 7;
-        default: return 4;
-      }
-    })()
-    + (() => {
-      switch (card.gsx$type) {
-        case 'Attacks': return 0;
-        case 'Battlegear': return 2;
-        case 'Creatures': return 1;
-        case 'Locations': return 4;
-        case 'Mugic': return 0;
-        default: return 0;
-      }
-    })();
+    const duration =
+      (() => {
+        switch (card.gsx$type) {
+          case 'Attacks': return 0;
+          case 'Battlegear': return 3;
+          case 'Creatures': return 2;
+          case 'Locations': return 4;
+          case 'Mugic': return 0;
+          default: return 0;
+        }
+      })()
+      *
+      (() => {
+        switch (card.gsx$rarity.toLowerCase()) {
+          case 'ultra rare': return 4.5;
+          case 'super rare': return 4;
+          case 'rare': return 3;
+          case 'uncommon': return 2;
+          case 'common': return 2;
+          case 'promo': return 5;
+          default: return 2;
+        }
+      })();
 
     image.setTitle(`Scan expires in ${duration} hours`);
 
