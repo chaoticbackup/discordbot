@@ -30,7 +30,7 @@ function _tierlist() {
     tierlist[key as Tier].forEach((deck: string) => {
       message += `${deck}: ${decklist[deck].url}\n`;
     });
-    return output.addField(key, message, true);
+    output.addField(key, message, true);
   }
 
   return output;
@@ -97,7 +97,6 @@ function _tags(input: string) {
 function _decklist(input: string): RichEmbed | string {
   let output;
   input = cleantext(input);
-  console.log(input);
 
   if (input.length < 1) {
     return 'Specify a tribe, tier, or keyword to search for decks';
