@@ -40,7 +40,7 @@ function _tiers(input: string) {
   input = input.toUpperCase();
 
   if (input === 'CM') input = 'S';
-  if (input in tiers) {
+  if (tiers.includes(input as Tier)) {
     let message = '';
     tierlist[input as Tier].forEach((deck: string) => {
       message += `${deck}: ${decklist[deck].url}\n`;
@@ -88,29 +88,34 @@ function _tags(input: string) {
   }
 
   if (d.length > 0) {
-    const output = d.reduce((d1, d2) => `${d1}\n${d2}`);
-    if (output.length < 2000)
-      return (new RichEmbed()).setDescription(output);
+    let output = d.reduce((d1, d2) => `${d1}\n${d2}`);
+    if (output.length > 2000) output = output.slice(0, 1999);
+    return (new RichEmbed()).setDescription(output);
   }
 }
 
 function _decklist(input: string): RichEmbed | string {
   let output;
   input = cleantext(input);
+  console.log(input);
+
+  if (input.length < 1) {
+    return 'Specify a tribe, tier, or keyword to search for decks';
+  }
+
+  if (input.length <= 2 && (output = _tiers(input)) instanceof RichEmbed) {
+    return output;
+  }
 
   if ((output = _tribes(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if ((output = _tiers(input)) instanceof RichEmbed) {
+  if (input.length > 3 && (output = _tags(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if ((output = _tags(input)) instanceof RichEmbed) {
-    return output;
-  }
-
-  return "I'm Unable to find decks that match your search";
+  return "I'm unable to find decks that match your search";
 }
 
 export {
