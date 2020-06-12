@@ -67,7 +67,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (content.match(/(end of combat|combat end|end of turn).*?\?/i)) {
     if (content.match(/(fire|water|earth|air|element)/i)) {
-      return await send('Creatures will regain their Scanned elements at the end of the turn');
+      return await send('Creatures will gain or lose elements to match their Scanned elements at the end of the turn');
     }
     if (content.match(/(stats|disciplines|energy)/i)) {
       return await send("Creature's disciplines and energy are reset to their Scanned values at the end of the turn. Any innate modifiers are reapplied.");
