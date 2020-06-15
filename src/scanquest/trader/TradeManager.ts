@@ -50,7 +50,7 @@ export default class {
   public remove(one: GuildMember, two: GuildMember) {
     const trade = this.find(one, two);
     if (trade) {
-      this.activeTrades = this.activeTrades.filter(trade => this.findQuery(trade, one, two));
+      this.activeTrades = this.activeTrades.filter(trade => !this.findQuery(trade, one, two));
       this.getResponse(trade)?.clearReactions().catch(logger.error);
     }
   }
