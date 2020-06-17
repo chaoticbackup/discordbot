@@ -33,27 +33,27 @@
 		"Aszil Compost": {
 			"url": "http://chaoticbackup.forumotion.com/t1580-aszil-compost",
 			"tribe": "Danian",
-			"tags": ["Aszil, the Young Queen", "Hiadrom", "Illexia, The Danian Queen", "Makanaz", "Compost"]
+			"tags": ["Aszil, the Young Queen", "Hiadrom", "Illexia, The Danian Queen", "Makanaz", "Compost", "Earth", "Courage"]
 		},
 		"Aszil Courage": {
 			"url": "http://chaoticbackup.forumotion.com/t1574-aszil-courage",
 			"tribe": "Danian",
-			"tags": ["Aszil, the Young Queen", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer"]
+			"tags": ["Aszil, the Young Queen", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer", "Earth", "Courage"]
 		},
 		"Arrthoa": {
 			"url": "http://chaoticbackup.forumotion.com/t1616-arrthoa",
 			"tribe": "OverWorld",
-			"tags": ["Arrthoa, Captian of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
+			"tags": ["Arrthoa, Captian of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken", "Water"]
 		},
 		"Blazvatan": {
 			"url": "http://chaoticbackup.forumotion.com/t1582-blazvatan",
 			"tribe": "Mipedian",
-			"tags": ["Blazvatan", "Ailav", "Kileron, Warbeast of the Dust Storm", "Warbeast"]
+			"tags": ["Blazvatan", "Ailav", "Kileron, Warbeast of the Dust Storm", "Warbeast", "Air", "Earth"]
 		},
 		"Brathe Yourself": {
 			"url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Strike", "Dagger"]
 		},
 		"Bodal's Boys": {
 			"url": "http://chaoticbackup.forumotion.com/t1602-bodal-s-boys",
@@ -63,27 +63,17 @@
 		"CrackTheWhep": {
 			"url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep",
 			"tribe": "Mixed",
-			"tags": []
-		},
-		"Danian Burn": {
-			"url": "http://chaoticbackup.forumotion.com/t1564-danian-burn",
-			"tribe": "Danian",
-			"tags": []
-		},
-		"Dror'niq": {
-			"url": "http://chaoticbackup.forumotion.com/t1603-drorniq",
-			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Fire", "Power", "Magmon, Engulfed"]
 		},
 		"Elementalist": {
 			"url": "http://chaoticbackup.forumotion.com/t1570-elementalist-ow-update",
 			"tribe": "OverWorld",
-			"tags": []
+			"tags": ["Fire", "Earth", "Water"]
 		},
 		"Flame On!": {
 			"url": "http://chaoticbackup.forumotion.com/t1577-flame-on",
-			"tribe": "UnderWorld",
-			"tags": []
+			"tribe": "Mixed",
+			"tags": ["Fire"]
 		},
 		"FireFly": {
 			"url": "http://chaoticbackup.forumotion.com/t1585-firefly",
@@ -148,7 +138,7 @@
 		"Fire and Brimstone": {
 			"url": "http://chaoticbackup.forumotion.com/t1571-hot-air-rises",
 			"tribe": "UnderWorld",
-			"tags": []
+			"tags": ["Fire", "Air"]
 		},
 		"Khorror": {
 			"url": "http://chaoticbackup.forumotion.com/t1588-khorror",
@@ -228,7 +218,7 @@
 		"UW Burn": {
 			"url": "http://chaoticbackup.forumotion.com/t1575-uw-burn",
 			"tribe": "UnderWorld",
-			"tags": []
+			"tags": ["Burn", "Fire"]
 		},
 		"Wise Guys": {
 			"url": "http://chaoticbackup.forumotion.com/t1563-wise-guys",
