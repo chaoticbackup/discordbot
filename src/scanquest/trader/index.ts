@@ -27,7 +27,7 @@ export default class Trader {
 
     if (!mentions || mentions.length === 0) { await send('Tag a user to trade with'); return; }
     if (mentions.length > 1) { await send('You must specify exactly one user per trade'); return; }
-    // if (mentions[0] === message.author.id) { await send('You cannot trade with yourself'); return; }
+    if (mentions[0] === message.author.id) { await send('You cannot trade with yourself'); return; }
 
     try {
       const one = message.member;
@@ -49,8 +49,7 @@ export default class Trader {
           await send('Trade with this user is already pending');
           break;
         case TradeStatus.offering:
-          await send(this.postOffer(one, two, content));
-          if (message.deletable) await message.delete();
+          this.postOffer(one, two, content);
           break;
         default:
           break;
@@ -118,24 +117,16 @@ export default class Trader {
   }
 
   protected postOffer(one: GuildMember, two: GuildMember, content: string) {
-    let offering = true;
     const cards = parseScans(content);
     const trade = this.trades.find(one, two);
 
     if (trade?.one.id === one.id) {
-      if (trade.one.scans.length > 0) offering = false;
       trade.one.scans = cards;
     }
     else if (trade?.two.id === one.id) {
-      if (trade.two.scans.length > 0) offering = false;
       trade.two.scans = cards;
     }
     this.trades.update(one, two, { ...trade });
-
-    let msg = (offering) ? `${one.displayName} is offering: ` : `${one.displayName} has updated offer: `;
-    msg += this.trades.listScans(one, cards);
-
-    return msg;
   }
 }
 
