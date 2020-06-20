@@ -4,8 +4,8 @@ import { cleantext, uppercase } from '../../common';
 const suffix = '_speakers';
 
 const languageProper = (lang: string): string => {
-  return uppercase(lang.replace(suffix, ''))
-}
+  return uppercase(lang.replace(suffix, ''));
+};
 
 export default async (user: GuildMember, guild: Guild, args: string[]) => {
   if (!guild) {
@@ -25,7 +25,7 @@ export default async (user: GuildMember, guild: Guild, args: string[]) => {
       return `This guild has no language "${suffix}" roles`;
     }
     return msg;
-  }
+  };
 
   if (args.length === 0 || args[0] === '') return languageList();
 
@@ -38,7 +38,7 @@ export default async (user: GuildMember, guild: Guild, args: string[]) => {
       msg += `${m.displayName}\n`;
     });
     return msg;
-  }
+  };
 
   if (!role) return languageList();
 
@@ -61,4 +61,4 @@ export default async (user: GuildMember, guild: Guild, args: string[]) => {
   }
 
   return '!speakers <language> <join|leave|list|>';
-}
+};

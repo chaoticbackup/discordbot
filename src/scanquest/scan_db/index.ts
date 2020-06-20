@@ -79,14 +79,14 @@ const init_config = {
   id: prod ? servers('main').id : servers('develop').id,
   send_channel: prod ? servers('main').channel('perim') : servers('develop').channel('bot_commands'),
   receive_channel: prod ? servers('main').channel('bot_commands') : servers('develop').channel('bot_commands')
-}
+};
 
 class ScanQuestDB {
   private db: Loki;
   public players: Collection<Player>;
   public servers: Collection<Server>;
   public usedcodes: Collection<UsedCode>;
-  public trades: Collection<Trade>
+  public trades: Collection<Trade>;
 
   public async start(): Promise<void> {
     return await new Promise((resolve) => {
@@ -135,7 +135,7 @@ class ScanQuestDB {
           return resolve();
         }
       });
-    })
+    });
   }
 
   public async close(): Promise<void> {
@@ -168,13 +168,13 @@ class ScanQuestDB {
     const server = this.servers.findOne({ id: server_id });
     if (server === null) return false;
     return (server.send_channel === channel_id);
-  }
+  };
 
   public is_receive_channel = (server_id: Snowflake, channel_id: Snowflake): boolean => {
     const server = this.servers.findOne({ id: server_id });
     if (server === null) return false;
     return (server.receive_channel === channel_id);
-  }
+  };
 
   public findOnePlayer = ({ id: player_id }: {id: Snowflake}) => {
     const player = this.players.findOne({ id: player_id });
@@ -182,7 +182,7 @@ class ScanQuestDB {
       return this.players.insertOne(new Player(player_id)) as Player & LokiObj;
     }
     return player;
-  }
+  };
 
   public generateCode() {
     return generateCode(this);

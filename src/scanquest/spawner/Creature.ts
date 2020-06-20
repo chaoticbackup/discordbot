@@ -10,7 +10,7 @@ const hasAvatar = (creature: Creature) => (
     Boolean(creature.gsx$avatar && creature.gsx$avatar !== '')
   ) &&
     Boolean(creature.gsx$image && creature.gsx$image !== '')
-)
+);
 
 export default class ScanCreature extends ScanFunction {
   private readonly creatures: Creature[];

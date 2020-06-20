@@ -1,13 +1,8 @@
 import { Client, Message, GuildMember, CollectorFilter, MessageReaction } from 'discord.js';
 import ScanQuestDB from '../scan_db';
-import TradeManager, { TradeStatus } from './TradeManager';
+import TradeManager, { TradeStatus, sendFunction, yes, no } from './TradeManager';
 import debug from '../../common/debug';
 import logger from '../../logger';
-
-const yes = '🇾';
-const no = '🇳';
-
-type sendFunction = (msg: string) => Promise<Message | void>
 
 export default class Trader {
   readonly bot: Client;
@@ -23,7 +18,7 @@ export default class Trader {
 
     const send = async (msg: string) => {
       return await message.channel.send(msg).catch((e) => { logger.error(e); });
-    }
+    };
 
     if (!mentions || mentions.length === 0) { await send('Tag a user to trade with'); return; }
     if (mentions.length > 1) { await send('You must specify exactly one user per trade'); return; }
@@ -98,7 +93,7 @@ export default class Trader {
     })
     .finally(() => {
       if (response.deletable) response.delete().catch(logger.error);
-    })
+    });
   }
 
   protected acceptTrade(one: GuildMember, two: GuildMember, response: Message, send: sendFunction) {
@@ -133,7 +128,5 @@ export default class Trader {
 }
 
 export function parseScans(content: string): number[] {
-  const cards = [...new Set(content.split(',').filter((card) => !isNaN(+card)))].map((card) => parseInt(card));
-  if (cards.length > 0 && isNaN(cards[0])) cards.pop();
-  return cards;
+  return [...new Set(content.split(/[^\d]+/).map((card) => parseInt(card)).filter((card) => !isNaN(card)))];
 }

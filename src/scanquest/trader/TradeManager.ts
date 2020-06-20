@@ -5,11 +5,16 @@ import Scanned from '../scanner/Scanned';
 import { toScannable } from '../scanner';
 import Scannable from '../scanner/Scannable';
 
+export const yes = '🇾';
+export const no = '🇳';
+
 export enum TradeStatus {
   none = -1,
   sent,
   offering
 }
+
+export type sendFunction = (msg: string) => Promise<Message | void>;
 
 export interface ActiveTrade {
   one: {
@@ -23,10 +28,6 @@ export interface ActiveTrade {
   status: number
   msg_id: Snowflake
 }
-
-const yes = '🇾';
-
-type sendFunction = (msg: string) => Promise<Message | void>
 
 export default class {
   readonly db: ScanQuestDB;
@@ -118,9 +119,7 @@ export default class {
       + `${one.displayName}: ${this.listScans(one.id, trade.two.scans)}\n`;
     }
 
-    content +=
-      `\n${help(0)}\n${help()}` +
-      `When both players press the ${yes} reaction, the trade will be completed.`;
+    content += `\n${help(0)}\n${help()}\n${help(1)}`;
 
     response?.edit(content).catch(logger.error);
   }
@@ -133,7 +132,7 @@ export default class {
         const card = toScannable(player.scans[i]) as Scannable;
         msg += `${card?.toString()}; `;
       }
-    })
+    });
     return msg.replace(/;.{0,1}$/, '');
   }
 
@@ -146,10 +145,12 @@ export default class {
     const c2 = [] as Scanned[];
 
     for (const scan of trade.one.scans) {
-      c1.push(p1.scans.splice(scan, 1)[0]);
+      if (scan <= p1.scans.length)
+        c1.push(p1.scans.splice(scan, 1)[0]);
     }
     for (const scan of trade.two.scans) {
-      c2.push(p2.scans.splice(scan, 1)[0]);
+      if (scan <= p2.scans.length)
+        c2.push(p2.scans.splice(scan, 1)[0]);
     }
 
     p1.scans = p1.scans.concat(c2);
@@ -164,7 +165,7 @@ export default class {
         id: p2.id,
         scans: c2
       }
-    })
+    });
 
     this.db.players.update(p1);
     this.db.players.update(p2);
@@ -177,5 +178,6 @@ export default class {
 
 export function help(arg?: number) {
   if (arg === 0) return 'Either player may cancel by using ``!trade @tag cancel``';
-  return 'To modify offer, use ``!trade @tag scan id, scan id, etc.``'
+  if (arg === 1) return `When both players press the ${yes} reaction, the trade will be completed.`;
+  return 'To modify offer, type ``!trade @tag id id etc.``';
 }

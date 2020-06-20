@@ -35,7 +35,7 @@ export default class ScanQuest {
     // Check to see if database has been initialized
     if (!API.data) {
       // Try again in a second
-      this.timeout = setTimeout(() => { this.start() }, 1000);
+      this.timeout = setTimeout(() => { this.start(); }, 1000);
       return;
     }
     if (API.data === 'local') {
@@ -71,7 +71,7 @@ export default class ScanQuest {
         return await message.channel.send(msg, options)
           .catch(error => logger.error(error.stack));
       }
-    }
+    };
 
     const content = message.content;
     const mentions: string[] = Array.from(message.mentions.users.keys());
@@ -130,7 +130,7 @@ export default class ScanQuest {
             ).then(async () =>
               await send('<:kughar:706695875249831946> <:grook:706695825195008052> ' +
               '<:skithia:706695857055072388> <:takinom:706695840940556338> <:chaor:706695811014066186>')
-            )
+            );
           }
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             return await send(this.db.perim(message.guild.id, args));
