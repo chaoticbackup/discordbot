@@ -62,6 +62,18 @@ class UsedCode {
   public code: Code;
 }
 
+class Trade {
+  public one: {
+    id: Snowflake
+    scans: Scanned[]
+  };
+
+  public two: {
+    id: Snowflake
+    scans: Scanned[]
+  };
+}
+
 const prod = (process.env.NODE_ENV !== 'development');
 const init_config = {
   id: prod ? servers('main').id : servers('develop').id,
@@ -74,6 +86,7 @@ class ScanQuestDB {
   public players: Collection<Player>;
   public servers: Collection<Server>;
   public usedcodes: Collection<UsedCode>;
+  public trades: Collection<Trade>
 
   public async start(): Promise<void> {
     return await new Promise((resolve) => {
@@ -99,17 +112,26 @@ class ScanQuestDB {
             this.usedcodes = usedcodes;
           }
 
-          const serverCollection = this.db.getCollection('servers') as Collection<Server>;
-          if (serverCollection === null) {
+          const servers = this.db.getCollection('servers') as Collection<Server>;
+          if (servers === null) {
             this.servers = this.db.addCollection('servers');
             this.servers.insertOne(new Server(init_config));
           }
           else {
-            this.servers = serverCollection;
+            this.servers = servers;
             if (this.servers.findOne({ id: init_config.id }) === null) {
               this.servers.insertOne(new Server(init_config));
             }
           }
+
+          const trades = this.db.getCollection('trades') as Collection<Trade>;
+          if (trades === null) {
+            this.trades = this.db.addCollection('trades');
+          }
+          else {
+            this.trades = trades;
+          }
+
           return resolve();
         }
       });

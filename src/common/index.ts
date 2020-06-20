@@ -30,7 +30,8 @@ export function flatten(args: string[]): string {
 export function escape_text(text: string): string {
   return text
   .replace(/\(|\\|\)/g, (match) => { return (`\\${match}`) })
-  .replace(/’/g, '\'');
+  .replace(/’/g, '\'')
+  .replace(/\*/g, '');
 }
 
 // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404

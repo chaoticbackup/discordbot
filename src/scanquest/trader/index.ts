@@ -84,10 +84,8 @@ export default class Trader {
       await response.clearReactions();
 
       if (reaction.emoji.name === yes) {
-        this.trades.update(one, two, { status: TradeStatus.offering });
-        send(`${two.displayName} is willing to trade with ${one.displayName}.`).catch(() => {});
-        await response.react(yes);
-        this.acceptTrade(one, two, response, send);
+        const response2 = await this.trades.acceptTrade(one, two, send);
+        if (response2) this.acceptTrade(one, two, response2, send);
       }
       else if (reaction.emoji.name === no) {
         this.trades.remove(one, two);
@@ -97,7 +95,10 @@ export default class Trader {
     .catch(async () => {
       this.trades.remove(one, two);
       await send(`${one.displayName}'s trade with ${two.displayName} has expired`);
-    });
+    })
+    .finally(() => {
+      if (response.deletable) response.delete().catch(logger.error);
+    })
   }
 
   protected acceptTrade(one: GuildMember, two: GuildMember, response: Message, send: sendFunction) {
@@ -127,6 +128,7 @@ export default class Trader {
       trade.two.scans = cards;
     }
     this.trades.update(one, two, { ...trade });
+    this.trades.updateMessage(one, two);
   }
 }
 
