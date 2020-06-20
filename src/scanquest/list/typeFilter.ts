@@ -40,15 +40,15 @@ const noFilter: Filter = (scan: Scanned) => toScannable(scan);
 
 const filterBattlegear: Filter = (scan: Scanned) => {
   if (scan.type === 'Battlegear') return toScannable(scan);
-}
+};
 
 const filterCreature: Filter = (scan: Scanned) => {
   if (scan.type === 'Creatures') return toScannable(scan);
-}
+};
 
 const filterLocation: Filter = (scan: Scanned) => {
   if (scan.type === 'Locations') return toScannable(scan);
-}
+};
 
 const tribeCreatures = (tribe: CreatureTribe): Filter => {
   return (scan: Scanned) => {
@@ -56,5 +56,5 @@ const tribeCreatures = (tribe: CreatureTribe): Filter => {
       const card = API.find_cards_by_name(scan.name)[0] as Creature;
       if (parseTribe(card.gsx$tribe) === tribe) return toScannable(scan);
     }
-  }
-}
+  };
+};

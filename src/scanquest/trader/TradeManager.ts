@@ -144,11 +144,11 @@ export default class {
     const c1 = [] as Scanned[];
     const c2 = [] as Scanned[];
 
-    for (const scan of trade.one.scans) {
+    for (const scan of trade.one.scans.sort((a, b) => b - a)) {
       if (scan <= p1.scans.length)
         c1.push(p1.scans.splice(scan, 1)[0]);
     }
-    for (const scan of trade.two.scans) {
+    for (const scan of trade.two.scans.sort((a, b) => b - a)) {
       if (scan <= p2.scans.length)
         c2.push(p2.scans.splice(scan, 1)[0]);
     }

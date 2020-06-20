@@ -63,7 +63,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     '⬇️': (_, instance) => {
       instance.array = (instance.array as scan[]).sort((a: scan, b: scan) => {
         return a.details.localeCompare(b.details);
-      })
+      });
     },
     '🔎': (user, instance) => {
       const msg = `<@!${message.author.id}>, search for cards by name`;
@@ -89,7 +89,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
           if (resp.deletable) resp.delete().catch(logger.error);
         });
       })
-      .catch(logger.error)
+      .catch(logger.error);
     }
   };
 
@@ -104,4 +104,4 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     .setEmojisFunctionAfterNavigation(true);
 
   await Pagination.build();
-}
+};
