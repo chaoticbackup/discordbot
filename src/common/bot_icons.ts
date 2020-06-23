@@ -8,15 +8,15 @@ export default class Icons {
 
   attacks = () => {
     return this.bot.emojis.find(emoji => emoji.name === 'attack');
-  }
+  };
 
   battlegear = () => {
     return this.bot.emojis.find(emoji => emoji.name === 'battlegear');
-  }
+  };
 
   locations = () => {
     return this.bot.emojis.find(emoji => emoji.name === 'location');
-  }
+  };
 
   // Tribal mugic counters
   mc = (tribe: string) => {
@@ -34,7 +34,7 @@ export default class Icons {
       default:
         return this.bot.emojis.find(emoji => emoji.name === 'TLCounter');
     }
-  }
+  };
 
   // Element active icons
   elements = (input: string) => {
@@ -50,7 +50,7 @@ export default class Icons {
       default:
         return '';
     }
-  }
+  };
 
   // Element inactive icons
   el_inactive = (input: string) => {
@@ -66,7 +66,7 @@ export default class Icons {
       default:
         return '';
     }
-  }
+  };
 
   // Discipline icons
   disciplines = (input: string) => {
@@ -82,7 +82,7 @@ export default class Icons {
       default:
         return '';
     }
-  }
+  };
 
   // Tribe icons
   tribes = (input: string) => {
@@ -100,5 +100,5 @@ export default class Icons {
       default:
         return this.bot.emojis.find(emoji => emoji.name === 'TL');
     }
-  }
+  };
 }

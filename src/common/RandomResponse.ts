@@ -24,11 +24,11 @@ export default class RandomResponse {
       sr[command].push(rand); // add to just used array
 
       setTimeout(
-        () => { sr[command].shift() },
+        () => { sr[command].shift(); },
         Math.ceil(items.length / 5) * 1000
       );
     }
 
     return items[rand];
-  }
+  };
 }

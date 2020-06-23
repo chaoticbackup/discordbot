@@ -12,5 +12,5 @@ export default function (bot: Client, msg: string, channel: channels = 'debug') 
   }
   (bot.channels.get(servers('develop').channel(channel)) as Channel)
   .send(msg)
-  .catch((error: any) => { logger.error(error) });
+  .catch((error: any) => { logger.error(error); });
 }

@@ -2,7 +2,7 @@ export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderW
 const _Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'] as const;
 
 export const CreatureTribes = Tribes.concat('Tribeless');
-export const MugicTribes = Tribes.concat('Generic')
+export const MugicTribes = Tribes.concat('Generic');
 
 export type Tribe = typeof _Tribes[number];
 export type CreatureTribe = Tribe | 'Tribeless';
@@ -17,7 +17,7 @@ export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
   switch (input.toLowerCase()) {
     case 'danian':
     case 'danians':
-      return 'Danian'
+      return 'Danian';
     case 'marrillian':
     case 'marrillians':
     case 'm\'arrillian':
@@ -41,8 +41,8 @@ export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
   }
 }
 
-export function generify(tribe: CreatureTribe | MugicTribe, type: 'Mugic'): MugicTribe
-export function generify(tribe: CreatureTribe | MugicTribe, type: 'Creatures'): CreatureTribe
+export function generify(tribe: CreatureTribe | MugicTribe, type: 'Mugic'): MugicTribe;
+export function generify(tribe: CreatureTribe | MugicTribe, type: 'Creatures'): CreatureTribe;
 export function generify(tribe: CreatureTribe | MugicTribe, type: 'Creatures' | 'Mugic') {
   if (type === 'Creatures') {
     if (tribe === 'Generic') tribe = 'Tribeless';

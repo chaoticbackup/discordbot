@@ -11,7 +11,7 @@ const languages = {
   PT: ['Português', 'Portuguese'],
   SK: ['Slovenský', 'Slovak'],
   SR: ['Српски', 'Serbian']
-}
+};
 
 export type lang_type = keyof typeof languages;
 export function isLangType(t: string): t is lang_type {
