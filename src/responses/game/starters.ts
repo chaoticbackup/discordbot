@@ -19,7 +19,7 @@ export default function (message: Message, options: string[]): RichEmbed {
     return new RichEmbed()
       .setTitle(title)
       .setDescription(resp);
-  }
+  };
 
   if (options.includes('king'))
     return display_starter('king', users('daddy'));

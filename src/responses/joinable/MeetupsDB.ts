@@ -49,36 +49,36 @@ class MeetupsAPI {
     const region = this.regions.findOne({ name: regionName });
     if (!region) return await Promise.reject((`Region "${regionName}" does not exist`));
     return await Promise.resolve(region);
-  }
+  };
 
   removeRegion = async (region: Region) => {
     this.regions.remove(region);
     return await Promise.resolve(region);
-  }
+  };
 
   getRegionList = async (): Promise<Region[]> => {
     return await Promise.resolve(this.regions.chain().simplesort('name').data());
-  }
+  };
 
   renameRegion = async (region: Region, newName: string) => {
     this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
       rg.name = newName;
     });
     return await Promise.resolve();
-  }
+  };
 
   convertGuildMember = (member: GuildMember): Member => {
     return new Member(member);
-  }
+  };
 
   getMembersInRegion = (region: Region): Member[] => {
     return region.members;
-  }
+  };
 
   findMemberRegionIndex = async (member: GuildMember, region: Region): Promise<number> => {
     const members: Member[] = this.getMembersInRegion(region);
     return await Promise.resolve(members.findIndex((mb) => mb.id === member.id));
-  }
+  };
 
   addMemberToRegion = async (member: GuildMember, region: Region) => {
     const i = await this.findMemberRegionIndex(member, region);
@@ -90,14 +90,14 @@ class MeetupsAPI {
       rg.members.push(this.convertGuildMember(member));
     });
     return member;
-  }
+  };
 
   removeMemberFromRegionByIndex = async (i: number, region: Region) => {
     this.regions.findAndUpdate({ name: region.name }, (rg: Region) => {
       rg.members.splice(i, 1);
     });
     return await Promise.resolve();
-  }
+  };
 
   removeMemberFromRegion = async (member: GuildMember, region: Region) => {
     const i = await this.findMemberRegionIndex(member, region);
@@ -106,7 +106,7 @@ class MeetupsAPI {
     }
     await this.removeMemberFromRegionByIndex(i, region);
     return member;
-  }
+  };
 }
 
 export const MeetupsDB = new MeetupsAPI();

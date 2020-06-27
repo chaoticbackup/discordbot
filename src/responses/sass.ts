@@ -26,7 +26,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   if (content.match(back_regex)) {
     const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcement and ping everyone when they do.";
     return await send(response).then((message: Message) => {
-      message.react('586395473716445184').catch((err) => { logger.error(err) });
+      message.react('586395473716445184').catch((err) => { logger.error(err); });
     });
   }
 
@@ -57,7 +57,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (is_channel(message, 'general_chat_1')) {
     if (content.match(/want[s]?\s?(to)?\s?battle[^a-z\s]*/i)) {
-      return await send(`Have you tried asking in <#${servers('main').channel('match_making')}>?`)
+      return await send(`Have you tried asking in <#${servers('main').channel('match_making')}>?`);
     }
   }
 

@@ -15,10 +15,10 @@ export default function (args: string[], message: Message) {
 
   const cupid_loc = path.join(db_path, 'cupid.json');
   if (!fs.existsSync(cupid_loc)) {
-    fs.writeFileSync(cupid_loc, '[]')
+    fs.writeFileSync(cupid_loc, '[]');
   }
 
-  const data = fs.readFileSync(path.join(db_path, 'cupid.json'))
+  const data = fs.readFileSync(path.join(db_path, 'cupid.json'));
   let arrows = JSON.parse(data.toString()) as string[];
 
   if (args.length > 0 && args[0] === 'list') {
@@ -26,7 +26,7 @@ export default function (args: string[], message: Message) {
       let msg = '';
       arrows.forEach((arrow) => {
         msg = msg + (`${guild.members.get(arrow)!.displayName}\n` ?? '');
-      })
+      });
       return msg;
     }
     else {
@@ -43,7 +43,7 @@ export default function (args: string[], message: Message) {
       if (arrows.length > 0) {
         arrows.forEach((arrow) => {
           msg += `<@!${arrow}> `;
-        })
+        });
       }
       else {
         msg = 'You are looking for a match';

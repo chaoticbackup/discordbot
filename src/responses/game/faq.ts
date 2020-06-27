@@ -68,4 +68,4 @@ function subRule(rule: string): string {
 export {
   c as cr,
   f as faq
-}
+};

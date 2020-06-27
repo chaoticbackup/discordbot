@@ -59,8 +59,8 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 
   // Prevents sending an empty message
   const send: SendFunction = async (msg, options) => {
-    if (msg) return message.channel.send(msg, options).catch(error => { logger.error(error.stack) });
-  }
+    if (msg) return message.channel.send(msg, options).catch(error => { logger.error(error.stack); });
+  };
 
   const response = async (): Promise<void> => {
     // Dev command prefix
@@ -120,9 +120,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
   const parseCards = (args: string[], opts: string[]): void => {
     return flatten(args).split(';').forEach((name: string) => {
-      send(display_card(name.trim(), opts, bot))
+      send(display_card(name.trim(), opts, bot));
     });
-  }
+  };
 
   /**
     * Public Servers (Limited functions)
@@ -421,7 +421,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (guildMember && content.charAt(0) === '!') {
         const rtn_str = 'Use **!commands** or **c!help**';
         if (bot.users.get('159985870458322944')) // meebot
-          setTimeout(() => { send(rtn_str) }, 500);
+          setTimeout(() => { send(rtn_str); }, 500);
         else
           send(rtn_str);
         break;
@@ -431,7 +431,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0) return send(help(flatten(args)));
       if (guildMember) {
         return guildMember.send(help())
-        .then(() => { guildMember.send(donate()) })
+        .then(() => { guildMember.send(donate()); })
         .catch(() => {
           send(help());
         });
@@ -478,7 +478,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       // Not a recognized command
     default:
   }
-}
+};
 
 /*
 * Support Functions

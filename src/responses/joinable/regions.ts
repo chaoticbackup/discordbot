@@ -5,7 +5,7 @@ import { MeetupsDB, Region, Member } from './MeetupsDB';
 const rmSpecialChars = (text: string): string => {
   text = text.replace('é', 'e');
   return text;
-}
+};
 
 const memberList = async (guild: Guild, region: Region): Promise<string> => {
   const members: Member[] = MeetupsDB.getMembersInRegion(region);
@@ -33,7 +33,7 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
   });
 
   return msg;
-}
+};
 
 /**
  * @param user the user who sent the message
@@ -63,7 +63,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
     });
 
     return msg;
-  }
+  };
 
   if (args.length === 0 || args[0] === '') {
     return await MeetupsDB.getRegionList().then(regionList);
@@ -109,11 +109,11 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
         let msg = 'Number of members per region:\n';
         regions.forEach((region: Region) => {
           if (region.members.length === 0)
-            msg += `${region.name} (no members)\n`
+            msg += `${region.name} (no members)\n`;
           else if (region.members.length === 1)
-            msg += `${region.name} (1 member)\n`
+            msg += `${region.name} (1 member)\n`;
           else
-            msg += `${region.name} (${region.members.length} members)\n`
+            msg += `${region.name} (${region.members.length} members)\n`;
         });
         return msg;
       });
@@ -122,7 +122,7 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
       try {
         const region: Region = await MeetupsDB.getRegion(rmSpecialChars(args[0]))
         .then((region: Region) => region)
-        .catch((err: Error) => { throw err });
+        .catch((err: Error) => { throw err; });
 
         if (args.length < 2) {
           return await memberList(guild, region);
@@ -212,4 +212,4 @@ export default async (user: GuildMember, guild: Guild, args: string[], mentions:
   }
 
   return '!region <regionName> <join|leave|ping|list|>';
-}
+};

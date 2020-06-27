@@ -9,7 +9,7 @@ const _menu = () => {
     message += `\n${key}`;
   }
   return message;
-}
+};
 
 const _make = (item: string) => {
   if (!item) return 'My skillet is ready';
@@ -21,7 +21,7 @@ const _make = (item: string) => {
     }
   }
   return "I don't have that recipe";
-}
+};
 
 const _order = (item: string) => {
   if (!item) return 'What would you like to order?';
@@ -33,4 +33,4 @@ const _order = (item: string) => {
     }
   }
   return "Sorry, I don't have that. Use !menu";
-}
+};

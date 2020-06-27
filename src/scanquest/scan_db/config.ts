@@ -62,7 +62,7 @@ function ignore(db: ScanQuestDB, server: Server, args: string[]): string | undef
       let channels = '';
       server.ignore_channels.forEach((channel) => {
         channels += `<#${channel}>\n`;
-      })
+      });
       return channels;
     }
     case 'add': {
@@ -70,7 +70,7 @@ function ignore(db: ScanQuestDB, server: Server, args: string[]): string | undef
       const channels = parse(args.slice(1));
       channels.forEach((channel) => {
         if (channel && !server.ignore_channels.includes(channel)) server.ignore_channels.push(channel);
-      })
+      });
       db.servers.update(server);
       return;
     }

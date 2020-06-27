@@ -20,7 +20,7 @@ export default function (name: string, bot: Client, options: string[]) {
     + `${w}${bot.emojis.find(emoji => emoji.name === 'Wisdom').toString()} `
     + `${s}${bot.emojis.find(emoji => emoji.name === 'Speed').toString()} `
     + `| ${e} E`;
-  }
+  };
 
   name = cleantext(name);
   let card: string | undefined;
@@ -69,10 +69,10 @@ export default function (name: string, bot: Client, options: string[]) {
   }
 
   if (card === 'Nakan') {
-    return re.setDescription(withStats(88, 76, 23, 41, 59))
+    return re.setDescription(withStats(88, 76, 23, 41, 59));
   }
   else if (card === 'Proboscar (Powerful)') {
-    return re.setDescription(withStats(60, 90, 25, 85, 65))
+    return re.setDescription(withStats(60, 90, 25, 85, 65));
   }
 
   return re;

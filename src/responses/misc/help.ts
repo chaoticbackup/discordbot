@@ -25,4 +25,4 @@ export default (str: string = '', keys: string[] = Object.keys(help)) => {
     });
   }
   return message;
-}
+};

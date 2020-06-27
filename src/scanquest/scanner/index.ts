@@ -44,13 +44,13 @@ export default class Scanner {
       }
     }
     else {
-      const name = API.find_cards_by_name(args)[0]?.gsx$name ?? '';
-      if (name !== '') {
+      const name = API.find_cards_by_name(args)[0]?.gsx$name ?? null;
+      if (name) {
         selected = server.activescans.find(scan => scan.scan.name === name);
       }
 
       if (selected === undefined || moment(selected.expires).isBefore(now)) {
-        return `${args.replace('@', '')} isn't an active scan`;
+        return `${name || args.replace('@', '')} isn't an active scan`;
       }
     }
 
@@ -70,7 +70,7 @@ export default class Scanner {
 
     await this.db.save(player, card);
     return toScannable(card)!.getCard(this.icons);
-  }
+  };
 }
 
 export function toScannable(scan: Scanned): Scannable | undefined {

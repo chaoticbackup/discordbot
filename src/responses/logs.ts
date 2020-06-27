@@ -26,4 +26,4 @@ export default () => {
   catch (e) {
     logger.error(e);
   }
-}
+};

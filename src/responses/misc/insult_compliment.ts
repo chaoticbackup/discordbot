@@ -29,7 +29,7 @@ function flirt_dirt(command: 'compliment' | 'insult', guild: Guild, mentions: st
       });
     }
     return resp.replace(/\{\{(.*?)\|.*?\}\}/ig, (_match: any, p1: string) => { return p1; });
-  }
+  };
 
   return insertname(rndrsp(commands[command], command));
 }

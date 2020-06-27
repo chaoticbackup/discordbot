@@ -35,7 +35,7 @@ export const tribe = async (
   }
 
   return '!tribe <join|leave> <tribeName>';
-}
+};
 
 export const brainwash = async (
   guild: Guild, member: GuildMember, mentions: string[]
@@ -60,7 +60,7 @@ export const brainwash = async (
       member.addRole(bw).catch(() => {});
       return '<:Mar:294942283273601044> You have been brainwashed';
     }
-  }
+  };
 
   if (mentions.length > 0) {
     if (moderator) {
@@ -74,7 +74,7 @@ export const brainwash = async (
   }
 
   return '';
-}
+};
 
 const displayTribe = (guild: Guild, member: GuildMember): string => {
   const bw = guild.roles.find(role => role.name === 'Brainwashed');
@@ -96,7 +96,7 @@ const displayTribe = (guild: Guild, member: GuildMember): string => {
   });
   if (tribe) return tribe;
   return 'You have not declared an allegiance. Use !tribe join *tribe name*';
-}
+};
 
 const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
   for (let i = 0; i < tribes.length; i++) {
@@ -110,7 +110,7 @@ const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> =>
   }
 
   return 'You are not part of a tribe';
-}
+};
 
 const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
   let leaving_tribe = '';
@@ -157,7 +157,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
     case "m'arrillians":
     case 'm’arrillians':
       tribe = "M'arrillian";
-      joining_msg = '<:Mar:294942283273601044> You\'ll serve your purpose.'
+      joining_msg = '<:Mar:294942283273601044> You\'ll serve your purpose.';
       break;
     case 'overworld':
     case 'overworlder':
@@ -170,7 +170,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
       }
       else if (leaving_tribe === 'Mipedian') {
         leaving_msg = '<:Shim:315235831927537664> Look out!';
-        joining_msg = '<:WhyHello:586724104732672000> SURPRISE!'
+        joining_msg = '<:WhyHello:586724104732672000> SURPRISE!';
       }
       else {
         joining_msg = '<:Bodal:401553896108982282> You have joined the mighty forces of the OverWorld.';
@@ -191,7 +191,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
     case 'generic':
       tribe = 'Tribeless';
       if (leaving_tribe) {
-        joining_msg = '<:creepy:471863166737973268> You\'ve left your home behind'
+        joining_msg = '<:creepy:471863166737973268> You\'ve left your home behind';
       }
       else {
         joining_msg = '<:creepy:471863166737973268> New prey 👀';
@@ -228,4 +228,4 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
   else {
     return `Sorry this guild doesn't have the ${tribe} role`;
   }
-}
+};

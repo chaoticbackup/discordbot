@@ -37,12 +37,12 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
     ban_lists[_format].forEach((key: string) => {
       message += `\n${key}`;
     });
-  }
+  };
 
   // Standard
   if (options.length === 0 || options.includes('standard')) {
     list_bans('standard');
-    message += '\n=====\n**Watchlist:** (not banned)'
+    message += '\n=====\n**Watchlist:** (not banned)';
     watchlist.forEach((key: string) => {
       message += `\n${key}`;
     });
