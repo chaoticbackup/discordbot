@@ -19,12 +19,12 @@ export default function (args: string[], message: Message) {
   }
 
   const data = fs.readFileSync(path.join(db_path, 'cupid.json'));
-  let arrows = JSON.parse(data.toString()) as string[];
+  let arr = JSON.parse(data.toString()) as string[];
 
   if (args.length > 0 && args[0] === 'list') {
-    if (arrows.length > 0) {
+    if (arr.length > 0) {
       let msg = '';
-      arrows.forEach((arrow) => {
+      arr.forEach((arrow) => {
         msg = msg + (`${guild.members.get(arrow)!.displayName}\n` ?? '');
       });
       return msg;
@@ -33,24 +33,27 @@ export default function (args: string[], message: Message) {
       return 'No one is looking for a match';
     }
   }
+  else if (args.length > 0 && args[0] === 'stop') {
+    if (arr.includes(member.id)) {
+      arr = arr.filter(arrow => arrow !== member.id);
+      fs.writeFileSync(cupid_loc, JSON.stringify(arr));
+      return 'You are no longer looking for a match';
+    }
+  }
   else {
     let msg = '';
-    if (arrows.includes(member.id)) {
-      arrows = arrows.filter(arrow => arrow !== member.id);
-      msg = 'You are no longer looking for a match';
+
+    if (arr.length > 0) {
+      arr.forEach((arrow) => {
+        msg += `<@!${arrow}> `;
+      });
     }
     else {
-      if (arrows.length > 0) {
-        arrows.forEach((arrow) => {
-          msg += `<@!${arrow}> `;
-        });
-      }
-      else {
-        msg = 'You are looking for a match';
-      }
-      arrows.push(member.id);
+      msg = 'You are looking for a match';
     }
-    fs.writeFileSync(cupid_loc, JSON.stringify(arrows));
+    if (!arr.includes(member.id)) arr.push(member.id);
+
+    fs.writeFileSync(cupid_loc, JSON.stringify(arr));
     return msg;
   }
 }
