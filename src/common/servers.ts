@@ -33,6 +33,7 @@ const servers: Server[] = [
     channels: {
       staff: '293610368947716096',
       gen_1: '135657678633566208',
+      gen_2: '587376910364049438',
       bot_commands: '387805334657433600',
       match_making: '278314121198305281',
       ruling_questions: '468785561533153290',
