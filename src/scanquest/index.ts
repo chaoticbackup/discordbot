@@ -10,7 +10,7 @@ import logger from '../logger';
 
 import ScanQuestDB from './scan_db';
 import loadScan from './load';
-import listScans from './list';
+import { listScans, balance } from './player';
 import Spawner from './spawner';
 import Scanner from './scanner';
 import Trader from './trader';
@@ -100,6 +100,9 @@ export default class ScanQuest {
         case 'list':
         case 'scans':
           return await listScans(this.db, message, options);
+        case 'balance':
+        case 'coins':
+          return await send(balance(this.db, message, options));
         case 'reroll':
           if (message.author.id === users('daddy') && message.guild) {
             this.spawner.reroll(message);

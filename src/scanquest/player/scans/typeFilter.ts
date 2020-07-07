@@ -1,9 +1,9 @@
-import { CreatureTribe, generify, parseTribe, parseType } from '../../common/card_types';
-import { API } from '../../database';
-import { toScannable } from '../scanner';
-import Scannable from '../scanner/Scannable';
-import Scanned from '../scanner/Scanned';
-import { Creature } from '../../definitions';
+import { CreatureTribe, generify, parseTribe, parseType } from '../../../common/card_types';
+import { API } from '../../../database';
+import { Creature } from '../../../definitions';
+import { toScannable } from '../../scanner';
+import Scannable from '../../scanner/Scannable';
+import Scanned from '../../scanner/Scanned';
 
 type Filter = (scan: Scanned) => Scannable | undefined;
 

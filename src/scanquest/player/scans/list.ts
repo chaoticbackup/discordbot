@@ -1,9 +1,9 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { CollectorFilter, DMChannel, Message, TextChannel } from 'discord.js';
-import users from '../../common/users';
-import logger from '../../logger';
-import Scanned from '../scanner/Scanned';
-import ScanQuestDB from '../scan_db';
+import users from '../../../common/users';
+import logger from '../../../logger';
+import Scanned from '../../scanner/Scanned';
+import ScanQuestDB from '../../scan_db';
 import { setFilter } from './typeFilter';
 
 interface scan {
