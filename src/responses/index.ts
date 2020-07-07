@@ -4,7 +4,7 @@ import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'disco
 
 import logger from '../logger';
 
-import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten } from '../common';
+import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten, donate } from '../common';
 import servers from '../common/servers';
 import users from '../common/users';
 import parseCommand from '../common/parse_command';
@@ -416,6 +416,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'cupid':
       return send(cupid(args, message));
 
+    case 'perim': {
+      if (args.length > 0 && args[0] === 'protector') {
+        return await send(
+          new RichEmbed()
+            .setTitle('Click to play Perim Protector')
+            .setURL('https://www.newgrounds.com/portal/view/437825')
+        ).then(async () =>
+          await send('<:kughar:706695875249831946> <:grook:706695825195008052> ' +
+          '<:skithia:706695857055072388> <:takinom:706695840940556338> <:chaor:706695811014066186>')
+        );
+      }
+      break;
+    }
+
     /* Help */
     case 'help':
       if (guildMember && content.charAt(0) === '!') {
@@ -483,14 +497,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 /*
 * Support Functions
 */
-
-function donate(): RichEmbed {
-  return (
-    new RichEmbed()
-    .setDescription('[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)')
-    .setTitle('Donate')
-  );
-}
 
 /**
  * If the message was sent in a guild, returns the `guild` and `guildMember`

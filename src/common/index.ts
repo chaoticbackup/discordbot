@@ -4,6 +4,7 @@ import RandomResponse from './RandomResponse';
 export const rndrsp = (new RandomResponse()).rndrsp;
 export * from './can_send';
 export * from './is_channel';
+export * from './donate';
 
 /**
  * turns the first letter uppercase

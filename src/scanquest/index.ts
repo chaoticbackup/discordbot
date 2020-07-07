@@ -1,9 +1,9 @@
-import { Client, Message, RichEmbed } from 'discord.js';
+import { Client, Message, GuildMember } from 'discord.js';
 
 import { API } from '../database';
 import { SendFunction } from '../definitions';
 
-import { flatten } from '../common';
+import { flatten, donate } from '../common';
 import parseCommand from '../common/parse_command';
 import users from '../common/users';
 import logger from '../logger';
@@ -14,6 +14,7 @@ import listScans from './list';
 import Spawner from './spawner';
 import Scanner from './scanner';
 import Trader from './trader';
+import help from './help';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -122,15 +123,35 @@ export default class ScanQuest {
           return;
         case 'spawn':
         case 'perim':
-          if (args.length > 0 && args[0] === 'protector') {
-            return await send(
-              new RichEmbed()
-                .setTitle('Click to play Perim Protector')
-                .setURL('https://www.newgrounds.com/portal/view/437825')
-            ).then(async () =>
-              await send('<:kughar:706695875249831946> <:grook:706695825195008052> ' +
-              '<:skithia:706695857055072388> <:takinom:706695840940556338> <:chaor:706695811014066186>')
-            );
+          if (args.length > 0) {
+            if (args[0] === 'protector') {
+              // handled in responses
+              return;
+            }
+            if (args[0] === 'help') {
+              if (message.guild) {
+                let guildMember: GuildMember;
+
+                if (mentions.length > 0) {
+                  guildMember = await message.guild.fetchMember(mentions[0]).then((m) => m);
+                }
+                else {
+                  if (this.db.is_receive_channel(message.guild.id, message.channel.id)) {
+                    return await send(help());
+                  }
+                  guildMember = (message.member)
+                    ? message.member
+                    : await message.guild.fetchMember(message.author).then((m) => m);
+                }
+
+                return guildMember.send(help())
+                  .then(async () => { await guildMember.send(donate()); })
+                  // if can't dm, send to channel
+                  .catch(async () => { await send(help()); });
+              }
+              return await send(help())
+                .then(async () => { await send(donate()); });
+            }
           }
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             return await send(this.db.perim(message.guild.id, args));
