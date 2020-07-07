@@ -1,11 +1,13 @@
-import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment } from 'discord.js';
+import { Channel as Chan, RichEmbed, StringResolvable, MessageOptions, Attachment, TextBasedChannel } from 'discord.js';
 import { CardType } from './common/card_types';
 
-export interface Channel extends Discord.Channel {
-  send(arg0: string | RichEmbed, arg1?: any): Promise<any>
+export class Channel extends TextBasedChannel(Chan) {
+  // send(msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<Message|Message[]>
 }
 
-export type SendFunction = (msg: StringResolvable, options?: MessageOptions | RichEmbed | Attachment) => Promise<any>;
+export type SendFunction =
+  (msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment)
+  => Promise<any>; // Message|Message[]|void
 
 export type { CardType };
 

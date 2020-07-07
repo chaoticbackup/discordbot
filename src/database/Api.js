@@ -161,7 +161,6 @@ export default class API {
     name = escape_text(name).replace(/,([^\s]+)/, (str, p1) => {
       return ", " + p1;
     });
-    console.log(name);
 
     let filters = [];
     if (options && options.length > 0) {

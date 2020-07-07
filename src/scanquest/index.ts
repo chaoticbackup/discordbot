@@ -1,9 +1,9 @@
-import { Client, Message, GuildMember } from 'discord.js';
+import { Client, Message } from 'discord.js';
 
 import { API } from '../database';
 import { SendFunction } from '../definitions';
 
-import { flatten, donate } from '../common';
+import { flatten } from '../common';
 import parseCommand from '../common/parse_command';
 import users from '../common/users';
 import logger from '../logger';
@@ -14,7 +14,7 @@ import { listScans, balance } from './player';
 import Spawner from './spawner';
 import Scanner from './scanner';
 import Trader from './trader';
-import help from './help';
+import perim from './scan_db/config';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -68,9 +68,9 @@ export default class ScanQuest {
 
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
-      if (msg) {
+      if (msg || options) {
         return await message.channel.send(msg, options)
-          .catch(error => logger.error(error.stack));
+          .catch(error => { logger.error(error.stack); });
       }
     };
 
@@ -99,10 +99,11 @@ export default class ScanQuest {
           return;
         case 'list':
         case 'scans':
-          return await listScans(this.db, message, options);
+          return await listScans(this.db, message, options, send);
         case 'balance':
         case 'coins':
-          return await send(balance(this.db, message, options));
+          await balance(this.db, message, options, send);
+          return;
         case 'reroll':
           if (message.author.id === users('daddy') && message.guild) {
             this.spawner.reroll(message);
@@ -126,39 +127,7 @@ export default class ScanQuest {
           return;
         case 'spawn':
         case 'perim':
-          if (args.length > 0) {
-            if (args[0] === 'protector') {
-              // handled in responses
-              return;
-            }
-            if (args[0] === 'help') {
-              if (message.guild) {
-                let guildMember: GuildMember;
-
-                if (mentions.length > 0) {
-                  guildMember = await message.guild.fetchMember(mentions[0]).then((m) => m);
-                }
-                else {
-                  if (this.db.is_receive_channel(message.guild.id, message.channel.id)) {
-                    return await send(help());
-                  }
-                  guildMember = (message.member)
-                    ? message.member
-                    : await message.guild.fetchMember(message.author).then((m) => m);
-                }
-
-                return guildMember.send(help())
-                  .then(async () => { await guildMember.send(donate()); })
-                  // if can't dm, send to channel
-                  .catch(async () => { await send(help()); });
-              }
-              return await send(help())
-                .then(async () => { await send(donate()); });
-            }
-          }
-          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
-            return await send(this.db.perim(message.guild.id, args));
-          }
+          return await perim(this.db, message, args, mentions, send);
       }
     }
     else if (message.guild) {

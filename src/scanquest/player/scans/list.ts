@@ -5,13 +5,14 @@ import logger from '../../../logger';
 import Scanned from '../../scanner/Scanned';
 import ScanQuestDB from '../../scan_db';
 import { setFilter } from './typeFilter';
+import { SendFunction } from '../../../definitions';
 
 interface scan {
   index: number
   details: string
 }
 
-export default async (db: ScanQuestDB, message: Message, options: string[]): Promise<void> => {
+export default async (db: ScanQuestDB, message: Message, options: string[], send: SendFunction): Promise<void> => {
   // If not dm or receive channel
   if (
     !(
@@ -48,13 +49,11 @@ export default async (db: ScanQuestDB, message: Message, options: string[]): Pro
     });
   }
   catch (e) {
-    message.channel.send(e.message).catch(() => {});
-    return;
+    return await send(e.message);
   }
 
   if (list.length === 0) {
-    message.channel.send('You have no scans').catch(() => {});
-    return;
+    return await send('You have no scans');
   }
 
   const Pagination = new FieldsEmbed<scan>();
