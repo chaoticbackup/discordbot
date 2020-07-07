@@ -33,11 +33,16 @@ export default function (args: string[], message: Message) {
       return 'No one is looking for a match';
     }
   }
-  else if (args.length > 0 && args[0] === 'stop') {
-    if (arr.includes(member.id)) {
-      arr = arr.filter(arrow => arrow !== member.id);
-      fs.writeFileSync(cupid_loc, JSON.stringify(arr));
-      return 'You are no longer looking for a match';
+  else if (args.length > 0) {
+    if (args[0] === 'stop') {
+      if (arr.includes(member.id)) {
+        arr = arr.filter(arrow => arrow !== member.id);
+        fs.writeFileSync(cupid_loc, JSON.stringify(arr));
+        return 'You are no longer looking for a match';
+      }
+    }
+    else {
+      return 'Use `!cupid stop` to stop looking for a match';
     }
   }
   else {
