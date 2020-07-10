@@ -105,7 +105,7 @@ export default class ScanQuest {
           await balance(this.db, message, options, send);
           return;
         case 'reroll':
-          if (message.author.id === users('daddy') && message.guild) {
+          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             this.spawner.reroll(message);
           }
           return;
@@ -126,6 +126,10 @@ export default class ScanQuest {
           }
           return;
         case 'spawn':
+          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
+            this.spawner.spawn(message, args, options);
+          }
+          return;
         case 'perim':
           return await perim(this.db, message, args, mentions, send);
       }

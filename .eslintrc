@@ -12,7 +12,7 @@
     "max-len": ["error", { "code": 132 }],
     "no-empty": ["warn", { "allowEmptyCatch": true }],
     "no-eval": "warn",
-    "no-fallthrough": "off",
+    "no-fallthrough": "warn",
     "no-unused-vars": "warn",
     "no-undef": "error",
     "no-unexpected-multiline": "error",

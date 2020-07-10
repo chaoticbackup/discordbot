@@ -5,6 +5,7 @@ import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
 import Select from './select';
 import debug from '../../common/debug';
+import custom from './custom';
 
 /**
  * @param timeout A javascript timer
@@ -27,7 +28,7 @@ const config = {
   debounce: 2 * 60 * 1000, // minutes
   // debounce: 10 * 1000,
   next: 8 * 60 * 60 * 1000 // hours
-}
+};
 
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
@@ -86,6 +87,10 @@ export default class Spawner {
       }
       this.sendCard(server);
     }
+  }
+
+  spawn(message: Message, args: string[], options: string[]) {
+    custom.call(this, message, args, options);
   }
 
   // Decrease spawn timer countdown with activity
