@@ -4,7 +4,7 @@ import Spawner from '.';
 import { CreatureScan } from '../scanner/Creature';
 
 // !spawn Maxxor, Protector of Perim --stats="string" --timer=<+h or timestamp> --order=<number>
-export default function (this: Spawner, message: Message, args: string[], options: string[]) {
+export default async function (this: Spawner, message: Message, args: string[], options: string[]) {
   const id = message.guild.id;
   const server = this.db.servers.findOne({ id });
 
@@ -31,6 +31,6 @@ export default function (this: Spawner, message: Message, args: string[], option
     }
   }
   catch (e) {
-
+    await message.channel.send(e.message);
   }
 }

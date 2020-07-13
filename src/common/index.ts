@@ -5,6 +5,7 @@ export const rndrsp = (new RandomResponse()).rndrsp;
 export * from './can_send';
 export * from './is_channel';
 export * from './donate';
+export * from './object.keys';
 
 /**
  * turns the first letter uppercase
