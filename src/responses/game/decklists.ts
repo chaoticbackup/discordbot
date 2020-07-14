@@ -16,12 +16,11 @@ interface Deck {
   tags: string[]
 }
 
-interface decks {
-  tierlist: Record<Tier, string[]>
-  decklist: Record<string, Deck>
-}
-
-const { tierlist, decklist } = require('../config/decklists.json') as decks;
+const { tierlist, decklist } =
+  require('./config/decklists.json') as {
+    tierlist: Record<Tier, string[]>
+    decklist: Record<string, Deck>
+  };
 
 function _tierlist() {
   const output = new RichEmbed();

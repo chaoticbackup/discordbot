@@ -1,6 +1,6 @@
 import { Client, RichEmbed } from 'discord.js';
 import { cleantext, rndrsp } from '../../common';
-import { Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever } from '../config/gonechaotic.json';
+import { Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever } from './config/gonechaotic.json';
 
 interface Gone {
   img: string

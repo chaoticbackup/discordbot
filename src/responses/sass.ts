@@ -10,9 +10,7 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './game/bans';
 
-type s = Record<string, string[]>;
-
-const { sass, tags } = require('./config/sass.json') as {sass: s, tags: s};
+import { sass, tags } from './config/sass.json';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));

@@ -1,9 +1,12 @@
 import { Guild } from 'discord.js';
 import { rndrsp } from '../../common';
 
+import c from './config/compliments.json';
+import i from './config/insults.json';
+
 const commands = {
-  insult: require('../config/insults.json'),
-  compliment: require('../config/compliments.json')
+  insult: i,
+  compliment: c
 };
 
 export function compliment(guild: Guild, mentions: string[], name: string): string {

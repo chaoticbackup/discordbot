@@ -1,5 +1,5 @@
-import languages, { lang_type, isLangType, list } from '../../common/languages';
-const episodes = require('../config/episodes.json') as Record<lang_type, Record<string, string>>;
+import languages, { isLangType, list } from '../../common/languages';
+import episodes from './config/episodes.json';
 
 export default function (args: string[], options: string[]) {
   if (options.includes('list')) {
@@ -16,7 +16,7 @@ export default function (args: string[], options: string[]) {
       else return '!watch <language> <season>';
     }
     else set = args[1].toUpperCase();
-    if ({}.hasOwnProperty.call(episodes[lang], set)) {
+    if (set in episodes[lang]) {
       return `${episodes[lang][set]}`;
     }
     else {

@@ -1,5 +1,5 @@
-const cr = require('../config/cr.json') as Record<string, string>;
-const faq = require('../config/faq.json') as Record<string, string>;
+import cr from './config/cr.json';
+import faq from './config/faq.json';
 
 function f(q: string) {
   if (!q) {

@@ -40,7 +40,7 @@ import checkSass from './sass';
 import logs from './logs';
 import debug from '../common/debug';
 
-const joke = require('./config/jokes.json') as string[];
+import joke from './misc/config/jokes.json';
 
 const development = (process.env.NODE_ENV === 'development');
 

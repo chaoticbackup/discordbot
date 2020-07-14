@@ -4,10 +4,8 @@ import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 import { API } from '../../database';
 
-const ban_lists = require('../config/bans.json');
+import ban_lists from './config/bans.json';
 const { formats, watchlist, detailed, reasons, jokes } = ban_lists;
-
-export { f as formats };
 
 function f() {
   let message = 'Community Formats:\n';
@@ -18,6 +16,8 @@ function f() {
 
   return message;
 }
+
+export { f as formats };
 
 export function banlist(guild: Guild, channel: Channel, options: string[] = []) {
   if (guild && guild.id === servers('main').id) {
