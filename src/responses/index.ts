@@ -18,7 +18,7 @@ import { banlist, formats, whyban } from './game/bans';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
-import { cancelMatch, lookingForMatch } from './misc/match_making';
+import { cancelMatch, lookingForMatch } from './joinable/match_making';
 import { tierlist, decklist } from './game/decklists';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
