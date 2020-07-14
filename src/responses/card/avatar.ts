@@ -9,7 +9,7 @@ export default function (name: string) {
 
   if (!name) {
     do {
-      card = rndrsp(results)
+      card = rndrsp(results);
     } while (!card.gsx$avatar || !card.gsx$ia);
   }
   else if (results.length > 0) {

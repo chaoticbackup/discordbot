@@ -27,7 +27,7 @@ const config = {
   debounce: 2 * 60 * 1000, // minutes
   // debounce: 10 * 1000,
   next: 8 * 60 * 60 * 1000 // hours
-}
+};
 
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();

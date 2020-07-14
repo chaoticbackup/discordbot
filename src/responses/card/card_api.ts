@@ -138,7 +138,7 @@ const addNewLine = (entry: string, isText: boolean) => {
     entry += (isText) ? '\n\n' : '\n';
   }
   return entry;
-}
+};
 
 const Disciplines = (props: props, modstat = 0) => {
   const card = props.card as Creature;
@@ -151,7 +151,7 @@ const Disciplines = (props: props, modstat = 0) => {
     eval(`${card.gsx$wisdom}+${modstat}`)}${disciplines('Wisdom')} ${
     eval(`${card.gsx$speed}+${modstat}`)}${disciplines('Speed')} | ${
     eval(`${card.gsx$energy}+${modstat / 2}`)}\u00A0E`;
-}
+};
 
 const Stats = (props: props) => {
   const { card, options, textOnly } = props;
@@ -171,7 +171,7 @@ const Stats = (props: props) => {
   }
 
   return addNewLine(resp, textOnly);
-}
+};
 
 const TypeLine = (props: props) => {
   const { card, textOnly, icons } = props;
@@ -208,7 +208,7 @@ const TypeLine = (props: props) => {
   else return '';
 
   return addNewLine(resp, true);
-}
+};
 
 const Ability = (cardtext: string, mc: Emoji, props: props) => {
   const { textOnly } = props;
@@ -226,7 +226,7 @@ const Ability = (cardtext: string, mc: Emoji, props: props) => {
 
   if (mc) return cardtext.replace(/\{\{MC\}\}/gi, mc.toString());
   else return cardtext.replace(/\{\{MC\}\}/gi, 'MC');
-}
+};
 
 const Elements = (props: props) => {
   const { card } = props;
@@ -262,7 +262,7 @@ const Elements = (props: props) => {
   else return '';
 
   return resp;
-}
+};
 
 const MugicAbility = (mc: Emoji, props: props) => {
   const { card } = props;
@@ -284,7 +284,7 @@ const MugicAbility = (mc: Emoji, props: props) => {
   }
 
   return resp;
-}
+};
 
 const BuildRestrictions = (props: props) => {
   const { card, textOnly } = props;
@@ -313,7 +313,7 @@ const BuildRestrictions = (props: props) => {
   }
 
   return addNewLine(resp, textOnly);
-}
+};
 
 export const Initiative = (props: props) => {
   const card = props.card as Location;
@@ -331,11 +331,11 @@ export const Initiative = (props: props) => {
     });
 
   return addNewLine(init, true);
-}
+};
 
 const FlavorText = (props: props) => {
   const { card } = props;
   const resp = `*${card.gsx$flavortext}*`;
   if (resp !== '**') return addNewLine(resp, true);
   else return '';
-}
+};

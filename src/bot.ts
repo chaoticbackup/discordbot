@@ -44,9 +44,9 @@ const start = () => {
     sq.start();
   }
   else if (devType === 'forum') {
-    fp.start()
+    fp.start();
   }
-}
+};
 
 const stop = async () => {
   if (devType === 'all') {
@@ -59,7 +59,7 @@ const stop = async () => {
   else if (devType === 'forum') {
     fp.stop();
   }
-}
+};
 
 bot.on('ready', () => {
   start();
@@ -70,9 +70,11 @@ bot.on('ready', () => {
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
-  stop();
+  stop()
+  .finally(() => {
+    bot.login(auth.token).then(() => { sendError(); });
+  });
   logger.warn(`Reconnecting, ${CloseEvent.code}`);
-  bot.login(auth.token).then(() => { sendError() });
 });
 
 let stackTrace = '';
@@ -87,7 +89,7 @@ const sendError = async () => {
       }
     }
   }
-}
+};
 
 // Responses
 bot.on('message', msg => {
@@ -130,14 +132,14 @@ const checkSpam = async (msg: Discord.Message) => {
       await msg.member.ban()
       .then(async () => {
         const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`)
+        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`);
       })
       .then(() => { if (msg.deletable) msg.delete(); });
     }
   }
 
   newMembers.splice(index, 1);
-}
+};
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
@@ -175,7 +177,7 @@ const handle: NodeJS.SignalsListener = (_event) => {
   stop().then(() => {
     process.exit(0); // process exits after db closes
   });
-}
+};
 process.on('SIGINT', handle);
 process.on('SIGTERM', handle);
 

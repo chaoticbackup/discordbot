@@ -26,4 +26,4 @@ export default () => {
   });
 
   app.listen(port, () => logger.info(`Card API listening on port ${port}`));
-}
+};

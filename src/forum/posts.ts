@@ -11,7 +11,7 @@ const config = {
   test_channel: servers('develop').channel('gen'),
   forum: 'http://chaoticbackup.forumotion.com',
   expire: 10
-}
+};
 
 function hm(date: string[]) {
   const h12 = date[date.length - 1];
@@ -84,7 +84,7 @@ export default class ForumPosts {
 
   stop() {
     clearTimeout(this.timeout);
-    this.timeouts.forEach((timeout) => { clearTimeout(timeout) });
+    this.timeouts.forEach((timeout) => { clearTimeout(timeout); });
   }
 
   expiredLink(id: string): boolean {
@@ -131,7 +131,7 @@ export default class ForumPosts {
               newPosts.push(latest[index]);
             }
           }
-        })
+        });
       });
 
       newPosts.forEach((newPost, _i) => {
@@ -156,6 +156,6 @@ export default class ForumPosts {
     })
     .catch(() => {});
 
-    this.timeout = setTimeout(() => { this.checkMessages() }, config.seconds * 1000);
+    this.timeout = setTimeout(() => { this.checkMessages(); }, config.seconds * 1000);
   }
 }
