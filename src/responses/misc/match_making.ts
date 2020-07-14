@@ -27,6 +27,7 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
     }
     return `You are looking for a ${type} match`;
   }
+  return 'This server doesn\'t have matchmaking configured';
 }
 
 export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {

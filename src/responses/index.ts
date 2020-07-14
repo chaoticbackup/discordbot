@@ -35,7 +35,6 @@ import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
 import watch from './misc/watch';
-import cupid from './misc/cupid';
 
 import checkSass from './sass';
 import logs from './logs';
@@ -305,6 +304,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return;
 
     /* Matchmaking */
+    case 'cupid':
+      return send(lookingForMatch('recode', channel, guild, guildMember));
     case 'lf':
     case 'lookingfor':
     case 'match':
@@ -412,9 +413,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
     case 'watch':
       return send(watch(args, options));
-
-    case 'cupid':
-      return send(cupid(args, message));
 
     case 'perim': {
       if (args.length > 0 && args[0] === 'protector') {
