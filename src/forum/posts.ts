@@ -70,7 +70,7 @@ export default class ForumPosts {
   bot: Client;
   channel: string;
   links: string[] = [];
-  timeout: NodeJS.Timeout;
+  timeout?: NodeJS.Timeout;
   timeouts: NodeJS.Timeout[] = [];
 
   constructor(bot: Client) {
@@ -83,7 +83,7 @@ export default class ForumPosts {
   }
 
   stop() {
-    clearTimeout(this.timeout);
+    if (this.timeout) clearTimeout(this.timeout);
     this.timeouts.forEach((timeout) => { clearTimeout(timeout); });
   }
 
