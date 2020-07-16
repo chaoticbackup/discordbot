@@ -1,7 +1,7 @@
 import { Client, Emoji, RichEmbed } from 'discord.js';
 import { rndrsp } from '../../common';
 import { API, color } from '../../database';
-import { Attack, Card, Creature, Location, Mugic } from '../../definitions';
+import { Attack, Card, Creature, Location, Mugic, isCreature } from '../../definitions';
 import Icons from '../../common/bot_icons';
 
 export default function (name: string, options: string[], bot: Client) {
@@ -68,7 +68,7 @@ function Response(card: Card, options: string[], bot: Client) {
   const icons = new Icons(bot);
 
   if (options.includes('stats')) {
-    if (card.gsx$type === 'Creatures') {
+    if (isCreature(card)) {
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(color(card))

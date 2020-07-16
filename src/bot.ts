@@ -16,7 +16,7 @@ import { Channel } from './definitions';
 const auth = require('./auth.json') as {token: string};
 
 const development = process.env.NODE_ENV === 'development';
-let devType = process.env.APP_ENV ?? '';
+export let devType = process.env.APP_ENV ?? '';
 
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();

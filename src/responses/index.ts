@@ -12,7 +12,8 @@ import parseCommand from '../common/parse_command';
 import { API } from '../database';
 import { SendFunction } from '../definitions';
 
-import { display_card, find_card, full_art, rate_card, display_token, avatar } from './card';
+import { display_card, find_card, full_art, display_token, avatar } from './card';
+import rate_card from './rate';
 
 import { banlist, formats, whyban } from './game/bans';
 import { cr, faq } from './game/faq';

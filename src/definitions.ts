@@ -1,8 +1,9 @@
-import { Channel as Chan, RichEmbed, StringResolvable, MessageOptions, Attachment, TextBasedChannel } from 'discord.js';
+import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment, Message } from 'discord.js';
 import { CardType } from './common/card_types';
 
-export class Channel extends TextBasedChannel(Chan) {
-  // send(msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<Message|Message[]>
+// export class Channel extends TextBasedChannel(Discord.Channel)
+export interface Channel extends Discord.Channel {
+  send(msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<Message|Message[]>
 }
 
 export type SendFunction =
@@ -72,3 +73,23 @@ export interface Mugic extends BaseCard {
 export type Card = Attack | Battlegear | Creature | Location | Mugic;
 
 export type Code = string;
+
+export function isAttack(card: Card): card is Attack {
+  return (card.gsx$type === 'Attacks');
+}
+
+export function isBattlegear(card: Card): card is Battlegear {
+  return (card.gsx$type === 'Battlegear');
+}
+
+export function isCreature(card: Card): card is Creature {
+  return (card.gsx$type === 'Creatures');
+}
+
+export function isLocation(card: Card): card is Location {
+  return (card.gsx$type === 'Locations');
+}
+
+export function isMugic(card: Card): card is Mugic {
+  return (card.gsx$type === 'Mugic');
+}
