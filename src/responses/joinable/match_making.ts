@@ -24,7 +24,7 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
     }
     return `You are looking for a ${type} match`;
   }
-  return 'This server doesn\'t have matchmaking configured';
+  return `Please add ${type}_match as a role on this server`;
 }
 
 export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {
