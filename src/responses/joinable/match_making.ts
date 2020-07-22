@@ -14,10 +14,7 @@ function canMatch(guild: Guild, channel: Channel): boolean {
 export function lookingForMatch(type: string, channel: Channel, guild: Guild, member: GuildMember) {
   if (!canMatch(guild, channel)) return;
 
-  if (!type) type = 'untap';
-  else if (!types.includes(type)) {
-    type = 'untap';
-  }
+  if (!type || !types.includes(type)) type = types[0];
 
   const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
   if (role) {
