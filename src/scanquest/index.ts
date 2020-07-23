@@ -92,14 +92,18 @@ export default class ScanQuest {
     ) {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {
-        case 'scan':
         case 'skon':
+        case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
-            await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
+            await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)))
+            .then(async (message: Message) => {
+              if (cmd === 'scan') await message.react('<:skons:728825180763324447>');
+            });
           }
           return;
         case 'list':
         case 'scans':
+        case 'skons':
           return await listScans(this.db, message, options, send);
         case 'rate':
           return await send(rate(this.db, message, args, options, this.bot));
