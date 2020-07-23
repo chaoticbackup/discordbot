@@ -96,8 +96,8 @@ export default class ScanQuest {
         case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
             await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)))
-            .then(async (message: Message) => {
-              if (cmd === 'scan') await message.react('728825180763324447');
+            .then(async (m: Message) => {
+              if (cmd === 'skon') await m.react('728825180763324447');
             });
           }
           return;
