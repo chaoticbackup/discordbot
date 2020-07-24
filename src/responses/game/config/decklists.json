@@ -60,6 +60,11 @@
 			"tribe": "OverWorld",
 			"tags": ["Aivenna", "Bodal's Dagger", "Ikkatosh, The Aich King", "Garv"]
 		},
+		"Burn": {
+			"url": "https://chaoticbackup.forumotion.com/t1661-burn#15077",
+			"tribe": "UnderWorld",
+			"tags": ["Burn"]
+		},
 		"CrackTheWhep": {
 			"url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep",
 			"tribe": "Mixed",
@@ -105,6 +110,11 @@
 			"tribe": "Mixed",
 			"tags": []
 		},
+		"Gintanai": {
+			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai",
+			"tribe": "Mipedian",
+			"tags": []
+		},
 		"Gorram Malvadine": {
 			"url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
 			"tribe": "Mixed",
@@ -120,9 +130,9 @@
 			"tribe": "Mixed",
 			"tags": []
 		},
-		"Gintanai": {
-			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai",
-			"tribe": "Mipedian",
+		"Grounded": {
+			"url": "https://chaoticbackup.forumotion.com/t1660-grounded#15076",
+			"tribe": "UnderWorld",
 			"tags": []
 		},
 		"Heard Melody": {
