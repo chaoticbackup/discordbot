@@ -119,15 +119,14 @@ bot.on('guildMemberAdd', (member) => {
   }
 });
 
+// eslint-disable-next-line max-len
+const link_regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
 const checkSpam = async (msg: Discord.Message) => {
   if (!msg.guild) return;
   const index = newMembers.indexOf(msg.author.id);
   if (index < 0) return;
 
-  // eslint-disable-next-line
-  const regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
-
-  if (regex.test(msg.content)) {
+  if (!msg.content.includes('chaoticrecode') && link_regex.test(msg.content)) {
     if (msg.member.bannable) {
       await msg.member.ban()
       .then(async () => {
