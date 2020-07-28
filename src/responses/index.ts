@@ -164,6 +164,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         if (isNaN(parseInt(flatten(args))))
           return rm(message.guild, message);
         break;
+      case 'donate':
+        return send(donate());
       default:
         return;
     }
@@ -257,20 +259,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(starters(message, options));
 
     /* Banlist and Formats */
+    case 'formats':
+      return send(formats());
+
     case 'banlist':
+      if (options.length === 0 && args.length > 0)
+        return send(banlist(guild, channel, [flatten(args)]));
       return send(banlist(guild, channel, options));
-    case 'standard':
-      return send(banlist(guild, channel));
-    case 'legacy':
-      return send(banlist(guild, channel, ['legacy']));
-    case 'rotation':
-    case 'modern':
-      return send(banlist(guild, channel, ['modern']));
-    case 'pauper':
-      return send(banlist(guild, channel, ['pauper']));
-    case 'peasant':
-    case 'noble':
-      return send(banlist(guild, channel, ['noble']));
+    case 'standard': // return send(banlist(guild, channel));
+    case 'legacy': // return send(banlist(guild, channel, ['legacy']));
+    case 'modern': // return send(banlist(guild, channel, ['modern']));
+    case 'pauper': // return send(banlist(guild, channel, ['pauper']));
+    case 'noble': // return send(banlist(guild, channel, ['noble']));
+      return send(`Use \`\`!banlist ${cmd}\`\``);
 
     /* Whyban */
     case 'ban':
@@ -283,8 +284,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
       return send(whyban(flatten(args), guild, channel, options));
-    case 'formats':
-      return send(formats());
 
     /* Goodstuff */
     case 'strong':
@@ -325,7 +324,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'portal':
       return send('https://chaoticbackup.github.io/portal/');
-      
+
     case 'recode':
       return send('https://chaoticrecode.com/');
 
