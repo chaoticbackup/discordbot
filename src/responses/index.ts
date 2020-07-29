@@ -306,6 +306,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Matchmaking */
     case 'cupid':
       return send(lookingForMatch('recode', channel, guild, guildMember));
+    case 'if':
     case 'lf':
     case 'lookingfor':
     case 'match':
