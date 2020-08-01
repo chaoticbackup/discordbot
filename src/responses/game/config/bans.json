@@ -6,7 +6,8 @@
 		"modern": "M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards",
 		"limited": "3 Creatures, Battlegear, Mugic, 5 Locations, 10 Attacks",
 		"highlander": "All Creatures, Mugic, and Battlegear are treated as Unique",
-		"legacy": "No banned cards"
+		"legacy": "No banned cards",
+		"aap": "No Mugic or Activated Abilities"
 	},
 	"standard": [
 		"Aer'dak",
@@ -67,6 +68,16 @@
 		"Supercooled Rain",
 		"Tonal Destruction",
 		"Zamool, Lord van Bloot's Enforcer"
+	],
+	"aap": [
+		"AZAIA Mindscrying Chamber",
+		"Illusionary Lake",
+		"Imaginary Walls",
+		"Lord Van Bloot, Servant of Aa'une",
+		"Lore's Chamber of Recall",
+		"Numin Voidland",
+		"Primal Smash",
+		"Twister of Elements"
 	],
 	"reasons": {
 		"Aer'dak": [
