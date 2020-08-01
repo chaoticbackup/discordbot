@@ -86,7 +86,7 @@
     },
     "watch": {
         "cmd":"!watch <language> <season|>", 
-        "long": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type ``!rulebook --list``"
+        "long": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type ``!watch --list``"
     },
     "end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``.", "short":""},
     "command": {"cmd":" ", "long": "This is for when you need help with my help"}

@@ -3,7 +3,7 @@ const languages = {
   CS: ['Čeština', 'Czech'],
   DE: ['Deutsche', 'German'],
   EN: ['English'],
-  ES: ['Espanol', 'Spanish'],
+  ES: ['Español', 'Spanish'],
   FR: ['Français', 'French'],
   HR: ['Hrvatski', 'Croatian'],
   IT: ['Italiano', 'Italian'],
