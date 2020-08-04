@@ -14,10 +14,10 @@ export default () => {
 
   app.get('/card/:cardName', (req, res) => {
     const name = decodeURI(req.params.cardName);
-    const cards = API.find_cards_by_name(name, []);
+    const cards = API.find_cards_by_name(name);
 
     if (cards.length > 0) {
-      const image = `${API.base_image}${cards[0].gsx$image}`;
+      const image = API.cardImage(cards[0]);
       res.send({ image: image });
     }
     else {

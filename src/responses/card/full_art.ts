@@ -8,11 +8,11 @@ export default function (name: string, options: string[]) {
   let card: Card;
 
   if (!name) {
-    while (!(card = rndrsp(results)).gsx$splash);
+    while (!API.hasFullart(card = rndrsp(results)));
   }
   else if (results.length > 0) {
     card = results[0];
-    if (!card.gsx$splash) {
+    if (!API.hasFullart(card)) {
       return `Sorry, I don't have ${card.gsx$name}'s full art`;
     }
   }
@@ -20,7 +20,7 @@ export default function (name: string, options: string[]) {
     return "That's not a valid card name";
   }
 
-  let url = API.base_image + card.gsx$splash;
+  let url = API.cardFullart(card);
 
   if (options.includes('alt')) {
     if (card.gsx$alt) {

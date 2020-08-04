@@ -1,3 +1,4 @@
+import NodeJS from 'process';
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'discord.js';
@@ -486,7 +487,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
       /* Hard reset bot */
     case 'haxxor':
-      return haxxor(message, bot);
+      return haxxor(message);
 
     case 'logs':
       return send(logs());
@@ -560,13 +561,15 @@ async function clear(amount: number, message: Message, mentions: string[] = []):
   }
 }
 
-function haxxor(message: Message, bot: Client): void {
+function haxxor(message: Message): void {
   if ((message.member?.id === users('daddy') || message.member?.id === users('bf'))
     || (message.guild?.id === servers('main').id && isModerator(message.member))
   ) {
     message.channel.send('Resetting...');
     API.rebuild()
-    .then(async () => bot.destroy())
+    .then(async () => {
+      process.emit('SIGINT', 'SIGINT');
+    })
     .catch((err) => {
       debug(err.message, 'errors');
     });

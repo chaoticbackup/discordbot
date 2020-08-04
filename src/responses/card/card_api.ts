@@ -33,7 +33,7 @@ interface props {
 function Response(card: Card, options: string[], bot: Client) {
   // Not a released card
   if (!card.gsx$set) {
-    if (card.gsx$image === '') {
+    if (!API.hasImage(card)) {
       if (options.includes('detailed') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
@@ -41,8 +41,8 @@ function Response(card: Card, options: string[], bot: Client) {
         .setTitle(card.gsx$name)
         .setColor(color(card))
         .setDescription(card.gsx$ability || 'No data available')
-        .setURL(API.base_image + card.gsx$splash)
-        .setImage(API.base_image + card.gsx$splash);
+        .setURL(API.cardFullart(card))
+        .setImage(API.cardFullart(card));
     }
   }
 

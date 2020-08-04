@@ -28,8 +28,8 @@ export interface BaseCard {
   gsx$loyal: number | string
   gsx$alt?: string
   gsx$alt2?: string
-  gsx$ic?: string
-  gsx$if?: string
+  gsx$ic?: string // imgur card
+  gsx$if?: string // imgur fullart
 }
 
 export interface Attack extends BaseCard {
@@ -57,7 +57,7 @@ export interface Creature extends BaseCard {
   gsx$mugicability: string | number
   gsx$avatar: string
   gsx$subtype: string
-  gsx$ia?: string
+  gsx$ia?: string // imgur avatar
 }
 
 export interface Location extends BaseCard {

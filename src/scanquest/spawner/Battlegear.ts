@@ -10,17 +10,16 @@ export default class ScanBattlegear extends ScanFunction {
   constructor() {
     super();
     const battlegear = API.find_cards_by_name('', ['type=battlegear']) as Battlegear[];
-    this.battlegear = battlegear.filter((battlegear) => (
-      battlegear.gsx$splash && battlegear.gsx$splash !== '' &&
-      battlegear.gsx$image && battlegear.gsx$image !== ''
-    ));
+    this.battlegear = battlegear.filter((b) =>
+      API.hasFullart(b) && API.hasImage(b)
+    );
   }
 
   generate(): [ScannableBattlegear, RichEmbed] {
     const battlegear = this.randomCard(this.battlegear) as Battlegear;
     const image = new RichEmbed()
-    .setImage(API.base_image + battlegear.gsx$splash)
-    .setURL(API.base_image + battlegear.gsx$splash);
+    .setImage(API.cardFullart(battlegear))
+    .setURL(API.cardFullart(battlegear));
 
     return [new ScannableBattlegear(battlegear), image];
   }

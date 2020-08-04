@@ -10,7 +10,7 @@ export default function (name: string) {
   if (!name) {
     do {
       card = rndrsp(results);
-    } while (!card.gsx$avatar || !card.gsx$ia);
+    } while (!API.hasAvatar(card));
   }
   else if (results.length > 0) {
     card = results[0];
