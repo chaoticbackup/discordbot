@@ -1,4 +1,3 @@
-import NodeJS from 'process';
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'discord.js';

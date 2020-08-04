@@ -193,12 +193,12 @@
 		"Muge's Dagger": {
 			"url": "http://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless"]
 		},
 		"No Healing": {
 			"url": "http://chaoticbackup.forumotion.com/t1579-no-healing",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless"]
 		},
 		"Ocean Man": {
 			"url": "http://chaoticbackup.forumotion.com/t1595-ocean-man",
@@ -215,20 +215,20 @@
 			"tribe": "Mixed",
 			"tags": []
 		},
-		"A trampling Mammoth": {
+		"A Trampling Mammoth": {
 			"url": "http://chaoticbackup.forumotion.com/t1658-proboscartosh-a-trampling-mammoth",
 			"tribe": "Mixed",
-			"tags": ["Proboscar", "Lanker", "Ikkatosh, The Aich King"]
+			"tags": ["Tribeless", "Proboscar", "Lanker", "Ikkatosh, The Aich King"]
 		},
 		"Ursis Dagger": {
 			"url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless", "Ursis"]
 		},
 		"UrsisKanin": {
 			"url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless", "Ursis"]
 		},
 		"UW Burn": {
 			"url": "http://chaoticbackup.forumotion.com/t1575-uw-burn",
@@ -238,7 +238,7 @@
 		"Wise Guys": {
 			"url": "http://chaoticbackup.forumotion.com/t1563-wise-guys",
 			"tribe": "OverWorld",
-			"tags": []
+			"tags": ["Ikkatosh, The Aich King"]
 		},
 		"6 Arms": {
 			"url": "http://chaoticbackup.forumotion.com/t1581-6-arms",

@@ -50,7 +50,7 @@ function _tiers(input: string) {
 
 function _tribes(input: string) {
   let tribe = '' as string | undefined;
-  if (input === 'mixed' || input === 'generic' || input === 'tribeless') {
+  if (input === 'mixed') {
     tribe = 'Mixed';
   }
   else {
@@ -103,6 +103,12 @@ function _decklist(input: string): RichEmbed | string {
 
   if (input.length <= 2 && (output = _tiers(input)) instanceof RichEmbed) {
     return output;
+  }
+
+  if (input === 'generic' || input === 'tribeless') {
+    if ((output = _tags('tribeless')) instanceof RichEmbed) {
+      return output;
+    }
   }
 
   if ((output = _tribes(input)) instanceof RichEmbed) {
