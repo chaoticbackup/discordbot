@@ -21,7 +21,7 @@ export default class API {
   static data_format = "/od6/public/values?alt=json";
   static base_spreadsheet = "1cUNmwV693zl2zqbH_IG4Wz8o9Va_sOHe7pAZF6M59Es";
   get base_image() { return "https://drive.google.com/uc?id="; }
-  get card_back() { return "1_MgWDPsPGf-gPBArn2v6ideJcqOPsSYC"; }
+  get card_back() { return "https://i.imgur.com/xbeDBRJ.png"; }
 
   // Singleton
   static getInstance() {
