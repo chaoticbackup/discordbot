@@ -19,7 +19,7 @@ function f() {
 
 export { f as formats };
 
-export function banlist(guild: Guild, channel: Channel, options: string[] = []) {
+export function banlist(channel: Channel, guild?: Guild, options: string[] = []) {
   if (guild && guild.id === servers('main').id) {
     if ((is_channel(channel, 'gen_1') || is_channel(channel, 'gen_2'))) {
       // eslint-disable-next-line max-len
@@ -95,9 +95,9 @@ export function banlist(guild: Guild, channel: Channel, options: string[] = []) 
 }
 
 export function whyban(
-  name: string, guild?: Guild, channel?: Channel, options: string[] = []
+  name: string, channel: Channel, guild?: Guild, options: string[] = []
 ): string | undefined {
-  if (guild && channel && !options.includes('joke') && !can_send(guild, channel)) return;
+  if (guild && !options.includes('joke') && !can_send(guild, channel)) return;
 
   if (!name) return 'Please provide a card or use !banlist';
 

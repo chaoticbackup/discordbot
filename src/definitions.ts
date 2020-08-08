@@ -3,12 +3,15 @@ import { CardType } from './common/card_types';
 
 // export class Channel extends TextBasedChannel(Discord.Channel)
 export interface Channel extends Discord.Channel {
-  send(msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<Message|Message[]>
+  send(content?: StringResolvable, options?: MessageOptions & { split: false } | RichEmbed | Attachment): Promise<Message>
+  send(content?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment): Promise<Message | Message[]>
+  send(options?: MessageOptions | RichEmbed | Attachment): Promise<Message | Message[]>
 }
 
+// This has to be Promise<any> since the expected
 export type SendFunction =
-  (msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment)
-  => Promise<any>; // Message|Message[]|void
+  (msg?: StringResolvable, options?: MessageOptions | RichEmbed | Attachment) =>
+  Promise<any>; // Message|Message[]|void
 
 export type { CardType };
 

@@ -118,6 +118,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   if (options.includes('help'))
     return send(help(cmd));
 
+  const channel = message.channel;
+  const { guild, guildMember } = await messageGuild(message);
+
   const parseCards = (args: string[], opts: string[]): void => {
     return flatten(args).split(';').forEach((name: string) => {
       send(display_card(name.trim(), opts, bot));
@@ -127,7 +130,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   /**
     * Public Servers (Limited functions)
     */
-  if (message.guild && !full_command_servers.includes(message.guild.id)) {
+  if (guild && !full_command_servers.includes(guild.id)) {
     switch (cmd) {
       case 'card':
       case 'cards':
@@ -162,7 +165,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         .then(async () => send(donate()));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
-          return rm(message.guild, message);
+          return rm(message, guild);
         break;
       case 'donate':
         return send(donate());
@@ -170,9 +173,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return;
     }
   }
-
-  const channel = message.channel;
-  const { guild, guildMember } = await messageGuild(message) as {guild: Guild, guildMember: GuildMember};
 
   /**
     * Full command set
@@ -264,8 +264,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'banlist':
       if (options.length === 0 && args.length > 0)
-        return send(banlist(guild, channel, [flatten(args)]));
-      return send(banlist(guild, channel, options));
+        return send(banlist(channel, guild, [flatten(args)]));
+      return send(banlist(channel, guild, options));
     case 'standard': // return send(banlist(guild, channel));
     case 'legacy': // return send(banlist(guild, channel, ['legacy']));
     case 'modern': // return send(banlist(guild, channel, ['modern']));
@@ -283,7 +283,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'whyban':
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
-      return send(whyban(flatten(args), guild, channel, options));
+      return send(whyban(flatten(args), channel, guild, options));
 
     /* Goodstuff */
     case 'strong':
@@ -352,10 +352,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Tribes */
     case 'tribe':
-      return tribe(guild, guildMember, args).then(send);
+      return tribe(args, guild, guildMember).then(send);
     case 'bw':
     case 'brainwash':
-      return brainwash(guild, guildMember, mentions).then(send);
+      return brainwash(mentions, guild, guildMember).then(send);
 
     /* Languages */
     case 'speak':
@@ -363,7 +363,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'speakers':
     case 'language':
     case 'languages':
-      return speakers(guildMember, guild, args).then(send);
+      return speakers(args, guild, guildMember).then(send);
 
     /* Now or Never */
     case 'never':
@@ -379,11 +379,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Compliments, Insults, Jokes */
     case 'flirt':
     case 'compliment':
-      return send(compliment(guild, mentions, args.join(' ')));
+      return send(compliment(mentions, args.join(' '), guild));
     case 'burn':
     case 'roast':
     case 'insult':
-      return send(insult(guild, mentions, args.join(' ')));
+      return send(insult(mentions, args.join(' '), guild));
     case 'joke':
       return send(rndrsp(joke, 'joke'));
 
@@ -393,7 +393,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'trivia':
       return send(trivia(guildMember));
     case 'answer':
-      return send(answer(guildMember || message.author, args.join(' ')));
+      return send(answer(guildMember ?? message.author, args.join(' ')));
 
     /* Happy Borth Day */
     case 'happy': {
@@ -410,7 +410,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Regions/Meetups */
     case 'region':
     case 'regions':
-      return meetup(guildMember, guild, args, mentions).then(send);
+      return meetup(args, mentions, guild, guildMember).then(send);
 
     /* Watch playlists English */
     case 'youtube':
@@ -477,9 +477,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'rm':
       if (isNaN(parseInt(flatten(args))))
-        return rm(guild, message);
+        return rm(message, guild);
     // fallthrough if number provided
     case 'clear':
+      if (guild) {
+        const meebot = guild.members.get('159985870458322944');
+        if (meebot) break;
+      }
+    // fallthrough
     case 'clean':
     case 'delete':
       return clear(parseInt(flatten(args)), message, mentions);
@@ -504,9 +509,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
  * If the message was sent in a guild, returns the `guild` and `guildMember`
  */
 async function messageGuild(message: Message):
-Promise<{guild: Guild | null, guildMember: GuildMember | null}>
+Promise<{guild?: Guild, guildMember?: GuildMember }>
 {
-  if (!message.guild) return { guild: null, guildMember: null };
+  if (!message.guild) return { guild: undefined, guildMember: undefined };
 
   const guild: Guild = message.guild;
   const guildMember: GuildMember = (message.member)
@@ -516,7 +521,7 @@ Promise<{guild: Guild | null, guildMember: GuildMember | null}>
   return { guild: guild, guildMember: guildMember };
 }
 
-function rm(guild: Guild, message: Message) {
+function rm(message: Message, guild?: Guild) {
   if (message.channel instanceof DMChannel) {
     message.channel.fetchMessages({ limit: 20 })
     .then(messages => {

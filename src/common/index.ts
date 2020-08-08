@@ -48,7 +48,7 @@ export function reload(module: any) {
   return require(module);
 }
 
-export function isModerator(member: GuildMember | null): boolean {
+export function isModerator(member?: GuildMember): boolean {
   return !!member && Boolean(
     member.roles.find(role => role.name === 'Administrator') ||
     member.roles.find(role => role.name === 'Moderator') ||
@@ -56,7 +56,7 @@ export function isModerator(member: GuildMember | null): boolean {
   );
 }
 
-export function hasPermission(guild: Guild | null, permission: PermissionResolvable): boolean {
+export function hasPermission(guild: Guild | undefined, permission: PermissionResolvable): boolean {
   if (!guild) return false;
   return guild.me.hasPermission(permission);
 }

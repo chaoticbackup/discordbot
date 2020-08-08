@@ -3,7 +3,8 @@ import ScanQuestDB from '../scan_db';
 import users from '../../common/users';
 import { SendFunction } from '../../definitions';
 
-export default async function balance(db: ScanQuestDB, message: Message, options: string[], send: SendFunction) {
+export default async function balance(db: ScanQuestDB, message: Message, options: string[], send: SendFunction):
+Promise<void> {
   // If not dm or receive channel
   if (
     !(

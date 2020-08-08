@@ -106,7 +106,7 @@ bot.on('guildMemberAdd', (member) => {
       // @ts-ignore
       bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);
       // Delete the meebot welcome message
-      const meebot = bot.users.get('159985870458322944');
+      const meebot = member.guild.members.get('159985870458322944');
       if (meebot) { setTimeout(() => {
         if (meebot.lastMessage?.deletable) {
           meebot.lastMessage.delete();

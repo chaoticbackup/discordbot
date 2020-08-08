@@ -5,9 +5,9 @@ import { CreatureTribes } from '../../common/card_types';
 const tribes = CreatureTribes;
 
 export const tribe = async (
-  guild: Guild, member: GuildMember, args: string[]
+  args: string[], guild?: Guild, member?: GuildMember
 ): Promise<string> => {
-  if (!guild) {
+  if (!guild || !member) {
     return 'You can only use this command in a guild with roles';
   }
 
@@ -38,8 +38,12 @@ export const tribe = async (
 };
 
 export const brainwash = async (
-  guild: Guild, member: GuildMember, mentions: string[]
+  mentions: string[], guild?: Guild, member?: GuildMember
 ): Promise<string> => {
+  if (!guild || !member) {
+    return 'You can only use this command in a guild with roles';
+  }
+
   if (!hasPermission(guild, 'MANAGE_ROLES')) {
     return 'I need the ``MANAGE_ROLES`` permission';
   }

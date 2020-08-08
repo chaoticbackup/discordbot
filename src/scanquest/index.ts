@@ -95,9 +95,9 @@ export default class ScanQuest {
         case 'skon':
         case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
-            await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)))
-            .then(async (m: Message) => {
-              if (cmd === 'skon') await m.react('728825180763324447');
+            await this.scanner.scan(message, flatten(args), send)
+            .then(async (m) => {
+              if (m && cmd === 'skon') await m.react('728825180763324447');
             });
           }
           return;
@@ -109,8 +109,7 @@ export default class ScanQuest {
           return await send(rate(this.db, message, args, options, this.bot));
         case 'balance':
         case 'coins':
-          await balance(this.db, message, options, send);
-          return;
+          return await balance(this.db, message, options, send);
         case 'trade':
           if (message.guild) {
             await this.trader.trade(args, mentions, message);
@@ -130,8 +129,8 @@ export default class ScanQuest {
             const content = args.splice(1).join(' ');
             const info = content.substr(content.indexOf(' ') + 1);
             const scan = loadScan({ type, info });
-            if (scan) return await this.db.save(id, scan.card);
-            return await send('Invalid format');
+            if (scan) await this.db.save(id, scan.card);
+            else await send('Invalid format');
           }
           return;
         case 'spawn':

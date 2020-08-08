@@ -51,7 +51,8 @@ export default class Select {
         }
       })();
 
-    image.setTitle(`Scan expires in ${duration} hours`);
+    image.setTitle(`Scan expires in ${duration} hours`)
+    .setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
 
     return { scannable, image, duration };
   }

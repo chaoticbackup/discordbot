@@ -8,11 +8,11 @@ interface Response {
 
 let questiontime = false;
 let responses: Response[];
-let triviaMaster: GuildMember | null;
+let triviaMaster: GuildMember | null | undefined;
 
 // It's the command that manages timing, like the whistle of a ref.
-export async function whistle(member: GuildMember): Promise<string> {
-  if (triviaMaster && member.id === triviaMaster.id) {
+export async function whistle(member?: GuildMember): Promise<string> {
+  if (triviaMaster && member?.id === triviaMaster.id) {
     if (!questiontime) {
       questiontime = true;
       return 'Users may now submit their answers';
@@ -38,10 +38,10 @@ export async function whistle(member: GuildMember): Promise<string> {
 }
 
 // sets a guildmember as the trivia master
-export function trivia(member: GuildMember): string {
+export function trivia(member?: GuildMember): string {
   if (isModerator(member)) {
     if (triviaMaster) {
-      if (triviaMaster.id === member.id) {
+      if (triviaMaster.id === member!.id) {
         triviaMaster = null;
         return 'You stopped hosting Trivia Night';
       }

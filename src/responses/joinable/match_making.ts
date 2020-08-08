@@ -6,13 +6,13 @@ import servers from '../../common/servers';
 const types = ['recode', 'untap', 'tts'];
 
 function canMatch(guild: Guild, channel: Channel): boolean {
-  if (!(guild && hasPermission(guild, 'MANAGE_ROLES'))) return false;
+  if (!(hasPermission(guild, 'MANAGE_ROLES'))) return false;
   if (guild.id === servers('main').id && channel.id !== servers('main').channel('match_making')) return false;
   return true;
 }
 
-export function lookingForMatch(type: string, channel: Channel, guild: Guild, member: GuildMember) {
-  if (!canMatch(guild, channel)) return;
+export function lookingForMatch(type: string, channel: Channel, guild?: Guild, member?: GuildMember) {
+  if (!guild || !member || !canMatch(guild, channel)) return;
 
   if (!type || !types.includes(type)) type = types[0];
 
@@ -27,8 +27,8 @@ export function lookingForMatch(type: string, channel: Channel, guild: Guild, me
   return `Please add ${type}_match as a role on this server`;
 }
 
-export function cancelMatch(channel: Channel, guild: Guild, member: GuildMember) {
-  if (!canMatch(guild, channel)) return;
+export function cancelMatch(channel: Channel, guild?: Guild, member?: GuildMember) {
+  if (!guild || !member || !canMatch(guild, channel)) return;
 
   for (let i = 0; i < types.length; i++) {
     const role = guild.roles.find((role: Role) => role.name === `${types[i]}_match`);

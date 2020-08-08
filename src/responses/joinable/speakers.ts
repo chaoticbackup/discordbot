@@ -7,8 +7,8 @@ const languageProper = (lang: string): string => {
   return uppercase(lang.replace(suffix, ''));
 };
 
-export default async (user: GuildMember, guild: Guild, args: string[]) => {
-  if (!guild) {
+export default async (args: string[], guild?: Guild, user?: GuildMember) => {
+  if (!guild || !user) {
     return 'You can only use this command in a guild with roles';
   }
 
