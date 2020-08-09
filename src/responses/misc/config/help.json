@@ -88,6 +88,16 @@
         "cmd":"!watch <language> <season|>", 
         "long": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type ``!watch --list``"
     },
+    "perim": {
+        "cmd": "!perim help",
+        "short": "For all commands related to the scanquest use !perim help"
+    },
+    "scan": {
+        "long": "use !perim help"
+    },
+    "trade": {
+        "long": "use !perim help"
+    },
     "end": {"cmd":"```You can ask me more about specific commands ``c!help <command>``.", "short":""},
     "command": {"cmd":" ", "long": "This is for when you need help with my help"}
 }
