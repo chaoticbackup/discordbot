@@ -1,47 +1,46 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'discord.js';
+import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
 
+import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp } from '../common';
+import debug from '../common/debug';
+import parseCommand from '../common/parse_command';
+import servers from '../common/servers';
+
+import { SendFunction } from '../definitions';
 import logger from '../logger';
 
-import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten, donate } from '../common';
-import servers from '../common/servers';
-import users from '../common/users';
-import parseCommand from '../common/parse_command';
+import { avatar, display_card, display_token, find_card, full_art } from './card';
 
-import { API } from '../database';
-import { SendFunction } from '../definitions';
-
-import { display_card, find_card, full_art, display_token, avatar } from './card';
-import rate_card from './rate';
+import joke from './config/jokes.json';
 
 import { banlist, formats, whyban } from './game/bans';
+import { decklist, tierlist } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
-import { cancelMatch, lookingForMatch } from './joinable/match_making';
-import { tierlist, decklist } from './game/decklists';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
+import color from './joinable/color';
+import { cancelMatch, lookingForMatch } from './joinable/match_making';
 import meetup from './joinable/regions';
 import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
-import color from './joinable/color';
 
 import gone from './misc/gone';
 import help from './misc/help';
 import { compliment, insult } from './misc/insult_compliment';
-import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
+import { answer, trivia, whistle } from './misc/trivia';
 import watch from './misc/watch';
 
-import checkSass from './sass';
-import logs from './logs';
-import debug from '../common/debug';
+import rate_card from './rate';
 
-import joke from './misc/config/jokes.json';
+import checkSass from './sass';
+
+import { rm, clear, haxxor, logs } from './admin';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -412,9 +411,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'regions':
       return meetup(args, mentions, guild, guildMember).then(send);
 
-    /* Watch playlists English */
-    case 'youtube':
-      return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
+    /* Watch playlists */
     case 'watch':
       return send(watch(args, options));
 
@@ -430,6 +427,18 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         );
       }
       break;
+    }
+
+    case 'map': {
+      if (args.length > 0) {
+        if (args[0].toLowerCase() === 'overworld') {
+          return send('<https://cdn.discordapp.com/attachments/135657678633566208/617384989641801897/OW-Map-0518.jpg>');
+        } else
+        if (args[0].toLowerCase() === 'underworld') {
+          return send('<https://cdn.discordapp.com/attachments/135657678633566208/617385013129773057/UW-Map-0517.jpg>');
+        }
+      }
+      return send('\`\`\`md\n!map <OverWorld | UnderWorld>\`\`\`');
     }
 
     /* Help */
@@ -501,10 +510,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   }
 };
 
-/*
-* Support Functions
-*/
-
 /**
  * If the message was sent in a guild, returns the `guild` and `guildMember`
  */
@@ -514,68 +519,9 @@ Promise<{guild?: Guild, guildMember?: GuildMember }>
   if (!message.guild) return { guild: undefined, guildMember: undefined };
 
   const guild: Guild = message.guild;
-  const guildMember: GuildMember = (message.member)
+  const guildMember: GuildMember = message.member
     ? message.member
     : await guild.fetchMember(message.author).then((member) => member);
 
   return { guild: guild, guildMember: guildMember };
-}
-
-function rm(message: Message, guild?: Guild) {
-  if (message.channel instanceof DMChannel) {
-    message.channel.fetchMessages({ limit: 20 })
-    .then(messages => {
-      const msg = messages.find((msg) => msg.author.id === users('me'));
-      if (msg) msg.delete();
-    });
-    return;
-  }
-  if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
-  message.channel.fetchMessages({ limit: 10 })
-  .then(messages => {
-    const msg = messages.find((msg) => msg.author.id === users('me'));
-    if (msg) message.channel.bulkDelete([msg, message]);
-  });
-}
-
-async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
-  if ((isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES'))) {
-    if (amount <= 25) {
-      if (mentions.length > 0) {
-        return message.channel.fetchMessages()
-        .then(messages => {
-          const b_messages = messages.filter(m =>
-            mentions.includes(m.author.id)
-          );
-          if (b_messages.size > 0) {
-            message.channel.bulkDelete(b_messages);
-          }
-          message.delete();
-        });
-      }
-      else {
-        message.channel.bulkDelete(amount + 1).catch();
-      }
-    }
-    else {
-      // only delete the clear command
-      message.channel.send('Enter a number less than 20');
-      message.delete();
-    }
-  }
-}
-
-function haxxor(message: Message): void {
-  if ((message.member?.id === users('daddy') || message.member?.id === users('bf'))
-    || (message.guild?.id === servers('main').id && isModerator(message.member))
-  ) {
-    message.channel.send('Resetting...');
-    API.rebuild()
-    .then(async () => {
-      process.emit('SIGINT', 'SIGINT');
-    })
-    .catch((err) => {
-      debug(err.message, 'errors');
-    });
-  }
 }
