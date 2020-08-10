@@ -4,7 +4,7 @@ import { API } from '../database';
 import { SendFunction } from '../definitions';
 
 import { flatten } from '../common';
-import parseCommand from '../common/parse_command';
+import parseCommand from '../common/parseCommand';
 import users from '../common/users';
 import logger from '../logger';
 

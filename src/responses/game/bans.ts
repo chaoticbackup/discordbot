@@ -1,7 +1,6 @@
-import { Guild } from 'discord.js';
-import { can_send, is_channel, rndrsp, uppercase } from '../../common';
+import { Guild, Message } from 'discord.js';
+import { can_send, rndrsp, uppercase } from '../../common';
 import { Channel } from '../../definitions';
-import servers from '../../common/servers';
 import { API } from '../../database';
 
 import ban_lists from './config/bans.json';
@@ -19,24 +18,17 @@ function f() {
 
 export { f as formats };
 
-export function banlist(channel: Channel, guild?: Guild, options: string[] = []) {
-  if (guild && guild.id === servers('main').id) {
-    if ((is_channel(channel, 'gen_1') || is_channel(channel, 'gen_2'))) {
-      // eslint-disable-next-line max-len
-      return (`I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`);
-    }
-  }
-
-  let message = '';
+export function banlist(message: Message, options: string[] = []) {
+  let response = '';
 
   const title = (_format: string) => {
-    message = `**${uppercase(_format)}:**\n${formats[_format]}`;
+    response = `**${uppercase(_format)}:**\n${formats[_format]}`;
   };
 
   const list_bans = (_format: string) => {
-    message += '\n==Banned Cards==';
+    response += '\n==Banned Cards==';
     ban_lists[_format].forEach((key: string) => {
-      message += `\n${key}`;
+      response += `\n${key}`;
     });
   };
 
@@ -47,11 +39,11 @@ export function banlist(channel: Channel, guild?: Guild, options: string[] = [])
     case 'standard': {
       title('standard');
       list_bans('standard');
-      message += '\n=====\n**Watchlist:** (not banned)';
+      response += '\n=====\n**Watchlist:** (not banned)';
       watchlist.forEach((key: string) => {
-        message += `\n${key}`;
+        response += `\n${key}`;
       });
-      message += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
+      response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
       break;
     }
     // Legacy
@@ -82,21 +74,21 @@ export function banlist(channel: Channel, guild?: Guild, options: string[] = [])
     // Advanced Apprentice
     case 'advanced apprentice':
     case 'aap': {
-      message = `**Advanced Apprentice (AAP):**\n${formats.aap}`;
+      response = `**Advanced Apprentice (AAP):**\n${formats.aap}`;
       list_bans('aap');
       break;
     }
     default: {
-      message = 'Not a supported format';
+      response = 'Not a supported format';
     }
   }
 
-  return message;
+  return response;
 }
 
-export function whyban(
+export async function whyban(
   name: string, channel: Channel, guild?: Guild, options: string[] = []
-): string | undefined {
+): Promise<string | undefined> {
   if (!name) return 'Please provide a card or use !banlist';
 
   const card = API.find_cards_by_name(name)[0] ?? null;
@@ -111,7 +103,7 @@ export function whyban(
       return `${cardName} isn't banned`;
     }
 
-    if (guild && !can_send(guild, channel)) return;
+    if (guild && !(await can_send(guild, channel))) return;
 
     if (Object.keys(detailed).includes(cardName)) {
       return `*${cardName}*:\n${detailed[cardName]}`;
@@ -132,7 +124,7 @@ export function whyban(
       }
     }
     else {
-      if (!guild || can_send(guild, channel))
+      if (!guild || await can_send(guild, channel))
         return `*${cardName}*:\n${reasons[cardName][0]}`;
     }
   }

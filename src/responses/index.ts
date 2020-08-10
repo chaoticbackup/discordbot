@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, Guild, GuildMember, Message, RichEmbed } from 'discord.js';
+import { Client, Message, RichEmbed } from 'discord.js';
 
-import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp } from '../common';
+import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp, is_channel } from '../common';
 import debug from '../common/debug';
-import parseCommand from '../common/parse_command';
+import parseCommand from '../common/parseCommand';
 import servers from '../common/servers';
 
-import { SendFunction } from '../definitions';
+import { SendFunction, Channel } from '../definitions';
 import logger from '../logger';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
@@ -41,6 +41,7 @@ import rate_card from './rate';
 import checkSass from './sass';
 
 import { rm, clear, haxxor, logs } from './admin';
+import { messageGuild } from '../common/parseMessageGuild';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -267,10 +268,23 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'formats':
       return send(formats());
 
-    case 'banlist':
-      if (options.length === 0 && args.length > 0)
-        return send(banlist(channel, guild, [flatten(args)]));
-      return send(banlist(channel, guild, options));
+    case 'banlist': {
+      const rsp = (options.length === 0 && args.length > 0)
+        ? banlist(message, [flatten(args)])
+        : banlist(message, options);
+
+      if (!(await can_send(message, !is_channel(message, 'banlist_discussion')
+        // eslint-disable-next-line max-len
+        ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
+        : null
+      ))) {
+        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}`));
+      } else {
+        send(rsp);
+      }
+      return;
+    }
     case 'standard': // return send(banlist(guild, channel));
     case 'legacy': // return send(banlist(guild, channel, ['legacy']));
     case 'modern': // return send(banlist(guild, channel, ['modern']));
@@ -300,11 +314,26 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'deck':
     case 'decks':
     case 'decklist':
-      return send(decklist(flatten(args)));
+      if (await can_send(message, null)) {
+        return send(decklist(flatten(args)));
+      }
+      else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
+        ch.send(decklist(flatten(args)))
+          .then(async () => ch.send(`<@!${message.author.id}`));
+      }
+      return;
+
     case 'tierlist':
-      if (can_send(message)) {
-        return send(tierlist())
-        .then(async () => send(donate()));
+      if (await can_send(message, null)) {
+        return await send(tierlist())
+          .then(async () => { send(donate()); });
+      }
+      else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
+        ch.send(tierlist())
+          .then(async () => ch.send(donate()))
+          .then(async () => ch.send(`<@!${message.author.id}`));
       }
       return;
 
@@ -511,19 +540,3 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     default:
   }
 };
-
-/**
- * If the message was sent in a guild, returns the `guild` and `guildMember`
- */
-async function messageGuild(message: Message):
-Promise<{guild?: Guild, guildMember?: GuildMember }>
-{
-  if (!message.guild) return { guild: undefined, guildMember: undefined };
-
-  const guild: Guild = message.guild;
-  const guildMember: GuildMember = message.member
-    ? message.member
-    : await guild.fetchMember(message.author).then((member) => member);
-
-  return { guild: guild, guildMember: guildMember };
-}

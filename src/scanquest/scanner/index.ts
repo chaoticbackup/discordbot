@@ -100,7 +100,7 @@ export function toScannable(scan: Scanned): Scannable | undefined {
 }
 
 const first_scan = `
-Hi there! It looks like this is your first time scanning something, so here's some extra info! Different cards will spawn with frequency based on server activity and are active. You can scan any of the active ones before they expire (they have a duration from the time the message appears).
+Hi there! It looks like this is your first time scanning something, so here's some extra info! Different cards will spawn with frequency based on server activity. You can scan any of the active ones before they expire (they have a duration from the time the message appears).
 You can see a full list of your scans by typing \`\`!list\`\`, and navigate it with the buttons at the bottom (buttons are explained at the bottom of this message). You can also trade with another person by typing "!trade @user" and following the prompts.
 All of this is just for fun right now, but we hope you enjoy! If you have any other questions, we'll be happy to help in either <#135657678633566208> or <#587376910364049438>. That's where most of the server hangs out.
 
