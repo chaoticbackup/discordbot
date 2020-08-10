@@ -173,6 +173,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
   }
 
+  function newMemberGeneralChatSpam() {
+    return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
+      (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
+    );
+  }
+
   /**
     * Full command set
     */
@@ -184,7 +190,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Cards */
     case 'card':
     case 'cards':
-      if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
+      if (newMemberGeneralChatSpam()) break;
       return parseCards(args, options);
     case 'ability':
       options.push('ability');
@@ -328,10 +334,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'recode':
       return send('https://chaoticrecode.com/');
 
-    case 'banhammer': {
-      return send(display_card('The Doomhammer', ['image'], bot));
-    }
-
     case 'fun':
     case 'funstuff':
     case 'agame':
@@ -468,7 +470,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /*
    * Moderation
    */
-    // case 'banhammer': {
+    case 'banhammer': {
     //   if (isModerator(guildMember) && mentions.length > 1) {
     //     message.mentions.members.forEach(member => {
     //       const reason = args.join(" ");
@@ -481,8 +483,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     //       }
     //     });
     //   }
-    //   return send(display_card("The Doomhammer", ["image"], bot));
-    // }
+      return send(display_card('The Doomhammer', ['image'], bot));
+    }
 
     case 'rm':
       if (isNaN(parseInt(flatten(args))))

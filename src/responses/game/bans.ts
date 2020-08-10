@@ -97,8 +97,6 @@ export function banlist(channel: Channel, guild?: Guild, options: string[] = [])
 export function whyban(
   name: string, channel: Channel, guild?: Guild, options: string[] = []
 ): string | undefined {
-  if (guild && !options.includes('joke') && !can_send(guild, channel)) return;
-
   if (!name) return 'Please provide a card or use !banlist';
 
   const card = API.find_cards_by_name(name)[0] ?? null;
@@ -109,43 +107,38 @@ export function whyban(
 
   // Check if long explanation requested
   if (options.includes('detailed')) {
-    if (guild && channel && guild.id === servers('main').id) {
-      if (!can_send(guild, channel)) return '';
+    if (!Object.keys(reasons).includes(cardName)) {
+      return `${cardName} isn't banned`;
     }
-    for (const key in detailed) {
-      if (key === cardName) {
-        return `*${key}*:\n${detailed[key]}`;
-      }
+
+    if (guild && !can_send(guild, channel)) return;
+
+    if (Object.keys(detailed).includes(cardName)) {
+      return `*${cardName}*:\n${detailed[cardName]}`;
     }
-    // Check if its even banned
-    for (const key in reasons) {
-      if (key === cardName) {
-        return `${key} doesn't have a more detailed explanation`;
-      }
+
+    if (Object.keys(reasons).includes(cardName)) {
+      return `${cardName} doesn't have a more detailed explanation`;
     }
-    return `${cardName} isn't banned`;
   }
 
-  for (const key in reasons) {
-    if (key === cardName) {
-      if (options.includes('joke')) {
-        if (reasons[key].length > 1) {
-          return `*${key}*:\n${rndrsp(reasons[key].slice(1, reasons[key].length), key)}`;
-        }
-        else {
-          return `Sorry ${key} doesn't have a joke`;
-        }
+  if (Object.keys(reasons).includes(cardName)) {
+    if (options.includes('joke')) {
+      if (reasons[cardName].length > 1) {
+        return `*${cardName}*:\n${rndrsp(reasons[cardName].slice(1, reasons[cardName].length), cardName)}`;
       }
       else {
-        return `*${key}*:\n${reasons[key][0]}`;
+        return `Sorry ${cardName} doesn't have a joke entry`;
       }
+    }
+    else {
+      if (!guild || can_send(guild, channel))
+        return `*${cardName}*:\n${reasons[cardName][0]}`;
     }
   }
 
-  for (const key in jokes) {
-    if (key === cardName) {
-      return `*${key}*:\n${rndrsp(jokes[key], key)}`;
-    }
+  if (Object.keys(jokes).includes(cardName)) {
+    return `*${cardName}*:\n${rndrsp(jokes[cardName], cardName)}`;
   }
 
   return rndrsp(["That card isn't banned", `Oh lucky you, ${cardName} isn't banned`]);
