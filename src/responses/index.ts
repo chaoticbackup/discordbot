@@ -273,7 +273,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         ? banlist(message, [flatten(args)])
         : banlist(message, options);
 
-      if (await can_send(message, !is_channel(message, 'banlist_discussion')
+      if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
         // eslint-disable-next-line max-len
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null
@@ -314,7 +314,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'deck':
     case 'decks':
     case 'decklist':
-      if (await can_send(message, null)) {
+      if (can_send(channel, guild, guildMember, null)) {
         return send(decklist(flatten(args)));
       }
       else {
@@ -325,7 +325,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return;
 
     case 'tierlist':
-      if (await can_send(message, null)) {
+      if (can_send(channel, guild, guildMember, null)) {
         return await send(tierlist())
           .then(async () => { send(donate()); });
       }

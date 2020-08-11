@@ -86,9 +86,9 @@ export function banlist(message: Message, options: string[] = []) {
   return response;
 }
 
-export async function whyban(
+export function whyban(
   name: string, channel: Channel, guild?: Guild, options: string[] = []
-): Promise<string | undefined> {
+): string | undefined {
   if (!name) return 'Please provide a card or use !banlist';
 
   const card = API.find_cards_by_name(name)[0] ?? null;
@@ -103,7 +103,7 @@ export async function whyban(
       return `${cardName} isn't banned`;
     }
 
-    if (guild && !(await can_send(guild, channel))) return;
+    if (guild && !(can_send(channel, guild))) return;
 
     if (Object.keys(detailed).includes(cardName)) {
       return `*${cardName}*:\n${detailed[cardName]}`;
@@ -124,7 +124,7 @@ export async function whyban(
       }
     }
     else {
-      if (!guild || await can_send(guild, channel))
+      if (!guild || can_send(channel, guild))
         return `*${cardName}*:\n${reasons[cardName][0]}`;
     }
   }
