@@ -22,8 +22,13 @@ export function can_send(channel: Channel, guild?: Guild, arg3?: GuildMember | m
     guildMember = arg3;
     msg = arg4;
   }
-  else {
+  else if (arg3 !== undefined) {
     msg = arg3;
+  }
+  // The third param can be undefined if not in a guild
+  // If so check forth param for the msg
+  else {
+    msg = arg4;
   }
 
   if (guild.id === servers('main').id && !is_channel(channel, 'bot_commands')) {
