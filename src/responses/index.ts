@@ -273,15 +273,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         ? banlist(message, [flatten(args)])
         : banlist(message, options);
 
-      if (!(await can_send(message, !is_channel(message, 'banlist_discussion')
+      if (await can_send(message, !is_channel(message, 'banlist_discussion')
         // eslint-disable-next-line max-len
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null
-      ))) {
-        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
-        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}`));
-      } else {
+      )) {
         send(rsp);
+      } else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
       }
       return;
     }
@@ -318,9 +318,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(decklist(flatten(args)));
       }
       else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
         ch.send(decklist(flatten(args)))
-          .then(async () => ch.send(`<@!${message.author.id}`));
+          .then(async () => ch.send(`<@!${message.author.id}>`));
       }
       return;
 
@@ -330,10 +330,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
           .then(async () => { send(donate()); });
       }
       else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands'))! as Channel;
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
         ch.send(tierlist())
           .then(async () => ch.send(donate()))
-          .then(async () => ch.send(`<@!${message.author.id}`));
+          .then(async () => ch.send(`<@!${message.author.id}>`));
       }
       return;
 
