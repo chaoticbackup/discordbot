@@ -235,11 +235,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Rules */
     case 'faq':
       return send(faq(flatten(args)));
+
     case 'keyword':
     case 'rule':
       if (args.length < 1)
         return send('Please provide a rule, or use **!rulebook** or **!guide**');
-      return send(glossary(flatten(args)));
+      const rsp = glossary(flatten(args));
+      if (can_send(channel, guild, guildMember, null)) {
+        send(rsp);
+      } else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
+      }
+      break;
 
     /* Documents */
     case 'rulebook':
