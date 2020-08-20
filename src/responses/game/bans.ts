@@ -1,5 +1,5 @@
 import { Guild, Message } from 'discord.js';
-import { can_send, rndrsp, uppercase } from '../../common';
+import { can_send, rndrsp, uppercase, cleantext } from '../../common';
 import { Channel } from '../../definitions';
 import { API } from '../../database';
 
@@ -93,45 +93,51 @@ export function whyban(
 
   const card = API.find_cards_by_name(name)[0] ?? null;
 
-  if (!card) return 'Not a valid card name';
+  if (card) {
+    const cardName = card.gsx$name;
 
-  const cardName = card.gsx$name;
+    // Check if long explanation requested
+    if (options.includes('detailed')) {
+      if (!Object.keys(reasons).includes(cardName)) {
+        return `${cardName} isn't banned`;
+      }
 
-  // Check if long explanation requested
-  if (options.includes('detailed')) {
-    if (!Object.keys(reasons).includes(cardName)) {
-      return `${cardName} isn't banned`;
-    }
+      if (guild && !(can_send(channel, guild))) return;
 
-    if (guild && !(can_send(channel, guild))) return;
+      if (Object.keys(detailed).includes(cardName)) {
+        return `*${cardName}*:\n${detailed[cardName]}`;
+      }
 
-    if (Object.keys(detailed).includes(cardName)) {
-      return `*${cardName}*:\n${detailed[cardName]}`;
+      if (Object.keys(reasons).includes(cardName)) {
+        return `${cardName} doesn't have a more detailed explanation`;
+      }
     }
 
     if (Object.keys(reasons).includes(cardName)) {
-      return `${cardName} doesn't have a more detailed explanation`;
-    }
-  }
-
-  if (Object.keys(reasons).includes(cardName)) {
-    if (options.includes('joke')) {
-      if (reasons[cardName].length > 1) {
-        return `*${cardName}*:\n${rndrsp(reasons[cardName].slice(1, reasons[cardName].length), cardName)}`;
+      if (options.includes('joke')) {
+        if (reasons[cardName].length > 1) {
+          return `*${cardName}*:\n${rndrsp(reasons[cardName].slice(1, reasons[cardName].length), cardName)}`;
+        }
+        else {
+          return `Sorry ${cardName} doesn't have a joke entry`;
+        }
       }
       else {
-        return `Sorry ${cardName} doesn't have a joke entry`;
+        if (!guild || can_send(channel, guild))
+          return `*${cardName}*:\n${reasons[cardName][0]}`;
       }
     }
-    else {
-      if (!guild || can_send(channel, guild))
-        return `*${cardName}*:\n${reasons[cardName][0]}`;
+  }
+
+  for (const key of Object.keys(jokes)) {
+    if (cleantext(key).includes(cleantext(name))) {
+      return `*${key}*:\n${rndrsp(jokes[key], key)}`;
     }
   }
 
-  if (Object.keys(jokes).includes(cardName)) {
-    return `*${cardName}*:\n${rndrsp(jokes[cardName], cardName)}`;
+  if (!card) {
+    return 'Not a valid card name';
   }
 
-  return rndrsp(["That card isn't banned", `Oh lucky you, ${cardName} isn't banned`]);
+  return rndrsp(["That card isn't banned", `Oh lucky you! ${card.gsx$name} isn't banned`]);
 }
