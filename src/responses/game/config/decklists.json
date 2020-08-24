@@ -1,27 +1,25 @@
 {
 	"tierlist": {
-		"S": [
+		"S": [],
+		"A": [
 			"Wise Guys",
 			"LankerTosh",
-			"Swimming Team"
-		],
-		"A": [
+			"Swimming Team",
 			"Strike",
 			"Elementalist",
 			"UW Burn",
-			"Fire and Brimstone",
 			"Bodal's Boys",
 			"Fliandar",
 			"Aszil Compost",
 			"UrsisKanin",
 			"Aszil Courage",
-			"Lyssta Mixed",
 			"Grantkae Control"
 		],
 		"B": [
+			"Fire and Brimstone",
+			"Lyssta Mixed",
 			"No Healing",
 			"Blazvatan",
-			"Gorram Malvadine",
 			"Ursis Dagger",
 			"Kraken",
 			"Ocean Man",
@@ -118,7 +116,7 @@
 		"Gorram Malvadine": {
 			"url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Malvadine", "Gorram"]
 		},
 		"Gorram Neekwin": {
 			"url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin",

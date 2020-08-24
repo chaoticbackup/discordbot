@@ -2,7 +2,7 @@ import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tiers = ['S', 'A', 'B'] as const;
+const tiers = ['A', 'B'] as const;
 
 const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
 
