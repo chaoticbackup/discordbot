@@ -168,7 +168,7 @@ export default class Spawner {
       // add to list of active scans
       server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
-      const duration = Math.min(active * 60 * 1000, config.next);
+      const duration = Math.min(active * 60 * 60 * 1000, config.next);
       const endTime = moment().add(duration, 'milliseconds');
       server.remaining = endTime.toDate();
 
