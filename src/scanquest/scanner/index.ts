@@ -56,8 +56,12 @@ export default class Scanner {
         selected = server.activescans.find(scan => scan.scan.name === name);
       }
 
-      if (selected === undefined || moment(selected.expires).isBefore(now)) {
+      if (selected === undefined) {
         await send(`${name || args.replace('@', '')} isn't an active scan`);
+        return;
+      }
+      if (moment(selected.expires).isBefore(now)) {
+        await send(`${name} is no longer active`);
         return;
       }
     }

@@ -23,10 +23,10 @@ interface Amount {
 }
 
 const config = {
-  tick: 2 * 1000, // seconds
-  debounce: 2 * 60 * 1000, // minutes
+  tick: 1.5 * 1000, // seconds in milliseconds
+  debounce: 2 * 60 * 1000, // minutes in milliseconds
   // debounce: 10 * 1000,
-  next: 8 * 60 * 60 * 1000 // hours
+  next: 8
 };
 
 export default class Spawner {
@@ -55,6 +55,7 @@ export default class Spawner {
           this.timers.set(server.id, { timeout, endTime });
         }
         else {
+          debug(this.bot, 'When starting bot, spawn timer has already expired');
           this.sendCard(server);
         }
       }
@@ -84,6 +85,7 @@ export default class Spawner {
       if (this.timers.has(id)) {
         clearTimeout(this.timers.get(id)!.timeout);
       }
+      debug(this.bot, `${message.author.username} has issued a reroll`);
       this.sendCard(server);
     }
   }
@@ -130,10 +132,10 @@ export default class Spawner {
       const remaining = endTime.diff(moment(), 'milliseconds');
 
       // eslint-disable-next-line max-len
-      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('HH:mm:ss')} reduced by ${amount / 1000} seconds.`);
+      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('hh:mm:ss')} reduced by ${amount / 1000} seconds.`);
 
       if (remaining <= config.debounce) {
-        debug(this.bot, `Attempting to generate a scan ${(new Date()).toLocaleTimeString('en-GB')}`);
+        debug(this.bot, `Remaining time insufficiant, generating now: ${(new Date()).toLocaleTimeString('en-GB')}`);
         this.sendCard(server);
       }
       else {
@@ -142,7 +144,7 @@ export default class Spawner {
         this.db.servers.findAndUpdate({ id: id }, (server) => {
           server.remaining = endTime.toDate();
         });
-        debug(this.bot, `Timer set for ${endTime.format('HH:mm:ss')}. ${remaining / 1000} seconds remaining.`);
+        debug(this.bot, `Timer set for ${endTime.format('hh:mm:ss')}. ${remaining / 1000} seconds remaining.`);
       }
     }
 
@@ -155,6 +157,7 @@ export default class Spawner {
   private sendCard(server: Server) {
     const { id, send_channel } = server;
     try {
+      debug(this.bot, `Attempting to generate a scan at ${(new Date()).toLocaleTimeString('en-GB')}`);
       const { scannable, image, duration: active } = this.select.card(server);
 
       // set time active
@@ -162,21 +165,23 @@ export default class Spawner {
 
       // cleanup old scans
       server.activescans = server.activescans.filter(scan => {
-        return moment(scan.expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
+        const s = moment(scan.expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
+        if (!s) debug(this.bot, `${scan.scan.name} expired (${moment(scan.expires).format('hh:mm:ss')})`);
+        return s;
       });
 
       // add to list of active scans
       server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
-      const duration = Math.min(active * 60 * 60 * 1000, config.next);
-      const endTime = moment().add(duration, 'milliseconds');
+      const duration = Math.min(active, config.next);
+      const endTime = moment().add(duration, 'hours');
       server.remaining = endTime.toDate();
 
       this.db.servers.update(server);
 
       (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
 
-      const timeout = setTimeout(() => this.sendCard(server), duration);
+      const timeout = setTimeout(() => this.sendCard(server), endTime.milliseconds());
       this.timers.set(id, { timeout, endTime });
     }
     catch (e) {
