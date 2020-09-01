@@ -63,8 +63,9 @@ const stop = async () => {
 
 bot.on('ready', () => {
   start();
-  if (!development) logger.info(`${(new Date()).toDateString()} ${(new Date()).toLocaleDateString('en-GB')}`);
-  logger.info(`Logged in as: ${bot.user}`);
+  let msg = `Logged in as: ${bot.user}`;
+  if (!development) msg += ` at ${(new Date()).toLocaleDateString('en-GB')} ${(new Date()).toLocaleTimeString('en-GB')}`;
+  logger.info(msg);
   bot.user.setActivity('!commands');
 });
 
