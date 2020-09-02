@@ -158,12 +158,11 @@ export default class Spawner {
     const { id, send_channel } = server;
     try {
       debug(this.bot, `Attempting to generate a scan at ${(new Date()).toLocaleTimeString('en-GB')}`);
+
       const { scannable, image, duration: active } = this.select.card(server);
 
-      // set time active
-      const expires = moment().add(active, 'hours');
-
       // cleanup old scans
+      // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       server.activescans = server.activescans.filter(scan => {
         const s = moment(scan.expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
         if (!s) debug(this.bot, `${scan.scan.name} expired (${moment(scan.expires).format('hh:mm:ss')})`);
@@ -171,18 +170,21 @@ export default class Spawner {
       });
 
       // add to list of active scans
+      const expires = moment().add(active, 'hours');
+
       server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
 
+      // set timer until next spawn
       const duration = Math.min(active, config.next);
       const endTime = moment().add(duration, 'hours');
       server.remaining = endTime.toDate();
 
       this.db.servers.update(server);
 
-      (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
-
-      const timeout = setTimeout(() => this.sendCard(server), endTime.milliseconds());
+      const timeout = setTimeout(() => this.sendCard(server), endTime.diff(moment()));
       this.timers.set(id, { timeout, endTime });
+
+      (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
     }
     catch (e) {
       debug(this.bot, e, 'errors');
