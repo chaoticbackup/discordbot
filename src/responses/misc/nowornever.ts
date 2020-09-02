@@ -1,5 +1,5 @@
 import { cleantext } from '../../common';
-const non = require('../config/nowornever.json');
+import non from './config/nowornever.json';
 
 export default function (name: string) {
   if (!name) {

@@ -4,13 +4,13 @@ import { API } from '../database';
 import { SendFunction } from '../definitions';
 
 import { flatten } from '../common';
-import parseCommand from '../common/parse_command';
+import parseCommand from '../common/parseCommand';
 import users from '../common/users';
 import logger from '../logger';
 
 import ScanQuestDB from './scan_db';
 import loadScan from './load';
-import { listScans, balance } from './player';
+import { listScans, balance, rate } from './player';
 import Spawner from './spawner';
 import Scanner from './scanner';
 import Trader from './trader';
@@ -92,18 +92,31 @@ export default class ScanQuest {
     ) {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {
+        case 'skon':
         case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
-            await send(await this.scanner.scan(message.guild.id, message.author.id, flatten(args)));
+            await this.scanner.scan(message, flatten(args), send)
+            .then(async (m) => {
+              if (m && cmd === 'skon') await m.react('728825180763324447');
+            });
           }
           return;
         case 'list':
         case 'scans':
+        case 'skons':
           return await listScans(this.db, message, options, send);
+        case 'rate':
+          return await send(rate(this.db, message, args, options, this.bot));
         case 'balance':
         case 'coins':
-          await balance(this.db, message, options, send);
+          return await balance(this.db, message, options, send);
+        case 'trade':
+          if (message.guild) {
+            await this.trader.trade(args, mentions, message);
+          }
           return;
+
+        /* Admin functions */
         case 'reroll':
           if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
             this.spawner.reroll(message);
@@ -116,13 +129,8 @@ export default class ScanQuest {
             const content = args.splice(1).join(' ');
             const info = content.substr(content.indexOf(' ') + 1);
             const scan = loadScan({ type, info });
-            if (scan) return await this.db.save(id, scan.card);
-            return await send('Invalid format');
-          }
-          return;
-        case 'trade':
-          if (message.guild) {
-            await this.trader.trade(args, mentions, message);
+            if (scan) await this.db.save(id, scan.card);
+            else await send('Invalid format');
           }
           return;
         case 'spawn':

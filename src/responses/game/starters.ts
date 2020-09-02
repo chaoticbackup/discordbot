@@ -1,9 +1,7 @@
 import { Snowflake, RichEmbed, Message } from 'discord.js';
 import users from '../../common/users';
 
-type Starter = Record<string, Record<string, {name: string, link: string}>>;
-
-const starters = require('../config/starters.json') as Starter;
+const starters = require('./config/starters.json') as Record<string, Record<string, {name: string, link: string}>>;
 
 export default function (message: Message, options: string[]): RichEmbed {
   const display_starter = (name: string, id: Snowflake) => {

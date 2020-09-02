@@ -1,27 +1,24 @@
 {
 	"tierlist": {
-		"S": [
+		"A": [
 			"Wise Guys",
 			"LankerTosh",
-			"Swimming Team"
-		],
-		"A": [
+			"Swimming Team",
 			"Strike",
 			"Elementalist",
 			"UW Burn",
-			"Fire and Brimstone",
 			"Bodal's Boys",
 			"Fliandar",
 			"Aszil Compost",
 			"UrsisKanin",
 			"Aszil Courage",
-			"Lyssta Mixed",
 			"Grantkae Control"
 		],
 		"B": [
+			"Fire and Brimstone",
+			"Lyssta Mixed",
 			"No Healing",
 			"Blazvatan",
-			"Gorram Malvadine",
 			"Ursis Dagger",
 			"Kraken",
 			"Ocean Man",
@@ -48,7 +45,7 @@
 		"Blazvatan": {
 			"url": "http://chaoticbackup.forumotion.com/t1582-blazvatan",
 			"tribe": "Mipedian",
-			"tags": ["Blazvatan", "Ailav", "Kileron, Warbeast of the Dust Storm", "Warbeast", "Air", "Earth"]
+			"tags": ["Blazvatan", "Ailav", "Kileron", "Warbeast", "Air", "Earth"]
 		},
 		"Brathe Yourself": {
 			"url": "http://chaoticbackup.forumotion.com/t1598-brathe-yourself",
@@ -59,6 +56,11 @@
 			"url": "http://chaoticbackup.forumotion.com/t1602-bodal-s-boys",
 			"tribe": "OverWorld",
 			"tags": ["Aivenna", "Bodal's Dagger", "Ikkatosh, The Aich King", "Garv"]
+		},
+		"Burn": {
+			"url": "https://chaoticbackup.forumotion.com/t1661-burn#15077",
+			"tribe": "UnderWorld",
+			"tags": ["Burn"]
 		},
 		"CrackTheWhep": {
 			"url": "http://chaoticbackup.forumotion.com/t1589-crack-the-whep",
@@ -78,7 +80,7 @@
 		"FireFly": {
 			"url": "http://chaoticbackup.forumotion.com/t1585-firefly",
 			"tribe": "M'arrillian",
-			"tags": []
+			"tags": ["Ulmquad"]
 		},
 		"Flying Frogs": {
 			"url": "http://chaoticbackup.forumotion.com/t1590-flying-frogs",
@@ -105,10 +107,15 @@
 			"tribe": "Mixed",
 			"tags": []
 		},
+		"Gintanai": {
+			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai",
+			"tribe": "Mipedian",
+			"tags": ["Warbeast"]
+		},
 		"Gorram Malvadine": {
 			"url": "http://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Malvadine", "Gorram"]
 		},
 		"Gorram Neekwin": {
 			"url": "http://chaoticbackup.forumotion.com/t1584-gorram-neekwin",
@@ -118,11 +125,11 @@
 		"Grantkae Control": {
 			"url": "http://chaoticbackup.forumotion.com/t1633-grantkae-control",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Ulmquad"]
 		},
-		"Gintanai": {
-			"url": "http://chaoticbackup.forumotion.com/t1592-gintanai",
-			"tribe": "Mipedian",
+		"Grounded": {
+			"url": "https://chaoticbackup.forumotion.com/t1660-grounded#15076",
+			"tribe": "UnderWorld",
 			"tags": []
 		},
 		"Heard Melody": {
@@ -183,12 +190,12 @@
 		"Muge's Dagger": {
 			"url": "http://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless"]
 		},
 		"No Healing": {
 			"url": "http://chaoticbackup.forumotion.com/t1579-no-healing",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless"]
 		},
 		"Ocean Man": {
 			"url": "http://chaoticbackup.forumotion.com/t1595-ocean-man",
@@ -203,17 +210,22 @@
 		"Swimming Team": {
 			"url": "http://chaoticbackup.forumotion.com/t1567-swimming-team",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Ulmquad"]
+		},
+		"A Trampling Mammoth": {
+			"url": "http://chaoticbackup.forumotion.com/t1658-proboscartosh-a-trampling-mammoth",
+			"tribe": "Mixed",
+			"tags": ["Tribeless", "Proboscar", "Lanker", "Ikkatosh, The Aich King"]
 		},
 		"Ursis Dagger": {
 			"url": "http://chaoticbackup.forumotion.com/t1594-ursis-dagger",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless", "Ursis"]
 		},
 		"UrsisKanin": {
 			"url": "http://chaoticbackup.forumotion.com/t1573-ursiskanin",
 			"tribe": "Mixed",
-			"tags": []
+			"tags": ["Tribeless", "Ursis"]
 		},
 		"UW Burn": {
 			"url": "http://chaoticbackup.forumotion.com/t1575-uw-burn",
@@ -223,7 +235,7 @@
 		"Wise Guys": {
 			"url": "http://chaoticbackup.forumotion.com/t1563-wise-guys",
 			"tribe": "OverWorld",
-			"tags": []
+			"tags": ["Ikkatosh, The Aich King"]
 		},
 		"6 Arms": {
 			"url": "http://chaoticbackup.forumotion.com/t1581-6-arms",

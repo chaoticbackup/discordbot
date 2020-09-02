@@ -1,22 +1,25 @@
 import { Guild } from 'discord.js';
 import { rndrsp } from '../../common';
 
+import c from './config/compliments.json';
+import i from './config/insults.json';
+
 const commands = {
-  insult: require('../config/insults.json'),
-  compliment: require('../config/compliments.json')
+  insult: i,
+  compliment: c
 };
 
-export function compliment(guild: Guild, mentions: string[], name: string): string {
-  return flirt_dirt('compliment', guild, mentions, name);
+export function compliment(mentions: string[], name: string, guild?: Guild): string {
+  return flirt_dirt('compliment', mentions, name, guild);
 }
 
-export function insult(guild: Guild, mentions: string[], name: string): string {
+export function insult(mentions: string[], name: string, guild?: Guild): string {
   if (mentions.includes('279331985955094529'))
   { return ('<:Bodal:401553896108982282> just... <:Bodal:401553896108982282>'); }
-  return flirt_dirt('insult', guild, mentions, name);
+  return flirt_dirt('insult', mentions, name, guild);
 }
 
-function flirt_dirt(command: 'compliment' | 'insult', guild: Guild, mentions: string[], name: string): string {
+function flirt_dirt(command: 'compliment' | 'insult', mentions: string[], name: string, guild?: Guild): string {
   // Function to replace the mention with the display name
   const insertname = (resp: string) => {
     if (guild && mentions.length > 0) {

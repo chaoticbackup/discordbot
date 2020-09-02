@@ -2,7 +2,7 @@ import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tiers = ['S', 'A', 'B'] as const;
+const tiers = ['A', 'B'] as const;
 
 const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
 
@@ -16,12 +16,11 @@ interface Deck {
   tags: string[]
 }
 
-interface decks {
-  tierlist: Record<Tier, string[]>
-  decklist: Record<string, Deck>
-}
-
-const { tierlist, decklist } = require('../config/decklists.json') as decks;
+const { tierlist, decklist } =
+  require('./config/decklists.json') as {
+    tierlist: Record<Tier, string[]>
+    decklist: Record<string, Deck>
+  };
 
 function _tierlist() {
   const output = new RichEmbed();
@@ -51,7 +50,7 @@ function _tiers(input: string) {
 
 function _tribes(input: string) {
   let tribe = '' as string | undefined;
-  if (input === 'mixed' || input === 'generic' || input === 'tribeless') {
+  if (input === 'mixed') {
     tribe = 'Mixed';
   }
   else {
@@ -104,6 +103,12 @@ function _decklist(input: string): RichEmbed | string {
 
   if (input.length <= 2 && (output = _tiers(input)) instanceof RichEmbed) {
     return output;
+  }
+
+  if (input === 'generic' || input === 'tribeless') {
+    if ((output = _tags('tribeless')) instanceof RichEmbed) {
+      return output;
+    }
   }
 
   if ((output = _tribes(input)) instanceof RichEmbed) {

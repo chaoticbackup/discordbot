@@ -10,9 +10,7 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { whyban } from './game/bans';
 
-type s = Record<string, string[]>;
-
-const { sass, tags } = require('./config/sass.json') as {sass: s, tags: s};
+import { sass, tags } from './config/sass.json';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -33,7 +31,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // #ban
   if (content.substring(0, 4).toLowerCase() === '#ban') {
     const name = (content.charAt(5) === ' ') ? content.substring(6) : content.substring(5);
-    return await send(whyban(name));
+    return await send(await whyban(name, message.channel));
   }
 
   // [[cardname]]
@@ -125,7 +123,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return rndrsp(tags.brat);
     }
     else if (message.author.id === users('bf')) {
-      return compliment(message.guild, [users('bf')], '');
+      return compliment([users('bf')], '', message.guild);
     }
     else {
       return rndrsp(tags.hello, 'hello');

@@ -3,7 +3,7 @@ const languages = {
   CS: ['Čeština', 'Czech'],
   DE: ['Deutsche', 'German'],
   EN: ['English'],
-  ES: ['Espanol', 'Spanish'],
+  ES: ['Español', 'Spanish'],
   FR: ['Français', 'French'],
   HR: ['Hrvatski', 'Croatian'],
   IT: ['Italiano', 'Italian'],
@@ -18,9 +18,9 @@ export function isLangType(t: string): t is lang_type {
   return Object.keys(languages).includes(t);
 }
 
-export function list(doc: Record<lang_type, Record<string, string>>) {
+export function list(doc: Partial<Record<lang_type, Record<string, string>>>) {
   let message = '';
-  (Object.entries(languages) as Array<[lang_type, string[]]>).forEach(([lang, language]) => {
+  (Object.entries(languages)).forEach(([lang, language]) => {
     if (!(lang in doc) || Object.keys(doc[lang]).length <= 0) return;
     const english = language.length > 1 ? ` (${language[1]})` : '';
     message += `**${language[0]}**${english}\n    ${lang} [`;

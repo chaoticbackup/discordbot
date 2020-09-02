@@ -10,17 +10,16 @@ export default class ScanLocation extends ScanFunction {
   constructor() {
     super();
     const locations = API.find_cards_by_name('', ['type=location']) as Location[];
-    this.locations = locations.filter((location) => (
-      location.gsx$splash && location.gsx$splash !== '' &&
-      location.gsx$image && location.gsx$image
-    ));
+    this.locations = locations.filter((l) =>
+      API.hasFullart(l) && API.hasImage(l)
+    );
   }
 
   generate(): [ScannableLocation, RichEmbed] {
     const location = this.randomCard(this.locations) as Location;
     const image = new RichEmbed()
-    .setImage(API.base_image + location.gsx$splash)
-    .setURL(API.base_image + location.gsx$splash);
+    .setImage(API.cardFullart(location))
+    .setURL(API.cardFullart(location));
 
     return [new ScannableLocation(location), image];
   }

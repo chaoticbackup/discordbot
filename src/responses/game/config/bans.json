@@ -6,7 +6,8 @@
 		"modern": "M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards",
 		"limited": "3 Creatures, Battlegear, Mugic, 5 Locations, 10 Attacks",
 		"highlander": "All Creatures, Mugic, and Battlegear are treated as Unique",
-		"legacy": "No banned cards"
+		"legacy": "No banned cards",
+		"aap": "No Mugic or Activated Abilities"
 	},
 	"standard": [
 		"Aer'dak",
@@ -67,6 +68,16 @@
 		"Supercooled Rain",
 		"Tonal Destruction",
 		"Zamool, Lord van Bloot's Enforcer"
+	],
+	"aap": [
+		"AZAIA Mindscrying Chamber",
+		"Illusionary Lake",
+		"Imaginary Walls",
+		"Lord Van Bloot, Servant of Aa'une",
+		"Lore's Chamber of Recall",
+		"Numin Voidland",
+		"Primal Smash",
+		"Twister of Elements"
 	],
 	"reasons": {
 		"Aer'dak": [
@@ -155,7 +166,7 @@
 			"His sickle is just compensating"
 		],
 		"Lore, Ancestral Caller": [
-			"Although this card isn't banworthy in terms of its power level, it limits some deck building. Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore."
+			"Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore. Unlike other cards that stiffle discard pile interactions, Lore's ability to gain Mugic counters furthers the disparity in matchups. Additionaly, since Lore also has an activated ability on which to spend these counters, the combination of factors pushes him into the overbearing territory."
 		],
 		"Lore's Chamber of Recall": [
 			"Although this card isn't banworthy in terms of its power level, it limits some deck building and it's banned for the effort to enable more decks."
@@ -283,7 +294,7 @@
 		"Ixxik": [
 			"https://www.youtube.com/watch?v=rE_TUwYc6Vk"
 		],
-		"KingMaxxor4": [
+		"KingRaimusa4": [
 			"I won't let you ban him!"
 		],
 		"Maxxor's Torch": [
@@ -300,10 +311,8 @@
 		]
 	},
 	"detailed": {
-		"Bodal, Flamedrill Researcher": [
-			"Setup: Equip Bodal with Destructazooka. Equip Lam'inkal with Scout's Monocular. Equip you're fighter/defender (Lomma, Dessert Wanderer / Tangeth Toborn, OverWorld General) with Droskin (or other sacrifice gear).\n1. Engage in combat. Sacrifice you're battlegear.\n2. Use Garv to flip up Bodal's Destructazooka to give him earth and flip up Scout's Monocular. Expend Bodal's earth to bring back your battlegear.\n3. When you fluidmorph, use Olkiex' trigger to flip Destructazooka down. Then use Scout's Monocular to flip it back up and give Bodal earth.\nThis will let you bring back a Battlegear every attack."
-		],
+		"Bodal, Flamedrill Researcher": "Setup: Equip Bodal with Destructazooka. Equip Lam'inkal with Scout's Monocular. Equip you're fighter/defender (Lomma, Dessert Wanderer / Tangeth Toborn, OverWorld General) with Droskin (or other sacrifice gear).\n1. Engage in combat. Sacrifice you're battlegear.\n2. Use Garv to flip up Bodal's Destructazooka to give him earth and flip up Scout's Monocular. Expend Bodal's earth to bring back your battlegear.\n3. When you fluidmorph, use Olkiex' trigger to flip Destructazooka down. Then use Scout's Monocular to flip it back up and give Bodal earth.\nThis will let you bring back a Battlegear every attack.",
 		"Primal Smash": "The biggest issue is that the decks that wouldn't benefit from their archetype by using primal are also inherently either low or not even on the tier list because the structure of the better and higher tier meta decks relies on something that isnt just attack value. War beast and strike are worth less than  even a moderately refined deck of wise guys. And while some war beast variant decks lose on primal, wise guys gains. So it would actually create a larger power disparity than already exists. And would reduce deck variety to boot because primal would become an active meta staple to help ensure remaining competitive against other meta decks.\nThe decks that do not benefit from primal already dont have enough going for them to break into higher tiers. Releasing primal does nothing for them. And only hurts them by boosting the power of many decks that are already more competitively viable.",
-		"Ramarhvir, The Danian Hivebringer": "**Combo:**\n1. Deep Dirge Vilrik Landfarer. minus 1 mc out of 8. remove the mc from the Vilrik Landfarer not deep dirged\n2. Sac mipedian flute on ramarhvir and illexia\n3. Sacrifice the Vilrik Landfaer with hive amber. He is also the one that has 1 mc and has not been deep dirged. - 1 mc. Flip new active location and illexia the danien queen gains a mc and you get to put hive amber on a creature\n4. Sacrifice wamma with hive amber too using the brainwashed Vilrik Landfarer. Illexia gains a mc and you can equip hive amber on illexia\n5. Activate hive amber and put a counter from illexia on rahmarhvir\n6. Deactivate with hiveunsung and remove a mugic counter any of your creatures besides ramarhvir\n7. Activate your other hive amber and put another counter anywhere except ramarhvir on rahmarhvir\n8. Deactivate hive with hiveunsung and pay a mugic anywhere except ramarhvir to being it back to tour hand again\n9. Activate ramarhvir ability to bring back wamma first. Both Wamma, hive ordinance gain a mc.\n10. Activate hive with illexia ability. Transfer a mugix anywhere except rahmarhvir to rahmarhvir\n11. Activate Ramarhvir's ability to bring back Vilrik Landfarer\n12. Sacrifice Vilrik Landfarer and repeat step 1 - 12. Except you do not sacrifice wamma and you bring back two hive ambrers at once when you sac Vilrik Landfarer"
+		"#1": "**Combo:**\n1. Deep Dirge Vilrik Landfarer. minus 1 mc out of 8. remove the mc from the Vilrik Landfarer not deep dirged\n2. Sac mipedian flute on ramarhvir and illexia\n3. Sacrifice the Vilrik Landfaer with hive amber. He is also the one that has 1 mc and has not been deep dirged. - 1 mc. Flip new active location and illexia the danien queen gains a mc and you get to put hive amber on a creature\n4. Sacrifice wamma with hive amber too using the brainwashed Vilrik Landfarer. Illexia gains a mc and you can equip hive amber on illexia\n5. Activate hive amber and put a counter from illexia on rahmarhvir\n6. Deactivate with hiveunsung and remove a mugic counter any of your creatures besides ramarhvir\n7. Activate your other hive amber and put another counter anywhere except ramarhvir on rahmarhvir\n8. Deactivate hive with hiveunsung and pay a mugic anywhere except ramarhvir to being it back to tour hand again\n9. Activate ramarhvir ability to bring back wamma first. Both Wamma, hive ordinance gain a mc.\n10. Activate hive with illexia ability. Transfer a mugix anywhere except rahmarhvir to rahmarhvir\n11. Activate Ramarhvir's ability to bring back Vilrik Landfarer\n12. Sacrifice Vilrik Landfarer and repeat step 1 - 12. Except you do not sacrifice wamma and you bring back two hive ambrers at once when you sac Vilrik Landfarer"
 	}
 }

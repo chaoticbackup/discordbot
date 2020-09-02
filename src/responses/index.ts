@@ -1,47 +1,47 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, Guild, GuildMember, Message, RichEmbed, DMChannel } from 'discord.js';
+import { Client, Message, RichEmbed } from 'discord.js';
 
+import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp, is_channel } from '../common';
+import debug from '../common/debug';
+import parseCommand from '../common/parseCommand';
+import servers from '../common/servers';
+
+import { SendFunction, Channel } from '../definitions';
 import logger from '../logger';
 
-import { can_send, hasPermission, isModerator, rndrsp, cleantext, flatten, donate } from '../common';
-import servers from '../common/servers';
-import users from '../common/users';
-import parseCommand from '../common/parse_command';
+import { avatar, display_card, display_token, find_card, full_art } from './card';
 
-import { API } from '../database';
-import { SendFunction } from '../definitions';
-
-import { display_card, find_card, full_art, rate_card, display_token, avatar } from './card';
+import joke from './config/jokes.json';
 
 import { banlist, formats, whyban } from './game/bans';
+import { decklist, tierlist } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
-import { cancelMatch, lookingForMatch } from './misc/match_making';
-import { tierlist, decklist } from './game/decklists';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
+import color from './joinable/color';
+import { cancelMatch, lookingForMatch } from './joinable/match_making';
 import meetup from './joinable/regions';
 import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
-import color from './joinable/color';
 
 import gone from './misc/gone';
 import help from './misc/help';
 import { compliment, insult } from './misc/insult_compliment';
-import { whistle, trivia, answer } from './misc/trivia';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
+import { answer, trivia, whistle } from './misc/trivia';
 import watch from './misc/watch';
-import cupid from './misc/cupid';
+
+import rate_card from './rate';
 
 import checkSass from './sass';
-import logs from './logs';
-import debug from '../common/debug';
 
-const joke = require('./config/jokes.json') as string[];
+import { rm, clear, haxxor, logs } from './admin';
+import { messageGuild } from '../common/parseMessageGuild';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -118,6 +118,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   if (options.includes('help'))
     return send(help(cmd));
 
+  const channel = message.channel;
+  const { guild, guildMember } = await messageGuild(message);
+
   const parseCards = (args: string[], opts: string[]): void => {
     return flatten(args).split(';').forEach((name: string) => {
       send(display_card(name.trim(), opts, bot));
@@ -127,7 +130,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   /**
     * Public Servers (Limited functions)
     */
-  if (message.guild && !full_command_servers.includes(message.guild.id)) {
+  if (guild && !full_command_servers.includes(guild.id)) {
     switch (cmd) {
       case 'card':
       case 'cards':
@@ -162,15 +165,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         .then(async () => send(donate()));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
-          return rm(message.guild, message);
+          return rm(message, guild);
         break;
+      case 'donate':
+        return send(donate());
       default:
         return;
     }
   }
 
-  const channel = message.channel;
-  const { guild, guildMember } = await messageGuild(message) as {guild: Guild, guildMember: GuildMember};
+  function newMemberGeneralChatSpam() {
+    return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
+      (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
+    );
+  }
 
   /**
     * Full command set
@@ -183,7 +191,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Cards */
     case 'card':
     case 'cards':
-      if (guildMember && guildMember.roles.size === 1 && !can_send(message)) break;
+      if (newMemberGeneralChatSpam()) break;
       return parseCards(args, options);
     case 'ability':
       options.push('ability');
@@ -227,11 +235,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Rules */
     case 'faq':
       return send(faq(flatten(args)));
+
     case 'keyword':
     case 'rule':
       if (args.length < 1)
         return send('Please provide a rule, or use **!rulebook** or **!guide**');
-      return send(glossary(flatten(args)));
+      const rsp = glossary(flatten(args));
+      if (can_send(channel, guild, guildMember, null)) {
+        send(rsp);
+      } else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
+      }
+      break;
 
     /* Documents */
     case 'rulebook':
@@ -257,20 +273,32 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(starters(message, options));
 
     /* Banlist and Formats */
-    case 'banlist':
-      return send(banlist(guild, channel, options));
-    case 'standard':
-      return send(banlist(guild, channel));
-    case 'legacy':
-      return send(banlist(guild, channel, ['legacy']));
-    case 'rotation':
-    case 'modern':
-      return send(banlist(guild, channel, ['modern']));
-    case 'pauper':
-      return send(banlist(guild, channel, ['pauper']));
-    case 'peasant':
-    case 'noble':
-      return send(banlist(guild, channel, ['noble']));
+    case 'formats':
+      return send(formats());
+
+    case 'banlist': {
+      const rsp = (options.length === 0 && args.length > 0)
+        ? banlist(message, [flatten(args)])
+        : banlist(message, options);
+
+      if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
+        // eslint-disable-next-line max-len
+        ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
+        : null
+      )) {
+        send(rsp);
+      } else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
+      }
+      return;
+    }
+    case 'standard': // return send(banlist(guild, channel));
+    case 'legacy': // return send(banlist(guild, channel, ['legacy']));
+    case 'modern': // return send(banlist(guild, channel, ['modern']));
+    case 'pauper': // return send(banlist(guild, channel, ['pauper']));
+    case 'noble': // return send(banlist(guild, channel, ['noble']));
+      return send(`Use \`\`!banlist ${cmd}\`\``);
 
     /* Whyban */
     case 'ban':
@@ -282,9 +310,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'whyban':
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
-      return send(whyban(flatten(args), guild, channel, options));
-    case 'formats':
-      return send(formats());
+      return send(whyban(flatten(args), channel, guild, options));
 
     /* Goodstuff */
     case 'strong':
@@ -296,15 +322,33 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'deck':
     case 'decks':
     case 'decklist':
-      return send(decklist(flatten(args)));
+      if (can_send(channel, guild, guildMember, null)) {
+        return send(decklist(flatten(args)));
+      }
+      else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(decklist(flatten(args)))
+          .then(async () => ch.send(`<@!${message.author.id}>`));
+      }
+      return;
+
     case 'tierlist':
-      if (can_send(message)) {
-        return send(tierlist())
-        .then(async () => send(donate()));
+      if (can_send(channel, guild, guildMember, null)) {
+        return await send(tierlist())
+          .then(async () => { send(donate()); });
+      }
+      else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(tierlist())
+          .then(async () => ch.send(donate()))
+          .then(async () => ch.send(`<@!${message.author.id}>`));
       }
       return;
 
     /* Matchmaking */
+    case 'cupid':
+      return send(lookingForMatch('recode', channel, guild, guildMember));
+    case 'if':
     case 'lf':
     case 'lookingfor':
     case 'match':
@@ -324,9 +368,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'portal':
       return send('https://chaoticbackup.github.io/portal/');
 
-    case 'banhammer': {
-      return send(display_card('The Doomhammer', ['image'], bot));
-    }
+    case 'recode':
+      return send('https://chaoticrecode.com/');
 
     case 'fun':
     case 'funstuff':
@@ -347,10 +390,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Tribes */
     case 'tribe':
-      return tribe(guild, guildMember, args).then(send);
+      return tribe(args, guild, guildMember).then(send);
     case 'bw':
     case 'brainwash':
-      return brainwash(guild, guildMember, mentions).then(send);
+      return brainwash(mentions, guild, guildMember).then(send);
 
     /* Languages */
     case 'speak':
@@ -358,7 +401,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'speakers':
     case 'language':
     case 'languages':
-      return speakers(guildMember, guild, args).then(send);
+      return speakers(args, guild, guildMember).then(send);
 
     /* Now or Never */
     case 'never':
@@ -374,11 +417,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Compliments, Insults, Jokes */
     case 'flirt':
     case 'compliment':
-      return send(compliment(guild, mentions, args.join(' ')));
+      return send(compliment(mentions, args.join(' '), guild));
     case 'burn':
     case 'roast':
     case 'insult':
-      return send(insult(guild, mentions, args.join(' ')));
+      return send(insult(mentions, args.join(' '), guild));
     case 'joke':
       return send(rndrsp(joke, 'joke'));
 
@@ -388,7 +431,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'trivia':
       return send(trivia(guildMember));
     case 'answer':
-      return send(answer(guildMember || message.author, args.join(' ')));
+      return send(answer(guildMember ?? message.author, args.join(' ')));
 
     /* Happy Borth Day */
     case 'happy': {
@@ -405,16 +448,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Regions/Meetups */
     case 'region':
     case 'regions':
-      return meetup(guildMember, guild, args, mentions).then(send);
+      return meetup(args, mentions, guild, guildMember).then(send);
 
-    /* Watch playlists English */
-    case 'youtube':
-      return send('https://www.youtube.com/channel/UC_fkSCr0z6BY_KMjr-0wkow/playlists');
+    /* Watch playlists */
     case 'watch':
       return send(watch(args, options));
-
-    case 'cupid':
-      return send(cupid(args, message));
 
     case 'perim': {
       if (args.length > 0 && args[0] === 'protector') {
@@ -428,6 +466,18 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         );
       }
       break;
+    }
+
+    case 'map': {
+      if (args.length > 0) {
+        if (args[0].toLowerCase() === 'overworld') {
+          return send('<https://cdn.discordapp.com/attachments/135657678633566208/617384989641801897/OW-Map-0518.jpg>');
+        } else
+        if (args[0].toLowerCase() === 'underworld') {
+          return send('<https://cdn.discordapp.com/attachments/135657678633566208/617385013129773057/UW-Map-0517.jpg>');
+        }
+      }
+      return send('\`\`\`md\n!map <OverWorld | UnderWorld>\`\`\`');
     }
 
     /* Help */
@@ -457,7 +507,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /*
    * Moderation
    */
-    // case 'banhammer': {
+    case 'banhammer': {
     //   if (isModerator(guildMember) && mentions.length > 1) {
     //     message.mentions.members.forEach(member => {
     //       const reason = args.join(" ");
@@ -470,21 +520,26 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     //       }
     //     });
     //   }
-    //   return send(display_card("The Doomhammer", ["image"], bot));
-    // }
+      return send(display_card('The Doomhammer', ['image'], bot));
+    }
 
     case 'rm':
       if (isNaN(parseInt(flatten(args))))
-        return rm(guild, message);
+        return rm(message, guild);
     // fallthrough if number provided
     case 'clear':
+      if (guild) {
+        const meebot = guild.members.get('159985870458322944');
+        if (meebot) break;
+      }
+    // fallthrough
     case 'clean':
     case 'delete':
       return clear(parseInt(flatten(args)), message, mentions);
 
       /* Hard reset bot */
     case 'haxxor':
-      return haxxor(message, bot);
+      return haxxor(message);
 
     case 'logs':
       return send(logs());
@@ -493,80 +548,3 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     default:
   }
 };
-
-/*
-* Support Functions
-*/
-
-/**
- * If the message was sent in a guild, returns the `guild` and `guildMember`
- */
-async function messageGuild(message: Message):
-Promise<{guild: Guild | null, guildMember: GuildMember | null}>
-{
-  if (!message.guild) return { guild: null, guildMember: null };
-
-  const guild: Guild = message.guild;
-  const guildMember: GuildMember = (message.member)
-    ? message.member
-    : await guild.fetchMember(message.author).then((member) => member);
-
-  return { guild: guild, guildMember: guildMember };
-}
-
-function rm(guild: Guild, message: Message) {
-  if (message.channel instanceof DMChannel) {
-    message.channel.fetchMessages({ limit: 20 })
-    .then(messages => {
-      const msg = messages.find((msg) => msg.author.id === users('me'));
-      if (msg) msg.delete();
-    });
-    return;
-  }
-  if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
-  message.channel.fetchMessages({ limit: 10 })
-  .then(messages => {
-    const msg = messages.find((msg) => msg.author.id === users('me'));
-    if (msg) message.channel.bulkDelete([msg, message]);
-  });
-}
-
-async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
-  if ((isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES'))) {
-    if (amount <= 25) {
-      if (mentions.length > 0) {
-        return message.channel.fetchMessages()
-        .then(messages => {
-          const b_messages = messages.filter(m =>
-            mentions.includes(m.author.id)
-          );
-          if (b_messages.size > 0) {
-            message.channel.bulkDelete(b_messages);
-          }
-          message.delete();
-        });
-      }
-      else {
-        message.channel.bulkDelete(amount + 1).catch();
-      }
-    }
-    else {
-      // only delete the clear command
-      message.channel.send('Enter a number less than 20');
-      message.delete();
-    }
-  }
-}
-
-function haxxor(message: Message, bot: Client): void {
-  if ((message.member?.id === users('daddy') || message.member?.id === users('bf'))
-    || (message.guild?.id === servers('main').id && isModerator(message.member))
-  ) {
-    message.channel.send('Resetting...');
-    API.rebuild()
-    .then(async () => bot.destroy())
-    .catch((err) => {
-      debug(err.message, 'errors');
-    });
-  }
-}

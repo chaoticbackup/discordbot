@@ -1,5 +1,5 @@
 import { Client, Emoji } from 'discord.js';
-const cards = require('../config/cards.json');
+import { cards } from '../../database';
 
 function GenericCounter(cardtext: string, genCounter: Emoji) {
   if (genCounter) {

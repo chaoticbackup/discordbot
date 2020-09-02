@@ -1,5 +1,5 @@
 import languages, { lang_type, isLangType, list } from '../../common/languages';
-const rulebooks = require('../config/rulebooks.json') as Record<lang_type, Record<string, string>>;
+const rulebooks = require('./config/rulebooks.json') as Record<lang_type, Record<string, string>>;
 
 function rule_url(url: string) {
   return (`https://drive.google.com/file/d/${url}/view`);
@@ -18,7 +18,7 @@ export default function (args: string[], options: string[]) {
   const lang = args[0].toUpperCase();
   if (isLangType(lang) && lang in rulebooks) {
     if (args.length === 1) {
-      if ({}.hasOwnProperty.call(rulebooks[lang], 'AU')) {
+      if ('AU' in rulebooks[lang]) {
         return rule_url(rulebooks[lang].AU);
       }
       else {
@@ -27,7 +27,7 @@ export default function (args: string[], options: string[]) {
     }
     else {
       const set = args[1].toUpperCase();
-      if ({}.hasOwnProperty.call(rulebooks[lang], set)) {
+      if (set in rulebooks[lang]) {
         return rule_url(rulebooks[lang][set]);
       }
       else {

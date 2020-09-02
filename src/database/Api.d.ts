@@ -11,6 +11,10 @@ export default class API {
   rebuild(): Promise<API>;
   find_card_name(text: string): Card[];
   find_cards_by_name(name: string, options?: string[]): Card[];
+  hasImage(card: Card): boolean;
+  hasAvatar(card: Creature): boolean;
+  hasFullart(card: Card): boolean;
   cardImage(card: Card): string;
-  cardAvatar(card: Card): string;
+  cardAvatar(card: Creature): string;
+  cardFullart(card: Card): string;
 }

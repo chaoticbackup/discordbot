@@ -2,8 +2,10 @@ import { Guild, GuildMember } from 'discord.js';
 import { cleantext, uppercase } from '../../common';
 import { SendFunction } from '../../definitions';
 
-export default async function (args: string[], guild: Guild, guildMember: GuildMember, send: SendFunction): Promise<void> {
-  if (!guild) {
+export default async function (
+  args: string[], guild: Guild | undefined, guildMember: GuildMember | undefined, send: SendFunction
+): Promise<void> {
+  if (!guild || !guildMember) {
     return await send('You can only use this command in a guild with roles');
   }
 

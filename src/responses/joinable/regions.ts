@@ -47,8 +47,8 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
  * !region <regionName> <join|leave>
  * !region <regionName> <add|remove> <@guildMember>
  */
-export default async (user: GuildMember, guild: Guild, args: string[], mentions: string[]): Promise<string> => {
-  if (!guild) {
+export default async (args: string[], mentions: string[], guild?: Guild, user?: GuildMember): Promise<string> => {
+  if (!guild || !user) {
     return 'You can only use this command in a guild with roles';
   }
 

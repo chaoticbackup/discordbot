@@ -16,7 +16,7 @@ import { Channel } from './definitions';
 const auth = require('./auth.json') as {token: string};
 
 const development = process.env.NODE_ENV === 'development';
-let devType = process.env.APP_ENV ?? '';
+export let devType = process.env.APP_ENV ?? '';
 
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
@@ -44,9 +44,9 @@ const start = () => {
     sq.start();
   }
   else if (devType === 'forum') {
-    fp.start()
+    fp.start();
   }
-}
+};
 
 const stop = async () => {
   if (devType === 'all') {
@@ -59,20 +59,23 @@ const stop = async () => {
   else if (devType === 'forum') {
     fp.stop();
   }
-}
+};
 
 bot.on('ready', () => {
   start();
-  if (!development) logger.info((new Date()).toLocaleTimeString('en-GB'));
-  logger.info(`Logged in as: ${bot.user}`);
+  let msg = `Logged in as: ${bot.user}`;
+  if (!development) msg += ` at ${(new Date()).toLocaleDateString('en-GB')} ${(new Date()).toLocaleTimeString('en-GB')}`;
+  logger.info(msg);
   bot.user.setActivity('!commands');
 });
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
-  stop();
+  stop()
+  .finally(() => {
+    bot.login(auth.token).then(() => { sendError(); });
+  });
   logger.warn(`Reconnecting, ${CloseEvent.code}`);
-  bot.login(auth.token).then(() => { sendError() });
 });
 
 let stackTrace = '';
@@ -87,7 +90,7 @@ const sendError = async () => {
       }
     }
   }
-}
+};
 
 // Responses
 bot.on('message', msg => {
@@ -104,7 +107,7 @@ bot.on('guildMemberAdd', (member) => {
       // @ts-ignore
       bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);
       // Delete the meebot welcome message
-      const meebot = bot.users.get('159985870458322944');
+      const meebot = member.guild.members.get('159985870458322944');
       if (meebot) { setTimeout(() => {
         if (meebot.lastMessage?.deletable) {
           meebot.lastMessage.delete();
@@ -117,27 +120,26 @@ bot.on('guildMemberAdd', (member) => {
   }
 });
 
+// eslint-disable-next-line max-len
+const link_regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
 const checkSpam = async (msg: Discord.Message) => {
   if (!msg.guild) return;
   const index = newMembers.indexOf(msg.author.id);
   if (index < 0) return;
 
-  // eslint-disable-next-line
-  const regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
-
-  if (regex.test(msg.content)) {
+  if (!msg.content.includes('chaoticrecode') && link_regex.test(msg.content)) {
     if (msg.member.bannable) {
       await msg.member.ban()
       .then(async () => {
         const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`)
+        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`);
       })
       .then(() => { if (msg.deletable) msg.delete(); });
     }
   }
 
   newMembers.splice(index, 1);
-}
+};
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
@@ -175,7 +177,7 @@ const handle: NodeJS.SignalsListener = (_event) => {
   stop().then(() => {
     process.exit(0); // process exits after db closes
   });
-}
+};
 process.on('SIGINT', handle);
 process.on('SIGTERM', handle);
 

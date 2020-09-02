@@ -2,13 +2,13 @@
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
-import { escape_text, asyncForEach } from "../common";
+import { escape_text, asyncForEach } from '../common';
 import db_path from './db_path';
 
 const fetch = require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
-const db_folder = path.resolve(db_path, "cards");
+const db_folder = path.resolve(db_path, 'cards');
 // ensure cards folder exists
 if (!fs.existsSync(db_folder)) {
   fs.mkdirSync(db_folder);
@@ -16,12 +16,12 @@ if (!fs.existsSync(db_folder)) {
 
 export default class API {
   instance = null;
-  data = "";
-  static base_url = "https://spreadsheets.google.com/feeds/list/";
-  static data_format = "/od6/public/values?alt=json";
-  static base_spreadsheet = "1cUNmwV693zl2zqbH_IG4Wz8o9Va_sOHe7pAZF6M59Es";
-  get base_image() { return "https://drive.google.com/uc?id="; }
-  get card_back() { return "1_MgWDPsPGf-gPBArn2v6ideJcqOPsSYC"; }
+  data = '';
+  static base_url = 'https://spreadsheets.google.com/feeds/list/';
+  static data_format = '/od6/public/values?alt=json';
+  static base_spreadsheet = '1cUNmwV693zl2zqbH_IG4Wz8o9Va_sOHe7pAZF6M59Es';
+  get base_image() { return 'https://drive.google.com/uc?id='; }
+  get card_back() { return 'https://i.imgur.com/xbeDBRJ.png'; }
 
   // Singleton
   static getInstance() {
@@ -34,9 +34,7 @@ export default class API {
     return new Promise((resolve, reject) => {
       fs.remove(db_folder, (error) => {
         if (error) return reject(error);
-
-        this.instance = new API();
-        return resolve(this.instance);
+        return resolve();
       });
     });
   }
@@ -44,19 +42,20 @@ export default class API {
   static path(spreadsheetID) {
     return API.base_url + spreadsheetID + API.data_format;
   }
+
   path(spreadsheetID) {
     return API.path(spreadsheetID);
   }
 
   constructor() {
-    this.format = "cards";
+    this.format = 'cards';
     // Sort data descending alphabetically
-    let filterdb = new loki("filter.db");
+    const filterdb = new loki('filter.db');
     this.filter = filterdb.addCollection('filter');
 
     // Setup urls
-    let urls = {};
-    let data = require('./meta_spreadsheet.json');
+    const urls = {};
+    const data = require('./meta_spreadsheet.json');
     data.forEach((d) => {
       if (!urls[d.gsx$type.$t]) urls[d.gsx$type.$t] = {};
       urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
@@ -78,8 +77,8 @@ export default class API {
         return response.json();
       })
       .catch(() => {
-        console.error("Falling back on local database");
-        this.data = "local";
+        console.error('Falling back on local database');
+        this.data = 'local';
         callback(null);
       })
       .then((json) => {
@@ -92,10 +91,10 @@ export default class API {
   }
 
   async databaseInitialize() {
-    await asyncForEach(["Attacks", "Battlegear", "Creatures", "Locations", "Mugic"],
+    await asyncForEach(['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'],
       (type) => {
         // check if the db already exists in memory
-        let entries = this.db.getCollection(type);
+        const entries = this.db.getCollection(type);
         if (entries === null) {
           this[type] = this.db.addCollection(type);
           this.setupType(type);
@@ -106,12 +105,12 @@ export default class API {
         }
       }
     );
-    this.data = "api";
+    this.data = 'api';
   }
 
   async setupType(type) {
-    let uc_type = type.charAt(0).toUpperCase() + type.slice(1);
-    return this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
+    const uc_type = type.charAt(0).toUpperCase() + type.slice(1);
+    return await this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
       this[type].insert(data);
       this.mergeDB(type);
     });
@@ -119,20 +118,20 @@ export default class API {
 
   async mergeDB(type) {
     // Combines into single DB
-    let temp = this[type].chain().data();
-    temp.forEach(function (v) { delete v.$loki });
+    const temp = this[type].chain().data();
+    temp.forEach(function (v) { delete v.$loki; });
     this.filter.insert(temp);
   }
 
   async getSpreadsheetData(spreadsheet, type, callback) {
-    return this.getSpreadsheet(spreadsheet, (data) => {
+    return await this.getSpreadsheet(spreadsheet, (data) => {
       callback(data.map((item) => {
-        let temp = {};
+        const temp = {};
         delete item.content;
         for (const key of Object.keys(item)) {
           temp[key] = item[key].$t;
         }
-        temp["gsx$type"] = type;
+        temp.gsx$type = type;
         return temp;
       }));
     });
@@ -143,64 +142,47 @@ export default class API {
    */
   find_card_name(text) {
     text = escape_text(text).replace(/,([^\s]+)/, (str, p1) => {
-      return ", " + p1;
+      return `, ${p1}`;
     });
 
     return this.filter.chain().find({
-      '$or': [
-        { 'gsx$name': { '$regex': new RegExp(text, 'i') }},
-        { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${text}`, 'gi') }}
+      $or: [
+        { gsx$name: { $regex: new RegExp(text, 'i') }},
+        { gsx$tags: { $regex: new RegExp(`(^|\\s)${text}`, 'gi') }}
       ]
     }).simplesort('gsx$name').data();
   }
 
   /**
-   *  Finds cards in the database by name 
+   *  Finds cards in the database by name
    */
-  find_cards_by_name(name, options=[]) {
+  find_cards_by_name(name, options = []) {
     name = escape_text(name).replace(/,([^\s]+)/, (str, p1) => {
-      return ", " + p1;
+      return `, ${p1}`;
     });
 
-    let filters = [];
+    const filters = [];
     if (options && options.length > 0) {
-      options = options.join(" ").toLowerCase();
+      options = options.join(' ').toLowerCase();
 
-      let type = (/type=([\w]{2,})/).exec(options);
-      if (type) filters.push({ 'gsx$type': { '$regex': new RegExp(type[1], 'i') }});
+      const type = (/type=([\w]{2,})/).exec(options);
+      if (type) filters.push({ gsx$type: { $regex: new RegExp(type[1], 'i') }});
 
-      let tribe = (/tribe=([\w']{2,})/).exec(options);
-      if (tribe) filters.push({ 'gsx$tribe': { '$regex': new RegExp(tribe[1], 'i') }});
+      const tribe = (/tribe=([\w']{2,})/).exec(options);
+      if (tribe) filters.push({ gsx$tribe: { $regex: new RegExp(tribe[1], 'i') }});
     }
 
     // Search by name
     return this.filter.chain().find({
-      '$and': [
+      $and: [
         {
-          '$or': [
-            { 'gsx$name': { '$regex': new RegExp("^" + name, 'i') }},
-            { 'gsx$tags': { '$regex': new RegExp(`(^|\\s)${name}`, 'gi') }}
+          $or: [
+            { gsx$name: { $regex: new RegExp(`^${name}`, 'i') }},
+            { gsx$tags: { $regex: new RegExp(`(^|\\s)${name}`, 'gi') }}
           ]
         },
-        { '$and': filters }
+        { $and: filters }
       ]
     }).simplesort('gsx$name').data();
-  }
-
-  /* Wrappers for imgur images */
-  cardImage(card) {
-    if (!card.gsx$ic || card.gsx$ic === '') {
-      return this.base_image + card.gsx$image;
-    } else {
-      return card.gsx$ic;
-    }
-  }
-
-  cardAvatar(card) {
-    if (!card.gsx$ia || card.gsx$ia === '') {
-      return this.base_image + card.gsx$avatar;
-    } else {
-      return card.gsx$ia;
-    }
   }
 }
