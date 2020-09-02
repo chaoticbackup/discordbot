@@ -28,26 +28,40 @@ export default class Scanner {
     if (server === null) return;
 
     if (server.activescans.length === 0) {
-      await send('There is no scannable card');
-      return;
+      return await send('There is no scannable card');
     }
+
+    const player = this.db.findOnePlayer({ id: author_id });
 
     // give or take a minute
     const now = moment().subtract(1, 'minute');
 
     let selected: ActiveScan | undefined;
     if (args === '') {
-      while (true) {
-        if (server.activescans.length === 0) {
-          await send('There is no scannable card');
-          return;
-        }
-        selected = server.activescans[server.activescans.length - 1];
+      let i = 1;
+      let all = false;
+      while (i <= server.activescans.length) {
+        selected = server.activescans[server.activescans.length - i];
+        i++;
         if (selected === undefined || moment(selected.expires).isBefore(now)) {
-          server.activescans.pop();
-          this.db.servers.update(server);
+          continue;
         }
-        else break;
+        else {
+          if (!selected.players || selected.players.length === 0) {
+            break;
+          } else if (selected.players.includes(player.id)) {
+            all = true;
+            continue;
+          }
+        }
+      }
+
+      if (all) {
+        return await send('You\'ve scanned all active cards');
+      }
+
+      if (selected === undefined) {
+        return await send('There is no scannable card');
       }
     }
     else {
@@ -66,11 +80,7 @@ export default class Scanner {
       }
     }
 
-    const player = this.db.findOnePlayer({ id: author_id });
-    if (!selected.players || selected.players.length === 0) {
-      selected.players = [player.id];
-    }
-    else if (selected.players.includes(player.id)) {
+    if (selected.players.includes(player.id)) {
       await send(`You've already scanned this ${selected.scan.name}`);
       return;
     } else {

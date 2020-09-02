@@ -21,16 +21,18 @@ export class Player {
   }
 }
 
-interface activescan { scan: Scanned, expires: Date }
-
 export class ActiveScan {
   public scan: Scanned;
   public expires: Date;
+  public msg_id?: Snowflake;
   public players: Snowflake[];
 
-  constructor({ scan, expires }: activescan) {
+  constructor(
+    { scan, expires, msg_id }: { scan: Scanned, expires: Date, msg_id: Snowflake }
+  ) {
     this.scan = scan;
     this.expires = new Date(expires);
+    this.msg_id = msg_id;
     this.players = [];
   }
 }
@@ -44,6 +46,7 @@ export class Server {
   public ignore_channels: Snowflake[];
   public activescans: ActiveScan[];
   public remaining: Date | null; // remaining time until next scan
+  public last_sent: Date | null; // last time a scan was sent
 
   constructor(
     { id, send_channel, receive_channel }: server
@@ -54,6 +57,7 @@ export class Server {
     this.ignore_channels = [];
     this.activescans = [];
     this.remaining = null;
+    this.last_sent = null;
   }
 }
 

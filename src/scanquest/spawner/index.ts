@@ -1,7 +1,6 @@
-import { Client, Message, Snowflake } from 'discord.js';
+import { Client, Message, Snowflake, TextChannel, RichEmbed } from 'discord.js';
 import moment, { Moment } from 'moment';
 
-import { Channel } from '../../definitions';
 import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
 import Select from './select';
 import debug from '../../common/debug';
@@ -26,6 +25,7 @@ const config = {
   tick: 1.5 * 1000, // seconds in milliseconds
   debounce: 2 * 60 * 1000, // minutes in milliseconds
   // debounce: 10 * 1000,
+  safety: 10,
   next: 8
 };
 
@@ -44,6 +44,19 @@ export default class Spawner {
     this.start();
   }
 
+  private setSendTimeout(server: Server, endTime: Moment) {
+    const { id } = server;
+    if (this.timers.has(id)) {
+      clearTimeout(this.timers.get(id)!.timeout);
+    }
+
+    const timeout = setTimeout(() => {
+      debug(this.bot, 'Timer expired, generating now');
+      this.spawnCard(server);
+    }, endTime.diff(moment()));
+    this.timers.set(server.id, { timeout, endTime });
+  }
+
   start() {
     // get timers from database
     this.db.servers.data.forEach((server) => {
@@ -51,12 +64,11 @@ export default class Spawner {
         const endTime = moment(server.remaining);
         const remaining = endTime.diff(moment(), 'milliseconds');
         if (remaining > config.debounce) {
-          const timeout = setTimeout(() => this.sendCard(server), remaining);
-          this.timers.set(server.id, { timeout, endTime });
+          this.setSendTimeout(server, endTime);
         }
         else {
           debug(this.bot, 'When starting bot, spawn timer has already expired');
-          this.sendCard(server);
+          this.spawnCard(server);
         }
       }
     });
@@ -82,17 +94,14 @@ export default class Spawner {
     const id = message.guild.id;
     const server = this.db.servers.findOne({ id });
     if (server) {
-      if (this.timers.has(id)) {
-        clearTimeout(this.timers.get(id)!.timeout);
-      }
       debug(this.bot, `${message.author.username} has issued a reroll`);
-      this.sendCard(server);
+      this.spawnCard(server, true);
     }
   }
 
   // Decrease spawn timer countdown with activity
   // Assign point value to next spawn, size of messages decrease from point value
-  tick(message: Message) {
+  tick = (message: Message) => {
     const id = message.guild.id;
     // only monitor the servers the bot is configured for
     const server = this.db.servers.findOne({ id: id });
@@ -118,14 +127,13 @@ export default class Spawner {
       setTimeout(() => this.reduce(server), config.debounce);
       this.debouncer.set(id, { amount: reduce });
     }
-  }
+  };
 
-  reduce(server: Server) {
+  private reduce(server: Server) {
     const { id, send_channel } = server;
 
     if (this.timers.has(id)) {
-      let { timeout, endTime } = this.timers.get(id) as Timer;
-      clearTimeout(timeout);
+      const { endTime } = this.timers.get(id) as Timer;
 
       const amount = (this.debouncer.get(id)?.amount ?? 0);
       endTime.subtract(amount, 'milliseconds');
@@ -135,12 +143,11 @@ export default class Spawner {
       debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('hh:mm:ss')} reduced by ${amount / 1000} seconds.`);
 
       if (remaining <= config.debounce) {
-        debug(this.bot, `Remaining time insufficiant, generating now: ${(new Date()).toLocaleTimeString('en-GB')}`);
-        this.sendCard(server);
+        debug(this.bot, 'Remaining time insufficiant, generating now:');
+        this.spawnCard(server);
       }
       else {
-        timeout = setTimeout(() => this.sendCard(server), remaining);
-        this.timers.set(id, { timeout, endTime });
+        this.setSendTimeout(server, endTime);
         this.db.servers.findAndUpdate({ id: id }, (server) => {
           server.remaining = endTime.toDate();
         });
@@ -151,40 +158,70 @@ export default class Spawner {
     this.debouncer.delete(id);
   }
 
+  private cleanOldScans(server: Server) {
+    const { send_channel, activescans } = server;
+    return activescans.filter(({ expires, scan, msg_id }) => {
+      // const s = moment(expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
+      const s = false;
+      if (!s) {
+        debug(this.bot, `${scan.name} expired (${moment(expires).format('hh:mm:ss')})`);
+        if (msg_id) {
+          (this.bot.channels.get(send_channel) as TextChannel).fetchMessage(msg_id)
+          .then(async (message) => {
+            if (message?.editable && message.embeds.length > 0) {
+              const embed = new RichEmbed(message.embeds[0]).setTitle('Scan expired');
+              await message.edit(embed);
+            }
+          })
+          .catch(() => {});
+        }
+      }
+      return s;
+    });
+  }
+
   /**
    * Sends a card image to the configed channel
   */
-  private sendCard(server: Server) {
-    const { id, send_channel } = server;
-    try {
-      debug(this.bot, `Attempting to generate a scan at ${(new Date()).toLocaleTimeString('en-GB')}`);
+  private spawnCard(server: Server, force = false) {
+    const { send_channel, activescans, last_sent } = server;
+    debug(this.bot, `Attempting to generate a scan at ${moment().format('hh:mm:ss')}`);
 
+    if (!force && activescans.length > 0 && last_sent) {
+      const d = moment().diff(moment(last_sent), 'minutes');
+      if (d < config.safety) {
+        this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
+        return;
+      }
+    }
+
+    try {
       const { scannable, image, duration: active } = this.select.card(server);
 
-      // cleanup old scans
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
-      server.activescans = server.activescans.filter(scan => {
-        const s = moment(scan.expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
-        if (!s) debug(this.bot, `${scan.scan.name} expired (${moment(scan.expires).format('hh:mm:ss')})`);
-        return s;
+      server.activescans = this.cleanOldScans(server);
+
+      // Min time is to ensure longer spawns don't take too long and no inactive scans for short ones
+      const endTime = moment().add(Math.min(active, config.next), 'hours');
+
+      (this.bot.channels.get(send_channel) as TextChannel).send(image)
+      .then((message) => {
+        // add to list of active scans
+        const expires = moment().add(active, 'hours').toDate();
+        server.activescans.push(new ActiveScan({ scan: scannable.card, expires, msg_id: message.id }));
+        this.setSendTimeout(server, endTime);
+        server.remaining = endTime.toDate();
+        server.last_sent = moment().toDate();
+      })
+      .catch((e) => {
+        const endTime = moment().add(10, 'minutes');
+        this.setSendTimeout(server, endTime);
+        server.remaining = endTime.toDate();
+        debug(this.bot, e, 'errors');
+      })
+      .finally(() => {
+        this.db.servers.update(server);
       });
-
-      // add to list of active scans
-      const expires = moment().add(active, 'hours');
-
-      server.activescans.push(new ActiveScan({ scan: scannable.card, expires: expires.toDate() }));
-
-      // set timer until next spawn
-      const duration = Math.min(active, config.next);
-      const endTime = moment().add(duration, 'hours');
-      server.remaining = endTime.toDate();
-
-      this.db.servers.update(server);
-
-      const timeout = setTimeout(() => this.sendCard(server), endTime.diff(moment()));
-      this.timers.set(id, { timeout, endTime });
-
-      (this.bot.channels.get(send_channel) as Channel).send(image).catch(() => {});
     }
     catch (e) {
       debug(this.bot, e, 'errors');
