@@ -406,6 +406,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Now or Never */
     case 'never':
     case 'nowornever':
+    case 'non':
       return send(nowornever(flatten(args)));
 
     /* Gone Chaotic (fan) */
