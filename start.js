@@ -53,7 +53,7 @@ const handle_exit = (proc, code) => {
 }
 
 /* Start bot */
-const bot_path = path.resolve(__dirname, "build", "bot.js");
+const bot_path = path.resolve(__dirname, outdir, "bot.js");
 const bot_options = (os.platform() === "win32") ? {
   stdio: ['pipe', 'pipe', 'pipe', 'ipc'], 
   env: { NODE_CHANNEL_FD: 3 },
