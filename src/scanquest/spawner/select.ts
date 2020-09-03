@@ -1,21 +1,22 @@
 import { RichEmbed } from 'discord.js';
 
+import { Card, Battlegear, Creature, Location } from '../../definitions';
 import { API } from '../../database';
-import Scannable from '../scanner/Scannable';
-import { Server } from '../scan_db';
-import Battlegear from './Battlegear';
-import Creature from './Creature';
-import Location from './Location';
+import Scannable from '../scan_type/Scannable';
+import { Server } from '../database';
+import { SpawnBattlegear } from '../scan_type/Battlegear';
+import { SpawnCreature } from '../scan_type/Creature';
+import { SpawnLocation } from '../scan_type/Location';
 
 export default class Select {
-  private readonly scan_battlegear: Battlegear;
-  private readonly scan_creature: Creature;
-  private readonly scan_locations: Location;
+  private readonly scan_battlegear: SpawnBattlegear;
+  private readonly scan_creature: SpawnCreature;
+  private readonly scan_locations: SpawnLocation;
 
   constructor() {
-    this.scan_battlegear = new Battlegear();
-    this.scan_creature = new Creature();
-    this.scan_locations = new Location();
+    this.scan_battlegear = new SpawnBattlegear();
+    this.scan_creature = new SpawnCreature();
+    this.scan_locations = new SpawnLocation();
   }
 
   /**
@@ -25,36 +26,12 @@ export default class Select {
   public card(server: Server) {
     const [scannable, image] = this.select(server);
 
-    const card = API.find_cards_by_name(scannable.card.name)[0];
+    const active = this.duration(API.find_cards_by_name(scannable.card.name)[0]);
 
-    const duration =
-      (() => {
-        switch (card.gsx$type) {
-          case 'Attacks': return 0;
-          case 'Battlegear': return 3;
-          case 'Creatures': return 2;
-          case 'Locations': return 4;
-          case 'Mugic': return 0;
-          default: return 0;
-        }
-      })()
-      *
-      (() => {
-        switch (card.gsx$rarity.toLowerCase()) {
-          case 'ultra rare': return 4.5;
-          case 'super rare': return 4;
-          case 'rare': return 3;
-          case 'uncommon': return 2;
-          case 'common': return 2;
-          case 'promo': return 5;
-          default: return 2;
-        }
-      })();
-
-    image.setTitle(`Scan expires in ${duration} hours`)
+    image.setTitle(`Scan expires in ${active} hours`)
     .setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
 
-    return { scannable, image, duration };
+    return { scannable, image, active };
   }
 
   // Creatures spawn more often than locations and battlegear
@@ -80,5 +57,54 @@ export default class Select {
     }
 
     return [scannable, image];
+  }
+
+  public generate(card: Card): [Scannable, RichEmbed] | [] {
+    switch (card.gsx$type) {
+      case 'Attacks': return [];
+      case 'Battlegear': return this.scan_battlegear.generate(card as Battlegear);
+      case 'Creatures': return this.scan_creature.generate(card as Creature);
+      case 'Locations': return this.scan_locations.generate(card as Location);
+      case 'Mugic': return [];
+      default: return [];
+    }
+  }
+
+  public isSpawnable(card: Card) {
+    switch (card.gsx$type) {
+      case 'Attacks': return false;
+      case 'Battlegear': return this.scan_battlegear.isSpawnable(card as Battlegear);
+      case 'Creatures': return this.scan_creature.isSpawnable(card as Creature);
+      case 'Locations': return this.scan_locations.isSpawnable(card as Location);
+      case 'Mugic': return false;
+      default: return false;
+    }
+  }
+
+  public duration(card: Card) {
+    const type = (() => {
+      switch (card.gsx$type) {
+        case 'Attacks': return 0;
+        case 'Battlegear': return 3;
+        case 'Creatures': return 2;
+        case 'Locations': return 4;
+        case 'Mugic': return 0;
+        default: return 0;
+      }
+    })();
+
+    const rarity = (() => {
+      switch (card.gsx$rarity.toLowerCase()) {
+        case 'promo': return 4;
+        case 'ultra rare': return 4.5;
+        case 'super rare': return 4;
+        case 'rare': return 3;
+        case 'uncommon': return 2;
+        case 'common': return 2;
+        default: return 2;
+      }
+    })();
+
+    return type * rarity;
   }
 }

@@ -28,11 +28,12 @@ module.exports = function (api) {
 
   
   return {
+    sourceMaps: true,
     presets,
     plugins,
     ignore: [
       "node_modules"
     ],
-    "comments": false
+    comments: false
   };
 }

@@ -1,36 +1,15 @@
-import { Snowflake, Message, GuildMember } from 'discord.js';
-import { donate } from '../../common';
-import help from './help';
-import ScanQuestDB, { Server } from '.';
+import { Snowflake, Message } from 'discord.js';
+
 import { SendFunction } from '../../definitions';
+import ScanQuestDB, { Server } from './ScanQuestDB';
+import help from './help';
 
 export default async function (db: ScanQuestDB, message: Message, args: string[], mentions: string[], send: SendFunction) {
   if (args.length > 0) {
     // handled in responses
     if (args[0] === 'protector') return;
     if (args[0] === 'help') {
-      if (message.guild) {
-        let guildMember: GuildMember;
-
-        if (mentions.length > 0) {
-          guildMember = await message.guild.fetchMember(mentions[0]).then((m) => m);
-        }
-        else {
-          if (db.is_receive_channel(message.guild.id, message.channel.id)) {
-            return await send(help());
-          }
-          guildMember = (message.member)
-            ? message.member
-            : await message.guild.fetchMember(message.author).then((m) => m);
-        }
-
-        return guildMember.send(help())
-          .then(async () => { await guildMember.send(donate()); })
-          // if can't dm, send to channel
-          .catch(async () => { await send(help()); });
-      }
-      return await send(help())
-        .then(async () => { await send(donate()); });
+      return await help(db, message, mentions, send);
     }
   }
   if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {

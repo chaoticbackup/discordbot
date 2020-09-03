@@ -10,10 +10,8 @@ export default class Scanned {
   type: CardType;
   code?: Code;
 
-  constructor(type: CardType, name?: string) {
-    if (name) {
-      this.name = name;
-    }
+  constructor(type: CardType, name: string) {
+    this.name = name;
     this.type = type;
   }
 }

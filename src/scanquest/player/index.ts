@@ -1,3 +1,3 @@
-export { default as listScans } from './scans/list';
-export { default as rate } from './scans/rate';
-export { default as balance } from './balance';
+export { default as listScans } from './ListScans';
+export { default as rate } from './RateScans';
+export { default as balance } from './Balance';

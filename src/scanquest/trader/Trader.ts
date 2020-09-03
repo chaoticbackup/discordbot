@@ -1,5 +1,5 @@
 import { Client, Message, GuildMember, CollectorFilter, MessageReaction } from 'discord.js';
-import ScanQuestDB from '../scan_db';
+import ScanQuestDB from '../database';
 import TradeManager, { TradeStatus, sendFunction, yes, no } from './TradeManager';
 import debug from '../../common/debug';
 import logger from '../../logger';

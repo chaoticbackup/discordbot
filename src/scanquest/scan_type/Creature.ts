@@ -1,32 +1,42 @@
 import { RichEmbed } from 'discord.js';
-import Scan from './Scanned';
+import Scanned from './Scanned';
 import Scannable from './Scannable';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
+import Spawn from './Spawn';
 
-export class CreatureScan extends Scan {
+function isCard(arg: any): arg is Creature {
+  return (arg as Creature).gsx$name !== undefined;
+}
+
+export class ScannedCreature extends Scanned {
   courage: number;
   power: number;
   wisdom: number;
   speed: number;
   energy: number;
 
-  constructor() {
-    super('Creatures');
+  constructor(name: string, courage?: number, power?: number, wisdom?: number, speed?: number, energy?: number) {
+    super('Creatures', name);
+    if (courage !== undefined && power !== undefined && wisdom !== undefined && speed !== undefined && energy !== undefined) {
+      this.courage = courage;
+      this.power = power;
+      this.wisdom = wisdom;
+      this.speed = speed;
+      this.energy = energy;
+    }
   }
 }
 
 export class ScannableCreature implements Scannable {
-  card: CreatureScan;
+  card: ScannedCreature;
 
-  constructor(creature: Creature | CreatureScan)
+  constructor(creature: Creature | ScannedCreature)
   {
-    this.card = new CreatureScan();
-    if ((creature as Creature).gsx$name !== undefined) {
-      creature = (creature as Creature);
+    if (isCard(creature)) {
+      this.card = new ScannedCreature(creature.gsx$name);
       if (creature.gsx$name === "Aa'une the Oligarch, Avatar") {
-        this.card.name = creature.gsx$name;
         this.card.courage = 200;
         this.card.power = 200;
         this.card.wisdom = 200;
@@ -34,7 +44,6 @@ export class ScannableCreature implements Scannable {
         this.card.energy = 100;
       }
       else {
-        this.card.name = creature.gsx$name;
         this.card.courage = this.randomStat(creature.gsx$courage, 20);
         this.card.power = this.randomStat(creature.gsx$power, 20);
         this.card.wisdom = this.randomStat(creature.gsx$wisdom, 20);
@@ -43,13 +52,8 @@ export class ScannableCreature implements Scannable {
       }
     }
     else {
-      creature = (creature as CreatureScan);
-      this.card.name = creature.name;
-      this.card.courage = creature.courage;
-      this.card.power = creature.power;
-      this.card.wisdom = creature.wisdom;
-      this.card.speed = creature.speed;
-      this.card.energy = creature.energy;
+      const { name, courage, power, wisdom, speed, energy } = creature;
+      this.card = new ScannedCreature(name, courage, power, wisdom, speed, energy);
     }
   }
 
@@ -87,5 +91,30 @@ export class ScannableCreature implements Scannable {
       .setDescription(body)
       .setURL(API.cardImage(card))
       .setImage(API.cardImage(card));
+  }
+}
+
+export class SpawnCreature extends Spawn {
+  private readonly creatures: Creature[];
+
+  constructor() {
+    super();
+    const creatures = API.find_cards_by_name('', ['type=creature']) as Creature[];
+    this.creatures = creatures.filter(c => API.hasAvatar(c) && API.hasImage(c));
+  }
+
+  generate(creature?: Creature): [ScannableCreature, RichEmbed] {
+    if (creature === undefined) {
+      creature = this.randomCard(this.creatures) as Creature;
+    }
+    const image = new RichEmbed()
+    .setImage(API.cardAvatar(creature))
+    .setURL(API.cardAvatar(creature));
+
+    return [new ScannableCreature(creature), image];
+  }
+
+  isSpawnable(card: Creature) {
+    return this.creatures.filter((creature) => creature.gsx$name === card.gsx$name).length > 0;
   }
 }

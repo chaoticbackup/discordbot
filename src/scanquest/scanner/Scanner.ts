@@ -1,15 +1,11 @@
-/* eslint-disable max-len */
 import { Message, Client } from 'discord.js';
 import moment from 'moment';
 import { API } from '../../database';
 import Icons from '../../common/bot_icons';
-import ScanQuestDB, { ActiveScan } from '../scan_db';
-import { ScannableBattlegear, BattlegearScan } from './Battlegear';
-import { ScannableCreature, CreatureScan } from './Creature';
-import { ScannableLocation, LocationScan } from './Location';
-import Scannable from './Scannable';
-import Scanned from './Scanned';
+import ScanQuestDB, { ActiveScan } from '../database';
 import { SendFunction } from '../../definitions';
+import toScannable from '../scan_type/toScannable';
+import { first_scan } from '../database/help';
 
 export default class Scanner {
   readonly icons: Icons;
@@ -48,10 +44,10 @@ export default class Scanner {
         }
         else {
           if (!selected.players || selected.players.length === 0) {
+            all = false;
             break;
           } else if (selected.players.includes(player.id)) {
             all = true;
-            continue;
           }
         }
       }
@@ -101,27 +97,3 @@ export default class Scanner {
     return m;
   };
 }
-
-export function toScannable(scan: Scanned): Scannable | undefined {
-  switch (scan.type) {
-    case 'Battlegear':
-      return new ScannableBattlegear(scan as BattlegearScan);
-    case 'Creatures':
-      return new ScannableCreature(scan as CreatureScan);
-    case 'Locations':
-      return new ScannableLocation(scan as LocationScan);
-  }
-}
-
-const first_scan = (perim: string) => `
-Hi there! It looks like this is your first time scanning something, so here's some extra info! Different cards will spawn based on how active the server is, and can be scanned for the amount of time listed above them in <#${perim}>.
-You can see a full list of your scans by typing \`\`!list\`\`,  and navigate it with the buttons at the bottom (the buttons are explained at the bottom of this message). You can also trade with another person by typing "!trade @user" and following the prompts.
-All of this is just for fun right now, but we hope you enjoy! If you have any other questions, we'll be happy to help in either <#135657678633566208> or <#587376910364049438>. That's where most of the server hangs out.
-
-:arrow_backward: - Go one page backwards
-:arrow_upper_right: - Go to a specific page (type which one in chat after pressing the button)
-:arrow_right: - Go one page forwards
-:wastebasket: - Clear your use of the command when you're done
-:arrow_down: - Sort your scans alphabetically instead of in the order you scanned them
-:mag_right: - Search for copies of a specific card 
-`;

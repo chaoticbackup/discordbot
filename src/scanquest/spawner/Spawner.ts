@@ -1,7 +1,7 @@
 import { Client, Message, Snowflake, TextChannel, RichEmbed } from 'discord.js';
 import moment, { Moment } from 'moment';
 
-import ScanQuestDB, { ActiveScan, Server } from '../scan_db';
+import ScanQuestDB, { ActiveScan, Server } from '../database';
 import Select from './select';
 import debug from '../../common/debug';
 import custom from './custom';
@@ -166,8 +166,7 @@ export default class Spawner {
   private cleanOldScans(server: Server) {
     const { send_channel, activescans } = server;
     return activescans.filter(({ expires, scan, msg_id }) => {
-      // const s = moment(expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
-      const s = false;
+      const s = moment(expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
       if (!s) {
         debug(this.bot, `${scan.name} expired (${moment(expires).format('hh:mm:ss')})`);
         if (msg_id) {
@@ -201,7 +200,7 @@ export default class Spawner {
     }
 
     try {
-      const { scannable, image, duration: active } = this.select.card(server);
+      const { scannable, image, active } = this.select.card(server);
 
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       server.activescans = this.cleanOldScans(server);

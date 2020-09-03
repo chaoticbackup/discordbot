@@ -1,20 +1,20 @@
 import { Client, Message } from 'discord.js';
 
-import { API } from '../database';
-import { SendFunction } from '../definitions';
-
 import { flatten } from '../common';
 import parseCommand from '../common/parseCommand';
 import users from '../common/users';
+
+import { API } from '../database';
+import { SendFunction } from '../definitions';
 import logger from '../logger';
 
-import ScanQuestDB from './scan_db';
-import loadScan from './load';
-import { listScans, balance, rate } from './player';
-import Spawner from './spawner';
-import Scanner from './scanner';
-import Trader from './trader';
-import perim from './scan_db/config';
+import ScanQuestDB from './database';
+import perim from './database/config';
+import loadScan from './loader/Loader';
+import { balance, listScans, rate } from './player';
+import Scanner from './scanner/Scanner';
+import Spawner from './spawner/Spawner';
+import Trader from './trader/Trader';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -124,13 +124,7 @@ export default class ScanQuest {
           return;
         case 'load':
           if (message.author.id === users('daddy') || message.author.id === users('bf')) {
-            const id = args[0];
-            const type = args[1];
-            const content = args.splice(1).join(' ');
-            const info = content.substr(content.indexOf(' ') + 1);
-            const scan = loadScan({ type, info });
-            if (scan) await this.db.save(id, scan.card);
-            else await send('Invalid format');
+            await send(loadScan(this.db, args));
           }
           return;
         case 'spawn':

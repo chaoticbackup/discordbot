@@ -1,5 +1,5 @@
 import { Message, DMChannel } from 'discord.js';
-import ScanQuestDB from '../scan_db';
+import ScanQuestDB from '../database';
 import users from '../../common/users';
 import { SendFunction } from '../../definitions';
 

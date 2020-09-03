@@ -1,11 +1,11 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { CollectorFilter, DMChannel, Message, TextChannel } from 'discord.js';
-import users from '../../../common/users';
-import logger from '../../../logger';
-import Scanned from '../../scanner/Scanned';
-import ScanQuestDB from '../../scan_db';
+import users from '../../common/users';
+import logger from '../../logger';
+import Scanned from '../scan_type/Scanned';
+import ScanQuestDB from '../database';
 import { setFilter } from './typeFilter';
-import { SendFunction } from '../../../definitions';
+import { SendFunction } from '../../definitions';
 
 interface scan {
   index: number

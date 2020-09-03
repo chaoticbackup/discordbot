@@ -4,7 +4,7 @@ import path from 'path';
 import logger from '../../logger';
 import servers from '../../common/servers';
 import db_path from '../../database/db_path';
-import Scanned from '../scanner/Scanned';
+import Scanned from '../scan_type/Scanned';
 import { Code } from '../../definitions';
 import generateCode from './generateCode';
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
@@ -37,8 +37,6 @@ export class ActiveScan {
   }
 }
 
-interface server {id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake}
-
 export class Server {
   public id: Snowflake;
   public send_channel: Snowflake;
@@ -49,7 +47,7 @@ export class Server {
   public last_sent: Date | null; // last time a scan was sent
 
   constructor(
-    { id, send_channel, receive_channel }: server
+    { id, send_channel, receive_channel }: {id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake}
   ) {
     this.id = id;
     this.send_channel = send_channel;
