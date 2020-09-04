@@ -1,10 +1,10 @@
 import { RichEmbed } from 'discord.js';
-import Scanned from './Scanned';
-import Scannable from './Scannable';
+import { Scanned } from './Scanned';
+import { Scannable } from './Scannable';
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Battlegear } from '../../definitions';
-import Spawn from './Spawn';
+import { Spawn } from './Spawn';
 
 function isCard(arg: any): arg is Battlegear {
   return (arg as Battlegear).gsx$name !== undefined;

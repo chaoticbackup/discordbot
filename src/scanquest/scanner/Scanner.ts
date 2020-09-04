@@ -4,7 +4,7 @@ import { API } from '../../database';
 import Icons from '../../common/bot_icons';
 import ScanQuestDB, { ActiveScan } from '../database';
 import { SendFunction } from '../../definitions';
-import toScannable from '../scan_type/toScannable';
+import { toScannable } from '../scan_type/toScannable';
 import { first_scan } from '../database/help';
 
 export default class Scanner {
@@ -34,9 +34,9 @@ export default class Scanner {
 
     let selected: ActiveScan | undefined;
     if (args === '') {
-      let i = 1;
+      let i = 0;
       let all = false;
-      while (i <= server.activescans.length) {
+      while (i < server.activescans.length) {
         selected = server.activescans[server.activescans.length - i];
         i++;
         if (selected === undefined || moment(selected.expires).isBefore(now)) {

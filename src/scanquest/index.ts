@@ -128,7 +128,7 @@ export default class ScanQuest {
           }
           return;
         case 'spawn':
-          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
+          if (message.author.id === users('daddy') || message.author.id === users('bf')) {
             this.spawner.spawn(message, args, options);
           }
           return;

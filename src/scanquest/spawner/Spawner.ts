@@ -212,6 +212,8 @@ export default class Spawner {
       .then((message) => {
         // add to list of active scans
         const expires = moment().add(active, 'hours').toDate();
+        debug(this.bot, `Generated ${scannable.card.name} for ${expires} hours at (${moment().format('hh:mm:ss')}`);
+
         server.activescans.push(new ActiveScan({ scan: scannable.card, expires, msg_id: message.id }));
         this.setSendTimeout(server, endTime);
         server.remaining = endTime.toDate();

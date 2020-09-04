@@ -1,8 +1,8 @@
 import { RichEmbed } from 'discord.js';
 import { BaseCard, Card } from '../../definitions';
-import Scannable from './Scannable';
+import { Scannable } from './Scannable';
 
-export default abstract class Spawn {
+export abstract class Spawn {
   protected lastRandom = -1;
 
   /**

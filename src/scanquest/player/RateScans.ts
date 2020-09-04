@@ -2,7 +2,7 @@ import ScanQuestDB from '../database';
 import { Message, Client } from 'discord.js';
 import { ScannableCreature } from '../scan_type/Creature';
 import rate from '../../responses/rate';
-import toScannable from '../scan_type/toScannable';
+import { toScannable } from '../scan_type/toScannable';
 
 export default function (db: ScanQuestDB, message: Message, args: string[], options: string[], bot: Client) {
   if (args.length > 0) {

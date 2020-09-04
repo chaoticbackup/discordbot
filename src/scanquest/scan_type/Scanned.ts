@@ -5,7 +5,7 @@ import { CardType, Code } from '../../definitions';
  * @param type The type of card it is
  * @param code The unique code of the card
 */
-export default class Scanned {
+export class Scanned {
   name: string;
   type: CardType;
   code?: Code;

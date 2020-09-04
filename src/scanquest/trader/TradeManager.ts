@@ -1,9 +1,9 @@
 import { Snowflake, GuildMember, Message, Collection } from 'discord.js';
 import logger from '../../logger';
 import ScanQuestDB from '../database';
-import Scanned from '../scan_type/Scanned';
-import toScannable from '../scan_type/toScannable';
-import Scannable from '../scan_type/Scannable';
+import { Scanned } from '\.\./scan_type/Scanned';
+import { toScannable } from '../scan_type/toScannable';
+import { Scannable } from '\.\./scan_type/Scannable';
 
 export const yes = '🇾';
 export const no = '🇳';
