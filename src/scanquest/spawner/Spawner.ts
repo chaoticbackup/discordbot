@@ -145,10 +145,10 @@ export default class Spawner {
       const remaining = endTime.diff(moment(), 'milliseconds');
 
       // eslint-disable-next-line max-len
-      debug(this.bot, `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('hh:mm:ss')} reduced by ${amount / 1000} seconds.`);
+      let db_msg = `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format('hh:mm:ss')} reduced by ${amount / 1000} seconds.\n`;
 
       if (remaining <= config.debounce) {
-        debug(this.bot, 'Remaining time insufficiant, generating now:');
+        db_msg += 'Remaining time insufficiant, generating now...';
         this.spawnCard(server);
       }
       else {
@@ -156,8 +156,9 @@ export default class Spawner {
         this.db.servers.findAndUpdate({ id: id }, (server) => {
           server.remaining = endTime.toDate();
         });
-        debug(this.bot, `Timer set for ${endTime.format('hh:mm:ss')}. ${remaining / 1000} seconds remaining.`);
+        db_msg += `Timer set for ${endTime.format('hh:mm:ss')}. ${remaining / 1000} seconds remaining.`;
       }
+      debug(this.bot, db_msg);
     }
 
     this.debouncer.delete(id);

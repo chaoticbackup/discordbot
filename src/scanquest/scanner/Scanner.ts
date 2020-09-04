@@ -24,7 +24,8 @@ export default class Scanner {
     if (server === null) return;
 
     if (server.activescans.length === 0) {
-      return await send('There is no scannable card');
+      await send('There is no scannable card');
+      return;
     }
 
     const player = this.db.findOnePlayer({ id: author_id });
@@ -40,25 +41,27 @@ export default class Scanner {
         selected = server.activescans[server.activescans.length - i];
         i++;
 
-        if (moment(selected.expires).isBefore(now)) {
+        if (moment(selected.expires).isSameOrBefore(now)) {
           selected = undefined;
           continue;
         }
 
-        if (!selected.players || selected.players.length === 0) {
+        if (selected.players.includes(player.id)) {
+          all = true;
+        } else {
           all = false;
           break;
-        } else if (selected.players.includes(player.id)) {
-          all = true;
         }
       }
 
       if (all) {
-        return await send('You\'ve scanned all active cards');
+        await send('You\'ve scanned all active scans');
+        return;
       }
 
       if (selected === undefined) {
-        return await send('There is no scannable card');
+        await send('There is no active scans');
+        return;
       }
     }
     else {
@@ -71,18 +74,19 @@ export default class Scanner {
         await send(`${name || args.replace('@', '')} isn't an active scan`);
         return;
       }
+
       if (moment(selected.expires).isBefore(now)) {
         await send(`${name} is no longer active`);
         return;
       }
+
+      if (selected.players.includes(player.id)) {
+        await send(`You've already scanned this ${selected.scan.name}`);
+        return;
+      }
     }
 
-    if (selected.players.includes(player.id)) {
-      await send(`You've already scanned this ${selected.scan.name}`);
-      return;
-    } else {
-      selected.players.push(player.id);
-    }
+    selected.players.push(player.id);
     this.db.servers.update(server);
 
     const card = Object.assign({}, selected.scan); // clone card to assign code
