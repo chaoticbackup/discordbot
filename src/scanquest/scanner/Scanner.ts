@@ -34,21 +34,22 @@ export default class Scanner {
 
     let selected: ActiveScan | undefined;
     if (args === '') {
-      let i = 0;
+      let i = 1;
       let all = false;
-      while (i < server.activescans.length) {
+      while (i <= server.activescans.length) {
         selected = server.activescans[server.activescans.length - i];
         i++;
-        if (selected === undefined || moment(selected.expires).isBefore(now)) {
+
+        if (moment(selected.expires).isBefore(now)) {
+          selected = undefined;
           continue;
         }
-        else {
-          if (!selected.players || selected.players.length === 0) {
-            all = false;
-            break;
-          } else if (selected.players.includes(player.id)) {
-            all = true;
-          }
+
+        if (!selected.players || selected.players.length === 0) {
+          all = false;
+          break;
+        } else if (selected.players.includes(player.id)) {
+          all = true;
         }
       }
 
