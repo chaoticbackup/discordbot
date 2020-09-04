@@ -92,6 +92,10 @@ export default class ScanQuest {
     ) {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {
+        case 'scanlist':
+          const s = this.db.servers.findOne({ id: message.guild.id });
+          await send(s?.activescans.map(sc => `${sc.scan.name}`).concat('\n'));
+          break;
         case 'skon':
         case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {

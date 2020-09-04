@@ -2,8 +2,8 @@ import { CreatureTribe, generify, parseTribe, parseType } from '../../common/car
 import { API } from '../../database';
 import { Creature } from '../../definitions';
 import { toScannable } from '../scan_type/toScannable';
-import { Scannable } from '\.\./scan_type/Scannable';
-import { Scanned } from '\.\./scan_type/Scanned';
+import { Scannable } from '../scan_type/Scannable';
+import { Scanned } from '../scan_type/Scanned';
 
 type Filter = (scan: Scanned) => Scannable | undefined;
 

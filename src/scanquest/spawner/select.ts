@@ -2,7 +2,7 @@ import { RichEmbed } from 'discord.js';
 
 import { Card, Battlegear, Creature, Location } from '../../definitions';
 import { API } from '../../database';
-import { Scannable } from '\.\./scan_type/Scannable';
+import { Scannable } from '../scan_type/Scannable';
 import { Server } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';

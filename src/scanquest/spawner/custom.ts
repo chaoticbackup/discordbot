@@ -2,7 +2,7 @@ import { Message, RichEmbed } from 'discord.js';
 import Spawner from './Spawner';
 import { API } from '../../database';
 import { ScannableCreature } from '../scan_type/Creature';
-import { Scannable } from '\.\./scan_type/Scannable';
+import { Scannable } from '../scan_type/Scannable';
 
 // !spawn <content> --expire=<+h or timestamp> --order=<number> --message=<Snowflake>
 export default function (this: Spawner, message: Message, args: string[], options: string[]): void {
