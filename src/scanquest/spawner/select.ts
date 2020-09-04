@@ -23,8 +23,10 @@ export default class Select {
    * Picks a new card and duration to send
    * @param server The server that we're picking a card for
    */
-  public card(server: Server) {
-    const [scannable, image] = this.select(server);
+  public card(server: Server, scannable?: Scannable, image?: RichEmbed) {
+    if (scannable === undefined || image === undefined) {
+      [scannable, image] = this.select(server);
+    }
 
     const active = this.duration(API.find_cards_by_name(scannable.card.name)[0]);
 
