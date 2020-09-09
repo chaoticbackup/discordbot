@@ -333,6 +333,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return;
 
     case 'tierlist':
+    case 'tiers':
       if (can_send(channel, guild, guildMember, null)) {
         return await send(tierlist())
           .then(async () => { send(donate()); });
