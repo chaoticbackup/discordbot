@@ -92,10 +92,6 @@ export default class ScanQuest {
     ) {
       const { cmd, args, options } = parseCommand(content);
       switch (cmd) {
-        case 'scanlist':
-          const s = this.db.servers.findOne({ id: message.guild.id });
-          await send(s?.activescans.map(sc => `${sc.scan.name}`).concat('\n'));
-          break;
         case 'skon':
         case 'scan':
           if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
@@ -121,19 +117,24 @@ export default class ScanQuest {
           return;
 
         /* Admin functions */
-        case 'reroll':
-          if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
-            this.spawner.reroll(message);
-          }
-          return;
         case 'load':
           if (message.author.id === users('daddy') || message.author.id === users('bf')) {
             await send(loadScan(this.db, args));
           }
           return;
+        case 'reroll':
+          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
+            this.spawner.reroll(message);
+          }
+          return;
         case 'spawn':
-          if (message.author.id === users('daddy') || message.author.id === users('bf')) {
+          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
             this.spawner.spawn(message, args, options);
+          }
+          return;
+        case 'scanlist':
+          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
+            await send(this.spawner.list(message));
           }
           return;
         case 'perim':

@@ -5,6 +5,7 @@ import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
 import { Spawn } from './Spawn';
+import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Creature {
   return (arg as Creature).gsx$name !== undefined;
@@ -103,10 +104,17 @@ export class SpawnCreature extends Spawn {
     this.creatures = creatures.filter(c => API.hasAvatar(c) && API.hasImage(c));
   }
 
-  generate(creature?: Creature): [ScannableCreature, RichEmbed] {
-    if (creature === undefined) {
-      creature = this.randomCard(this.creatures) as Creature;
+  generate(card: Creature): [ScannableCreature, RichEmbed]
+  generate(activescan: ActiveScan[]): [ScannableCreature, RichEmbed]
+  generate(arg1: Creature | ActiveScan[]): [ScannableCreature, RichEmbed] {
+    let creature: Creature;
+
+    if (isCard(arg1)) {
+      creature = arg1;
+    } else {
+      creature = this.randomCard(this.creatures, arg1) as Creature;
     }
+
     const image = new RichEmbed()
     .setImage(API.cardAvatar(creature))
     .setURL(API.cardAvatar(creature));

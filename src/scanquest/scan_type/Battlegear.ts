@@ -5,6 +5,7 @@ import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Battlegear } from '../../definitions';
 import { Spawn } from './Spawn';
+import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Battlegear {
   return (arg as Battlegear).gsx$name !== undefined;
@@ -55,9 +56,14 @@ export class SpawnBattlegear extends Spawn {
     );
   }
 
-  generate(battlegear?: Battlegear): [ScannableBattlegear, RichEmbed] {
-    if (battlegear === undefined) {
-      battlegear = this.randomCard(this.battlegear) as Battlegear;
+  generate(card: Battlegear): [ScannableBattlegear, RichEmbed]
+  generate(activescan: ActiveScan[]): [ScannableBattlegear, RichEmbed]
+  generate(arg1: Battlegear | ActiveScan[]): [ScannableBattlegear, RichEmbed] {
+    let battlegear: Battlegear;
+    if (isCard(arg1)) {
+      battlegear = arg1;
+    } else {
+      battlegear = this.randomCard(this.battlegear, arg1) as Battlegear;
     }
     const image = new RichEmbed()
     .setImage(API.cardFullart(battlegear))

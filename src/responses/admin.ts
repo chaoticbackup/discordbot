@@ -75,12 +75,12 @@ export function logs() {
     }
 
     if (fs.existsSync(path.resolve(home_path, 'out.old.log'))) {
-      text = '==Old Log==\n'
-        + `${fs.readFileSync(path.resolve(home_path, 'out.log'), { encoding: 'utf8' }).toString().replace(/\\[3[29]m/g, '')}`
-        + '==New Log==\n'
-        + `${text}`;
+      text = '==New Log==\n'
+        + `${text}`
+        + '==Old Log==\n'
+        + `${fs.readFileSync(path.resolve(home_path, 'out.log'), { encoding: 'utf8' }).toString().replace(/\\[3[29]m/g, '')}`;
       if (text.length > 2000) {
-        return text.slice(-2000);
+        return text.slice(0, 2000);
       }
     }
 

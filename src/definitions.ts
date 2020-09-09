@@ -58,7 +58,7 @@ export interface Creature extends BaseCard {
   gsx$elements: string
   gsx$brainwashed: string
   gsx$mugicability: string | number
-  gsx$avatar: string
+  gsx$avatar?: string
   gsx$subtype: string
   gsx$ia?: string // imgur avatar
 }
