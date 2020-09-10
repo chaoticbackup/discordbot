@@ -6,6 +6,7 @@ import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Location } from '../../definitions';
 import { Spawn } from './Spawn';
+import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Location {
   return (arg as Location).gsx$name !== undefined;
@@ -58,10 +59,17 @@ export class SpawnLocation extends Spawn {
     );
   }
 
-  generate(location?: Location): [ScannableLocation, RichEmbed] {
-    if (location === undefined) {
-      location = this.randomCard(this.locations) as Location;
+  generate(location: Location): [ScannableLocation, RichEmbed]
+  generate(activescan: ActiveScan[]): [ScannableLocation, RichEmbed]
+  generate(arg1: Location | ActiveScan[]): [ScannableLocation, RichEmbed] {
+    let location: Location;
+
+    if (isCard(arg1)) {
+      location = arg1;
+    } else {
+      location = this.randomCard(this.locations, arg1) as Location;
     }
+
     const image = new RichEmbed()
     .setImage(API.cardFullart(location))
     .setURL(API.cardFullart(location));

@@ -13,7 +13,7 @@ export function load(type: string, content: string): Scanned | null {
       try {
         const [name, ...stats] = content.split(/ (?=[0-9]+)/);
         if (stats.length !== 5) throw new Error();
-        const [courage, power, wisdom, speed, energy] = stats.map(parseInt);
+        const [courage, power, wisdom, speed, energy] = stats.map((v) => parseInt(v));
         return new ScannedCreature(name, courage, power, wisdom, speed, energy);
       } catch {
         return null;

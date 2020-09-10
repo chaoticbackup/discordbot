@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Message, GuildMember } from 'discord.js';
 import { donate } from '../../common';
 import { SendFunction } from '../../definitions';

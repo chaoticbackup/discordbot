@@ -9,7 +9,12 @@
   "rules": {
     "dot-notation": "off",
     "eqeqeq": "off",
-    "max-len": ["error", { "code": 132 }],
+    "max-len": ["error", { 
+      "code": 132, 
+      "ignoreTemplateLiterals": true, 
+      "ignoreRegExpLiterals": true, 
+      "ignorePattern": "^\\s*debug\\(" 
+    }],
     "no-empty": ["warn", { "allowEmptyCatch": true }],
     "no-eval": "warn",
     "no-fallthrough": "warn",

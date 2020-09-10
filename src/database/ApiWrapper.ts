@@ -6,18 +6,18 @@ const instance = API.getInstance();
 
 /* Wrappers for imgur images */
 instance.hasImage = (card: Card) => (
-  Boolean(card.gsx$ic && card.gsx$ic !== '') ||
-  Boolean(card.gsx$image && card.gsx$image !== '')
+  Boolean(card.gsx$ic !== undefined && card.gsx$ic !== '') ||
+  Boolean(card.gsx$image !== undefined && card.gsx$image !== '')
 );
 
 instance.hasAvatar = (card: Creature) => (
-  Boolean(card.gsx$ia && card.gsx$ia !== '') ||
-  Boolean(card.gsx$avatar && card.gsx$avatar !== '')
+  Boolean(card.gsx$ia !== undefined && card.gsx$ia !== '') ||
+  Boolean(card.gsx$avatar !== undefined && card.gsx$avatar !== '')
 );
 
 instance.hasFullart = (card: Card) => (
-  Boolean(card.gsx$if && card.gsx$if !== '') ||
-  Boolean(card.gsx$splash && card.gsx$splash !== '')
+  Boolean(card.gsx$if !== undefined && card.gsx$if !== '') ||
+  Boolean(card.gsx$splash !== undefined && card.gsx$splash !== '')
 );
 
 instance.cardImage = (card: Card) => {
@@ -33,7 +33,7 @@ instance.cardImage = (card: Card) => {
 instance.cardAvatar = (card: Creature) => {
   if (card.gsx$ia && card.gsx$ia !== '') {
     return card.gsx$ia;
-  } else if (card.gsx$avatar !== '') {
+  } else if (card.gsx$avatar && card.gsx$avatar !== '') {
     return instance.base_image + card.gsx$avatar;
   } else {
     return instance.card_back;

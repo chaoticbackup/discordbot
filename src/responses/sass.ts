@@ -31,7 +31,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // #ban
   if (content.substring(0, 4).toLowerCase() === '#ban') {
     const name = (content.charAt(5) === ' ') ? content.substring(6) : content.substring(5);
-    return await send(await whyban(name, message.channel));
+    return await send(whyban(name, message.channel));
   }
 
   // [[cardname]]

@@ -282,7 +282,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         : banlist(message, options);
 
       if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
-        // eslint-disable-next-line max-len
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null
       )) {

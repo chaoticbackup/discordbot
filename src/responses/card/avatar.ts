@@ -14,7 +14,7 @@ export default function (name: string) {
   }
   else if (results.length > 0) {
     card = results[0];
-    if (!card.gsx$ia) {
+    if (!API.hasAvatar(card)) {
       return `Sorry, I don't have ${card.gsx$name}'s avatar`;
     }
   }

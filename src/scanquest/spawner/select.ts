@@ -19,17 +19,27 @@ export default class Select {
     this.scan_locations = new SpawnLocation();
   }
 
+  public setTitle(image: RichEmbed, active: number) {
+    let title = '';
+    if (active <= 0) title = 'Scan expired';
+    if (active < 1) title = `Scan expires in ${active * 60} minutes`;
+    else title = `Scan expires in ${active} hours`;
+    image.setTitle(title);
+  }
+
   /**
    * Picks a new card and duration to send
    * @param server The server that we're picking a card for
    */
-  public card(server: Server) {
-    const [scannable, image] = this.select(server);
+  public card(server: Server, scannable?: Scannable, image?: RichEmbed) {
+    if (scannable === undefined || image === undefined) {
+      [scannable, image] = this.select(server);
+    }
 
     const active = this.duration(API.find_cards_by_name(scannable.card.name)[0]);
 
-    image.setTitle(`Scan expires in ${active} hours`)
-    .setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
+    this.setTitle(image, active);
+    image.setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
 
     return { scannable, image, active };
   }
@@ -42,18 +52,13 @@ export default class Select {
 
     const rnd = Math.floor(Math.random() * 20);
     if (rnd < 4) {
-      [scannable, image] = this.scan_locations.generate();
+      [scannable, image] = this.scan_locations.generate(server.activescans);
     }
     else if (rnd < 5) {
-      [scannable, image] = this.scan_battlegear.generate();
+      [scannable, image] = this.scan_battlegear.generate(server.activescans);
     }
     else {
-      [scannable, image] = this.scan_creature.generate();
-    }
-
-    // Don't resend existing scan
-    if (server.activescans.find(scan => scan.scan.name === scannable.card.name)) {
-      return this.select(server);
+      [scannable, image] = this.scan_creature.generate(server.activescans);
     }
 
     return [scannable, image];
