@@ -22,7 +22,7 @@ export default class Select {
   public setTitle(image: RichEmbed, active: number) {
     let title = '';
     if (active <= 0) title = 'Scan expired';
-    if (active < 1) title = `Scan expires in ${active * 60} minutes`;
+    else if (active < 1) title = `Scan expires in ${active * 60} minutes`;
     else title = `Scan expires in ${active} hours`;
     image.setTitle(title);
   }
