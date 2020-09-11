@@ -5,6 +5,7 @@ package-lock.json
 node_modules/
 build/
 db/
+backup/
 .vscode/
 yarn.lock
 api.json
