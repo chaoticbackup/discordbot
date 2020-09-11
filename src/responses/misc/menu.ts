@@ -31,7 +31,7 @@ const _order = (item: string) => {
     if (cleantext(key).indexOf(item) === 0) {
       return `${order[key]}`;
     }
-    else if(cleantext(key) === "blugon burger") {
+    else if(cleantext(key).includes("blugon burger")) {
       return ":hamburger:";
     }
   }
