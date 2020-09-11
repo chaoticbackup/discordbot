@@ -24,15 +24,15 @@ const _make = (item: string) => {
 };
 
 const _order = (item: string) => {
-  if (!item) return 'What would you like to order?';
+  if(cleantext(item).includes("blugon burger")) {
+      return ":hamburger:";
+    }
+  else if (!item) return 'What would you like to order?';
   item = cleantext(item);
 
   for (const key in order) {
     if (cleantext(key).indexOf(item) === 0) {
       return `${order[key]}`;
-    }
-    else if(cleantext(key).includes("blugon burger")) {
-      return ":hamburger:";
     }
   }
   return "Sorry, I don't have that. Use !menu";
