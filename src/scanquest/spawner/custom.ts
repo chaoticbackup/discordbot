@@ -78,7 +78,6 @@ export default function (this: Spawner, message: Message, args: string[], option
   };
 
   const expiresDiff = (expires: Moment) => {
-    console.log(expires, moment());
     return expires.startOf('minute').diff(moment().startOf('minute'), 'hours');
   };
 
