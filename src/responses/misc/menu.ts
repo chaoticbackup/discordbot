@@ -32,7 +32,7 @@ const _order = (item: string) => {
       return `${order[key]}`;
     }
     else if(cleantext(key) === "blugon burger") {
-      return order['Blügon Burger'];
+      return ":hamburger:";
     }
   }
   return "Sorry, I don't have that. Use !menu";
