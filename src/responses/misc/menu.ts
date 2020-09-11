@@ -31,7 +31,7 @@ const _order = (item: string) => {
     if (cleantext(key).indexOf(item) === 0) {
       return `${order[key]}`;
     }
-    elif(cleantext(key) === "Blugon Burger")
+    else if(cleantext(key) === "Blugon Burger")
       return order['Blügon Burger'];
   }
   return "Sorry, I don't have that. Use !menu";
