@@ -44,7 +44,7 @@
     },
     "lf": {
         "cmd": "!lf, match <type|>\n!cancel",
-        "short": "adds or removes specific match_making roles"
+        "short": "adds or removes specific match making roles"
     },
     "documents": {
         "cmd":"!rulebook, !cr, !errata, !guide", 
