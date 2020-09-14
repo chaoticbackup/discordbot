@@ -182,7 +182,7 @@ export default class Spawner {
           .then(async (message) => {
             if (message?.editable && message.embeds.length > 0) {
               const embed = new RichEmbed(message.embeds[0]);
-              this.select.setTitle(embed, 0);
+              this.select.setTitle(embed, -1);
               await message.edit(embed);
             }
           })
