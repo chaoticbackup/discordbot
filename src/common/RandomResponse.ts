@@ -2,7 +2,7 @@ export default class RandomResponse {
   sr: any = {}; // stored responses
 
   rndrsp = <T>(items: T[], command?: string): T => {
-    const sr: any = this.sr;
+    const { sr } = this;
 
     if (items.length === 1) return items[0];
 

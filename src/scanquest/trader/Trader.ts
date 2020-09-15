@@ -3,6 +3,7 @@ import ScanQuestDB from '../database';
 import TradeManager, { TradeStatus, sendFunction, yes, no } from './TradeManager';
 import debug from '../../common/debug';
 import logger from '../../logger';
+import { msgCatch } from '../../common';
 
 export default class Trader {
   readonly bot: Client;
@@ -17,7 +18,7 @@ export default class Trader {
     const content = args.join(' ').replace(/<@![0-9]*>/gi, '');
 
     const send = async (msg: string) => {
-      return await message.channel.send(msg).catch((e) => { logger.error(e); });
+      return await message.channel.send(msg).catch(msgCatch);
     };
 
     if (!mentions || mentions.length === 0) { await send('Tag a user to trade with'); return; }

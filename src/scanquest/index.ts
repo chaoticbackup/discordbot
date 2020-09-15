@@ -1,8 +1,8 @@
 import { Client, Message } from 'discord.js';
 
-import { flatten } from '../common';
+import { flatten, msgCatch } from '../common';
 import parseCommand from '../common/parseCommand';
-import users from '../common/users';
+import { isUser } from '../common/users';
 
 import { API } from '../database';
 import { SendFunction } from '../definitions';
@@ -17,10 +17,6 @@ import Spawner from './spawner/Spawner';
 import Trader from './trader/Trader';
 
 const development = (process.env.NODE_ENV === 'development');
-
-export function msgCatch(error: any) {
-  logger.error(error.stack);
-}
 
 export default class ScanQuest {
   readonly bot: Client;
@@ -77,7 +73,7 @@ export default class ScanQuest {
       }
     };
 
-    const content = message.content;
+    const { content } = message;
     const mentions: string[] = Array.from(message.mentions.users.keys());
 
     if (!API.data) {
@@ -121,22 +117,22 @@ export default class ScanQuest {
 
         /* Admin functions */
         case 'load':
-          if (message.author.id === users('daddy') || message.author.id === users('bf')) {
+          if (isUser(message, ['daddy', 'bf'])) {
             await send(loadScan(this.db, args));
           }
           return;
         case 'reroll':
-          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
+          if (message.guild && isUser(message, ['daddy', 'bf'])) {
             this.spawner.reroll(message);
           }
           return;
         case 'spawn':
-          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
+          if (message.guild && isUser(message, ['daddy', 'bf'])) {
             this.spawner.spawn(message, args, options);
           }
           return;
         case 'scanlist':
-          if (message.guild && (message.author.id === users('daddy') || message.author.id === users('bf'))) {
+          if (message.guild && isUser(message, ['daddy', 'bf'])) {
             await send(this.spawner.list(message));
           }
           return;

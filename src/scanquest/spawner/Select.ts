@@ -7,6 +7,7 @@ import { Server } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
+import logger from '../../logger';
 
 export default class Select {
   private readonly scan_battlegear: SpawnBattlegear;
@@ -21,7 +22,7 @@ export default class Select {
 
   public setTitle(image: RichEmbed, active: number) {
     let title = '';
-
+    logger.info(active.toString());
     if (active > 1) title = `Scan expires in ${active} hours`;
     else if (Number(active.toFixed(2)) > 0) title = `Scan expires in ${active * 60} minutes`;
     else title = 'Scan expired';

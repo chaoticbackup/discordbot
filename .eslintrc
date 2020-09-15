@@ -78,7 +78,11 @@
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-unused-vars": [1, { "args": "after-used" , "argsIgnorePattern": "^_", "ignoreRestSiblings": true }],
+        "@typescript-eslint/no-unused-vars": ["warn", { 
+          "args": "after-used", 
+          "argsIgnorePattern": "^_", 
+          "ignoreRestSiblings": true 
+        }],
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/space-before-function-paren": ["error", {
           "anonymous": "always",
@@ -105,6 +109,18 @@
         "no-useless-escape": "off",
         "operator-linebreak": "off",
         "prefer-const": "warn",
+        "prefer-destructuring": ["error", {
+          "VariableDeclarator": {
+            "array": false,
+            "object": true
+          },
+          "AssignmentExpression": {
+            "array": false,
+            "object": true
+          }
+        }, {
+          "enforceForRenamedProperties": false
+        }],    
         "prefer-promise-reject-errors": "off",
         "prefer-template": "error",
         "semi": "off",

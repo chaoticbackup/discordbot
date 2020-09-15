@@ -1,4 +1,5 @@
-import { Snowflake } from 'discord.js';
+import { Snowflake, Message, TextChannel } from 'discord.js';
+import { Channel } from '../definitions';
 
 class Server {
   name: string;
@@ -20,14 +21,39 @@ class Server {
   }
 }
 
-export default function (name: string): Server {
-  const server = servers.find(server => server.name === name);
+export default function servers(name: serverName): Server {
+  const server = _servers.find(server => server.name === name);
   if (server === undefined) return new Server({ name: '', id: '', channels: {} });
   return server;
 }
 
-const servers: Server[] = [
-  new Server({
+/**
+ * Checks whether a channel is the specified name
+ * @param guild Optionally specify which guild this channel should be in (default main)
+ */
+export function is_channel(message: Message, name: string): boolean;
+export function is_channel(channel: Channel, name: string, guild?: serverName): boolean;
+export function is_channel<A extends Message | Channel>(arg1: A, name: string, guild?: serverName) {
+  if (arg1 instanceof Message) {
+    const { channel } = arg1;
+    if (channel instanceof TextChannel) {
+      return (channel.name === name);
+    }
+    return false;
+  }
+  else if (arg1 instanceof TextChannel) {
+    const channel = arg1;
+    if (!guild) guild = 'main';
+    const server = servers(guild);
+    if (Object.keys(server.channels).length === 0) return false;
+    return channel.id === server.channel(name);
+  }
+
+  return false;
+}
+
+const serverList = [
+  {
     name: 'main',
     id: '135657678633566208',
     channels: {
@@ -42,8 +68,8 @@ const servers: Server[] = [
       other_games: '286993363175997440',
       perim: '656156361029320704'
     }
-  }),
-  new Server({
+  },
+  {
     name: 'develop',
     id: '504052742201933824',
     channels: {
@@ -52,24 +78,30 @@ const servers: Server[] = [
       bot_commands: '559935570428559386',
       debug: '712680358939852883'
     }
-  }),
-  new Server({
+  },
+  {
     name: 'trading',
     id: '617128322593456128',
     channels: {}
-  }),
-  new Server({
+  },
+  {
     name: 'international',
     id: '624576671630098433',
     channels: {
       bot_commands: '624632794739376129'
     }
-  }),
-  new Server({
+  },
+  {
     name: 'unchained',
     id: '339031939811901441',
     channels: {
       bot_commands: '392869882863026179'
     }
-  })
-];
+  }
+] as const;
+
+const _servers: Server[] = serverList.map(s => new Server(s));
+
+const _names = serverList.map(s => s.name);
+
+type serverName = typeof _names[number];

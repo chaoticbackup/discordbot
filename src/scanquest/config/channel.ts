@@ -21,6 +21,10 @@ export function channel(db: ScanQuestDB, server: Server, args: string[]): string
         server.receive_channel = channel;
         db.servers.update(server);
       }
+      return;
+    }
+    default: {
+      return '!perim channels <list | send | recieve>';
     }
   }
 }

@@ -1,11 +1,12 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { CollectorFilter, DMChannel, Message, TextChannel } from 'discord.js';
-import users from '../../common/users';
+import { isUser } from '../../common/users';
 import logger from '../../logger';
 import { Scanned } from '../scan_type/Scanned';
 import ScanQuestDB from '../database';
 import { setFilter } from './typeFilter';
 import { SendFunction } from '../../definitions';
+import { msgCatch } from '../../common';
 
 interface scan {
   index: number
@@ -29,7 +30,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
 
   let user: RegExpExecArray | null;
   if (options.length > 0 &&
-    message.author.id === users('daddy') &&
+    isUser(message, 'daddy') &&
     (user = (/user=([\w]{2,})/).exec(options.join(' '))))
   {
     ids.push(user[1]);
@@ -82,13 +83,13 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
             Pagination._loadList(false).catch((e) => { logger.error(e); });
           }
           if (message.deletable) message.delete().catch(() => {});
-          message.channel.send('No scans match this search').catch(() => {});
+          message.channel.send('No scans match this search').catch(msgCatch);
         });
         collector.on('end', () => {
           if (resp.deletable) resp.delete().catch(logger.error);
         });
       })
-      .catch(logger.error);
+      .catch(msgCatch);
     }
   };
 

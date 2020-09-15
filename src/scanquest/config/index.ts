@@ -1,11 +1,12 @@
 import { Message } from 'discord.js';
 
 import { SendFunction } from '../../definitions';
-import { Server } from '../database/ScanQuestDB';
+import { Server } from '../database';
 import help from './help';
 import ScanQuest from '..';
 import { ignore } from './ignore';
 import { channel } from './channel';
+import { disable } from './disable';
 
 export default async function (this: ScanQuest, message: Message, args: string[], mentions: string[], send: SendFunction) {
   if (args.length > 0) {
@@ -15,7 +16,7 @@ export default async function (this: ScanQuest, message: Message, args: string[]
       return await help(this.db, message, mentions, send);
     }
   }
-  if (message.guild && message.member.hasPermission('ADMINISTRATOR')) {
+  if (message.guild && (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_MESSAGES'))) {
     if (args.length === 0) {
       // todo this is for init a new server
       return await send('Cannot configure a new server at this time');
@@ -29,8 +30,10 @@ export default async function (this: ScanQuest, message: Message, args: string[]
     switch (args[0]) {
       case 'remaining': return await send(remaining(server));
       case 'ignore': return await send(ignore(this.db, server, args.slice(1)));
-      case 'channel': return await send(channel(this.db, server, args.slice(1)));
-      case 'disable': return await send(disable(this, server));
+      case 'channel':
+      case 'channels': return await send(channel(this.db, server, args.slice(1)));
+      case 'disable': return await disable.call(this, server, true, send);
+      case 'enable': return await disable.call(this, server, false, send);
     }
   }
 }
@@ -43,8 +46,4 @@ function remaining(server: Server) {
     return `${d[4]}:${d[5]}:${d[6]}`;
   }
   return 'No scan scheduled';
-}
-
-function disable(SC: ScanQuest, server: Server) {
-
 }

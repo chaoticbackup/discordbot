@@ -1,13 +1,28 @@
-import { Snowflake } from 'discord.js';
+import { Snowflake, Message } from 'discord.js';
 
-export default function (name: string): Snowflake {
-  const user = users[name];
-  if (user) return user;
+type name = keyof typeof usersList;
+
+export default function users(name: name): Snowflake {
+  if (usersList[name]) return usersList[name];
   else return '';
 }
 
-const users: Record<string, string> =
-{
+export function isUser(message: Message, arg1: name | name[]): boolean {
+  let is = false;
+
+  if (typeof arg1 === 'string') {
+    is = (message.author.id === users(arg1));
+  }
+  else {
+    arg1.forEach(user => {
+      is = is || (message.author.id === users(user));
+    });
+  }
+
+  return is;
+}
+
+const usersList = {
   me: '279331985955094529',
   daddy: '140143063711481856',
   afjak: '279788856285331457',

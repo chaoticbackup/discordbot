@@ -4,6 +4,7 @@ import ScanQuestDB from '../database';
 import { Scanned } from '../scan_type/Scanned';
 import { toScannable } from '../scan_type/toScannable';
 import { Scannable } from '../scan_type/Scannable';
+import { msgCatch } from '../../common';
 
 export const yes = '🇾';
 export const no = '🇳';
@@ -121,7 +122,7 @@ export default class {
 
     content += `\n${help(0)}\n${help()}\n${help(1)}`;
 
-    response?.edit(content).catch(logger.error);
+    response?.edit(content).catch(msgCatch);
   }
 
   public listScans(id: Snowflake, cards: number[]) {

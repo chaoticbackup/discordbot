@@ -5,6 +5,10 @@ const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)?.[1] ?? ''))
 export function ignore(db: ScanQuestDB, server: Server, args: string[]): string | undefined {
   switch (args[0]) {
     case 'list': {
+      if (server.ignore_channels.length === 0) {
+        return 'This server has no ignored channels';
+      }
+
       let channels = '';
       server.ignore_channels.forEach((channel) => {
         channels += `<#${channel}>\n`;
@@ -25,6 +29,10 @@ export function ignore(db: ScanQuestDB, server: Server, args: string[]): string 
       const channels = parse(args.slice(1));
       server.ignore_channels = server.ignore_channels?.filter((channel) => !channels.includes(channel)) ?? [];
       db.servers.update(server);
+      return;
+    }
+    default: {
+      return '!perim ignore <list | add | remove>';
     }
   }
 }

@@ -71,11 +71,8 @@ bot.on('ready', () => {
 
 // Automatically reconnect if the bot disconnects
 bot.on('disconnect', (CloseEvent) => {
-  stop()
-  .finally(() => {
-    bot.login(auth.token).then(() => { sendError(); });
-  });
-  logger.warn(`Reconnecting, ${CloseEvent.code}`);
+  logger.warn(`Disconnected, ${CloseEvent.code}`);
+  process.emit('SIGINT', 'SIGINT');
 });
 
 let stackTrace = '';
@@ -86,7 +83,7 @@ const sendError = async () => {
     if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
-        return await (channel as Channel).send(st).catch(logger.error);
+        return await (channel as Channel).send(st).catch(error => { logger.error(error.stack); });
       }
     }
   }
