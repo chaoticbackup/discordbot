@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Message, RichEmbed } from 'discord.js';
 
-import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp, is_channel } from '../common';
+import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp, is_channel, msgCatch } from '../common';
 import debug from '../common/debug';
 import parseCommand from '../common/parseCommand';
 import servers from '../common/servers';
@@ -54,12 +54,12 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   // Ignore bot messages
   if (message.author.bot) return;
 
-  const content: string = message.content;
+  const { content } = message;
   const mentions: string[] = Array.from(message.mentions.users.keys());
 
   // Prevents sending an empty message
   const send: SendFunction = async (msg, options) => {
-    if (msg) return message.channel.send(msg, options).catch(error => { logger.error(error.stack); });
+    if (msg) return message.channel.send(msg, options).catch(msgCatch);
   };
 
   const response = async (): Promise<void> => {
@@ -111,14 +111,14 @@ export default (async function (bot: Client, message: Message): Promise<void> {
  * @param send
  */
 const command_response = async (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> => {
-  const content: string = message.content;
+  const { content } = message;
 
   const { cmd, args, options } = parseCommand(content);
 
   if (options.includes('help'))
     return send(help(cmd));
 
-  const channel = message.channel;
+  const { channel } = message;
   const { guild, guildMember } = await messageGuild(message);
 
   const parseCards = (args: string[], opts: string[]): void => {

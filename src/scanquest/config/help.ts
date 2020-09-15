@@ -1,8 +1,7 @@
 import { Message, GuildMember } from 'discord.js';
-import { donate } from '../../common';
+import { donate, msgCatch } from '../../common';
 import { SendFunction } from '../../definitions';
-import ScanQuestDB from './ScanQuestDB';
-import logger from '../../logger';
+import ScanQuestDB from '../database/ScanQuestDB';
 
 export default async (db: ScanQuestDB, message: Message, mentions: string[], send: SendFunction) => {
   if (message.guild) {
@@ -27,7 +26,7 @@ export default async (db: ScanQuestDB, message: Message, mentions: string[], sen
         await guildMember.send(donate());
       })
       // if can't dm, send to channel
-      .catch(async (e) => { logger.error(e); await send(help()); });
+      .catch(async (e) => { msgCatch(e); await send(help()); });
   }
   return await send(help())
     .then(async () => { await send(donate()); });

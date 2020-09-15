@@ -1,6 +1,6 @@
 import { Message, DMChannel } from 'discord.js';
 import ScanQuestDB from '../database';
-import users from '../../common/users';
+import { isUser } from '../../common/users';
 import { SendFunction } from '../../definitions';
 
 export default async function balance(db: ScanQuestDB, message: Message, options: string[], send: SendFunction):
@@ -18,7 +18,7 @@ Promise<void> {
 
   let user: RegExpExecArray | null;
   if (options.length > 0 &&
-      message.author.id === users('daddy') &&
+      isUser(message, 'daddy') &&
       (user = (/user=([\w]{2,})/).exec(options.join(' '))))
   {
     const p = db.players.findOne({ id: user[1] });

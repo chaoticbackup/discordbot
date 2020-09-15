@@ -6,6 +6,7 @@ import Select from './Select';
 import debug from '../../common/debug';
 import custom from './custom';
 import { Scannable } from '../scan_type/Scannable';
+import { msgCatch } from '../../common';
 
 /**
  * @param timeout A javascript timer
@@ -48,33 +49,10 @@ export default class Spawner {
     this.start();
   }
 
-  private setSendTimeout(server: Server, endTime: Moment) {
-    const { id } = server;
-    if (this.timers.has(id)) {
-      clearTimeout(this.timers.get(id)!.timeout);
-    }
-
-    const timeout = setTimeout(() => {
-      debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
-      this.newSpawn(server);
-    }, endTime.diff(moment()));
-    this.timers.set(server.id, { timeout, endTime });
-  }
-
   start() {
     // get timers from database
     this.db.servers.data.forEach((server) => {
-      if (server.remaining) {
-        const endTime = moment(server.remaining);
-        const remaining = endTime.diff(moment(), 'milliseconds');
-        if (remaining > config.debounce) {
-          this.setSendTimeout(server, endTime);
-        }
-        else {
-          debug(this.bot, 'When starting bot, spawn timer has already expired');
-          this.newSpawn(server);
-        }
-      }
+      if (!server.disabled) this.startTimer(server);
     });
   }
 
@@ -94,10 +72,44 @@ export default class Spawner {
     });
   }
 
+  public clearTimeout(server: Server) {
+    if (this.timers.has(server.id)) {
+      clearTimeout(this.timers.get(server.id)!.timeout);
+    }
+  }
+
+  private setSendTimeout(server: Server, endTime: Moment) {
+    this.clearTimeout(server);
+
+    const timeout = setTimeout(() => {
+      debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
+      this.newSpawn(server);
+    }, endTime.diff(moment()));
+    this.timers.set(server.id, { timeout, endTime });
+  }
+
+  public startTimer(server: Server) {
+    if (server.remaining) {
+      const endTime = moment(server.remaining);
+      const remaining = endTime.diff(moment(), 'milliseconds');
+      if (remaining > config.debounce) {
+        this.setSendTimeout(server, endTime);
+      }
+      else {
+        debug(this.bot, `When starting scanquest for <#${server.send_channel}>, existing spawn timer had already expired`);
+        this.newSpawn(server);
+      }
+    }
+  }
+
   public reroll(message: Message) {
-    const id = message.guild.id;
+    const { id } = message.guild;
     const server = this.db.servers.findOne({ id });
     if (server) {
+      if (server.disabled) {
+        message.channel.send('Scanquest is disabled on this server').catch(msgCatch);
+        return;
+      }
       debug(this.bot, `${message.author.username} has issued a reroll`);
       this.newSpawn(server, true);
     }
@@ -115,7 +127,7 @@ export default class Spawner {
   // Decrease spawn timer countdown with activity
   // Assign point value to next spawn, size of messages decrease from point value
   public tick(message: Message) {
-    const id = message.guild.id;
+    const { id } = message.guild;
     // only monitor the servers the bot is configured for
     const server = this.db.servers.findOne({ id: id });
     if (!server || (server.ignore_channels?.includes(message.channel.id) ?? true)) return;
@@ -123,7 +135,7 @@ export default class Spawner {
     // Ignore short messages
     const content = message.content.replace(/<:.*:[0-9]*>/gi, '');
     const words = content.split(' ').length;
-    let length = content.length;
+    let { length } = content;
 
     if (words < 3 || length < 20) return;
 
@@ -186,7 +198,7 @@ export default class Spawner {
               await message.edit(embed);
             }
           })
-          .catch(() => {});
+          .catch(msgCatch);
         }
       }
       return s;
@@ -194,7 +206,12 @@ export default class Spawner {
   }
 
   protected newSpawn(server: Server, force = false) {
-    const { activescans, last_sent, send_channel } = server;
+    const { activescans, last_sent, send_channel, disabled } = server;
+    if (disabled) {
+      debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
+      return;
+    }
+
     debug(this.bot, `<#${send_channel}>: Attempting to generate a scan at ${moment().format(date_format)}`);
 
     if (!force && activescans.length > 0 && last_sent) {

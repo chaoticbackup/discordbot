@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
 import { Client, Message, RichEmbed } from 'discord.js';
-import logger from '../logger';
-import { is_channel, rndrsp, escape_text } from '../common';
+import { is_channel, rndrsp, escape_text, msgCatch } from '../common';
 import servers from '../common/servers';
-import users from '../common/users';
+import users, { isUser } from '../common/users';
 
 import { compliment } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
@@ -24,7 +23,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   if (content.match(back_regex)) {
     const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcement and ping everyone when they do.";
     return await send(response).then((message: Message) => {
-      message.react('586395473716445184').catch((err) => { logger.error(err); });
+      message.react('586395473716445184').catch(msgCatch);
     });
   }
 
@@ -119,10 +118,10 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       }
       return `${displayName} taught me Chaotic`;
     }
-    else if (message.author.id === users('brat')) {
+    else if (isUser(message, 'brat')) {
       return rndrsp(tags.brat);
     }
-    else if (message.author.id === users('bf')) {
+    else if (isUser(message, 'bf')) {
       return compliment([users('bf')], '', message.guild);
     }
     else {

@@ -1,11 +1,19 @@
 import { Guild, GuildMember, PermissionResolvable } from 'discord.js';
 import RandomResponse from './RandomResponse';
+import logger from '../logger';
 
-export const rndrsp = (new RandomResponse()).rndrsp;
+export const { rndrsp } = new RandomResponse();
 export * from './can_send';
-export * from './is_channel';
 export * from './donate';
-export * from './object.keys';
+export * from './servers';
+export * from './users';
+
+/**
+ * This function turns a send message error into a log
+ */
+export function msgCatch(error: any) {
+  logger.error(error.stack);
+}
 
 /**
  * turns the first letter uppercase
@@ -79,4 +87,9 @@ export function tribe_plural(tribe: string) {
     default:
       return tribe;
   }
+}
+
+// This function gets around implicit any when no index signature
+export function keys<O extends object>(obj: O): Array<keyof O> {
+  return Object.keys(obj) as Array<keyof O>;
 }

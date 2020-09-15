@@ -45,6 +45,7 @@ export class Server {
   public activescans: ActiveScan[];
   public remaining: Date | null; // remaining time until next scan
   public last_sent: Date | null; // last time a scan was sent
+  public disabled: boolean;
 
   constructor(
     { id, send_channel, receive_channel }: {id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake}
@@ -56,6 +57,7 @@ export class Server {
     this.activescans = [];
     this.remaining = null;
     this.last_sent = null;
+    this.disabled = false;
   }
 }
 

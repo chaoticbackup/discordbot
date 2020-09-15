@@ -6,6 +6,7 @@ import { Scannable } from '../scan_type/Scannable';
 import moment, { Moment } from 'moment';
 import { ActiveScan } from '../database';
 import { Card } from '../../definitions';
+import { msgCatch } from '../../common';
 
 const cmd = '!spawn <content> --expire=[+/-<number>m/h | timestamp] --message=[Snowflake]';
 export default function (this: Spawner, message: Message, args: string[], options: string): void {
@@ -20,7 +21,7 @@ export default function (this: Spawner, message: Message, args: string[], option
   const msg_id = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
   const scan = (msg_id) ? server.activescans.find((s) => s.msg_id === msg_id) : undefined;
 
-  regex_arr = (/expire=([\w+-]{2,})/).exec(options);
+  regex_arr = (/expire=([\w.+-]{2,})/).exec(options);
   const expire_change = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
 
   const parseExpires = (oldExpires: Date, change: string): false | Moment => {
@@ -46,7 +47,7 @@ export default function (this: Spawner, message: Message, args: string[], option
       }
     }
     else {
-      regex_arr = (/[+-](\d+)[hm]*/).exec(change);
+      regex_arr = (/[+-]([\d.]\d+)[hm]*/).exec(change);
       if (regex_arr && regex_arr.length > 1) {
         const num = regex_arr[1];
         if (change.endsWith('m')) {
@@ -69,8 +70,7 @@ export default function (this: Spawner, message: Message, args: string[], option
     }
 
     if (newExpires === undefined) {
-      message.channel.send(`${change} is not a valid format`)
-      .catch(() => {});
+      message.channel.send(`${change} is not a valid format`).catch(msgCatch);
       return false;
     }
 
@@ -92,7 +92,7 @@ export default function (this: Spawner, message: Message, args: string[], option
         await message.edit(embed);
       }
     })
-    .catch(() => {});
+    .catch(msgCatch);
 
     this.db.servers.update(server);
   };
@@ -120,18 +120,16 @@ export default function (this: Spawner, message: Message, args: string[], option
       if (expires !== false) {
         setExpires(scan, expires);
         message.channel.send(`${scan.scan.name} updated to expire at ${moment(scan.expires).format('hh:mm:ss A')}`)
-        .catch(() => {});
+        .catch(msgCatch);
       }
       return;
     }
     else if (msg_id) {
-      message.channel.send('Not a valid message id')
-      .catch(() => {});
+      message.channel.send('Not a valid message id').catch(msgCatch);
       return;
     }
     else {
-      message.channel.send(cmd)
-      .catch(() => {});
+      message.channel.send(cmd).catch(msgCatch);
       return;
     }
   }
@@ -149,16 +147,14 @@ export default function (this: Spawner, message: Message, args: string[], option
   const card = API.find_cards_by_name(name)[0] ?? null;
 
   if (!card) {
-    message.channel.send(`${name.replace('@', '')} is not a valid card`)
-    .catch(() => {});
+    message.channel.send(`${name.replace('@', '')} is not a valid card`).catch(msgCatch);
     return;
   }
 
   const [sc, img] = getScannable(card);
 
   if (sc === undefined) {
-    message.channel.send(`${card.gsx$name} is not a spawnable card`)
-    .catch(() => {});
+    message.channel.send(`${card.gsx$name} is not a spawnable card`).catch(msgCatch);
     return;
   }
 
@@ -178,8 +174,7 @@ export default function (this: Spawner, message: Message, args: string[], option
       this.spawnCard(server, scannable, image, active);
     }
     else {
-      message.channel.send('Cannot spawn a new card that already expired')
-      .catch(() => {});
+      message.channel.send('Cannot spawn a new card that already expired').catch(msgCatch);
     }
   }
   else {
@@ -198,16 +193,13 @@ export default function (this: Spawner, message: Message, args: string[], option
 
         this.db.servers.update(server);
 
-        message.channel.send('Updated existing scan')
-        .catch(() => {});
+        message.channel.send('Updated existing scan').catch(msgCatch);
       } else {
-        message.channel.send('Not a valid message id')
-        .catch(() => {});
+        message.channel.send('Unable to update specificed message').catch(msgCatch);
       }
     })
     .catch(() => {
-      message.channel.send('Not a valid message id')
-      .catch(() => {});
+      message.channel.send('Not a valid message id').catch(msgCatch);
     });
   }
 }

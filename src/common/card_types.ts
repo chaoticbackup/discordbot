@@ -1,17 +1,14 @@
-export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'];
-const _Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'] as const;
+export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'] as const;
+export const CreatureTribes = ([] as string[]).concat(Tribes, 'Tribeless');
+export const MugicTribes = ([] as string[]).concat(Tribes, 'Generic');
 
-export const CreatureTribes = Tribes.concat('Tribeless');
-export const MugicTribes = Tribes.concat('Generic');
-
-export type Tribe = typeof _Tribes[number];
+export type Tribe = typeof Tribes[number];
 export type CreatureTribe = Tribe | 'Tribeless';
 export type MugicTribe = Tribe | 'Generic';
 
-export type CardTypes = ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'];
-const _Types = ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'] as const;
+const CardTypes = ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'] as const;
 
-export type CardType = typeof _Types[number];
+export type CardType = typeof CardTypes[number];
 
 export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
   switch (input.toLowerCase()) {
