@@ -1,7 +1,7 @@
 import { Message, GuildMember } from 'discord.js';
 import { donate } from '../../common';
 import { SendFunction } from '../../definitions';
-import ScanQuestDB from './ScanQuestDB';
+import ScanQuestDB from '../database/ScanQuestDB';
 import logger from '../../logger';
 
 export default async (db: ScanQuestDB, message: Message, mentions: string[], send: SendFunction) => {

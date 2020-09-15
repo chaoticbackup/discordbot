@@ -64,18 +64,22 @@ export default class Spawner {
   start() {
     // get timers from database
     this.db.servers.data.forEach((server) => {
-      if (server.remaining) {
-        const endTime = moment(server.remaining);
-        const remaining = endTime.diff(moment(), 'milliseconds');
-        if (remaining > config.debounce) {
-          this.setSendTimeout(server, endTime);
-        }
-        else {
-          debug(this.bot, 'When starting bot, spawn timer has already expired');
-          this.newSpawn(server);
-        }
-      }
+      if (!server.disabled) this.startTimer(server);
     });
+  }
+
+  startTimer(server: Server) {
+    if (server.remaining) {
+      const endTime = moment(server.remaining);
+      const remaining = endTime.diff(moment(), 'milliseconds');
+      if (remaining > config.debounce) {
+        this.setSendTimeout(server, endTime);
+      }
+      else {
+        debug(this.bot, `When starting scanquest for <#${server.send_channel}>, existing spawn timer had already expired`);
+        this.newSpawn(server);
+      }
+    }
   }
 
   stop() {

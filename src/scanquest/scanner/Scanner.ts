@@ -5,7 +5,7 @@ import Icons from '../../common/bot_icons';
 import ScanQuestDB, { ActiveScan } from '../database';
 import { SendFunction } from '../../definitions';
 import { toScannable } from '../scan_type/toScannable';
-import { first_scan } from '../database/help';
+import { first_scan } from '../config/help';
 
 export default class Scanner {
   readonly icons: Icons;

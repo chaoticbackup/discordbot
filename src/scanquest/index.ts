@@ -9,7 +9,7 @@ import { SendFunction } from '../definitions';
 import logger from '../logger';
 
 import ScanQuestDB from './database';
-import perim from './database/config';
+import perim from './config';
 import loadScan from './loader/Loader';
 import { balance, listScans, rate } from './player';
 import Scanner from './scanner/Scanner';
@@ -18,14 +18,18 @@ import Trader from './trader/Trader';
 
 const development = (process.env.NODE_ENV === 'development');
 
+export function msgCatch(error: any) {
+  logger.error(error.stack);
+}
+
 export default class ScanQuest {
-  private readonly db: ScanQuestDB;
   readonly bot: Client;
   private timeout: NodeJS.Timeout;
-  private spawner: Spawner;
-  private scanner: Scanner;
-  private trader: Trader;
   private init: boolean = false;
+  protected readonly db: ScanQuestDB;
+  protected spawner: Spawner;
+  protected scanner: Scanner;
+  protected trader: Trader;
 
   constructor(bot: Client) {
     this.bot = bot;
@@ -69,8 +73,7 @@ export default class ScanQuest {
     // Prevents sending an empty message
     const send: SendFunction = async (msg, options) => {
       if (msg || options) {
-        return await message.channel.send(msg, options)
-          .catch(error => { logger.error(error.stack); });
+        return await message.channel.send(msg, options).catch(msgCatch);
       }
     };
 
@@ -138,7 +141,7 @@ export default class ScanQuest {
           }
           return;
         case 'perim':
-          return await perim(this.db, message, args, mentions, send);
+          return await perim.call(this, message, args, mentions, send);
       }
     }
     else if (message.guild) {
