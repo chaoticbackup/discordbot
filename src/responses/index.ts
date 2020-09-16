@@ -372,7 +372,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send('https://chaoticrecode.com/');
 
     case 'forum':
-      if (args.length > 0 && args[1] === 'decks') {
+      if (args.length > 0 && args[0] === 'decks') {
         return send('https://chaoticbackup.forumotion.com/f11-deck-building/');
       }
       return send('https://chaoticbackup.forumotion.com/');
