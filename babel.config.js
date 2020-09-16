@@ -9,7 +9,7 @@ module.exports = function (api) {
         "node": process.versions.node
       }
     }],
-    '@babel/preset-typescript'
+    "@babel/preset-typescript"
   ];
   const plugins = [
     ["@babel/plugin-transform-runtime", { "regenerator": true, corejs: 3 }],
@@ -28,7 +28,7 @@ module.exports = function (api) {
 
   
   return {
-    sourceMaps: true,
+    sourceMaps: "inline",
     presets,
     plugins,
     ignore: [

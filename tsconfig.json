@@ -38,7 +38,10 @@
         "./node_modules/@types",
         "./src/**/*.d.ts"
       ],
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      // Emite source map for Babel
+      "inlineSourceMap": true,
+      // "inlineSources": true
     },
     "include": [
       "./src"
