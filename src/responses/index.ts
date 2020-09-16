@@ -371,6 +371,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'recode':
       return send('https://chaoticrecode.com/');
 
+    case 'forum':
+      if (args.length > 0 && args[1] === 'decks') {
+        return send('https://chaoticbackup.forumotion.com/f11-deck-building/');
+      }
+      return send('https://chaoticbackup.forumotion.com/');
+
     case 'fun':
     case 'funstuff':
     case 'agame':
