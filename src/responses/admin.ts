@@ -7,7 +7,6 @@ import { isUser } from '../common/users';
 import { API } from '../database';
 import { isModerator, hasPermission } from '../common';
 import servers from '../common/servers';
-import { debug } from 'console';
 
 export async function rm(message: Message, guild?: Guild): Promise<void> {
   if (message.channel instanceof DMChannel) {
@@ -60,7 +59,7 @@ export async function haxxor(message: Message): Promise<void> {
         process.emit('SIGINT', 'SIGINT');
       })
       .catch((err) => {
-        debug(err.message, 'errors');
+        logger.error(err.message);
       });
   }
 }

@@ -86,7 +86,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
           message.channel.send('No scans match this search').catch(msgCatch);
         });
         collector.on('end', () => {
-          if (resp.deletable) resp.delete().catch(logger.error);
+          if (resp.deletable) resp.delete().catch(msgCatch);
         });
       })
       .catch(msgCatch);

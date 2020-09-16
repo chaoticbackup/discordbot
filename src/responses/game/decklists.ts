@@ -49,15 +49,15 @@ function _tiers(input: string) {
 }
 
 function _tribes(input: string) {
-  let tribe = '' as string | undefined;
-  if (input === 'mixed') {
+  let tribe: Tribe | undefined;
+  if (input === 'mixed' || input === 'frozen') {
     tribe = 'Mixed';
   }
   else {
-    tribe = parseTribe(input);
+    tribe = parseTribe(input, 'Mixed') as Tribe | undefined;
   }
 
-  if (tribe && tribes.includes(tribe as Tribe)) {
+  if (tribe) {
     let message = `**${tribe} Decks:**\n`;
     const tribelist = [] as string[];
     for (const deck in decklist) {

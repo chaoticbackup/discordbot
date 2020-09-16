@@ -1,28 +1,30 @@
 import { RichEmbed } from 'discord.js';
 
-import { Card, Battlegear, Creature, Location } from '../../definitions';
+import { Card, Battlegear, Creature, Location, Mugic, CardType } from '../../definitions';
 import { API } from '../../database';
 import { Scannable } from '../scan_type/Scannable';
-import { Server } from '../database';
+import { Server, ActiveScan } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
-import logger from '../../logger';
+import { SpawnMugic } from '../scan_type/Mugic';
 
 export default class Select {
   private readonly scan_battlegear: SpawnBattlegear;
   private readonly scan_creature: SpawnCreature;
   private readonly scan_locations: SpawnLocation;
+  private readonly scan_mugic: SpawnMugic;
 
   constructor() {
     this.scan_battlegear = new SpawnBattlegear();
     this.scan_creature = new SpawnCreature();
     this.scan_locations = new SpawnLocation();
+    this.scan_mugic = new SpawnMugic();
   }
 
   public setTitle(image: RichEmbed, active: number) {
     let title = '';
-    logger.info(active.toString());
+
     if (active > 1) title = `Scan expires in ${active} hours`;
     else if (Number(active.toFixed(2)) > 0) title = `Scan expires in ${active * 60} minutes`;
     else title = 'Scan expired';
@@ -52,13 +54,20 @@ export default class Select {
     let scannable: Scannable;
     let image: RichEmbed;
 
-    const rnd = Math.floor(Math.random() * 20);
-    if (rnd < 4) {
+    const rnd = Math.floor(Math.random() * 25);
+    // 4%
+    if (rnd < 1) {
+      [scannable, image] = this.scan_mugic.generate(server.activescans);
+    }
+    // 16%
+    else if (rnd < 5) {
       [scannable, image] = this.scan_locations.generate(server.activescans);
     }
-    else if (rnd < 5) {
+    // 20 %
+    else if (rnd < 10) {
       [scannable, image] = this.scan_battlegear.generate(server.activescans);
     }
+    // 60%
     else {
       [scannable, image] = this.scan_creature.generate(server.activescans);
     }
@@ -66,14 +75,25 @@ export default class Select {
     return [scannable, image];
   }
 
-  public generate(card: Card): [Scannable, RichEmbed] | [] {
+  public generateFromCard(card: Card): [Scannable, RichEmbed] | [] {
+    if (!this.isSpawnable(card)) return [];
     switch (card.gsx$type) {
       case 'Attacks': return [];
       case 'Battlegear': return this.scan_battlegear.generate(card as Battlegear);
       case 'Creatures': return this.scan_creature.generate(card as Creature);
       case 'Locations': return this.scan_locations.generate(card as Location);
-      case 'Mugic': return [];
+      case 'Mugic': return this.scan_mugic.generate(card as Mugic);
       default: return [];
+    }
+  }
+
+  public generateFromType(type: CardType, activescans: ActiveScan[]) {
+    switch (type) {
+      case 'Attacks': return [];
+      case 'Battlegear': return this.scan_battlegear.generate(activescans);
+      case 'Creatures': return this.scan_creature.generate(activescans);
+      case 'Locations': return this.scan_locations.generate(activescans);
+      case 'Mugic': return this.scan_mugic.generate(activescans);
     }
   }
 
@@ -83,7 +103,7 @@ export default class Select {
       case 'Battlegear': return this.scan_battlegear.isSpawnable(card as Battlegear);
       case 'Creatures': return this.scan_creature.isSpawnable(card as Creature);
       case 'Locations': return this.scan_locations.isSpawnable(card as Location);
-      case 'Mugic': return false;
+      case 'Mugic': return this.scan_mugic.isSpawnable(card as Mugic);
       default: return false;
     }
   }
@@ -95,7 +115,7 @@ export default class Select {
         case 'Battlegear': return 3;
         case 'Creatures': return 2;
         case 'Locations': return 4;
-        case 'Mugic': return 0;
+        case 'Mugic': return 4;
         default: return 0;
       }
     })();

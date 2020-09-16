@@ -8,7 +8,7 @@ import { Spawn } from './Spawn';
 import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Creature {
-  return (arg as Creature).gsx$name !== undefined;
+  return (arg as Creature)?.gsx$name !== undefined;
 }
 
 export class ScannedCreature extends Scanned {
@@ -105,7 +105,7 @@ export class SpawnCreature extends Spawn {
   }
 
   generate(card: Creature): [ScannableCreature, RichEmbed]
-  generate(activescan: ActiveScan[]): [ScannableCreature, RichEmbed]
+  generate(activescans: ActiveScan[]): [ScannableCreature, RichEmbed]
   generate(arg1: Creature | ActiveScan[]): [ScannableCreature, RichEmbed] {
     let creature: Creature;
 

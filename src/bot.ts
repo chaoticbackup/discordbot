@@ -75,15 +75,15 @@ bot.on('disconnect', (CloseEvent) => {
   process.emit('SIGINT', 'SIGINT');
 });
 
-let stackTrace = '';
+let stackTrace: any = null;
 const sendError = async () => {
   if (stackTrace) {
     const st = stackTrace;
-    stackTrace = '';
+    stackTrace = null;
     if (!development) {
       const channel = bot.channels.get(servers('develop').channel('errors'));
       if (channel) {
-        return await (channel as Channel).send(st).catch(error => { logger.error(error.stack); });
+        return await (channel as Channel).send(`${st}\n${st.stack}`).catch(error => { logger.error(error.stack); });
       }
     }
   }
@@ -139,7 +139,7 @@ const checkSpam = async (msg: Discord.Message) => {
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
-  stackTrace = err?.stack ?? err;
+  stackTrace = err;
   // Status.READY
   if (bot.status === 0) sendError();
   else bot.destroy();

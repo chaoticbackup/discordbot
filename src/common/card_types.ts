@@ -1,16 +1,22 @@
 export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'] as const;
-export const CreatureTribes = ([] as string[]).concat(Tribes, 'Tribeless');
-export const MugicTribes = ([] as string[]).concat(Tribes, 'Generic');
+export const CreatureTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen', 'Tribeless'] as const;
+export const MugicTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen', 'Generic'] as const;
 
 export type Tribe = typeof Tribes[number];
-export type CreatureTribe = Tribe | 'Tribeless';
-export type MugicTribe = Tribe | 'Generic';
+export type CreatureTribe = typeof CreatureTribes[number];
+export type MugicTribe = typeof MugicTribes[number];
 
-const CardTypes = ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'] as const;
-
+export const CardTypes = ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'] as const;
 export type CardType = typeof CardTypes[number];
 
-export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
+export function parseTribe(input: string): CreatureTribe | MugicTribe | undefined;
+export function parseTribe(input: string, type: 'Mixed'): Tribe | 'Mixed' | undefined;
+export function parseTribe(input: string, type: 'Mugic'): MugicTribe | undefined;
+export function parseTribe(input: string, type: 'Creatures'): CreatureTribe | undefined;
+export function parseTribe(input: string, type: 'Mugic' | 'Creatures'): CreatureTribe | MugicTribe | undefined;
+export function parseTribe(
+  input: string, type?: 'Mugic' | 'Creatures' | 'Mixed'
+): CreatureTribe | MugicTribe | 'Mixed' | undefined {
   switch (input.toLowerCase()) {
     case 'danian':
     case 'danians':
@@ -30,9 +36,11 @@ export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
     case 'underworlders':
       return 'UnderWorld';
     case 'tribeless':
+      if (type === 'Mixed') return 'Mixed';
       if (type === 'Mugic') return 'Generic';
       return 'Tribeless';
     case 'generic':
+      if (type === 'Mixed') return 'Mixed';
       if (type === 'Creatures') return 'Tribeless';
       return 'Generic';
   }
@@ -40,7 +48,8 @@ export function parseTribe(input: string, type?: 'Creatures' | 'Mugic') {
 
 export function generify(tribe: CreatureTribe | MugicTribe, type: 'Mugic'): MugicTribe;
 export function generify(tribe: CreatureTribe | MugicTribe, type: 'Creatures'): CreatureTribe;
-export function generify(tribe: CreatureTribe | MugicTribe, type: 'Creatures' | 'Mugic') {
+export function generify(tribe: CreatureTribe | MugicTribe, type: 'Mugic' | 'Creatures'): MugicTribe | CreatureTribe;
+export function generify(tribe: CreatureTribe | MugicTribe, type: 'Mugic' | 'Creatures') {
   if (type === 'Creatures') {
     if (tribe === 'Generic') tribe = 'Tribeless';
     return tribe;

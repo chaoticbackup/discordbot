@@ -7,7 +7,7 @@ export abstract class Spawn {
   /**
     Returns a random card from the list of given cards
   */
-  protected randomCard(cards: Card[], activescans: ActiveScan[]): any {
+  protected randomCard(cards: Card[], activescans: ActiveScan[]): Card {
     const scans = cards.slice();
     let rnd: number, card: Card;
 

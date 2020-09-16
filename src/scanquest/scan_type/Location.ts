@@ -9,7 +9,7 @@ import { Spawn } from './Spawn';
 import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Location {
-  return (arg as Location).gsx$name !== undefined;
+  return (arg as Location)?.gsx$name !== undefined;
 }
 
 export class ScannedLocation extends Scanned {
@@ -60,7 +60,7 @@ export class SpawnLocation extends Spawn {
   }
 
   generate(location: Location): [ScannableLocation, RichEmbed]
-  generate(activescan: ActiveScan[]): [ScannableLocation, RichEmbed]
+  generate(activescans: ActiveScan[]): [ScannableLocation, RichEmbed]
   generate(arg1: Location | ActiveScan[]): [ScannableLocation, RichEmbed] {
     let location: Location;
 

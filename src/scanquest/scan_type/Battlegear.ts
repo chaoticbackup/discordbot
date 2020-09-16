@@ -8,7 +8,7 @@ import { Spawn } from './Spawn';
 import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Battlegear {
-  return (arg as Battlegear).gsx$name !== undefined;
+  return (arg as Battlegear)?.gsx$name !== undefined;
 }
 
 export class ScannedBattlegear extends Scanned {
@@ -57,7 +57,7 @@ export class SpawnBattlegear extends Spawn {
   }
 
   generate(card: Battlegear): [ScannableBattlegear, RichEmbed]
-  generate(activescan: ActiveScan[]): [ScannableBattlegear, RichEmbed]
+  generate(activescans: ActiveScan[]): [ScannableBattlegear, RichEmbed]
   generate(arg1: Battlegear | ActiveScan[]): [ScannableBattlegear, RichEmbed] {
     let battlegear: Battlegear;
     if (isCard(arg1)) {

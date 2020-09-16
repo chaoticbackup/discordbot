@@ -6,6 +6,7 @@ import ScanQuestDB, { ActiveScan } from '../database';
 import { SendFunction } from '../../definitions';
 import { toScannable } from '../scan_type/toScannable';
 import { first_scan } from '../config/help';
+import { stripMention } from '../../common';
 
 export default class Scanner {
   readonly icons: Icons;
@@ -71,7 +72,7 @@ export default class Scanner {
       }
 
       if (selected === undefined) {
-        await send(`${name || args.replace('@', '')} isn't an active scan`);
+        await send(`${name || stripMention(args)} isn't an active scan`);
         return;
       }
 

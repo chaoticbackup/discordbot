@@ -1,5 +1,5 @@
 import { Guild, GuildMember } from 'discord.js';
-import { asyncForEach, hasPermission, isModerator } from '../../common';
+import { asyncForEach, hasPermission, isModerator, stripMention } from '../../common';
 import { CreatureTribes } from '../../common/card_types';
 
 const tribes = CreatureTribes;
@@ -206,7 +206,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
       joining_msg = 'Shhhh we haven\'t been revealed yet';
       break;
     default:
-      return `${tribe.replace('@', '')} is not a valid faction`;
+      return `${stripMention(tribe)} is not a valid faction`;
   }
 
   const guild_role = guild.roles.find(role => role.name === tribe);
