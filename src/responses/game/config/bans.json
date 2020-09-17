@@ -40,6 +40,8 @@
 	"watchlist": [
 		"Ikkatosh, The Aich King",
 		"Interlude of Interruption",
+		"Refrain of Denial",
+		"Elemental Denial",
 		"Lanker",
 		"Talisman of the Mandiblor"
 	],
@@ -114,6 +116,9 @@
 		"Dror'niq": [
 			"His first ability allows him to deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nAlthough his second ability takes 4 Mugic Counters, he can use it while unengaged and it essentially provides Recklessness 10 for 30-50 damage in a typical combat.",
 			"One shot, one code."
+		],
+		"Elemental Denial": [
+			"Its splashable inclusion in Mixed decks allows an easy way to surpress opponents playstyle with limited cost to their own deck."
 		],
 		"Elemental Elegy": [
 			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. Against non-elemental Creatures, it becomes a \"Song of Stasis\" to stall the attack of a Creature. Because of its dual nature, it provides too much advantage.",
@@ -220,6 +225,9 @@
 		"Rao'Pa Sahkk, Condensation Ceremony": [
 			"Easily shuts down Mipedian and UnderWorld decks. And hinders many support Creatures in OverWorld and Danian tribes. Being unable to play Mugic or Abilities gives Creatures with Water overwhelming advantage.",
 			"*At least Fluidmorphers are having fun at the beach.*"
+		],
+		"Refrain of Denial": [
+			"To shift the meta but giving a wider range of decks access to negation, Refrain of Denial would be switched with Interlude of Consequences. Having both at the same time is overbearing."
 		],
 		"Skeletal Springs": [
 			"Admititedly, fluidmorphing is a powerful game mechanic. This location not only prevents Fluidmorphing, it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck. So a boost for the player and a potential game breaker for the opponent."
