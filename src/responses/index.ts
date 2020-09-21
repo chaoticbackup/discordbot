@@ -151,6 +151,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(find_card(flatten(args)));
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
+      case 'banlist': {
+        const rsp = (options.length === 0 && args.length > 0)
+          ? banlist(message, [flatten(args)])
+          : banlist(message, options);
+        return send(rsp);
+      }
       case 'help':
         if (content.charAt(0) === '!')
           return send('Use **!commands** or **c!help**');
