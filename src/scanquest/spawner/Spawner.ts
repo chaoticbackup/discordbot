@@ -29,7 +29,7 @@ const config = {
   debounce: 2 * 60 * 1000, // minutes in milliseconds
   // debounce: 10 * 1000,
   safety: 10,
-  next: 8
+  next: 7
 };
 
 const date_format = 'hh:mm:ss A';
