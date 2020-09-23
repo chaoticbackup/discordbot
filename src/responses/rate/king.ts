@@ -1,8 +1,10 @@
-export function king(stats, card, options) {
-  let c, p, w, s, e;
+import { Creature } from '../../definitions';
 
-  ([c, p, w, s] = (() => {
-    function stat_max(c) { return Number(c) + 10; }
+export function king(stats: number[], card: Creature, options: string[]): string[] {
+  // let c, p, w, s, e;
+
+  let [c, p, w, s]: string[] | number[] = (() => {
+    function stat_max(c: string | number) { return Number(c) + 10; }
     const max = [
       stat_max(card.gsx$courage),
       stat_max(card.gsx$power),
@@ -10,7 +12,7 @@ export function king(stats, card, options) {
       stat_max(card.gsx$speed)
     ];
 
-    function base(c, s) { return 100 - (c - s) * 5; }
+    function base(c: number, s: number) { return 100 - (c - s) * 5; }
     const s = [
       base(max[0], stats[0]),
       base(max[1], stats[1]),
@@ -46,8 +48,8 @@ export function king(stats, card, options) {
     if (!options.includes('noweight')) {
       let h = [0];
       for (let i = 0; i < 4; i++) {
-        if (s[i] == s[h[0]]) {
-          if (i != 0) h.push(i);
+        if (s[i] === s[h[0]]) {
+          if (i !== 0) h.push(i);
         }
         else if (s[i] > s[h[0]]) {
           for (let j = 0; j < h.length; j++) {
@@ -61,9 +63,9 @@ export function king(stats, card, options) {
       }
     }
     return s;
-  })());
+  })();
 
-  e = (() => {
+  let e: string | number = (() => {
     const max = Number(card.gsx$energy) + 5;
     let value = 100 - (max - stats[4]) * 10;
 
@@ -85,7 +87,12 @@ export function king(stats, card, options) {
     return value * 1.5;
   })();
 
-  const total = Number.parseFloat((c + p + w + s + e) / 5).toFixed(2);
+  const t = parseFloat(Number((c + p + w + s + e) / 5).toFixed(2));
+  c = parseFloat(Number(c).toFixed(2));
+  p = parseFloat(Number(p).toFixed(2));
+  w = parseFloat(Number(w).toFixed(2));
+  s = parseFloat(Number(s).toFixed(2));
+  e = parseFloat(Number(e).toFixed(2));
 
-  return [`${c}%`, `${p}%`, `${w}%`, `${s}%`, `${e}%`, `${total}%`];
+  return [`${c}%`, `${p}%`, `${w}%`, `${s}%`, `${e}%`, `${t}%`];
 }

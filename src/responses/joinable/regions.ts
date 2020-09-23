@@ -1,5 +1,6 @@
-import { Guild, GuildMember } from 'discord.js';
-import { asyncForEach } from '../../common';
+import { Guild, GuildMember, Message, TextChannel } from 'discord.js';
+import { FieldsEmbed } from 'discord-paginationembed';
+import { asyncForEach, msgCatch } from '../../common';
 import { MeetupsDB, Region, Member } from './MeetupsDB';
 
 const rmSpecialChars = (text: string): string => {
@@ -7,7 +8,7 @@ const rmSpecialChars = (text: string): string => {
   return text;
 };
 
-const memberList = async (guild: Guild, region: Region): Promise<string> => {
+const memberList = async (message: Message, guild: Guild, region: Region): Promise<string | void> => {
   const members: Member[] = MeetupsDB.getMembersInRegion(region);
 
   if (members.length === 0) return 'No members';
@@ -24,12 +25,27 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
     .catch(() => {});
   });
 
-  let msg = `List of Members: (${members.length})\n`;
+  const sort = (a: string, b: string) => a.localeCompare(b);
 
-  displayNames
-  .sort((a: string, b: string) => a.localeCompare(b))
-  .forEach((name: string) => {
-    msg += `${name}\n`;
+  const Pagination = new FieldsEmbed<string>();
+
+  Pagination
+    .setChannel(message.channel as TextChannel)
+    .setDisabledNavigationEmojis(['DELETE'])
+    .setElementsPerPage(20)
+    .setPageIndicator(true)
+    .setArray(displayNames.sort(sort))
+    .formatField(`List of Members: (${members.length})`, name => name);
+
+  return await Pagination.build();
+};
+
+const regionList = async (): Promise<string> => {
+  const regions: Region[] = await MeetupsDB.getRegionList();
+
+  let msg = 'List of Regions:\n';
+  regions.forEach((region) => {
+    msg += `${region.name}\n`;
   });
 
   return msg;
@@ -47,64 +63,56 @@ const memberList = async (guild: Guild, region: Region): Promise<string> => {
  * !region <regionName> <join|leave>
  * !region <regionName> <add|remove> <@guildMember>
  */
-export default async (args: string[], mentions: string[], guild?: Guild, user?: GuildMember): Promise<string> => {
+export default async function (
+  message: Message, args: string[], mentions: string[], guild?: Guild, user?: GuildMember
+): Promise<string | void> {
   if (!guild || !user) {
-    return 'You can only use this command in a guild with roles';
+    return 'You can only use this command in a guild';
   }
 
   const moderator = Boolean(user.hasPermission('ADMINISTRATOR'));
 
-  const regionList = async (): Promise<string> => {
-    const regions: Region[] = await MeetupsDB.getRegionList();
-
-    let msg = 'List of Regions:\n';
-    regions.forEach((region) => {
-      msg += `${region.name}\n`;
-    });
-
-    return msg;
-  };
-
   if (args.length === 0 || args[0] === '') {
-    return await MeetupsDB.getRegionList().then(regionList);
+    return await regionList();
   }
 
-  switch (args[0].toLowerCase()) {
-    case 'list': {
-      return await MeetupsDB.getRegionList().then(regionList);
-    }
-    case 'add':
-      if (moderator) {
-        if (args.length < 2) return '!region add <regionName>';
-        return await MeetupsDB.addRegion(args[1])
-        .then((regionName) => `Added new region ${regionName}`)
-        .catch((err: Error) => err.message);
+  try {
+    switch (args[0].toLowerCase()) {
+      case 'list': {
+        return await regionList();
       }
-      break;
-    case 'remove':
-      if (moderator) {
-        if (args.length < 2) return '!region remove <regionName>';
-        return await MeetupsDB.getRegion(args[1])
+      case 'add':
+        if (moderator) {
+          if (args.length < 2) return '!region add <regionName>';
+          return await MeetupsDB.addRegion(args[1])
+        .then((regionName) => `Added new region ${regionName}`)
+        .catch(err => { throw err; });
+        }
+        break;
+      case 'remove':
+        if (moderator) {
+          if (args.length < 2) return '!region remove <regionName>';
+          return await MeetupsDB.getRegion(args[1])
         .then(async (region) => {
           return await MeetupsDB.removeRegion(region);
         })
         .then((region) => `Removed region ${region.name}`)
-        .catch((err: Error) => err.message);
-      }
-      break;
-    case 'rename':
-      if (moderator) {
-        if (args.length < 3) return '!region rename <regionName> <new name>';
-        return await MeetupsDB.getRegion(args[1])
+        .catch(err => { throw err; });
+        }
+        break;
+      case 'rename':
+        if (moderator) {
+          if (args.length < 3) return '!region rename <regionName> <new name>';
+          return await MeetupsDB.getRegion(args[1])
         .then(async (region: Region) => {
           return await MeetupsDB.renameRegion(region, args[2]);
         })
         .then(() => `Renamed ${args[1]} -> ${args[2]}`)
-        .catch((err: Error) => err.message);
-      }
-      break;
-    case 'details':
-      return await MeetupsDB.getRegionList()
+        .catch(err => { throw err; });
+        }
+        break;
+      case 'details':
+        return await MeetupsDB.getRegionList()
       .then((regions: Region[]) => {
         let msg = 'Number of members per region:\n';
         regions.forEach((region: Region) => {
@@ -117,15 +125,14 @@ export default async (args: string[], mentions: string[], guild?: Guild, user?: 
         });
         return msg;
       });
-    // Assume user provided region name
-    default: {
-      try {
+        // Assume user provided region name
+      default: {
         const region: Region = await MeetupsDB.getRegion(rmSpecialChars(args[0]))
         .then((region: Region) => region)
-        .catch((err: Error) => { throw err; });
+        .catch(err => { throw err; });
 
         if (args.length < 2) {
-          return await memberList(guild, region);
+          return await memberList(message, guild, region);
         }
 
         const param = args[1].toLowerCase();
@@ -143,7 +150,7 @@ export default async (args: string[], mentions: string[], guild?: Guild, user?: 
                   .then((mb) => {
                     added.push(mb.displayName);
                   })
-                  .catch(() => {})
+                  .catch(msgCatch)
                 );
                 if (added.length > 0) {
                   let msg = 'Added ';
@@ -166,7 +173,7 @@ export default async (args: string[], mentions: string[], guild?: Guild, user?: 
                   .then((mb) => {
                     removed.push(mb.displayName);
                   })
-                  .catch(() => {});
+                  .catch(msgCatch);
                 });
                 if (removed.length > 0) {
                   let msg = 'Removed ';
@@ -186,15 +193,15 @@ export default async (args: string[], mentions: string[], guild?: Guild, user?: 
 
         switch (param) {
           case 'list':
-            return await memberList(guild, region);
+            return await memberList(message, guild, region);
           case 'join':
             return await MeetupsDB.addMemberToRegion(user, region)
             .then(() => `${user.displayName} joined ${region.name}`)
-            .catch((err: Error) => err.message);
+            .catch(err => { throw err; });
           case 'leave':
             return await MeetupsDB.removeMemberFromRegion(user, region)
             .then(() => `${user.displayName} left ${region.name}`)
-            .catch((err: Error) => err.message);
+            .catch(err => { throw err; });
           case 'ping':
             let msg = '';
             MeetupsDB.getMembersInRegion(region).forEach((mb: Member) => {
@@ -205,11 +212,11 @@ export default async (args: string[], mentions: string[], guild?: Guild, user?: 
             return `!region ${args[0]} <join|leave|list>\n`;
         }
       }
-      catch (err) {
-        return err.message;
-      }
     }
+  }
+  catch (err) {
+    return Promise.resolve(err);
   }
 
   return '!region <regionName> <join|leave|ping|list|>';
-};
+}

@@ -400,6 +400,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       else
         return send(make(flatten(args)));
 
+    /* Languages */
+    case 'speak':
+    case 'speaker':
+    case 'speakers':
+    case 'language':
+    case 'languages':
+      return speakers(message, args, guild, guildMember).then(send);
+
+    /* Regions/Meetups */
+    case 'region':
+    case 'regions':
+      return meetup(message, args, mentions, guild, guildMember).then(send);
+
     /* Tribes */
     case 'tribe':
       return tribe(args, guild, guildMember).then(send);
@@ -407,13 +420,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'brainwash':
       return brainwash(mentions, guild, guildMember).then(send);
 
-    /* Languages */
-    case 'speak':
-    case 'speaker':
-    case 'speakers':
-    case 'language':
-    case 'languages':
-      return speakers(args, guild, guildMember).then(send);
+    /* Color Roles */
+    case 'colour':
+    case 'color':
+      return color(args, guild, guildMember, send);
 
     /* Now or Never */
     case 'never':
@@ -452,16 +462,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(gone('borth-day', bot, options));
       break;
     }
-
-    /* Color Roles */
-    case 'colour':
-    case 'color':
-      return color(args, guild, guildMember, send);
-
-    /* Regions/Meetups */
-    case 'region':
-    case 'regions':
-      return meetup(args, mentions, guild, guildMember).then(send);
 
     /* Watch playlists */
     case 'watch':

@@ -1,5 +1,6 @@
-import { Guild, GuildMember, Role } from 'discord.js';
-import { cleantext, uppercase } from '../../common';
+import { Guild, GuildMember, Role, Message, TextChannel } from 'discord.js';
+import { FieldsEmbed } from 'discord-paginationembed';
+import { cleantext, uppercase, hasPermission } from '../../common';
 
 const suffix = '_speakers';
 
@@ -7,46 +8,56 @@ const languageProper = (lang: string): string => {
   return uppercase(lang.replace(suffix, ''));
 };
 
-export default async (args: string[], guild?: Guild, user?: GuildMember) => {
+const languageList = (guild: Guild) => {
+  let language_count = 0;
+  let msg = 'Available languages:\n';
+  guild.roles.forEach((value: Role) => {
+    if (value.name.includes(suffix)) {
+      language_count++;
+      msg += `${languageProper(value.name)}\n`;
+    }
+  });
+  if (language_count === 0) {
+    return `This guild has no language "${suffix}" roles`;
+  }
+  return msg;
+};
+
+const memberList = async (message: Message, role: Role, lang: string) => {
+  const Pagination = new FieldsEmbed<GuildMember>();
+
+  Pagination
+    .setChannel(message.channel as (TextChannel))
+    .setDisabledNavigationEmojis(['DELETE'])
+    .setElementsPerPage(20)
+    .setPageIndicator(true)
+    .setArray(role.members.array())
+    .formatField(`List of ${languageProper(lang)} speakers:`, m => m.displayName);
+
+  return await Pagination.build();
+};
+
+export default async function (message: Message, args: string[], guild?: Guild, user?: GuildMember) {
   if (!guild || !user) {
-    return 'You can only use this command in a guild with roles';
+    return 'You can only use this command in a guild';
   }
 
-  const languageList = () => {
-    let language_count = 0;
-    let msg = 'Available languages:\n';
-    guild.roles.forEach((value: Role) => {
-      if (value.name.includes(suffix)) {
-        language_count++;
-        msg += `${languageProper(value.name)}\n`;
-      }
-    });
-    if (language_count === 0) {
-      return `This guild has no language "${suffix}" roles`;
-    }
-    return msg;
-  };
+  if (!hasPermission(guild, 'MANAGE_ROLES')) {
+    return 'I need the ``MANAGE_ROLES`` permission';
+  }
 
-  if (args.length === 0 || args[0] === '') return languageList();
+  if (args.length === 0 || args[0] === '') return languageList(guild);
 
   const language = args[0].toLowerCase();
   const role: Role = guild.roles.find(role => role.name === `${language}${suffix}`);
 
-  const memberList = (lang: string) => {
-    let msg = `List of ${languageProper(lang)} speaking members:\n`;
-    role.members.forEach((m) => {
-      msg += `${m.displayName}\n`;
-    });
-    return msg;
-  };
+  if (!role) return languageList(guild);
 
-  if (!role) return languageList();
-
-  if (args.length < 2) return memberList(language);
+  if (args.length < 2) return memberList(message, role, language);
 
   switch (cleantext(args[1])) {
     case 'list': {
-      return memberList(language);
+      return await memberList(message, role, language);
     }
     case 'join': {
       return await user.addRole(role).then(() => {
@@ -61,4 +72,4 @@ export default async (args: string[], guild?: Guild, user?: GuildMember) => {
   }
 
   return '!speakers <language> <join|leave|list|>';
-};
+}

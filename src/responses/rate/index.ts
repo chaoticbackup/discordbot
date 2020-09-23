@@ -59,7 +59,12 @@ export function rate(name: string, stats: number[], options: string[], bot: Clie
 
   if (error) return error;
 
-  let courage, power, wisdom, speed, energy, total;
+  let courage: string |number;
+  let power: string |number;
+  let wisdom: string |number;
+  let speed: string |number;
+  let energy: string |number;
+  let total: string |number;
 
   if (options.includes('king') || options.includes('k')) {
     ([courage, power, wisdom, speed, energy, total] = king(stats, card, options));

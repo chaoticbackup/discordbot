@@ -5,7 +5,7 @@ import logger from '../logger';
 
 import { isUser } from '../common/users';
 import { API } from '../database';
-import { isModerator, hasPermission } from '../common';
+import { isModerator, hasPermission, msgCatch } from '../common';
 import servers from '../common/servers';
 
 export async function rm(message: Message, guild?: Guild): Promise<void> {
@@ -74,8 +74,8 @@ export function logs() {
     }
 
     if (fs.existsSync(path.resolve(home_path, 'out.old.log'))) {
-      text = '==Old Log==\n'
-        + `${fs.readFileSync(path.resolve(home_path, 'out.old.log'), { encoding: 'utf8' }).toString().replace(/\\[3[29]m/g, '')}`
+      text =
+        `${fs.readFileSync(path.resolve(home_path, 'out.old.log'), { encoding: 'utf8' }).toString().replace(/\\[3[29]m/g, '')}`
         + '==New Log==\n'
         + `${text}`;
       if (text.length > 2000) {
@@ -86,6 +86,6 @@ export function logs() {
     return text;
   }
   catch (e) {
-    logger.error(e);
+    msgCatch(e);
   }
 }

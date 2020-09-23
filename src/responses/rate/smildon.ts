@@ -1,6 +1,6 @@
 import { Creature } from '../../definitions';
 
-export function smildon(stats: number[], card: Creature) {
+export function smildon(stats: number[], card: Creature): number[] {
   const courage = (stats[0] - +card.gsx$courage) / 5;
   const power = (stats[1] - +card.gsx$power) / 5;
   const wisdom = (stats[2] - +card.gsx$wisdom) / 5;
