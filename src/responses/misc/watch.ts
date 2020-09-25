@@ -1,4 +1,4 @@
-import languages, { isLangType, list } from '../../common/languages';
+import { isLangType, languageEnglish, list } from '../../common/languages';
 import episodes from './config/episodes.json';
 
 export default function (args: string[], options: string[]) {
@@ -20,7 +20,7 @@ export default function (args: string[], options: string[]) {
       return `${episodes[lang][set]}`;
     }
     else {
-      return `I don't have episodes in ${languages[lang][1]}`;
+      return `I don't have episodes in ${languageEnglish(lang)}`;
     }
   }
   else {

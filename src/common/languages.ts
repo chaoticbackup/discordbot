@@ -13,6 +13,8 @@ const languages = {
   SR: ['Српски', 'Serbian']
 };
 
+export default languages;
+
 export type lang_type = keyof typeof languages;
 export function isLangType(t: string): t is lang_type {
   return Object.keys(languages).includes(t);
@@ -35,4 +37,7 @@ export function list(doc: Partial<Record<lang_type, Record<string, string>>>) {
   return message;
 }
 
-export default languages;
+export function languageEnglish(t: lang_type): string {
+  const language = languages[t];
+  return language.length > 1 ? language[1] : language[0];
+}

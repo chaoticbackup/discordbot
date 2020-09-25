@@ -1,4 +1,4 @@
-import languages, { lang_type, isLangType, list } from '../../common/languages';
+import { lang_type, isLangType, list, languageEnglish } from '../../common/languages';
 const rulebooks = require('./config/rulebooks.json') as Record<lang_type, Record<string, string>>;
 
 function rule_url(url: string) {
@@ -31,7 +31,7 @@ export default function (args: string[], options: string[]) {
         return rule_url(rulebooks[lang][set]);
       }
       else {
-        return `I don't have that set in ${languages[lang][1]}`;
+        return `I don't have that set in ${languageEnglish(lang)}`;
       }
     }
   }
