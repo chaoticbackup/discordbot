@@ -21,7 +21,7 @@ function _tiers(input: string) {
 function _types(input: string) {
   let type = input.charAt(0).toUpperCase() + input.slice(1);
 
-  if (type.toLowerCase() === 'aggro-control') type = 'Aggro-Control';
+  if (input.toLowerCase() === 'aggrocontrol') type = 'Aggro-Control';
 
   if (isType(type)) {
     let message = `**${type} Decks:**\n`;
