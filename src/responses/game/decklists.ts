@@ -22,6 +22,7 @@ function _types(input: string) {
   let type = input.charAt(0).toUpperCase() + input.slice(1);
 
   if (input.toLowerCase() === 'aggrocontrol') type = 'Aggro-Control';
+  else if (input.toLowerCase() === 'controlaggro') type = 'Midrange';
 
   if (isType(type)) {
     let message = `**${type} Decks:**\n`;
