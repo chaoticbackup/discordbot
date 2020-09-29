@@ -139,13 +139,13 @@ export const decklist: Record<string, Deck> = {
     url: 'https://chaoticbackup.forumotion.com/t1572-fliandar-mixed',
     tribe: 'Mixed',
     tags: [],
-    type: ['Control', 'Combo']
+    type: ['Control']
   },
   "Gan'trak Bladez": {
     url: 'https://chaoticbackup.forumotion.com/t1601-gan-trak-update',
     tribe: "M'arrillian",
     tags: [],
-    type: ['Aggro']
+    type: ['Meta']
   },
   GearEater: {
     url: 'https://chaoticbackup.forumotion.com/t1591-ilx-geareater',
@@ -199,7 +199,7 @@ export const decklist: Record<string, Deck> = {
     url: 'https://chaoticbackup.forumotion.com/t1588-khorror',
     tribe: 'Mipedian',
     tags: [],
-    type: ['Midrange']
+    type: ['Prison']
   },
   Kraken: {
     url: 'https://chaoticbackup.forumotion.com/t1586-kraken',
@@ -259,7 +259,7 @@ export const decklist: Record<string, Deck> = {
     url: 'https://chaoticbackup.forumotion.com/t1595-ocean-man',
     tribe: 'Mixed',
     tags: [],
-    type: ['Midrange']
+    type: ['Midrange', 'Combo']
   },
   Strike: {
     url: 'https://chaoticbackup.forumotion.com/t1568-strike',
