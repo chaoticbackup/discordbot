@@ -1,64 +1,52 @@
 import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
-
-const tiers = ['A', 'B'] as const;
-
-const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
-
-type Tier = typeof tiers[number];
-
-type Tribe = typeof tribes[number];
-
-interface Deck {
-  url: string
-  tribe: Tribe
-  tags: string[]
-}
-
-const { tierlist, decklist } =
-  require('./config/decklists.json') as {
-    tierlist: Record<Tier, string[]>
-    decklist: Record<string, Deck>
-  };
-
-function _tierlist() {
-  const output = new RichEmbed();
-  for (const key in tierlist) {
-    let message = '';
-    tierlist[key as Tier].forEach((deck: string) => {
-      message += `${deck}: ${decklist[deck].url}\n`;
-    });
-    output.addField(key, message, true);
-  }
-
-  return output;
-}
+import { tierlist, decklist, isTier, isType } from './config/decklists';
 
 function _tiers(input: string) {
   input = input.toUpperCase();
 
   if (input === 'CM') input = 'S';
-  if (tiers.includes(input as Tier)) {
+
+  if (isTier(input)) {
     let message = '';
-    tierlist[input as Tier].forEach((deck: string) => {
+
+    tierlist[input].forEach((deck: string) => {
       message += `${deck}: ${decklist[deck].url}\n`;
     });
     return (new RichEmbed()).addField(`${input} Decks`, message, true);
   }
 }
 
-function _tribes(input: string) {
-  let tribe: Tribe | undefined;
-  if (input === 'mixed' || input === 'frozen') {
-    tribe = 'Mixed';
-  }
-  else {
-    tribe = parseTribe(input, 'Mixed') as Tribe | undefined;
+function _types(input: string) {
+  let type = input.charAt(0).toUpperCase() + input.slice(1);
+
+  if (type === 'Burn') type = 'Aggro';
+  if (type.toLowerCase() === 'aggro-control') type = 'Aggro-Control';
+
+  if (isType(type)) {
+    let message = `**${type} Decks:**\n`;
+    const typeList = [] as string[];
+
+    for (const deck in decklist) {
+      if (decklist[deck].type.includes(type)) typeList.push(deck);
+    }
+
+    typeList.forEach((deck: string) => {
+      message += `${deck}: ${decklist[deck].url}\n`;
+    });
+    return (new RichEmbed()).setDescription(message);
   }
 
-  if (tribe) {
+  return undefined;
+}
+
+function _tribes(input: string) {
+  const tribe = (input === 'frozen') ? 'Mixed' : parseTribe(input, 'Mixed');
+
+  if (tribe !== undefined) {
     let message = `**${tribe} Decks:**\n`;
+
     const tribelist = [] as string[];
     for (const deck in decklist) {
       if (!decklist[deck].tribe || tribe !== decklist[deck].tribe) continue;
@@ -73,7 +61,7 @@ function _tribes(input: string) {
 }
 
 function _tags(input: string) {
-  const d = [] as string[];
+  const tagList = [] as string[];
 
   for (const deck in decklist) {
     const { tags } = decklist[deck];
@@ -81,20 +69,20 @@ function _tags(input: string) {
     if (!tags) continue;
     tags.forEach(tag => {
       if (cleantext(tag).includes(input)) {
-        d.push(`${deck}: ${decklist[deck].url}`);
+        tagList.push(`${deck}: ${decklist[deck].url}`);
       }
     });
   }
 
-  if (d.length > 0) {
-    let output = d.reduce((d1, d2) => `${d1}\n${d2}`);
+  if (tagList.length > 0) {
+    let output = tagList.reduce((d1, d2) => `${d1}\n${d2}`);
     if (output.length > 2000) output = output.slice(0, 1999);
     return (new RichEmbed()).setDescription(output);
   }
 }
 
 function _decklist(input: string): RichEmbed | string {
-  let output;
+  let output: RichEmbed | undefined;
   input = cleantext(input);
 
   if (input.length < 1) {
@@ -105,10 +93,12 @@ function _decklist(input: string): RichEmbed | string {
     return output;
   }
 
+  if ((output = _types(input)) instanceof RichEmbed) {
+    return output;
+  }
+
   if (input === 'generic' || input === 'tribeless') {
-    if ((output = _tags('tribeless')) instanceof RichEmbed) {
-      return output;
-    }
+    return _tags('tribeless') as RichEmbed;
   }
 
   if ((output = _tribes(input)) instanceof RichEmbed) {
@@ -120,6 +110,19 @@ function _decklist(input: string): RichEmbed | string {
   }
 
   return "I'm unable to find decks that match your search";
+}
+
+function _tierlist() {
+  const output = new RichEmbed();
+  for (const key in tierlist) {
+    let message = '';
+    tierlist[key].forEach((deck: string) => {
+      message += `${deck}: ${decklist[deck].url}\n`;
+    });
+    output.addField(key, message, true);
+  }
+
+  return output;
 }
 
 export {
