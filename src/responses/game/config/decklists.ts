@@ -5,7 +5,7 @@ const tiers = ['A', 'B'] as const;
 const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
 
 // https://en.wikipedia.org/wiki/Magic:_The_Gathering_deck_types#:~:text=The%20traditional%20archetypes%20fit
-const types = ['Aggro', 'Control', 'Combo', 'Aggro-Control', 'Gimmick', 'Midrange', 'Meta'] as const;
+const types = ['Aggro', 'Control', 'Combo', 'Aggro-Control', 'Gimmick', 'Midrange', 'Meta', 'Prison'] as const;
 
 type Tier = typeof tiers[number];
 
@@ -151,7 +151,7 @@ export const decklist: Record<string, Deck> = {
     url: 'https://chaoticbackup.forumotion.com/t1591-ilx-geareater',
     tribe: 'Mixed',
     tags: [],
-    type: ['Combo', 'Gimmick']
+    type: ['Gimmick']
   },
   Gintanai: {
     url: 'https://chaoticbackup.forumotion.com/t1592-gintanai',

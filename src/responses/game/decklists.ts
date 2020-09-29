@@ -21,7 +21,6 @@ function _tiers(input: string) {
 function _types(input: string) {
   let type = input.charAt(0).toUpperCase() + input.slice(1);
 
-  if (type === 'Burn') type = 'Aggro';
   if (type.toLowerCase() === 'aggro-control') type = 'Aggro-Control';
 
   if (isType(type)) {
