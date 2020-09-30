@@ -21,6 +21,17 @@ export function isType(input: any): input is DeckType {
   return types.includes(input);
 }
 
+export const axes: Record<DeckType, string> = {
+  Aggro: 'Threats, Tempo, Redundant',
+  Control: 'Answers, Inevitable, Redundant',
+  Combo: 'Threats, Inevitable, Essential',
+  'Aggro-Control': 'Answers, Tempo, Redundant',
+  Midrange: 'Threats, Inevitable, Redundant',
+  Prison: 'Answers, Inevitable, Essential',
+  Gimmick: 'Threats, Tempo, Essential',
+  Meta: 'Answers, Tempo, Essential'
+};
+
 export const tierlist: Record<Tier, string[]> = {
   A: [
     'Wise Guys',

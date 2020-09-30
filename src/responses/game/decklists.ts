@@ -1,7 +1,7 @@
 import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
-import { tierlist, decklist, isTier, isType } from './config/decklists';
+import { tierlist, decklist, axes, isTier, isType } from './config/decklists';
 
 function _tiers(input: string) {
   input = input.toUpperCase();
@@ -25,7 +25,7 @@ function _types(input: string) {
   else if (input.toLowerCase() === 'controlaggro') type = 'Midrange';
 
   if (isType(type)) {
-    let message = `**${type} Decks:**\n`;
+    let message = `**${type} Decks:**\n(${axes[type]})\n\u200B\n`;
     const typeList = [] as string[];
 
     for (const deck in decklist) {
