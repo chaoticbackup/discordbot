@@ -21,7 +21,7 @@ export function isType(input: any): input is DeckType {
   return types.includes(input);
 }
 
-export const axes: Record<DeckType, string> = {
+export const axes: {[key in DeckType]: string} = {
   Aggro: 'Threats, Tempo, Redundant',
   Control: 'Answers, Inevitable, Redundant',
   Combo: 'Threats, Inevitable, Essential',
@@ -32,7 +32,7 @@ export const axes: Record<DeckType, string> = {
   Meta: 'Answers, Tempo, Essential'
 };
 
-export const tierlist: Record<Tier, string[]> = {
+export const tierlist: {[key in Tier]: string[]} = {
   A: [
     'Wise Guys',
     'LankerTosh',
