@@ -35,6 +35,8 @@ export function parseTribe(
     case 'underworld':
     case 'underworlders':
       return 'UnderWorld';
+    case 'mixed':
+      return 'Mixed';
     case 'tribeless':
       if (type === 'Mixed') return 'Mixed';
       if (type === 'Mugic') return 'Generic';
