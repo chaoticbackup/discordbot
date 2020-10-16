@@ -11,10 +11,6 @@ export default function (name: string, options: string[], bot: Client) {
     return "That's not a valid card name";
   }
 
-  if (options.includes('text') || options.includes('ability')) {
-    options.push('detailed');
-  }
-
   // Random card
   if (!name) {
     return Response(rndrsp(results, 'card'), options, bot);
@@ -31,10 +27,14 @@ interface props {
 }
 
 function Response(card: Card, options: string[], bot: Client) {
+  if (options.includes('detailed') || options.includes('ability')) {
+    options.push('text');
+  }
+
   // Not a released card
   if (!card.gsx$set) {
     if (!API.hasImage(card)) {
-      if (options.includes('detailed') || options.includes('read') || options.includes('stats')) {
+      if (options.includes('text') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
       return new RichEmbed()
@@ -79,7 +79,7 @@ function Response(card: Card, options: string[], bot: Client) {
   }
 
   // Formatting to include an image or just the card text
-  const textOnly = Boolean(options.includes('detailed'));
+  const textOnly = Boolean(options.includes('text'));
 
   const mc = icons.mc((card as Creature | Mugic).gsx$tribe);
   const props = { card, options, icons, textOnly };
@@ -111,9 +111,11 @@ function Response(card: Card, options: string[], bot: Client) {
     body += FlavorText(props);
   }
 
-  body += Stats(props);
+  if (card.gsx$type === 'Creatures') {
+    body += Stats(props);
+  }
 
-  if (textOnly && card.gsx$type === 'Creatures') {
+  if (textOnly && card.gsx$type === 'Creatures' && !options.includes('ability')) {
     body += Elements(props);
     body += ` | ${MugicAbility(mc, props)}`;
   }
