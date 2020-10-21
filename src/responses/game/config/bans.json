@@ -1,12 +1,12 @@
 {
 	"formats": {
 		"standard": "All cards with banlist",
+		"unrestricted": "No banned cards",
 		"pauper": "Commons and Uncommons only",
 		"noble": "Commons, Uncommons, and Rares only",
 		"modern": "M'arrillian Invasion, Secrets of the Lost City, Organized Play, League Rewards",
 		"limited": "3 Creatures, Battlegear, Mugic, 5 Locations, 10 Attacks",
 		"highlander": "All Creatures, Mugic, and Battlegear are treated as Unique",
-		"legacy": "No banned cards",
 		"aap": "No Mugic or Activated Abilities"
 	},
 	"standard": [

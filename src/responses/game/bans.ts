@@ -47,8 +47,9 @@ export function banlist(message: Message, options: string[] = []) {
       break;
     }
     // Legacy
+    case 'unrestricted':
     case 'legacy': {
-      title('legacy');
+      title('unrestricted');
       break;
     }
     // Pauper
