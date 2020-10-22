@@ -8,6 +8,14 @@ import custom from './custom';
 import { Scannable } from '../scan_type/Scannable';
 import { msgCatch } from '../../common';
 
+const config = {
+  tick: 1.5 * 1000, // seconds in milliseconds
+  debounce: 2 * 60 * 1000, // minutes in milliseconds
+  // debounce: 10 * 1000,
+  safety: 10,
+  next: 7
+};
+
 /**
  * @param timeout A javascript timer
  * @param duration A numberical representation in miliseconds of the remaining time for the timer
@@ -24,19 +32,12 @@ interface Amount {
   amount: number
 }
 
-const config = {
-  tick: 1.5 * 1000, // seconds in milliseconds
-  debounce: 2 * 60 * 1000, // minutes in milliseconds
-  // debounce: 10 * 1000,
-  safety: 10,
-  next: 7
-};
-
 const date_format = 'hh:mm:ss A';
 
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
   private readonly debouncer: Map<Snowflake, Amount> = new Map();
+  private readonly last_sent: Map<Snowflake, Moment> = new Map();
 
   readonly bot: Client;
   readonly db: ScanQuestDB;
@@ -206,7 +207,7 @@ export default class Spawner {
   }
 
   protected newSpawn(server: Server, force = false) {
-    const { activescans, last_sent, send_channel, disabled } = server;
+    const { activescans, send_channel, disabled, id } = server;
     if (disabled) {
       debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
       return;
@@ -214,13 +215,15 @@ export default class Spawner {
 
     debug(this.bot, `<#${send_channel}>: Attempting to generate a scan at ${moment().format(date_format)}`);
 
-    if (!force && activescans.length > 0 && last_sent) {
-      const d = moment().diff(moment(last_sent), 'minutes');
+    if (!force && activescans.length > 0 && this.last_sent.has(id)) {
+      const d = moment().diff(moment(this.last_sent.get(id)), 'minutes');
       if (d < config.safety) {
         this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
         return;
       }
     }
+
+    this.last_sent.set(id, moment());
 
     try {
       const { scannable, image, active } = this.select.card(server);
@@ -247,8 +250,6 @@ export default class Spawner {
 
     (this.bot.channels.get(send_channel) as TextChannel).send(image)
     .then((message) => {
-      server.last_sent = moment().toDate();
-
       const expires = this.expiresToDate(active);
 
       debug(this.bot, `<#${send_channel}>: Generated ${scannable.card.name} active until ${moment(expires).format(date_format)} at ${moment().format(date_format)}`);
