@@ -375,6 +375,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send('https://chaoticbackup.github.io/portal/');
 
     case 'recode':
+      if (args.length > 0 && args[0] === 'tutorial') {
+        return send('https://www.youtube.com/watch?v=C_6i7w0f_ng');
+      }
       return send('https://chaoticrecode.com/');
 
     case 'forum':
