@@ -5,7 +5,7 @@ const tiers = ['A', 'B'] as const;
 const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
 
 // https://en.wikipedia.org/wiki/Magic:_The_Gathering_deck_types#:~:text=The%20traditional%20archetypes%20fit
-const types = ['Aggro', 'Control', 'Combo', 'Aggro-Control', 'Gimmick', 'Midrange', 'Meta', 'Prison'] as const;
+const types = ['Aggro', 'Control', 'Combo', 'Aggro-Control', 'Gimmick', 'Midrange', 'Anti-Meta', 'Prison'] as const;
 
 type Tier = typeof tiers[number];
 
@@ -29,7 +29,7 @@ export const axes: {[key in DeckType]: string} = {
   Midrange: 'Threats, Inevitable, Redundant',
   Prison: 'Answers, Inevitable, Essential',
   Gimmick: 'Threats, Tempo, Essential',
-  Meta: 'Answers, Tempo, Essential'
+  'Anti-Meta': 'Answers, Tempo, Essential'
 };
 
 export const tierlist: {[key in Tier]: string[]} = {
@@ -156,7 +156,7 @@ export const decklist: Record<string, Deck> = {
     url: 'https://chaoticbackup.forumotion.com/t1601-gan-trak-update',
     tribe: "M'arrillian",
     tags: [],
-    type: ['Meta']
+    type: ['Anti-Meta']
   },
   GearEater: {
     url: 'https://chaoticbackup.forumotion.com/t1591-ilx-geareater',

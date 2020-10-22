@@ -23,6 +23,7 @@ function _types(input: string) {
 
   if (input.toLowerCase() === 'aggrocontrol') type = 'Aggro-Control';
   else if (input.toLowerCase() === 'controlaggro') type = 'Midrange';
+  else if (input.toLowerCase() === 'antimeta' || input.toLowerCase() === 'meta') type = 'Anti-Meta';
 
   if (isType(type)) {
     let message = `**${type} Decks:**\n(${axes[type]})\n\u200B\n`;
@@ -81,12 +82,26 @@ function _tags(input: string) {
   }
 }
 
+function _axes() {
+  let rsp = '';
+
+  for (const [key, value] of Object.entries(axes)) {
+    rsp += `**${key}**: ${value}\n`;
+  }
+
+  return rsp;
+}
+
 function _decklist(input: string): RichEmbed | string {
   let output: RichEmbed | undefined;
   input = cleantext(input);
 
   if (input.length < 1) {
     return 'Specify a tribe, tier, or keyword to search for decks';
+  }
+
+  if (input === 'types') {
+    return _axes();
   }
 
   if (input.length <= 2 && (output = _tiers(input)) instanceof RichEmbed) {
