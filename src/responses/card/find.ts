@@ -5,18 +5,10 @@ import { API } from '../../database';
 Find a list of names based on input
 */
 export default function (name: string) {
-  if (API.data === 'local') {
-    return 'Database offline; unable to find cards by name';
-  }
-
-  if (name.length < 2) {
-    return 'Use at least 2 characters';
-  }
-
   const results = API.find_card_name(name);
 
   if (results.length === 0) {
-    return 'No cards match this search';
+    return;
   }
 
   let response = '';
