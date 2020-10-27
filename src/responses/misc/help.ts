@@ -4,7 +4,7 @@ export default (str: string = '', keys: string[] = Object.keys(help)) => {
   let message = '';
 
   // detailed help
-  if (str && str !== '') {
+  if (str !== '') {
     if (str in help && help[str].long) {
       message = `\`\`\`md\n${
         help[str].cmd}\n\`\`\`${

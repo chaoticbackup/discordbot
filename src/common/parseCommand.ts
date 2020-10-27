@@ -15,6 +15,9 @@ export default function parseCommand(content: string):
     result = (content.substring(1));
   }
 
+  // prevents the bot from being used to maliciously mention everyone
+  result = result.replace(/@(here|everyone)/, '');
+
   const cmd = result.split(' ')[0].toLowerCase();
 
   const options: string[] = [];

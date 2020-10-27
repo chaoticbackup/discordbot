@@ -230,7 +230,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'parasite': {
       if (args[0] === 'token')
         return send(display_token(`parasite ${flatten(args.slice(1))}`));
-
       else
         return send(display_token(`parasite ${flatten(args)}`));
     }
