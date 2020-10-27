@@ -93,6 +93,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 }
 
 function checkMentions(message: Message, mentions: string[]): string | undefined {
+  console.log(message.content);
   const content = message.content.replace(`<@!${users('me')}>`, '');
 
   if (mentions.includes(users('afjak'))) {
@@ -101,12 +102,18 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
   }
 
   if (mentions.includes(users('me'))) {
-    if (content.length <= 1) {
+    if (content.length === 0) {
       return (rndrsp(tags.puns, 'pings'));
     }
 
-    if (content.match(new RegExp(/love/, 'i'))) {
+    if (content.match(/love/i)) {
       return '❤️ you too';
+    }
+    else if (content.match(/thank(s)*([ ]you)*/i)) {
+      return 'You are welcome';
+    }
+    else if (content.match(/sorry/i)) {
+      return 'I forgive you';
     }
     else if (content.match(new RegExp(/did.+(king).+(make|create)/, 'i'))) {
       return (rndrsp(tags.daddy));
@@ -118,7 +125,8 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       }
       return `${displayName} taught me Chaotic`;
     }
-    else if (isUser(message, 'brat')) {
+
+    if (isUser(message, 'brat')) {
       return rndrsp(tags.brat);
     }
     else if (isUser(message, 'bf')) {
