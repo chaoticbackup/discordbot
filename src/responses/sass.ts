@@ -7,7 +7,6 @@ import users, { isUser } from '../common/users';
 import { compliment } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
-import { whyban } from './game/bans';
 
 import { sass, tags } from './config/sass.json';
 
@@ -27,14 +26,9 @@ export default async function (bot: Client, message: Message, mentions: string[]
     });
   }
 
-  // #ban
-  if (content.substring(0, 4).toLowerCase() === '#ban') {
-    const name = (content.charAt(5) === ' ') ? content.substring(6) : content.substring(5);
-    return await send(whyban(name, message.channel));
-  }
-
   // [[cardname]]
-  if (message.channel.id !== servers('main').channel('other_games')
+  if (
+    message.channel.id !== servers('main').channel('other_games')
     && message.channel.id !== servers('main').channel('bot_commands')
   ) {
     let cardRgx = (/\[{2}(.*?)\]{2}/g);
