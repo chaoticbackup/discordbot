@@ -4,7 +4,7 @@ import { Channel } from '../../definitions';
 import { API } from '../../database';
 
 import ban_lists from './config/bans.json';
-const { formats, watchlist, detailed, reasons, jokes } = ban_lists;
+const { formats, detailed, reasons, jokes } = ban_lists;
 
 function f() {
   let message = 'Community Formats:\n';
@@ -39,10 +39,10 @@ export function banlist(message: Message, options: string[] = []) {
     case 'standard': {
       title('standard');
       list_bans('standard');
-      response += '\n=====\n**Watchlist:** (not banned)';
-      watchlist.forEach((key: string) => {
-        response += `\n${key}`;
-      });
+      // response += '\n=====\n**Watchlist:** (not banned)';
+      // watchlist.forEach((key: string) => {
+      //   response += `\n${key}`;
+      // });
       response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
       break;
     }
