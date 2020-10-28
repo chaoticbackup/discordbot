@@ -97,7 +97,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (content.length === 0) {
-      return (rndrsp(tags.puns, 'pings'));
+      return (rndrsp(tags.rhymes, 'pings'));
     }
 
     if (content.match(/love/i)) {
