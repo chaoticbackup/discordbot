@@ -34,6 +34,7 @@ export const axes: {[key in DeckType]: string} = {
 
 export const tierlist: {[key in Tier]: string[]} = {
   A: [
+    'DanianBurn',
     'Wise Guys',
     'LankerTosh',
     'Swimming Team',
@@ -115,6 +116,12 @@ export const decklist: Record<string, Deck> = {
     tribe: 'Mixed',
     tags: ['Fire', 'Power', 'Magmon, Engulfed'],
     type: ['Aggro']
+  },
+  DanianBurn: {
+    url: 'https://chaoticbackup.forumotion.com/t1669-alternative-danian-burn#15092',
+    tribe: 'Danian',
+    tags: ['Water', 'Air', 'Burn'],
+    type: ['Midrange']
   },
   Elementalist: {
     url: 'https://chaoticbackup.forumotion.com/t1570-elementalist-ow-update',
