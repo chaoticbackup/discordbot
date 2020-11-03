@@ -16,6 +16,6 @@ export default function (rule: string) {
     }
   }
 
-  return 'I\'m not sure, but you can check the Player Guide:\n' +
-      '<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>';
+  return 'I\'m not sure, you may need to check the Comprensive Rules:\n' +
+      '<https://docs.google.com/document/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>';
 }

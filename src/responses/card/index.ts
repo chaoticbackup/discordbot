@@ -5,7 +5,6 @@ import card_local from './card_local';
 import find from './find';
 
 export { default as full_art } from './full_art';
-
 export { default as display_token } from './token';
 export { default as avatar } from './avatar';
 
