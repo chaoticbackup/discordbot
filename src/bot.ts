@@ -125,10 +125,10 @@ const checkSpam = async (msg: Discord.Message) => {
 
   if (!msg.content.includes('chaoticrecode') && link_regex.test(msg.content)) {
     if (msg.member.bannable) {
-      await msg.member.ban()
+      await msg.member.ban({ reason: 'Posted link as first message. Typically spam bot behavior.' })
       .then(async () => {
         const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ${msg.content}`);
+        return await channel.send(`Banned Spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
       })
       .then(() => { if (msg.deletable) msg.delete(); });
     }
