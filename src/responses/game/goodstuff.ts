@@ -1,6 +1,7 @@
 import { parseTribe, parseType, MugicTribe, CreatureTribe, CardType, generify } from '../../common/card_types';
 
-const { agame, goodstuff } = require('./config/goodstuff.json') as { agame: string[], goodstuff: GoodStuff };
+const { agame, goodstuff, support } =
+  require('./config/goodstuff.json') as { agame: string[], support: string[], goodstuff: GoodStuff };
 
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
 
@@ -26,6 +27,14 @@ function fs() {
 function gs(args: string[]) {
   if (args.length === 0 || args[0] === '') {
     return "Due to the length, I can't send all the cards.\nPlease specify a card type/tribe";
+  }
+
+  if (args[0].toLowerCase() === 'support') {
+    let message = '';
+    support.forEach((card) => {
+      message += `${card}\n`;
+    });
+    return message;
   }
 
   const type = parseType(args[0]);
