@@ -1,6 +1,6 @@
 import { Guild, GuildMember } from 'discord.js';
-import { asyncForEach, hasPermission, isModerator, stripMention } from '../../common';
-import { CreatureTribes } from '../../common/card_types';
+import { asyncForEach, hasPermission, isModerator } from '../../common';
+import { CreatureTribes, parseTribe } from '../../common/card_types';
 
 const tribes = CreatureTribes;
 
@@ -116,7 +116,7 @@ const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> =>
   return 'You are not part of a tribe';
 };
 
-const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Promise<string> => {
+const joinTribe = async (guild: Guild, member: GuildMember, input: string): Promise<string> => {
   let leaving_tribe = '';
   tribes.forEach((t) => {
     if (member.roles.find(role => role === guild.roles.find(role => role.name === t))) {
@@ -126,10 +126,11 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
 
   let joining_msg = '';
   let leaving_msg = '';
-  switch (tribe.toLowerCase()) {
-    case 'danian':
-    case 'danians':
-      tribe = 'Danian';
+
+  const tribe = parseTribe(input);
+
+  switch (tribe) {
+    case 'Danian':
       if (leaving_tribe) {
         joining_msg = '<:gottahave:400174328215502851> You\'ve been infected.';
 
@@ -144,9 +145,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
         joining_msg = '<:gottahave:400174328215502851> Yo, you\'re one of the hive now.';
       }
       break;
-    case 'mipedian':
-    case 'mipedians':
-      tribe = 'Mipedian';
+    case 'Mipedian':
       if (leaving_tribe === 'Danian') {
         joining_msg = '<:Shim:315235831927537664> Another one purified';
       }
@@ -154,19 +153,10 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
         joining_msg = '<:Shim:315235831927537664> What\'s up my dude? heh heh heh, welcome to the fun.';
       }
       break;
-    case 'marrillian':
-    case "m'arrillian":
-    case 'm’arrillian':
-    case 'marrillians':
-    case "m'arrillians":
-    case 'm’arrillians':
-      tribe = "M'arrillian";
+    case "M'arrillian":
       joining_msg = '<:Mar:294942283273601044> You\'ll serve your purpose.';
       break;
-    case 'overworld':
-    case 'overworlder':
-    case 'overworlders':
-      tribe = 'OverWorld';
+    case 'OverWorld':
       if (leaving_tribe === 'UnderWorld') {
         leaving_msg = '<:Chaor:285620681163669506> How dare you betray me for the OverWorld!';
         // eslint-disable-next-line max-len
@@ -180,10 +170,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
         joining_msg = '<:Bodal:401553896108982282> You have joined the mighty forces of the OverWorld.';
       }
       break;
-    case 'underworld':
-    case 'underworlder':
-    case 'underworlders':
-      tribe = 'UnderWorld';
+    case 'UnderWorld':
       if (leaving_tribe === 'OverWorld') {
         joining_msg = '<:Chaor:285620681163669506> Ah good! You can tell me all their secrets! ';
       }
@@ -191,22 +178,11 @@ const joinTribe = async (guild: Guild, member: GuildMember, tribe: string): Prom
         joining_msg = '<:Chaor:285620681163669506> Puny humans can still fight for Chaor!';
       }
       break;
-    case 'tribeless':
-    case 'generic':
-      tribe = 'Tribeless';
-      if (leaving_tribe) {
-        joining_msg = '<:creepy:471863166737973268> You\'ve left your home behind';
-      }
-      else {
-        joining_msg = '<:creepy:471863166737973268> New prey 👀';
-      }
-      break;
-    case 'frozen':
-      tribe = 'Frozen';
+    case 'Frozen':
       joining_msg = 'Shhhh we haven\'t been revealed yet';
       break;
     default:
-      return `${stripMention(tribe)} is not a valid faction`;
+      return `${input} is not a valid faction`;
   }
 
   const guild_role = guild.roles.find(role => role.name === tribe);

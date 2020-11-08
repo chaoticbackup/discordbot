@@ -22,7 +22,8 @@ export default function parseCommand(content: string):
 
   const options: string[] = [];
   result = result.replace(/(?:--|—)(([\w]+="((\\")|([^"]))*")|([^\s]+))/g, (_match: any, p1: string) => {
-    options.push(p1); return '';
+    options.push(p1);
+    return '';
   });
 
   // only looks at first line for input

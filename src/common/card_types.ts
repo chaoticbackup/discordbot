@@ -25,6 +25,8 @@ export function parseTribe(
     case 'marrillians':
     case 'm\'arrillian':
     case 'm\'arrillians':
+    case 'm’arrillian':
+    case 'm’arrillians':
       return "M'arrillian";
     case 'mipedian':
     case 'mipedians':
