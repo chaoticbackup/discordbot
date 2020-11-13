@@ -183,6 +183,8 @@ export default class Spawner {
 
     const amount = (this.debouncer.get(id)?.amount ?? 0);
     activities.push({ timestamp: now, amount });
+
+    this.activity.set(id, activities);
   }
 
   private reduce(server: Server) {
