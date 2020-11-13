@@ -60,14 +60,14 @@ export class SpawnLocation extends Spawn {
   }
 
   generate(location: Location): [ScannableLocation, RichEmbed]
-  generate(activescans: ActiveScan[]): [ScannableLocation, RichEmbed]
-  generate(arg1: Location | ActiveScan[]): [ScannableLocation, RichEmbed] {
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableLocation, RichEmbed]
+  generate(arg1: Location | ActiveScan[], arg2?: string[]): [ScannableLocation, RichEmbed] {
     let location: Location;
 
     if (isCard(arg1)) {
       location = arg1;
     } else {
-      location = this.randomCard(this.locations, arg1) as Location;
+      location = this.randomCard(this.locations, arg1, arg2) as Location;
     }
 
     const image = new RichEmbed()

@@ -105,14 +105,14 @@ export class SpawnCreature extends Spawn {
   }
 
   generate(card: Creature): [ScannableCreature, RichEmbed]
-  generate(activescans: ActiveScan[]): [ScannableCreature, RichEmbed]
-  generate(arg1: Creature | ActiveScan[]): [ScannableCreature, RichEmbed] {
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableCreature, RichEmbed]
+  generate(arg1: Creature | ActiveScan[], arg2?: string[]): [ScannableCreature, RichEmbed] {
     let creature: Creature;
 
     if (isCard(arg1)) {
       creature = arg1;
     } else {
-      creature = this.randomCard(this.creatures, arg1) as Creature;
+      creature = this.randomCard(this.creatures, arg1, arg2) as Creature;
     }
 
     const image = new RichEmbed()

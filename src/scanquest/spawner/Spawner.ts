@@ -8,12 +8,20 @@ import custom from './custom';
 import { Scannable } from '../scan_type/Scannable';
 import { msgCatch } from '../../common';
 
+/**
+ * @tick seconds in milliseconds
+ * @debounce minutes in milliseconds
+ * @safety minutes
+ * @next hours
+ * @activity_window minutes in milliseconds
+ */
 const config = {
-  tick: 1.5 * 1000, // seconds in milliseconds
-  debounce: 2 * 60 * 1000, // minutes in milliseconds
+  tick: 1.5 * 1000,
+  debounce: 2 * 60 * 1000,
   // debounce: 10 * 1000,
   safety: 10,
-  next: 7
+  next: 7,
+  activity_window: 15 * 60 * 1000
 };
 
 /**
@@ -32,12 +40,21 @@ interface Amount {
   amount: number
 }
 
+/**
+ * This is used for calculating activity "density"
+ */
+interface Activity {
+  timestamp: Moment
+  amount: number
+}
+
 const date_format = 'hh:mm:ss A';
 
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
   private readonly debouncer: Map<Snowflake, Amount> = new Map();
   private readonly last_sent: Map<Snowflake, Moment> = new Map();
+  private readonly activity: Map<Snowflake, Activity[]> = new Map();
 
   readonly bot: Client;
   readonly db: ScanQuestDB;
@@ -146,7 +163,7 @@ export default class Spawner {
     const reduce = (length - 8) * config.tick;
 
     if (this.debouncer.has(id)) {
-      const { amount } = this.debouncer.get(id) as Amount;
+      const { amount } = this.debouncer.get(id)!;
       this.debouncer.set(id, { amount: amount + reduce });
     }
     else {
@@ -155,7 +172,22 @@ export default class Spawner {
     }
   }
 
+  private setActivity(server: Server) {
+    const { id } = server;
+
+    const now = moment();
+
+    let activities = this.activity.get(id) ?? [];
+
+    activities = activities.filter(value => now.diff(value.timestamp, 'minutes') <= config.activity_window);
+
+    const amount = (this.debouncer.get(id)?.amount ?? 0);
+    activities.push({ timestamp: now, amount });
+  }
+
   private reduce(server: Server) {
+    this.setActivity(server);
+
     const { id, send_channel } = server;
 
     if (this.timers.has(id)) {
@@ -225,8 +257,16 @@ export default class Spawner {
 
     this.last_sent.set(id, moment());
 
+    let amount = 0;
+    if (this.activity.has(id)) {
+      this.activity.get(id)!.forEach(v => { amount += v.amount; });
+    }
+
+    // TODO can be removed after determining weight
+    debug(this.bot, `Amount of value in the previous interval: ${amount}`);
+
     try {
-      const { scannable, image, active } = this.select.card(server);
+      const { scannable, image, active } = this.select.card(server, amount);
       this.spawnCard(server, scannable, image, active);
     }
     catch (e) {

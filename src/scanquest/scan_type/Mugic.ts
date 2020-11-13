@@ -58,13 +58,13 @@ export class SpawnMugic extends Spawn {
   }
 
   generate(card: Mugic): [ScannableMugic, RichEmbed];
-  generate(activescans: ActiveScan[]): [ScannableMugic, RichEmbed];
-  generate(arg1: Mugic | ActiveScan[]): [ScannableMugic, RichEmbed] {
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableMugic, RichEmbed];
+  generate(arg1: Mugic | ActiveScan[], arg2?: string[]): [ScannableMugic, RichEmbed] {
     let mugic: Mugic;
     if (isCard(arg1)) {
       mugic = arg1;
     } else {
-      mugic = this.randomCard(this.mugic, arg1) as Mugic;
+      mugic = this.randomCard(this.mugic, arg1, arg2) as Mugic;
     }
     const image = new RichEmbed()
     .setImage(API.cardFullart(mugic))
