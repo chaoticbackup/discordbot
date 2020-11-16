@@ -153,6 +153,27 @@ export default class API {
     }).simplesort('gsx$name').data();
   }
 
+  find_cards_ignore_comma(name, options=[]) {
+    let results = this.find_cards_by_name(name, options);
+
+    if (results.length > 0) {
+      return results;
+    }
+
+    if (name.split(' ').length > 1) {
+      results = this.find_cards_by_name(name.split(' ')[0], []);
+      if (results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].gsx$name.replace(',', '').toLowerCase().includes(name.toLowerCase())) {
+            return [results[i]];
+          }
+        }
+      }
+    }
+
+    return [];
+  }
+
   /**
    *  Finds cards in the database by name
    */

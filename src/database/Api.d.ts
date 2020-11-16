@@ -10,6 +10,7 @@ export default class API {
   data: '' | 'local' | 'api';
   rebuild(): Promise<API>;
   find_card_name(text: string): Card[];
+  find_cards_ignore_comma(name: string, options?: string[]): Card[];
   find_cards_by_name(name: string, options?: string[]): Card[];
   hasImage(card: Card): boolean;
   hasAvatar(card: Creature): boolean;

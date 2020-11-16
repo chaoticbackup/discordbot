@@ -4,7 +4,7 @@ import { Creature } from '../../definitions';
 import { rndrsp } from '../../common';
 
 export default function (name: string) {
-  const results = API.find_cards_by_name(name, ['type=creature']) as Creature[];
+  const results = API.find_cards_ignore_comma(name, ['type=creature']) as Creature[];
   let card: Creature;
 
   if (!name) {

@@ -66,7 +66,7 @@ export default class Scanner {
       }
     }
     else {
-      const name = API.find_cards_by_name(args)[0]?.gsx$name ?? null;
+      const name = API.find_cards_ignore_comma(args)[0]?.gsx$name ?? null;
       if (name) {
         selected = server.activescans.find(scan => scan.scan.name === name);
       }

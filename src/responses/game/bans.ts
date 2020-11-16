@@ -92,7 +92,7 @@ export function whyban(
 ): string | undefined {
   if (!name) return 'Please provide a card or use !banlist';
 
-  const card = API.find_cards_by_name(name)[0] ?? null;
+  const card = API.find_cards_ignore_comma(name)[0] ?? null;
 
   if (card) {
     const cardName = card.gsx$name;
@@ -141,5 +141,5 @@ export function whyban(
     return 'Not a valid card name';
   }
 
-  return rndrsp(["That card isn't banned", `Oh lucky you! ${card.gsx$name} isn't banned`]);
+  return rndrsp([`${card.gsx$name} isn't banned`, `Oh lucky you! ${card.gsx$name} isn't banned`]);
 }

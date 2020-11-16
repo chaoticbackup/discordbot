@@ -25,7 +25,7 @@ export default function (text: string, options: string[], bot: Client) {
 }
 
 export function rate(name: string, stats: number[], options: string[], bot: Client) {
-  const results = API.find_cards_by_name(name);
+  const results = API.find_cards_ignore_comma(name);
   if (results.length <= 0) {
     return "That's not a valid card name";
   }
