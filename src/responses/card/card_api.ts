@@ -6,16 +6,27 @@ import Icons from '../../common/bot_icons';
 import find from './find';
 
 export default function (name: string, options: string[], bot: Client): string | RichEmbed {
-  const results = API.find_cards_by_name(name, options);
+  let results = API.find_cards_by_name(name, options);
 
   if (results.length <= 0) {
-    const rind_results = find(name);
+    if (name.split(' ').length > 1) {
+      results = API.find_cards_by_name(name.split(' ')[0], []);
+      if (results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].gsx$name.replace(',', '').toLowerCase().includes(name.toLowerCase())) {
+            return Response(results[i], options, bot);
+          }
+        }
+      }
+    }
 
-    if (!rind_results) {
+    const find_results = find(name);
+
+    if (!find_results) {
       return "That's not a valid card name";
     }
 
-    return rind_results;
+    return find_results;
   }
 
   // Random card
