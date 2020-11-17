@@ -12,7 +12,7 @@ function _tiers(input: string) {
     let message = '';
 
     tierlist[input].forEach((deck: string) => {
-      message += `${deck}: ${decklist[deck].url}\n`;
+      message += `[${deck}](${decklist[deck].url})\n`;
     });
     return (new RichEmbed()).addField(`${input} Decks`, message, true);
   }
@@ -34,7 +34,7 @@ function _types(input: string) {
     }
 
     typeList.forEach((deck: string) => {
-      message += `${deck}: ${decklist[deck].url}\n`;
+      message += `[${deck}](${decklist[deck].url})\n`;
     });
     return (new RichEmbed()).setDescription(message);
   }
@@ -55,7 +55,7 @@ function _tribes(input: string) {
     }
 
     tribelist.forEach((deck: string) => {
-      message += `${deck}: ${decklist[deck].url}\n`;
+      message += `[${deck}](${decklist[deck].url})\n`;
     });
     return (new RichEmbed()).setDescription(message);
   }
@@ -70,7 +70,7 @@ function _tags(input: string) {
     if (!tags) continue;
     tags.forEach(tag => {
       if (cleantext(tag).includes(input)) {
-        tagList.push(`${deck}: ${decklist[deck].url}`);
+        tagList.push(`[${deck}](${decklist[deck].url})`);
       }
     });
   }
@@ -134,7 +134,7 @@ function _tierlist() {
   for (const key in tierlist) {
     let message = '';
     tierlist[key].forEach((deck: string) => {
-      message += `${deck}: ${decklist[deck].url}\n`;
+      message += `[${deck}](${decklist[deck].url})\n`;
     });
     output.addField(key, message, true);
   }

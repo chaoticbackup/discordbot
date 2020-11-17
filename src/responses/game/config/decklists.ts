@@ -32,36 +32,6 @@ export const axes: {[key in DeckType]: string} = {
   'Anti-Meta': 'Answers, Tempo, Essential'
 };
 
-export const tierlist: {[key in Tier]: string[]} = {
-  S: [
-    'DanianBurn',
-    'Tree Frogs',
-    'Strike',
-    'Swimming Team',
-    'Wise Guys',
-    'UW Burn',
-  ],
-  A: [
-    'Elemental',
-    "Bodal's Boys",
-    'Fliandar',
-    'Aszil Compost',
-    'UrsisKanin',
-    'Aszil Courage',
-    'Grantkae Control'
-  ],
-  B: [
-    'Lyssta Mixed',
-    'No Healing',
-    'Warbeast',
-    'Ursis Dagger',
-    'Kraken',
-    'Ocean Man',
-    'FireFly',
-    'Mip Reckless'
-  ]
-};
-
 interface Deck {
   url: string
   tribe: Tribe
@@ -69,7 +39,7 @@ interface Deck {
   tags: string[]
 }
 
-export const decklist: Record<string, Deck> = {
+export const decklist: {[key: string]: Deck} = {
   'Aszil Compost': {
     url: 'https://chaoticbackup.forumotion.com/t1580-aszil-compost',
     tribe: 'Danian',
@@ -118,13 +88,13 @@ export const decklist: Record<string, Deck> = {
     tags: ['Fire', 'Power', 'Magmon, Engulfed'],
     type: ['Aggro']
   },
-  DanianBurn: {
+  'Danian Burn (Gareep)': {
     url: 'https://chaoticbackup.forumotion.com/t1669-alternative-danian-burn#15092',
     tribe: 'Danian',
     tags: ['Water', 'Air', 'Burn'],
     type: ['Midrange']
   },
-  Elemental: {
+  'OverWorld Elemental': {
     url: 'https://chaoticbackup.forumotion.com/t1570-overworld-elemental',
     tribe: 'OverWorld',
     tags: ['Fire', 'Earth', 'Water'],
@@ -263,7 +233,7 @@ export const decklist: Record<string, Deck> = {
     type: ['Midrange']
   },
   "Muge's Dagger": {
-    url: 'https://chaoticbackup.forumotion.com/t1628-muge-s-dagger-ivan',
+    url: 'https://chaoticbackup.forumotion.com/t1670-muge-s-dagger',
     tribe: 'Mixed',
     tags: ['Tribeless'],
     type: ['Aggro-Control', 'Gimmick']
@@ -328,4 +298,35 @@ export const decklist: Record<string, Deck> = {
     tags: [],
     type: ['Combo']
   }
+};
+
+export const tierlist: {[key in Tier]: string[]} = {
+  S: [
+    'Danian Burn (Gareep)',
+    'Tree Frogs',
+    'Strike',
+    'Swimming Team',
+    'Wise Guys',
+    'UW Burn',
+  ],
+  A: [
+    'OverWorld Elemental',
+    "Bodal's Boys",
+    'Fliandar',
+    'Aszil Compost',
+    'UrsisKanin',
+    'Aszil Courage',
+    'Grantkae Control'
+  ],
+  B: [
+    'Lyssta Mixed',
+    'No Healing',
+    'Warbeast',
+    'Ursis Dagger',
+    'Kraken',
+    'Ocean Man',
+    'FireFly',
+    'Mip Reckless',
+    "Muge's Dagger"
+  ]
 };
