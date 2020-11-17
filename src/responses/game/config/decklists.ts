@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-const tiers = ['A', 'B'] as const;
+const tiers = ['S', 'A', 'B'] as const;
 
 const tribes = ['OverWorld', 'UnderWorld', 'Danian', 'Mipedian', "M'arrillian", 'Mixed'] as const;
 
@@ -33,14 +33,16 @@ export const axes: {[key in DeckType]: string} = {
 };
 
 export const tierlist: {[key in Tier]: string[]} = {
-  A: [
+  S: [
     'DanianBurn',
-    'Wise Guys',
-    'LankerTosh',
-    'Swimming Team',
+    'Tree Frogs',
     'Strike',
-    'Elemental',
+    'Swimming Team',
+    'Wise Guys',
     'UW Burn',
+  ],
+  A: [
+    'Elemental',
     "Bodal's Boys",
     'Fliandar',
     'Aszil Compost',
@@ -49,7 +51,6 @@ export const tierlist: {[key in Tier]: string[]} = {
     'Grantkae Control'
   ],
   B: [
-    'Fire and Brimstone',
     'Lyssta Mixed',
     'No Healing',
     'Warbeast',
@@ -208,7 +209,7 @@ export const decklist: Record<string, Deck> = {
     type: ['Control']
   },
   'Fire and Brimstone': {
-    url: 'https://chaoticbackup.forumotion.com/t1571-hot-air-rises',
+    url: 'https://chaoticbackup.forumotion.com/t1571-fire-and-brimstone',
     tribe: 'UnderWorld',
     tags: ['Fire', 'Air'],
     type: ['Aggro']
@@ -225,7 +226,7 @@ export const decklist: Record<string, Deck> = {
     tags: [],
     type: ['Control']
   },
-  LankerTosh: {
+  'Tree Frogs': {
     url: 'https://chaoticbackup.forumotion.com/t1565-lanarkiar',
     tribe: 'Mixed',
     tags: ['Lanker', 'Ikkatosh, The Aichking', 'Anarkiar'],
