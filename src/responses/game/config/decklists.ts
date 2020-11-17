@@ -39,7 +39,7 @@ export const tierlist: {[key in Tier]: string[]} = {
     'LankerTosh',
     'Swimming Team',
     'Strike',
-    'Elementalist',
+    'Elemental',
     'UW Burn',
     "Bodal's Boys",
     'Fliandar',
@@ -123,8 +123,8 @@ export const decklist: Record<string, Deck> = {
     tags: ['Water', 'Air', 'Burn'],
     type: ['Midrange']
   },
-  Elementalist: {
-    url: 'https://chaoticbackup.forumotion.com/t1570-elementalist-ow-update',
+  Elemental: {
+    url: 'https://chaoticbackup.forumotion.com/t1570-overworld-elemental',
     tribe: 'OverWorld',
     tags: ['Fire', 'Earth', 'Water'],
     type: ['Midrange']
