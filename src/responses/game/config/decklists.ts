@@ -155,7 +155,7 @@ export const decklist: {[key: string]: Deck} = {
     type: ['Combo', 'Gimmick']
   },
   'Grantkae Control': {
-    url: 'https://chaoticbackup.forumotion.com/t1633-grantkae-control',
+    url: 'https://chaoticbackup.forumotion.com/t1651-grantkae-control',
     tribe: 'Mixed',
     tags: ['Ulmquad'],
     type: ['Aggro-Control']
