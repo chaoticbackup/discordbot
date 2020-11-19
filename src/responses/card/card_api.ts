@@ -196,15 +196,13 @@ const TypeLine = (props: props) => {
     } Battlegear${card.gsx$types.length > 0 ? ` - ${card.gsx$types}` : ''}`;
   }
   else if (card.gsx$type === 'Creatures') {
-    const tribe = (card as Creature).gsx$tribe;
     let types = card.gsx$types;
     let past = false;
     if (types.toLowerCase().includes('past')) {
       past = true;
       types = types.replace(/past /i, '');
     }
-    resp = `${icons.tribes((card as Creature).gsx$tribe)
-    } Creature - ${past ? 'Past ' : ''}${tribe === 'Generic' ? '' : `${tribe} `}${types}`;
+    resp = `${icons.tribes((card as Creature).gsx$tribe)} Creature - ${past ? 'Past ' : ''}${types}`;
   }
   else if (card.gsx$type === 'Locations') {
     resp = `${icons.locations()
