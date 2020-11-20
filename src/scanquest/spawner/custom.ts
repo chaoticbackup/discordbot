@@ -53,7 +53,7 @@ export default function (this: Spawner, message: Message, args: string[], option
       }
     }
     else {
-      regex_arr = (/[+-]([\d.]\d+)[hm]*/).exec(change);
+      regex_arr = (/[+-](\d+[.]?\d?)[hm]?/).exec(change);
       if (regex_arr && regex_arr.length > 1) {
         const num = regex_arr[1];
         if (change.endsWith('m')) {
