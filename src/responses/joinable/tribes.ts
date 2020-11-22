@@ -127,7 +127,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
   let joining_msg = '';
   let leaving_msg = '';
 
-  const tribe = parseTribe(input);
+  const tribe = parseTribe(input, 'Creatures');
 
   switch (tribe) {
     case 'Danian':
@@ -176,6 +176,14 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
       }
       else {
         joining_msg = '<:Chaor:285620681163669506> Puny humans can still fight for Chaor!';
+      }
+      break;
+    case 'Tribeless':
+      if (leaving_tribe) {
+        joining_msg = '<:creepy:471863166737973268> You\'ve left your home behind';
+      }
+      else {
+        joining_msg = '<:creepy:471863166737973268> New prey 👀';
       }
       break;
     case 'Frozen':
