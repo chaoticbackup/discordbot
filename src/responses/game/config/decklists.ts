@@ -166,6 +166,12 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Aggro-Control']
   },
+  Hermatred: {
+    url: 'https://chaoticbackup.forumotion.com/t1672-hermatred',
+    tribe: 'Danian',
+    tags: ['Hermatred', 'Compost', 'Infection'],
+    type: ['Combo']
+  },
   HiveMind: {
     url: 'https://chaoticbackup.forumotion.com/t1599-hivemind',
     tribe: 'Danian',
@@ -304,23 +310,24 @@ export const tierlist: {[key in Tier]: string[]} = {
     'UW Burn',
   ],
   A: [
-    'OverWorld Elemental',
+    'Aszil Compost',
+    'Aszil Courage',
     "Bodal's Boys",
     'Fliandar',
-    'Aszil Compost',
-    'UrsisKanin',
-    'Aszil Courage',
-    'Grantkae Control'
+    'Grantkae Control',
+    'Hermatred',
+    'OverWorld Elemental',
+    'UrsisKanin'
   ],
   B: [
-    'Lyssta Mixed',
-    'No Healing',
-    'Warbeast',
-    'Ursis Dagger',
-    'Kraken',
-    'Ocean Man',
     'FireFly',
+    'Kraken',
+    'Lyssta Mixed',
     'Mip Reckless',
-    "Muge's Dagger"
+    "Muge's Dagger",
+    'No Healing',
+    'Ocean Man',
+    'Ursis Dagger',
+    'Warbeast'
   ]
 };
