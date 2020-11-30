@@ -166,7 +166,7 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Aggro-Control']
   },
-  "Hermatred's Attack": {
+  "Heartmatred's Attack": {
     url: 'https://chaoticbackup.forumotion.com/t1672-hermatred',
     tribe: 'Danian',
     tags: ['Hermatred', 'Compost', 'Infection'],
