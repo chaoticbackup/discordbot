@@ -26,12 +26,14 @@ const languageList = (guild: Guild) => {
 const memberList = async (message: Message, role: Role, lang: string) => {
   const Pagination = new FieldsEmbed<GuildMember>();
 
+  const array = (await message.guild.fetchMembers()).members.filter(m => m.roles.has(role.id)).array();
+
   Pagination
     .setChannel(message.channel as (TextChannel))
     .setDisabledNavigationEmojis(['DELETE'])
     .setElementsPerPage(20)
     .setPageIndicator(true)
-    .setArray(role.members.array())
+    .setArray(array)
     .formatField(`List of ${languageProper(lang)} speakers:`, m => m.displayName);
 
   return await Pagination.build();
