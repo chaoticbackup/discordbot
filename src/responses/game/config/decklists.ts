@@ -166,12 +166,6 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Aggro-Control']
   },
-  'Heard Melody': {
-    url: 'https://chaoticbackup.forumotion.com/t1631-heard-melody',
-    tribe: 'Mipedian',
-    tags: [],
-    type: ['Combo']
-  },
   HiveMind: {
     url: 'https://chaoticbackup.forumotion.com/t1599-hivemind',
     tribe: 'Danian',

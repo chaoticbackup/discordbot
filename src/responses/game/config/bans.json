@@ -17,6 +17,7 @@
 		"Cadence Clash",
 		"Dror'niq",
 		"Elemental Elegy",
+		"Enre-hep, High Muge of the Desert",
 		"Hune Paltanin",
 		"Illusionary Lake",
 		"Imaginary Walls",
@@ -39,8 +40,7 @@
 	],
 	"watchlist": [
 		"Elemental Denial",
-		"Interlude of Interruption",
-		"Refrain of Denial"
+		"Interlude of Interruption"
 	],
 	"pauper": [
 		"Casters' Warsong",
@@ -123,8 +123,8 @@
 			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. Against non-elemental Creatures, it becomes a \"Song of Stasis\" to stall the attack of a Creature. Because of its dual nature, it provides too much advantage.",
 			"Danians plagiarized both the OverWorld and UnderWorld."
 		],
-		"Enre-hep, High Muge": [
-			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most broken combo involves Strain of Infection to create a loop to generate infinite counters."
+		"Enre-hep, High Muge of the Desert": [
+			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most broken combos are: Tonal Destruction, Unheard Melody, Consuming Cacophony, Song of Resistance (which can stall a game for hours), and most broken involves Strain of Infection and Ode to Obscurity to create a loop to generate infinite counters."
 		],
 		"Ginar'rash, The Extinguisher": [
 			"Similarly to Illusionary Lake, this card can create an inability to have and gain Fire. As long as you play consistent water attacks, your opponent will not be able to play fire attacks."
@@ -235,7 +235,7 @@
 			"Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."
 		],
 		"Strain of Infection": [
-			"It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in Danian burn to refuel abilities. Enre-hep, High Muge most breaks this card by creating a loop to generate infinite counters.",
+			"It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in Danian burn to easily refuel Ulmquad damage. Enre-hep, High Muge most breaks this card by creating a loop to generate infinite counters.",
 			"Since Danians can turn infected creatures into Mugic counters, I wonder if M'arrillians could turn minions into Mugic counters..."
 		],
 		"Supercooled Rain": [
@@ -321,6 +321,6 @@
 	"detailed": {
 		"Bodal, Flamedrill Researcher": "Setup: Equip Bodal with Destructazooka. Equip Lam'inkal with Scout's Monocular. Equip you're fighter/defender (Lomma, Dessert Wanderer / Tangeth Toborn, OverWorld General) with Droskin (or other sacrifice gear).\n1. Engage in combat. Sacrifice you're battlegear.\n2. Use Garv to flip up Bodal's Destructazooka to give him earth and flip up Scout's Monocular. Expend Bodal's earth to bring back your battlegear.\n3. When you fluidmorph, use Olkiex' trigger to flip Destructazooka down. Then use Scout's Monocular to flip it back up and give Bodal earth.\nThis will let you bring back a Battlegear every attack.",
 		"Primal Smash": "The biggest issue is that the decks that wouldn't benefit from their archetype by using primal are also inherently either low or not even on the tier list because the structure of the better and higher tier meta decks relies on something that isnt just attack value. War beast and strike are worth less than  even a moderately refined deck of wise guys. And while some war beast variant decks lose on primal, wise guys gains. So it would actually create a larger power disparity than already exists. And would reduce deck variety to boot because primal would become an active meta staple to help ensure remaining competitive against other meta decks.\nThe decks that do not benefit from primal already dont have enough going for them to break into higher tiers. Releasing primal does nothing for them. And only hurts them by boosting the power of many decks that are already more competitively viable.",
-		"#1": "**Combo:**\n1. Deep Dirge Vilrik Landfarer. minus 1 mc out of 8. remove the mc from the Vilrik Landfarer not deep dirged\n2. Sac mipedian flute on ramarhvir and illexia\n3. Sacrifice the Vilrik Landfaer with hive amber. He is also the one that has 1 mc and has not been deep dirged. - 1 mc. Flip new active location and illexia the danien queen gains a mc and you get to put hive amber on a creature\n4. Sacrifice wamma with hive amber too using the brainwashed Vilrik Landfarer. Illexia gains a mc and you can equip hive amber on illexia\n5. Activate hive amber and put a counter from illexia on rahmarhvir\n6. Deactivate with hiveunsung and remove a mugic counter any of your creatures besides ramarhvir\n7. Activate your other hive amber and put another counter anywhere except ramarhvir on rahmarhvir\n8. Deactivate hive with hiveunsung and pay a mugic anywhere except ramarhvir to being it back to tour hand again\n9. Activate ramarhvir ability to bring back wamma first. Both Wamma, hive ordinance gain a mc.\n10. Activate hive with illexia ability. Transfer a mugix anywhere except rahmarhvir to rahmarhvir\n11. Activate Ramarhvir's ability to bring back Vilrik Landfarer\n12. Sacrifice Vilrik Landfarer and repeat step 1 - 12. Except you do not sacrifice wamma and you bring back two hive ambrers at once when you sac Vilrik Landfarer"
+		"Ramarhvir #1": "**Combo:**\n1. Deep Dirge Vilrik Landfarer. minus 1 mc out of 8. remove the mc from the Vilrik Landfarer not deep dirged\n2. Sac mipedian flute on ramarhvir and illexia\n3. Sacrifice the Vilrik Landfaer with hive amber. He is also the one that has 1 mc and has not been deep dirged. - 1 mc. Flip new active location and illexia the danien queen gains a mc and you get to put hive amber on a creature\n4. Sacrifice wamma with hive amber too using the brainwashed Vilrik Landfarer. Illexia gains a mc and you can equip hive amber on illexia\n5. Activate hive amber and put a counter from illexia on rahmarhvir\n6. Deactivate with hiveunsung and remove a mugic counter any of your creatures besides ramarhvir\n7. Activate your other hive amber and put another counter anywhere except ramarhvir on rahmarhvir\n8. Deactivate hive with hiveunsung and pay a mugic anywhere except ramarhvir to being it back to tour hand again\n9. Activate ramarhvir ability to bring back wamma first. Both Wamma, hive ordinance gain a mc.\n10. Activate hive with illexia ability. Transfer a mugix anywhere except rahmarhvir to rahmarhvir\n11. Activate Ramarhvir's ability to bring back Vilrik Landfarer\n12. Sacrifice Vilrik Landfarer and repeat step 1 - 12. Except you do not sacrifice wamma and you bring back two hive ambrers at once when you sac Vilrik Landfarer"
 	}
 }
