@@ -315,7 +315,7 @@ export const tierlist: {[key in Tier]: string[]} = {
     "Bodal's Boys",
     'Fliandar',
     'Grantkae Control',
-    "Hermatred's Attack",
+    "Heartmatred's Attack",
     'OverWorld Elemental',
     'UrsisKanin'
   ],
