@@ -166,7 +166,7 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Aggro-Control']
   },
-  Hermatred: {
+  "Hermatred's Attack": {
     url: 'https://chaoticbackup.forumotion.com/t1672-hermatred',
     tribe: 'Danian',
     tags: ['Hermatred', 'Compost', 'Infection'],
@@ -315,7 +315,7 @@ export const tierlist: {[key in Tier]: string[]} = {
     "Bodal's Boys",
     'Fliandar',
     'Grantkae Control',
-    'Hermatred',
+    "Hermatred's Attack",
     'OverWorld Elemental',
     'UrsisKanin'
   ],
