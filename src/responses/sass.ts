@@ -8,7 +8,7 @@ import { compliment } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
 
-import { sass, tags } from './config/sass.json';
+import { quips, hello, rhymes } from './config/sass.json';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -79,9 +79,9 @@ export default async function (bot: Client, message: Message, mentions: string[]
     return await send('Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift');
   }
 
-  for (const key in sass) {
+  for (const key in quips) {
     if (content.match(new RegExp(key, 'i'))) {
-      return await send(rndrsp(sass[key]));
+      return await send(rndrsp(quips[key]));
     }
   }
 }
@@ -97,7 +97,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (content.length === 0) {
-      return (rndrsp(tags.rhymes, 'pings'));
+      return (rndrsp(rhymes, 'rhymes'));
     }
 
     if (content.match(/love/i)) {
@@ -110,7 +110,8 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return 'I forgive you';
     }
     else if (content.match(new RegExp(/did.+(king).+(make|create)/, 'i'))) {
-      return (rndrsp(tags.daddy));
+      const responses = ['Yeah he did!', "He's the best dad!", '*big smile*', 'Sometimes I give him a hard time'];
+      return rndrsp(responses);
     }
     else if (content.match(new RegExp(/who.+(made|created)/, 'i'))) {
       let displayName: string | null = message.guild.members.get(users('daddy'))?.displayName ?? null;
@@ -121,13 +122,21 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     }
 
     if (isUser(message, 'brat')) {
-      return rndrsp(tags.brat);
+      if (content.toLowerCase().includes('sorry')) {
+        return "I'll forgive you, if you stop annoying me";
+      }
+      if ((/((nee|nii)-chan)|baka/i).test(content)) {
+        return 'Thank you weeb';
+      } else {
+        const responses = ["Yes? Oh… it's you", 'Stop bothering me', 'So is this what having a younger brother is like?', "Dad, he's picking on me", 'Sigh, here we go again'];
+        return rndrsp(responses);
+      }
     }
     else if (isUser(message, 'bf')) {
       return compliment([users('bf')], '', message.guild);
     }
     else {
-      return rndrsp(tags.hello, 'hello');
+      return rndrsp(hello, 'hello');
     }
   }
 }
