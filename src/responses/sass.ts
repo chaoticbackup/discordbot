@@ -87,7 +87,6 @@ export default async function (bot: Client, message: Message, mentions: string[]
 }
 
 function checkMentions(message: Message, mentions: string[]): string | undefined {
-  console.log(message.content);
   const content = message.content.replace(`<@!${users('me')}>`, '');
 
   if (mentions.includes(users('afjak'))) {
