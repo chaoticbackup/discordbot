@@ -127,7 +127,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
   let joining_msg = '';
   let leaving_msg = '';
 
-  const tribe = parseTribe(input, 'Creatures');
+  const tribe = parseTribe(input, 'Joinable');
 
   switch (tribe) {
     case 'Danian':

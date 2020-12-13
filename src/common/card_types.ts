@@ -1,6 +1,6 @@
-export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen'] as const;
-export const CreatureTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen', 'Tribeless'] as const;
-export const MugicTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Frozen', 'Generic'] as const;
+export const Tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld'] as const;
+export const CreatureTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless'] as const;
+export const MugicTribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Generic'] as const;
 
 export type Tribe = typeof Tribes[number];
 export type CreatureTribe = typeof CreatureTribes[number];
@@ -14,9 +14,10 @@ export function parseTribe(input: string, type: 'Mixed'): Tribe | 'Mixed' | unde
 export function parseTribe(input: string, type: 'Mugic'): MugicTribe | undefined;
 export function parseTribe(input: string, type: 'Creatures'): CreatureTribe | undefined;
 export function parseTribe(input: string, type: 'Mugic' | 'Creatures'): CreatureTribe | MugicTribe | undefined;
+export function parseTribe(input: string, type: 'Joinable'): CreatureTribe | 'Frozen' | undefined;
 export function parseTribe(
-  input: string, type?: 'Mugic' | 'Creatures' | 'Mixed'
-): CreatureTribe | MugicTribe | 'Mixed' | undefined {
+  input: string, type?: 'Mugic' | 'Creatures' | 'Mixed' | 'Joinable'
+): CreatureTribe | MugicTribe | 'Mixed' | 'Frozen' | undefined {
   switch (input.toLowerCase()) {
     case 'danian':
     case 'danians':
@@ -37,6 +38,10 @@ export function parseTribe(
     case 'underworld':
     case 'underworlders':
       return 'UnderWorld';
+    case 'frozen':
+      if (type === 'Joinable')
+        return 'Frozen';
+      break;
     case 'mixed':
       return 'Mixed';
     case 'tribeless':
