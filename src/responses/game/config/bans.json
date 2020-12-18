@@ -23,6 +23,7 @@
 		"Imaginary Walls",
 		"Lord Van Bloot, Servant of Aa'une",
 		"Lore, Ancestral Caller",
+		"Lore, High Muge",
 		"Melody of the Meek",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
@@ -172,6 +173,9 @@
 			"Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore. Unlike other cards that stiffle discard pile interactions, Lore's ability to gain Mugic counters furthers the disparity in matchups. Additionaly, since Lore has an activated ability on which to spend these counters, has the energy and disciplines of a fighter, and has subtype Muge, the combination of factors pushes him into the overbearing territory and makes Danian burn too powerful.",
 			"He was arrested for grave robbery."
 		],
+		"Lore, High Muge": [
+			"Lore, High Muge allows you to get extra use out of Mugic and can push a Mugic's potency over the line. Common targets are one cost Mugics such as Caster's Warsong and Song of Symmetry. Lore's ability becomes oppressive with Mugic like Tonal Destruction and Strain of Infection. Either by easily stripping away your opponent's Mugic hand, or by a huge resource boost on an activated ability like Ulmquad and Lobanne."
+		],
 		"Lore's Chamber of Recall": [
 			"Although this card isn't banworthy in terms of its power level, it limits some deck building and it's banned for the effort to enable more decks."
 		],
@@ -234,7 +238,7 @@
 			"Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."
 		],
 		"Strain of Infection": [
-			"It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in Danian burn to easily refuel Ulmquad damage. Enre-hep, High Muge most breaks this card by creating a loop to generate infinite counters.",
+			"It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in burn to easily refuel Ulmquad damage. Enre-hep, High Muge most breaks this card by creating a loop to generate infinite counters.",
 			"Since Danians can turn infected creatures into Mugic counters, I wonder if M'arrillians could turn minions into Mugic counters..."
 		],
 		"Supercooled Rain": [
