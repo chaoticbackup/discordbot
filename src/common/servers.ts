@@ -66,7 +66,8 @@ const serverList = [
       banlist_discussion: '473975360342458368',
       meta_analysis: '418856983018471435',
       other_games: '286993363175997440',
-      perim: '656156361029320704'
+      perim: '656156361029320704',
+      french: '407259697348083717'
     }
   },
   {

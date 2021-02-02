@@ -26,6 +26,12 @@ export default async function (bot: Client, message: Message, mentions: string[]
     });
   }
 
+  if (message.channel.id === servers('main').channel('french')) {
+    if (content.includes('vendre')) {
+      return await send("Pas de ventes ou d'échanges sur le serveur guys");
+    }
+  }
+
   // [[cardname]]
   if (
     message.channel.id !== servers('main').channel('other_games')
