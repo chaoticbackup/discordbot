@@ -28,7 +28,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   if (message.channel.id === servers('main').channel('french')) {
     if (content.includes('vendre')) {
-      return await send("Pas de ventes ou d'échanges sur le serveur guys");
+      const embed = new RichEmbed()
+      .setDescription("[Pas de vente ou d'échanges sous peine d'être ban du serveur](https://discord.com/channels/135657678633566208/586755320962088985/662679259562639379)")
+      .setTitle('Attention');
+      return await send(embed);
     }
   }
 
