@@ -122,7 +122,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   const { guild, guildMember } = await messageGuild(message);
 
   const parseCards = (args: string[], opts: string[]): void => {
-    return flatten(args).split(';').forEach((name: string) => {
+    return flatten(args).replace(/\[/g, '').split(';').forEach((name: string) => {
       send(display_card(name.trim(), opts, bot));
     });
   };
