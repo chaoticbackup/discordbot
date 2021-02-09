@@ -214,12 +214,6 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Midrange']
   },
-  'Mip Reckless': {
-    url: 'https://chaoticbackup.forumotion.com/t1596-mipedian-reckless',
-    tribe: 'Mipedian',
-    tags: ['Enre-hep'],
-    type: ['Midrange']
-  },
   'Marr Reckless': {
     url: 'https://chaoticbackup.forumotion.com/t1597-marr-reckless',
     tribe: "M'arrillian",
@@ -231,6 +225,18 @@ export const decklist: {[key: string]: Deck} = {
     tribe: 'OverWorld',
     tags: [],
     type: ['Midrange']
+  },
+  'Mip Reckless': {
+    url: 'https://chaoticbackup.forumotion.com/t1596-mipedian-reckless',
+    tribe: 'Mipedian',
+    tags: ['Enre-hep'],
+    type: ['Midrange']
+  },
+  "Mock'adyn": {
+    url: 'https://chaoticbackup.forumotion.com/t1677-mock-adyn',
+    tribe: "M'arrillian",
+    tags: ['Ulmquad', "Mock'adyn", 'Rellim, Watermaster'],
+    type: ['Control']
   },
   "Muge's Dagger": {
     url: 'https://chaoticbackup.forumotion.com/t1670-muge-s-dagger',
@@ -303,11 +309,12 @@ export const decklist: {[key: string]: Deck} = {
 export const tierlist: {[key in Tier]: string[]} = {
   S: [
     'Danian Burn (Gareep)',
-    'Tree Frogs',
+    "Mock'adyn",
     'Strike',
     'Swimming Team',
-    'Wise Guys',
+    'Tree Frogs',
     'UW Burn',
+    'Wise Guys',
   ],
   A: [
     'Aszil Compost',
