@@ -23,6 +23,14 @@
             "img": "https://i.servimg.com/u/f26/18/37/62/02/khy_at10.png",
             "type": "Attack"
         },
+        "Burdraq": {
+            "img": "https://i.imgur.com/0fzMWRK.png",
+            "type": "Creature"
+        },
+        "Ceizash": {
+            "img": "https://i.imgur.com/0tFSRuy.png",
+            "type": "Creature"
+        },
         "Consecutive Normal Punches": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/punch10.jpg",
             "type": "Attack"
@@ -34,6 +42,14 @@
         "Faquadore": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/farqua12.png",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/farqua11.png",
+            "type": "Creature"
+        },
+        "Jucra": {
+            "img": "https://i.imgur.com/xGrpCsJ.png",
+            "type": "Creature"
+        },
+        "Krovir": {
+            "img": "https://i.imgur.com/kPSIcsA.png",
             "type": "Creature"
         },
         "Majar-Borth": {
@@ -51,6 +67,14 @@
         "Tama'Toa": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/tama_t10.jpg",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/tama_t11.jpg",
+            "type": "Creature"
+        },
+        "Uktir": {
+            "img": "https://i.imgur.com/tffR0zj.png",
+            "type": "Creature"
+        },
+        "Uzoth": {
+            "img": "https://i.imgur.com/53Lhgnn.png",
             "type": "Creature"
         },
         "Xield, Unbreakable Warrior": {
