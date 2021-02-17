@@ -6,6 +6,10 @@
         "Lord van Bloot (Non-Loyal)": {
 			"img": "https://drive.google.com/uc?id=10Bt5EZLgY6Jv8XR3_dgykHjNRzvtMRfu"
 		},
+        "Maxxor, Ruler of Perim": {
+            "img:": "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI",
+            "type": "Creature" 
+        },
         "Proboscar (Powerful)": {
 			"img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h"
 		}
@@ -36,10 +40,6 @@
             "img": "https://i.servimg.com/u/f26/18/37/62/02/majar-10.jpg",
             "type": "Creature"
         },
-        "Maxxor, Ruler of Perim": {
-            "img:": "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI",
-            "type": "Creature" 
-        },
         "Pocket Sand": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/pocket10.jpg",
             "type": "Attack"
@@ -60,6 +60,28 @@
         "Xeild, Unbreakable Weapon": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/xield_11.png",
             "type": "Battlegear"
+        }
+    },
+    "Holiday": {
+        "Carol of Generosity": {
+            "img": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/787d19d8-54ff-4df3-a060-a95896836473/daqsna7-e5dbca9c-6c68-468c-8da2-43ed384959a4.png",
+            "type": "Mugic"
+        },
+        "Mistletoe Forest": {
+            "img": "https://i.imgur.com/3P2Ejxw.png",
+            "type": "Location"
+        },
+        "Mr. Fez, Spreader of Cheer": {
+            "img": "https://i.imgur.com/tUk7iNy.png",
+            "type": "Creature"
+        },
+        "Naughty Stockings": {
+            "img": "https://i.imgur.com/YtCbO41.png",
+            "type": "Battlegear"
+        },
+        "Nogalanche": {
+            "img": "https://i.imgur.com/N8aubmQ.jpg",
+            "type": "Attack"
         }
     },
     "GoneChaotic": {
@@ -1556,6 +1578,133 @@
         }
     },
     "Gone4_5": {
-
+        "Afjak's Oracle Offbrand Cereal": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/knocko10.png",
+            "type": "Battlegear"
+        },
+        "Antideon's Submarine": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/sub10.png",
+            "type": "Battlegear"
+        },
+        "Atrapol, The Rook": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/atropo11.png",
+            "type": "Creature"
+        },
+        "Azoth, The All Devouring": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/azoth10.png",
+            "type": "Creature"
+        },
+        "Becgred'ore": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gerb10.png",
+            "type": "Creature"
+        },
+        "Becgred'ore, Younger": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gerb_y10.png",
+            "type": "Creature"
+        },
+        "Bishop Nidding": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/bishop11.png",
+            "type": "Creature"
+        },
+        "Dahet": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/dahet10.png",
+            "type": "Creature"
+        },
+        "Darimak, Parasitic Mechanic": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/darima10.png",
+            "type": "Creature"
+        },
+        "Disorder": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/knock_10.png",
+            "type": "Battlegear"
+        },
+        "Gone Chaotic's 5th Anniversary Unbirthday Cake": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/unbirt10.png",
+            "type": "Battlegear"
+        },
+        "Gothos Tower, Chessboard": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gothos16.png",
+            "type": "Location"
+        },
+        "Heptadd, Drunk Elementalist": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/heptad10.png",
+            "type": "Creature"
+        },
+        "King Van Bloot": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/king_v13.png",
+            "type": "Creature"
+        },
+        "Korbek Cove, Caves to the UnderWorld": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/korbek10.png",
+            "type": "Location"
+        },
+        "Krekk, Unwitting Pawn": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/krekk_13.png",
+            "type": "Creature"
+        },
+        "Krystella's Broomstick": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/kryste10.png",
+            "type": "Battlegear"
+        },
+        "Miklon, God of 105 vs 105": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/miklon10.png",
+            "type": "Creature"
+        },
+        "Misti": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/misti10.png",
+            "type": "Creature"
+        },
+        "Mommark, Clone #2": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mommar10.png",
+            "type": "Creature"
+        },
+        "Mommark, Clone #3": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mommar11.png",
+            "type": "Creature"
+        },
+        "OverWorld Theater, Ccenter Stage": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/overwo10.png",
+            "type": "Location"
+        },
+        "Pascal": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/pascal10.png",
+            "type": "Creature"
+        },
+        "Queen Skithia": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/queen_12.png",
+            "type": "Creature"
+        },
+        "Shield Wall": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/shield10.png",
+            "type": "Attack"
+        },
+        "Shimmark Steel, Stalker Spy": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/shimma10.png",
+            "type": "Creature"
+        },
+        "Sir Zamool, The New Shadowknight": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/sir_za11.png",
+            "type": "Creature"
+        },
+        "Stat-cking Checks": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/stat_c10.png",
+            "type": "Attack"
+        },
+        "Toor-vith": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/fire_m10.png",
+            "type": "Creature"
+        },
+        "Underland Park": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/underl11.png",
+            "type": "Location"
+        },
+        "UnderWorld Slums, Back Alley": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/underw10.png",
+            "type": "Location"
+        },
+        "Vidav's Call of Unity": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/call_o10.png",
+            "type": "Mugic"
+        }        
     }
 }

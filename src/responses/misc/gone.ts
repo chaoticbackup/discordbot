@@ -1,6 +1,6 @@
 import { Client, RichEmbed } from 'discord.js';
 import { cleantext, rndrsp } from '../../common';
-import { Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5 } from './config/gonechaotic.json';
+import { Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5 } from './config/gonechaotic.json';
 
 interface Gone {
   img: string
@@ -10,10 +10,10 @@ interface Gone {
 
 const cardTypes = ['attack', 'creature', 'battlegear', 'mugic', 'location'];
 
-export default function (name: string, bot: Client, options: string[]) {
-  // eslint-disable-next-line max-len
-  const merged: Record<string, Gone> = Object.assign({}, Custom, Extra, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5);
+// eslint-disable-next-line max-len
+const merged: Record<string, Gone> = Object.assign({}, Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5);
 
+export default function (name: string, bot: Client, options: string[]) {
   const withStats = (c: number, p: number, w: number, s: number, e: number) => {
     return ''
     + `${c}${bot.emojis.find(emoji => emoji.name === 'Courage').toString()} `
