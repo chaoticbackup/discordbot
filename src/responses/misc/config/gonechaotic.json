@@ -12,14 +12,34 @@
     },
     "Extra": {
         "Alcohol Abuse": {
-			"img": "https://i.servimg.com/u/f26/18/37/62/02/alcoho10.jpg"
+			"img": "https://i.servimg.com/u/f26/18/37/62/02/alcoho10.jpg",
+            "type": "Attack"
+        },
+        "Consecutive Normal Punches": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/punch10.jpg",
+            "type": "Attack"
+        },
+        "Majar-Borth": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/majar-10.jpg",
+            "type": "Creature"
         },
         "Maxxor, Ruler of Perim": {
-            "img:" : "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI"
+            "img:": "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI",
+            "type": "Creature" 
+        },
+        "Pocket Sand": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/pocket10.jpg",
+            "type": "Attack"
         },
         "Skithia Gothos Hoe": {
-			"img": "https://i.servimg.com/u/f26/18/37/62/02/skithi10.jpg"
-		}
+			"img": "https://i.servimg.com/u/f26/18/37/62/02/skithi10.jpg",
+            "type": "Creature"
+		},
+        "Tama'Toa": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/tama_t10.jpg",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/tama_t11.jpg",
+            "type": "Creature"
+        }
     },
     "GoneChaotic": {
         "Ancient Melody": {
@@ -864,7 +884,370 @@
         }
     },
     "GoneChaotic3": {
-
+        "Ampli-Fire": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/amplif10.jpg",
+            "type": "Attack"
+        },
+        "Aranaktu, Volcano Warbeast of Sacrifice (True Form)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aranak10.jpg",
+            "type": "Location"
+        },
+        "Aranaktu, Warbeast Volcano Sacrifice (Avatar)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aranak11.jpg",
+            "type": "Creature"
+        },
+        "Arias' Nose Ring": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/arias_10.jpg",
+            "type": "Battlegear"
+        },
+        "Armor Less Assault": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/armorl10.jpg",
+            "type": "Attack"
+        },
+        "Aromak, In Training": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aromak10.jpg",
+            "type": "Creature"
+        },
+        "Aromak, Seasoned Veteran": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aromar10.jpg",
+            "type": "Creature"
+        },
+        "Aszil's Thorax Ring": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aszil_10.jpg",
+            "type": "Battlegear"
+        },
+        "Bahrakatan's Engineered Shardbot": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/shardb10.jpg",
+            "type": "Creature"
+        },
+        "Bath'tub": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/bath_t10.jpg",
+            "type": "Creature"
+        },
+        "Beast Slap": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/beast_10.jpg",
+            "type": "Attack"
+        },
+        "Blob'ert": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/blob10.jpg",
+            "type": "Creature"
+        },
+        "Blowing Down the House": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/blowin10.jpg",
+            "type": "Attack"
+        },
+        "Bodal's Office": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/bodal_10.jpg",
+            "type": "Location"
+        },
+        "Bombarding Balls": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/bombar10.jpg",
+            "type": "Attack"
+        },
+        "Brainwashing Bidents": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/brainw10.jpg",
+            "type": "Attack"
+        },
+        "C'u't'h'u'l'u, Grandfather of Aa'une": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/cuthul10.jpg",
+            "type": "Creature"
+        },
+        "Change the Flow": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/change10.jpg",
+            "type": "Attack"
+        },
+        "Chaor's Spell-Binder": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/chaos_10.jpg",
+            "type": "Battlegear"
+        },
+        "Chaor's Steed": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/chaor_10.jpg",
+            "type": "Battlegear"
+        },
+        "Cool Breeze": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/cool_b10.jpg",
+            "type": "Attack"
+        },
+        "Cromax's Lazer Club": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/lazer_10.jpg",
+            "type": "Battlegear"
+        },
+        "Cybug #VII": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/cybug10.jpg",
+            "type": "Creature"
+        },
+        "Dev-ris": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/dev-ri10.jpg",
+            "type": "Creature"
+        },
+        "Dranakis Threshold, (15 minutes into the past)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/dranak10.jpg",
+            "type": "Location"
+        },
+        "Droskin, Champion's Belt": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/droski10.jpg",
+            "type": "Battlegear"
+        },
+        "Dundee": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/dundee10.jpg",
+            "type": "Creature"
+        },
+        "Earth Parchment Daggers": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/earth_10.jpg",
+            "type": "Attack"
+        },
+        "Faster Than You": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/faster10.jpg",
+            "type": "Attack"
+        },
+        "Fiery Fists": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/fire_f10.jpg",
+            "type": "Attack"
+        },
+        "Flaming Fire": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/fire11.jpg",
+            "type": "Attack"
+        },
+        "Frafdo, Tail Rider": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/frafdo10.jpg",
+            "type": "Creature"
+        },
+        "Freeiza, (Final Form)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/freeiz12.jpg",
+            "type": "Creature"
+        },
+        "Freeiza, (First Form)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/freeiz10.jpg",
+            "type": "Creature"
+        },
+        "Freeiza, (Second Form)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/freeiz11.jpg",
+            "type": "Creature"
+        },
+        "Friendly Fire": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/friend10.jpg",
+            "type": "Attack"
+        },
+        "Gale Push": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gale_p10.jpg",
+            "type": "Attack"
+        },
+        "Gloomuck Swamp, Maxxor's Hideout": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gloomu10.jpg",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/gloomu11.jpg",
+            "type": "Location"
+        },
+        "Head Cannon": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/heads10.jpg",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/headsa10.jpg",
+            "type": "Battlegear"
+        },
+        "Healing Hand": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/healin10.jpg",
+            "type": "Attack"
+        },
+        "Heated Highground": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/heated11.jpg",
+            "type": "Attack"
+        },
+        "Hilc, Grave Robber": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/hilcgr10.jpg",
+            "type": "Creature"
+        },
+        "Hilc, The Returned": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/hilcth10.jpg",
+            "type": "Creature"
+        },
+        "Hisser, Shady Salesbug": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/hisser10.jpg",
+            "type": "Creature"
+        },
+        "Home Invader's Tactic": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/home_i10.jpg",
+            "type": "Attack"
+        },
+        "Home Turf Tackle": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/home_t10.jpg",
+            "type": "Attack"
+        },
+        "Hoton's Village, Ruins": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/hoton10.jpg",
+            "type": "Location"
+        },
+        "Invisible Shoes": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/invisi10.jpg",
+            "type": "Battlegear"
+        },
+        "Iron Mail": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/iron_m10.jpg",
+            "type": "Battlegear"
+        },
+        "Kion": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/kion10.jpg",
+            "type": "Creature"
+        },
+        "Knowledge Pool": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/knowle10.jpg",
+            "type": "Attack"
+        },
+        "List of the Accused": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/list10.jpg",
+            "type": "Battlegear"
+        },
+        "Mhoork, The Muscle": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mhoork10.jpg",
+            "type": "Creature"
+        },
+        "Mhoork's Nipple Rings": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/nipple10.jpg",
+            "type": "Battlegear"
+        },
+        "Mipedian Invisibility Key": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mipedi10.jpg",
+            "type": "Battlegear"
+        },
+        "Mipedian Oasis, Aichlyss Festival": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mipedi11.jpg",
+            "type": "Location"
+        },
+        "Mountains of Mayhem": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mounta10.jpg",
+            "type": "Location"
+        },
+        "Mr. Fez": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mr_fez10.jpg",
+            "type": "Creature"
+        },
+        "Mr'Kha'rall's, Chaotic Coin Pincher": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mr_kha10.jpg",
+            "type": "Creature"
+        },
+        "Muge's Lake": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/muge_s10.jpg",
+            "type": "Location"
+        },
+        "New Kiru City": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/new_ki10.jpg",
+            "type": "Location"
+        },
+        "Nidding, The Weakling": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/niddin10.jpg",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/niddin11.jpg",
+            "type": "Creature"
+        },
+        "No U": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/no_u-r10.jpg",
+            "type": "Attack"
+        },
+        "Perim Second Moon, Surface Flux Gate": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/perim_10.jpg",
+            "type": "Location"
+        },
+        "Peyton": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/peyton10.jpg",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/peyton11.jpg",
+            "type": "Attack"
+        },
+        "Phobophobia": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/phobop10.jpg",
+            "type": "Creature"
+        },
+        "Power Play": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/power_10.jpg",
+            "type": "Attack"
+        },
+        "Pyrithion, Danger Noodle": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/pyrith10.jpg",
+            "type": "Creature"
+        },
+        "R. B. G., (Really BIG Gun)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/r_b_g10.jpg",
+            "type": "Battlegear"
+        },
+        "Rao'pa Sahkk, Shark Infested Sands": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/roa_pa10.jpg",
+            "type": "Location"
+        },
+        "Rocky Earth": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/rocky_10.jpg",
+            "type": "Attack"
+        },
+        "Sabbath": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/sabbat10.jpg",
+            "type": "Creature"
+        },
+        "Sedi-tlement Shake": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/sedi-t10.jpg",
+            "type": "Attack"
+        },
+        "Somnort, Submerged Senior": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/somnor10.jpg",
+            "type": "Creature"
+        },
+        "Stoney Silence": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/stoney10.jpg",
+            "type": "Attack"
+        },
+        "Tartareck, Senior Mutant Ninja": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/tart10.jpg",
+            "type": "Creature"
+        },
+        "The OverWorld's Overbearing Daycare": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/daycar10.jpg",
+            "type": "Location"
+        },
+        "Tian Wo Dan, B@llin' Overlord": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/baller11.jpg",
+            "type": "Creature"
+        },
+        "Turbulant Tones": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/turbul10.jpg",
+            "type": "Attack"
+        },
+        "Un-emp": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/un-emp10.jpg",
+            "type": "Creature"
+        },
+        "UnderWorld City, RarranMan's Perch": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/underw10.jpg",
+            "type": "Location"
+        },
+        "Viqtarr, (Cool Version)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mike_v10.jpg",
+            "type": "Creature"
+        },
+        "Wet Water": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/wet_wa10.jpg",
+            "type": "Attack"
+        },
+        "Will of the Wisp": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/will_o10.jpg",
+            "type": "Attack"
+        },
+        "Windy Air": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/windy_10.jpg",
+            "type": "Attack"
+        },
+        "Wise Crack": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/wise_c10.jpg",
+            "type": "Attack"
+        },
+        "Wistanni's Tounge Ring": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/tounge10.jpg",
+            "type": "Battlegear"
+        },
+        "Xis'torq's Tentacle Ring": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/xis_to11.jpg",
+            "type": "Battlegear"
+        },
+        "Yokkis' Hut": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/yokkis10.jpg",
+            "type": "Location"
+        },
+        "You're gonna Kharry that weight": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/your_g10.jpg",
+            "type": "Attack"
+        }
     },
     "Gone4Ever": {
 
