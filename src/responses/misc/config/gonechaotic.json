@@ -15,9 +15,22 @@
 			"img": "https://i.servimg.com/u/f26/18/37/62/02/alcoho10.jpg",
             "type": "Attack"
         },
+        "Battle for teh Sword of Khy'at in the Stone": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/khy_at10.png",
+            "type": "Attack"
+        },
         "Consecutive Normal Punches": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/punch10.jpg",
             "type": "Attack"
+        },
+        "Exkhy'atlibur": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/token10.png",
+            "type": "Battlegear"
+        },
+        "Faquadore": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/farqua12.png",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/farqua11.png",
+            "type": "Creature"
         },
         "Majar-Borth": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/majar-10.jpg",
@@ -39,6 +52,14 @@
             "img": "https://i.servimg.com/u/f26/18/37/62/02/tama_t10.jpg",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/tama_t11.jpg",
             "type": "Creature"
+        },
+        "Xield, Unbreakable Warrior": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/xield_10.png",
+            "type": "Creature"
+        },
+        "Xeild, Unbreakable Weapon": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/xield_11.png",
+            "type": "Battlegear"
         }
     },
     "GoneChaotic": {
@@ -1250,6 +1271,188 @@
         }
     },
     "Gone4Ever": {
-
+        "Ambiguous Attack": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/ambigu12.png",
+            "type": "Creature"
+        },
+        "Barry Seinfeld": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/barry212.png",
+            "type": "Creature"
+        },
+        "Birth(day)quake": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/birthd12.png",
+            "type": "Creature"
+        },
+        "Brainbust": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/brainb12.png",
+            "type": "Creature"
+        },
+        "Ca'tthulu": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/cathul12.png",
+            "type": "Creature"
+        },
+        "Chaor(issa)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/chaori13.png",
+            "type": "Creature"
+        },
+        "Exia, Purified": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/exia_12.png",
+            "type": "Creature"
+        },
+        "Flavor Town": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/flavor10.png",
+            "type": "Location"
+        },
+        "Gothos Tower, Home of the Shadowmaster": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/gothos13.png",
+            "type": "Location"
+        },
+        "Herken's Secret Formula": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/herken14.png",
+            "type": "Battlegear"
+        },
+        "Ixxik, On Ice": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/ixxik12.png",
+            "type": "Creature"
+        },
+        "Kaz's Room": {
+            "img": "https://giphy.com/gifs/mBRGDx22PGIkSzOo3x",
+            "type": "Location"
+        },
+        "Kennetea-rex": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/tea_re12.png",
+            "type": "Creature"
+        },
+        "Kira": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/kira12.png",
+            "type": "Creature"
+        },
+        "Left Flip Flop of the Forbidden One": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/left_f13.png",
+            "type": "Battlegear"
+        },
+        "Make My Own Luck": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/make_m12.png",
+            "type": "Creature"
+        },
+        "Marksman's Overpreperation": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/mark10.png",
+            "type": "Creature"
+        },
+        "Meeklose": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/meeklo12.png",
+            "type": "Creature"
+        },
+        "Melodies of Madness": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/melodi12.png",
+            "type": "Mugic"
+        },
+        "Midnight, Chaotic Companion": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/midnig13.png",
+            "type": "Battlegear"
+        },
+        "Mipedian Trap Mugic": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/trap_c11.png",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/trap_c13.jpg",
+            "type": "Mugic"
+        },
+        "Missed Matched Armor": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/missma21.png",
+            "type": "Battlegear"
+        },
+        "Missed Matched Armor, (Misprint)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/missma22.png",
+            "type": "Battlegear"
+        },
+        "Off Key Opus": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/off_tu11.png",
+            "type": "Mugic"
+        },
+        "Pheren'tal's Mind Key": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/aa_une14.png",
+            "type": "Battlegear"
+        },
+        "Psychedelic Mipedium Cactus": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/cactus14.png",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/cactus15.png",
+            "type": "Battlegear"
+        },
+        "Refrain of Refrain": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/refrai12.png",
+            "type": "Mugic"
+        },
+        "Reminder Text": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/remind14.png",
+            "type": "Battlegear"
+        },
+        "Right Flip Flop of the Forbidden One": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/right_13.png",
+            "type": "Battlegear"
+        },
+        "Rules Court": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/rule_s13.png",
+            "type": "Location"
+        },
+        "Snake Eyes, Seer Through Another": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/snake_13.png",
+            "alt": "https://i.servimg.com/u/f26/18/37/62/02/snake_14.png",
+            "type": "Creature"
+        },
+        "Son of the Opening": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/song_o11.png",
+            "type": "Mugic"
+        },
+        "Sounds of Sacrifice": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/sacraf13.png",
+            "type": "Mugic"
+        },
+        "Stelgar, Has a Knife!": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/stelga13.png",
+            "type": "Creature"
+        },
+        "Strain of Stasis": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/frozen11.png",
+            "type": "Mugic"
+        },
+        "Symphony of Swarm": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/swarm13.png",
+            "type": "Mugic"
+        },
+        "Tai'hen": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/tai_he12.png",
+            "type": "Creature"
+        },
+        "Take a Xelfie": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/take_a12.png",
+            "type": "Creature"
+        },
+        "The Khilaian Sphere": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/the_kh14.png",
+            "type": "Battlegear"
+        },
+        "The Spiritlands": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/spirit10.png",
+            "type": "Location"
+        },
+        "Think Tank": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/think_10.png",
+            "type": "Location"
+        },
+        "Up in the Air": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/up_in_12.png",
+            "type": "Creature"
+        },
+        "Ursis, (No Relation)": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/ursis12.png",
+            "type": "Creature"
+        },
+        "Vortices of the Elements": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/elemen11.png",
+            "type": "Location"
+        },
+        "Xesu-sprint": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/xesu_s12.png",
+            "type": "Creature"
+        }
     }
 }
