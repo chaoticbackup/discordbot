@@ -256,6 +256,12 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Midrange', 'Combo']
   },
+  Rawr: {
+    url: 'https://chaoticbackup.forumotion.com/t1633-rawr',
+    tribe: 'Mipedian',
+    tags: ['Ixxik'],
+    type: ['Control']
+  },
   Strike: {
     url: 'https://chaoticbackup.forumotion.com/t1568-strike',
     tribe: 'Mipedian',
@@ -286,7 +292,7 @@ export const decklist: {[key: string]: Deck} = {
     tags: ['Tribeless', 'Ursis'],
     type: ['Midrange']
   },
-  'UW Burn': {
+  'UnderWorld Burn': {
     url: 'https://chaoticbackup.forumotion.com/t1575-uw-burn',
     tribe: 'UnderWorld',
     tags: ['Burn', 'Fire'],
@@ -310,23 +316,24 @@ export const tierlist: {[key in Tier]: string[]} = {
   S: [
     'Danian Burn (Gareep)',
     "Mock'adyn",
+    'Rawr',
     'Strike',
-    'Swimming Team',
-    'Tree Frogs',
-    'UW Burn',
+    'UnderWorld Burn',
     'Wise Guys',
   ],
   A: [
-    'Aszil Compost',
-    'Aszil Courage',
     "Bodal's Boys",
     'Fliandar',
     'Grantkae Control',
     "Heartmatred's Attack",
     'OverWorld Elemental',
+    'Swimming Team',
+    'Tree Frogs',
     'UrsisKanin'
   ],
   B: [
+    'Aszil Compost',
+    'Aszil Courage',
     'FireFly',
     'Kraken',
     'Lyssta Mixed',
