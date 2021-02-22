@@ -256,6 +256,12 @@ export const decklist: {[key: string]: Deck} = {
     tags: [],
     type: ['Midrange', 'Combo']
   },
+  "PoP'in Off": {
+    url: 'https://chaoticbackup.forumotion.com/t1674-pop-in-off',
+    tribe: 'OverWorld',
+    tags: ['Maxxor, Protector of Perim'],
+    type: ['Control']
+  },
   Rawr: {
     url: 'https://chaoticbackup.forumotion.com/t1633-rawr',
     tribe: 'Mipedian',
@@ -327,6 +333,7 @@ export const tierlist: {[key in Tier]: string[]} = {
     'Grantkae Control',
     "Heartmatred's Attack",
     'OverWorld Elemental',
+    "PoP'in Off",
     'Swimming Team',
     'Tree Frogs',
     'UrsisKanin'
