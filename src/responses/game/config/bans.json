@@ -15,6 +15,7 @@
 		"Bi-Mowercycle",
 		"Bodal, Flamedrill Researcher",
 		"Cadence Clash",
+		"Chaac",
 		"Dror'niq",
 		"Elemental Elegy",
 		"Enre-hep, High Muge of the Desert",
@@ -109,6 +110,9 @@
 		],
 		"Casters' Warsong": [
 			"In pauper, the availability of this Mugic gives advantage to the prevailant \"burn\" archtypes and can be a filler card in already good decks with a Muge (eg. Danian compost)."
+		],
+		"Chaac": [
+			"Chaac, provides early game dominance by shutting down element based decks early game, combining this with the late game power of Fluidmorphing causes an overly consistent resource advantage. Combined with Em'swa in late games, makes Elemental decks unable to win, or combined with Mock'adyn to stall a combat to build up healing.\n(Previously Chaac had been allowed because M'arrillians were underwhelming compared to the other tribes.)"
 		],
 		"Deadwater Devastation": [
 			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options."
