@@ -9,6 +9,7 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 
 import { quips, hello, rhymes } from './config/sass.json';
+import { isMissing } from './misc/missing_cards';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -26,6 +27,16 @@ export default async function (bot: Client, message: Message, mentions: string[]
     });
   }
 
+  // Fast way to check if card been added to recode
+  if (is_channel(message, 'dev') || is_channel(message, 'recode')) {
+    const missing_regex = new RegExp(/is (.*) (missing in|added (in|to)|(?<!missing[ ])in) recode\?/, 'i');
+    if (missing_regex.test(content)) {
+      const name = missing_regex.exec(content)!;
+      return await send(isMissing(name[1]));
+    }
+  }
+
+  // Special case for Quebec people trying to sell
   if (message.channel.id === servers('main').channel('french')) {
     if (content.includes('vendre')) {
       const embed = new RichEmbed()
@@ -36,10 +47,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   // [[cardname]]
-  if (
-    message.channel.id !== servers('main').channel('other_games')
-    && message.channel.id !== servers('main').channel('bot_commands')
-  ) {
+  if (!is_channel(message, 'other_games') || !is_channel(message, 'bot_commands')) {
     let cardRgx = (/\[{2}(.*?)\]{2}/g);
     if (cardRgx.test(content)) {
       cardRgx = new RegExp(cardRgx);
@@ -76,11 +84,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   if (content.match(/(stack\?|cumulative.*?\?)/i)) {
-    const myreg = new RegExp('((elementproof|(water|fire|air|earth)(proof|[ ][0-9x]+)|intimidate(\s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(\s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?', 'i');
+    const myreg = new RegExp('((elementproof|(water|fire|air|earth)(proof|[ ]?[0-9x]+)|intimidate(\s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(\s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?', 'i');
     if (myreg.test(content)) {
-      const match = myreg.exec(content);
-      // @ts-ignore
-      return await send(`Yes, ${match[0]} stacks.`);
+      const match = myreg.exec(content)!;
+      return await send(`Yes, ${match[0].trim()} stacks.`);
     }
     if (new RegExp('hive', 'i').test(content)) {
       return await send('Abilities granted by hive stack.');
