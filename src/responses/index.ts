@@ -42,6 +42,7 @@ import checkSass from './sass';
 
 import { rm, clear, haxxor, logs } from './admin';
 import { messageGuild } from '../common/parseMessageGuild';
+import { missing_cards } from './misc/missing_cards';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -376,6 +377,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'recode':
       if (args.length > 0 && args[0] === 'tutorial') {
         return send('https://www.youtube.com/watch?v=C_6i7w0f_ng');
+      }
+      if (args.length > 0 && args[0] === 'missing') {
+        if (can_send(channel, guild, guildMember, null)) {
+          send(missing_cards());
+        }
+        return;
       }
       return send('https://chaoticrecode.com/');
 
