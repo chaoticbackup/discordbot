@@ -28,12 +28,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   // Fast way to check if card been added to recode
-  if (is_channel(message, 'dev') || is_channel(message, 'recode')) {
-    const missing_regex = new RegExp(/is (.*) (missing in|added (in|to)|(?<!missing[ ])in) recode\?/, 'i');
-    if (missing_regex.test(content)) {
-      const name = missing_regex.exec(content)!;
-      return await send(isMissing(name[1]));
-    }
+  const missing_regex = new RegExp(/is (.*) (missing in|added (in|to)|(?<!missing[ ])in) recode\?/, 'i');
+  if (missing_regex.test(content)) {
+    const name = missing_regex.exec(content)!;
+    return await send(isMissing(name[1]));
   }
 
   // Special case for Quebec people trying to sell
