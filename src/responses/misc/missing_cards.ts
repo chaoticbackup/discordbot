@@ -17,6 +17,11 @@ export function missing_cards() {
   return output;
 }
 
+const { Attacks, Battlegear, Creatures, Locations, Mugic } = missing;
+const cards = ([] as string[]).concat(Attacks, Battlegear, Creatures, Locations, Mugic);
+
+const mined = ['Kobarri', 'Nexdoors', 'Song of Transportation', 'Swarm Song', 'Tarteme'];
+
 export function isMissing(name: string) {
   const results = API.find_cards_ignore_comma(name);
 
@@ -25,8 +30,10 @@ export function isMissing(name: string) {
   }
 
   const card = results[0];
-  const { Attacks, Battlegear, Creatures, Locations, Mugic } = missing;
-  const cards = ([] as string[]).concat(Attacks, Battlegear, Creatures, Locations, Mugic);
+
+  if (mined.includes(card.gsx$name)) {
+    return `Sorry, ${card.gsx$name} won't be added to recode. It isn't recognized as a legally playable card.`;
+  }
 
   if (cards.includes(card.gsx$name)) {
     return `${card.gsx$name} has not been added to recode`;

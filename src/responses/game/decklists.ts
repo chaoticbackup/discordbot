@@ -1,6 +1,7 @@
 import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
+import { API } from '../../database';
 import { tierlist, decklist, axes, isTier, isType } from './config/decklists';
 
 function _tiers(input: string) {
@@ -19,66 +20,83 @@ function _tiers(input: string) {
 }
 
 function _types(input: string) {
-  let type = input.charAt(0).toUpperCase() + input.slice(1);
+  let _type = input.charAt(0).toUpperCase() + input.slice(1);
 
-  if (input.toLowerCase() === 'aggrocontrol') type = 'Aggro-Control';
-  else if (input.toLowerCase() === 'controlaggro') type = 'Midrange';
-  else if (input.toLowerCase() === 'antimeta' || input.toLowerCase() === 'meta') type = 'Anti-Meta';
+  if (input.toLowerCase() === 'aggrocontrol') _type = 'Aggro-Control';
+  else if (input.toLowerCase() === 'controlaggro') _type = 'Midrange';
+  else if (input.toLowerCase() === 'antimeta' || input.toLowerCase() === 'meta') _type = 'Anti-Meta';
 
-  if (isType(type)) {
-    let message = `**${type} Decks:**\n(${axes[type]})\n\u200B\n`;
-    const typeList = [] as string[];
-
+  if (isType(_type)) {
+    const deck_list = [] as string[];
     for (const deck in decklist) {
-      if (decklist[deck].type.includes(type)) typeList.push(deck);
+      const { type, url } = decklist[deck];
+      if (type.includes(_type)) deck_list.push(`[${deck}](${url})`);
     }
 
-    typeList.forEach((deck: string) => {
-      message += `[${deck}](${decklist[deck].url})\n`;
-    });
+    let message = `**${_type} Decks:**\n(${axes[_type]})\n\u200B\n`;
+    message += deck_list.join('\n');
     return (new RichEmbed()).setDescription(message);
   }
-
-  return undefined;
 }
 
 function _tribes(input: string) {
-  const tribe = (input === 'frozen') ? 'Mixed' : parseTribe(input, 'Mixed');
+  const _tribe = (input === 'frozen') ? 'Mixed' : parseTribe(input, 'Mixed');
 
-  if (tribe !== undefined) {
-    let message = `**${tribe} Decks:**\n`;
-
-    const tribelist = [] as string[];
+  if (_tribe !== undefined) {
+    const deck_list = [] as string[];
     for (const deck in decklist) {
-      if (!decklist[deck].tribe || tribe !== decklist[deck].tribe) continue;
-      tribelist.push(deck);
+      const { tribe, url } = decklist[deck];
+      if (_tribe === tribe) deck_list.push(`[${deck}](${url})`);
     }
 
-    tribelist.forEach((deck: string) => {
-      message += `[${deck}](${decklist[deck].url})\n`;
-    });
+    let message = `**${_tribe} Decks:**\n`;
+    message += deck_list.join('\n');
     return (new RichEmbed()).setDescription(message);
   }
 }
 
 function _tags(input: string) {
-  const tagList = [] as string[];
+  const deck_list: string[] = [];
 
   for (const deck in decklist) {
-    const { tags } = decklist[deck];
+    const { tags, url } = decklist[deck];
 
-    if (!tags) continue;
     tags.forEach(tag => {
       if (cleantext(tag).includes(input)) {
-        tagList.push(`[${deck}](${decklist[deck].url})`);
+        deck_list.push(`[${deck}](${url})`);
       }
     });
   }
 
-  if (tagList.length > 0) {
-    let output = tagList.reduce((d1, d2) => `${d1}\n${d2}`);
+  if (deck_list.length > 0) {
+    let output = deck_list.join('\n');
     if (output.length > 2000) output = output.slice(0, 1999);
     return (new RichEmbed()).setDescription(output);
+  }
+}
+
+function _creatures(input: string) {
+  const results = API.find_cards_ignore_comma(input);
+
+  if (results.length === 0) return undefined;
+
+  const card = results[0];
+
+  const deck_list: string[] = [];
+
+  for (const deck in decklist) {
+    const { creatures, url } = decklist[deck];
+
+    if (creatures.includes(card.gsx$name)) {
+      deck_list.push(`[${deck}](${url})`);
+    }
+  }
+
+  if (deck_list.length > 0) {
+    let message = `${card.gsx$name} Decks:\n`;
+    message += deck_list.join('\n');
+    if (message.length > 2000) message = message.slice(0, 1999);
+    return (new RichEmbed()).setDescription(message);
   }
 }
 
@@ -113,15 +131,21 @@ function _decklist(input: string): RichEmbed | string {
   }
 
   if (input === 'generic' || input === 'tribeless') {
-    return _tags('tribeless') as RichEmbed;
+    return _tags('tribeless')!;
   }
 
   if ((output = _tribes(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if (input.length > 3 && (output = _tags(input)) instanceof RichEmbed) {
-    return output;
+  if (input.length > 3) {
+    if ((output = _tags(input)) instanceof RichEmbed) {
+      return output;
+    }
+
+    if ((output = _creatures(input)) instanceof RichEmbed) {
+      return output;
+    }
   }
 
   return "I'm unable to find decks that match your search";
