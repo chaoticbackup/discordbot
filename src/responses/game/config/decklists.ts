@@ -5,7 +5,7 @@
  I do a lot of funny Typescript stuff in this file to force validation for the linter
 */
 
-const tiers = ["S", "A", "B"] as const;
+export const tiers = ["S", "A", "B"] as const;
 
 const tribes = ["OverWorld", "UnderWorld", "Danian", "Mipedian", "M'arrillian", "Mixed"] as const;
 

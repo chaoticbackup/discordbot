@@ -2,7 +2,7 @@ import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
-import { tierlist, decklist, axes, isTier, isType } from './config/decklists';
+import { tierlist, decklist, axes, isTier, isType, tiers } from './config/decklists';
 
 function _tiers(input: string) {
   input = input.toUpperCase();
@@ -155,7 +155,7 @@ function _tierlist() {
   const output = new RichEmbed()
     // eslint-disable-next-line max-len
     .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta but is rather a guide to what deck types are strong.');
-  for (const key in tierlist) {
+  for (const key of tiers) {
     let message = '';
     tierlist[key].forEach((deck: string) => {
       message += `[${deck}](${decklist[deck].url})\n`;
