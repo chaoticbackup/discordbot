@@ -18,12 +18,12 @@ type Tribe = typeof tribes[number];
 
 type DeckType = typeof types[number];
 
-export function isTier(input: any): input is Tier {
-  return tiers.includes(input);
+export function isTier(input: string): input is Tier {
+  return tiers.includes(input as any);
 }
 
-export function isType(input: any): input is DeckType {
-  return types.includes(input);
+export function isType(input: string): input is DeckType {
+  return types.includes(input as any);
 }
 
 export const axes: {[key in DeckType]: string} = {
