@@ -1,6 +1,10 @@
 /* eslint-disable max-len */
 /* eslint @typescript-eslint/quotes: ["error", "double"] */
 
+/*
+ I do a lot of funny Typescript stuff in this file to force validation for the linter
+*/
+
 const tiers = ["S", "A", "B"] as const;
 
 const tribes = ["OverWorld", "UnderWorld", "Danian", "Mipedian", "M'arrillian", "Mixed"] as const;
@@ -10,9 +14,9 @@ const types = ["Aggro", "Control", "Combo", "Aggro-Control", "Gimmick", "Midrang
 
 type Tier = typeof tiers[number];
 
-type DeckType = typeof types[number];
-
 type Tribe = typeof tribes[number];
+
+type DeckType = typeof types[number];
 
 export function isTier(input: any): input is Tier {
   return tiers.includes(input);
@@ -33,6 +37,73 @@ export const axes: {[key in DeckType]: string} = {
   "Anti-Meta": "Answers, Tempo, Essential"
 };
 
+// The names in the decklist have to be found in this list
+// This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
+const _tierlist = {
+  S: [
+    "Danian Burn",
+    "Mock'adyn",
+    "Rawr",
+    "Strike",
+    "UnderWorld Burn",
+    "Wise Guys",
+  ],
+  A: [
+    "Bodal's Boys",
+    "Fliandar",
+    "Grantkae Control",
+    "Heartmatred's Attack",
+    "OverWorld Elemental",
+    "Master of the Sails",
+    "PoP'in Off",
+    "Swimming Team",
+    "Tree Frogs",
+    "UrsisKanin"
+  ],
+  B: [
+    "Aszil Compost",
+    "Aszil Courage",
+    "FireFly",
+    "Kepiaan Stelgar (Kraken)",
+    "Lyssta Mixed",
+    "Mip Reckless",
+    "Muge's Dagger",
+    "No Healing",
+    "Ocean Man",
+    "Ursis Dagger",
+    "Warbeast"
+  ],
+  // Place any unranked decks here for the purpose of linting
+  _: [
+    "Arrthoa Herken Loyal",
+    "Arrthoa Herken Morph",
+    "Brathe Yourself",
+    "Crack the Whep",
+    "Danian Discipline Compost",
+    "Flame On!",
+    "Flying Frogs",
+    "Four Arms",
+    "Gan'trak Gronmor",
+    "Gan'trak Bladez",
+    "GearEater",
+    "Gintanai",
+    "Gorram Malvadine",
+    "Grounded",
+    "HiveMind",
+    "Fire and Brimstone",
+    "Khorror",
+    "Lankerek",
+    "Marr Reckless",
+    "MaxWreck",
+    "Six Arms",
+    "A Trampling Mammoth"
+  ]
+} as const;
+
+export const tierlist = _tierlist as any as {[key in Tier]: string[]};
+
+type deck_names = typeof _tierlist["S"] | typeof _tierlist["A"] | typeof _tierlist["B"] | typeof _tierlist["_"];
+
 interface Deck {
   url: string
   tribe: Tribe
@@ -41,7 +112,7 @@ interface Deck {
   creatures: string[]
 }
 
-export const decklist: {[key: string]: Deck} = {
+const _decklist: {[key in deck_names[number]]: Deck} = {
   "Aszil Compost": {
     url: "https://chaoticbackup.forumotion.com/t1580-aszil-compost",
     tribe: "Danian",
@@ -91,7 +162,7 @@ export const decklist: {[key: string]: Deck} = {
     type: ["Aggro"],
     creatures: ["Chaor, The Fierce", "Ulmar, Perithon Racer", "Takinom, The Shadowknight", "Kaal", "Kopond, High Muge of the Hearth", "Nivena"]
   },
-  CrackTheWhep: {
+  "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
     tribe: "Mixed",
     tags: ["Fire", "Power"],
@@ -243,7 +314,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mixed",
     tags: ["Infection"],
     type: ["Aggro-Control"],
-    creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra"]
+    creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra", "Lanker"]
   },
   "Lyssta Mixed": {
     url: "https://chaoticbackup.forumotion.com/t1576-lyssta-mixed",
@@ -387,37 +458,4 @@ export const decklist: {[key: string]: Deck} = {
   }
 };
 
-export const tierlist: {[key in Tier]: string[]} = {
-  S: [
-    "Danian Burn",
-    "Mock'adyn",
-    "Rawr",
-    "Strike",
-    "UnderWorld Burn",
-    "Wise Guys",
-  ],
-  A: [
-    "Bodal's Boys",
-    "Fliandar",
-    "Grantkae Control",
-    "Heartmatred's Attack",
-    "OverWorld Elemental",
-    "PoP'in Off",
-    "Swimming Team",
-    "Tree Frogs",
-    "UrsisKanin"
-  ],
-  B: [
-    "Aszil Compost",
-    "Aszil Courage",
-    "FireFly",
-    "Kraken",
-    "Lyssta Mixed",
-    "Mip Reckless",
-    "Muge's Dagger",
-    "No Healing",
-    "Ocean Man",
-    "Ursis Dagger",
-    "Warbeast"
-  ]
-};
+export const decklist = _decklist as {[key: string]: Deck};
