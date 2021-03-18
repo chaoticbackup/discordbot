@@ -96,7 +96,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mixed",
     tags: ["Fire", "Power"],
     type: ["Aggro"],
-    creatures: ["Magmon, Engulfed", "Tangeth Toborn, In Training", "Tangath Toborn, OverWorld General", "Akkalbi"]
+    creatures: ["Magmon, Engulfed", "Tangath Toborn, In Training", "Tangath Toborn, OverWorld General", "Akkalbi"]
   },
   "Danian Burn": {
     url: "https://chaoticbackup.forumotion.com/t1669-alternative-danian-burn",
@@ -194,7 +194,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mixed",
     tags: [],
     type: ["Aggro-Control"],
-    creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Harald", "Ulmquad"]
+    creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Herald", "Ulmquad"]
   },
   Grounded: {
     url: "https://chaoticbackup.forumotion.com/t1660-grounded",
@@ -278,7 +278,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mipedian",
     tags: ["Enre-hep"],
     type: ["Midrange"],
-    creatures: ["Malvadine, The King's Harold", "Ribbian", "Na-inna, Rebel of the Rao'Pa Sahkk", "Enre-hep"]
+    creatures: ["Malvadine, The King's Herald", "Ribbian", "Na-inna, Rebel of the Rao'Pa Sahkk", "Enre-hep"]
   },
   "Mock'adyn": {
     url: "https://chaoticbackup.forumotion.com/t1677-mock-adyn",
@@ -334,7 +334,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mipedian",
     tags: ["Strike"],
     type: ["Midrange"],
-    creatures: ["Malvadine, The King's Harald", "Headmaster Ankhyja", "Ifjann", "Owayki"]
+    creatures: ["Malvadine, The King's Herald", "Headmaster Ankhyja", "Ifjann", "Owayki"]
   },
   "Swimming Team": {
     url: "https://chaoticbackup.forumotion.com/t1567-swimming-team",
@@ -355,7 +355,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mixed",
     tags: [],
     type: ["Aggro-Control"],
-    creatures: ["Lanker", "Ikkatosh, The Aichking", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
+    creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
   "Ursis Dagger": {
     url: "https://chaoticbackup.forumotion.com/t1594-ursis-dagger",
@@ -376,7 +376,7 @@ export const decklist: {[key: string]: Deck} = {
     tribe: "Mipedian",
     tags: ["Warbeast", "Air", "Earth"],
     type: ["Midrange"],
-    creatures: ["Blazvatan, The Epic Warbeast", "Ailav", "Kileron, Warbeast of the Dust Storm", "Malvadine, The King's Harold", "Bylkian", "Ranun", "Gaffat-ra"]
+    creatures: ["Blazvatan, The Epic Warbeast", "Ailav", "Kileron, Warbeast of the Dust Storm", "Malvadine, The King's Herald", "Bylkian", "Ranun", "Gaffat-ra"]
   },
   "Wise Guys": {
     url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
