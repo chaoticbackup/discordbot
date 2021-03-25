@@ -170,7 +170,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Magmon, Engulfed", "Tangath Toborn, In Training", "Tangath Toborn, OverWorld General", "Akkalbi"]
   },
   "Danian Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1669-alternative-danian-burn",
+    url: "https://chaoticbackup.forumotion.com/t1669-danian-burn",
     tribe: "Danian",
     tags: ["Water", "Air", "Burn"],
     type: ["Midrange"],
@@ -387,7 +387,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Maxxor, Protector of Perim", "Najarin, High Muge of the Lake", "Arbeid", "Drabe", "Tarterek, Psi Overloader"]
   },
   Rawr: {
-    url: "https://chaoticbackup.forumotion.com/t1633-rawr",
+    url: "https://chaoticbackup.forumotion.com/t1682-rawr",
     tribe: "Mipedian",
     tags: [],
     type: ["Control"],
