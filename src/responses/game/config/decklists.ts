@@ -41,36 +41,33 @@ export const axes: {[key in DeckType]: string} = {
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 const _tierlist = {
   S: [
-    "Danian Burn",
     "Mock'adyn",
     "Rawr",
-    "Strike",
-    "UnderWorld Burn",
-    "Wise Guys",
   ],
   A: [
     "Bodal's Boys",
+    "Danian Burn",
     "Fliandar",
     "Grantkae Control",
     "Heartmatred's Attack",
-    "OverWorld Elemental",
     "Master of the Sails",
     "PoP'in Off",
+    "Sis Ops",
+    "Strike",
     "Swimming Team",
     "Tree Frogs",
-    "UrsisKanin"
+    "UnderWorld Burn",
+    "Wise Guys",
   ],
   B: [
     "Aszil Compost",
     "Aszil Courage",
-    "FireFly",
-    "Kepiaan Stelgar (Kraken)",
-    "Lyssta Mixed",
-    "Mip Reckless",
+    "Danian Discipline Compost",
     "Muge's Dagger",
-    "No Healing",
     "Ocean Man",
+    "OverWorld Elemental",
     "Ursis Dagger",
+    "UrsisKanin",
     "Warbeast"
   ],
   // Place any unranked decks here for the purpose of linting
@@ -79,7 +76,8 @@ const _tierlist = {
     "Arrthoa Herken Morph",
     "Brathe Yourself",
     "Crack the Whep",
-    "Danian Discipline Compost",
+    "Fire and Brimstone",
+    "FireFly",
     "Flame On!",
     "Flying Frogs",
     "Four Arms",
@@ -90,11 +88,14 @@ const _tierlist = {
     "Gorram Malvadine",
     "Grounded",
     "HiveMind",
-    "Fire and Brimstone",
+    "Kepiaan Stelgar (Kraken)",
     "Khorror",
     "Lankerek",
+    "Lyssta Mixed",
     "Marr Reckless",
     "MaxWreck",
+    "Mip Reckless",
+    "No Healing",
     "Six Arms",
     "A Trampling Mammoth"
   ]
@@ -392,6 +393,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Control"],
     creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe"]
+  },
+  "Sis Ops": {
+    url: "https://chaoticbackup.forumotion.com/t1667-multi-tribe-mash-up",
+    tribe: "Mixed",
+    tags: [],
+    type: ["Combo"],
+    creatures: ["Kepiaan, Danian Lieutenant", "Tangath Toborn, OverWorld General", "Aivenna, OverWorld Lieutenant", "Nunk'worn", "Na-inna", "Nivenna, UnderWorld Lieutenant"]
   },
   "Six Arms": {
     url: "https://chaoticbackup.forumotion.com/t1581-6-arms",
