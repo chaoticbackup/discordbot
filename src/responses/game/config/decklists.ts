@@ -45,7 +45,7 @@ const _tierlist = {
     "Rawr",
   ],
   A: [
-    "Bodal's Boys",
+    "Aszil Compost",
     "Danian Burn",
     "Fliandar",
     "Grantkae Control",
@@ -60,7 +60,7 @@ const _tierlist = {
     "Wise Guys",
   ],
   B: [
-    "Aszil Compost",
+    "Bodal's Boys",
     "Aszil Courage",
     "Danian Discipline Compost",
     "Muge's Dagger",
