@@ -96,6 +96,7 @@ const _tierlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
+    "Oath of the Oasis",
     "Six Arms",
     "A Trampling Mammoth"
   ]
@@ -372,6 +373,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Tribeless", "Infection"],
     type: ["Midrange"],
     creatures: ["Ursis", "Galmedar", "Smildon", "Vunhra"]
+  },
+  "Oath of the Oasis": {
+    url: "https://chaoticbackup.forumotion.com/t1683-oath-of-the-oasis",
+    tribe: "Mixed",
+    tags: [],
+    type: ["Midrange"],
+    creatures: ["Glapaal", "Kinnianne, Ambassador to the Mipedians", "Malvadine, The King's Herald", "Lam'inkal", "Na-inna"]
   },
   "Ocean Man": {
     url: "https://chaoticbackup.forumotion.com/t1595-ocean-man",
