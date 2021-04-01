@@ -26,7 +26,8 @@ export function banlist(message: Message, options: string[] = []) {
   };
 
   const list_bans = (_format: string) => {
-    response += '\n==Banned Cards==';
+    // response += '\n==Banned Cards==';
+    response += '**April Fools Ban List:**\n=====';
     ban_lists[_format].forEach((key: string) => {
       response += `\n${key}`;
     });
