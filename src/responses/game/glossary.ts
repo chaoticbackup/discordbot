@@ -17,5 +17,5 @@ export default function (rule: string) {
   }
 
   return 'I\'m not sure, you may need to check the Comprensive Rules:\n' +
-      '<https://docs.google.com/document/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>';
+      '<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>';
 }
