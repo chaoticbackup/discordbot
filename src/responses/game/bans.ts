@@ -27,7 +27,8 @@ export function banlist(message: Message, options: string[] = []) {
 
   const list_bans = (_format: string) => {
     // response += '\n==Banned Cards==';
-    response += '**April Fools Ban List:**\n=====';
+    // april fools
+    response += '\n**April Fools Ban List:**\n=====';
     ban_lists[_format].forEach((key: string) => {
       response += `\n${key}`;
     });
@@ -103,7 +104,7 @@ export function whyban(
       if (!Object.keys(reasons).includes(cardName)) {
         return `${cardName} isn't banned`;
       }
-
+      // april fools
       // if (!(can_send(channel, guild))) return;
 
       if (Object.keys(detailed).includes(cardName)) {
@@ -125,9 +126,9 @@ export function whyban(
         }
       }
       else {
-        if (!can_send(channel, guild)) return;
-
-        return `*${cardName}*:\n${reasons[cardName][0]}`;
+        // if (!can_send(channel, guild)) return;
+        // april fools
+        return `*${cardName}*:\n${rndrsp(reasons[cardName], cardName)}`;
       }
     }
   }
