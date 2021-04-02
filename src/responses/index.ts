@@ -286,18 +286,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       const rsp = (options.length === 0 && args.length > 0)
         ? banlist(message, [flatten(args)])
         : banlist(message, options);
-      // April Fools
-      // if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
-      // eslint-disable-next-line max-len
-      //   ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
-      //   : null
-      // )) {
-      //   send(rsp);
-      // } else {
-      //   const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
-      //   ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
-      // }
-      send(rsp);
+      if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
+        ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
+        : null
+      )) {
+        send(rsp);
+      } else {
+        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
+      }
       return;
     }
     case 'standard': // return send(banlist(guild, channel));
