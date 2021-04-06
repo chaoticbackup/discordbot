@@ -3,7 +3,7 @@ import { hasPermission } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 
-const types = ['recode', 'untap', 'tts'];
+const types = ['recode', 'untap', 'tts', 'pauper'];
 
 function canMatch(guild: Guild, channel: Channel): boolean {
   if (!(hasPermission(guild, 'MANAGE_ROLES'))) return false;
