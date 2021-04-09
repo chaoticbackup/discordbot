@@ -152,12 +152,29 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(find_card(flatten(args)));
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
-      case 'banlist': {
-        const rsp = (options.length === 0 && args.length > 0)
-          ? banlist(message, [flatten(args)])
-          : banlist(message, options);
-        return send(rsp);
-      }
+      case 'faq':
+        return send(faq(flatten(args)));
+      case 'keyword':
+      case 'rule':
+        if (args.length < 1) {
+          return send('Please provide a rule, or use **!rulebook** or **!guide**');
+        } else {
+          return send(glossary(flatten(args)));
+        }
+      case 'rulebook':
+        return send(rulebook(args, options));
+      case 'rulebooks':
+        return send(rulebook([], ['list']));
+      case 'cr':
+        if (args.length > 0) {
+          return send(cr(flatten(args)));
+        } // fallthrough
+      case 'comprehensive':
+        return send('<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>');
+      case 'errata':
+        return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
+      case 'guide':
+        return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
       case 'help':
         if (content.charAt(0) === '!')
           return send('Use **!commands** or **c!help**');
@@ -165,7 +182,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'commands':
         const text = flatten(args);
         if (text) return send(help(text));
-        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'end'];
+        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents', 'end'];
         const msg = `${help('', keys)
         }\nFor my full feature set check out the main server https://discord.gg/chaotic`;
         return send(msg).then(async () => send(donate()));
@@ -212,19 +229,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (newMemberGeneralChatSpam()) return;
       return parseCards(args, options);
     case 'ability':
-      options.push('ability');
-      return parseCards(args, options);
+      return parseCards(args, ['ability']);
     case 'text':
-      options.push('text');
-      return parseCards(args, options);
+      return parseCards(args, ['text']);
     case 'stats':
-      options.push('stats');
-      return parseCards(args, options);
+      return parseCards(args, ['stats']);
+    case 'image':
+      return parseCards(args, ['image']);
     case 'full':
     case 'fullart':
-      return send(full_art(flatten(args), options));
-    case 'altart':
-      options.push('alt');
       return send(full_art(flatten(args), options));
     case 'cutout':
     case 'avatar':

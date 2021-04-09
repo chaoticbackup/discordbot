@@ -27,14 +27,14 @@ export const tribe = async (
   }
 
   if (args.length < 2) {
-    return '!tribe <join|leave> <tribeName>';
+    return '!tribe \'join|leave\' <tribeName>';
   }
 
   if (param === 'join') {
     return await joinTribe(guild, member, args[1]);
   }
 
-  return '!tribe <join|leave> <tribeName>';
+  return '!tribe  \'join|leave\' <tribeName>';
 };
 
 export const brainwash = async (

@@ -73,5 +73,5 @@ export default async function (message: Message, args: string[], guild?: Guild, 
     }
   }
 
-  return '!speakers <language> <join|leave|list|>';
+  return '!speakers <language> \'join|leave|list\'';
 }
