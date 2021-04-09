@@ -1,4 +1,4 @@
-import { Guild, Message } from 'discord.js';
+import { Guild, GuildMember, Message } from 'discord.js';
 import { can_send, rndrsp, uppercase, cleantext } from '../../common';
 import { Channel } from '../../definitions';
 import { API } from '../../database';
@@ -88,7 +88,7 @@ export function banlist(message: Message, options: string[] = []) {
 }
 
 export function whyban(
-  name: string, channel: Channel, guild?: Guild, options: string[] = []
+  name: string, channel: Channel, guild?: Guild, guildMember?: GuildMember, options: string[] = []
 ): string | undefined {
   if (!name) return 'Please provide a card or use !banlist';
 
@@ -103,7 +103,7 @@ export function whyban(
         return `${cardName} isn't banned`;
       }
 
-      if (!(can_send(channel, guild))) return;
+      if (!(can_send(channel, guild, guildMember))) return;
 
       if (Object.keys(detailed).includes(cardName)) {
         return `*${cardName}*:\n${detailed[cardName]}`;
@@ -124,7 +124,7 @@ export function whyban(
         }
       }
       else {
-        if (!can_send(channel, guild)) return;
+        if (!can_send(channel, guild, guildMember)) return;
 
         return `*${cardName}*:\n${reasons[cardName][0]}`;
       }

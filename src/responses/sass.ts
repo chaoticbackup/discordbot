@@ -52,8 +52,9 @@ export default async function (bot: Client, message: Message, mentions: string[]
       let result;
       while ((result = cardRgx.exec(content)) !== null) {
         const card = display_card(result[1].toLowerCase(), ['ability'], bot);
-        if (card instanceof RichEmbed) return await send(card);
+        if (card instanceof RichEmbed) await send(card);
       }
+      return;
     }
   }
 

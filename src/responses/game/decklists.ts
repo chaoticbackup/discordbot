@@ -2,6 +2,7 @@ import { RichEmbed } from 'discord.js';
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
+import { Creature } from '../../definitions';
 import { tierlist, decklist, axes, isTier, isType, tiers } from './config/decklists';
 
 function _tiers(input: string) {
@@ -80,14 +81,29 @@ function _creatures(input: string) {
 
   if (results.length === 0) return undefined;
 
-  const card = results[0];
+  let card: Creature | undefined;
+  const versions: string[] = [];
+
+  results.forEach((c) => {
+    if (c.gsx$type === 'Creatures') {
+      if (card === undefined) {
+        card = c as Creature;
+        versions.push(c.gsx$name);
+      }
+      else if (c.gsx$name.startsWith(card.gsx$name)) {
+        versions.push(c.gsx$name);
+      }
+    }
+  });
+
+  if (card === undefined) return;
 
   const deck_list: string[] = [];
 
   for (const deck in decklist) {
     const { creatures, url } = decklist[deck];
 
-    if (creatures.includes(card.gsx$name)) {
+    if (creatures.some(c => versions.includes(c))) {
       deck_list.push(`[${deck}](${url})`);
     }
   }
@@ -148,7 +164,7 @@ function _decklist(input: string): RichEmbed | string {
     }
   }
 
-  return "I'm unable to find decks that match your search";
+  return "I'm unable to find decks that match your search terms";
 }
 
 function _tierlist() {
@@ -168,5 +184,6 @@ function _tierlist() {
 
 export {
   _tierlist as tierlist,
-  _decklist as decklist
+  _decklist as decklist,
+  _tiers as tier
 };

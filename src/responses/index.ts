@@ -15,7 +15,7 @@ import { avatar, display_card, display_token, find_card, full_art } from './card
 import joke from './config/jokes.json';
 
 import { banlist, formats, whyban } from './game/bans';
-import { decklist, tierlist } from './game/decklists';
+import { decklist, tier, tierlist } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
@@ -168,12 +168,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'end'];
         const msg = `${help('', keys)
         }\nFor my full feature set check out the main server https://discord.gg/chaotic`;
-        return send(msg)
-        .then(async () => send(donate()));
+        return send(msg).then(async () => send(donate()));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
           return rm(message, guild);
-        break;
+        return;
       case 'donate':
         return send(donate());
       default:
@@ -187,6 +186,18 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     );
   }
 
+  async function sendBotCommands(content: Array<string | RichEmbed>, msg: string | null = null) {
+    let ch = message.channel as Channel;
+    if (!can_send(channel, guild, guildMember, msg)) {
+      content.unshift(`<@!${message.author.id}>`);
+      ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
+    }
+
+    for await (const c of content) {
+      if (c) await ch.send(c);
+    }
+  }
+
   /**
     * Full command set
     */
@@ -198,7 +209,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Cards */
     case 'card':
     case 'cards':
-      if (newMemberGeneralChatSpam()) break;
+      if (newMemberGeneralChatSpam()) return;
       return parseCards(args, options);
     case 'ability':
       options.push('ability');
@@ -244,16 +255,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'keyword':
     case 'rule':
-      if (args.length < 1)
+      if (args.length < 1) {
         return send('Please provide a rule, or use **!rulebook** or **!guide**');
-      const rsp = glossary(flatten(args));
-      if (can_send(channel, guild, guildMember, null)) {
-        send(rsp);
       } else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
-        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
+        return sendBotCommands([glossary(flatten(args))]);
       }
-      break;
 
     /* Documents */
     case 'rulebook':
@@ -286,16 +292,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       const rsp = (options.length === 0 && args.length > 0)
         ? banlist(message, [flatten(args)])
         : banlist(message, options);
-      if (can_send(channel, guild, guildMember, !is_channel(message, 'banlist_discussion')
+      const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
-        : null
-      )) {
-        send(rsp);
-      } else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
-        ch.send(rsp).then(async () => ch.send(`<@!${message.author.id}>`));
-      }
-      return;
+        : null;
+      return sendBotCommands([rsp], msg);
     }
     case 'standard': // return send(banlist(guild, channel));
     case 'legacy': // return send(banlist(guild, channel, ['legacy']));
@@ -314,7 +314,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'whyban':
       if (mentions.length > 0)
         return send("Player's aren't cards, silly");
-      return send(whyban(flatten(args), channel, guild, options));
+      return send(whyban(flatten(args), channel, guild, guildMember, options));
 
     /* Goodstuff */
     case 'strong':
@@ -326,29 +326,17 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'deck':
     case 'decks':
     case 'decklist':
-      if (can_send(channel, guild, guildMember, null)) {
-        return send(decklist(flatten(args)));
-      }
-      else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
-        ch.send(decklist(flatten(args)))
-          .then(async () => ch.send(`<@!${message.author.id}>`));
-      }
+      return sendBotCommands([decklist(flatten(args))]);
+
+    case 'tier': {
+      const output = tier(cleantext(flatten(args)));
+      if (output instanceof RichEmbed) send(output);
       return;
+    }
 
     case 'tierlist':
     case 'tiers':
-      if (can_send(channel, guild, guildMember, null)) {
-        return await send(tierlist())
-          .then(async () => { send(donate()); });
-      }
-      else {
-        const ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
-        ch.send(tierlist())
-          .then(async () => ch.send(donate()))
-          .then(async () => ch.send(`<@!${message.author.id}>`));
-      }
-      return;
+      return sendBotCommands([tierlist(), donate()]);
 
     /* Matchmaking */
     case 'cupid':
@@ -378,10 +366,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send('https://www.youtube.com/watch?v=C_6i7w0f_ng');
       }
       if (args.length > 0 && args[0] === 'missing') {
-        if (can_send(channel, guild, guildMember, null)) {
-          send(missing_cards());
-        }
-        return;
+        return sendBotCommands([missing_cards()]);
       }
       return send('https://chaoticrecode.com/');
 
@@ -467,8 +452,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Happy Borth Day */
     case 'happy': {
       if (cleantext(flatten(args)).includes('borth'))
-        return send(gone('borth-day', bot, options));
-      break;
+        send(gone('borth-day', bot, options));
+      return;
     }
 
     /* Watch playlists */
@@ -486,7 +471,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
           '<:skithia:706695857055072388> <:takinom:706695840940556338> <:chaor:706695811014066186>')
         );
       }
-      break;
+      return;
     }
 
     case 'map': {
@@ -509,7 +494,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
           setTimeout(() => { send(rtn_str); }, 500);
         else
           send(rtn_str);
-        break;
+        return;
       } // falls through with c!help
     case 'cmd':
     case 'commands': {
@@ -551,7 +536,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'clear':
       if (guild) {
         const meebot = guild.members.get('159985870458322944');
-        if (meebot) break;
+        if (meebot) return;
       }
     // fallthrough
     case 'clean':

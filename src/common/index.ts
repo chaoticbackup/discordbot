@@ -29,7 +29,7 @@ export function cleantext(string: string): string {
   return string.toLowerCase().replace(/[,\'’\-\@]/g, '');
 }
 
-// Takes the arg list and turns it into cleaned text
+// Takes the arg list and turns it into lowercase string
 export function flatten(args: string[]): string {
   return (args.join(' ')).toLowerCase();
 }
