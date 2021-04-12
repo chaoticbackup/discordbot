@@ -60,8 +60,8 @@ const _tierlist = {
     "Wise Guys",
   ],
   B: [
-    "Bodal's Boys",
     "Aszil Courage",
+    "Bodal's Boys",
     "Danian Discipline Compost",
     "Muge's Dagger",
     "Ocean Man",
@@ -81,13 +81,13 @@ const _tierlist = {
     "Flame On!",
     "Flying Frogs",
     "Four Arms",
-    "Gan'trak Gronmor",
     "Gan'trak Bladez",
+    "Gan'trak Gronmor",
     "GearEater",
     "Gintanai",
     "Gorram Malvadine",
     "Grounded",
-    "HiveMind",
+    "Hive Mind",
     "Kepiaan Stelgar (Kraken)",
     "Khorror",
     "Lankerek",
@@ -98,7 +98,7 @@ const _tierlist = {
     "No Healing",
     "Oath of the Oasis",
     "Six Arms",
-    "A Trampling Mammoth"
+    "Trampling Mammoth"
   ]
 } as const;
 
@@ -283,7 +283,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Tabaal", "Illexia, The Danian Queen", "Ivelaan", "Elhadd", "Hermatred"]
   },
-  HiveMind: {
+  "Hive Mind": {
     url: "https://chaoticbackup.forumotion.com/t1599-hivemind",
     tribe: "Mixed",
     tags: ["Compost"],
@@ -430,7 +430,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Ulmquad", "Lomma, Desert Wanderer", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Na-inna"]
   },
-  "A Trampling Mammoth": {
+  "Trampling Mammoth": {
     url: "https://chaoticbackup.forumotion.com/t1658-proboscartosh-a-trampling-mammoth",
     tribe: "Mixed",
     tags: ["Tribeless"],
