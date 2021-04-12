@@ -2,17 +2,19 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Client, Message, RichEmbed } from 'discord.js';
 
-import { can_send, cleantext, donate, flatten, hasPermission, isModerator, rndrsp, is_channel, msgCatch } from '../common';
+import { can_send, cleantext, donate, flatten, hasPermission, isModerator, is_channel, msgCatch } from '../common';
 import debug from '../common/debug';
 import parseCommand from '../common/parseCommand';
+import { messageGuild } from '../common/parseMessageGuild';
 import servers from '../common/servers';
 
-import { SendFunction, Channel } from '../definitions';
+import { Channel, SendFunction } from '../definitions';
+
 import logger from '../logger';
+import { clear, haxxor, logs, rm } from './admin';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
 
-import joke from './config/jokes.json';
 import commands from './config/help';
 
 import { banlist, formats, whyban } from './game/bans';
@@ -23,6 +25,8 @@ import { funstuff, goodstuff } from './game/goodstuff';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
+import { all_commands, help_command, help_list } from './help';
+
 import color from './joinable/color';
 import { cancelMatch, lookingForMatch } from './joinable/match_making';
 import meetup from './joinable/regions';
@@ -30,20 +34,16 @@ import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
 
 import gone from './misc/gone';
-import { help_command, help_list, all_commands } from './help';
 import { compliment, insult } from './misc/insult_compliment';
+import joke from './misc/joke';
 import { make, menu, order } from './misc/menu';
+import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
 import { answer, trivia, whistle } from './misc/trivia';
 import watch from './misc/watch';
 
 import rate_card from './rate';
-
 import checkSass from './sass';
-
-import { rm, clear, haxxor, logs } from './admin';
-import { messageGuild } from '../common/parseMessageGuild';
-import { missing_cards } from './misc/missing_cards';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -451,7 +451,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'insult':
       return send(insult(mentions, args.join(' '), guild));
     case 'joke':
-      return send(rndrsp(joke, 'joke'));
+      return send(joke(args.join(' ').toLowerCase()));
 
     /* Trivia */
     case 'whistle':
