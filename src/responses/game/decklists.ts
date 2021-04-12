@@ -154,7 +154,7 @@ function _decklist(input: string): RichEmbed | string {
     return output;
   }
 
-  if (input.length > 3) {
+  if (input.length >= 3) {
     if ((output = _tags(input)) instanceof RichEmbed) {
       return output;
     }
