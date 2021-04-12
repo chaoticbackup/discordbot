@@ -60,8 +60,7 @@ export function reload(module: any) {
 export function isModerator(member?: GuildMember): boolean {
   return !!member && Boolean(
     member.roles.find(role => role.name === 'Administrator') ||
-    member.roles.find(role => role.name === 'Moderator') ||
-    member.roles.find(role => role.name === 'Sectional Mod')
+    member.roles.find(role => role.name === 'Moderator')
   );
 }
 

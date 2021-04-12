@@ -51,7 +51,7 @@ module.exports = {
     "rate": {
         "cmd":"!rate <Creature> <Courage> <Power> <Wisdom> <Speed> <Energy>", 
         "list": "I'll rate a Creature based on its stats",
-        "details": "I have three methods ``--metal``, ``--king``, or ``--smildon`` (default metal)."
+        "details": "I have three methods ``--metal``, ``--king``, or ``--smildon`` (default metal).\n--king has additional options:\n``--nocheck --noweight`` (this is equivalent to smildon's in percent)\n``--pure`` has no weights at all\n``--nocheck`` ignores any stat check modifiers\n``--noweight`` ignores any comparison between stats (e.g. having 2 max 2 min is worth more than all average)"
     },
     "readthecard": {
         "cmd": "!readthecard <card-name>",
@@ -115,36 +115,37 @@ module.exports = {
         "alias": "starters"
     },
     "formats": {
-    // TODO
+        "cmd": "!formats",
+        "details": "Shows a list of the community formats and their definitions"
     },
     "banlist": {
         "cmd": "!banlist\n!ban, !whyban <card-name>",
         "list":"You can use `!format` for the list of formats", 
-        "details": "Ask me about the banlist or why a card is or could be banned.\nThere are different ``!formats`` with their own banlists."
+        "details": "Ask me about the banlist or why a card is or could be banned ``!whyban <card>``.\nThere are different ``!formats`` with their own banlists."
     },
     "standard": {
-    // TODO
+        "details": "Use ``!banlist standard``"
     },
     "legacy": {
-    // TODO
+        "details": "Use ``!banlist legacy``"
     },
     "modern": {
-    // TODO
+        "details": "Use ``!banlist modern``"
     },
     "pauper": {
-    // TODO
+        "details": "Use ``!banlist pauper``"
     },
     "noble": {
-    // TODO
+        "details": "Use ``!banlist noble``"
     },
     "ban": {
-    // TODO
+        "alias": "whyban"
     },
     "whyban": {
-    // TODO
+        "cmd": "!whyban <card>",
+        "details": "Explains why a card is be banned, or why people think it should be banned.\nSome of the cards with serious reasons also have joke reaons why they should be banned ``--joke``"
     },
     "strong": {
-        "cmd": "!strong <type|tribe> <bp|type>",
         "alias": "good"
     },
     "good": {
@@ -153,27 +154,28 @@ module.exports = {
         "details": "Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n``!good M'arrillian Creatures``\n ``!good Attacks 1``"
     },
     "goodstuff": {
-        "cmd": "!goodstuff <type|tribe> < bp|type >", 
         "alias": "good"
     },
     "deck": {
-    // TODO
+        "alias": "decks"
     },
     "decks": {
-    // TODO
+        "cmd": "!decks <tribe|type|teir|keyword|creature>",
+        "list": "Sends a list of community curated decks based on user input",
+        "details": "Specify a tribe, tier, deck type, keyword, or Creature to search for decks.\nYou can use ``!deck types`` to see an explaination on how types are defined."
     },
     "decklist": {
-    // TODO
+        "alias": "decks"
     },
     "tier": {
-    // TODO
+        "cmd": "!tier <tier>",
+        "details": "Sends a list of the specific tier decks"
     },
     "tierlist": {
-        "cmd": "!tierlist [<tribe|tier>]",
-        "list": "Returns the tierlist or a subsection based on tribe or tier"
+        "list": "Returns the tierlist. Or acts as an alias to ``!decks`` if input is provided"
     },
     "tiers": {
-    // TODO
+        "alias": "tierlist"
     },
     "cupid": {
         "alias": "lf"
@@ -183,75 +185,82 @@ module.exports = {
     },
     "lf": {
         "cmd": "!lf [<type>]",
-        "list": "Adds or removes specific match making roles"
+        "list": "Adds a specific match making roles"
     },
     "lookingfor": {
         "alias": "lf"
     },
     "match": {
-    // TODO
+        "alias": "lf"
     },
     "cancel": {
-    // TODO
+        "cmd": "!cancel",
+        "list": "Remove all matchmaking roles"
     },
     "donate": {
-    // TODO
+        "details": "Sends the donation link. Thanks for supporting my development!"
     },
     "collection": {
-    // TODO
+        "details": "Sends a link to the collection"
     },
     "portal": {
-    // TODO
+        "details": "Sends a link to the portal"
     },
     "recode": {
-    // TODO
+        "cmd": "!recode ['tutorial|missing']",
+        "details": "Sends a link to Chaotic Recode, a video tutorial, or the list of missing cards"
     },
     "forum": {
-    // TODO
+        "cmd": "!forum ['decks']",
+        "details": "Sends a link to the forum, or specifically the deck building subforum"
     },
     "fun": {
-    // TODO
+        "alias": "agame"
     },
     "funstuff": {
-    // TODO
+        "alias": "agame"
     },
     "agame": {
-    // TODO
+        "details": "Sends a list of cards that A-Game considers fun to play with"
     },
     "menu": {
-    // TODO
+        "details": "What's on the menu in the Port Court? Let's find out!"
     },
     "order": {
-    // TODO
+        "cmd": "!order <item>",
+        "details": "Order's something I have on the menu"
     },
     "make": {
-    // TODO
+        "alias": "cook"
     },
     "cook": {
-    // TODO
+        "cmd": "!cook <food>",
+        "details": "I'll share you a emoji recipe. Not to be confused with ``!order``"
     },
     "speak": {
-    // TODO
+        "alias": "language"
     },
     "speaker": {
-    // TODO
+        "alias": "language"
     },
     "speakers": {
-    // TODO
+        "alias": "language"
     },
     "language": {
         "cmd": "!language <language> 'join|leave|list'",
         "list": "Connect with other players of the same language!",
-        "details": "To find out what languages you can join use ``!language list``"
+        "details": "I'll add a language role to you if it exists on the sever.\nTo find out what languages you can join use ``!language list``"
     },
     "languages": {
         "alias": "language"
     },
     "region": {
-    // TODO
+        "cmd": "!region 'list'\n!region <region name> ['join|leave|ping|list']",
+        "details": "",
+        "mod": "!region 'add|remove' <region name>\n!region 'rename' <region name> <new name>\n!region <region name> 'add|remove' <@guildMember>"
     },
     "regions": {
-    // TODO
+        "alias": "region"
     },
     "tribe": {
         "cmd": "!tribe 'join|leave' [<tribe>]", 
@@ -259,41 +268,46 @@ module.exports = {
         "details": "Here are the tribes you can join:\n <:Dan:294942889337683968> Danian, <:Mip:294941790052679690> Mipedian, <:Mar:294942283273601044> M'arrillian, <:OW:294939978897555457> OverWorld, <:UW:294943282943885313> UnderWorld, <:TL:294945357392248833> Tribeless\nYou can only be loyal to one... but you can always switch."
     },
     "bw": {
-    // TODO
+        "alias": "brainwash"
     },
     "brainwash": {
-    // TODO
+        "cmd": "!brainwash",
+        "details": "Adds the brainwashed role to a user",
+        "mod": "If you mention a user, I'll brainwash that user"
     },
     "colour": {
-    // TODO
+        "alias": "color"
     },
     "color": {
-    // TODO
+        "cmd": "!color 'set|remove' <color>",
+        "details": "In servers with color roles, I can be used to set colors"
     },
     "never": {
-    // TODO
+        "cmd": "!never <card>",
+        "details": "Shows a Chaotic: Now or Never card, or a random one if none specified. Note: I don't have all of the cards."
     },
     "nowornever": {
-    // TODO
+        "alias": "never"
     },
     "non": {
-    // TODO
+        "alias": "never"
     },
     "gone": {
-    // TODO
+        "alias": "fan"
     },
     "fan": {
-    // TODO
+        "cmd": "!fan [<card>]",
+        "details": "Sends a card from one of our community acclaimed unsets"
     },
     "unset": {
-    // TODO
+        "alias": "fan"
     },
     "flirt": {
         "alias": "compliment"
     },
     "compliment": {
         "cmd":"!compliment [<name|@name>]", 
-        "list": ""
+        "details": "I'll try to lift your spirits or let me know if there's someone specific you had in mind."
     },
     "burn": {
         "alias": "insult"
@@ -303,64 +317,84 @@ module.exports = {
     },
     "insult": {
         "cmd":"!insult [<name|@name>]", 
-        "list": ""
+        "details": "I'll cook up a smoldering burn. Let me know if there's someone specific you had in mind."
     },
     "joke": {
-    // TODO
+        "list": "I'll tell you a Chaotic joke"
     },
     "whistle": {
-    // TODO
+        "cmd": "!whistle",
+        "details": "If you're the host of a trivia this signals that the answer period is over",
+        "mod": true
     },
     "trivia": {
-    // TODO
+        "cmd": "!trivia",
+        "details": "If an existing trivia is not being hosted, you are now a host! Please use again to stop the trivia",
+        "mod": true
     },
     "answer": {
-    // TODO
+        "cmd": "!answer <text>",
+        "details": "Message me the answer to a trivia question. When the host whistles, I'll collect all the answers"
     },
     "happy": {
-    // TODO
+        "cmd": "!happy borth-day",
+        "details": "Did I hear that it's someone's birthday?!"
     },
     "watch": {
         "cmd":"!watch <language> [<season>]", 
         "details": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type ``!watch --list``"
     },
     "perim": {
-        "cmd": "!perim 'help'",
-        "list": "For all commands related to the scanquest use ``!perim help``"
+        "cmd": "!perim protector",
+        "list": "Sends the 'Perim Protector' boss sprites.\nFor all commands related to the scanquest use ``!perim help``"
     },
     "map": {
-    // TODO
+        "cmd": "```md\n!map <OverWorld | UnderWorld>\n```",
+        "details": "Sends a map of the OverWorld or UnderWorld"
     },
     "help": {
-    // TODO
+        "details": "**Command Help Syntax Explaination**\n> < > notate a user input paramater (these are order dependant)\n> a parmater in single quotes ' ' means that literal text(s) is required\n> a pipe | notates that either option within ' ' or < > can be used\n> a paramater in brackets [] means that it is optional\n> [] with ellipses ... notates that any number of that paramater can be used\n> command options that have -- can be used anywhere within the syntax and are not order dependant"
     },
     "cmd": {
-    // TODO
+        "alias": "commands"
+    },
+    "command": {
+        "alias": "commands"
     },
     "commands": {
-        "cmd": "", 
-        "details": "This is for when you need help with my help"
+        "cmd": "!commands [<command>]", 
+        "details": "This is for when you need help with my help. You might be looking for ``!command help``"
     },
     "banhammer": {
-    // TODO
+        "cmd": "!banhammer",
+        "details": "Sends 'The Doomhammer' card image"
     },
     "rm": {
-    // TODO
+        "cmd": "!rm",
+        "details": "Removes the last bot message sent in the channel",
+        "mod": "If a number is provided, this is an alias for ``!delete``"
     },
     "clear": {
-    // TODO
+        "alias": "delete",
+        "mod": true
     },
     "clean": {
-    // TODO
+        "alias": "delete",
+        "mod": true
     },
     "delete": {
-    // TODO
+        "cmd": "!delete <number> [@user]",
+        "details": "Deletes the specified number of messages. If a user mention is provided, deletes that many messages from the user instead.",
+        "mod": true
     },
     "haxxor": {
-    // TODO
+        "cmd": "!haxxor",
+        "details": "Resets the bot's card database and restarts the bot",
+        "mod": true
     },
     "logs": {
-    // TODO
+        "cmd": "!logs",
+        "details": "Sends a list of bot logs",
+        "mod": true
     }
 }
-
