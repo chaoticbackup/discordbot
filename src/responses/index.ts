@@ -13,6 +13,7 @@ import logger from '../logger';
 import { avatar, display_card, display_token, find_card, full_art } from './card';
 
 import joke from './config/jokes.json';
+import commands from './config/help';
 
 import { banlist, formats, whyban } from './game/bans';
 import { decklist, tier, tierlist } from './game/decklists';
@@ -29,7 +30,7 @@ import speakers from './joinable/speakers';
 import { brainwash, tribe } from './joinable/tribes';
 
 import gone from './misc/gone';
-import help from './misc/help';
+import { help_command, help_list, all_commands } from './help';
 import { compliment, insult } from './misc/insult_compliment';
 import { make, menu, order } from './misc/menu';
 import nowornever from './misc/nowornever';
@@ -117,7 +118,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   const { cmd, args, options } = parseCommand(content);
 
   if (options.includes('help'))
-    return send(help(cmd));
+    return send(help_command(cmd));
 
   const { channel } = message;
   const { guild, guildMember } = await messageGuild(message);
@@ -152,22 +153,38 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(find_card(flatten(args)));
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
-      case 'banlist': {
-        const rsp = (options.length === 0 && args.length > 0)
-          ? banlist(message, [flatten(args)])
-          : banlist(message, options);
-        return send(rsp);
-      }
+      case 'faq':
+        return send(faq(flatten(args)));
+      case 'keyword':
+      case 'rule':
+        if (args.length < 1) {
+          return send('Please provide a rule, or use **!rulebook** or **!guide**');
+        } else {
+          return send(glossary(flatten(args)));
+        }
+      case 'rulebook':
+        return send(rulebook(args, options));
+      case 'rulebooks':
+        return send(rulebook([], ['list']));
+      case 'cr':
+        if (args.length > 0) {
+          return send(cr(flatten(args)));
+        } // fallthrough
+      case 'comprehensive':
+        return send('<https://drive.google.com/file/d/1BFJ2lt5P9l4IzAWF_iLhhRRuZyNIeCr-/view>');
+      case 'errata':
+        return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
+      case 'guide':
+        return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
       case 'help':
         if (content.charAt(0) === '!')
           return send('Use **!commands** or **c!help**');
         // falls through with c!help
       case 'commands':
         const text = flatten(args);
-        if (text) return send(help(text));
-        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'end'];
-        const msg = `${help('', keys)
-        }\nFor my full feature set check out the main server https://discord.gg/chaotic`;
+        if (text) return send(help_command(text));
+        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents', 'end'];
+        const msg = `${help_list(keys)}\nFor my full feature set check out the main server https://discord.gg/chaotic`;
         return send(msg).then(async () => send(donate()));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
@@ -212,19 +229,15 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (newMemberGeneralChatSpam()) return;
       return parseCards(args, options);
     case 'ability':
-      options.push('ability');
-      return parseCards(args, options);
+      return parseCards(args, ['ability']);
     case 'text':
-      options.push('text');
-      return parseCards(args, options);
+      return parseCards(args, ['text']);
     case 'stats':
-      options.push('stats');
-      return parseCards(args, options);
+      return parseCards(args, ['stats']);
+    case 'image':
+      return parseCards(args, ['image']);
     case 'full':
     case 'fullart':
-      return send(full_art(flatten(args), options));
-    case 'altart':
-      options.push('alt');
       return send(full_art(flatten(args), options));
     case 'cutout':
     case 'avatar':
@@ -483,7 +496,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
           return send('<https://cdn.discordapp.com/attachments/135657678633566208/617385013129773057/UW-Map-0517.jpg>');
         }
       }
-      return send('\`\`\`md\n!map <OverWorld | UnderWorld>\`\`\`');
+      return send(commands.map.cmd);
     }
 
     /* Help */
@@ -497,18 +510,30 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return;
       } // falls through with c!help
     case 'cmd':
+    case 'command':
     case 'commands': {
-      if (args.length > 0) return send(help(flatten(args)));
+      if (args.length > 0 && mentions.length === 0) {
+        return send(help_command(flatten(args), guildMember));
+      }
       if (guildMember) {
-        return guildMember.send(help())
-        .then(() => { guildMember.send(donate()); })
+        let gm = guildMember;
+        if (mentions.length > 0 && isModerator(guildMember)) {
+          gm = await message.guild.fetchMember(mentions[0]);
+        }
+        return gm.send(help_list())
+        .then(() => {
+          send(`I messaged ${gm.displayName} the command list`);
+          gm.send(donate());
+        })
         .catch(() => {
-          send(help());
+          send(help_list());
         });
       }
-      return send(help())
-      .then(async () => send(donate()));
+      return sendBotCommands([help_list(), donate()]);
     }
+    case 'everything':
+      if (guildMember) guildMember.send(all_commands(guildMember));
+      return;
 
     /*
    * Moderation

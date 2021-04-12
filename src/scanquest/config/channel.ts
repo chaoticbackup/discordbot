@@ -24,7 +24,7 @@ export function channel(db: ScanQuestDB, server: Server, args: string[]): string
       return;
     }
     default: {
-      return '!perim channels <list | send | recieve>';
+      return "!perim channels 'list|send|recieve'";
     }
   }
 }

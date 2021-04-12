@@ -27,10 +27,28 @@ export default function (name: string, options: string[]) {
       url = API.base_image + card.gsx$alt;
     }
   }
+  else if (options.includes('alt2')) {
+    if (card.gsx$alt2) {
+      url = API.base_image + card.gsx$alt2;
+    }
+  }
 
-  return new RichEmbed()
+  const embed = new RichEmbed()
   .setColor(color(card))
   .setTitle(card.gsx$name)
   .setURL(url)
   .setImage(url);
+
+  if (!options.includes('alt') && card.gsx$alt) {
+    if (!options.includes('alt2')) {
+      if (card.gsx$alt2) {
+        embed.setDescription(`${card.gsx$name} has 2 alt arts`);
+      }
+      else {
+        embed.setDescription(`${card.gsx$name} has 1 alt art`);
+      }
+    }
+  }
+
+  return embed;
 }

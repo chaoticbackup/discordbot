@@ -9,7 +9,7 @@ export default async function (
     return await send('You can only use this command in a guild with roles');
   }
 
-  if (args.length < 2) return await send('!color <set|remove> <color>');
+  if (args.length < 2) return await send("!color 'set|remove' <color>");
 
   switch (cleantext(args[0])) {
     case 'set': {

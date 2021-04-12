@@ -2,6 +2,7 @@ import { Guild, GuildMember, Message, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
 import { asyncForEach, msgCatch } from '../../common';
 import { MeetupsDB, Region, Member } from './MeetupsDB';
+import commands from '../config/help';
 
 const rmSpecialChars = (text: string): string => {
   text = text.replace('é', 'e');
@@ -55,13 +56,13 @@ const regionList = async (): Promise<string> => {
  * @param user the user who sent the message
  * @param args array of text from the message
  * @example
- * !region <list|>
- * !region <add|remove> <regionName>
- * !region <rename> <regionName> <newName>
+ * !region ['list']
+ * !region 'add|remove' <region name>
+ * !region 'rename' <region name> <new name>
  *
- * !region <regionName> <ping|list|>
- * !region <regionName> <join|leave>
- * !region <regionName> <add|remove> <@guildMember>
+ * !region <region name> ['ping|list']
+ * !region <region name> 'join|leave'
+ * !region <region name> 'add|remove' <@guildMember>
  */
 export default async function (
   message: Message, args: string[], mentions: string[], guild?: Guild, user?: GuildMember
@@ -83,7 +84,7 @@ export default async function (
       }
       case 'add':
         if (moderator) {
-          if (args.length < 2) return '!region add <regionName>';
+          if (args.length < 2) return '!region add <region name>';
           return await MeetupsDB.addRegion(args[1])
         .then((regionName) => `Added new region ${regionName}`)
         .catch(err => { throw err; });
@@ -91,7 +92,7 @@ export default async function (
         break;
       case 'remove':
         if (moderator) {
-          if (args.length < 2) return '!region remove <regionName>';
+          if (args.length < 2) return '!region remove <region name>';
           return await MeetupsDB.getRegion(args[1])
         .then(async (region) => {
           return await MeetupsDB.removeRegion(region);
@@ -102,7 +103,7 @@ export default async function (
         break;
       case 'rename':
         if (moderator) {
-          if (args.length < 3) return '!region rename <regionName> <new name>';
+          if (args.length < 3) return '!region rename <region name> <new name>';
           return await MeetupsDB.getRegion(args[1])
         .then(async (region: Region) => {
           return await MeetupsDB.renameRegion(region, args[2]);
@@ -187,7 +188,7 @@ export default async function (
               }
               break;
             default:
-              return `!region ${args[0]} <add|remove> <guildMember>`;
+              return `!region ${args[0]} 'add|remove' <@guildMember>`;
           }
         }
 
@@ -209,7 +210,7 @@ export default async function (
             });
             return msg;
           default:
-            return `!region ${args[0]} <join|leave|list>\n`;
+            return `!region ${args[0]} 'join|leave|list'\n`;
         }
       }
     }
@@ -218,5 +219,5 @@ export default async function (
     return Promise.resolve(err);
   }
 
-  return '!region <regionName> <join|leave|ping|list|>';
+  return commands.region.cmd;
 }

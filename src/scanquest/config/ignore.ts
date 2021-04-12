@@ -32,7 +32,7 @@ export function ignore(db: ScanQuestDB, server: Server, args: string[]): string 
       return;
     }
     default: {
-      return '!perim ignore <list | add | remove>';
+      return "!perim ignore 'list|add|remove'";
     }
   }
 }
