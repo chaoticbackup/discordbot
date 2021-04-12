@@ -138,14 +138,13 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'cards':
         return parseCards(args, options);
       case 'ability':
-        options.push('ability');
-        return parseCards(args, options);
+        return parseCards(args, ['ability']);
       case 'text':
-        options.push('text');
-        return parseCards(args, options);
+        return parseCards(args, ['text']);
       case 'stats':
-        options.push('stats');
-        return parseCards(args, options);
+        return parseCards(args, ['stats']);
+      case 'image':
+        return parseCards(args, ['image']);
       case 'full':
       case 'fullart':
         return send(full_art(flatten(args), options));
@@ -183,7 +182,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'commands':
         const text = flatten(args);
         if (text) return send(help_command(text));
-        const keys = ['start', 'card', 'stats', 'text', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents', 'end'];
+        const keys = ['card', 'stats', 'text', 'image', 'ability', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents'];
         const msg = `${help_list(keys)}\nFor my full feature set check out the main server https://discord.gg/chaotic`;
         return send(msg).then(async () => send(donate()));
       case 'rm':

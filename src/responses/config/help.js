@@ -7,23 +7,26 @@ module.exports = {
         "details": "Provide a card name and I'll return the card's text as well as its picture.\nWithout a card name, I'll return a random card. You can ask for multiple cards using a semi-colon\nYou can use ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after the = ).\nAdditional options are ``--min``, ``--max``, ``--detailed``, ``--text``, ``--stats``, ``--ability``, ``--image``"
     },
     "cards": {
-        "cmd": "!cards [<card-name>] [;<card-name>]...",
         "alias": "card"
     },
     "ability": {
         "cmd": "!ability [<card-name>] [;<card-name>]...",
+        "list": "",
         "details": "I only show the ability, subtypes, and stats of a card. Equivalent to ``!card --ability``"
     },
     "text": {
         "cmd": "!text [<card-name>] [;<card-name>]...",
+        "list": "",
         "details": "I'll show all the card information without the card image. Equivalent to ``!card --text``"
     },
     "stats": {
         "cmd": "!stats [<card-name>] [;<card-name>]...",
+        "list": "",
         "details": "I'll only show the stats of a card. Equivalent to ``!card --stats``"
     },
     "image": {
         "cmd": "!image [<card-name>] [;<card-name>]...",
+        "list": "",
         "details": "I'll only show the card image. Equivalent to ``!card --image``"
     },
     "fullart": {
@@ -374,7 +377,7 @@ module.exports = {
     },
     "rm": {
         "cmd": "!rm",
-        "details": "Removes the last bot message sent in the channel",
+        "list": "Removes the last bot message sent in the channel",
         "mod": "If a number is provided, this is an alias for ``!delete``"
     },
     "clear": {
