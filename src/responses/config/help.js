@@ -365,6 +365,9 @@ module.exports = {
         "cmd": "!commands [<command>]", 
         "details": "This is for when you need help with my help. You might be looking for ``!command help``"
     },
+    "everything": {
+        "details": "This sends you every command I can perform besides ``!perim`` (scanquest) related commands."
+    },
     "banhammer": {
         "cmd": "!banhammer",
         "details": "Sends 'The Doomhammer' card image"
