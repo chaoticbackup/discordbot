@@ -380,10 +380,6 @@ module.exports = {
         "list": "Removes the last bot message sent in the channel",
         "mod": "If a number is provided, this is an alias for ``!delete``"
     },
-    "clear": {
-        "alias": "delete",
-        "mod": true
-    },
     "clean": {
         "alias": "delete",
         "mod": true

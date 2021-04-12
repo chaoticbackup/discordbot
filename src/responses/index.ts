@@ -557,12 +557,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (isNaN(parseInt(flatten(args))))
         return rm(message, guild);
     // fallthrough if number provided
-    case 'clear':
-      if (guild) {
-        const meebot = guild.members.get('159985870458322944');
-        if (meebot) return;
-      }
-    // fallthrough
     case 'clean':
     case 'delete':
       return clear(parseInt(flatten(args)), message, mentions);
