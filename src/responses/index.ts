@@ -138,11 +138,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'cards':
         return parseCards(args, options);
       case 'ability':
-        return parseCards(args, ['ability']);
+        options.push('ability');
+        return parseCards(args, options);
       case 'text':
-        return parseCards(args, ['text']);
+        options.push('text');
+        return parseCards(args, options);
       case 'stats':
-        return parseCards(args, ['stats']);
+        options.push('stats');
+        return parseCards(args, options);
       case 'image':
         return parseCards(args, ['image']);
       case 'full':
@@ -228,11 +231,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (newMemberGeneralChatSpam()) return;
       return parseCards(args, options);
     case 'ability':
-      return parseCards(args, ['ability']);
+      options.push('ability');
+      return parseCards(args, options);
     case 'text':
-      return parseCards(args, ['text']);
+      options.push('text');
+      return parseCards(args, options);
     case 'stats':
-      return parseCards(args, ['stats']);
+      options.push('stats');
+      return parseCards(args, options);
     case 'image':
       return parseCards(args, ['image']);
     case 'full':
