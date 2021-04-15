@@ -1,8 +1,6 @@
-/* eslint-disable max-len */
-// File is js until I remove all the comments, then can revert to json
-module.exports = {
+{
     "card": {
-        "cmd": "!card <card-name|> [;<card-name>...]", 
+        "cmd": "!card <card-name> [;<card-name>...]", 
         "list": "Returns a card; has many options", 
         "details": "Provide a card name and I'll return the card's text as well as its picture.\nWithout a card name, I'll return a random card. You can ask for multiple cards using a semi-colon\nYou can use ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after the = ).\nAdditional options are ``--min``, ``--max``, ``--detailed``, ``--text``, ``--stats``, ``--ability``, ``--image``"
     },
@@ -12,22 +10,22 @@ module.exports = {
     "ability": {
         "cmd": "!ability [<card-name>] [;<card-name>]...",
         "list": "",
-        "details": "I only show the ability, subtypes, and stats of a card. Equivalent to ``!card --ability``"
+        "details": "I only show the ability, subtypes, and stats of a card. Equivalent to `!card --ability`"
     },
     "text": {
         "cmd": "!text [<card-name>] [;<card-name>]...",
         "list": "",
-        "details": "I'll show all the card information without the card image. Equivalent to ``!card --text``"
+        "details": "I'll show all the card information without the card image. Equivalent to `!card --text`"
     },
     "stats": {
         "cmd": "!stats [<card-name>] [;<card-name>]...",
         "list": "",
-        "details": "I'll only show the stats of a card. Equivalent to ``!card --stats``"
+        "details": "I'll only show the stats of a card. Equivalent to `!card --stats`"
     },
     "image": {
         "cmd": "!image [<card-name>] [;<card-name>]...",
         "list": "",
-        "details": "I'll only show the card image. Equivalent to ``!card --image``"
+        "details": "I'll only show the card image. Equivalent to `!card --image`"
     },
     "fullart": {
         "cmd":"!fullart [<card-name>]", 
@@ -87,11 +85,11 @@ module.exports = {
     },
     "rulebook": {
         "cmd":"!rulebook <language|> <set|>", 
-        "details": "You can ask for a different different rulebooks. If you don't tell me otherwise, I'll return the equivalent of ``!rulebook EN AU``\nFor a list of all rulebooks I have, type ``!rulebook --list``"
+        "details": "You can ask for a different different rulebooks. If you don't tell me otherwise, I'll return the equivalent of `!rulebook EN AU`\nFor a list of all rulebooks I have, type `!rulebook --list`"
     },
     "rulebooks": {
         "cmd": "!rulebooks",
-        "details": "I show a list of rulebooks I have. Equivalent to ``!rulebook --list``"
+        "details": "I show a list of rulebooks I have. Equivalent to `!rulebook --list`"
     },
     "cr": {
         "cmd": "!cr [<section>]",
@@ -124,22 +122,22 @@ module.exports = {
     "banlist": {
         "cmd": "!banlist\n!ban, !whyban <card-name>",
         "list":"You can use `!format` for the list of formats", 
-        "details": "Ask me about the banlist or why a card is or could be banned ``!whyban <card>``.\nThere are different ``!formats`` with their own banlists."
+        "details": "Ask me about the banlist or why a card is or could be banned `!whyban <card>`.\nThere are different `!formats` with their own banlists."
     },
     "standard": {
-        "details": "Use ``!banlist standard``"
+        "details": "Use `!banlist standard`"
     },
     "legacy": {
-        "details": "Use ``!banlist legacy``"
+        "details": "Use `!banlist legacy`"
     },
     "modern": {
-        "details": "Use ``!banlist modern``"
+        "details": "Use `!banlist modern`"
     },
     "pauper": {
-        "details": "Use ``!banlist pauper``"
+        "details": "Use `!banlist pauper`"
     },
     "noble": {
-        "details": "Use ``!banlist noble``"
+        "details": "Use `!banlist noble`"
     },
     "ban": {
         "alias": "whyban"
@@ -152,9 +150,9 @@ module.exports = {
         "alias": "good"
     },
     "good": {
-        "cmd": "!good <type|tribe> < bp|type >", 
+        "cmd": "!good <type|tribe> <bp|type>", 
         "list": "Returns a list of good cards", 
-        "details": "Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n``!good M'arrillian Creatures``\n ``!good Attacks 1``"
+        "details": "Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n`!good M'arrillian Creatures`\n `!good Attacks 1`"
     },
     "goodstuff": {
         "alias": "good"
@@ -165,7 +163,7 @@ module.exports = {
     "decks": {
         "cmd": "!decks <tribe|type|teir|keyword|creature>",
         "list": "Sends a list of community curated decks based on user input",
-        "details": "Specify a tribe, tier, deck type, keyword, or Creature to search for decks.\nYou can use ``!deck types`` to see an explaination on how types are defined."
+        "details": "Specify a tribe, tier, deck type, keyword, or Creature to search for decks.\nYou can use `!deck types` to see an explaination on how types are defined."
     },
     "decklist": {
         "alias": "decks"
@@ -175,7 +173,8 @@ module.exports = {
         "details": "Sends a list of the specific tier decks"
     },
     "tierlist": {
-        "list": "Returns the tierlist. Or acts as an alias to ``!decks`` if input is provided"
+        "cmd": "!tierlist",
+        "list": "Returns the tierlist. Or acts as an alias to `!decks` if input is provided"
     },
     "tiers": {
         "alias": "tierlist"
@@ -238,7 +237,7 @@ module.exports = {
     },
     "cook": {
         "cmd": "!cook <food>",
-        "details": "I'll share you a emoji recipe. Not to be confused with ``!order``"
+        "details": "I'll share you a emoji recipe. Not to be confused with `!order`"
     },
     "speak": {
         "alias": "language"
@@ -252,7 +251,7 @@ module.exports = {
     "language": {
         "cmd": "!language <language> 'join|leave|list'",
         "list": "Connect with other players of the same language!",
-        "details": "I'll add a language role to you if it exists on the sever.\nTo find out what languages you can join use ``!language list``"
+        "details": "I'll add a language role to you if it exists on the sever.\nTo find out what languages you can join use `!language list`"
     },
     "languages": {
         "alias": "language"
@@ -323,6 +322,7 @@ module.exports = {
         "details": "I'll cook up a smoldering burn. Let me know if there's someone specific you had in mind."
     },
     "joke": {
+        "cmd": "!joke",
         "list": "I'll tell you a Chaotic joke"
     },
     "whistle": {
@@ -345,14 +345,14 @@ module.exports = {
     },
     "watch": {
         "cmd":"!watch <language> [<season>]", 
-        "details": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type ``!watch --list``"
+        "details": "You can watch Chaotic in various languages!\nIf a season number is followed by SD it isn't high definition.\nFor a list of all episodes I have, type `!watch --list`"
     },
     "perim": {
         "cmd": "!perim protector",
-        "list": "Sends the 'Perim Protector' boss sprites.\nFor all commands related to the scanquest use ``!perim help``"
+        "list": "Sends the 'Perim Protector' boss sprites.\nFor all commands related to the scanquest use `!perim help`"
     },
     "map": {
-        "cmd": "```md\n!map <OverWorld | UnderWorld>\n```",
+        "cmd": "!map 'OverWorld|UnderWorld'",
         "details": "Sends a map of the OverWorld or UnderWorld"
     },
     "help": {
@@ -366,10 +366,10 @@ module.exports = {
     },
     "commands": {
         "cmd": "!commands [<command>]", 
-        "details": "This is for when you need help with my help. You might be looking for ``!command help``"
+        "details": "This is for when you need help with my help. You might be looking for `!command help`"
     },
     "everything": {
-        "details": "This sends you every command I can perform besides ``!perim`` (scanquest) related commands."
+        "details": "This sends you every command I can perform besides `!perim` (scanquest) related commands."
     },
     "banhammer": {
         "cmd": "!banhammer",
@@ -378,7 +378,7 @@ module.exports = {
     "rm": {
         "cmd": "!rm",
         "list": "Removes the last bot message sent in the channel",
-        "mod": "If a number is provided, this is an alias for ``!delete``"
+        "mod": "If a number is provided, this is an alias for `!delete`"
     },
     "clean": {
         "alias": "delete",

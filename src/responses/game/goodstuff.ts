@@ -1,7 +1,5 @@
 import { parseTribe, parseType, MugicTribe, CreatureTribe, CardType, generify } from '../../common/card_types';
-
-const { agame, goodstuff, support } =
-  require('./config/goodstuff.json') as { agame: string[], support: string[], goodstuff: GoodStuff };
+import gsjson from './config/goodstuff.json';
 
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
 
@@ -12,6 +10,8 @@ interface GoodStuff {
   Locations: string[]
   Mugic: {[key in MugicTribe]: string[] }
 }
+
+const { agame, goodstuff, support } = gsjson as { agame: string[], support: string[], goodstuff: GoodStuff };
 
 export { fs as funstuff, gs as goodstuff };
 

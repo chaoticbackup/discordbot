@@ -8,7 +8,7 @@ import { compliment } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
 
-import { quips, hello, rhymes } from './config/sass.json';
+import { quips, hello, rhymes } from './sass.json';
 import { isMissing } from './misc/missing_cards';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
@@ -28,7 +28,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   // Fast way to check if card been added to recode
-  const missing_regex = new RegExp(/is (.*) (missing in|added (in|to)|(?<!missing[ ])in) recode\?/, 'i');
+  const missing_regex = new RegExp(/is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/, 'i');
   if (missing_regex.test(content)) {
     const name = missing_regex.exec(content)!;
     return await send(isMissing(name[1]));

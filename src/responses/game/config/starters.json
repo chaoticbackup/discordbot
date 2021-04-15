@@ -2,11 +2,26 @@
 
 {
     "afjak": {
-        "OverWorld": "http://www.tradecardsonline.com/im/showDeck/deck_id/479045",
-        "UnderWorld": "http://www.tradecardsonline.com/im/showDeck/deck_id/586301",
-        "Mipedian": "http://www.tradecardsonline.com/im/showDeck/deck_id/628611",
-        "Danian": "http://www.tradecardsonline.com/im/showDeck/deck_id/625804",
-        "M'arrillian": "http://www.tradecardsonline.com/im/showDeck/deck_id/517280"
+        "OverWorld": {
+            "name": "", 
+            "link": "http://www.tradecardsonline.com/im/showDeck/deck_id/479045"
+        },
+        "UnderWorld": {
+            "name": "",
+            "link": "http://www.tradecardsonline.com/im/showDeck/deck_id/586301"
+        },
+        "Mipedian": {
+            "name": "",
+            "link": "http://www.tradecardsonline.com/im/showDeck/deck_id/628611"
+        },
+        "Danian": {
+            "name": "",
+            "link": "http://www.tradecardsonline.com/im/showDeck/deck_id/625804"
+        },
+        "M'arrillian": {
+            "name": "",
+            "link": "http://www.tradecardsonline.com/im/showDeck/deck_id/517280"
+        }
     },
     "metal": {
         "OverWorld": {

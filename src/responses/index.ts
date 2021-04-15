@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, Message, RichEmbed } from 'discord.js';
+import { Client, DiscordAPIError, Message, RichEmbed } from 'discord.js';
 
 import { can_send, cleantext, donate, flatten, hasPermission, isModerator, is_channel, msgCatch } from '../common';
 import debug from '../common/debug';
@@ -10,12 +10,11 @@ import servers from '../common/servers';
 
 import { Channel, SendFunction } from '../definitions';
 
-import logger from '../logger';
 import { clear, haxxor, logs, rm } from './admin';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
 
-import commands from './config/help';
+import commands from './command_help.json';
 
 import { banlist, formats, whyban } from './game/bans';
 import { decklist, tier, tierlist } from './game/decklists';
@@ -85,16 +84,12 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 
   return response()
   .catch((error) => {
-    // Log/Print error
-    logger.error(error.stack);
-
-    // Don't log problems while in development
-    if (development) return;
-
     // Send Error to Bot Testing Server
     const server_source = message.guild ? message.guild.name : 'DM';
 
-    debug(bot, `${server_source}:\n${error.stack}`, 'errors');
+    debug(bot, `${server_source}:\n${error.message}\n${error.stack}`, 'errors');
+
+    if (development) return;
 
     // Ignore programmer errors (keep running)
     if (error.name === 'ReferenceError' || error.name === 'SyntaxError')
@@ -186,8 +181,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         const text = flatten(args);
         if (text) return send(help_command(text));
         const keys = ['card', 'stats', 'text', 'image', 'ability', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents'];
-        const msg = `${help_list(keys)}\nFor my full feature set check out the main server https://discord.gg/chaotic`;
-        return send(msg).then(async () => send(donate()));
+        return send(help_list(keys));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
           return rm(message, guild);
@@ -213,7 +207,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
 
     for await (const c of content) {
-      if (c) await ch.send(c);
+      if (c) await ch.send(c).catch((e) => { throw (e); });
     }
   }
 
@@ -528,13 +522,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return gm.send(help_list())
         .then(() => {
           send(`I messaged ${gm.displayName} the command list`);
-          gm.send(donate());
         })
-        .catch(() => {
-          send(help_list());
+        .catch((e: DiscordAPIError) => {
+          // eslint-disable-next-line eqeqeq
+          if (e.code == 50007) {
+            // If cannot DM send in channel
+            sendBotCommands([help_list()]);
+          }
+          else {
+            throw (e);
+          }
         });
       }
-      return sendBotCommands([help_list(), donate()]);
+      return sendBotCommands([help_list()]);
     }
     case 'everything':
       if (guildMember) guildMember.send(all_commands(guildMember));

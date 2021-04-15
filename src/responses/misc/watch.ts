@@ -1,5 +1,6 @@
-import { isLangType, languageEnglish, list } from '../../common/languages';
-import episodes from './config/episodes.json';
+import { isLangType, languageEnglish, lang_type, list } from '../../common/languages';
+import episodes_json from './config/episodes.json';
+const episodes = episodes_json as Partial<Record<lang_type, Record<string, string>>>;
 
 export default function (args: string[], options: string[]) {
   if (options.includes('list')) {
@@ -8,19 +9,20 @@ export default function (args: string[], options: string[]) {
 
   if (args.length < 1) return '!watch --help';
 
-  const lang = args[0].toUpperCase();
-  if (isLangType(lang) && lang in episodes) {
+  const language = args[0].toUpperCase();
+  if (isLangType(language) && language in episodes) {
+    const lang = episodes[language]!;
     let set;
     if (args.length < 2) {
-      if ('_' in episodes[lang]) set = '_';
+      if ('_' in lang) set = '_';
       else return '!watch <language> <season>';
     }
     else set = args[1].toUpperCase();
-    if (set in episodes[lang]) {
-      return `${episodes[lang][set]}`;
+    if (set in lang) {
+      return `${lang[set]}`;
     }
     else {
-      return `I don't have episodes in ${languageEnglish(lang)}`;
+      return `I don't have episodes in ${languageEnglish(language)}`;
     }
   }
   else {

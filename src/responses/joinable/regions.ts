@@ -2,7 +2,7 @@ import { Guild, GuildMember, Message, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
 import { asyncForEach, msgCatch } from '../../common';
 import { MeetupsDB, Region, Member } from './MeetupsDB';
-import commands from '../config/help';
+import commands from '../command_help.json';
 
 const rmSpecialChars = (text: string): string => {
   text = text.replace('é', 'e');

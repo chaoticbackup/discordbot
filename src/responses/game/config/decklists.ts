@@ -64,6 +64,7 @@ const _tierlist = {
     "Bodal's Boys",
     "Danian Discipline Compost",
     "Muge's Dagger",
+    "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
     "Ursis Dagger",
@@ -96,7 +97,6 @@ const _tierlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
-    "Oath of the Oasis",
     "Six Arms",
     "Trampling Mammoth"
   ]

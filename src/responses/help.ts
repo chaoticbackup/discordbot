@@ -1,5 +1,6 @@
-import { GuildMember } from 'discord.js';
+import { GuildMember, RichEmbed } from 'discord.js';
 import { isModerator } from '../common';
+import command_help from './command_help.json';
 
 /*
 * "list" makes a command shows up if you type !commands or c!help
@@ -21,7 +22,7 @@ interface command {
   mod?: boolean | string
 }
 
-const commands = require('./config/help.js') as Record<string, command>;
+const commands = command_help as Record<string, command>;
 
 /**
  * Sends info about the provided command
@@ -77,25 +78,47 @@ export const help_command = (str: string = '', guildMember?: GuildMember) => {
 
 /**
  * Returns the list of commonly useful commands
- * @param keys Optional list of keys to show as a command list
+ * @param list Optional list of keys to show as a command list
  */
-export const help_list = (keys: string[] = Object.keys(commands)) => {
-  let message = `${commands.help.details}\n\`\`\`md`;
+export const help_list = (list?: string[]) => {
+  const keys = (list !== undefined && list.length > 0) ? list : Object.keys(commands);
+
+  const embed = new RichEmbed()
+    .setDescription(`${commands.help.details}\n\n` +
+      'I try to be helpful, but can be sassy. I may also pop in to add a quip ;)\n' +
+      'You can ask me more about specific commands ``!command <command>``.'
+    );
+
+  const fields: string[] = [''];
+  let f = 0;
 
   keys.forEach((key) => {
     if ('list' in commands[key]) {
       const command = commands[key];
-      message += `\n${command.cmd}\n`;
+      let message = `\n\`\`\`md\n${command.cmd}\n\`\`\``;
       if (command.list !== '') {
-        message += `> (${command.list})\n`;
+        message += `${command.list}\n`;
       }
+      // Cannot exceded length of field
+      if (fields[f].length + message.length >= 1024 - 3) {
+        f++;
+        fields[f] = '';
+      }
+      fields[f] += message;
     }
   });
-  message += '```' +
-    'I try to be helpful, but can be sassy. I may also pop in to add a quip ;)\n' +
-    'You can ask me more about specific commands ``!command <command>``.';
 
-  return message;
+  fields.forEach((field) => {
+    embed.addField('\u200B', field, false);
+  });
+
+  if (list !== undefined && list.length > 0) {
+    embed.addField('\u200B', 'For my full feature set check out the main server https://discord.gg/chaotic\n');
+  }
+
+  embed.addField('Donate', '[Support the development of Chaotic BackTalk](https://www.paypal.me/ChaoticBackup)');
+
+  return embed;
 };
 
 /**
