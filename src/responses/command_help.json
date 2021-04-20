@@ -196,8 +196,8 @@
         "alias": "lf"
     },
     "cancel": {
-        "cmd": "!cancel",
-        "list": "Remove all matchmaking roles"
+        "cmd": "!cancel [<type>]",
+        "list": "Remove the specified or all matchmaking roles"
     },
     "donate": {
         "details": "Sends the donation link. Thanks for supporting my development!"

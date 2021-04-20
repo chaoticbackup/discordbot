@@ -62,6 +62,8 @@ const serverList = [
       gen_2: '587376910364049438',
       bot_commands: '387805334657433600',
       match_making: '278314121198305281',
+      untap_matching: '834153271613587537',
+      tts_matching: '834153289553281024',
       ruling_questions: '468785561533153290',
       banlist_discussion: '473975360342458368',
       meta_analysis: '418856983018471435',

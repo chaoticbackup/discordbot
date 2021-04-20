@@ -359,7 +359,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'match':
       return send(lookingForMatch(args[0], channel, guild, guildMember));
     case 'cancel':
-      return send(cancelMatch(channel, guild, guildMember));
+      return send(cancelMatch(args[0], channel, guild, guildMember));
 
     /*
    * Misc
