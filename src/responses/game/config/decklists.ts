@@ -225,7 +225,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Mixed",
     tags: ["Infection"],
     type: ["Control"],
-    creatures: ["Amblox", "Fliander", "Lomma, Desert Wanderer", "Topar", "Akkalbi"]
+    creatures: ["Amblox", "Fliandar", "Lomma, Desert Wanderer", "Topar", "Akkalbi"]
   },
   "Gan'trak Gronmor": {
     url: "https://chaoticbackup.forumotion.com/t1601-gan-trak-update",
