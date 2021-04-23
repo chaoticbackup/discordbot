@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
@@ -103,31 +104,41 @@ const displayTribe = (guild: Guild, member: GuildMember): string => {
 };
 
 const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
-  for (let i = 0; i < tribes.length; i++) {
-    const t = tribes[i];
+  let leaving_msg = 'You are not part of a tribe';
+
+  for (const t of tribes) {
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
-      return await member.removeRole(gr)
-      .then(() => `You have left the ${t} tribe`)
-      .catch(() => '');
+      await member.removeRole(gr)
+      .then(() => {
+        leaving_msg = `You have left the ${t} tribe`;
+      })
+      .catch(() => {});
     }
   }
 
-  return 'You are not part of a tribe';
+  return leaving_msg;
 };
 
 const joinTribe = async (guild: Guild, member: GuildMember, input: string): Promise<string> => {
   let leaving_tribe = '';
-  tribes.forEach((t) => {
-    if (member.roles.find(role => role === guild.roles.find(role => role.name === t))) {
-      leaving_tribe = t;
-    }
-  });
-
   let joining_msg = '';
   let leaving_msg = '';
 
   const tribe = parseTribe(input, 'Joinable');
+
+  for (const t of tribes) {
+    const remove_role = guild.roles.find(role => role.name === t);
+    if (member.roles.find(role => role === remove_role)) {
+      if (t === tribe) {
+        return `You are already part of the ${tribe}.`;
+      }
+      else {
+        await member.removeRole(remove_role).catch(() => {});
+        leaving_tribe = t;
+      }
+    }
+  }
 
   switch (tribe) {
     case 'Danian':
@@ -159,7 +170,6 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
     case 'OverWorld':
       if (leaving_tribe === 'UnderWorld') {
         leaving_msg = '<:Chaor:285620681163669506> How dare you betray me for the OverWorld!';
-        // eslint-disable-next-line max-len
         joining_msg = "<:ZalThink:565050379499208704> I'm still suspicious of your allegiance, but we can use another set of hands.";
       }
       else if (leaving_tribe === 'Mipedian') {
@@ -194,17 +204,9 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
   }
 
   const guild_role = guild.roles.find(role => role.name === tribe);
-  const remove_role = guild.roles.find(role => role.name === leaving_tribe);
 
   if (guild_role) {
     await member.addRole(guild_role);
-
-    if (leaving_tribe === tribe) {
-      return `You are already part of the ${tribe}.`;
-    }
-    else if (remove_role) {
-      await member.removeRole(remove_role);
-    }
 
     if (leaving_msg !== '') {
       return `${leaving_msg}\n${joining_msg}`;
