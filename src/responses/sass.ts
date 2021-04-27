@@ -117,6 +117,9 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     if (content.match(/hate/i)) {
       return insult([message.author.id], message.author.username);
     }
+    else if (content.toLowerCase().includes('rule 34')) {
+      return ':cerbie_bonk:';
+    }
     else if (content.match(/love/i)) {
       return '❤️ you too';
     }
