@@ -4,7 +4,7 @@ import { is_channel, rndrsp, escape_text, msgCatch } from '../common';
 import servers from '../common/servers';
 import users, { isUser } from '../common/users';
 
-import { compliment } from './misc/insult_compliment';
+import { compliment, insult } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
 import { display_card } from './card';
 
@@ -114,7 +114,10 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return (rndrsp(rhymes, 'rhymes'));
     }
 
-    if (content.match(/love/i)) {
+    if (content.match(/hate/i)) {
+      return insult([message.author.id], message.author.username);
+    }
+    else if (content.match(/love/i)) {
       return '❤️ you too';
     }
     else if (content.match(/thank(s)*([ ]you)*/i)) {
