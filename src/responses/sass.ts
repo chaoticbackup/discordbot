@@ -115,7 +115,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     }
 
     if (content.match(/hate/i)) {
-      return insult([message.author.id], message.author.username);
+      return insult([message.author.id], message.author.username, message.guild);
     }
     else if (content.match(/love/i)) {
       return '❤️ you too';
