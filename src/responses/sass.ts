@@ -114,26 +114,29 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return (rndrsp(rhymes, 'rhymes'));
     }
 
-    if (content.match(/hate/i)) {
+    if (/rule 34/i.test(content)) {
+      return '<:cerbie_bonk:833781431842897991>';
+    }
+    if (/hate/i.test(content)) {
       return insult([message.author.id], message.author.username, message.guild);
     }
-    else if (content.toLowerCase().includes('rule 34')) {
-      return ':cerbie_bonk:';
-    }
-    else if (content.match(/love/i)) {
+    if (/love/i.test(content)) {
       return '❤️ you too';
     }
-    else if (content.match(/thank(s)*([ ]you)*/i)) {
+    if (/thank(s)*([ ]you)*/i.test(content)) {
       return 'You are welcome';
     }
-    else if (content.match(/sorry/i)) {
+    if (/sorry/i.test(content)) {
+      if (isUser(message, 'brat')) {
+        return "I'll forgive you, if you stop annoying me";
+      }
       return 'I forgive you';
     }
-    else if (content.match(new RegExp(/did.+(king).+(make|create)/, 'i'))) {
+    if (/did.+(king).+(make|create)/i.test(content)) {
       const responses = ['Yeah he did!', "He's the best dad!", '*big smile*', 'Sometimes I give him a hard time'];
       return rndrsp(responses);
     }
-    else if (content.match(new RegExp(/who.+(made|created)/, 'i'))) {
+    if (/who.+(made|created)/i.test(content)) {
       let displayName: string | null = message.guild.members.get(users('daddy'))?.displayName ?? null;
       if (displayName === null) {
         displayName = `<@${users('daddy')}>`;
@@ -142,9 +145,6 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     }
 
     if (isUser(message, 'brat')) {
-      if (content.toLowerCase().includes('sorry')) {
-        return "I'll forgive you, if you stop annoying me";
-      }
       if ((/((nee|nii)-chan)|baka/i).test(content)) {
         return 'Thank you weeb';
       } else {
