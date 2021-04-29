@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Client, DiscordAPIError, Message, RichEmbed } from 'discord.js';
+import { Client, DiscordAPIError, DMChannel, Message, RichEmbed } from 'discord.js';
 
 import { can_send, cleantext, donate, flatten, hasPermission, isModerator, is_channel, msgCatch } from '../common';
 import debug from '../common/debug';
@@ -538,6 +538,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
     case 'everything':
       if (guildMember) guildMember.send(all_commands(guildMember));
+      else if (message.channel instanceof DMChannel) send(all_commands());
       return;
 
     /*

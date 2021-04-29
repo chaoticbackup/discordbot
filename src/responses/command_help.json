@@ -369,7 +369,7 @@
         "details": "This is for when you need help with my help. You might be looking for `!command help`"
     },
     "everything": {
-        "details": "This sends you every command I can perform besides `!perim` (scanquest) related commands."
+        "details": "I'll send you every command I can perform besides `!perim` (scanquest) related commands."
     },
     "banhammer": {
         "cmd": "!banhammer",

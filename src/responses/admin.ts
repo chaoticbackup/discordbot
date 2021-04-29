@@ -13,7 +13,7 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
     return await message.channel.fetchMessages({ limit: 20 })
       .then(async messages => {
         const msg = messages.find((msg) => isUser(msg, 'me'));
-        if (msg) await msg.delete();
+        if (msg) await msg.delete().catch(() => {});
       });
   }
   if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
@@ -38,7 +38,7 @@ export async function clear(amount: number, message: Message, mentions: string[]
         });
       }
       else {
-        await message.channel.bulkDelete(amount + 1).catch();
+        await message.channel.bulkDelete(amount + 1).catch(() => {});
       }
     }
     else {

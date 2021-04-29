@@ -81,12 +81,14 @@ export const help_command = (str: string = '', guildMember?: GuildMember) => {
  * @param list Optional list of keys to show as a command list
  */
 export const help_list = (list?: string[]) => {
-  const keys = (list !== undefined && list.length > 0) ? list : Object.keys(commands);
+  const partial = Boolean(list !== undefined && list.length > 0);
+  const keys = (partial) ? list! : Object.keys(commands);
 
   const embed = new RichEmbed()
-    .setDescription(`${commands.help.details}\n\n` +
-      'I try to be helpful, but can be sassy. I may also pop in to add a quip ;)\n' +
-      'You can ask me more about specific commands ``!command <command>``.'
+    .setDescription(`${commands.help.details}\n` +
+      '\nI try to be helpful, but can be sassy. I may also pop in to add a quip ;)' +
+      '\nYou can ask me more about specific commands ``!command <command>``.' +
+      `${partial ? '' : '\nIf you want a list of all possible commands you can ask for ``!everything``'}`
     );
 
   const fields: string[] = [''];
@@ -112,7 +114,7 @@ export const help_list = (list?: string[]) => {
     embed.addField('\u200B', field, false);
   });
 
-  if (list !== undefined && list.length > 0) {
+  if (partial) {
     embed.addField('\u200B', 'For my full feature set check out the main server https://discord.gg/chaotic\n');
   }
 
@@ -124,7 +126,7 @@ export const help_list = (list?: string[]) => {
 /**
  * Literally every command
  */
-export const all_commands = (guildMember: GuildMember) => {
+export const all_commands = (guildMember?: GuildMember) => {
   const isMod = isModerator(guildMember);
   const messages: string[] = [];
 

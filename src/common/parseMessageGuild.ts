@@ -8,10 +8,10 @@ Promise<{guild?: Guild, guildMember?: GuildMember }>
 {
   if (!message.guild) return { guild: undefined, guildMember: undefined };
 
-  const { guild } = message;
-  const guildMember: GuildMember = message.member !== undefined
-    ? message.member
-    : await guild.fetchMember(message.author).then((member) => member);
+  const { guild, member, author } = message;
+  const guildMember: GuildMember = (member !== undefined)
+    ? member
+    : await guild.fetchMember(author).then((m) => m);
 
   return { guild, guildMember };
 }

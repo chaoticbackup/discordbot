@@ -33,7 +33,7 @@ export function isMissing(name: string) {
   const card = results[0];
 
   if (mined.includes(card.gsx$name)) {
-    return `Sorry, ${card.gsx$name} won't be added to recode. It isn't recognized as a legally playable card.`;
+    return `${card.gsx$name} won't be added to recode. Gerb doesn't recognize it as a legally playable card.`;
   }
 
   if (cards.includes(card.gsx$name)) {
