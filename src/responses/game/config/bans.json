@@ -41,12 +41,14 @@
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"watchlist": [
-		"Elemental Denial",
-		"Interlude of Interruption"
 	],
 	"pauper": [
-		"Casters' Warsong",
-		"Dror'niq"
+		"Dror'niq",
+		"Em'swa",
+		"Makanaz",
+		"Mock'adyn",
+		"Numin Voidland",
+		"Ulmar, Perithon Racer"
 	],
 	"noble": [
 		"Aer'dak",
@@ -110,9 +112,6 @@
 			"They're bouncy, trouncy, flouncy, pouncy\nFun, fun, fun, fun, fun!",
 			"If everyone has negate, no one has negate!"
 		],
-		"Casters' Warsong": [
-			"In pauper, the availability of this Mugic gives advantage to the prevailant \"burn\" archtypes and can be a filler card in already good decks with a Muge (eg. Danian compost)."
-		],
 		"Chaac": [
 			"Chaac, provides early game dominance by shutting down element based decks early game, combining this with the late game power of Fluidmorphing causes an overly consistent resource advantage. For example: with Em'swa in late games, makes Elemental decks unable to win, or with Mock'adyn to stall while building up healing.\n*(Previously Chaac had been allowed because M'arrillians were underwhelming compared to the other tribes.)*",
 			"Chaac's bugs scare away your elements."
@@ -131,6 +130,9 @@
 		"Elemental Elegy": [
 			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. Against non-elemental Creatures, it becomes a \"Song of Stasis\" to stall the attack of a Creature. Because of its dual nature, it provides too much advantage.",
 			"Danians plagiarized both the OverWorld and UnderWorld."
+		],
+		"Em'swa": [
+			"In pauper, renewable resources such as fluidmorphers tend to be too be too strong. Combined with Chaac to cover the early game, Em'swa all but ensures that you're opponent won't be playing elemental attacks. Additionaly, since Chaac, in pauper, doesn't have other ways to be renewable, Em'swa made more sense as the choice."	
 		],
 		"Enre-hep, High Muge of the Desert": [
 			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most oppressive combos are: Tonal Destruction, Unheard Melody, Consuming Cacophony, Song of Resistance (which can stall a game for hours), and finally a broken combo involves Strain of Infection and Ode to Obscurity to create a loop to generate infinite counters.",
@@ -193,12 +195,18 @@
 			"Although this card isn't banworthy in terms of its power level, it limits some deck building and it's banned for the effort to enable more decks.",
 			"Sorry, the truck already emptied the recycle bin."
 		],
+		"Makanaz": [
+			"Makanaz is an overstatted creature with an effect that continues providing vast value even after your opponent manages to kill it. In standard there are a few ways to counter discard pile effects which makes including Makanaz a risk. In pauper, in addition to the overall weaker card pool, there is only one option: Void Dirge. Makanaz's existance is so meta warping that almost every deck has to include Void Dirge. So Makanaz will be banned to allow decks to get that 6th mugic slot back, which should allow for other compost effects to be more viable since there should be less Void Dirge."
+		],
 		"Malvadine, The King's Herald": [
 			"His high stats, and ability to defend, make him essential in any mono-Mipedian deck. He has strike and Air 5, which makes him versitile in practically all deck types."
 		],
 		"Melody of the Meek": [
 			"Taking only 10 damage from every source is brutal. Even with only 30 energy this card would be a big advantage.\nBut there's tons of effects Creatures gain energy - making it difficult to kill a Creature using this Mugic.",
 			"See Strike of the Meek"
+		],
+		"Mock'adyn": [
+			"In pauper, Mock'adyn's ability to build counters and heal renewability outpaces the almost all decks. With a nerfed burn in pauper, there is little chance of stopping the value engine."
 		],
 		"Na-inna": [
 			"Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combine with a fluidmorpher."
@@ -275,14 +283,13 @@
 			"This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality.",
 			"You would have thought a twister of elements would have used all the elements... or at least twisted some elements"
 		],
-		"Ursis": [
-			"A divisive card. Ursis may have no ability (no negative one either), but it does have High Energy, great Power, 3 Mugic counters, and most importantly Creature type Muge.",
-			"Stop cheating, Crellan"
+		"Ulmar, Perithon Racer": [
+			"In pauper, having 20 renewable damage each turn proves to be overwhelming against the resources in other decks. In addition, Ulmar can cast both Cannon of Casuality or Caster's Warsong making it invaluable in pauper burn decks dominance."
 		],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
 			"Did you like that one hit Slash Claw? Want to see it again?",
-			"Take a swig of the vial"
+			"Go on, take a swig of the vial."
 		],
 		"Xerium Armor": [
 			"Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check.",
@@ -343,6 +350,9 @@
 		],
 		"Strike of the Meek": [
 			"I'm actually surprised you looked this up."
+		],
+		"Ursis": [
+			"Stop cheating, Crellan"
 		]
 	},
 	"detailed": {
