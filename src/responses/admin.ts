@@ -16,22 +16,39 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
         if (msg) await msg.delete().catch(() => {});
       });
   }
-  if (!hasPermission(guild, 'MANAGE_MESSAGES')) return;
+
   return await message.channel.fetchMessages({ limit: 10 })
     .then(async messages => {
       const msg = messages.find((msg) => isUser(msg, 'me'));
-      if (msg) await message.channel.bulkDelete([msg, message]);
+      if (msg) {
+        if (!hasPermission(guild, 'MANAGE_MESSAGES')) {
+          if (msg.deletable) await msg.delete();
+        }
+        else {
+          await message.channel.bulkDelete([msg, message]);
+        }
+      }
     });
 }
 
 export async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
+  if (message.channel instanceof DMChannel) {
+    return await message.channel.fetchMessages()
+    .then(async messages => {
+      const b_messages = messages.filter(m => isUser(m, 'me')).first(amount);
+      for (const m of b_messages) {
+        if (m.deletable) await m.delete();
+      }
+    });
+  }
+
   if ((isModerator(message.member) && hasPermission(message.guild, 'MANAGE_MESSAGES'))) {
     if (amount <= 25) {
       if (mentions.length > 0) {
         return await message.channel.fetchMessages()
         .then(async messages => {
-          const b_messages = messages.filter(m => mentions.includes(m.author.id));
-          if (b_messages.size > 0) {
+          const b_messages = messages.filter(m => mentions.includes(m.author.id)).first(amount);
+          if (b_messages.length > 0) {
             await message.channel.bulkDelete(b_messages);
           }
           await message.delete();

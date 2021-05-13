@@ -48,7 +48,7 @@ const development = (process.env.NODE_ENV === 'development');
 
 // Servers which have access to the full command list
 const full_command_servers = [
-  servers('main').id, servers('develop').id, servers('international').id, servers('unchained').id
+  servers('main').id, servers('develop').id, servers('unchained').id
 ];
 
 export default (async function (bot: Client, message: Message): Promise<void> {
