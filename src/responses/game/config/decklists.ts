@@ -86,6 +86,7 @@ const _tierlist = {
     "Gan'trak Bladez",
     "Gan'trak Gronmor",
     "GearEater",
+    "Getting Ripped",
     "Gintanai",
     "Gorram Malvadine",
     "Grounded",
@@ -98,6 +99,7 @@ const _tierlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
+    "Reporting for Duty",
     "Six Arms",
     "Trampling Mammoth"
   ]
@@ -248,6 +250,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Gimmick"],
     creatures: ["Ilx", "Lomma, Desert Wanderer", "Vlar", "Akkalbi", "Zapetur"]
+  },
+  "Getting Ripped": {
+    url: "https://chaoticbackup.forumotion.com/t1687-getting-ripped",
+    tribe: "Danian",
+    tags: [],
+    type: ["Combo", "Midrange"],
+    creatures: ["Aszil, The Young Queen", "Illexia, The Danian Queen", "Hiadrom, Rock Ripper", "Elna", "Tassanil, High Elementalist"]
   },
   Gintanai: {
     url: "https://chaoticbackup.forumotion.com/t1592-gintanai",
@@ -402,6 +411,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Control"],
     creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe"]
+  },
+  "Reporting for Duty": {
+    url: "https://chaoticbackup.forumotion.com/t1688-reporting-for-duty",
+    tribe: "Danian",
+    tags: ["Infection"],
+    type: ["Combo", "Aggro-Control"],
+    creatures: ["Amblox", "Illexia, The Danian Queen", "Nimmei", "Elna", "Wamma, Hive Ordnance", "Tabaal"]
   },
   "Sis Ops": {
     url: "https://chaoticbackup.forumotion.com/t1667-multi-tribe-mash-up",
