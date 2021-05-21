@@ -60,13 +60,13 @@ const _tierlist = {
     "Wise Guys",
   ],
   B: [
-    "Aszil Courage",
     "Bodal's Boys",
     "Danian Discipline Compost",
     "Muge's Dagger",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
+    "Tartereklessness",
     "Ursis Dagger",
     "UrsisKanin",
     "Warbeast"
@@ -75,6 +75,7 @@ const _tierlist = {
   _: [
     "Arrthoa Herken Loyal",
     "Arrthoa Herken Morph",
+    "Aszil Courage",
     "Brathe Yourself",
     "Crack the Whep",
     "Fire and Brimstone",
@@ -127,7 +128,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Danian",
     tags: ["Earth", "Courage"],
     type: ["Control", "Combo"],
-    creatures: ["Aszil, the Young Queen", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer", "Tassanil, High Elementalist", "Lore"]
+    creatures: ["Aszil, the Young Queen", "Kolmo, Assimilated", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer", "Tassanil, High Elementalist", "Lore"]
   },
   "Arrthoa Herken Loyal": {
     url: "https://chaoticbackup.forumotion.com/t1616-arrthoa",
@@ -429,6 +430,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange"],
     creatures: ["Ulmquad", "Lomma, Desert Wanderer", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Na-inna"]
+  },
+  Tartereklessness: {
+    url: "https://chaoticbackup.forumotion.com/t1686-tartereklessness",
+    tribe: "M'arrillian",
+    tags: [],
+    type: ["Midrange"],
+    creatures: ["Tartarek, Psi Overloader", "Akkalbi", "Xis'torq", "Jaidwarl", "Gimwei"]
   },
   "Trampling Mammoth": {
     url: "https://chaoticbackup.forumotion.com/t1658-proboscartosh-a-trampling-mammoth",
