@@ -42,7 +42,6 @@ export const axes: {[key in DeckType]: string} = {
 const _tierlist = {
   S: [
     "Mock'adyn",
-    "Rawr",
     "Strike",
     "UnderWorld Burn",
   ],
@@ -54,6 +53,7 @@ const _tierlist = {
     "Heartmatred's Attack",
     "Master of the Sails",
     "PoP'in Off",
+    "Rawr",
     "Sis Ops",
     "Swimming Team",
     "Tree Frogs",
