@@ -43,7 +43,8 @@ const _tierlist = {
   S: [
     "Mock'adyn",
     "Rawr",
-    "UnderWorld Burn"
+    "Strike",
+    "UnderWorld Burn",
   ],
   A: [
     "Aszil Compost",
@@ -54,7 +55,6 @@ const _tierlist = {
     "Master of the Sails",
     "PoP'in Off",
     "Sis Ops",
-    "Strike",
     "Swimming Team",
     "Tree Frogs",
     "Wise Guys"
