@@ -41,7 +41,6 @@ export const axes: {[key in DeckType]: string} = {
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 const _tierlist = {
   S: [
-    "Mock'adyn",
     "Strike",
     "UnderWorld Burn",
   ],
@@ -363,13 +362,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Malvadine, The King's Herald", "Ribbian", "Na-inna, Rebel of the Rao'Pa Sahkk", "Enre-hep"]
   },
-  "Mock'adyn": {
-    url: "https://chaoticbackup.forumotion.com/t1677-mock-adyn",
-    tribe: "M'arrillian",
-    tags: ["Fluidmorph"],
-    type: ["Prison", "Control"],
-    creatures: ["Ulmquad", "Mock'adyn", "Rellim, Watermaster", "Lam'inkal"]
-  },
+  // "Mock'adyn": {
+  //   url: "https://chaoticbackup.forumotion.com/t1677-mock-adyn",
+  //   tribe: "M'arrillian",
+  //   tags: ["Fluidmorph"],
+  //   type: ["Prison", "Control"],
+  //   creatures: ["Ulmquad", "Mock'adyn", "Rellim, Watermaster", "Lam'inkal"]
+  // },
   "Muge's Dagger": {
     url: "https://chaoticbackup.forumotion.com/t1670-muge-s-dagger",
     tribe: "Mixed",
