@@ -16,6 +16,7 @@
 		"Bodal, Flamedrill Researcher",
 		"Cadence Clash",
 		"Chaac",
+		"Dranakis Threshold",
 		"Dror'niq",
 		"Enre-hep, High Muge of the Desert",
 		"Hune Paltanin",
@@ -119,6 +120,11 @@
 		"Deadwater Devastation": [
 			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options.",
 			"Big Splash."
+		],
+		"Dranakis Threshold": [
+			"Dranakis Threshold prevents interaction outside of playing attacks. Decks that focus on Attacks as their win condition (namely Mipedian Strike) can use this lack of interaction to effectively guarantee a win with this location. This card is very frustrating to play against by reducing a turn to who had better attack draws.",
+			"Tried to circumvent the Zamool ban.",
+			"Advanced Apprentice the location."
 		],
 		"Dror'niq": [
 			"His first ability allows him to deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nAlthough his second ability takes 4 Mugic Counters, he can use it while unengaged and it essentially provides Recklessness 10 for 30-50 damage in a typical combat.",
@@ -252,7 +258,7 @@
 			"To shift the meta but giving a wider range of decks access to negation, Refrain of Denial would be switched with Interlude of Interruptions. Having both at the same time could be overbearing."
 		],
 		"Skeletal Springs": [
-			"This location not only prevents Fluidmorphing, but it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a water deck. So a boost for the player and a potential game breaker for the opponent."
+			"This location not only prevents Fluidmorphing, but it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a Water deck. So a boost for the player and a potential game breaker for the opponent."
 		],
 		"Song of Transportation": [
 			"Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."
