@@ -50,7 +50,7 @@ const _tierlist = {
     "Fliandar",
     "Grantkae Control",
     "Heartmatred's Attack",
-    "Master of the Sails",
+    "Breezy Seas",
     "PoP'in Off",
     "Rawr",
     "Sis Ops",
@@ -341,7 +341,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Rol'doi", "Blaxxa", "Akkalbi", "Okaxor", "Xis'torq"]
   },
-  "Master of the Sails": {
+  "Breezy Seas": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
     tribe: "Mixed",
     tags: ["Fluidmorph"],
