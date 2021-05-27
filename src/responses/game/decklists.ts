@@ -148,26 +148,29 @@ function _decklist(input: string): RichEmbed | string {
     return _axes();
   }
 
-  if (input.length <= 2 && (output = _tiers(input)) instanceof RichEmbed) {
+  if (input.length <= 2) {
+    if ((output = _tiers(input)) instanceof RichEmbed) {
+      return output;
+    }
+    else {
+      return 'Provide at least 3 characters to search for decks';
+    }
+  }
+
+  if ((output = _types(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if (input.length >= 3) {
-    if ((output = _types(input)) instanceof RichEmbed) {
-      return output;
-    }
+  if ((output = _tribes(input)) instanceof RichEmbed) {
+    return output;
+  }
 
-    if ((output = _tribes(input)) instanceof RichEmbed) {
-      return output;
-    }
+  if ((output = _creatures(input)) instanceof RichEmbed) {
+    return output;
+  }
 
-    if ((output = _creatures(input)) instanceof RichEmbed) {
-      return output;
-    }
-
-    if ((output = _tags(input)) instanceof RichEmbed) {
-      return output;
-    }
+  if ((output = _tags(input)) instanceof RichEmbed) {
+    return output;
   }
 
   return "I'm unable to find decks that match your search terms";
