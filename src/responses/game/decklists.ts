@@ -41,6 +41,10 @@ function _types(input: string) {
 }
 
 function _tribes(input: string) {
+  if (input === 'generic' || input === 'tribeless') {
+    return _tags('tribeless')!;
+  }
+
   const _tribe = (input === 'frozen') ? 'Mixed' : parseTribe(input, 'Mixed');
 
   if (_tribe !== undefined) {
@@ -62,11 +66,17 @@ function _tags(input: string) {
   for (const deck in decklist) {
     const { tags, url } = decklist[deck];
 
-    tags.forEach(tag => {
+    if (cleantext(deck).includes(input)) {
+      deck_list.push(`[${deck}](${url})`);
+      continue;
+    }
+
+    for (const tag of tags) {
       if (cleantext(tag).includes(input)) {
         deck_list.push(`[${deck}](${url})`);
+        break;
       }
-    });
+    }
   }
 
   if (deck_list.length > 0) {
@@ -142,24 +152,20 @@ function _decklist(input: string): RichEmbed | string {
     return output;
   }
 
-  if ((output = _types(input)) instanceof RichEmbed) {
-    return output;
-  }
-
-  if (input === 'generic' || input === 'tribeless') {
-    return _tags('tribeless')!;
-  }
-
-  if ((output = _tribes(input)) instanceof RichEmbed) {
-    return output;
-  }
-
   if (input.length >= 3) {
-    if ((output = _tags(input)) instanceof RichEmbed) {
+    if ((output = _types(input)) instanceof RichEmbed) {
+      return output;
+    }
+
+    if ((output = _tribes(input)) instanceof RichEmbed) {
       return output;
     }
 
     if ((output = _creatures(input)) instanceof RichEmbed) {
+      return output;
+    }
+
+    if ((output = _tags(input)) instanceof RichEmbed) {
       return output;
     }
   }
