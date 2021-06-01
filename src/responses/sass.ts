@@ -46,7 +46,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 
   // [[cardname]]
   if (!is_channel(message, 'other_games') || !is_channel(message, 'bot_commands')) {
-    let cardRgx = (/\[{2}(.*?)\]{2}/g);
+    let cardRgx = (/\[{2}([^\[\]]+)\]{2}/g);
     if (cardRgx.test(content)) {
       cardRgx = new RegExp(cardRgx);
       let result;
