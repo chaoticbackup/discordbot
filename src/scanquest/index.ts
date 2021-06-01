@@ -103,7 +103,7 @@ export default class ScanQuest {
         case 'list':
         case 'scans':
         case 'skons':
-          return await listScans(this.db, message, options, send);
+          return await listScans(this.db, message, args.join(' '), options, send);
         case 'rate':
           return await send(rate(this.db, message, args, options, this.bot));
         case 'balance':

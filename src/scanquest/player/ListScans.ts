@@ -1,5 +1,5 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
-import { CollectorFilter, DMChannel, Message, TextChannel } from 'discord.js';
+import { Attachment, CollectorFilter, DMChannel, Message, TextChannel } from 'discord.js';
 import { isUser } from '../../common/users';
 import logger from '../../logger';
 import { Scanned } from '../scan_type/Scanned';
@@ -13,7 +13,7 @@ interface scan {
   details: string
 }
 
-export default async (db: ScanQuestDB, message: Message, options: string[], send: SendFunction): Promise<void> => {
+export default async (db: ScanQuestDB, message: Message, text: string, options: string[], send: SendFunction): Promise<void> => {
   // If not dm or receive channel
   if (
     !(
@@ -41,9 +41,13 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
     player = db.findOnePlayer({ id: ids[0] });
   }
 
+  if (player.scans.length === 0) {
+    return await send('You have no scans');
+  }
+
   const list: scan[] = [];
   try {
-    const filterType = setFilter(message.content);
+    const filterType = setFilter(text);
     player.scans.forEach((scan: Scanned, i: number) => {
       const scannable = filterType(scan);
       if (scannable) list.push({ index: i, details: scannable.toString() });
@@ -53,8 +57,10 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
     return await send(e.message);
   }
 
-  if (list.length === 0) {
-    return await send('You have no scans');
+  if (options.includes('download')) {
+    const contents = list.map((el) => `${el.index}) ${el.details}`).join('\n');
+    const attachment = new Attachment(Buffer.from(contents, 'utf-8'), 'scans.txt');
+    return await send(attachment);
   }
 
   const Pagination = new FieldsEmbed<scan>();
@@ -76,7 +82,7 @@ export default async (db: ScanQuestDB, message: Message, options: string[], send
         const collector = message.channel.createMessageCollector(filter, { max: 1, time: 45000 });
         collector.on('collect', (message: Message) => {
           const new_list = list.filter((card) => {
-            return card.details.toLowerCase().startsWith(message.content);
+            return card.details.toLowerCase().startsWith(text);
           });
           if (new_list.length > 0) {
             instance.array = new_list;

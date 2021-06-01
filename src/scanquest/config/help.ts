@@ -48,8 +48,8 @@ const help = () => `
 \`\`\`Scans the latest active scanquest card or the specified one.
 
 \`\`\`md
-!list <type|>\n!scans [<type>]
-\`\`\`Shows a list of your scans. You can specify a type: \`\`!scans Creatures\`\` or use the sort options (explained at the bottom of this message).
+!list <type|>\n!scans <type|>
+\`\`\`Shows a list of your scans. You can specify a type: \`\`!scans Creatures\`\` or use the sort options (explained at the bottom of this message). You can download your list as .txt with \`\`--download\`\` option.
 
 \`\`\`md
 !trade <@user> [<ids>]...
