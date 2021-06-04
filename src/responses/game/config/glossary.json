@@ -43,6 +43,8 @@
 	"Earth Damage": "Damage dealt by an attack with the earth elemental type played by a creature with the earth elemental type. See Elemental Type.",
 	"Earth X": "See \"Element X\"",
 	"Earthproof X": "See \"Elementproof X\"",
+	"Element Attack": "See \"Elemental Attack\"",
+	"Element Damage": "See \"Elemental Damage\"",
 	"Element X": "This Innate ability grants a Creature \"Element damage of this type dealt by this Creature is increased by X\". Multiple instances of this ability on a card are cumulative.",
 	"Elemental Attack": "Any Attack Card with an Elemental Type is considered an elemental attack of the associated type (or types). See Elemental Type.",
 	"Elemental Damage": "The elemental damage dealt by an attack is based on the elemental type of an attack and the elemental types of the creature.\n1. The Attack you are playing must have that element.\n2. Your Engaged Creature has the element.\nFor example, if I play Fireram from a creature with 60+ power and a Flameblade of Seeryn, even with no modifiers, the damage of that attack will cause Flameblade to trigger.",
