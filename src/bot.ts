@@ -99,7 +99,7 @@ bot.on('message', msg => {
 // Ban Spam
 const newMembers: Discord.Snowflake[] = [];
 bot.on('guildMemberAdd', (member) => {
-  if (member.displayName.match(new RegExp('(quasar$)|(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i'))) {
+  if (member.displayName.match(new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i'))) {
     if (member.bannable) { member.ban({ reason: 'No url in username' }).then(() => {
       // @ts-ignore
       bot.channels.get(servers('main').channel('staff')).send(`Banned: ${member.displayName}`);

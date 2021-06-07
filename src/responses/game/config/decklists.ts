@@ -61,10 +61,12 @@ const _tierlist = {
   B: [
     "Bodal's Boys",
     "Danian Discipline Compost",
+    "Gan'trak Bladez",
     "Muge's Dagger",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
+    "OverWorld Muge",
     "Tartereklessness",
     "Ursis Dagger",
     "UrsisKanin",
@@ -82,7 +84,6 @@ const _tierlist = {
     "Flame On!",
     "Flying Frogs",
     "Four Arms",
-    "Gan'trak Bladez",
     "Gan'trak Gronmor",
     "GearEater",
     "Getting Ripped",
@@ -193,6 +194,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Fire", "Earth", "Water"],
     type: ["Midrange"],
     creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
+  },
+  "OverWorld Muge": {
+    url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
+    tribe: "OverWorld",
+    tags: [],
+    type: ["Midrange"],
+    creatures: ["Tangath Toborn, In Training", "Maxxor, Elemental Champion", "Attacat, Tactical Aide", "Drabe", "Lomma, Desert Wanderer", "Karraba"]
   },
   "Flame On!": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
