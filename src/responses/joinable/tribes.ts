@@ -125,7 +125,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
   let joining_msg = '';
   let leaving_msg = '';
 
-  const tribe = parseTribe(input, 'Joinable');
+  const tribe = (input === 'assimilate') ? 'Danian' : parseTribe(input, 'Joinable');
 
   for (const t of tribes) {
     const remove_role = guild.roles.find(role => role.name === t);
@@ -142,18 +142,19 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
 
   switch (tribe) {
     case 'Danian':
-      if (leaving_tribe) {
+      if (input === 'assimilate') {
         joining_msg = '<:gottahave:400174328215502851> You\'ve been infected.';
+      } else {
+        joining_msg = '<:gottahave:400174328215502851> Yo, you\'re one of the hive now.';
+      }
 
+      if (leaving_tribe) {
         if (leaving_tribe === 'Mipedian') {
           leaving_msg = '<:Shim:315235831927537664> Hey! Return our water!';
         }
         else if (leaving_tribe === 'UnderWorld') {
           leaving_msg = '<:Chaor:285620681163669506> Bugs, humans? I\'ll squash you both!';
         }
-      }
-      else {
-        joining_msg = '<:gottahave:400174328215502851> Yo, you\'re one of the hive now.';
       }
       break;
     case 'Mipedian':

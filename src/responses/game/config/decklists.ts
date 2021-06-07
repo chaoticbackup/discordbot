@@ -288,7 +288,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   "Heartmatred's Attack": {
     url: "https://chaoticbackup.forumotion.com/t1672-hermatred",
     tribe: "Danian",
-    tags: ["Compost", "Infection"],
+    tags: ["Compost", "Infection", "Courage"],
     type: ["Combo"],
     creatures: ["Tabaal", "Illexia, The Danian Queen", "Ivelaan", "Elhadd", "Hermatred"]
   },

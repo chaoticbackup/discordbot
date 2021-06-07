@@ -421,6 +421,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Tribes */
     case 'tribe':
       return tribe(args, guild, guildMember).then(send);
+    case 'assimilate':
+      return tribe(['join', 'assimilate'], guild, guildMember).then(send);
     case 'bw':
     case 'brainwash':
       return brainwash(mentions, guild, guildMember).then(send);
