@@ -69,7 +69,6 @@ const _tierlist = {
     "OverWorld Muge",
     "Tartereklessness",
     "Ursis Dagger",
-    "UrsisKanin",
     "Warbeast"
   ],
   // Place any unranked decks here for the purpose of linting
@@ -382,7 +381,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Mixed",
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
-    creatures: ["Arkanin", "Vunhra", "Lomma, Desert Wanderer", "Ursis", "Ragetrod"]
+    creatures: ["Arkanin", "Vunhra", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Tangath Toborn, In Training"]
   },
   "No Healing": {
     url: "https://chaoticbackup.forumotion.com/t1579-no-healing",
@@ -481,13 +480,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
     creatures: ["Bladez", "Ursis", "Vunhra", "Smildon", "Taffial", "Ajara"]
-  },
-  UrsisKanin: {
-    url: "https://chaoticbackup.forumotion.com/t1573-ursiskanin",
-    tribe: "Mixed",
-    tags: ["Tribeless", "Infection"],
-    type: ["Midrange"],
-    creatures: ["Ursis", "Tangath Toborn, In Training", "Vunhra", "Smildon", "Arkanin"]
   },
   Warbeast: {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
