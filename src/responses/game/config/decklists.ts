@@ -83,7 +83,6 @@ const _tierlist = {
     "Flame On!",
     "Flying Frogs",
     "Four Arms",
-    "Gan'trak Gronmor",
     "GearEater",
     "Getting Ripped",
     "Gintanai",
@@ -236,19 +235,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Amblox", "Fliandar", "Lomma, Desert Wanderer", "Topar", "Akkalbi"]
   },
-  "Gan'trak Gronmor": {
-    url: "https://chaoticbackup.forumotion.com/t1601-gan-trak-update",
-    tribe: "M'arrillian",
-    tags: [],
-    type: ["Anti-Meta"],
-    creatures: ["Gronmor", "Nunk'worm", "Okaxor", "Gan'trak"]
-  },
   "Gan'trak Bladez": {
-    url: "https://chaoticbackup.forumotion.com/t1655-gan-trak-bladez",
+    url: "https://chaoticbackup.forumotion.com/t1655-gan-trak#15068",
     tribe: "M'arrillian",
     tags: [],
     type: ["Anti-Meta"],
-    creatures: ["Gan'trak", "Jaidwarl", "Okaxor", "Bladez", "Brimflame", "Nunk'worm"]
+    creatures: ["Gan'trak", "Jaidwarl", "Okaxor", "Bladez", "Brimflame", "Nunk'worm", "Gronmor"]
   },
   GearEater: {
     url: "https://chaoticbackup.forumotion.com/t1591-ilx-geareater",
@@ -377,7 +369,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   //   creatures: ["Ulmquad", "Mock'adyn", "Rellim, Watermaster", "Lam'inkal"]
   // },
   "Muge's Dagger": {
-    url: "https://chaoticbackup.forumotion.com/t1670-muge-s-dagger",
+    url: "https://chaoticbackup.forumotion.com/t1670-ursis#15094",
     tribe: "Mixed",
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
@@ -475,11 +467,11 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
   "Ursis Dagger": {
-    url: "https://chaoticbackup.forumotion.com/t1594-ursis-dagger",
+    url: "https://chaoticbackup.forumotion.com/t1670-ursis",
     tribe: "Mixed",
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
-    creatures: ["Bladez", "Ursis", "Vunhra", "Smildon", "Taffial", "Ajara"]
+    creatures: ["Bladez", "Ursis", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
   },
   Warbeast: {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
