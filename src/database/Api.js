@@ -194,16 +194,22 @@ export default class API {
     }
 
     // Search by name
-    return this.filter.chain().find({
+    let results = this.filter.chain().find({
       $and: [
-        {
-          $or: [
-            { gsx$name: { $regex: new RegExp(`^${name}`, 'i') }},
-            { gsx$tags: { $regex: new RegExp(`(^|\\s)${name}`, 'gi') }}
-          ]
-        },
+        { gsx$name: { $regex: new RegExp(`^${name}`, 'i') }},
         { $and: filters }
       ]
     }).simplesort('gsx$name').data();
+
+    if (results.length > 0) return results;
+
+    results = this.filter.chain().find({
+      $and: [
+        { gsx$tags: { $regex: new RegExp(`(^|\\s)${name}`, 'gi') }},
+        { $and: filters }
+      ]
+    }).simplesort('gsx$name').data();
+
+    return results;
   }
 }

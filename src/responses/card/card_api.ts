@@ -3,13 +3,13 @@ import { rndrsp } from '../../common';
 import { API, color } from '../../database';
 import { Attack, Card, Creature, Location, Mugic, isCreature } from '../../definitions';
 import Icons from '../../common/bot_icons';
-import find from './find';
+import find_card from './find';
 
 export default function (name: string, options: string[], bot: Client): string | RichEmbed {
   const results = API.find_cards_ignore_comma(name, options);
 
   if (results.length <= 0) {
-    const find_results = find(name);
+    const find_results = find_card(name);
 
     if (!find_results) {
       return "That's not a valid card name";

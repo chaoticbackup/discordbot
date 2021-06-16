@@ -4,7 +4,7 @@ import { API } from '../../database';
 /*
 Find a list of names based on input
 */
-export default function (name: string) {
+export default function find_card(name: string) {
   const results = API.find_card_name(name);
 
   if (results.length === 0) {

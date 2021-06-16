@@ -91,7 +91,6 @@ const _tierlist = {
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
-    "Marr Reckless",
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
@@ -323,13 +322,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
-  },
-  "Marr Reckless": {
-    url: "https://chaoticbackup.forumotion.com/t1597-marr-reckless",
-    tribe: "M'arrillian",
-    tags: [],
-    type: ["Aggro-Control"],
-    creatures: ["Rol'doi", "Blaxxa", "Akkalbi", "Okaxor", "Xis'torq"]
   },
   "Breezy Seas": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
