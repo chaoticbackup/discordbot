@@ -59,10 +59,8 @@ const _tierlist = {
     "Wise Guys"
   ],
   B: [
-    "Bodal's Boys",
     "Danian Discipline Compost",
     "Gan'trak Bladez",
-    "Muge's Dagger",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
@@ -150,13 +148,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Strike", "Dagger"],
     type: ["Aggro"],
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
-  },
-  "Bodal's Boys": {
-    url: "https://chaoticbackup.forumotion.com/t1602-bodal-s-boys",
-    tribe: "OverWorld",
-    tags: ["Dagger"],
-    type: ["Aggro-Control"],
-    creatures: ["Aivenna", "Ikkatosh, The Aich King", "Garv", "Drabe", "Porthyn"]
   },
   "UnderWorld Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-burn",
@@ -361,20 +352,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Malvadine, The King's Herald", "Ribbian", "Na-inna, Rebel of the Rao'Pa Sahkk", "Enre-hep"]
   },
-  // "Mock'adyn": {
-  //   url: "https://chaoticbackup.forumotion.com/t1677-mock-adyn",
-  //   tribe: "M'arrillian",
-  //   tags: ["Fluidmorph"],
-  //   type: ["Prison", "Control"],
-  //   creatures: ["Ulmquad", "Mock'adyn", "Rellim, Watermaster", "Lam'inkal"]
-  // },
-  "Muge's Dagger": {
-    url: "https://chaoticbackup.forumotion.com/t1670-ursis#15094",
-    tribe: "Mixed",
-    tags: ["Tribeless", "Dagger", "Infection"],
-    type: ["Aggro-Control"],
-    creatures: ["Arkanin", "Vunhra", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Tangath Toborn, In Training"]
-  },
   "No Healing": {
     url: "https://chaoticbackup.forumotion.com/t1579-no-healing",
     tribe: "Mixed",
@@ -471,7 +448,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Mixed",
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
-    creatures: ["Bladez", "Ursis", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
+    creatures: ["Bladez", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
   },
   Warbeast: {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
@@ -485,7 +462,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "OverWorld",
     tags: [],
     type: ["Control"],
-    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader"]
+    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
   }
 };
 
