@@ -76,6 +76,7 @@ const _tierlist = {
     "Aszil Courage",
     "Brathe Yourself",
     "Crack the Whep",
+    "Erak'tabb",
     "Fire and Brimstone",
     "FireFly",
     "Flame On!",
@@ -176,19 +177,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Tarin", "Makanaz", "Ivelaan", "Elhadd", "Mhein", "Illexia, The Danian Queen"]
   },
-  "OverWorld Elemental": {
-    url: "https://chaoticbackup.forumotion.com/t1570-overworld-elemental",
-    tribe: "OverWorld",
-    tags: ["Fire", "Earth", "Water"],
-    type: ["Midrange"],
-    creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
-  },
-  "OverWorld Muge": {
-    url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
-    tribe: "OverWorld",
+  "Erak'tabb": {
+    url: "https://chaoticbackup.forumotion.com/t1695-erak-tabb",
+    tribe: "M'arrillian",
     tags: [],
     type: ["Midrange"],
-    creatures: ["Tangath Toborn, In Training", "Maxxor, Elemental Champion", "Attacat, Tactical Aide", "Drabe", "Lomma, Desert Wanderer", "Karraba"]
+    creatures: ["Blaaxa", "Okaxor", "Erak'tab", "Tarterek, Psi Overloader", "Arrthoa"]
   },
   "Flame On!": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
@@ -364,6 +358,20 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange", "Gimmick"],
     creatures: ["Ontinee", "Na-inna", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Glapaal"]
+  },
+  "OverWorld Elemental": {
+    url: "https://chaoticbackup.forumotion.com/t1570-overworld-elemental",
+    tribe: "OverWorld",
+    tags: ["Fire", "Earth", "Water"],
+    type: ["Midrange"],
+    creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
+  },
+  "OverWorld Muge": {
+    url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
+    tribe: "OverWorld",
+    tags: [],
+    type: ["Midrange"],
+    creatures: ["Tangath Toborn, In Training", "Maxxor, Elemental Champion", "Attacat, Tactical Aide", "Drabe", "Lomma, Desert Wanderer", "Karraba"]
   },
   "PoP'in Off": {
     url: "https://chaoticbackup.forumotion.com/t1674-pop-in-off",
