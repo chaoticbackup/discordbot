@@ -173,6 +173,25 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
       case 'guide':
         return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
+      case 'banlist': {
+        const rsp = (options.length === 0 && args.length > 0)
+          ? banlist(message, [flatten(args)])
+          : banlist(message, options);
+        const msg = !is_channel(message, 'banlist_discussion')
+          ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
+          : null;
+        return sendBotCommands([rsp], msg);
+      }
+      case 'ban':
+        if (mentions.length > 0) {
+          if (mentions.includes('279331985955094529'))
+            return send("You try to ban me? I'll ban you!");
+          return send("I'm not in charge of banning players");
+        } // fallthrough
+      case 'whyban':
+        if (mentions.length > 0)
+          return send("Player's aren't cards, silly");
+        return send(whyban(flatten(args), channel, guild, guildMember, options));
       case 'help':
         if (content.charAt(0) === '!')
           return send('Use **!commands** or **c!help**');
@@ -180,7 +199,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'commands':
         const text = flatten(args);
         if (text) return send(help_command(text));
-        const keys = ['card', 'stats', 'text', 'image', 'ability', 'fullart', 'find', 'rate', 'faq', 'rule', 'rm', 'documents'];
+        const keys = [
+          'card', 'stats', 'text', 'image', 'ability', 'fullart', 'find',
+          'rate', 'faq', 'rule', 'rm', 'documents', 'banlist', 'whyban'
+        ];
         return send(help_list(keys));
       case 'rm':
         if (isNaN(parseInt(flatten(args))))
@@ -297,9 +319,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(starters(message, options));
 
     /* Banlist and Formats */
-    case 'formats':
-      return send(formats());
-
     case 'banlist': {
       const rsp = (options.length === 0 && args.length > 0)
         ? banlist(message, [flatten(args)])
@@ -309,6 +328,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         : null;
       return sendBotCommands([rsp], msg);
     }
+
+    case 'formats':
+      return send(formats());
     case 'standard': // return send(banlist(guild, channel));
     case 'legacy': // return send(banlist(guild, channel, ['legacy']));
     case 'modern': // return send(banlist(guild, channel, ['modern']));
