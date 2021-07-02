@@ -177,20 +177,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         const rsp = (options.length === 0 && args.length > 0)
           ? banlist(message, [flatten(args)])
           : banlist(message, options);
-        const msg = !is_channel(message, 'banlist_discussion')
-          ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
-          : null;
-        return sendBotCommands([rsp], msg);
+        return send(rsp);
       }
       case 'ban':
-        if (mentions.length > 0) {
-          if (mentions.includes('279331985955094529'))
-            return send("You try to ban me? I'll ban you!");
-          return send("I'm not in charge of banning players");
-        } // fallthrough
       case 'whyban':
-        if (mentions.length > 0)
-          return send("Player's aren't cards, silly");
         return send(whyban(flatten(args), channel, guild, guildMember, options));
       case 'help':
         if (content.charAt(0) === '!')
