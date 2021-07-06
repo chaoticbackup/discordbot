@@ -50,7 +50,7 @@ const _tierlist = {
     "Fliandar",
     "Grantkae Control",
     "Heartmatred's Attack",
-    "Breezy Seas",
+    "Master of the Sails",
     "PoP'in Off",
     "Rawr",
     "Sis Ops",
@@ -317,7 +317,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
   },
-  "Breezy Seas": {
+  "Master of the Sails": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
     tribe: "Mixed",
     tags: ["Fluidmorph"],
