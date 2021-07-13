@@ -152,7 +152,7 @@
     "good": {
         "cmd": "!good <type|tribe> <bp|type>", 
         "list": "Returns a list of good cards", 
-        "details": "Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n`!good M'arrillian Creatures`\n `!good Attacks 1`"
+        "details": "Asking about good cards? What'cha looking for?\nI can give by type, or if you need something more specific: by build point or tribe.\n`!good M'arrillian Creatures`\n`!good Attacks 1`"
     },
     "goodstuff": {
         "alias": "good"

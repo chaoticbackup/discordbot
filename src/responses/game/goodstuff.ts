@@ -1,4 +1,5 @@
 import { parseTribe, parseType, MugicTribe, CreatureTribe, CardType, generify } from '../../common/card_types';
+import commands from '../command_help.json';
 import gsjson from './config/goodstuff.json';
 
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
@@ -37,32 +38,32 @@ function gs(args: string[]) {
     return message;
   }
 
-  const type = parseType(args[0]);
+  let type = parseType(args[0]);
   if (type === 'Attacks') return Attacks(args[1]);
   else if (type === 'Battlegear') return `**Strong Battlegear:**${Type('Battlegear')}`;
   else if (type === 'Creatures') return 'Please specify a tribe:\n``!good <tribe> creatures``';
   else if (type === 'Locations') return `**Strong Locations:**${Type('Locations')}`;
   else if (type === 'Mugic') return `**Strong Mugic:**${Mugic()}`;
   else {
-    const tribe = parseTribe(args[0]);
-    if (!tribe) { /* */ }
-    else if (args.length > 1) {
-      return Tribe(tribe, parseType(args[1]));
+    let tribe;
+
+    if (args.length > 1) {
+      type = parseType(args[1]);
+      if (type === 'Creatures') {
+        tribe = parseTribe(args[0], type);
+      }
+      else if (type === 'Mugic') {
+        tribe = parseTribe(args[0], type);
+      }
+    } else {
+      tribe = parseTribe(args[0]);
     }
-    else if (tribe === 'Tribeless') {
-      let message = '**Strong Tribeless Creatures:**';
-      goodstuff.Creatures.Tribeless.forEach((card: string) => {
-        message += `\n${card}`;
-      });
-      return message;
+
+    if (!tribe) {
+      return commands.good.cmd;
     }
-    else if (tribe === 'Generic') {
-      let message = '**Strong Generic Mugic:**';
-      goodstuff.Mugic.Generic.forEach((card: string) => {
-        message += `\n${card}`;
-      });
-      return message;
-    }
+
+    return Tribe(tribe, type);
   }
 }
 
@@ -98,7 +99,7 @@ function Type(type: 'Battlegear' | 'Locations') {
   return msg;
 }
 
-function Tribe(tribe: CreatureTribe | MugicTribe, type: CardType | undefined) {
+function Tribe(tribe: CreatureTribe | MugicTribe | 'Mixed', type: CardType | undefined) {
   let msg = '';
   // If specified mugic or creatures
   if (type) {
@@ -113,10 +114,6 @@ function Tribe(tribe: CreatureTribe | MugicTribe, type: CardType | undefined) {
       goodstuff[type][generify(tribe, type)].forEach((card: string) => {
         msg += `\n${card}`;
       });
-    }
-    else {
-      msg = `!good ${generify(tribe, 'Creatures')} Creatures\n` +
-        `!good ${generify(tribe, 'Mugic')} Mugic`;
     }
   }
   else {
