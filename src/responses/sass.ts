@@ -21,7 +21,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // coming back
   const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/, 'i');
   if (content.match(back_regex)) {
-    const response = "Although it's basically been confirmed, these things take a lot of time, and the news got out before they were ready for an actual announcement. We will make an announcement and ping everyone when they do.";
+    const response = "Although Chaotic's return has been confirmed, these things take a lot of time. They have yet to give an official statement and we don't have any details regarding dates or specifics. We will make an announcement and ping everyone when they do.";
     return await send(response).then((message: Message) => {
       message.react('586395473716445184').catch(msgCatch);
     });
