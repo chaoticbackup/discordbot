@@ -49,7 +49,6 @@ const _tierlist = {
     "Aszil Compost",
     "Danian Burn",
     "Fliandar",
-    "Grantkae Control",
     "Heartmatred's Attack",
     "Master of the Sails",
     "PoP'in Off",
@@ -61,11 +60,13 @@ const _tierlist = {
   B: [
     "Danian Discipline Compost",
     "Gan'trak Bladez",
+    "Grantkae Control",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
     "OverWorld Muge",
     "Tartereklessness",
+    "Trampling Mammoth",
     "Ursis Dagger",
     "Warbeast"
   ],
@@ -96,8 +97,7 @@ const _tierlist = {
     "Mip Reckless",
     "No Healing",
     "Reporting for Duty",
-    "Six Arms",
-    "Trampling Mammoth"
+    "Six Arms"
   ]
 } as const;
 
