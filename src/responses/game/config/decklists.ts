@@ -97,7 +97,6 @@ const _tierlist = {
     "Mip Reckless",
     "No Healing",
     "Reporting for Duty",
-    "Six Arms"
   ]
 } as const;
 
@@ -401,13 +400,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Kepiaan, Danian Lieutenant", "Tangath Toborn, OverWorld General", "Aivenna, OverWorld Lieutenant", "Nunk'worn", "Na-inna", "Nivenna, UnderWorld Lieutenant"]
   },
-  "Six Arms": {
-    url: "https://chaoticbackup.forumotion.com/t1581-6-arms",
-    tribe: "Mixed",
-    tags: ["Infection"],
-    type: ["Combo"],
-    creatures: ["Ebbikka", "Olkiex, Driver Extraordinaire", "Ikkatosh, The Aich King", "Vunhra"]
-  },
+  // "Six Arms": {
+  //   url: "https://chaoticbackup.forumotion.com/t1581-6-arms",
+  //   tribe: "Mixed",
+  //   tags: ["Infection"],
+  //   type: ["Combo"],
+  //   creatures: ["Ebbikka", "Olkiex, Driver Extraordinaire", "Ikkatosh, The Aich King", "Vunhra"]
+  // },
   Strike: {
     url: "https://chaoticbackup.forumotion.com/t1568-strike",
     tribe: "Mipedian",
