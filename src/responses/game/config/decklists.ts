@@ -49,6 +49,7 @@ const _tierlist = {
     "Aszil Compost",
     "Danian Burn",
     "Fliandar",
+    "Healdrom",
     "Heartmatred's Attack",
     "Master of the Sails",
     "PoP'in Off",
@@ -267,6 +268,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Aggro-Control"],
     creatures: ["Agitos, Eloquent Motivator", "Galmedar", "Kopond, High Muge of the Hearth", "Lord Van Bloot"]
+  },
+  Healdrom: {
+    url: "https://chaoticbackup.forumotion.com/t1698-healdrom",
+    tribe: "Mixed",
+    tags: ["Scouts' Monocular"],
+    type: ["Combo"],
+    creatures: ["Olkiex", "Lam'inkal", "Lomma, Desert Wanderer", "Hiadrom, Rock Ripper", "Garv"]
   },
   "Heartmatred's Attack": {
     url: "https://chaoticbackup.forumotion.com/t1672-hermatred",
