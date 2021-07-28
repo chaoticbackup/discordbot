@@ -62,7 +62,7 @@ const _tierlist = {
     "Danian Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
-    "Herken Morpher (Feasting)",
+    "Feasting",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
@@ -135,7 +135,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
   },
-  "Herken Morpher (Feasting)": {
+  Feasting: {
     url: "https://chaoticbackup.forumotion.com/t1679-herken-morph#15160",
     tribe: "Mixed",
     type: ["Midrange"],
