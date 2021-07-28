@@ -62,6 +62,7 @@ const _tierlist = {
     "Danian Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
+    "Herken Morpher (Feasting)",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Elemental",
@@ -75,7 +76,6 @@ const _tierlist = {
   // Place any unranked decks here for the purpose of linting
   _: [
     "Arrthoa Herken Loyal",
-    "Herken Morpher",
     "Aszil Courage",
     "Brathe Yourself",
     "Crack the Whep",
@@ -135,8 +135,8 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
   },
-  "Herken Morpher": {
-    url: "https://chaoticbackup.forumotion.com/t1679-arrthoa-herken-morph",
+  "Herken Morpher (Feasting)": {
+    url: "https://chaoticbackup.forumotion.com/t1679-herken-morph#15160",
     tribe: "Mixed",
     type: ["Midrange"],
     tags: ["Fluidmorph"],
@@ -150,7 +150,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
   },
   "UnderWorld Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1661-burn",
+    url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
     type: ["Aggro"],
