@@ -66,6 +66,7 @@ const _tierlist = {
     "Ocean Man",
     "OverWorld Elemental",
     "OverWorld Muge",
+    "Stelphor",
     "Tartereklessness",
     "Trampling Mammoth",
     "Ursis Dagger",
@@ -74,7 +75,7 @@ const _tierlist = {
   // Place any unranked decks here for the purpose of linting
   _: [
     "Arrthoa Herken Loyal",
-    "Arrthoa Herken Morph",
+    "Herken Morpher",
     "Aszil Courage",
     "Brathe Yourself",
     "Crack the Whep",
@@ -90,7 +91,6 @@ const _tierlist = {
     "Gorram Malvadine",
     "Grounded",
     "Hive Mind",
-    "Kepiaan Stelgar (Kraken)",
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
@@ -135,12 +135,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
   },
-  "Arrthoa Herken Morph": {
+  "Herken Morpher": {
     url: "https://chaoticbackup.forumotion.com/t1679-arrthoa-herken-morph",
     tribe: "Mixed",
     type: ["Midrange"],
     tags: ["Fluidmorph"],
-    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Nunk'worm", "Rellim, Watermaster", "Herken"]
+    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Nunk'worm", "Rellim, Watermaster", "Herken", "Na-inna", "Lam'inkal"]
   },
   "Brathe Yourself": {
     url: "https://chaoticbackup.forumotion.com/t1598-brathe-yourself",
@@ -296,12 +296,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brimflame", "Chaor", "Bladez", "Takinom, The Shadowknight", "Kopond, High Muge of the Hearth"]
   },
-  "Kepiaan Stelgar (Kraken)": {
-    url: "https://chaoticbackup.forumotion.com/t1586-kraken",
+  Stelphor: {
+    url: "https://chaoticbackup.forumotion.com/t1586-kraken#15168",
     tribe: "Mixed",
     tags: [],
     type: ["Control"],
-    creatures: ["Stelgar, Vicious Mutation", "Lomma, Desert Wanderer", "Ifjann", "Kepiaan, Danian Lieutenant", "Phelphor, Of the Deep"]
+    creatures: ["Stelgar, Vicious Mutation", "Lomma, Desert Wanderer", "Ifjann", "Kepiaan, Danian Lieutenant", "Phelphor, Of the Deep", "Xelfe", "Tangath Toborn, OverWorld General"]
   },
   Khorror: {
     url: "https://chaoticbackup.forumotion.com/t1588-khorror",
