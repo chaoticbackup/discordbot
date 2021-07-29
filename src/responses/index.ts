@@ -85,9 +85,9 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   return response()
   .catch((error) => {
     // Send Error to Bot Testing Server
-    const server_source = message.guild ? message.guild.name : 'DM';
+    const server_source = message.guild ? message.guild.name : `DM ${message.author.username}`;
 
-    debug(bot, `${server_source}:\n${error.message}\n${error.stack}`, 'errors');
+    debug(bot, `${server_source}: ${message.content}\n${error.message}\n${error.stack}`, 'errors');
 
     if (development) return;
 
@@ -574,15 +574,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       return send(display_card('The Doomhammer', ['image'], bot));
     }
 
-    case 'rm':
-      if (isNaN(parseInt(flatten(args))))
+    case 'rm': {
+      const num = parseInt(flatten(args));
+      if (isNaN(num) || num <= 0)
         return rm(message, guild);
+    }
     // fallthrough if number provided
     case 'clean':
-    case 'delete':
-      return clear(parseInt(flatten(args)), message, mentions);
+    case 'delete': {
+      const num = parseInt(flatten(args));
+      if (isNaN(num) || num <= 0) return;
+      return clear(num, message, mentions);
+    }
 
-      /* Hard reset bot */
+    /* Hard reset bot */
     case 'haxxor':
       return haxxor(message);
 

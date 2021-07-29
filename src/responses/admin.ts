@@ -32,6 +32,8 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
 }
 
 export async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
+  if (isNaN(amount) || amount <= 0) return;
+
   if (message.channel instanceof DMChannel) {
     return await message.channel.fetchMessages()
     .then(async messages => {
