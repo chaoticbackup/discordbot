@@ -98,6 +98,7 @@ const _tierlist = {
     "Mip Reckless",
     "No Healing",
     "Reporting for Duty",
+    "UnderWorld Discipline Burn"
   ]
 } as const;
 
@@ -449,6 +450,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
+  },
+  "UnderWorld Discipline Burn": {
+    url: "https://chaoticbackup.forumotion.com/t1699-uw-discipline-burn",
+    tribe: "UnderWorld",
+    tags: ["Burn"],
+    type: ["Aggro"],
+    creatures: ["Chaor", "Rothar, Forceful Negotiator", "Ulmar, Perithon Racer", "Kopond, High Muge"]
   },
   "Ursis Dagger": {
     url: "https://chaoticbackup.forumotion.com/t1670-ursis",
