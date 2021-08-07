@@ -3,7 +3,7 @@ import { hasPermission } from '../../common';
 import { Channel } from '../../definitions';
 import servers from '../../common/servers';
 
-const types = ['recode', 'untap', 'tts', 'pauper'] as const;
+const types = ['recode', 'untap', 'tts', 'pauper', 'spell'] as const;
 
 type Type = typeof types[number];
 
@@ -13,11 +13,15 @@ function isType(input: string): input is Type {
 
 function canMatch(guild: Guild, channel: Channel): boolean {
   if (!(hasPermission(guild, 'MANAGE_ROLES'))) return false;
-  if ((guild.id === servers('main').id) && (
-    channel.id !== servers('main').channel('match_making') &&
-    channel.id !== servers('main').channel('untap_matching') &&
-    channel.id !== servers('main').channel('tts_matching')
-  )) return false;
+  if (guild.id === servers('main').id) {
+    if (
+      channel.id === servers('main').channel('match_making') ||
+      channel.id === servers('main').channel('untap_matching') ||
+      channel.id === servers('main').channel('tts_matching') ||
+      channel.id === servers('main').channel('spelltable_matching')
+    ) return true;
+    else return false;
+  }
   return true;
 }
 
@@ -27,6 +31,7 @@ const parseType = (type: string, channel: Channel, guild: Guild): Type => {
       if (channel.id === servers('main').channel('match_making')) return 'recode';
       else if (channel.id === servers('main').channel('untap_matching')) return 'untap';
       else if (channel.id === servers('main').channel('tts_matching')) return 'tts';
+      else if (channel.id === servers('main').channel('spelltable_matching')) return 'spell';
     }
 
     return types[0];
