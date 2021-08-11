@@ -54,6 +54,7 @@ const _tierlist = {
     "Master of the Sails",
     "PoP'in Off",
     "Sis Ops",
+    "Stelphor (Kraken)",
     "Swimming Team",
     "Tree Frogs",
     "Wise Guys"
@@ -67,7 +68,6 @@ const _tierlist = {
     "Ocean Man",
     "OverWorld Elemental",
     "OverWorld Muge",
-    "Stelphor",
     "Tartereklessness",
     "Trampling Mammoth",
     "Ursis Dagger",
@@ -297,7 +297,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brimflame", "Chaor", "Bladez", "Takinom, The Shadowknight", "Kopond, High Muge of the Hearth"]
   },
-  Stelphor: {
+  "Stelphor (Kraken)": {
     url: "https://chaoticbackup.forumotion.com/t1586-kraken#15168",
     tribe: "Mixed",
     tags: [],

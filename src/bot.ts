@@ -115,7 +115,7 @@ bot.on('guildMemberAdd', (member) => {
   }
 });
 
-const link_regex = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
+const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
 const checkSpam = async (msg: Discord.Message) => {
   if (!msg.guild || msg.guild.id !== servers('main').id) return;
   const index = newMembers.indexOf(msg.author.id);
@@ -126,9 +126,9 @@ const checkSpam = async (msg: Discord.Message) => {
       await msg.member.kick('Posted link as first message. Typically spam bot behavior.')
       .then(async () => {
         const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        return await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
-      })
-      .then(() => { if (msg.deletable) msg.delete(); });
+        await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
+        if (msg.deletable) msg.delete();
+      });
     }
   }
 
