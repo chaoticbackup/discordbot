@@ -37,7 +37,6 @@
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
     "regenerator-runtime": "^0.13.5",
-    "request-promise": "^4.2.5",
     "typescript": "^3.9.3",
     "winston": "^3.2.1"
   },

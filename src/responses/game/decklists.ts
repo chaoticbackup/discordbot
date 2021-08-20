@@ -179,7 +179,7 @@ function _decklist(input: string): RichEmbed | string {
 function _tierlist() {
   const output = new RichEmbed()
     // eslint-disable-next-line max-len
-    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta but is rather a guide to what deck types are strong.');
+    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.');
   for (const key of tiers) {
     let message = '';
     tierlist[key].forEach((deck: string) => {

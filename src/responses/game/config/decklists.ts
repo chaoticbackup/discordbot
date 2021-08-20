@@ -41,21 +41,21 @@ export const axes: {[key in DeckType]: string} = {
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 const _tierlist = {
   S: [
+    "Healdrom",
     "Rawr",
     "Strike",
+    "Swimming Team",
     "UnderWorld Burn",
   ],
   A: [
     "Aszil Compost",
     "Danian Burn",
     "Fliandar",
-    "Healdrom",
     "Heartmatred's Attack",
     "Master of the Sails",
     "PoP'in Off",
     "Sis Ops",
     "Stelphor (Kraken)",
-    "Swimming Team",
     "Tree Frogs",
     "Wise Guys"
   ],
