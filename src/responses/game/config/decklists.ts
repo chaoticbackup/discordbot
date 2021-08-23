@@ -452,7 +452,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
   "UnderWorld Discipline Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1699-uw-discipline-burn",
+    url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15170",
     tribe: "UnderWorld",
     tags: ["Burn"],
     type: ["Aggro"],
