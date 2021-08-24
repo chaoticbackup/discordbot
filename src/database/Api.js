@@ -4,6 +4,7 @@ import loki from 'lokijs';
 import path from 'path';
 import { escape_text, asyncForEach } from '../common';
 import db_path from './db_path';
+import spreadsheet_data from './meta_spreadsheet.json';
 
 const fetch = require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
@@ -17,11 +18,14 @@ if (!fs.existsSync(db_folder)) {
 export default class API {
   instance = null;
   data = '';
-  static base_url = 'https://spreadsheets.google.com/feeds/list/';
-  static data_format = '/od6/public/values?alt=json';
-  static base_spreadsheet = '1cUNmwV693zl2zqbH_IG4Wz8o9Va_sOHe7pAZF6M59Es';
-  get base_image() { return 'https://drive.google.com/uc?id='; }
-  get card_back() { return 'https://i.imgur.com/xbeDBRJ.png'; }
+  
+  get base_image() { return "https://drive.google.com/uc?id=" }
+  get thumb_missing() { return "1JYjPzkv74IhzlHTyVh2niTDyui73HSfp" }
+  get card_back() { return "https://i.imgur.com/xbeDBRJ.png" }
+  // such secure, much wow
+  get key() { 
+    return ["AIz", "aSy", "Bfq", "09-", "tBi", "78b", "nH6", "6f1", "Lkn", "zGD", "XM9", "Zu9", "JG0"].join("");
+  }
 
   // Singleton
   static getInstance() {
@@ -39,31 +43,25 @@ export default class API {
     });
   }
 
-  static path(spreadsheetID) {
-    return API.base_url + spreadsheetID + API.data_format;
-  }
-
   path(spreadsheetID) {
-    return API.path(spreadsheetID);
+    return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}/values/Sheet1?key=${this.key}`
   }
 
   constructor() {
-    this.format = 'cards';
     // Sort data descending alphabetically
     const filterdb = new loki('filter.db');
     this.filter = filterdb.addCollection('filter');
 
     // Setup urls
     const urls = {};
-    const data = require('./meta_spreadsheet.json');
-    data.forEach((d) => {
-      if (!urls[d.gsx$type.$t]) urls[d.gsx$type.$t] = {};
-      urls[d.gsx$type.$t][d.gsx$subtype.$t] = this.path(d.gsx$url.$t);
+    spreadsheet_data.forEach(({ type, subtype, url }) => {
+      if (!urls[type]) urls[type] = {};
+      urls[type][subtype] = url;
     });
     this.urls = urls;
 
     // setup database from spreadsheet data
-    this.db = new loki(path.resolve(db_folder, `chaotic_${this.format}.db`), {
+    this.db = new loki(path.resolve(db_folder, `chaotic_cards.db`), {
       autosave: true,
       autoload: true,
       autoloadCallback: this.databaseInitialize.bind(this),
@@ -71,69 +69,74 @@ export default class API {
     });
   }
 
-  async getSpreadsheet(spreadsheet, callback) {
-    fetch(spreadsheet)
-      .then((response) => {
-        return response.json();
-      })
-      .catch(() => {
-        console.error('Falling back on local database');
-        this.data = 'local';
-        callback(null);
-      })
-      .then((json) => {
-        callback(json.feed.entry);
-      })
-      .catch((err) => {
-        console.error('parsing failed', err);
-        callback(null);
+  async getSpreadsheet(spreadsheetId) {
+    const url = this.path(spreadsheetId);
+
+    const response = await fetch(url);
+
+    if (response.status !== 200) {
+      this.data = 'local';
+      const err = new Error('Falling back on local database');
+      console.error(err.message);
+      throw err;
+    }
+
+    try {
+      const json = await response.json();
+      return json.values;
+    } catch (err) {
+      console.error('parsing failed', err);
+      throw new Error(err);
+    }
+
+  }
+
+  async parseSpreadsheet(spreadsheetId, cardType) {
+    return this.getSpreadsheet(spreadsheetId)
+    .then((data) => {
+      if (data.length < 2) return [];
+
+      const header = data.shift().map((h) => h.toLowerCase().replace(" ", ""));
+      const cards = data.map((card) => {
+        const obj = { "gsx$type": cardType };
+
+        for (let i = 0; i < header.length; i++) {
+          obj[`gsx$${header[i]}`] = card[i];
+        }
+
+        return obj;
       });
+
+      return cards;
+    });
   }
 
   async databaseInitialize() {
     await asyncForEach(['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'],
-      (type) => {
+      async (type) => {
         // check if the db already exists in memory
         const entries = this.db.getCollection(type);
-        if (entries === null) {
+        if (entries === null || entries.data.length === 0) {
           this[type] = this.db.addCollection(type);
-          this.setupType(type);
+
+          const uc_type = type.charAt(0).toUpperCase() + type.slice(1);
+          const data = await this.parseSpreadsheet(this.urls[uc_type]["cards"], uc_type);
+          this[type].insert(data);
         }
         else {
           this[type] = entries;
-          this.mergeDB(type);
+          return Promise.resolve();
         }
       }
-    );
-    this.data = 'api';
-  }
-
-  async setupType(type) {
-    const uc_type = type.charAt(0).toUpperCase() + type.slice(1);
-    return await this.getSpreadsheetData(this.urls[uc_type][this.format], uc_type, (data) => {
-      this[type].insert(data);
-      this.mergeDB(type);
-    });
-  }
-
-  async mergeDB(type) {
-    // Combines into single DB
-    const temp = this[type].chain().data();
-    temp.forEach(function (v) { delete v.$loki; });
-    this.filter.insert(temp);
-  }
-
-  async getSpreadsheetData(spreadsheet, type, callback) {
-    return await this.getSpreadsheet(spreadsheet, (data) => {
-      callback(data.map((item) => {
-        const temp = {};
-        delete item.content;
-        for (const key of Object.keys(item)) {
-          temp[key] = item[key].$t;
-        }
-        temp.gsx$type = type;
-        return temp;
-      }));
+    )
+    .then(() => {
+      // Combines into single DB
+      ['Attacks', 'Battlegear', 'Creatures', 'Locations', 'Mugic'].forEach(type => {
+        const temp = this[type].chain().data();
+        temp.forEach(function (v) { delete v.$loki; });
+        this.filter.insert(temp);
+      });
+      this.data = 'api';
     });
   }
 
