@@ -96,6 +96,7 @@
 	"Opposing Engaged Creature": "This term refers to an engaged Creature that is controlled by your opponent.",
 	"Outperform (Discipline) X": "This Innate Ability indicates that the Creature with this ability deals an additional X damage with successful Discipline Attacks of the indicated Discipline. Winning multiple Challenges, Stat Checks, or Stat Fails on the same Attack Card does not increase the additional damage. Multiple instances of this ability on a card are cumulative.",
 	"Parasite": "Parasite tokens are used to indicate Infected Creatures. See \"Infect\".",
+	"Play": "To play a card refers to the action of adding a Mugic or Attack Card to the burst.",
 	"Power Attack": "The term Power Attack refers to an Attack Card which contains one or more of \"Challenge Power,\" \"Stat Check Power\", and \"Stat Fail Power.\" See \"Discipline Attack\" for more details.",
 	"Priority": "The option to play activated abilities or Mugic. If a player gets the option to play an effect, that player \"receives priority.\"",
 	"Range": "Range is an Innate Ability that allows the Creature to move through occupied Battleboard spaces during its move. Multiple copies of Range on a Creature are redundant.",
