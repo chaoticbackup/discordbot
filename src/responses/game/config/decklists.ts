@@ -94,6 +94,7 @@ const _tierlist = {
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
+    "M'arr Courage Wisdom",
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
@@ -324,6 +325,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
+  },
+  "M'arr Courage Wisdom": {
+    url: "https://chaoticbackup.forumotion.com/t1689-marr-courage-wisdom",
+    tribe: "M'arrillian",
+    tags: [],
+    type: ["Aggro"],
+    creatures: ["Tarterek, Psi Overloader", "Gimwei", "Erak'tabb", "Neth'uar", "Xis'torq"]
   },
   "Master of the Sails": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
