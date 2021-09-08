@@ -184,7 +184,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "M'arrillian",
     tags: [],
     type: ["Midrange"],
-    creatures: ["Blaaxa", "Okaxor", "Erak'tab", "Tarterek, Psi Overloader", "Arrthoa"]
+    creatures: ["Blaaxa", "Okaxor", "Erak'tabb", "Tarterek, Psi Overloader", "Arrthoa"]
   },
   "Flame On!": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
