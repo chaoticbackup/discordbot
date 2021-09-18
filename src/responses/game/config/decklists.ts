@@ -60,13 +60,13 @@ const _tierlist = {
     "Wise Guys"
   ],
   B: [
-    "Danian Discipline Compost",
+    "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
     "Feasting",
+    "Lobster Lightening",
     "Oath of the Oasis",
     "Ocean Man",
-    "OverWorld Elemental",
     "OverWorld Muge",
     "Tartereklessness",
     "Trampling Mammoth",
@@ -81,7 +81,6 @@ const _tierlist = {
     "Crack the Whep",
     "Erak'tabb",
     "Fire and Brimstone",
-    "FireFly",
     "Flame On!",
     "Flying Frogs",
     "Four Arms",
@@ -98,6 +97,7 @@ const _tierlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
+    "OverWorld Elemental",
     "Reporting for Duty",
     "UnderWorld Discipline Burn"
   ]
@@ -172,7 +172,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Gareep", "Ulmquad", "Illexia, The Danian Queen", "Irrabeq", "Nunkworm, Assimilated"]
   },
-  "Danian Discipline Compost": {
+  "Discipline Compost": {
     url: "https://chaoticbackup.forumotion.com/t1681-danian-discipline-compost",
     tribe: "Danian",
     tags: ["Compost"],
@@ -192,13 +192,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Fire"],
     type: ["Aggro-Control", "Combo"],
     creatures: ["Gronmor", "Na-inna", "Nunk'worn", "Piddan", "Tangath Toborn, In Training", "Tangath Toborn, OverWorld General"]
-  },
-  FireFly: {
-    url: "https://chaoticbackup.forumotion.com/t1585-firefly",
-    tribe: "M'arrillian",
-    tags: ["Water"],
-    type: ["Aggro-Control"],
-    creatures: ["Ulmquad", "Bahrakatan, The Coralsmith", "Rellim, Watermaster", "Lam'inkal"]
   },
   "Flying Frogs": {
     url: "https://chaoticbackup.forumotion.com/t1590-flying-frogs",
@@ -318,6 +311,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Infection"],
     type: ["Aggro-Control"],
     creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra", "Lanker"]
+  },
+  "Lobster Lightening": {
+    url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
+    tribe: "M'arrillian",
+    tags: ["Mipedian Fulgurite"],
+    type: ["Gimmick"],
+    creatures: ["Lam'inkal", "Rellim, Watermaster", "Bahrakatan, The Coralsmith", "Ulmquad", "Rol'doi"]
   },
   "Lyssta Mixed": {
     url: "https://chaoticbackup.forumotion.com/t1576-lyssta-mixed",
