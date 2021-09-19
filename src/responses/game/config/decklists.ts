@@ -264,7 +264,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Agitos, Eloquent Motivator", "Galmedar", "Kopond, High Muge of the Hearth", "Lord Van Bloot"]
   },
   Healdrom: {
-    url: "https://chaoticbackup.forumotion.com/t1698-healdrom",
+    url: "https://chaoticbackup.forumotion.com/t1705-healdrom",
     tribe: "Mixed",
     tags: ["Scouts' Monocular"],
     type: ["Combo"],
