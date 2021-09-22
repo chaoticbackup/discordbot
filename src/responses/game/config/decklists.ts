@@ -64,7 +64,7 @@ const _tierlist = {
     "Gan'trak Bladez",
     "Grantkae Control",
     "Feasting",
-    "Lobster Lightening",
+    "Lobster Lightning",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Muge",
@@ -312,7 +312,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra", "Lanker"]
   },
-  "Lobster Lightening": {
+  "Lobster Lightning": {
     url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
     tribe: "M'arrillian",
     tags: ["Mipedian Fulgurite"],
