@@ -2,11 +2,12 @@
 import fs from 'fs-extra';
 import loki from 'lokijs';
 import path from 'path';
+import fetch from 'node-fetch';
+
 import { escape_text, asyncForEach } from '../common';
 import db_path from './db_path';
 import spreadsheet_data from './meta_spreadsheet.json';
 
-const fetch = require('node-fetch');
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 const db_folder = path.resolve(db_path, 'cards');
@@ -72,16 +73,16 @@ export default class API {
   async getSpreadsheet(spreadsheetId) {
     const url = this.path(spreadsheetId);
 
-    const response = await fetch(url);
-
-    if (response.status !== 200) {
-      this.data = 'local';
-      const err = new Error('Falling back on local database');
-      console.error(err.message);
-      throw err;
-    }
-
     try {
+      const response = await fetch(url);
+
+      if (response.status !== 200) {
+        this.data = 'local';
+        const err = new Error('Falling back on local database');
+        console.error(err.message);
+        throw err;
+      }
+
       const json = await response.json();
       return json.values;
     } catch (err) {

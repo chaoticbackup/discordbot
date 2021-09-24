@@ -6,6 +6,7 @@ module.exports = function (api) {
       useBuiltIns: "usage", // or "entry"
       corejs: 3,
       targets: {
+        "esmodules": true,
         "node": process.versions.node
       }
     }],
