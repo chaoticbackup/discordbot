@@ -78,6 +78,7 @@ const _tierlist = {
     "Arrthoa Herken Loyal",
     "Aszil Courage",
     "Brathe Yourself",
+    "Bodal's Boys",
     "Crack the Whep",
     "Erak'tabb",
     "Fire and Brimstone",
@@ -151,12 +152,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
   },
-  "UnderWorld Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
-    tribe: "UnderWorld",
-    tags: ["Burn", "Fire"],
-    type: ["Aggro"],
-    creatures: ["Chaor, The Fierce", "Ulmar, Perithon Racer", "Takinom, The Shadowknight", "Kaal", "Kopond, High Muge of the Hearth", "Nivena"]
+  "Bodal's Boys": {
+    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
+    tribe: "OverWorld",
+    tags: ["Dagger"],
+    type: ["Control"],
+    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
@@ -458,6 +459,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
+  },
+  "UnderWorld Burn": {
+    url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
+    tribe: "UnderWorld",
+    tags: ["Burn", "Fire"],
+    type: ["Aggro"],
+    creatures: ["Chaor, The Fierce", "Ulmar, Perithon Racer", "Takinom, The Shadowknight", "Kaal", "Kopond, High Muge of the Hearth", "Nivena"]
   },
   "UnderWorld Discipline Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15170",
