@@ -1,17 +1,20 @@
 {
     "Custom": {
         "Borth-Day": {
-			"img": "https://i.imgur.com/b85kB8Z.png"
+			"img": "https://i.imgur.com/b85kB8Z.png",
+            "type": "Creature"
 		},
         "Lord van Bloot (Non-Loyal)": {
-			"img": "https://drive.google.com/uc?id=10Bt5EZLgY6Jv8XR3_dgykHjNRzvtMRfu"
+			"img": "https://drive.google.com/uc?id=10Bt5EZLgY6Jv8XR3_dgykHjNRzvtMRfu",
+            "type": "Creature"
 		},
         "Maxxor, Ruler of Perim": {
             "img:": "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI",
             "type": "Creature" 
         },
         "Proboscar (Powerful)": {
-			"img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h"
+			"img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h",
+            "type": "Creature"
 		}
     },
     "Extra": {

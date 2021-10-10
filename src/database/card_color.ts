@@ -1,7 +1,7 @@
 import { Attack, Battlegear, Creature, Location, Mugic } from '../definitions';
 import { ColorResolvable } from 'discord.js';
 
-export default function (card: Attack | Battlegear | Creature | Location | Mugic): ColorResolvable {
+export default function card_color (card: Attack | Battlegear | Creature | Location | Mugic): ColorResolvable {
   if (card.gsx$type === 'Battlegear')
   { return '#aebdce'; }
   if (card.gsx$type === 'Locations')
@@ -20,11 +20,15 @@ export default function (card: Attack | Battlegear | Creature | Location | Mugic
         return '#ba9626';
       case 'Danian':
         return '#957167';
+      case 'Frozen':
+        return '#7aecff';
       case 'Generic':
         if (card.gsx$type === 'Creatures')
-        { return '#b5b5b5'; }
+          return '#b5b5b5';
         else
-        { return '#4f545c'; }
+          return '#4f545c';
+      default:
+        return '#56687e';
     }
   }
   return '#56687e'; // Default color
