@@ -11,6 +11,7 @@ interface Gone {
   tribe?: string
   alt?: string
   text?: string
+  flavor?: string
   stats?: number[]
 }
 
@@ -81,10 +82,12 @@ export default function (name: string, bot: Client, options: string[]) {
     text = card.text;
   }
   
-  if (card.type === "Creature") {
-    if (card.stats) {
-      text += `\n${withStats(card.stats)}`;
-    }
+  if (card.flavor) {
+    text += `\n*${card.flavor}*`;
+  }
+
+  if (card.type === "Creature" && card.stats) {
+    text += `\n${withStats(card.stats)}`;
   }
 
   if (text !== "") {

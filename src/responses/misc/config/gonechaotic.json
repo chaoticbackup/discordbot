@@ -1,27 +1,27 @@
 {
     "Custom": {
         "Borth-Day": {
-			"img": "https://i.imgur.com/b85kB8Z.png",
+            "img": "https://i.imgur.com/b85kB8Z.png",
             "type": "Creature"
-		},
+        },
         "Lord van Bloot (Non-Loyal)": {
-			"img": "https://drive.google.com/uc?id=10Bt5EZLgY6Jv8XR3_dgykHjNRzvtMRfu",
+            "img": "https://drive.google.com/uc?id=10Bt5EZLgY6Jv8XR3_dgykHjNRzvtMRfu",
             "type": "Creature"
-		},
+        },
         "Maxxor, Ruler of Perim": {
             "img:": "https://drive.google.com/uc?id=1mlqp46AcMVmrP_rspK7vlr7K0_-1k4QI",
             "type": "Creature" 
         },
         "Proboscar (Powerful)": {
-			"img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h",
+            "img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h",
             "type": "Creature",
             "tribe": "Generic",
             "stats": [60, 90, 25, 85, 65]
-		}
+        }
     },
     "Extra": {
         "Alcohol Abuse": {
-			"img": "https://i.servimg.com/u/f26/18/37/62/02/alcoho10.jpg",
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/alcoho10.jpg",
             "type": "Attack"
         },
         "Battle for the Sword of Khy'at in the Stone": {
@@ -66,9 +66,9 @@
             "type": "Attack"
         },
         "Skithia Gothos Hoe": {
-			"img": "https://i.servimg.com/u/f26/18/37/62/02/skithi10.jpg",
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/skithi10.jpg",
             "type": "Creature"
-		},
+        },
         "Tama'Toa": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/tama_t10.jpg",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/tama_t11.jpg",
@@ -115,411 +115,412 @@
     },
     "GoneChaotic": {
         "Ancient Melody": {
-	    "img": "https://i.imgur.com/IkCrVZF.jpg",
-            "type": "Mugic",
-            "tribe": "M'arrillian",
-            "text": "Target creature loses your age to all disiplines."
-		},
+        "img": "https://i.imgur.com/IkCrVZF.jpg",
+        "type": "Mugic",
+        "tribe": "M'arrillian",
+        "text": "Target creature loses your age to all disiplines.",
+        "flavor": "Time for Grandma to knock some sense into you."
+        },
         "Aliecs": {
-			"img": "https://i.imgur.com/8geWzBz.jpg",
+            "img": "https://i.imgur.com/8geWzBz.jpg",
             "type": "Creature"
-		},
+        },
         "Baritone Barrage": {
-			"img": "https://i.imgur.com/FR4uoYp.jpg",
+            "img": "https://i.imgur.com/FR4uoYp.jpg",
             "type": "Mugic"
-		},
+        },
         "Battle of Brawn": {
-			"img": "https://i.imgur.com/LREja2M.jpg",
+            "img": "https://i.imgur.com/LREja2M.jpg",
             "type": "Attack"
-		},
+        },
         "Battle of Guts": {
-			"img": "https://i.imgur.com/ifAEUe7.jpg",
+            "img": "https://i.imgur.com/ifAEUe7.jpg",
             "type": "Attack"
-		},
+        },
         "Battle of Minds": {
-			"img": "https://i.imgur.com/X9hBgsI.jpg",
+            "img": "https://i.imgur.com/X9hBgsI.jpg",
             "type": "Attack"
-		},
+        },
         "Battle of Reflex": {
-			"img": "https://i.imgur.com/SniB98r.jpg",
+            "img": "https://i.imgur.com/SniB98r.jpg",
             "type": "Attack"
-		},
+        },
         "Bland Requiem": {
-			"img": "https://i.imgur.com/zKnLavm.jpg",
+            "img": "https://i.imgur.com/zKnLavm.jpg",
             "type": "Mugic"
-		},
+        },
         "Boiling Spray": {
-			"img": "https://i.imgur.com/3oMDRin.jpg",
+            "img": "https://i.imgur.com/3oMDRin.jpg",
             "type": "Attack"
-		},
+        },
         "Candy Pillar": {
-			"img": "https://i.imgur.com/oKd9t1h.jpg",
+            "img": "https://i.imgur.com/oKd9t1h.jpg",
             "type": "Location"
-		},
+        },
         "Cannon of Casualty": {
-			"img": "https://i.imgur.com/rfywL8O.jpg",
+            "img": "https://i.imgur.com/rfywL8O.jpg",
             "type": "Battlegear"
-		},
+        },
         "Chaos Nexus": {
-			"img": "https://i.imgur.com/wTV82qC.jpg",
+            "img": "https://i.imgur.com/wTV82qC.jpg",
             "type": "Location"
-		},
+        },
         "Chaotic": {
-			"img": "https://i.imgur.com/5Z3rysS.jpg",
+            "img": "https://i.imgur.com/5Z3rysS.jpg",
             "type": "Location"
-		},
+        },
         "Cirvok Mound": {
-			"img": "https://i.imgur.com/Z6JzHH4.jpg",
+            "img": "https://i.imgur.com/Z6JzHH4.jpg",
             "type": "Location"
-		},
+        },
         "Clumsy Trip": {
-			"img": "https://i.imgur.com/wDhz8DO.jpg",
+            "img": "https://i.imgur.com/wDhz8DO.jpg",
             "type": "Attack"
-		},
+        },
         "Crypt of Eternal Echoes": {
-			"img": "https://i.imgur.com/eDyEMeF.jpg",
+            "img": "https://i.imgur.com/eDyEMeF.jpg",
             "type": "Location"
-		},
+        },
         "Crythid Ruins": {
-			"img": "https://i.imgur.com/xT1HI9Q.jpg",
+            "img": "https://i.imgur.com/xT1HI9Q.jpg",
             "type": "Location"
-		},
+        },
         "Cursed Dice": {
-			"img": "https://i.imgur.com/mycLslF.jpg",
+            "img": "https://i.imgur.com/mycLslF.jpg",
             "type": "Battlegear"
-		},
+        },
         "Deehna": {
-			"img": "https://i.imgur.com/0CwmGI4.jpg",
+            "img": "https://i.imgur.com/0CwmGI4.jpg",
             "type": "Creature"
-		},
+        },
         "Do It Yourself": {
-			"img": "https://i.imgur.com/sUCNI6q.jpg",
+            "img": "https://i.imgur.com/sUCNI6q.jpg",
             "type": "Creature"
-		},
+        },
         "Double Disarm Dischord": {
-			"img": "https://i.imgur.com/2Obo3cW.jpg",
+            "img": "https://i.imgur.com/2Obo3cW.jpg",
             "type": "Mugic"
-		},
+        },
         "Double Whammy": {
-			"img": "https://i.imgur.com/z55MBs2.jpg",
+            "img": "https://i.imgur.com/z55MBs2.jpg",
             "type": "Battlegear"
-		},
+        },
         "Earthen Mass": {
-			"img": "https://i.imgur.com/Hzd5Mma.jpg",
+            "img": "https://i.imgur.com/Hzd5Mma.jpg",
             "type": "Attack"
-		},
+        },
         "Elira": {
-			"img": "https://i.imgur.com/Cfctf1B.jpg",
+            "img": "https://i.imgur.com/Cfctf1B.jpg",
             "type": "Creature"
-		},
+        },
         "Farkhaj, Now In Yellow": {
-			"img": "https://i.imgur.com/K5qYZYX.jpg",
+            "img": "https://i.imgur.com/K5qYZYX.jpg",
             "type": "Creature"
-		},
+        },
         "Fashion Flare": {
-			"img": "https://i.imgur.com/IY7XCtx.jpg",
+            "img": "https://i.imgur.com/IY7XCtx.jpg",
             "type": "Attack"
-		},
+        },
         "Fatty Mclardo": {
-			"img": "https://i.imgur.com/LtU00wh.jpg",
+            "img": "https://i.imgur.com/LtU00wh.jpg",
             "type": "Creature"
-		},
+        },
         "Firestorm": {
-			"img": "https://i.imgur.com/uDrPBc9.jpg",
+            "img": "https://i.imgur.com/uDrPBc9.jpg",
             "type": "Attack"
-		},
+        },
         "Flash Fist Message": {
-			"img": "https://i.imgur.com/ZqzmwSP.jpg",
+            "img": "https://i.imgur.com/ZqzmwSP.jpg",
             "type": "Attack"
-		},
+        },
         "Flippin Breeze": {
-			"img": "https://i.imgur.com/ZJPV5NM.jpg",
+            "img": "https://i.imgur.com/ZJPV5NM.jpg",
             "type": "Attack"
-		},
+        },
         "Flux Bauble Klay Edition": {
-			"img": "https://i.imgur.com/BlxzHWE.jpg",
+            "img": "https://i.imgur.com/BlxzHWE.jpg",
             "type": "Battlegear"
-		},
+        },
         "Flying Fear Flee": {
-			"img": "https://i.imgur.com/QFybMM0.jpg",
+            "img": "https://i.imgur.com/QFybMM0.jpg",
             "type": "Attack"
-		},
+        },
         "Forest of Riches": {
-			"img": "https://i.imgur.com/Ff6Mjlv.jpg",
+            "img": "https://i.imgur.com/Ff6Mjlv.jpg",
             "type": "Location"
-		},
+        },
         "Frost Swirl": {
-			"img": "https://i.imgur.com/QsvinwB.jpg",
+            "img": "https://i.imgur.com/QsvinwB.jpg",
             "type": "Attack"
-		},
+        },
         "Fun Police Siren": {
-			"img": "https://i.imgur.com/HlNlppV.jpg",
+            "img": "https://i.imgur.com/HlNlppV.jpg",
             "type": "Mugic"
-		},
+        },
         "Gigantrooper, With Ulmar's Brain": {
-			"img": "https://i.imgur.com/OegZkk6.jpg",
+            "img": "https://i.imgur.com/OegZkk6.jpg",
             "type": "Creature"
-		},
+        },
         "Girthquake": {
-			"img": "https://i.imgur.com/0q0tCH1.jpg",
+            "img": "https://i.imgur.com/0q0tCH1.jpg",
             "type": "Attack"
-		},
+        },
         "Glue Armor": {
-			"img": "https://i.imgur.com/47SFb6b.jpg",
+            "img": "https://i.imgur.com/47SFb6b.jpg",
             "type": "Battlegear"
-		},
+        },
         "Gravity Cave": {
-			"img": "https://i.imgur.com/Xwl1Dfn.jpg",
+            "img": "https://i.imgur.com/Xwl1Dfn.jpg",
             "type": "Location"
-		},
+        },
         "H'earring, Or Not": {
-			"img": "https://i.imgur.com/V5JOiBu.jpg",
+            "img": "https://i.imgur.com/V5JOiBu.jpg",
             "type": "Creature"
-		},
+        },
         "Hall of Mirrors": {
-			"img": "https://i.imgur.com/FJhdlbK.jpg",
+            "img": "https://i.imgur.com/FJhdlbK.jpg",
             "type": "Location"
-		},
+        },
         "Heatin' Up": {
-			"img": "https://i.imgur.com/cG9UftA.jpg",
+            "img": "https://i.imgur.com/cG9UftA.jpg",
             "type": "Attack"
-		},
+        },
         "Hold The Flood": {
-			"img": "https://i.imgur.com/mpF9WdS.jpg",
+            "img": "https://i.imgur.com/mpF9WdS.jpg",
             "type": "Attack"
-		},
+        },
         "Hyper Golden Maxxor": {
-			"img": "https://i.imgur.com/AA6mKUl.jpg",
+            "img": "https://i.imgur.com/AA6mKUl.jpg",
             "type": "Creature"
-		},
+        },
         "Hyppi": {
-			"img": "https://i.imgur.com/WcVrkDv.jpg",
+            "img": "https://i.imgur.com/WcVrkDv.jpg",
             "type": "Creature"
-		},
+        },
         "Intercepted Intel": {
-			"img": "https://i.imgur.com/MHwp7WQ.jpg",
+            "img": "https://i.imgur.com/MHwp7WQ.jpg",
             "type": "Attack"
-		},
+        },
         "Iparu Perfect Double": {
-			"img": "https://i.imgur.com/bCYRuFS.jpg",
+            "img": "https://i.imgur.com/bCYRuFS.jpg",
             "type": "Creature"
-		},
+        },
         "Kasilat": {
-			"img": "https://i.imgur.com/gQRU5sE.jpg",
+            "img": "https://i.imgur.com/gQRU5sE.jpg",
             "type": "Creature"
-		},
+        },
         "Kaz's Stick": {
-			"img": "https://i.imgur.com/MECnOpd.jpg",
+            "img": "https://i.imgur.com/MECnOpd.jpg",
             "type": "Battlegear"
-		},
+        },
         "Mandiblor #____": {
-			"img": "https://i.imgur.com/VXzqssb.jpg",
+            "img": "https://i.imgur.com/VXzqssb.jpg",
             "type": "Creature"
-		},
+        },
         "Mishmoshmimsh, Moshmishmoshmishmosh": {
-			"img": "https://i.imgur.com/Lc6PhP5.jpg",
+            "img": "https://i.imgur.com/Lc6PhP5.jpg",
             "type": "Creature"
-		},
+        },
         "Modulation": {
-			"img": "https://i.imgur.com/WxHdXCq.jpg",
+            "img": "https://i.imgur.com/WxHdXCq.jpg",
             "type": "Mugic"
-		},
+        },
         "Mommark Castle, Cloning Chamber": {
-			"img": "https://i.imgur.com/8DlJxBA.jpg",
+            "img": "https://i.imgur.com/8DlJxBA.jpg",
             "type": "Location"
-		},
+        },
         "Nakan": {
-			"img": "https://i.imgur.com/CblQApH.jpg",
+            "img": "https://i.imgur.com/CblQApH.jpg",
             "type": "Creature",
             "tribe": "Generic",
             "stats": [88, 76, 23, 41, 59]
-		},
+        },
         "No Fear": {
-			"img": "https://i.imgur.com/9Ad6VOI.jpg",
+            "img": "https://i.imgur.com/9Ad6VOI.jpg",
             "type": "Attack"
-		},
+        },
         "Nothing": {
-			"img": "https://i.imgur.com/fzSPrkD.jpg",
+            "img": "https://i.imgur.com/fzSPrkD.jpg",
             "type": "Battlegear"
-		},
+        },
         "Notes of Nope": {
-			"img": "https://i.imgur.com/d4ie4vj.jpg",
+            "img": "https://i.imgur.com/d4ie4vj.jpg",
             "type": "Mugic"
-		},
+        },
         "OverWorld Library, Children's Section": {
-			"img": "https://i.imgur.com/K34j3oD.jpg",
+            "img": "https://i.imgur.com/K34j3oD.jpg",
             "type": "Location"
-		},
+        },
         "Pain Train": {
-			"img": "https://i.imgur.com/eyDANZB.jpg",
+            "img": "https://i.imgur.com/eyDANZB.jpg",
             "type": "Battlegear"
-		},
+        },
         "Pebiq": {
-			"img": "https://i.imgur.com/AG2jjLA.jpg",
+            "img": "https://i.imgur.com/AG2jjLA.jpg",
             "type": "Creature"
-		},
+        },
         "Philanthropy Trills": {
-			"img": "https://i.imgur.com/cbSi6CX.jpg",
+            "img": "https://i.imgur.com/cbSi6CX.jpg",
             "type": "Mugic"
-		},
+        },
         "Pyto'rav": {
-			"img": "https://i.imgur.com/UlVzfgT.jpg",
+            "img": "https://i.imgur.com/UlVzfgT.jpg",
             "type": "Creature"
-		},
+        },
         "Pystoph": {
-			"img": "https://i.imgur.com/TqkzBAY.jpg",
+            "img": "https://i.imgur.com/TqkzBAY.jpg",
             "type": "Creature"
-		},
+        },
         "Raimusa, The Ever Patient": {
-			"img": "https://i.imgur.com/1vWjo0F.jpg",
+            "img": "https://i.imgur.com/1vWjo0F.jpg",
             "type": "Creature"
-		},
+        },
         "Really Lucky Shot": {
-			"img": "https://i.imgur.com/1SgzGku.jpg",
+            "img": "https://i.imgur.com/1SgzGku.jpg",
             "type": "Attack"
-		},
+        },
         "Rithb'ar": {
-			"img": "https://i.imgur.com/agxxzRq.jpg",
+            "img": "https://i.imgur.com/agxxzRq.jpg",
             "type": "Creature"
-		},
+        },
         "Rock (and Roll) Wave": {
-			"img": "https://i.imgur.com/aVknEFs.jpg",
+            "img": "https://i.imgur.com/aVknEFs.jpg",
             "type": "Attack"
-		},
+        },
         "Sahrbat": {
-			"img": "https://i.imgur.com/nA2Elux.jpg",
+            "img": "https://i.imgur.com/nA2Elux.jpg",
             "type": "Creature"
-		},
+        },
         "Sandcraft": {
-			"img": "https://i.imgur.com/63Ro1dM.jpg",
+            "img": "https://i.imgur.com/63Ro1dM.jpg",
             "type": "Attack"
-		},
+        },
         "Scanquest Symphony": {
-			"img": "https://i.imgur.com/w73Slbi.jpg",
+            "img": "https://i.imgur.com/w73Slbi.jpg",
             "type": "Mugic"
-		},
+        },
         "Sharp Smart Strike": {
-			"img": "https://i.imgur.com/kH44vvY.jpg",
+            "img": "https://i.imgur.com/kH44vvY.jpg",
             "type": "Attack"
-		},
+        },
         "Self Extortion": {
-			"img": "https://i.imgur.com/WyDxxvQ.jpg",
+            "img": "https://i.imgur.com/WyDxxvQ.jpg",
             "type": "Attack"
-		},
+        },
         "Shiltar": {
-			"img": "https://i.imgur.com/E4exQ36.jpg",
+            "img": "https://i.imgur.com/E4exQ36.jpg",
             "type": "Creature"
-		},
+        },
         "Shimmark Shake": {
-			"img": "https://i.imgur.com/93qIHYT.jpg",
+            "img": "https://i.imgur.com/93qIHYT.jpg",
             "type": "Battlegear"
-		},
+        },
         "Shiny Symphony": {
-			"img": "https://i.imgur.com/9CRv86m.jpg",
+            "img": "https://i.imgur.com/9CRv86m.jpg",
             "type": "Mugic"
-		},
+        },
         "Sixish Strikes": {
-			"img": "https://i.imgur.com/MgU03Au.jpg",
+            "img": "https://i.imgur.com/MgU03Au.jpg",
             "type": "Attack"
-		},
+        },
         "Slag Smash": {
-			"img": "https://i.imgur.com/xkVNKSL.jpg",
+            "img": "https://i.imgur.com/xkVNKSL.jpg",
             "type": "Attack"
-		},
+        },
         "Slime Rush": {
-			"img": "https://i.imgur.com/uEI9LNM.jpg",
+            "img": "https://i.imgur.com/uEI9LNM.jpg",
             "type": "Attack"
-		},
+        },
         "Srik'qui": {
             "img": "https://i.imgur.com/RSn6qht.jpg",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/srik11.jpg",
             "type": "Creature"
-		},
+        },
         "Swin N Gym": {
-			"img": "https://i.imgur.com/b8aNMB1.jpg",
+            "img": "https://i.imgur.com/b8aNMB1.jpg",
             "type": "Attack"
-		},
+        },
         "Take to the Skys": {
-			"img": "https://i.imgur.com/DeGlYfp.jpg",
+            "img": "https://i.imgur.com/DeGlYfp.jpg",
             "type": "Attack"
-		},
+        },
         "Target": {
-			"img": "https://i.imgur.com/OxPS4il.jpg",
+            "img": "https://i.imgur.com/OxPS4il.jpg",
             "type": "Creature"
-		},
+        },
         "Teddy Bear": {
-			"img": "https://i.imgur.com/RlNsAvu.jpg",
+            "img": "https://i.imgur.com/RlNsAvu.jpg",
             "type": "Battlegear"
-		},
+        },
         "Thinking Caps": {
-			"img": "https://i.imgur.com/eOYKo7x.jpg",
+            "img": "https://i.imgur.com/eOYKo7x.jpg",
             "type": "Battlegear"
-		},
+        },
         "Touch of Empathy": {
-			"img": "https://i.imgur.com/X4UwG1O.jpg",
+            "img": "https://i.imgur.com/X4UwG1O.jpg",
             "type": "Attack"
-		},
+        },
         "Ugir'jun": {
-			"img": "https://i.imgur.com/0I7BeBy.jpg",
+            "img": "https://i.imgur.com/0I7BeBy.jpg",
             "type": "Creature"
-		},
+        },
         "Um Actually": {
-			"img": "https://i.imgur.com/JaFWAQR.jpg",
+            "img": "https://i.imgur.com/JaFWAQR.jpg",
             "type": "Attack"
-		},
+        },
         "UnderWorld Colosseum, Tag Team Match": {
-			"img": "https://i.imgur.com/eqVz6Tt.jpg",
+            "img": "https://i.imgur.com/eqVz6Tt.jpg",
             "type": "Location"
-		},
+        },
         "UnderWorld Slums": {
-			"img": "https://i.imgur.com/ZHqCDGm.jpg",
+            "img": "https://i.imgur.com/ZHqCDGm.jpg",
             "type": "Location"
-		},
+        },
         "Unevening Tune": {
-			"img": "https://i.imgur.com/io4yj0T.jpg",
+            "img": "https://i.imgur.com/io4yj0T.jpg",
             "type": "Mugic"
-		},
+        },
         "Unity Waltz": {
-			"img": "https://i.imgur.com/CPV7xlr.jpg",
+            "img": "https://i.imgur.com/CPV7xlr.jpg",
             "type": "Mugic"
-		},
+        },
         "Vab'Twal": {
-			"img": "https://i.imgur.com/WqUnSGS.jpg",
+            "img": "https://i.imgur.com/WqUnSGS.jpg",
             "type": "Creature"
-		},
+        },
         "Vigix": {
-			"img": "https://i.imgur.com/fR1b7Wr.jpg",
+            "img": "https://i.imgur.com/fR1b7Wr.jpg",
             "type": "Creature"
-		},
+        },
         "Vishka": {
-			"img": "https://i.imgur.com/LSaVBSF.jpg",
+            "img": "https://i.imgur.com/LSaVBSF.jpg",
             "type": "Creature"
-		},
+        },
         "Wash Clean": {
             "img": "https://i.imgur.com/BPRixV9.jpg",
             "alt": "https://i.servimg.com/u/f26/18/37/62/02/wash_c11.jpg",
             "type": "Attack"
-		},
+        },
         "Werik": {
-			"img": "https://i.imgur.com/LKJlEAI.jpg",
+            "img": "https://i.imgur.com/LKJlEAI.jpg",
             "type": "Creature"
-		},
+        },
         "Work Fast": {
-			"img": "https://i.imgur.com/ssENnjj.jpg",
+            "img": "https://i.imgur.com/ssENnjj.jpg",
             "type": "Attack"
-		},
+        },
         "Yokkis' Scepter": {
-			"img": "https://i.imgur.com/qJ9pidr.jpg",
+            "img": "https://i.imgur.com/qJ9pidr.jpg",
             "type": "Battlegear"
-		},
+        },
         "Zalvar": {
-			"img": "https://i.imgur.com/tFW1M5q.jpg",
+            "img": "https://i.imgur.com/tFW1M5q.jpg",
             "type": "Creature"
-		},
+        },
         "Zentu'al": {
-			"img": "https://i.imgur.com/ImvCUB4.jpg",
+            "img": "https://i.imgur.com/ImvCUB4.jpg",
             "type": "Creature"
-		}
+        }
     },
     "Gone2Chaotic": {
         "Ani-chan": {
