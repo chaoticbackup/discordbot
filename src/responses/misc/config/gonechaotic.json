@@ -14,7 +14,9 @@
         },
         "Proboscar (Powerful)": {
 			"img": "https://drive.google.com/uc?id=11_ItWKp6psWx3LPb8jFC-KlgRlVjoP5h",
-            "type": "Creature"
+            "type": "Creature",
+            "tribe": "Generic",
+            "stats": [60, 90, 25, 85, 65]
 		}
     },
     "Extra": {
@@ -326,7 +328,9 @@
 		},
         "Nakan": {
 			"img": "https://i.imgur.com/CblQApH.jpg",
-            "type": "Creature"
+            "type": "Creature",
+            "tribe": "Generic",
+            "stats": [88, 76, 23, 41, 59]
 		},
         "No Fear": {
 			"img": "https://i.imgur.com/9Ad6VOI.jpg",

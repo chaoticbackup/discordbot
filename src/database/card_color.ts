@@ -23,6 +23,7 @@ export default function card_color (card: Attack | Battlegear | Creature | Locat
       case 'Frozen':
         return '#7aecff';
       case 'Generic':
+      case 'Tribeless':
         if (card.gsx$type === 'Creatures')
           return '#b5b5b5';
         else
