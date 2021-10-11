@@ -115,8 +115,11 @@
     },
     "GoneChaotic": {
         "Ancient Melody": {
-			"img": "https://i.imgur.com/IkCrVZF.jpg",
-            "type": "Mugic"
+	    "img": "https://i.imgur.com/IkCrVZF.jpg",
+            "type": "Mugic",
+            "tribe": "M'arrilian",
+            "text": "Target creature loses your age to all disiplines.",
+            "flavour": "Time for Grandma to knock some sense into you"
 		},
         "Aliecs": {
 			"img": "https://i.imgur.com/8geWzBz.jpg",
