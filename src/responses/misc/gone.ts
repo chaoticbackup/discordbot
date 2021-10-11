@@ -10,6 +10,7 @@ interface Gone {
   type: string
   tribe?: string
   alt?: string
+  text?: string
   stats?: number[]
 }
 
@@ -74,10 +75,20 @@ export default function (name: string, bot: Client, options: string[]) {
     re.setURL(card.img).setImage(card.img);
   }
 
+  let text = "";
+  
+  if (card.text) {
+    text = card.text;
+  }
+  
   if (card.type === "Creature") {
     if (card.stats) {
-      re.setDescription(withStats(card.stats));
+      text += `\n${withStats(card.stats)}`;
     }
+  }
+
+  if (text !== "") {
+    re.setDescription(text);
   }
 
   re.setColor(color({gsx$type: parseType(card.type), gsx$tribe: card.tribe} as Card))
