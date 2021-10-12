@@ -83,7 +83,7 @@ export default function (name: string, bot: Client, options: string[]) {
   }
   
   if (card.flavor) {
-    text += `\n*${card.flavor}*`;
+    text += `\n\n*${card.flavor}*`;
   }
 
   if (card.type === "Creature" && card.stats) {
