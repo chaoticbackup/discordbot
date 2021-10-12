@@ -17,7 +17,8 @@ instance.hasAvatar = (card: Creature) => (
 
 instance.hasFullart = (card: Card) => (
   Boolean(card.gsx$if !== undefined && card.gsx$if !== '') ||
-  Boolean(card.gsx$splash !== undefined && card.gsx$splash !== '')
+  Boolean(card.gsx$splash !== undefined && card.gsx$splash !== '') ||
+  Boolean(card.gsx$alt !== undefined && card.gsx$alt !== '')
 );
 
 instance.cardImage = (card: Card) => {
@@ -40,14 +41,37 @@ instance.cardAvatar = (card: Creature) => {
   }
 };
 
-instance.cardFullart = (card: Card) => {
-  if (card.gsx$if && card.gsx$if !== '') {
-    return card.gsx$if;
-  } else if (card.gsx$splash && card.gsx$splash !== '') {
-    return instance.base_image + card.gsx$splash;
-  } else {
-    return instance.card_back;
+// Check if fullart or if requesting alt. If no fullart check if alternative art exists before returning logo
+instance.cardFullart = (card: Card, options: string[] = []) => {
+  let url = '';
+
+  if (options.includes('alt')) {
+    if (card.gsx$alt) {
+      url = card.gsx$alt;
+    }
   }
+  else if (options.includes('alt2')) {
+    if (card.gsx$alt2) {
+      url = card.gsx$alt2;
+    }
+  }
+
+  if (card.gsx$if && card.gsx$if !== '') {
+    url = card.gsx$if;
+  }
+  else if (card.gsx$splash && card.gsx$splash !== '') {
+    url = instance.base_image + card.gsx$splash;
+  }
+  else {
+    if (card.gsx$alt) {
+      url = card.gsx$alt;
+    }
+    else {
+      url = instance.card_back;
+    }
+  }
+
+  return url;
 };
 
 export default instance;

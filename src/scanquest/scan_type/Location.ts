@@ -70,9 +70,8 @@ export class SpawnLocation extends Spawn {
       location = this.randomCard(this.locations, arg1, arg2) as Location;
     }
 
-    const image = new RichEmbed()
-    .setImage(API.cardFullart(location))
-    .setURL(API.cardFullart(location));
+    const url = API.cardFullart(location);
+    const image = new RichEmbed().setImage(url).setURL(url);
 
     return [new ScannableLocation(location), image];
   }

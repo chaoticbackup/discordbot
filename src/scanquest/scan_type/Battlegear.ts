@@ -65,9 +65,8 @@ export class SpawnBattlegear extends Spawn {
     } else {
       battlegear = this.randomCard(this.battlegear, arg1, arg2) as Battlegear;
     }
-    const image = new RichEmbed()
-    .setImage(API.cardFullart(battlegear))
-    .setURL(API.cardFullart(battlegear));
+    const url = API.cardFullart(battlegear);
+    const image = new RichEmbed().setImage(url).setURL(url);
 
     return [new ScannableBattlegear(battlegear), image];
   }

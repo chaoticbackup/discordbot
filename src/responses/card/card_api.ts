@@ -46,12 +46,13 @@ function Response(card: Card, options: string[], bot: Client) {
       if (options.includes('text') || options.includes('read') || options.includes('stats')) {
         return 'No card data available';
       }
+      const url = API.cardFullart(card);
       return new RichEmbed()
         .setTitle(card.gsx$name)
         .setColor(color(card))
         .setDescription(card.gsx$ability || 'No data available')
-        .setURL(API.cardFullart(card))
-        .setImage(API.cardFullart(card));
+        .setURL(url)
+        .setImage(url);
     }
   }
 
