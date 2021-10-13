@@ -1,7 +1,7 @@
 import { Client, RichEmbed } from 'discord.js';
 import { color } from '../../database';
 import { cleantext, rndrsp } from '../../common';
-import { Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5, Gone_Chaotic_5, } from './config/gonechaotic.json';
+import { Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5, Gone_Chaotic_5 } from './config/gonechaotic.json';
 import { parseType } from '../../common/card_types';
 import { Card } from '../../definitions';
 
@@ -18,7 +18,7 @@ interface Gone {
 const cardTypes = ['attack', 'creature', 'battlegear', 'mugic', 'location'];
 
 // eslint-disable-next-line max-len
-const merged: Record<string, Gone> = Object.assign({}, Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5);
+const merged: Record<string, Gone> = Object.assign({}, Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5, Gone_Chaotic_5);
 
 export default function (name: string, bot: Client, options: string[]) {
   const withStats = ([c, p, w, s, e]: number[]) => {
