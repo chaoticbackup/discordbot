@@ -116,7 +116,10 @@
     "GoneChaotic": {
         "Ancient Melody": {
 			"img": "https://i.imgur.com/IkCrVZF.jpg",
-            "type": "Mugic"
+            "type": "Mugic",
+            "tribe": "M'arrillian",
+            "text": "Target creature loses your age to all disiplines.",
+            "flavour": "Time for Grandma to knock some sense into you"
 		},
         "Aliecs": {
 			"img": "https://i.imgur.com/8geWzBz.jpg",
@@ -716,7 +719,7 @@
             "type": "Location"
         },
         "Godly Smash": {
-            "img": "https://i.servimg.com/u/f62/18/37/62/02/godly_10.jpg",
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/godly_10.jpg",
             "type": "Attack"
         },
         "Gone Clubbing": {
@@ -829,6 +832,13 @@
             "img": "https://i.servimg.com/u/f62/18/37/62/02/lord_l10.jpg",
             "alt": "https://i.servimg.com/u/f62/18/37/62/02/hit_or10.jpg",
             "type": "Creature"
+        },
+        "Luv":{
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/luv10.jpg",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [175,40,10,10,50],
+            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5/\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
         },
         "M'arrillian Bubble Blowing Chamber": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/m_arri10.jpg",
@@ -1737,5 +1747,139 @@
             "img": "https://i.servimg.com/u/f26/18/37/62/02/call_o10.png",
             "type": "Mugic"
         }        
+    },
+     //In order of backup post   
+    "Gone Chaotic 5 @ll B@lls":{
+        "Perfect Ballance": {
+            "img": "https://i.imgur.com/hGXrpQy.png",
+            "type": "Attack",
+            "text": "Stat Check Speed 200: Deal 10 damage.\nThe Creature that played this attack passes all Speed\n Checks and Challenges on attacks it plays for rest of the game."
+        },
+        "Undauntab@ll Courage": { 
+            "img": "https://i.imgur.com/wG1rtxo.png",
+            "type": "Attack",
+            "text": "Stat Check Courage 200: Deal 10 damage.\nThe Creature that played this attack passes all Courage\n Checks and Challenges on attack it plays for rest of the game" 
+        },
+        "Total B@lleillance": { 
+            "img": "https://i.imgur.com/FVisxd1.png",
+            "type": "Attack",
+            "text": "Stat Check Wisdom 200: Deal 10 damage.\nThe Creature that played this attack passes all Wisdom\n Checks and Challenges on attack it plays for rest of the game" 
+        },
+        "B@ll-Mighty":{ 
+            "img": "https://i.imgur.com/N8RxqL3.png",
+            "type": "Attack",
+            "text": "Stat Check Power 200: Deal 10 damage.\nThe Creature that played this attack passes all Power\n Checks and Challenges on attack it plays for rest of the game" 
+        },
+        "Improvised Water B@ll":{ 
+            "img": "https://i.imgur.com/97LHPKt.png",
+            "type": "Attack",
+            "text": "Reveal this card from you hand: If your engaged creature has\nWater,shuffle this card and another copy of "Improvised \nWater B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Water B@ll"only once each turn."
+        },
+        "Improvised Earth B@ll":{ 
+            "img": "https://i.imgur.com/ryJE8yC.png",
+            "type": "Attack",
+            "text": "Reveal this card from you hand: If your engaged creature has\nEarth,shuffle this card and another copy of "Improvised \nEarth B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Earth B@ll"only once each turn."
+        },
+        "Improvised Fire B@ll":{ 
+            "img": "https://i.imgur.com/IBakZqv.png",
+            "type": "Attack",
+            "text": "Reveal this card from you hand: If your engaged creature has\nFire,shuffle this card and another copy of "Improvised \Fire B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Fire B@ll"only once each turn."
+        },
+        "Improvised Air B@ll":{ 
+            "img": "https://i.imgur.com/kVMdy9n.png",
+            "type": "Attack",
+            "text": "Reveal this card from you hand: If your engaged creature has\nAir,shuffle this card and another copy of "Improvised \Air B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Air B@ll"only once each turn."
+        },
+        "Stand B@all":{ 
+            "img": "https://i.imgur.com/sOu4yjN.png",
+            "type": "Attack",
+            "text": "Challenge Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains "Defender"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
+        },
+        "B@llink and You'll Miss It":{
+            "img": "https://i.imgur.com/9Dtw2LF.png",
+            "type": "Attack",
+            "text": "Challenge Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n"Untargetable by opponents"."
+        },
+        "Know-It-B@ll":{
+            "img": "https://i.imgur.com/t3HlzAY.png",
+            "type": "Attack",
+            "text": "Challenge Wisdom -5: Deal 10 damage.\n Your opponent reads the name of a Chaotic card without a\n smiley set symbol. if you successfully recite the abilities of that\ncard, Look at the top 5 cards of either players Attack deck and\n put them back in any order."
+        },
+        "B@ll In A Day's Work":{
+            "img": "https://i.imgur.com/iAtwYBN.png",
+            "type": "Attack",
+            "text": "Challenge Power -5: Deal 10 damage.\nChoose up to ohne Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a :TLCounter: on that Creature."
+        },
+        "Fast B@ll":{ 
+           "img": "https://i.imgur.com/hNLabxB.png",
+           "type": "Attack",
+           "text": "Stat Check Speed 75: Deal 10 damage.\nWhen this card resolves throw it outside the play area *(it is\nremoved from play).*"
+        },
+        "Foul B@ll":{ 
+            "img": "https://i.imgur.com/DPF62lD.png",
+            "type": "Attack",
+            "text": "Stat Check Wisdom 75: Deal 10 damage.\nThis card is face-up while in your Attack Deck. *(Both players may see where this card is in the deck)*",
+        },
+        "Knowledgeab@ll":{
+            "img": "https://i.imgur.com/ZArk961.png",
+            "type": "Attack",
+            "text": "Stat Check Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*",
+        },
+        "Power B@ll":{
+            "img": "https://i.imgur.com/3R6HVWH.png",
+            "type": "Attack",
+            "text": "Stat Check Power 75:Deal 10 damage.\nPower B@ll deal its damage to target creature."
+        },
+        "Replicating B@lls":{
+            "img": "https://i.imgur.com/WwHYfQM.png",
+            "type": "Attack",
+            "text": "Replace one Attack Card not named "Replicating B@lls" in any\n players discard pile at random with a copy of Replicating B@lls\n from outside the game" 
+        },
+        "B@lligarch's Rage":{
+            "img": "https://i.imgur.com/4CPBeDE.png",
+            "type": "Attack",
+            "text": " If your engaged Creature is a Cheiftain deal 10 damage.\nIf the Creature that played this attack is Aa'une the B@ligarch,\nflip it to the left or right."
+        },
+        "Salt B@lls":{
+            "img": "https://i.imgur.com/g50KCzN.png",
+            "type": "Attack",
+            "text": "Deal 5 damage for each Chaotic game you've lost against your\n opponent since the last time you won against them."
+        },
+        "Bouncy Rockb@lls":{ 
+            "img": "https://i.imgur.com/oF7wyjk.png",
+            "type": "Attack",
+            "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
+        },
+        "Bouncy Fireb@lls":{ 
+            "img": "https://i.imgur.com/Zwvu5ZP.png",
+            "type": "Attack",
+            "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
+        },
+        "Bouncy Shockb@lls":{ 
+            "img": "https://i.imgur.com/I3zJuMV.png",
+            "type": "Attack",
+            "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
+        },
+        "Bouncy WaveB@lls":{ 
+            "img": "https://i.imgur.com/ndWdY9h.png",
+            "type": "Attack",
+            "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
+        },
+        "Soot B@lls":{
+            "img": "https://i.imgur.com/mU8dTWS.png",
+            "type": "Attack",
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\nFire, Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
+        },
+        "Sand B@lls":{
+            "img": "https://i.imgur.com/2LoYS91.png",
+            "type": "Attack",
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nAir, Earth: Search your Location deck for a card, Shuffle\n the deck, it becomes the new active Location."
+        },
+        "Muck B@lls":{
+            "img": "https://i.imgur.com/UCtjhzp.png",
+            "type": "Attack",
+            "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
+        }
     }
-}
+    
+} 
