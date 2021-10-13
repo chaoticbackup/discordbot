@@ -155,8 +155,11 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     else if (isUser(message, 'bf')) {
       return compliment([users('bf')], '', message.guild);
     }
-    else {
-      return rndrsp(hello, 'hello');
+    else if (isUser(message, 'ferric')) {
+      const responses = ["How's the dam coming along?", "Is it raining cool beavers?"];
+      return rndrsp(responses);
     }
+
+    return rndrsp(hello, 'hello');
   }
 }
