@@ -1748,8 +1748,7 @@
             "type": "Mugic"
         }        
     },
-     //In order of backup post   
-    "Gone Chaotic 5 @ll B@lls":{
+     "Gone_Chaotic_5":{
         "Perfect Ballance": {
             "img": "https://i.imgur.com/hGXrpQy.png",
             "type": "Attack",
@@ -1773,32 +1772,32 @@
         "Improvised Water B@ll":{ 
             "img": "https://i.imgur.com/97LHPKt.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nWater,shuffle this card and another copy of "Improvised \nWater B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Water B@ll"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\nWater,shuffle this card and another copy of \"Improvised \nWater B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Water B@ll\"only once each turn."
         },
         "Improvised Earth B@ll":{ 
             "img": "https://i.imgur.com/ryJE8yC.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nEarth,shuffle this card and another copy of "Improvised \nEarth B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Earth B@ll"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\nEarth,shuffle this card and another copy of \"Improvised \nEarth B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Earth B@ll\"only once each turn."
         },
         "Improvised Fire B@ll":{ 
             "img": "https://i.imgur.com/IBakZqv.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nFire,shuffle this card and another copy of "Improvised \Fire B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Fire B@ll"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\nFire,shuffle this card and another copy of \"Improvised \nFire B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Fire B@ll\"only once each turn."
         },
         "Improvised Air B@ll":{ 
             "img": "https://i.imgur.com/kVMdy9n.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nAir,shuffle this card and another copy of "Improvised \Air B@ll" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n"Impovised Air B@ll"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\nAir,shuffle this card and another copy of \"Improvised \nAir B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Air B@ll\"only once each turn."
         },
         "Stand B@all":{ 
             "img": "https://i.imgur.com/sOu4yjN.png",
             "type": "Attack",
-            "text": "Challenge Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains "Defender"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
+            "text": "Challenge Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains \"Defender\"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
         },
         "B@llink and You'll Miss It":{
             "img": "https://i.imgur.com/9Dtw2LF.png",
             "type": "Attack",
-            "text": "Challenge Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n"Untargetable by opponents"."
+            "text": "Challenge Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n\"Untargetable by opponents\"."
         },
         "Know-It-B@ll":{
             "img": "https://i.imgur.com/t3HlzAY.png",
@@ -1818,12 +1817,12 @@
         "Foul B@ll":{ 
             "img": "https://i.imgur.com/DPF62lD.png",
             "type": "Attack",
-            "text": "Stat Check Wisdom 75: Deal 10 damage.\nThis card is face-up while in your Attack Deck. *(Both players may see where this card is in the deck)*",
+            "text": "Stat Check Wisdom 75: Deal 10 damage.\nThis card is face-up while in your Attack Deck. *(Both players may see where this card is in the deck)*"
         },
         "Knowledgeab@ll":{
             "img": "https://i.imgur.com/ZArk961.png",
             "type": "Attack",
-            "text": "Stat Check Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*",
+            "text": "Stat Check Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*"
         },
         "Power B@ll":{
             "img": "https://i.imgur.com/3R6HVWH.png",
@@ -1833,7 +1832,7 @@
         "Replicating B@lls":{
             "img": "https://i.imgur.com/WwHYfQM.png",
             "type": "Attack",
-            "text": "Replace one Attack Card not named "Replicating B@lls" in any\n players discard pile at random with a copy of Replicating B@lls\n from outside the game" 
+            "text": "Replace one Attack Card not named \"Replicating B@lls\" in any\n players discard pile at random with a copy of Replicating B@lls\n from outside the game" 
         },
         "B@lligarch's Rage":{
             "img": "https://i.imgur.com/4CPBeDE.png",
@@ -1868,7 +1867,7 @@
         "Soot B@lls":{
             "img": "https://i.imgur.com/mU8dTWS.png",
             "type": "Attack",
-            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\nFire, Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\n:Fire:Fire, :Air:Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
         },
         "Sand B@lls":{
             "img": "https://i.imgur.com/2LoYS91.png",
@@ -1879,7 +1878,36 @@
             "img": "https://i.imgur.com/UCtjhzp.png",
             "type": "Attack",
             "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
+        },
+        "Geyser B@lls":{ 
+            "img": "https://i.imgur.com/hSSuJGS.png",
+            "type": "Attack",
+            "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
+        },
+        "The First B@ll":{
+            "img": "https://i.imgur.com/07WWCju.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The Second\nB@ll\" from outside the game."
+        },
+        "The Second B@ll":{
+            "img": "https://i.imgur.com/ikYF3Wn.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The Third\nB@ll\" from outside the game."
+        },
+        "The Third B@ll":{
+            "img": "https://i.imgur.com/L5AYdHY.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The FinalB@ll\"\n from outside the game."
+        },
+        "The Final B@ll":{
+            "img": "https://i.imgur.com/gb3ENZJ.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The First B@ll\"\n from outside the game."
+        },
+        "B@llmageddon":{ 
+            "img": "https://i.imgur.com/ATBNvsv.png",
+            "type": "Attack",
+            "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
         }
-    }
-    
-} 
+    }        
+}   
