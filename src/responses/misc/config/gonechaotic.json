@@ -1912,8 +1912,8 @@
         "Attacat, Swift B@llade":{
             "img": "https://i.imgur.com/OFSds4I.png",
             "type": "Creature",
-            "tribe": "Overworld",
-            "stats":[20,70,70,110],
+            "tribe": "Overworlder",
+            "stats":[20,70,70,110,60],
             "text": "B@llsistence\nAttacks played by this Creature are\n\"Untargetable\".\nSwift 1",
             "flavour": "Omg you're taking forever! I'll do just do it."
 	}
