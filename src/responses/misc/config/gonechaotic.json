@@ -1878,6 +1878,36 @@
             "img": "https://i.imgur.com/UCtjhzp.png",
             "type": "Attack",
             "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
+	},
+          "Geyser B@lls":{ 
+            "img": "https://i.imgur.com/hSSuJGS.png",
+            "type": "Attack",
+            "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
+        },
+        "The First B@ll":{
+            "img": "https://i.imgur.com/07WWCju.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The Second\nB@ll\" from outside the game."
+        },
+        "The Second B@ll":{
+            "img": "https://i.imgur.com/ikYF3Wn.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The Third\nB@ll\" from outside the game."
+        },
+        "The Third B@ll":{
+            "img": "https://i.imgur.com/L5AYdHY.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The FinalB@ll\"\n from outside the game."
+        },
+        "The Final B@ll":{
+            "img": "https://i.imgur.com/gb3ENZJ.png",
+            "type": "Attack",
+            "text": "After this Card resolves,swap it with a copy of \"The First B@ll\"\n from outside the game."
+        },
+        "B@llmageddon":{ 
+            "img": "https://i.imgur.com/ATBNvsv.png",
+            "type": "Attack",
+            "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
         }
-    }
-}   
+    }        
+}      
