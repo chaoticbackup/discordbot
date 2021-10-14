@@ -1908,6 +1908,14 @@
             "img": "https://i.imgur.com/ATBNvsv.png",
             "type": "Attack",
             "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
-        }
+           },
+        "Attacat, Swift B@llade":{
+            "img": "https://i.imgur.com/OFSds4I.png",
+            "type": "Creature",
+            "tribe": "Overworld",
+            "stats":[20,70,70,110],
+            "text": "B@llsistence\nAttacks played by this Creature are\n\"Untargetable\".\nSwift 1",
+            "flavour": "Omg you're taking forever! I'll do just do it."
+	}
     }        
 }      
