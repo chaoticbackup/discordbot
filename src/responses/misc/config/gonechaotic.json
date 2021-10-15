@@ -838,7 +838,7 @@
             "type": "Creature",
             "tribe": "Danian",
             "stats": [175,40,10,10,50],
-            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5/\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
+            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
         },
         "M'arrillian Bubble Blowing Chamber": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/m_arri10.jpg",
@@ -853,7 +853,7 @@
             "alt": "https://i.servimg.com/u/f62/18/37/62/02/magic_13.jpg",
             "type": "Battlegear"
         },
-        "Maxxor, Sick": {
+        "Maxxor Sick": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/maxxor10.jpg",
             "type": "Creature"
         },
@@ -1867,7 +1867,7 @@
         "Soot B@lls":{
             "img": "https://i.imgur.com/mU8dTWS.png",
             "type": "Attack",
-            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\nFire, Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\n:Fire:Fire, :Air:Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
         },
         "Sand B@lls":{
             "img": "https://i.imgur.com/2LoYS91.png",
@@ -1878,19 +1878,19 @@
             "img": "https://i.imgur.com/UCtjhzp.png",
             "type": "Attack",
             "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
-	},
-          "Geyser B@lls":{ 
+        },
+        "Geyser B@lls":{ 
             "img": "https://i.imgur.com/hSSuJGS.png",
             "type": "Attack",
             "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
         },
         "The First B@ll":{
-            "img": "https://i.imgur.com/ikYF3Wn.png",
+            "img": "https://i.imgur.com/07WWCju.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Second\nB@ll\" from outside the game."
         },
         "The Second B@ll":{
-            "img": "https://i.imgur.com/07WWCju.png",
+            "img": "https://i.imgur.com/ikYF3Wn.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Third\nB@ll\" from outside the game."
         },
@@ -1908,14 +1908,60 @@
             "img": "https://i.imgur.com/ATBNvsv.png",
             "type": "Attack",
             "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
-           },
+        },
         "Attacat, Swift B@llade":{
             "img": "https://i.imgur.com/OFSds4I.png",
             "type": "Creature",
-            "tribe": "OverWorld",
-            "stats":[20,70,70,110,60],
+            "tribe": "OverWorlder",
+            "stats":[20,70,70,110],
             "text": "B@llsistence\nAttacks played by this Creature are\n\"Untargetable\".\nSwift 1",
             "flavour": "Omg you're taking forever! I'll do just do it."
-	}
+        },
+        "Iduz, B@lluff Rider":{
+            "img": "https://i.imgur.com/Lp5UgW2.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats":[80,50,85,50,70],
+            "text": "\nAttacks this Creature plays deal an additional\n5 damage for each build point they have.",
+            "flavour": "Sliding into battle and into your DM's."
+        },
+        "Yokkis, Master B@llfoon":{
+            "img": "https://i.imgur.com/mddNIeN.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats": [10,10,10,10,60],
+            "text": "B@llsistence\nThis Creature succeeds all Stat checks and\nChallenges on attacks it plays.",
+            "flavour": "\"It was just prank bro!\" -Yokkis after trying to kill a kid with bees."
+        },
+        "Thodish, Elemenb@ll Charger":{
+            "img": "https://i.imgur.com/4Ackfj2.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats": [75,95,80,25,60],
+            "text": "B@llsistence\nWhen this Creature resolves its first attack\neach combat ability your engaged Creature\ngains \"Element 5\" in an Elemental type of your\nchoice.\n**Loyal**"
+        },
+        "Phraan B@llm Maker":{
+            "img": "https://i.imgur.com/luUA2nT.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats": [75,45,100,45,50],
+            "text": "B@llsistence\nWhen this Creature deals damage with its first\nattack each cmbat. Your engaged creature\ngain Energy equal to the damage dealt.\n**Unique,Loyal**",
+            "flavour": "Hey baby, wanna feel my healing hands."
+        },
+        "Sarletha, B@llet Dancer":{
+            "img": "https://i.imgur.com/lXXG2We.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats": [20,25,100,100],
+            "text": ":OWCounter:,Spin this card: This ability has the effect on\n the side closest to you\nTop: Negate target Mugic\nBottom: Return a Mugic card from your discard to your discard pile to your hand\nLeft: Put a Mugic Counter on another target Creature you control.\nRight: Creatures you control can cast mugic of cany tribe" 
+        },
+        "Raimusa, Dead and B@llried":{
+            "img": "https://i.imgur.com/yKpMj1m.png",
+            "type": "Creature",
+            "tribe": "OverWorlder",
+            "stats": [50,65,80,30,120],
+            "text": "**This Card and its Battlegear begin the game\nin your discard pile.**",
+            "flavour": "He's still less dead than Chaotic."
+        }
     }        
-}      
+}   
