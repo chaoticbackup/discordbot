@@ -1885,12 +1885,12 @@
             "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
         },
         "The First B@ll":{
-            "img": "https://i.imgur.com/07WWCju.png",
+            "img": "https://i.imgur.com/ikYF3Wn.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Second\nB@ll\" from outside the game."
         },
         "The Second B@ll":{
-            "img": "https://i.imgur.com/ikYF3Wn.png",
+            "img": "https://i.imgur.com/07WWCju.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Third\nB@ll\" from outside the game."
         },
