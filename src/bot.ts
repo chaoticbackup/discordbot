@@ -38,7 +38,7 @@ if (!development) {
 
 const start = () => {
   if (devType === 'all') {
-    sq.start();
+    // sq.start();
     fp.start();
   }
   else if (devType === 'scan') {
