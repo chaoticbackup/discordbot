@@ -60,6 +60,7 @@ const _tierlist = {
     "Wise Guys"
   ],
   B: [
+    "Compost Malvone",
     "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
@@ -159,6 +160,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
+  "Compost Malvone": {
+    url: "https://chaoticbackup.forumotion.com/t1709-compost-malvone",
+    tribe: "Mixed",
+    tags: ["Beaver"],
+    type: ["Aggro"],
+    creatures: ["Gorram", "Malvadine the King's Herald", "Taffial", "Ajfak"]
+  },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
     tribe: "Mixed",
@@ -243,13 +251,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  "Gorram Malvadine": {
+  /*"Gorram Malvadine": {
     url: "https://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
     tribe: "Mixed",
     tags: [],
     type: ["Combo", "Gimmick"],
     creatures: ["Alazdan", "Gorram, Danian General", "Illiar", "Malvadine, The King's Herald", "Taffial"]
-  },
+    
+  },*/
   "Grantkae Control": {
     url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control",
     tribe: "Mixed",
