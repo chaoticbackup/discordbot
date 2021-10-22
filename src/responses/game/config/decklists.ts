@@ -60,6 +60,7 @@ const _tierlist = {
     "Wise Guys"
   ],
   B: [
+    "Compost Malvone",
     "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
@@ -159,6 +160,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
+  "Compost Malvone": {
+    url: "https://chaoticbackup.forumotion.com/t1709-compost-malvone",
+    tribe: "Mixed",
+    tags: ["Beaver", "Compost"],
+    type: ["Aggro"],
+    creatures: ["Goram", "Malvadine the King's Herald", "Taffial", "Ajfak"]
+  },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
     tribe: "Mixed",
@@ -218,7 +226,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   "Gan'trak Bladez": {
     url: "https://chaoticbackup.forumotion.com/t1655-gan-trak#15068",
     tribe: "M'arrillian",
-    tags: [],
+    tags: ["Beaver"],
     type: ["Anti-Meta"],
     creatures: ["Gan'trak", "Jaidwarl", "Okaxor", "Bladez", "Brimflame", "Nunk'worm", "Gronmor"]
   },
@@ -243,13 +251,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  "Gorram Malvadine": {
+  /*"Gorram Malvadine": {
     url: "https://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
     tribe: "Mixed",
     tags: [],
     type: ["Combo", "Gimmick"],
     creatures: ["Alazdan", "Gorram, Danian General", "Illiar", "Malvadine, The King's Herald", "Taffial"]
-  },
+    
+  },*/
   "Grantkae Control": {
     url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control",
     tribe: "Mixed",
@@ -267,7 +276,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   Healdrom: {
     url: "https://chaoticbackup.forumotion.com/t1705-healdrom",
     tribe: "Mixed",
-    tags: ["Scouts' Monocular"],
+    tags: ["Scouts' Monocular", "Beaver"],
     type: ["Combo"],
     creatures: ["Olkiex", "Lam'inkal", "Lomma, Desert Wanderer", "Hiadrom, Rock Ripper", "Garv"]
   },
@@ -442,7 +451,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   Tartereklessness: {
     url: "https://chaoticbackup.forumotion.com/t1686-tartereklessness",
     tribe: "M'arrillian",
-    tags: [],
+    tags: ["Beaver"],
     type: ["Midrange"],
     creatures: ["Tartarek, Psi Overloader", "Akkalbi", "Xis'torq", "Jaidwarl", "Gimwei"]
   },
