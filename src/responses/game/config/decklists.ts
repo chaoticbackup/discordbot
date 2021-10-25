@@ -89,7 +89,6 @@ const _tierlist = {
     "GearEater",
     "Getting Ripped",
     "Gintanai",
-    "Gorram Malvadine",
     "Grounded",
     "Hive Mind",
     "Khorror",
@@ -161,11 +160,11 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
   "Compost Malvone": {
-    url: "https://chaoticbackup.forumotion.com/t1709-compost-malvone",
+    url: "https://chaoticbackup.forumotion.com/t1709-compost-malvone#15183",
     tribe: "Mixed",
     tags: ["Beaver"],
     type: ["Aggro"],
-    creatures: ["Gorram", "Malvadine the King's Herald", "Taffial", "Ajfak", "Tiaane"]
+    creatures: ["Alazdan", "Gorram", "Malvadine the King's Herald", "Taffial", "Ajfak", "Tiaane"]
   },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
