@@ -50,10 +50,10 @@ const _tierlist = {
   A: [
     "Aszil Compost",
     "Be a Man",
+    "Come Sail Away",
     "Danian Burn",
     "Elegy Spam",
     "Fliandar",
-    "Come Sail Away",
     "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
