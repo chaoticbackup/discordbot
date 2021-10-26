@@ -50,8 +50,8 @@ const _tierlist = {
   A: [
     "Aszil Compost",
     "Danian Burn",
+    "Elegy Spam",
     "Fliandar",
-    "Heartmatred's Attack",
     "Master of the Sails",
     "PoP'in Off",
     "Sis Ops",
@@ -65,7 +65,8 @@ const _tierlist = {
     "Gan'trak Bladez",
     "Grantkae Control",
     "Feasting",
-    "Lobster Lightning",
+    "Firefly",
+    "Heartmatred's Attack",
     "Oath of the Oasis",
     "Ocean Man",
     "OverWorld Muge",
@@ -187,6 +188,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Tarin", "Makanaz", "Ivelaan", "Elhadd", "Mhein", "Illexia, The Danian Queen"]
   },
+  "Elegy Spam": {
+    url: "https://chaoticbackup.forumotion.com/t1708-elegy-spam",
+    tribe: "Mixed",
+    tags: ["Elemental Elegy"],
+    type: ["Control"],
+    creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
+  },
   "Erak'tabb": {
     url: "https://chaoticbackup.forumotion.com/t1695-erak-tabb",
     tribe: "M'arrillian",
@@ -250,14 +258,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  /*"Gorram Malvadine": {
-    url: "https://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
-    tribe: "Mixed",
-    tags: [],
-    type: ["Combo", "Gimmick"],
-    creatures: ["Alazdan", "Gorram, Danian General", "Illiar", "Malvadine, The King's Herald", "Taffial"]
-    
-  },*/
   "Grantkae Control": {
     url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control",
     tribe: "Mixed",
@@ -321,7 +321,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra", "Lanker"]
   },
-  "Lobster Lightning": {
+  "Firefly": {
     url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
     tribe: "M'arrillian",
     tags: ["Mipedian Fulgurite"],
