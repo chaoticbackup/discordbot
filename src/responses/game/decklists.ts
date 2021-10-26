@@ -182,10 +182,21 @@ function _tierlist() {
     .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.');
   for (const key of tiers) {
     let message = '';
+    let cont = false;
     tierlist[key].forEach((deck: string) => {
+      const entry = `[${deck}](${decklist[deck].url})\n`;
+      if (message.length + entry.length >= 1024) {
+        output.addField(
+          (!cont ? key: `${key} cont.`), message, true
+        );
+        message = '';
+        cont = true;
+      }
       message += `[${deck}](${decklist[deck].url})\n`;
     });
-    output.addField(key, message, true);
+    output.addField(
+      (!cont ? key: `${key} cont.`), message, true
+    );
   }
 
   return output;
