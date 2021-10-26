@@ -45,19 +45,19 @@ const _tierlist = {
     "Rawr",
     "Strike",
     "Swimming Team",
-    "UnderWorld Burn",
+    "UW Burn",
   ],
   A: [
     "Aszil Compost",
+    "Be a Man",
     "Danian Burn",
     "Elegy Spam",
     "Fliandar",
-    "Sails",
+    "Come Sail Away",
     "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
-    "Tree Frogs",
-    "Wise Guys"
+    "Tree Frogs"
   ],
   B: [
     "Compost Malvone",
@@ -342,7 +342,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Tarterek, Psi Overloader", "Gimwei", "Erak'tabb", "Neth'uar", "Xis'torq"]
   },
-  "Sails": {
+  "Come Sail Away": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
     tribe: "Mixed",
     tags: ["Fluidmorph"],
@@ -468,7 +468,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
-  "UnderWorld Burn": {
+  "UW Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
@@ -496,7 +496,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Blazvatan, The Epic Warbeast", "Ailav", "Kileron, Warbeast of the Dust Storm", "Malvadine, The King's Herald", "Bylkian", "Ranun", "Gaffat-ra"]
   },
-  "Wise Guys": {
+  "Be a Man": {
     url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
     tribe: "OverWorld",
     tags: [],
