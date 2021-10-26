@@ -3,9 +3,9 @@ import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
-import { tierlist, decklist, axes, isTier, isType, tiers } from './config/decklists';
+import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers } from './config/decklists';
 
-function _tiers(input: string) {
+function getTiers(input: string) {
   input = input.toUpperCase();
 
   if (input === 'CM') input = 'S';
@@ -20,7 +20,7 @@ function _tiers(input: string) {
   }
 }
 
-function _types(input: string) {
+function getTypes(input: string) {
   let _type = input.charAt(0).toUpperCase() + input.slice(1);
 
   if (input.toLowerCase() === 'aggrocontrol') _type = 'Aggro-Control';
@@ -40,9 +40,9 @@ function _types(input: string) {
   }
 }
 
-function _tribes(input: string) {
+function getTribes(input: string) {
   if (input === 'generic' || input === 'tribeless') {
-    return _tags('tribeless')!;
+    return getTags('tribeless')!;
   }
 
   const _tribe = (input === 'frozen') ? 'Mixed' : parseTribe(input, 'Mixed');
@@ -60,7 +60,7 @@ function _tribes(input: string) {
   }
 }
 
-function _tags(input: string) {
+function getTags(input: string) {
   const deck_list: string[] = [];
 
   for (const deck in decklist) {
@@ -86,7 +86,7 @@ function _tags(input: string) {
   }
 }
 
-function _creatures(input: string) {
+function getCreatures(input: string) {
   const results = API.find_cards_ignore_comma(input);
 
   if (results.length === 0) return undefined;
@@ -136,7 +136,7 @@ function _axes() {
   return rsp;
 }
 
-function _decklist(input: string): RichEmbed | string {
+function getDecklist(input: string): RichEmbed | string {
   let output: RichEmbed | undefined;
   input = cleantext(input);
 
@@ -149,7 +149,7 @@ function _decklist(input: string): RichEmbed | string {
   }
 
   if (input.length <= 2) {
-    if ((output = _tiers(input)) instanceof RichEmbed) {
+    if ((output = getTiers(input)) instanceof RichEmbed) {
       return output;
     }
     else {
@@ -157,26 +157,26 @@ function _decklist(input: string): RichEmbed | string {
     }
   }
 
-  if ((output = _types(input)) instanceof RichEmbed) {
+  if ((output = getTypes(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if ((output = _tribes(input)) instanceof RichEmbed) {
+  if ((output = getTribes(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if ((output = _creatures(input)) instanceof RichEmbed) {
+  if ((output = getCreatures(input)) instanceof RichEmbed) {
     return output;
   }
 
-  if ((output = _tags(input)) instanceof RichEmbed) {
+  if ((output = getTags(input)) instanceof RichEmbed) {
     return output;
   }
 
   return "I'm unable to find decks that match your search terms";
 }
 
-function _tierlist() {
+function getTierlist() {
   const output = new RichEmbed()
     // eslint-disable-next-line max-len
     .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.');
@@ -199,11 +199,26 @@ function _tierlist() {
     );
   }
 
+  output.addField("\u200B", "For additional decks use `!deck` or `!curated`", false)
+
   return output;
 }
 
+function getCurated() {
+  let message = '';
+
+  sortedlist["curated"].forEach((deck: string) => {
+    message += `[${deck}](${decklist[deck].url})\n`;
+  });
+
+  if (message.length > 2000) message = message.slice(0, 1999);
+
+  return (new RichEmbed()).addField("Curated Decks", message, true);
+}
+
 export {
-  _tierlist as tierlist,
-  _decklist as decklist,
-  _tiers as tier
+  getTierlist as tierlist,
+  getDecklist as decklist,
+  getTiers as tier,
+  getCurated as curated
 };

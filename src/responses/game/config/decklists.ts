@@ -39,7 +39,7 @@ export const axes: {[key in DeckType]: string} = {
 
 // The names in the decklist have to be found in this list
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
-const _tierlist = {
+export const sortedlist = {
   S: [
     "Healdrom",
     "Rawr",
@@ -61,19 +61,25 @@ const _tierlist = {
   ],
   B: [
     "Compost Malvone",
-    "Blazvatan",
     "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
-    "Feasting",
     "Firefly",
     "Hermatred",
     "Oath",
-    "Ocean Man",
-    "OverWorld Muges",
     "Tartereklessness",
     "Trampling Mammoth",
     "Ursis Dagger"
+  ],
+  curated: [
+    "Blazvatan",
+    "Erak'tabb Tartarek",
+    "Feasting",
+    "Flame On",
+    "Nimmei",
+    "Ocean Man",
+    "OverWorld Muges",
+    "OverWorld Elemental",
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
@@ -82,33 +88,27 @@ const _tierlist = {
     "Brathe Yourself",
     "Bodal's Boys",
     "Crack the Whep",
-    "Erak'tabb",
     "Fire and Brimstone",
-    "Flame On!",
     "Flying Frogs",
     "Four Arms",
     "GearEater",
     "Getting Ripped",
     "Gintanai",
     "Grounded",
-    "Hive Mind",
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
-    "M'arr Courage Wisdom",
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
-    "OverWorld Elemental",
-    "Reporting for Duty",
+    "Stelgar Compost",
     "UnderWorld Discipline Burn"
   ]
 } as const;
 
-export const tierlist = _tierlist as any as {[key in Tier]: string[]};
+export const tierlist = sortedlist as any as {[key in Tier]: string[]};
 
-type deck_names = typeof _tierlist["S"] | typeof _tierlist["A"] | typeof _tierlist["B"] | typeof _tierlist["_"];
-
+type deck_names = typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] | typeof sortedlist["_"] | typeof sortedlist["curated"];
 interface Deck {
   url: string
   tribe: Tribe
@@ -195,14 +195,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
   },
-  "Erak'tabb": {
+  "Erak'tabb Tartarek": {
     url: "https://chaoticbackup.forumotion.com/t1695-erak-tabb",
     tribe: "M'arrillian",
     tags: [],
     type: ["Midrange"],
-    creatures: ["Blaaxa", "Okaxor", "Erak'tabb", "Tarterek, Psi Overloader", "Arrthoa"]
+    creatures: ["Blaaxa", "Okaxor", "Erak'tabb", "Tarterek, Psi Overloader", "Arrthoa", "Jaidwarl", "Neth'uar", "Xis'torq"]
   },
-  "Flame On!": {
+  "Flame On": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
     tribe: "Mixed",
     tags: ["Fire"],
@@ -286,7 +286,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Tabaal", "Illexia, The Danian Queen", "Ivelaan", "Elhadd", "Hermatred"]
   },
-  "Hive Mind": {
+  "Stelgar Compost": {
     url: "https://chaoticbackup.forumotion.com/t1599-hivemind",
     tribe: "Mixed",
     tags: ["Compost"],
@@ -334,13 +334,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
-  },
-  "M'arr Courage Wisdom": {
-    url: "https://chaoticbackup.forumotion.com/t1689-marr-courage-wisdom",
-    tribe: "M'arrillian",
-    tags: [],
-    type: ["Aggro"],
-    creatures: ["Tarterek, Psi Overloader", "Gimwei", "Erak'tabb", "Neth'uar", "Xis'torq"]
   },
   "Come Sail Away": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
@@ -412,7 +405,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe"]
   },
-  "Reporting for Duty": {
+  "Nimmei": {
     url: "https://chaoticbackup.forumotion.com/t1688-reporting-for-duty",
     tribe: "Danian",
     tags: ["Infection"],
@@ -426,13 +419,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Kepiaan, Danian Lieutenant", "Tangath Toborn, OverWorld General", "Aivenna, OverWorld Lieutenant", "Nunk'worn", "Na-inna", "Nivenna, UnderWorld Lieutenant"]
   },
-  // "Six Arms": {
-  //   url: "https://chaoticbackup.forumotion.com/t1581-6-arms",
-  //   tribe: "Mixed",
-  //   tags: ["Infection"],
-  //   type: ["Combo"],
-  //   creatures: ["Ebbikka", "Olkiex, Driver Extraordinaire", "Ikkatosh, The Aich King", "Vunhra"]
-  // },
   Strike: {
     url: "https://chaoticbackup.forumotion.com/t1568-strike",
     tribe: "Mipedian",
