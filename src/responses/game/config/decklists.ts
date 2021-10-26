@@ -61,6 +61,7 @@ const _tierlist = {
   ],
   B: [
     "Compost Malvone",
+    "Blazvatan",
     "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
@@ -72,8 +73,7 @@ const _tierlist = {
     "OverWorld Muges",
     "Tartereklessness",
     "Trampling Mammoth",
-    "Ursis Dagger",
-    "Blazvatan"
+    "Ursis Dagger"
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
