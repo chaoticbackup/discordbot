@@ -52,8 +52,8 @@ const _tierlist = {
     "Danian Burn",
     "Elegy Spam",
     "Fliandar",
-    "Master of the Sails",
-    "PoP'in Off",
+    "Sails",
+    "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
     "Tree Frogs",
@@ -66,14 +66,14 @@ const _tierlist = {
     "Grantkae Control",
     "Feasting",
     "Firefly",
-    "Heartmatred's Attack",
-    "Oath of the Oasis",
+    "Hermatred",
+    "Oath",
     "Ocean Man",
-    "OverWorld Muge",
+    "OverWorld Muges",
     "Tartereklessness",
     "Trampling Mammoth",
     "Ursis Dagger",
-    "Warbeast"
+    "Blazvatan"
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
@@ -279,7 +279,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Olkiex", "Lam'inkal", "Lomma, Desert Wanderer", "Hiadrom, Rock Ripper", "Garv"]
   },
-  "Heartmatred's Attack": {
+  "Hermatred": {
     url: "https://chaoticbackup.forumotion.com/t1672-hermatred",
     tribe: "Danian",
     tags: ["Compost", "Infection", "Courage"],
@@ -342,7 +342,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Tarterek, Psi Overloader", "Gimwei", "Erak'tabb", "Neth'uar", "Xis'torq"]
   },
-  "Master of the Sails": {
+  "Sails": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
     tribe: "Mixed",
     tags: ["Fluidmorph"],
@@ -370,7 +370,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Ursis", "Galmedar", "Smildon", "Vunhra"]
   },
-  "Oath of the Oasis": {
+  "Oath": {
     url: "https://chaoticbackup.forumotion.com/t1683-oath-of-the-oasis",
     tribe: "Mixed",
     tags: [],
@@ -391,14 +391,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
   },
-  "OverWorld Muge": {
+  "OverWorld Muges": {
     url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
     tribe: "OverWorld",
     tags: [],
     type: ["Midrange"],
     creatures: ["Tangath Toborn, In Training", "Maxxor, Elemental Champion", "Attacat, Tactical Aide", "Drabe", "Lomma, Desert Wanderer", "Karraba"]
   },
-  "PoP'in Off": {
+  "PoP": {
     url: "https://chaoticbackup.forumotion.com/t1674-pop-in-off",
     tribe: "OverWorld",
     tags: [],
@@ -489,7 +489,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Bladez", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
   },
-  Warbeast: {
+  "Blazvatan": {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
     tribe: "Mipedian",
     tags: ["Warbeast", "Air", "Earth"],
