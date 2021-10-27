@@ -1,6 +1,5 @@
 import { GuildMember, Snowflake, Message, Client, TextChannel } from "discord.js";
 import servers from './common/servers';
-import { Channel } from './definitions';
 
 interface Store {
   link: string
@@ -31,9 +30,9 @@ export function checkNewMember(member: GuildMember) {
   }
 }
 
-const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'm');
+const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/);
 export function checkSpam (bot: Client, msg: Message): Boolean {
-  if (!msg.guild || msg.guild.id !== servers('main').id) return false;
+  if (!msg.guild || msg.guild.id !== servers('develop').id) return false;
 
   const index = newMembers.indexOf(msg.author.id);
 
@@ -47,8 +46,8 @@ export function checkSpam (bot: Client, msg: Message): Boolean {
     if (msg.member.kickable) {
       msg.member.kick('Posted link as first message. Typically spam bot behavior.')
       .then(async () => {
-        const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
+        // const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
+        // await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
         if (msg.deletable) msg.delete();
       });
     }
@@ -57,7 +56,7 @@ export function checkSpam (bot: Client, msg: Message): Boolean {
     const new_link = msg.content.match(link_regex)![0];
     if (linkMessages.has(msg.author.id)) {
       const {link, ids} = linkMessages.get(msg.author.id)!;
-      if (new_link.localeCompare(link)) {
+      if (new_link.localeCompare(link) === 0) {
         ids.push({
           channel: msg.channel.id,
           message: msg.id
@@ -66,8 +65,8 @@ export function checkSpam (bot: Client, msg: Message): Boolean {
           if (msg.member.kickable) {
             msg.member.kick('Spammed same link. Typically spam bot behavior.')
             .then(async () => {
-              const staff_channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
-              await staff_channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${link}||`);
+              // const staff_channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
+              // await staff_channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${link}||`);
               ids.forEach(({channel, message}) => {
                 (bot.channels.get(channel) as TextChannel).fetchMessage(message)
                 .then(v => {
