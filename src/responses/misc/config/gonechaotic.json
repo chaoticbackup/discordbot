@@ -833,7 +833,7 @@
             "alt": "https://i.servimg.com/u/f62/18/37/62/02/hit_or10.jpg",
             "type": "Creature"
         },
-        "Luv":{
+        "Luv": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/luv10.jpg",
             "type": "Creature",
             "tribe": "Danian",
@@ -1748,7 +1748,7 @@
             "type": "Mugic"
         }        
     },
-    "Gone_Chaotic_5":{
+    "Gone_Chaotic_5": {
         "Perfect Ballance": {
             "img": "https://i.imgur.com/hGXrpQy.png",
             "type": "Attack",
@@ -1764,152 +1764,152 @@
             "type": "Attack",
             "text": "Stat Check Wisdom 200: Deal 10 damage.\nThe Creature that played this attack passes all Wisdom\n Checks and Challenges on attack it plays for rest of the game" 
         },
-        "B@ll-Mighty":{ 
+        "B@ll-Mighty": { 
             "img": "https://i.imgur.com/N8RxqL3.png",
             "type": "Attack",
             "text": "Stat Check Power 200: Deal 10 damage.\nThe Creature that played this attack passes all Power\n Checks and Challenges on attack it plays for rest of the game" 
         },
-        "Improvised Water B@ll":{ 
+        "Improvised Water B@ll": { 
             "img": "https://i.imgur.com/97LHPKt.png",
             "type": "Attack",
             "text": "Reveal this card from you hand: If your engaged creature has\nWater,shuffle this card and another copy of \"Improvised \nWater B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Water B@ll\"only once each turn."
         },
-        "Improvised Earth B@ll":{ 
+        "Improvised Earth B@ll": { 
             "img": "https://i.imgur.com/ryJE8yC.png",
             "type": "Attack",
             "text": "Reveal this card from you hand: If your engaged creature has\nEarth,shuffle this card and another copy of \"Improvised \nEarth B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Earth B@ll\"only once each turn."
         },
-        "Improvised Fire B@ll":{ 
+        "Improvised Fire B@ll": { 
             "img": "https://i.imgur.com/IBakZqv.png",
             "type": "Attack",
             "text": "Reveal this card from you hand: If your engaged creature has\nFire,shuffle this card and another copy of \"Improvised \nFire B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Fire B@ll\"only once each turn."
         },
-        "Improvised Air B@ll":{ 
+        "Improvised Air B@ll": { 
             "img": "https://i.imgur.com/kVMdy9n.png",
             "type": "Attack",
             "text": "Reveal this card from you hand: If your engaged creature has\nAir,shuffle this card and another copy of \"Improvised \nAir B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Air B@ll\"only once each turn."
         },
-        "Stand B@all":{ 
+        "Stand B@all": { 
             "img": "https://i.imgur.com/sOu4yjN.png",
             "type": "Attack",
             "text": "Challenge Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains \"Defender\"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
         },
-        "B@llink and You'll Miss It":{
+        "B@llink and You'll Miss It": {
             "img": "https://i.imgur.com/9Dtw2LF.png",
             "type": "Attack",
             "text": "Challenge Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n\"Untargetable by opponents\"."
         },
-        "Know-It-B@ll":{
+        "Know-It-B@ll": {
             "img": "https://i.imgur.com/t3HlzAY.png",
             "type": "Attack",
             "text": "Challenge Wisdom -5: Deal 10 damage.\n Your opponent reads the name of a Chaotic card without a\n smiley set symbol. if you successfully recite the abilities of that\ncard, Look at the top 5 cards of either players Attack deck and\n put them back in any order."
         },
-        "B@ll In A Day's Work":{
+        "B@ll In A Day's Work": {
             "img": "https://i.imgur.com/iAtwYBN.png",
             "type": "Attack",
             "text": "Challenge Power -5: Deal 10 damage.\nChoose up to ohne Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a :TLCounter: on that Creature."
         },
-        "Fast B@ll":{ 
+        "Fast B@ll": { 
            "img": "https://i.imgur.com/hNLabxB.png",
            "type": "Attack",
            "text": "Stat Check Speed 75: Deal 10 damage.\nWhen this card resolves throw it outside the play area *(it is\nremoved from play).*"
         },
-        "Foul B@ll":{ 
+        "Foul B@ll": { 
             "img": "https://i.imgur.com/DPF62lD.png",
             "type": "Attack",
             "text": "Stat Check Wisdom 75: Deal 10 damage.\nThis card is face-up while in your Attack Deck. *(Both players may see where this card is in the deck)*"
         },
-        "Knowledgeab@ll":{
+        "Knowledgeab@ll": {
             "img": "https://i.imgur.com/ZArk961.png",
             "type": "Attack",
             "text": "Stat Check Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*"
         },
-        "Power B@ll":{
+        "Power B@ll": {
             "img": "https://i.imgur.com/3R6HVWH.png",
             "type": "Attack",
             "text": "Stat Check Power 75:Deal 10 damage.\nPower B@ll deal its damage to target creature."
         },
-        "Replicating B@lls":{
+        "Replicating B@lls": {
             "img": "https://i.imgur.com/WwHYfQM.png",
             "type": "Attack",
             "text": "Replace one Attack Card not named \"Replicating B@lls\" in any\n players discard pile at random with a copy of Replicating B@lls\n from outside the game" 
         },
-        "B@lligarch's Rage":{
+        "B@lligarch's Rage": {
             "img": "https://i.imgur.com/4CPBeDE.png",
             "type": "Attack",
             "text": " If your engaged Creature is a Cheiftain deal 10 damage.\nIf the Creature that played this attack is Aa'une the B@ligarch,\nflip it to the left or right."
         },
-        "Salt B@lls":{
+        "Salt B@lls": {
             "img": "https://i.imgur.com/g50KCzN.png",
             "type": "Attack",
             "text": "Deal 5 damage for each Chaotic game you've lost against your\n opponent since the last time you won against them."
         },
-        "Bouncy Rockb@lls":{ 
+        "Bouncy Rockb@lls": { 
             "img": "https://i.imgur.com/oF7wyjk.png",
             "type": "Attack",
             "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
         },
-        "Bouncy Fireb@lls":{ 
+        "Bouncy Fireb@lls": { 
             "img": "https://i.imgur.com/Zwvu5ZP.png",
             "type": "Attack",
             "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
         },
-        "Bouncy Shockb@lls":{ 
+        "Bouncy Shockb@lls": { 
             "img": "https://i.imgur.com/I3zJuMV.png",
             "type": "Attack",
             "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
         },
-        "Bouncy WaveB@lls":{ 
+        "Bouncy WaveB@lls": { 
             "img": "https://i.imgur.com/ndWdY9h.png",
             "type": "Attack",
             "text": "After this card resolves, put it into your opponent's Attack\ndiscard pile."
         },
-        "Soot B@lls":{
+        "Soot B@lls": {
             "img": "https://i.imgur.com/mU8dTWS.png",
             "type": "Attack",
             "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\n:Fire:Fire, :Air:Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
         },
-        "Sand B@lls":{
+        "Sand B@lls": {
             "img": "https://i.imgur.com/2LoYS91.png",
             "type": "Attack",
             "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nAir, Earth: Search your Location deck for a card, Shuffle\n the deck, it becomes the new active Location."
         },
-        "Muck B@lls":{
+        "Muck B@lls": {
             "img": "https://i.imgur.com/UCtjhzp.png",
             "type": "Attack",
             "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
         },
-        "Geyser B@lls":{ 
+        "Geyser B@lls": { 
             "img": "https://i.imgur.com/hSSuJGS.png",
             "type": "Attack",
             "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
         },
-        "The First B@ll":{
+        "The First B@ll": {
             "img": "https://i.imgur.com/07WWCju.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Second\nB@ll\" from outside the game."
         },
-        "The Second B@ll":{
+        "The Second B@ll": {
             "img": "https://i.imgur.com/ikYF3Wn.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The Third\nB@ll\" from outside the game."
         },
-        "The Third B@ll":{
+        "The Third B@ll": {
             "img": "https://i.imgur.com/L5AYdHY.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The FinalB@ll\"\n from outside the game."
         },
-        "The Final B@ll":{
+        "The Final B@ll": {
             "img": "https://i.imgur.com/gb3ENZJ.png",
             "type": "Attack",
             "text": "After this Card resolves,swap it with a copy of \"The First B@ll\"\n from outside the game."
         },
-        "B@llmageddon":{ 
+        "B@llmageddon": { 
             "img": "https://i.imgur.com/ATBNvsv.png",
             "type": "Attack",
             "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
         },
-        "Attacat, Swift B@llade":{
+        "Attacat, Swift B@llade": {
             "img": "https://i.imgur.com/OFSds4I.png",
             "type": "Creature",
             "tribe": "OverWorlder",
@@ -1917,7 +1917,7 @@
             "text": "B@llsistence\nAttacks played by this Creature are\n\"Untargetable\".\nSwift 1",
             "flavour": "Omg you're taking forever! I'll do just do it."
         },
-        "Iduz, B@lluff Rider":{
+        "Iduz, B@lluff Rider": {
             "img": "https://i.imgur.com/Lp5UgW2.png",
             "type": "Creature",
             "tribe": "OverWorlder",
@@ -1925,7 +1925,7 @@
             "text": "\nAttacks this Creature plays deal an additional\n5 damage for each build point they have.",
             "flavour": "Sliding into battle and into your DM's."
         },
-        "Yokkis, Master B@llfoon":{
+        "Yokkis, Master B@llfoon": {
             "img": "https://i.imgur.com/mddNIeN.png",
             "type": "Creature",
             "tribe": "OverWorlder",
@@ -1933,14 +1933,14 @@
             "text": "B@llsistence\nThis Creature succeeds all Stat checks and\nChallenges on attacks it plays.",
             "flavour": "\"It was just prank bro!\" -Yokkis after trying to kill a kid with bees."
         },
-        "Thodish, Elemenb@ll Charger":{
+        "Thodish, Elemenb@ll Charger": {
             "img": "https://i.imgur.com/4Ackfj2.png",
             "type": "Creature",
             "tribe": "OverWorlder",
             "stats": [75,95,80,25,60],
             "text": "B@llsistence\nWhen this Creature resolves its first attack\neach combat ability your engaged Creature\ngains \"Element 5\" in an Elemental type of your\nchoice.\n**Loyal**"
         },
-        "Phraan B@llm Maker":{
+        "Phraan B@llm Maker": {
             "img": "https://i.imgur.com/luUA2nT.png",
             "type": "Creature",
             "tribe": "OverWorlder",
@@ -1948,14 +1948,14 @@
             "text": "B@llsistence\nWhen this Creature deals damage with its first\nattack each cmbat. Your engaged creature\ngain Energy equal to the damage dealt.\n**Unique,Loyal**",
             "flavour": "Hey baby, wanna feel my healing hands."
         },
-        "Sarletha, B@llet Dancer":{
+        "Sarletha, B@llet Dancer": {
             "img": "https://i.imgur.com/lXXG2We.png",
             "type": "Creature",
             "tribe": "OverWorlder",
             "stats": [20,25,100,100],
             "text": ":OWCounter:,Spin this card: This ability has the effect on\n the side closest to you\nTop: Negate target Mugic\nBottom: Return a Mugic card from your discard to your discard pile to your hand\nLeft: Put a Mugic Counter on another target Creature you control.\nRight: Creatures you control can cast mugic of cany tribe" 
         },
-        "Raimusa, Dead and B@llried":{
+        "Raimusa, Dead and B@llried": {
             "img": "https://i.imgur.com/yKpMj1m.png",
             "type": "Creature",
             "tribe": "OverWorlder",
@@ -1963,7 +1963,7 @@
             "text": "**This Card and its Battlegear begin the game\nin your discard pile.**",
             "flavour": "He's still less dead than Chaotic."
         },
-        "Smosig, B@llazing Beast":{
+        "Smosig, B@llazing Beast": {
             "img": "https://i.imgur.com/FHloC2D.png",
             "type": "Creature",
             "tribe": "UnderWorlder",
@@ -1971,7 +1971,7 @@
             "text": "Dark B@llgin\nThis Creature has \"Fire 10.\"\n\nDark B@llgin: THIS CREATURE DOES NOT HAVE FIRE.\n",
             "flavour":"I'm not in today guys, I'm pretty burnt\nout."
         },  
-        "Noekan, Freshwater B@lly":{
+        "Noekan, Freshwater B@lly": {
             "img": "https://i.imgur.com/HiowNVy.png",
             "type": "Creature",
             "tribe": "UnderWorlder",
@@ -1979,7 +1979,7 @@
             "text": "Dark B@llgin:\nCreature Engaged with this one have 20 less\nEnergy\nDark B@llgin: THIS CREATURE HAS 20 LESS ENERGY",
             "flavour": "Are you playing card games? Ha, what a loser."
         },
-        "Genik, Elemental Ab@llisher":{
+        "Genik, Elemental Ab@llisher": {
             "img": "",
             "type": "Creature",
             "tribe": "UnderWorlder",
@@ -1987,7 +1987,7 @@
             "text":"Dark B@llgin:\nCreature Engaged with this one don't have\n and cannot gain all Elemental types.\nDark B@llgin: THIS CREATURE TAKES AN ADDITIONAL 5 DAMAGE FROM ELEMENTAL ATTACKS\n***Unique***",
             "flavour": "Who's Laughing now?"
         },
-        "Xaerot, B@llitz Charger":{ 
+        "Xaerot, B@llitz Charger": { 
             "img": "",
             "type": "Creature",
             "tribe": "UnderWorlder",
