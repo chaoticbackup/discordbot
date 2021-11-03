@@ -1962,6 +1962,38 @@
             "stats": [50,65,80,30,120],
             "text": "**This Card and its Battlegear begin the game\nin your discard pile.**",
             "flavour": "He's still less dead than Chaotic."
-        }
+        },
+        "Smosig, B@llazing Beast":{
+            "img": "https://i.imgur.com/FHloC2D.png",
+            "type": "Creature",
+            "tribe": "UnderWorlder",
+            "stats": [75,95,30,45,65], 
+            "text": "Dark B@llgin\nThis Creature has \"Fire 10.\"\n\nDark B@llgin: THIS CREATURE DOES NOT HAVE FIRE.\n",
+            "flavour":"I'm not in today guys, I'm pretty burnt\nout."
+        },  
+        "Noekan, Freshwater B@lly":{
+            "img": "https://i.imgur.com/HiowNVy.png",
+            "type": "Creature",
+            "tribe": "UnderWorlder",
+            "stats": [35,95,80,40,60],
+            "text": "Dark B@llgin:\nCreature Engaged with this one have 20 less\nEnergy\nDark B@llgin: THIS CREATURE HAS 20 LESS ENERGY",
+            "flavour": "Are you playing card games? Ha, what a loser."
+        },
+        "Genik, Elemental Ab@llisher":{
+            "img": "",
+            "type": "Creature",
+            "tribe": "UnderWorlder",
+            "stats": [80,100,85,35,60],
+            "text":"Dark B@llgin:\nCreature Engaged with this one don't have\n and cannot gain all Elemental types.\nDark B@llgin: THIS CREATURE TAKES AN ADDITIONAL 5 DAMAGE FROM ELEMENTAL ATTACKS\n***Unique***",
+            "flavour": "Who's Laughing now?"
+        },
+        "Xaerot, B@llitz Charger":{ 
+            "img": "",
+            "type": "Creature",
+            "tribe": "UnderWorlder",
+            "stats": [55,70,40,85,70],
+            "text": "swift 1 \nDark B@llgin\nCreatures Engaged with this one cannot be\n healed or gain energy\nWHEN A CREATURE ENGAGE WITH THIS ONE WOULD HEAL OR GAIN\n ENERGY, IT HEALS OR GAINS AN ADITIONAL 5",
+            "flavour": "Faster than a speeding ambulance"
+        }                                                                                                
     }        
 }   
