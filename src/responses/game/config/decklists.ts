@@ -161,7 +161,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
   "Compost Malvone": {
-    url: "https://chaoticbackup.forumotion.com/t1709-compost-malvone#15183",
+    url: "https://chaoticbackup.forumotion.com/t1710-compost-malvone#15183",
     tribe: "Mixed",
     tags: ["Beaver"],
     type: ["Aggro"],
