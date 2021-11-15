@@ -30,24 +30,48 @@ export function checkNewMember(member: GuildMember) {
   }
 }
 
-const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/);
+const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
+  const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
+  await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${msg || message.content}||`);
+}
+
+const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g);
 export function checkSpam (bot: Client, msg: Message): Boolean {
   if (!msg.guild || msg.guild.id !== servers('main').id) return false;
 
   const index = newMembers.indexOf(msg.author.id);
 
+  if (/@(here|everyone)/.test(msg.content) && link_regex.test(msg.content)) {
+    if (msg.member.kickable) {
+      msg.member.kick('Spammed same link. Typically spam bot behavior.')
+      .then(() => notifyStaff(bot, msg))
+      .then(() => {
+        if (msg.deletable) msg.delete();
+      });
+    }
+    return true;
+  }
+
   if (msg.content.includes('chaoticrecode') || !link_regex.test(msg.content)) {
     if (index >= 0) newMembers.splice(index, 1);
-    linkMessages.delete(msg.author.id);
+    if (linkMessages.has(msg.author.id)) {
+      const {ids, link} = linkMessages.get(msg.author.id)!;
+      if (ids.length > 1) {
+        ids.pop();
+        linkMessages.set(msg.author.id, {ids, link});
+      }
+      else {
+        linkMessages.delete(msg.author.id);
+      }
+    }
     return false;
   }
 
   if (index >= 0) {
     if (msg.member.kickable) {
       msg.member.kick('Posted link as first message. Typically spam bot behavior.')
-      .then(async () => {
-        const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
-        await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
+      .then(() => notifyStaff(bot, msg))
+      .then(() => {
         if (msg.deletable) msg.delete();
       });
     }
@@ -64,9 +88,8 @@ export function checkSpam (bot: Client, msg: Message): Boolean {
         if (ids.length >= 3) {
           if (msg.member.kickable) {
             msg.member.kick('Spammed same link. Typically spam bot behavior.')
-            .then(async () => {
-              const staff_channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
-              await staff_channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${link}||`);
+            .then(() => notifyStaff(bot, msg))
+            .then(() => {
               ids.forEach(({channel, message}) => {
                 (bot.channels.get(channel) as TextChannel).fetchMessage(message)
                 .then(v => {
