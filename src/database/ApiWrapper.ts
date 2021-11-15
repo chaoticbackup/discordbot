@@ -18,7 +18,8 @@ instance.hasAvatar = (card: Creature) => (
 instance.hasFullart = (card: Card) => (
   Boolean(card.gsx$if !== undefined && card.gsx$if !== '') ||
   Boolean(card.gsx$splash !== undefined && card.gsx$splash !== '') ||
-  Boolean(card.gsx$alt !== undefined && card.gsx$alt !== '')
+  Boolean(card.gsx$alt !== undefined && card.gsx$alt !== '') ||
+  Boolean(card.gsx$alt2 !== undefined && card.gsx$alt2 !== '')
 );
 
 instance.cardImage = (card: Card) => {
@@ -55,8 +56,7 @@ instance.cardFullart = (card: Card, options: string[] = []) => {
       url = card.gsx$alt2;
     }
   }
-
-  if (card.gsx$if && card.gsx$if !== '') {
+  else if (card.gsx$if && card.gsx$if !== '') {
     url = card.gsx$if;
   }
   else if (card.gsx$splash && card.gsx$splash !== '') {
@@ -69,6 +69,11 @@ instance.cardFullart = (card: Card, options: string[] = []) => {
     else {
       url = instance.card_back;
     }
+  }
+
+  // Workaround for inconsistent data
+  if (!url.startsWith("https://i")){
+    url = instance.base_image + url;
   }
 
   return url;

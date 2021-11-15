@@ -21,7 +21,7 @@ export default function parseCommand(content: string):
   const cmd = result.split(' ')[0].toLowerCase();
 
   const options: string[] = [];
-  result = result.replace(/(?:--|—)(([\w]+="((\\")|([^"]))*")|([^\s]+))/g, (_match: any, p1: string) => {
+  result = result.replace(/(?:--|—)(([\w]+="((\\")|([^"]))*")|([^\s]+))[\s]?/, (_match: any, p1: string) => {
     options.push(p1);
     return '';
   });

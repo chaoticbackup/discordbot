@@ -20,7 +20,7 @@ export default function (name: string, options: string[]) {
     return "That's not a valid card name";
   }
 
-  const url = API.cardFullart(card);
+  const url = API.cardFullart(card, options);
 
   const embed = new RichEmbed()
   .setColor(color(card))
