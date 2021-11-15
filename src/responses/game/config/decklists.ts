@@ -196,7 +196,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
   },
   "Erak'tabb Tartarek": {
-    url: "https://chaoticbackup.forumotion.com/t1695-erak-tabb",
+    url: "https://chaoticbackup.forumotion.com/t1689-erak-tabb-tartarek",
     tribe: "M'arrillian",
     tags: [],
     type: ["Midrange"],
