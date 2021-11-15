@@ -165,7 +165,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Mixed",
     tags: ["Beaver"],
     type: ["Aggro"],
-    creatures: ["Alazdan", "Gorram", "Malvadine the King's Herald", "Taffial", "Ajfak", "Tiaane"]
+    creatures: ["Alazdan", "Gorram", "Malvadine, The King's Herald", "Taffial", "Ajfak", "Tiaane"]
   },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
