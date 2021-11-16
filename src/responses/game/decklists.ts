@@ -179,7 +179,7 @@ function getDecklist(input: string): RichEmbed | string {
 function getTierlist() {
   const output = new RichEmbed()
     // eslint-disable-next-line max-len
-    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.');
+    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.\nFor additional decks use `!deck` or `!curated`');
   for (const key of tiers) {
     let message = '';
     let cont = false;
@@ -192,28 +192,37 @@ function getTierlist() {
         message = '';
         cont = true;
       }
-      message += `[${deck}](${decklist[deck].url})\n`;
+      message += entry;
     });
     output.addField(
       (!cont ? key: `${key} cont.`), message, true
     );
   }
 
-  output.addField("\u200B", "For additional decks use `!deck` or `!curated`", false)
-
   return output;
 }
 
 function getCurated() {
+  const output = new RichEmbed();
+
   let message = '';
-
+  let cont = false;
   sortedlist["curated"].forEach((deck: string) => {
-    message += `[${deck}](${decklist[deck].url})\n`;
+    const entry = `[${deck}](${decklist[deck].url})\n`;
+      if (message.length + entry.length >= 1024) {
+        output.addField(
+          (!cont ? "Curated List" : "\u200B"), message, true
+        );
+        message = '';
+        cont = true;
+      }
+      message += entry;
   });
+  output.addField(
+    (!cont ? "Curated List" : "\u200B"), message, true
+  );
 
-  if (message.length > 2000) message = message.slice(0, 1999);
-
-  return (new RichEmbed()).addField("Curated Decks", message, true);
+  return output;
 }
 
 export {

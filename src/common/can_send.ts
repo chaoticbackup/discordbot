@@ -30,7 +30,7 @@ export function can_send(channel: Channel, guild?: Guild, arg3?: GuildMember | m
     msg = arg4;
   }
 
-  if (guild.id === servers('main').id && !is_channel(channel, 'bot_commands')) {
+  if (!is_channel(channel, 'bot_commands', "main")) {
     if (guildMember?.roles.find(role => role.name === 'Super Rare')) return true;
     if (msg !== null) {
       channel.send(msg ?? `Please ask me in <#${servers('main').channel('bot_commands')}> :)`)

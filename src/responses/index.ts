@@ -205,22 +205,25 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
   }
 
-  function newMemberGeneralChatSpam() {
+  const newMemberGeneralChatSpam = () => {
     return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
       (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
     );
   }
 
-  async function sendBotCommands(content: Array<string | RichEmbed>, msg: string | null = null) {
+  const sendMultiResponse = async (content: Array<string | RichEmbed>, ch: Channel = message.channel as Channel) => {
+    for await (const c of content) {
+      if (c) await ch.send(c).catch((e) => { throw (e); });
+    }
+  }
+
+  const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null) => {
     let ch = message.channel as Channel;
     if (!can_send(channel, guild, guildMember, msg)) {
       content.unshift(`<@!${message.author.id}>`);
       ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
     }
-
-    for await (const c of content) {
-      if (c) await ch.send(c).catch((e) => { throw (e); });
-    }
+    sendMultiResponse(content, ch);
   }
 
   /**
@@ -363,7 +366,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'tierlist':
     case 'tiers':
-      return sendBotCommands([tierlist(), donate()]);
+      if (guild && is_channel(channel, 'bot_commands', "main")) {
+        return sendMultiResponse([tierlist(), curated(), donate()])
+      } else {
+        return sendBotCommands([tierlist(), donate()]);
+      }
 
     /* Matchmaking */
     case 'cupid':
