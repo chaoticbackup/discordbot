@@ -1807,7 +1807,7 @@
         "B@ll In A Day's Work":{
             "img": "https://i.imgur.com/iAtwYBN.png",
             "type": "Attack",
-            "text": "Challenge <:power:897668043642126366> Power -5: Deal 10 damage.\nChoose up to ohne Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a :TLCounter: on that Creature."
+            "text": "Challenge <:power:897668043642126366> Power -5: Deal 10 damage.\nChoose up to one Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a <:TLCounter:283789951760334849> on that Creature."
         },
         "Fast B@ll":{ 
            "img": "https://i.imgur.com/hNLabxB.png",
@@ -2237,12 +2237,12 @@
             "text": "When this card plays a mugic, you must\npreform a rap about that mugic or negate it.",
             "flavor": "They come from under..."
         },
-        "B@llazvatan, the Epic Stupendous Amazing Immense Tremendous Lofty Impressive Great Sublime Excellent Humongous Fantastic Awesome Terrific Exceptional Colossal Divine Glorious Sensational Formidable Superior Marvelous Commanding Wonderful Mind-Blowing Daunting Overwhelming Majestic Stunning Imposing Awe-Inspiring Fearsome Magnificent Exalted Powerful Dominant Dynamic Almighty Supreme Potent Distinguished Exquisite Peerless Outstanding Invaluable Top-Notch Transcendent Estimable Phenomenal Unimaginable Remarkable Celestial Wonderous Deific Unearthly Splendid Fabulous Superb Miraculous Wondrous Grandios Preeminent Grand Lavish Towering Illustrious Prestigious August Monumental Warbeast":{
+        "B@llazvatan":{
             "img": "https://i.imgur.com/hoLEBqc.png",
             "type": "Creature",
             "tribe": "Mipedian",
             "stats": [155,80,85,155,75],
-            "text": "<:Air:701188858569818202>Air 5\n\n<:Earth:701191499567595530>Earth 5\n\nRecklessness 20\n\nWhenever this card plays an attack, say its full\nname and subname or sacrifice it\n\n**Unique,Loyal**"
+            "text": "<:Air:701188858569818202>Air 5\n\n<:Earth:701191499567595530>Earth 5\n\nRecklessness 20\n\nWhenever this card plays an attack, say its \n\"B@llazvatan, the Epic Stupendous Amazing Immense Tremendous Lofty Impressive Great Sublime Excellent Humongous Fantastic Awesome Terrific Exceptional Colossal Divine Glorious Sensational Formidable Superior Marvelous Commanding Wonderful Mind-Blowing Daunting Overwhelming Majestic Stunning Imposing Awe-Inspiring Fearsome Magnificent Exalted Powerful Dominant Dynamic Almighty Supreme Potent Distinguished Exquisite Peerless Outstanding Invaluable Top-Notch Transcendent Estimable Phenomenal Unimaginable Remarkable Celestial Wonderous Deific Unearthly Splendid Fabulous Superb Miraculous Wondrous Grandios Preeminent Grand Lavish Towering Illustrious Prestigious August Monumental Warbeast\" or sacrifice it\n\n**Unique,Loyal**"
         },
         "Aa'une the B@lligarch, Phantasm":{
             "img": "https://i.imgur.com/ILsMV8f.png",
