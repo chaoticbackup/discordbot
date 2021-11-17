@@ -72,7 +72,7 @@ instance.cardFullart = (card: Card, options: string[] = []) => {
   }
 
   // Workaround for inconsistent data
-  if (!url.startsWith("https://i")){
+  if (!url.startsWith("http")){
     url = instance.base_image + url;
   }
 
