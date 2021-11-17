@@ -11,6 +11,7 @@ import servers from '../common/servers';
 import { Channel, SendFunction } from '../definitions';
 
 import { clear, haxxor, logs, rm } from './admin';
+import { checkSpam } from './antispam';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
 
@@ -64,22 +65,29 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   };
 
   const response = async (): Promise<void> => {
-    // Dev command prefix
-    if (development && content.substring(0, 2) === 'd!')
-      return command_response(bot, message, mentions, send);
 
-    // Prevents double bot responses on production servers
-    if (development && (!message.guild || message.guild.id !== servers('develop').id))
-      return;
+    if (development) {
+      // Dev command prefix
+      if (content.substring(0, 2) === 'd!')
+        return command_response(bot, message, mentions, send);
+
+      // Prevents double bot responses on production servers
+      if ((!message.guild || message.guild.id !== servers('develop').id))
+        return;
+    }
 
     // If the message is a command
     if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
       return command_response(bot, message, mentions, send);
-
-    // If no commands check message content for quips
+    
+    // If no commands check message content for spam or quips
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
-    ) return checkSass(bot, message, mentions, send);
+    ) {
+      if (checkSpam(bot, message)) return;
+      else
+      return checkSass(bot, message, mentions, send);
+    }
   };
 
   return response()

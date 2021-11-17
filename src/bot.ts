@@ -2,7 +2,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import Discord from 'discord.js';
+import Discord, { GuildMember } from 'discord.js';
 
 import logger from './logger';
 import responses from './responses';
@@ -12,7 +12,6 @@ import ScanQuest from './scanquest';
 
 import servers from './common/servers';
 import { Channel } from './definitions';
-import { checkNewMember, checkSpam } from './antispam';
 
 const auth = require('./auth.json') as {token: string};
 
@@ -92,14 +91,19 @@ const sendError = async () => {
 
 // Responses
 bot.on('message', msg => {
-  if (!checkSpam(bot, msg)) {
-    responses(bot, msg);
-    sq.monitor(msg);
-  }
+  responses(bot, msg);
+  sq.monitor(msg);
 });
 
 // Ban Spam
-bot.on('guildMemberAdd', checkNewMember);
+const name_regex = new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i');
+bot.on('guildMemberAdd', (member: GuildMember) => {
+  if (name_regex.test(member.displayName)) {
+    if (member.bannable) { 
+      member.ban({ reason: 'url in username' }) 
+    }
+  }
+});
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore
