@@ -2242,7 +2242,7 @@
             "type": "Creature",
             "tribe": "Mipedian",
             "stats": [155,80,85,155,75],
-            "text": "<:Air:701188858569818202>Air 5\n\n<:Earth:701191499567595530>Earth 5\n\nRecklessness 20\n\nWhenever this card plays an attack, say its \n\"B@llazvatan, the Epic Stupendous Amazing Immense Tremendous Lofty Impressive Great Sublime Excellent Humongous Fantastic Awesome Terrific Exceptional Colossal Divine Glorious Sensational Formidable Superior Marvelous Commanding Wonderful Mind-Blowing Daunting Overwhelming Majestic Stunning Imposing Awe-Inspiring Fearsome Magnificent Exalted Powerful Dominant Dynamic Almighty Supreme Potent Distinguished Exquisite Peerless Outstanding Invaluable Top-Notch Transcendent Estimable Phenomenal Unimaginable Remarkable Celestial Wonderous Deific Unearthly Splendid Fabulous Superb Miraculous Wondrous Grandios Preeminent Grand Lavish Towering Illustrious Prestigious August Monumental Warbeast\" or sacrifice it\n\n**Unique,Loyal**"
+            "text": "<:Air:701188858569818202>Air 5\n\n<:Earth:701191499567595530>Earth 5\n\nRecklessness 20\n\nWhenever this card plays an attack, say \n\"B@llazvatan, the Epic Stupendous Amazing Immense Tremendous Lofty Impressive Great Sublime Excellent Humongous Fantastic Awesome Terrific Exceptional Colossal Divine Glorious Sensational Formidable Superior Marvelous Commanding Wonderful Mind-Blowing Daunting Overwhelming Majestic Stunning Imposing Awe-Inspiring Fearsome Magnificent Exalted Powerful Dominant Dynamic Almighty Supreme Potent Distinguished Exquisite Peerless Outstanding Invaluable Top-Notch Transcendent Estimable Phenomenal Unimaginable Remarkable Celestial Wonderous Deific Unearthly Splendid Fabulous Superb Miraculous Wondrous Grandios Preeminent Grand Lavish Towering Illustrious Prestigious August Monumental Warbeast\" or sacrifice it\n\n**Unique,Loyal**"
         },
         "Aa'une the B@lligarch, Phantasm":{
             "img": "https://i.imgur.com/ILsMV8f.png",
@@ -2250,7 +2250,7 @@
             "tribe": "M'arrillian",
             "stats": [200,50,50,50,50],
             "text": "When this card flips to this side, target\nCreature in play or in discard pile loses all\nabilities.\nOutpreform <:courage:897668043595984936> Courage 5 \n\n**Unique,Loyal, Begins play on any side**",
-            "flavor": "*(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)*"
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
         },
         "Aa'une the B@lligarch, Illusion":{
             "img": "https://i.imgur.com/EOjxMKG.png",
@@ -2258,7 +2258,7 @@
             "tribe": "M'arrillian",
             "stats": [50,200,50,50,50],
             "text": "When this card flips to this side it target\nCreature gains 20 Energy.\n\nOutpreform <:power:897668043642126366> Power 5\n\n**Unique,Loyal, Begins play on any side**",
-            "flavor": "*(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)*"
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
         },
         "Aa'une the B@lligarch, Hologram":{
             "img": "https://i.imgur.com/BImsjnX.png",
@@ -2266,7 +2266,7 @@
             "tribe": "M'arrillian",
             "stats": [50,50,200,50,50],
             "text": "When this card flipd to this side, put a <:MarCounter:283789943065804810> on\neach fluidmorpher you control.\n\nOutperform <:wisdom:897668043814109244> Wisdom 5 \n\n**Unique,Loyal, Begins play on any side**",
-            "flavor": "*(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)*"
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
         },
         "Aa'une the B@lligarch, Apparition":{
             "img": "https://i.imgur.com/0Ix3w2G.png",
@@ -2274,7 +2274,7 @@
             "tribe": "M'arrillian",
             "stats": [50,50,50,200,50],
             "text": "When this card flips to this side the next\nattack your opponent resvoles this turn deals 0 \ndamage.\nOutpreform <:speed:897668043700838420> Power 5 \n\n**Unique,Loyal, Begins play on any side**",
-            "flavor": "*(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)*"
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
         }
     }        
 }   
