@@ -2275,6 +2275,12 @@
             "stats": [50,50,50,200,50],
             "text": "When this card flips to this side the next\nattack your opponent resvoles this turn deals 0 \ndamage.\nOutpreform <:speed:897668043700838420> Power 5 \n\n**Unique,Loyal, Begins play on any side**",
             "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
+        },
+        "B@llton of Au'une":{
+            "img": "https://i.imgur.com/cRjwcjx.png",
+            "type": "Battlegear",
+            "text": "The Equipped Creature has an additional 5 energy.\n\n If Equipped Creature is a Chieftain it has \"<:Water:701188881890017300>Water 5\"\n\nWhen the equipped Creature becomes engaged, if the Equipped\nCreature is \"Aa'une the B@lligarch\" flip it to the right or left",
+            "flavor": "behold! the spherical sceptar! The round rod! The\nmight B@LLTON!"
         }
     }        
 }   
