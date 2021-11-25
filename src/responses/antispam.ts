@@ -13,7 +13,8 @@ const linkMessages = new Map<Snowflake, Store>();
 
 const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
   const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
-  await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${msg || message.content}||`);
+  const content = (msg || message.content.replace(/@(here|everyone)/, ''));
+  await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${content}||`);
 }
 
 const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g);
