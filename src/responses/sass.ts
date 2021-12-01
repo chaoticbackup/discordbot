@@ -58,6 +58,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
     }
   }
 
+  // Redirects conversation out of spam channel
   // if (is_channel(message, "bot_commands") {
   //   return "Please use another channel for conversations"
   // }
