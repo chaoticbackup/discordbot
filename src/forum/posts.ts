@@ -6,7 +6,7 @@ const virtualConsole = new VirtualConsole();
 virtualConsole.sendTo(console);
 
 const config = {
-  seconds: 120,
+  seconds: 180, // keep greater than 30 
   default_channel: servers('main').channel('gen_1'),
   test_channel: servers('develop').channel('gen'),
   forum: 'http://chaoticbackup.forumotion.com',
@@ -156,6 +156,6 @@ export default class ForumPosts {
     })
     .catch(() => {});
 
-    this.timeout = setTimeout(() => { this.checkMessages(); }, config.seconds * 1000);
+    this.timeout = setTimeout(() => { this.checkMessages(); }, (config.seconds - 30) * 1000);
   }
 }

@@ -17,5 +17,5 @@ export default class API {
   hasFullart(card: Card): boolean;
   cardImage(card: Card): string;
   cardAvatar(card: Creature): string;
-  cardFullart(card: Card): string;
+  cardFullart(card: Card, options?: string[]): string;
 }

@@ -838,7 +838,7 @@
             "type": "Creature",
             "tribe": "Danian",
             "stats": [175,40,10,10,50],
-            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5/\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
+            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
         },
         "M'arrillian Bubble Blowing Chamber": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/m_arri10.jpg",
@@ -1748,86 +1748,86 @@
             "type": "Mugic"
         }        
     },
-     "Gone_Chaotic_5":{
+    "Gone_Chaotic_5":{
         "Perfect Ballance": {
             "img": "https://i.imgur.com/hGXrpQy.png",
             "type": "Attack",
-            "text": "Stat Check Speed 200: Deal 10 damage.\nThe Creature that played this attack passes all Speed\n Checks and Challenges on attacks it plays for rest of the game."
+            "text": "Stat Check <:speed:897668043700838420> Speed 200: Deal 10 damage.\nThe Creature that played this attack passes all Speed\n Checks and Challenges on attacks it plays for rest of the game."
         },
         "Undauntab@ll Courage": { 
             "img": "https://i.imgur.com/wG1rtxo.png",
             "type": "Attack",
-            "text": "Stat Check Courage 200: Deal 10 damage.\nThe Creature that played this attack passes all Courage\n Checks and Challenges on attack it plays for rest of the game" 
+            "text": "Stat Check <:courage:897668043595984936> Courage 200: Deal 10 damage.\nThe Creature that played this attack passes all Courage\n Checks and Challenges on attack it plays for rest of the game" 
         },
         "Total B@lleillance": { 
             "img": "https://i.imgur.com/FVisxd1.png",
             "type": "Attack",
-            "text": "Stat Check Wisdom 200: Deal 10 damage.\nThe Creature that played this attack passes all Wisdom\n Checks and Challenges on attack it plays for rest of the game" 
+            "text": "Stat Check <:wisdom:897668043814109244> Wisdom 200: Deal 10 damage.\nThe Creature that played this attack passes all Wisdom\n Checks and Challenges on attack it plays for rest of the game" 
         },
         "B@ll-Mighty":{ 
             "img": "https://i.imgur.com/N8RxqL3.png",
             "type": "Attack",
-            "text": "Stat Check Power 200: Deal 10 damage.\nThe Creature that played this attack passes all Power\n Checks and Challenges on attack it plays for rest of the game" 
+            "text": "Stat Check <:power:897668043642126366> Power 200: Deal 10 damage.\nThe Creature that played this attack passes all Power\n Checks and Challenges on attack it plays for rest of the game" 
         },
         "Improvised Water B@ll":{ 
             "img": "https://i.imgur.com/97LHPKt.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nWater,shuffle this card and another copy of \"Improvised \nWater B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Water B@ll\"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\n<:Water:701188881890017300>Water,shuffle this card and another copy of \"Improvised \nWater B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Water B@ll\"only once each turn."
         },
         "Improvised Earth B@ll":{ 
             "img": "https://i.imgur.com/ryJE8yC.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nEarth,shuffle this card and another copy of \"Improvised \nEarth B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Earth B@ll\"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\n<:Earth:701191499567595530>Earth,shuffle this card and another copy of \"Improvised \nEarth B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Earth B@ll\"only once each turn."
         },
         "Improvised Fire B@ll":{ 
             "img": "https://i.imgur.com/IBakZqv.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nFire,shuffle this card and another copy of \"Improvised \nFire B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Fire B@ll\"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\n<:Fire:430962554223984640>Fire,shuffle this card and another copy of \"Improvised \nFire B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Fire B@ll\"only once each turn."
         },
         "Improvised Air B@ll":{ 
             "img": "https://i.imgur.com/kVMdy9n.png",
             "type": "Attack",
-            "text": "Reveal this card from you hand: If your engaged creature has\nAir,shuffle this card and another copy of \"Improvised \nAir B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Air B@ll\"only once each turn."
+            "text": "Reveal this card from you hand: If your engaged creature has\n<:Air:701188858569818202>Air,shuffle this card and another copy of \"Improvised \nAir B@ll\" from outside the game into your Attack Deck\n and draw an Attack Card. Use this ability on cards named \n\"Impovised Air B@ll\"only once each turn."
         },
         "Stand B@all":{ 
             "img": "https://i.imgur.com/sOu4yjN.png",
             "type": "Attack",
-            "text": "Challenge Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains \"Defender\"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
+            "text": "Challenge <:courage:897668043595984936> Courage -5: Deal 10 damage.\nProp up your engaged Creature vertically, it gains \"Defender\"\nuntil it falls down.*(Your opponent may not interfere with the\n card or table unless another card says otherwise)*"
         },
         "B@llink and You'll Miss It":{
             "img": "https://i.imgur.com/9Dtw2LF.png",
             "type": "Attack",
-            "text": "Challenge Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n\"Untargetable by opponents\"."
+            "text": "Challenge <:speed:897668043700838420>  Speed -5: Deal 10 damage.\nHave a staring contest with your opponent, if you win your\nengaged Creature and all Battlegear equipped to it gain\n\"Untargetable by opponents\"."
         },
         "Know-It-B@ll":{
             "img": "https://i.imgur.com/t3HlzAY.png",
             "type": "Attack",
-            "text": "Challenge Wisdom -5: Deal 10 damage.\n Your opponent reads the name of a Chaotic card without a\n smiley set symbol. if you successfully recite the abilities of that\ncard, Look at the top 5 cards of either players Attack deck and\n put them back in any order."
+            "text": "Challenge <:wisdom:897668043814109244>  Wisdom -5: Deal 10 damage.\n Your opponent reads the name of a Chaotic card without a\n smiley set symbol. if you successfully recite the abilities of that\ncard, Look at the top 5 cards of either players Attack deck and\n put them back in any order."
         },
         "B@ll In A Day's Work":{
             "img": "https://i.imgur.com/iAtwYBN.png",
             "type": "Attack",
-            "text": "Challenge Power -5: Deal 10 damage.\nChoose up to ohne Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a :TLCounter: on that Creature."
+            "text": "Challenge <:power:897668043642126366> Power -5: Deal 10 damage.\nChoose up to one Creature you control, it loses all abilities and\n cannot play mugic, move, or deal damage until the beginning of\n the 2nd tun after this card resolves. When this effect ends,\nput a <:TLCounter:283789951760334849> on that Creature."
         },
         "Fast B@ll":{ 
            "img": "https://i.imgur.com/hNLabxB.png",
            "type": "Attack",
-           "text": "Stat Check Speed 75: Deal 10 damage.\nWhen this card resolves throw it outside the play area *(it is\nremoved from play).*"
+           "text": "Stat Check <:speed:897668043700838420>  Speed 75: Deal 10 damage.\nFast B@ll does not use the burst. Resolve it immediately when\nplayed.(Any triggered abilities go on the burst after it resolves)*"
         },
         "Foul B@ll":{ 
             "img": "https://i.imgur.com/DPF62lD.png",
             "type": "Attack",
-            "text": "Stat Check Wisdom 75: Deal 10 damage.\nThis card is face-up while in your Attack Deck. *(Both players may see where this card is in the deck)*"
+            "text": "Stat Check <:courage:897668043595984936> Courage 75: Deal 10 damage.\n\nWhen this card resolves throw it outside the play area *(it is\nremoved from play).*"
         },
         "Knowledgeab@ll":{
             "img": "https://i.imgur.com/ZArk961.png",
             "type": "Attack",
-            "text": "Stat Check Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*"
+            "text": "Stat Check <:wisdom:897668043814109244> Wisdom 75: Deal 10 damage.\n*This card is face-up while in your Attack Deck. *(Both players\nmay see where this card is in the deck)*"
         },
         "Power B@ll":{
             "img": "https://i.imgur.com/3R6HVWH.png",
             "type": "Attack",
-            "text": "Stat Check Power 75:Deal 10 damage.\nPower B@ll deal its damage to target creature."
+            "text": "Stat Check <:power:897668043642126366> Power 75:Deal 10 damage.\nPower B@ll deal its damage to target creature."
         },
         "Replicating B@lls":{
             "img": "https://i.imgur.com/WwHYfQM.png",
@@ -1867,22 +1867,22 @@
         "Soot B@lls":{
             "img": "https://i.imgur.com/mU8dTWS.png",
             "type": "Attack",
-            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\n:Fire:Fire, :Air:Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\n card into the bottom 5 cards of that deck,\n<:Fire:430962554223984640>Fire, <:Air:701188858569818202>Air,: Shuffle up to 2 Attack Cards from your\nopponent's discard pile into their Attack Deck."
         },
         "Sand B@lls":{
             "img": "https://i.imgur.com/2LoYS91.png",
             "type": "Attack",
-            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nAir, Earth: Search your Location deck for a card, Shuffle\n the deck, it becomes the new active Location."
+            "text": "When an Attack Deck with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n<:Air:701188858569818202>Air,<:Earth:701191499567595530>Earth: Search your Location deck for a card, Shuffle\n the deck, it becomes the new active Location."
         },
         "Muck B@lls":{
             "img": "https://i.imgur.com/UCtjhzp.png",
             "type": "Attack",
-            "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck withoit this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n"
+            "text": "When an Attack with this card is shuffled [including deck\nsetup], first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\n <:Earth:701191499567595530>Earth, <:Water:701188881890017300> Water: Put a <:TLCounter:283789951760334849> on a Creature you control."
         },
         "Geyser B@lls":{ 
             "img": "https://i.imgur.com/hSSuJGS.png",
             "type": "Attack",
-            "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
+            "text": "When an Attack Deck with this card is shuffled [including deck \nsetup, first shuffle the deck without this card, then shuffle this\ncard into the bottom 5 cards of that deck.\nFire, <:Water:701188881890017300>Water: Return a Battlegear from your discard pile\n to play equipped to an unequipped Creature you control."
         },
         "The First B@ll":{
             "img": "https://i.imgur.com/07WWCju.png",
@@ -1908,6 +1908,379 @@
             "img": "https://i.imgur.com/ATBNvsv.png",
             "type": "Attack",
             "text": "While your engaged Creature has 4 Elemental types, and\nB@llmageddon is on the burst, Mugic and Abilities may not be\nplayed."
+        },
+        "Attacat, Swift B@llade":{
+            "img": "https://i.imgur.com/OFSds4I.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats":[20,70,70,110,60],
+            "text": "B@llsistence\nAttacks played by this Creature are\n\"Untargetable\".\nSwift 1",
+            "flavor": "Omg you're taking forever! I'll do just do it."
+        },
+        "Iduz, B@lluff Rider":{
+            "img": "https://i.imgur.com/Lp5UgW2.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats":[80,50,85,50,70],
+            "text": "\nAttacks this Creature plays deal an additional\n5 damage for each build point they have.",
+            "flavor": "Sliding into battle and into your DM's."
+        },
+        "Yokkis, Master B@llfoon":{
+            "img": "https://i.imgur.com/mddNIeN.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats": [10,10,10,10,60],
+            "text": "B@llsistence\nThis Creature succeeds all Stat checks and\nChallenges on attacks it plays.",
+            "flavor": "\"It was just prank bro!\" -Yokkis after trying to kill a kid with bees."
+        },
+        "Thodish, Elemenb@ll Charger":{
+            "img": "https://i.imgur.com/4Ackfj2.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats": [75,95,80,25,60],
+            "text": "B@llsistence\nWhen this Creature resolves its first attack\neach combat ability your engaged Creature\ngains \"Element 5\" in an Elemental type of your\nchoice.\n**Loyal**"
+        },
+        "Phraan B@llm Maker":{
+            "img": "https://i.imgur.com/luUA2nT.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats": [75,45,100,45,50],
+            "text": "B@llsistence\nWhen this Creature deals damage with its first\nattack each cmbat. Your engaged creature\ngain Energy equal to the damage dealt.\n**Unique,Loyal**",
+            "flavor": "Hey baby, wanna feel my healing hands."
+        },
+        "Sarletha, B@llet Dancer":{
+            "img": "https://i.imgur.com/lXXG2We.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats": [20,25,100,100,20],
+            "text": "<:OWCounter:283785127908343810>,Spin this card: This ability has the effect on\n the side closest to you\nTop: Negate target Mugic\nBottom: Return a Mugic card from your discard to your discard pile to your hand\nLeft: Put a Mugic Counter on another target Creature you control.\nRight: Creatures you control can cast mugic of cany tribe" 
+        },
+        "Raimusa, Dead and B@llried":{
+            "img": "https://i.imgur.com/yKpMj1m.png",
+            "type": "Creature",
+            "tribe": "OverWorld",
+            "stats": [50,65,80,30,120],
+            "text": "**This Card and its Battlegear begin the game\nin your discard pile.**",
+            "flavor": "He's still less dead than Chaotic."
+        },
+        "Smosig, B@llazing Beast":{
+            "img": "https://i.imgur.com/FHloC2D.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [75,95,30,45,65], 
+            "text": "Dark B@llgin\n\nThis Creature has \"<:Fire:430962554223984640>Fire 10.\"\n\nTHIS CREATURE DOES NOT HAVE<:Fire:430962554223984640>FIRE.\n",
+            "flavor":"I'm not in today guys, I'm pretty burnt\nout."
+        },  
+        "Noekan, Freshwater B@lly":{
+            "img": "https://i.imgur.com/HiowNVy.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [35,95,80,40,60],
+            "text": "Dark B@llgin:\n\nCreature Engaged with this one have 20 less\nEnergy\n\nTHIS CREATURE HAS 20 LESS ENERGY",
+            "flavor": "Are you playing card games? Ha, what a loser."
+        },
+        "Genik, Elemental Ab@llisher":{
+            "img": "https://i.imgur.com/aLk0Pu6.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [80,100,85,35,60],
+            "text":"Dark B@llgin:\n\nCreature Engaged with this one don't have\n and cannot gain all Elemental types.\n\nTHIS CREATURE TAKES AN ADDITIONAL 5 DAMAGE FROM ELEMENTAL ATTACKS\n\n***Unique***",
+            "flavor": "Who's Laughing now?"
+        },
+        "Xaerot, B@llitz Charger":{ 
+            "img": "https://i.imgur.com/dkP7dGY.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [55,70,40,85,70],
+            "text": "swift 1 \nDark B@llgin\n\nCreatures Engaged with this one cannot be\n healed or gain energy\n\nWHEN A CREATURE ENGAGE WITH THIS ONE WOULD HEAL OR GAIN\n ENERGY, IT HEALS OR GAINS AN ADITIONAL 5",
+            "flavor": "Faster than a speeding ambulance"
+        },
+        "Gozrol, the Gammb@ller":{
+            "img": "https://i.imgur.com/jTkSX7W.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [100,75,10,30,35],
+            "text": "During setup roll a 6-sided dice, this cards\nscanned mugic is equal to the result\n<:UWCounter:283789908168933376>: Roll a 6-sided dice, This abilities effect is\nbased on the result:\n1. Swap your Attack Deck and Attack Discard\n2. Your engaged Creature gains 15 energy\n3. Deal 15 damage an engaged Creature\n4. Each player sacrifices a Battlegear\n5. Each player discards a mugic\n6. You Choose the result of the next coin or dice"
+        },
+        "Threx, B@llack Shade":{
+            "img": "https://i.imgur.com/XHc8Zd3.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [100,50,50,50,55],
+            "text": "Dark B@llgin:\n\nYour opponent cannot play Mugic or Abilities\n\nYOU CANNOT PLAY MUGIC OR ABILITIES WHILE THIS CREATURE IS\nENGAGED\n\n**Unique, Loyal**",
+            "flavor": "As dard as darkness, as quiet as silence, as\nterrifying as fear, and that's still pretty good ok?"
+        },
+        "Stelgar, Uncontrollab@ll Growth":{
+            "img": "https://i.imgur.com/dsK7RQK.png",
+            "type": "Creature",
+            "tribe": "UnderWorld",
+            "stats": [30,30,30,30,30],
+            "text": "This Creature cannot be moved, relocated or\n have its position changed\n\nAt the end of the turn choose an unoccuiped\nspace adjacent to this Creature, is considered\n in that space until the end of the game\n\nThis card has an additional 20 Energy and 20\nto all disciplines for each space it occupies"
+        },
+        "Mozrech, the Inevitab@ll":{
+            "img": "https://i.imgur.com/3vgoPMP.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [90,50,40,40,75],
+            "text": "<:Earth:701191499567595530>Earth 5\n\nCompostaB@ll:Return this card to play on any\nopen space, then sacrifice a Creature you\ncontrol.\n\n**Unique,Loyal**",
+            "flavor": "He's had more funerals than birthdays"
+        },
+        "Roanais, Trailb@llazer":{
+            "img": "https://i.imgur.com/7Vm9jp4.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [80,35,50,85,55],
+            "text": "If you control the active Location, Creatures\nengaged with this one have 10 less Energy and\nthis Creature has an additional 10 Energy.\n\nCompostB@ll: You reveal the active Location\nduring your opponents next turn.",
+            "flavor": "trailblazer, get it... cause he has fire... ha"
+        },
+        "Nkansah, the B@lletproof":{
+            "img": "https://i.imgur.com/Bq6vDQ5.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [70,40,70,40,40],
+            "text": "This Creature takes 5 less damage from\nAttacks\n\nDefender\n\nCompostB@ll: The next attack played by your\nopponent this turn deals 20 less damage.",
+            "flavor": "Nothing can pierce my armor, except mean\nwords :("
+        },
+        "Ovben, Adaptab@ll":{
+            "img": "https://i.imgur.com/DvuKTiE.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [75,35,30,75,60],
+            "text": "When this Creature becomes engaged, it gain\n5 Energy for each Elemental type and each\nDiscipline over 70 the opposing engaged Creature has.\n\nCompostaB@ll: Target Creatures Gain the\nabilities on this card expect this one.",
+            "flavor": "I'll try anything once... except that one thing..."
+        },
+        "Rohgaya, B@llight Harvester":{
+            "img": "https://i.imgur.com/Qrv2uXX.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [60,40,60,40,40],
+            "text": "<:DanCounter:283789928029224960>, Sacrifice this Creature: Both players\n Infect two uninfected Creatures they control.\n\nCompostaB@ll: Creatures you control gain 5\n Energy for each infected Creature in play, if\nthere are 6 or more, your Creatures also gain\n20 to all Disciplines.",
+            "flavor": "mmm Tastes like cholera"
+        },
+        "Gomki, Spirit B@ller":{
+            "img": "https://i.imgur.com/z3b0tCd.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [90,30,30,50,30],
+            "text": "You may use the Inate abilities of creatures in\nyour discard pile as though that Creature was\n in play (you cannot trigger or activiate abilities\nin this way, the cards are considered in your\ndiscard pile for every other purpose).\n\nUntargetable\n\n**Unique**"
+        },
+        "Erro, ElementB@ll Discoverer":{
+            "img": "https://i.imgur.com/ZJztVTn.png",
+            "type": "Creature",
+            "tribe": "Danian",
+            "stats": [70,25,70,45,60],
+            "text": "This Creature deals an additional 5 famage\n with Attacks that weren't in your original deck.\n\nThis Creature takes 5 less damage from \nattacks that weren\t in your opponent's original deck.",
+            "flavor": "Guys have you seen this stupid periodic table?\nIt doesn't have fire on it."  
+        },
+        "Taaj B@lladar":{
+            "img": "https://i.imgur.com/1WOBiQw.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [50,100,40,85,60],
+            "text": "Outpreform<:power:897668043642126366>Power 5\nOutpreform<:speed:897668043700838420>Speed 5\n\nWhen this Creature wins combat, you may flip it\n\n**Unique, Enters play on this side.**",
+            "flavor": "\"Its not about who wins and who loses\"\nYa know who says that? Losers!"
+        },
+        "Taaj B@lladar, Spoils of the Red Sky":{
+            "img": "https://i.imgur.com/96umFBF.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [50,100,40,85,60],
+            "text": "Outpreform<:power:897668043642126366>Power 5\nOutpreform<:speed:897668043700838420>Speed 5\n\nWhen this card flips to this side, choose a\nBattlegear in your opponents discard pile that\n wnet there this turn, Equi[ it to any Creature\n you control.(including Equipped Creatures)"
+        },
+        "Taaj B@lladar, Spoils of the Green Sky":{
+            "img": "https://i.imgur.com/UHTOeAC.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [50,100,40,85,60],
+            "text": "Outpreform<:power:897668043642126366>Power 5\nOutpreform<:speed:897668043700838420>Speed 5\n\nWhen this card flips to this side, choose an\nAttack card in your opponents discard pile that\nwent there this turn, Put it into your hand,\nDiscard an Attack card. Use the opposing\nengaged Creatures Elements and Disciplines\ninstead of your when resolving that Attack."
+        },
+        "Taaj B@lladar, Spoils of the Blue Sky":{
+            "img": "https://i.imgur.com/o7Imjhy.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [50,100,40,85,60],
+            "text": "Outpreform<:power:897668043642126366>Power 5\nOutpreform<:speed:897668043700838420>Speed 5\n\nWhen this card flips to this side, choose a\nMugic card in your opponents discard pile that\nwent there this turn, Put it into your hand, it is\nconsidered Generic untill cast."
+        },
+        "Iskb@ll":{
+            "img": "https://i.imgur.com/yJMQaR1.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats":[50,50,50,50,50],
+            "text": "At the beginning of combat, you may flip this \ncard.\n\n**Enters play on this side**",
+            "flavor": "I was gonna go to the Royal Academy, But I\n can only afford Fivarth Community College."
+        },
+        "Iskb@ll, Warrior Training":{
+            "img": "https://i.imgur.com/5NCOzVo.png",
+            "type": "Creature",    
+            "tribe":"Mipedian",
+            "stats":[20,80,20,80,60],
+            "text": "<:Air:701188858569818202>Air 5",
+            "flavor": "Warrior 101: Hit stuff"
+        },
+        "Iskb@ll, Muge Training":{
+            "img": "https://i.imgur.com/5dhDm4M.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [20,20,80,80,40],
+            "text":"Creatures you control with<:Air:701188858569818202>Air have\n\"Invisibility: Strike 10\"",
+            "flavor": "Muge 101: Let someone else hit stuff for you"
+        },
+        "Iskb@ll, Scout Training":{
+            "img": "https://i.imgur.com/YLDWhSa.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [80,20,20,80,50],
+            "text": "When this Creature plays an<:Air:701188858569818202> Air attack, you\nmay sacrifice it, if you do the opposing Engaged\n Creature loses 20 Energy for the rest of the\ngame.",
+            "flavor": "Scout 101: Trick them into hitting the wrong\n stuff"
+        },
+        "B@llrab Darini":{
+            "img": "https://i.imgur.com/45UP5T8.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [35,65,55,75,55],
+            "text": "Invisibility: Strike 10\n\nAs this Creature becomes Engaged, flip it. (This\nability doesn't use the burst)\n\n**Enters play on this side**",
+            "flavor": "They told me I'd never learn invisibility, if the\ncould only see me now!"
+        },
+        "B@llrab Darini, Disarm Tactic":{
+            "img": "https://i.imgur.com/4n5Py9P.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [35,65,55,75,55],
+            "text": "Invisibility: Disarm\n\nInvisbility: Strike 10",
+            "flavor": "Which arm?"
+        },
+        "B@llrab Darini, Ambush Tactic":{
+            "img": "https://i.imgur.com/Xamd491.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [35,65,55,75,55],
+            "text": "Invisibility: Surprise\n\nInvisibility: Strike 10",
+            "flavor": "AH! A floating head!!!"
+        },
+        "B@llrab Darini, Assault Tactic":{
+            "img": "https://i.imgur.com/JBg2wjs.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [35,65,55,75,55],
+            "text": "Invisbility: Strike 20",
+            "flavor": "Hit em where it hurst, or just hit them hard\nenough to make it hurt."
+        },
+        "Zeyb@ll":{
+            "img": "https://i.imgur.com/GsjlOus.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [70,10,65,100,65],
+            "text": "When this Creature plays an Attack, flip it\n\n**Enters play on this side**",
+            "flavor": "Pick your posion"
+        },
+        "Zeyb@ll, Lingering Posion":{
+            "img": "https://i.imgur.com/I9eq5h3.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [70,10,65,100,65],
+            "text": "When this Creature resolves its first attack\neach combat, the opposing engaged Creature\ngains \"Recklessness 5.\"",
+            "flavor": "Does it hurt? Does it hurt? Does it hurt? Does\n it hurt? Does it hurt? Does it hurt? Does it hurt?"
+        },
+        "Zeyb@ll, Fast Acting Posion":{
+            "img": "https://i.imgur.com/dqpHYla.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [70,10,65,100,65],
+            "text": "When this Creature resolves its first attack\neach combat, Deal 20 damamge to the opposing\nengaged Creature.",
+            "flavor": "\"HA! I don't feel a thi..."
+        },
+        "Zeyb@ll, Neutralizing Poison":{
+            "img": "https://i.imgur.com/hMqTSly.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats": [70,10,65,100,65],
+            "text": "When this Creature resolves its first attack\neach combat, the opposing engaged Creature\nloses all abilities.",
+            "flavor": "Looks like you've become venormal!"
+        },
+        "Vallb@llus":{
+            "img": "https://i.imgur.com/7OLTIKY.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats:": [20,75,55,60,30],
+            "text": ":MipCounter::MipCounter:\n\n**Unique,Loyal,Enters play on this side**",
+            "flavor": "Im calling Mom!"
+        },
+        "Vallb@llus, Weapon Shielder":{
+            "img": "https://i.imgur.com/zI9FGi2.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats:": [20,75,55,60,30],
+            "text": "When this card dlips to this side, target\nBattlegear gains \"Untargetable\"",
+            "flavor": "Mom! They won't stop touching my stuff!"
+        },  
+        "Vallb@llus, Strike Shielder":{
+            "img": "https://i.imgur.com/xjblAbk.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats:": [20,75,55,60,30],
+            "text": "When this card flips to this side, target Attack\n gains \"Untargetable\".",
+            "flavor": "Mom! They're trying to make me hit myself!"
+        },  
+        "Vallb@llus, Song Shielder":{
+            "img": "https://i.imgur.com/gGO3Q1s.png",
+            "type": "Creature",
+            "tribe":"Mipedian",
+            "stats:": [20,75,55,60,30],
+            "text": "When this card flips to this side, target Mugic\ngains\"untargetable\".",
+            "flavor": "Mom! They keeps trying to turn off my music!"
+        }, 
+        "Sahrbat, B@ller":{
+            "img": "https://i.imgur.com/xDlD5I5.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [70,80,70,40,45],
+            "text": "When this card plays a mugic, you must\npreform a rap about that mugic or negate it.",
+            "flavor": "They come from under..."
+        },
+        "B@llazvatan":{
+            "img": "https://i.imgur.com/hoLEBqc.png",
+            "type": "Creature",
+            "tribe": "Mipedian",
+            "stats": [155,80,85,155,75],
+            "text": "<:Air:701188858569818202>Air 5\n\n<:Earth:701191499567595530>Earth 5\n\nRecklessness 20\n\nWhenever this card plays an attack, say \n\"B@llazvatan, the Epic Stupendous Amazing Immense Tremendous Lofty Impressive Great Sublime Excellent Humongous Fantastic Awesome Terrific Exceptional Colossal Divine Glorious Sensational Formidable Superior Marvelous Commanding Wonderful Mind-Blowing Daunting Overwhelming Majestic Stunning Imposing Awe-Inspiring Fearsome Magnificent Exalted Powerful Dominant Dynamic Almighty Supreme Potent Distinguished Exquisite Peerless Outstanding Invaluable Top-Notch Transcendent Estimable Phenomenal Unimaginable Remarkable Celestial Wonderous Deific Unearthly Splendid Fabulous Superb Miraculous Wondrous Grandios Preeminent Grand Lavish Towering Illustrious Prestigious August Monumental Warbeast\" or sacrifice it\n\n**Unique,Loyal**"
+        },
+        "Aa'une the B@lligarch, Phantasm":{
+            "img": "https://i.imgur.com/ILsMV8f.png",
+            "type": "Creature",
+            "tribe": "M'arrillian",
+            "stats": [200,50,50,50,50],
+            "text": "When this card flips to this side, target\nCreature in play or in discard pile loses all\nabilities.\nOutpreform <:courage:897668043595984936> Courage 5 \n\n**Unique,Loyal, Begins play on any side**",
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
+        },
+        "Aa'une the B@lligarch, Illusion":{
+            "img": "https://i.imgur.com/EOjxMKG.png",
+            "type": "Creature",
+            "tribe": "M'arrillian",
+            "stats": [50,200,50,50,50],
+            "text": "When this card flips to this side it target\nCreature gains 20 Energy.\n\nOutpreform <:power:897668043642126366> Power 5\n\n**Unique,Loyal, Begins play on any side**",
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
+        },
+        "Aa'une the B@lligarch, Hologram":{
+            "img": "https://i.imgur.com/BImsjnX.png",
+            "type": "Creature",
+            "tribe": "M'arrillian",
+            "stats": [50,50,200,50,50],
+            "text": "When this card flipd to this side, put a <:MarCounter:283789943065804810> on\neach fluidmorpher you control.\n\nOutperform <:wisdom:897668043814109244> Wisdom 5 \n\n**Unique,Loyal, Begins play on any side**",
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
+        },
+        "Aa'une the B@lligarch, Apparition":{
+            "img": "https://i.imgur.com/0Ix3w2G.png",
+            "type": "Creature",
+            "tribe": "M'arrillian",
+            "stats": [50,50,50,200,50],
+            "text": "When this card flips to this side the next\nattack your opponent resvoles this turn deals 0 \ndamage.\nOutpreform <:speed:897668043700838420> Power 5 \n\n**Unique,Loyal, Begins play on any side**",
+            "flavor": "(Minions use Brai... look if you don't know what\n a Chieftian does by now I can't help you)"
+        },
+        "B@llton of Au'une":{
+            "img": "https://i.imgur.com/cRjwcjx.png",
+            "type": "Battlegear",
+            "text": "The Equipped Creature has an additional 5 energy.\n\n If Equipped Creature is a Chieftain it has \"<:Water:701188881890017300>Water 5\"\n\nWhen the equipped Creature becomes engaged, if the Equipped\nCreature is \"Aa'une the B@lligarch\" flip it to the right or left",
+            "flavor": "behold! the spherical sceptar! The round rod! The\nmight B@LLTON!"
         }
     }        
 }   

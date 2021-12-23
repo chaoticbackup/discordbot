@@ -20,18 +20,7 @@ export default function (name: string, options: string[]) {
     return "That's not a valid card name";
   }
 
-  let url = API.cardFullart(card);
-
-  if (options.includes('alt')) {
-    if (card.gsx$alt) {
-      url = API.base_image + card.gsx$alt;
-    }
-  }
-  else if (options.includes('alt2')) {
-    if (card.gsx$alt2) {
-      url = API.base_image + card.gsx$alt2;
-    }
-  }
+  const url = API.cardFullart(card, options);
 
   const embed = new RichEmbed()
   .setColor(color(card))

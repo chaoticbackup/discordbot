@@ -2,7 +2,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import Discord from 'discord.js';
+import Discord, { GuildMember } from 'discord.js';
 
 import logger from './logger';
 import responses from './responses';
@@ -37,7 +37,7 @@ if (!development) {
 
 const start = () => {
   if (devType === 'all') {
-    sq.start();
+    // sq.start();
     fp.start();
   }
   else if (devType === 'scan') {
@@ -91,49 +91,19 @@ const sendError = async () => {
 
 // Responses
 bot.on('message', msg => {
-  checkSpam(msg);
   responses(bot, msg);
   sq.monitor(msg);
 });
 
 // Ban Spam
-const newMembers: Discord.Snowflake[] = [];
-bot.on('guildMemberAdd', (member) => {
-  if (member.displayName.match(new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i'))) {
-    if (member.bannable) { member.ban({ reason: 'No url in username' }).then(() => {
-      // Delete the meebot welcome message
-      const meebot = member.guild.members.get('159985870458322944');
-      if (meebot) { setTimeout(() => {
-        if (meebot.lastMessage?.deletable) {
-          meebot.lastMessage.delete();
-        }
-      }, 500); }
-    }); }
-  }
-  else {
-    newMembers.push(member.id);
-  }
-});
-
-const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'gm');
-const checkSpam = async (msg: Discord.Message) => {
-  if (!msg.guild || msg.guild.id !== servers('main').id) return;
-  const index = newMembers.indexOf(msg.author.id);
-  if (index < 0) return;
-
-  if (!msg.content.includes('chaoticrecode') && link_regex.test(msg.content)) {
-    if (msg.member.kickable) {
-      await msg.member.kick('Posted link as first message. Typically spam bot behavior.')
-      .then(async () => {
-        const channel = bot.channels.get(servers('main').channel('staff')) as Channel;
-        await channel.send(`Kicked suspected spam: ${msg.member.displayName}\nContent: ||${msg.content}||`);
-        if (msg.deletable) msg.delete();
-      });
+const name_regex = new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i');
+bot.on('guildMemberAdd', (member: GuildMember) => {
+  if (name_regex.test(member.displayName)) {
+    if (member.bannable) { 
+      member.ban({ reason: 'url in username' }) 
     }
   }
-
-  newMembers.splice(index, 1);
-};
+});
 
 process.on('unhandledRejection', (err) => {
   // @ts-ignore

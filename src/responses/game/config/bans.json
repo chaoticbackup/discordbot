@@ -16,6 +16,7 @@
 		"Bodal, Flamedrill Researcher",
 		"Cadence Clash",
 		"Chaac",
+		"Deadwater Devastation",
 		"Dranakis Threshold",
 		"Dror'niq",
 		"Enre-hep, High Muge of the Desert",
@@ -25,6 +26,7 @@
 		"Lord Van Bloot, Servant of Aa'une",
 		"Lore, Ancestral Caller",
 		"Lore, High Muge of the Hive",
+		"Lore's Chamber of Recall",
 		"Melody of the Meek",
 		"Mock'adyn",
 		"Najarin, Fluidmorphers' Foe",
@@ -35,9 +37,9 @@
 		"Psionic Serenade",
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'pa Sahkk, Condensation Ceremony",
+		"Song of Resistance",
 		"Strain of Infection",
 		"Supercooled Rain",
-		"Twister of Elements",
 		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
@@ -98,7 +100,7 @@
 			"We matched your element affinity to the state of your mind (hint: its empty)."
 		],
 		"Before the Storm": [
-			"In the average Mipedian Invisibility: Strike deck, you'd see ~55 damage from this attack. Although not extraordinary damage. Since Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration, this provides a more consistent high damage output compared to other decks."
+			"In the average Mipedian Invisibility: Strike deck, you'd see ~55 damage from this attack. Although not extraordinary damage. Since Mipedians also have access to cycling cards like Meditative Leap, Blaze Barrage and Synaptic Acceleration, combined with Before the Storm and their strike bonus, the decks' consistent damage output is too high."
 		],
 		"Bi-Mowercycle": [
 			"This card is very meta warping, there are very few Battlegear that can go on support creatures and Bi-Mowercycle is the most consistently good. Bi-Mowercycle allows you to give any Creature Range and Swift without hindering their Battlegear choice. This results in it appearing in a lot of decks. Which means you almost always need to include Defender, since defenders aren't ubiquitous, this hinders deck variety.",
@@ -118,7 +120,7 @@
 			"Chaac's bugs scare away your elements."
 		],
 		"Deadwater Devastation": [
-			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater early game cripples their options.",
+			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater Devastation early game cripples their options. Fluidmorph decks that play Deadwater Devastation disproportionately effect non-Fluidmorph decks since they generate Mugic counters.",
 			"Big Splash."
 		],
 		"Dranakis Threshold": [
@@ -198,7 +200,7 @@
 			"Broke out of jail."
 		],
 		"Lore's Chamber of Recall": [
-			"Although this card isn't banworthy in terms of its power level, it limits some deck building and it's banned for the effort to enable more decks.",
+			"Lore's Chamber of Recall provides an instantaneous game swing against decks that rely on the discard. Although it is not included in many decks outside of UnderWorld Burn archtype, the possibility that it could be included in a deck discourages compost decks from being played.",
 			"Sorry, the truck already emptied the recycle bin."
 		],
 		"Makanaz": [
@@ -263,6 +265,9 @@
 		"Song of Transportation": [
 			"Allows you to simply change the opponent's active location to your active location. This card doesn't see much play simply because the overwelming options present in the Mipedian Mugic collection."
 		],
+		"Song of Resistance": [
+			"Song of Resistance is generally an underwhelming card. Certain players have built decks that utalize it to create a combat that does not end until they choice to end it. This type of deck is labled as \"kidnap\". Because Chaotic does not have an adequate rule that prevents unending combats (attacks played limit), kidnap decks will build counters over time using Fluidmorphing and Mugic counter transfering to an activated ability that eventually wins the game. This process is slow and frustrating for the opposening player, due to the length of time it takes before the win condition is met.\nIf \"Glacier Plains, M'arrillian Heat Cannon\" is added to recode or an attack limit rule is implemented, this ban will be reconsidered."
+		],
 		"Strain of Infection": [
 			"It allows decks to easily increase their resources and it's an enabler for oppresive combinations, such as building high number of Mugic counters on Lobanne (thanks to Lore, High Muge), or in burn to easily refuel Ulmquad damage. Enre-hep, High Muge most breaks this card by creating a loop to generate infinite counters.",
 			"Since Danians can turn infected creatures into Mugic counters, I wonder if M'arrillians could turn minions into Mugic counters..."
@@ -286,8 +291,8 @@
 			"If I can't have Mugic, you can't either."
 		],
 		"Twister of Elements": [
-			"This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high damage attacks more times than other decks resulting in a drastic damage inequality.",
-			"You would have thought a twister of elements would have used all the elements... or at least twisted some elements"
+			"This allows a deck to get away with an unbalanced attack deck. They can focus on multiple high build point attacks without the normal tradeoff of drawing through bad attacks. Additionally, by going through their attack deck faster, they can play the same high impact attacks more frequently than a deck that does not include Twister of Elements.",
+			"You would have thought a twister of elements would have used all the elements... or at least twisted some elements."
 		],
 		"Ulmar, Perithon Racer": [
 			"In pauper, having 20 renewable damage each turn proves to be overwhelming against the resources in other decks. In addition, Ulmar can cast both Cannon of Casuality or Caster's Warsong making it invaluable in pauper burn decks dominance."

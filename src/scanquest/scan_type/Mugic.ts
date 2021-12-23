@@ -66,9 +66,8 @@ export class SpawnMugic extends Spawn {
     } else {
       mugic = this.randomCard(this.mugic, arg1, arg2) as Mugic;
     }
-    const image = new RichEmbed()
-    .setImage(API.cardFullart(mugic))
-    .setURL(API.cardFullart(mugic));
+    const url = API.cardFullart(mugic);
+    const image = new RichEmbed().setImage(url).setURL(url);
 
     return [new ScannableMugic(mugic), image];
   }

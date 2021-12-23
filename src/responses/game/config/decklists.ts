@@ -39,39 +39,48 @@ export const axes: {[key in DeckType]: string} = {
 
 // The names in the decklist have to be found in this list
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
-const _tierlist = {
+export const sortedlist = {
   S: [
     "Healdrom",
     "Rawr",
     "Strike",
     "Swimming Team",
-    "UnderWorld Burn",
+    "UW Burn",
   ],
   A: [
     "Aszil Compost",
+    "Be a Man",
+    "Come Sail Away",
     "Danian Burn",
+    "Elegy Spam",
     "Fliandar",
-    "Heartmatred's Attack",
-    "Master of the Sails",
-    "PoP'in Off",
+    "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
-    "Tree Frogs",
-    "Wise Guys"
+    "Tree Frogs"
   ],
   B: [
+    "Blazvatan",
+    "Compost Malvone",
     "Discipline Compost",
     "Gan'trak Bladez",
     "Grantkae Control",
-    "Feasting",
-    "Lobster Lightning",
-    "Oath of the Oasis",
-    "Ocean Man",
-    "OverWorld Muge",
+    "Hermatred",
+    "Oath",
     "Tartereklessness",
     "Trampling Mammoth",
-    "Ursis Dagger",
-    "Warbeast"
+    "Ursis Dagger"
+  ],
+  curated: [
+    "Erak'tabb Tartarek",
+    "Feasting",
+    "Firefly",
+    "Flame On",
+    "Nimmei",
+    "Ocean Man",
+    "OverWorld Muges",
+    "OverWorld Elemental",
+    "UnderWorld Discipline Burn"
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
@@ -80,34 +89,27 @@ const _tierlist = {
     "Brathe Yourself",
     "Bodal's Boys",
     "Crack the Whep",
-    "Erak'tabb",
     "Fire and Brimstone",
-    "Flame On!",
     "Flying Frogs",
     "Four Arms",
+    "Gan'trak Issaley",
     "GearEater",
     "Getting Ripped",
     "Gintanai",
-    "Gorram Malvadine",
     "Grounded",
-    "Hive Mind",
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
-    "M'arr Courage Wisdom",
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
-    "OverWorld Elemental",
-    "Reporting for Duty",
-    "UnderWorld Discipline Burn"
+    "Stelgar Compost"
   ]
 } as const;
 
-export const tierlist = _tierlist as any as {[key in Tier]: string[]};
+export const tierlist = sortedlist as any as {[key in Tier]: string[]};
 
-type deck_names = typeof _tierlist["S"] | typeof _tierlist["A"] | typeof _tierlist["B"] | typeof _tierlist["_"];
-
+type deck_names = typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] | typeof sortedlist["_"] | typeof sortedlist["curated"];
 interface Deck {
   url: string
   tribe: Tribe
@@ -138,12 +140,26 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
   },
-  Feasting: {
-    url: "https://chaoticbackup.forumotion.com/t1679-herken-morph#15160",
-    tribe: "Mixed",
+  "Be a Man": {
+    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
+    tribe: "OverWorld",
+    tags: [],
+    type: ["Control"],
+    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
+  },
+  "Blazvatan": {
+    url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
+    tribe: "Mipedian",
+    tags: ["Warbeast", "Air", "Earth"],
     type: ["Midrange"],
-    tags: ["Fluidmorph"],
-    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Nunk'worm", "Rellim, Watermaster", "Herken", "Na-inna", "Lam'inkal"]
+    creatures: ["Blazvatan, The Epic Warbeast", "Ailav", "Kileron, Warbeast of the Dust Storm", "Malvadine, The King's Herald", "Bylkian", "Ranun", "Gaffat-ra"]
+  },
+  "Bodal's Boys": {
+    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
+    tribe: "OverWorld",
+    tags: ["Dagger"],
+    type: ["Control"],
+    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
   },
   "Brathe Yourself": {
     url: "https://chaoticbackup.forumotion.com/t1598-brathe-yourself",
@@ -152,12 +168,19 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
   },
-  "Bodal's Boys": {
-    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
-    tribe: "OverWorld",
-    tags: ["Dagger"],
-    type: ["Control"],
-    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn"]
+  "Come Sail Away": {
+    url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
+    tribe: "Mixed",
+    tags: ["Fluidmorph"],
+    type: ["Aggro-Control"],
+    creatures: ["Arrthoa, Captain of the Ezoa", "Nunk'worm", "Lomma, Desert Wanderer", "Ulmquad", "Rellim, Watermaster"]
+  },
+  "Compost Malvone": {
+    url: "https://chaoticbackup.forumotion.com/t1710-compost-malvone#15183",
+    tribe: "Mixed",
+    tags: ["Beaver"],
+    type: ["Aggro"],
+    creatures: ["Alazdan", "Gorram, Danian General", "Malvadine, The King's Herald", "Taffial", "Ajfak", "Tiaane"]
   },
   "Crack the Whep": {
     url: "https://chaoticbackup.forumotion.com/t1589-crack-the-whep",
@@ -180,14 +203,42 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Tarin", "Makanaz", "Ivelaan", "Elhadd", "Mhein", "Illexia, The Danian Queen"]
   },
-  "Erak'tabb": {
-    url: "https://chaoticbackup.forumotion.com/t1695-erak-tabb",
+  "Elegy Spam": {
+    url: "https://chaoticbackup.forumotion.com/t1708-elegy-spam",
+    tribe: "Mixed",
+    tags: ["Elemental Elegy"],
+    type: ["Control"],
+    creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
+  },
+  "Erak'tabb Tartarek": {
+    url: "https://chaoticbackup.forumotion.com/t1689-erak-tabb-tartarek",
     tribe: "M'arrillian",
     tags: [],
     type: ["Midrange"],
-    creatures: ["Blaaxa", "Okaxor", "Erak'tabb", "Tarterek, Psi Overloader", "Arrthoa"]
+    creatures: ["Blaaxa", "Okaxor", "Erak'tabb", "Tarterek, Psi Overloader", "Arrthoa", "Jaidwarl", "Neth'uar", "Xis'torq"]
   },
-  "Flame On!": {
+  "Feasting": {
+    url: "https://chaoticbackup.forumotion.com/t1679-herken-morph#15160",
+    tribe: "Mixed",
+    type: ["Midrange"],
+    tags: ["Fluidmorph"],
+    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Nunk'worm", "Rellim, Watermaster", "Herken", "Na-inna", "Lam'inkal"]
+  },
+  "Fire and Brimstone": {
+    url: "https://chaoticbackup.forumotion.com/t1571-fire-and-brimstone",
+    tribe: "UnderWorld",
+    tags: ["Fire", "Air"],
+    type: ["Aggro"],
+    creatures: ["Brimflame", "Chaor", "Bladez", "Takinom, The Shadowknight", "Kopond, High Muge of the Hearth"]
+  },
+  "Firefly": {
+    url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
+    tribe: "M'arrillian",
+    tags: ["Mipedian Fulgurite"],
+    type: ["Gimmick"],
+    creatures: ["Lam'inkal", "Rellim, Watermaster", "Bahrakatan, The Coralsmith", "Ulmquad", "Rol'doi"]
+  },
+  "Flame On": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
     tribe: "Mixed",
     tags: ["Fire"],
@@ -208,7 +259,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo", "Midrange"],
     creatures: ["Aggroar", "Ebbikka", "Ikkatosh, The Aich King", "Olkiex, Driver Extraordinaire", "Vunhra"]
   },
-  Fliandar: {
+  "Fliandar": {
     url: "https://chaoticbackup.forumotion.com/t1572-fliandar-mixed",
     tribe: "Mixed",
     tags: ["Infection"],
@@ -221,6 +272,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Anti-Meta"],
     creatures: ["Gan'trak", "Jaidwarl", "Okaxor", "Bladez", "Brimflame", "Nunk'worm", "Gronmor"]
+  },
+  "Gan'trak Issaley": {
+    url: "https://chaoticbackup.forumotion.com/t1655-gan-trak-bladez#15165",
+    tribe: "M'arrillian",
+    tags: [],
+    type: ["Anti-Meta"],
+    creatures: ["Gan'trak", "Issaley", "Okaxor", "Bladez", "Uksum"]
   },
   GearEater: {
     url: "https://chaoticbackup.forumotion.com/t1591-ilx-geareater",
@@ -243,13 +301,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  "Gorram Malvadine": {
-    url: "https://chaoticbackup.forumotion.com/t1583-gorram-malvadine",
-    tribe: "Mixed",
-    tags: [],
-    type: ["Combo", "Gimmick"],
-    creatures: ["Alazdan", "Gorram, Danian General", "Illiar", "Malvadine, The King's Herald", "Taffial"]
-  },
   "Grantkae Control": {
     url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control",
     tribe: "Mixed",
@@ -271,33 +322,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Olkiex", "Lam'inkal", "Lomma, Desert Wanderer", "Hiadrom, Rock Ripper", "Garv"]
   },
-  "Heartmatred's Attack": {
+  "Hermatred": {
     url: "https://chaoticbackup.forumotion.com/t1672-hermatred",
     tribe: "Danian",
     tags: ["Compost", "Infection", "Courage"],
     type: ["Combo"],
     creatures: ["Tabaal", "Illexia, The Danian Queen", "Ivelaan", "Elhadd", "Hermatred"]
-  },
-  "Hive Mind": {
-    url: "https://chaoticbackup.forumotion.com/t1599-hivemind",
-    tribe: "Mixed",
-    tags: ["Compost"],
-    type: ["Control"],
-    creatures: ["Elhadd", "Ivelaan", "Makanaz", "Stelgar, Vicious Mutation"]
-  },
-  "Fire and Brimstone": {
-    url: "https://chaoticbackup.forumotion.com/t1571-fire-and-brimstone",
-    tribe: "UnderWorld",
-    tags: ["Fire", "Air"],
-    type: ["Aggro"],
-    creatures: ["Brimflame", "Chaor", "Bladez", "Takinom, The Shadowknight", "Kopond, High Muge of the Hearth"]
-  },
-  "Stelphor (Kraken)": {
-    url: "https://chaoticbackup.forumotion.com/t1586-kraken#15168",
-    tribe: "Mixed",
-    tags: [],
-    type: ["Control"],
-    creatures: ["Stelgar, Vicious Mutation", "Lomma, Desert Wanderer", "Ifjann", "Kepiaan, Danian Lieutenant", "Phelphor, Of the Deep", "Xelfe", "Tangath Toborn, OverWorld General"]
   },
   Khorror: {
     url: "https://chaoticbackup.forumotion.com/t1588-khorror",
@@ -313,33 +343,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Garv", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer", "Vunhra", "Lanker"]
   },
-  "Lobster Lightning": {
-    url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
-    tribe: "M'arrillian",
-    tags: ["Mipedian Fulgurite"],
-    type: ["Gimmick"],
-    creatures: ["Lam'inkal", "Rellim, Watermaster", "Bahrakatan, The Coralsmith", "Ulmquad", "Rol'doi"]
-  },
   "Lyssta Mixed": {
     url: "https://chaoticbackup.forumotion.com/t1576-lyssta-mixed",
     tribe: "Mixed",
     tags: [],
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
-  },
-  "M'arr Courage Wisdom": {
-    url: "https://chaoticbackup.forumotion.com/t1689-marr-courage-wisdom",
-    tribe: "M'arrillian",
-    tags: [],
-    type: ["Aggro"],
-    creatures: ["Tarterek, Psi Overloader", "Gimwei", "Erak'tabb", "Neth'uar", "Xis'torq"]
-  },
-  "Master of the Sails": {
-    url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
-    tribe: "Mixed",
-    tags: ["Fluidmorph"],
-    type: ["Aggro-Control"],
-    creatures: ["Arrthoa, Captain of the Ezoa", "Nunk'worm", "Lomma, Desert Wanderer", "Ulmquad", "Rellim, Watermaster"]
   },
   MaxWreck: {
     url: "https://chaoticbackup.forumotion.com/t1566-maxwreck",
@@ -355,6 +364,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Malvadine, The King's Herald", "Ribbian", "Na-inna, Rebel of the Rao'Pa Sahkk", "Enre-hep"]
   },
+  "Nimmei": {
+    url: "https://chaoticbackup.forumotion.com/t1688-reporting-for-duty",
+    tribe: "Danian",
+    tags: ["Infection"],
+    type: ["Combo", "Aggro-Control"],
+    creatures: ["Amblox", "Illexia, The Danian Queen", "Nimmei", "Elna", "Wamma, Hive Ordnance", "Tabaal"]
+  },
   "No Healing": {
     url: "https://chaoticbackup.forumotion.com/t1579-no-healing",
     tribe: "Mixed",
@@ -362,7 +378,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Ursis", "Galmedar", "Smildon", "Vunhra"]
   },
-  "Oath of the Oasis": {
+  "Oath": {
     url: "https://chaoticbackup.forumotion.com/t1683-oath-of-the-oasis",
     tribe: "Mixed",
     tags: [],
@@ -383,14 +399,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
   },
-  "OverWorld Muge": {
+  "OverWorld Muges": {
     url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
     tribe: "OverWorld",
     tags: [],
     type: ["Midrange"],
     creatures: ["Tangath Toborn, In Training", "Maxxor, Elemental Champion", "Attacat, Tactical Aide", "Drabe", "Lomma, Desert Wanderer", "Karraba"]
   },
-  "PoP'in Off": {
+  "PoP": {
     url: "https://chaoticbackup.forumotion.com/t1674-pop-in-off",
     tribe: "OverWorld",
     tags: [],
@@ -404,13 +420,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control"],
     creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe"]
   },
-  "Reporting for Duty": {
-    url: "https://chaoticbackup.forumotion.com/t1688-reporting-for-duty",
-    tribe: "Danian",
-    tags: ["Infection"],
-    type: ["Combo", "Aggro-Control"],
-    creatures: ["Amblox", "Illexia, The Danian Queen", "Nimmei", "Elna", "Wamma, Hive Ordnance", "Tabaal"]
-  },
   "Sis Ops": {
     url: "https://chaoticbackup.forumotion.com/t1667-multi-tribe-mash-up",
     tribe: "Mixed",
@@ -418,13 +427,20 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Combo"],
     creatures: ["Kepiaan, Danian Lieutenant", "Tangath Toborn, OverWorld General", "Aivenna, OverWorld Lieutenant", "Nunk'worn", "Na-inna", "Nivenna, UnderWorld Lieutenant"]
   },
-  // "Six Arms": {
-  //   url: "https://chaoticbackup.forumotion.com/t1581-6-arms",
-  //   tribe: "Mixed",
-  //   tags: ["Infection"],
-  //   type: ["Combo"],
-  //   creatures: ["Ebbikka", "Olkiex, Driver Extraordinaire", "Ikkatosh, The Aich King", "Vunhra"]
-  // },
+  "Stelgar Compost": {
+    url: "https://chaoticbackup.forumotion.com/t1599-hivemind",
+    tribe: "Mixed",
+    tags: ["Compost"],
+    type: ["Control"],
+    creatures: ["Elhadd", "Ivelaan", "Makanaz", "Stelgar, Vicious Mutation"]
+  },
+  "Stelphor (Kraken)": {
+    url: "https://chaoticbackup.forumotion.com/t1586-kraken#15168",
+    tribe: "Mixed",
+    tags: [],
+    type: ["Control"],
+    creatures: ["Stelgar, Vicious Mutation", "Lomma, Desert Wanderer", "Ifjann", "Kepiaan, Danian Lieutenant", "Phelphor, Of the Deep", "Xelfe", "Tangath Toborn, OverWorld General"]
+  },
   Strike: {
     url: "https://chaoticbackup.forumotion.com/t1568-strike",
     tribe: "Mipedian",
@@ -460,7 +476,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
-  "UnderWorld Burn": {
+  "UW Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
@@ -481,20 +497,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Bladez", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
   },
-  Warbeast: {
-    url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
-    tribe: "Mipedian",
-    tags: ["Warbeast", "Air", "Earth"],
-    type: ["Midrange"],
-    creatures: ["Blazvatan, The Epic Warbeast", "Ailav", "Kileron, Warbeast of the Dust Storm", "Malvadine, The King's Herald", "Bylkian", "Ranun", "Gaffat-ra"]
-  },
-  "Wise Guys": {
-    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
-    tribe: "OverWorld",
-    tags: [],
-    type: ["Control"],
-    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
-  }
 };
 
 export const decklist = _decklist as {[key: string]: Deck};

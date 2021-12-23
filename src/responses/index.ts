@@ -11,13 +11,14 @@ import servers from '../common/servers';
 import { Channel, SendFunction } from '../definitions';
 
 import { clear, haxxor, logs, rm } from './admin';
+import { checkSpam } from './antispam';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
 
 import commands from './command_help.json';
 
 import { banlist, formats, whyban } from './game/bans';
-import { decklist, tier, tierlist } from './game/decklists';
+import { decklist, tier, tierlist, curated } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { funstuff, goodstuff } from './game/goodstuff';
@@ -64,22 +65,29 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   };
 
   const response = async (): Promise<void> => {
-    // Dev command prefix
-    if (development && content.substring(0, 2) === 'd!')
-      return command_response(bot, message, mentions, send);
 
-    // Prevents double bot responses on production servers
-    if (development && (!message.guild || message.guild.id !== servers('develop').id))
-      return;
+    if (development) {
+      // Dev command prefix
+      if (content.substring(0, 2) === 'd!')
+        return command_response(bot, message, mentions, send);
+
+      // Prevents double bot responses on production servers
+      if ((!message.guild || message.guild.id !== servers('develop').id))
+        return;
+    }
 
     // If the message is a command
     if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
       return command_response(bot, message, mentions, send);
-
-    // If no commands check message content for quips
+    
+    // If no commands check message content for spam or quips
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
-    ) return checkSass(bot, message, mentions, send);
+    ) {
+      if (checkSpam(bot, message)) return;
+      else
+      return checkSass(bot, message, mentions, send);
+    }
   };
 
   return response()
@@ -205,22 +213,25 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
   }
 
-  function newMemberGeneralChatSpam() {
+  const newMemberGeneralChatSpam = () => {
     return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
       (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
     );
   }
 
-  async function sendBotCommands(content: Array<string | RichEmbed>, msg: string | null = null) {
+  const sendMultiResponse = async (content: Array<string | RichEmbed>, ch: Channel = message.channel as Channel) => {
+    for await (const c of content) {
+      if (c) await ch.send(c).catch((e) => { throw (e); });
+    }
+  }
+
+  const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null) => {
     let ch = message.channel as Channel;
     if (!can_send(channel, guild, guildMember, msg)) {
       content.unshift(`<@!${message.author.id}>`);
       ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
     }
-
-    for await (const c of content) {
-      if (c) await ch.send(c).catch((e) => { throw (e); });
-    }
+    sendMultiResponse(content, ch);
   }
 
   /**
@@ -354,13 +365,20 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'tier': {
       const output = tier(cleantext(flatten(args)));
-      if (output instanceof RichEmbed) send(output);
+      if (output) sendBotCommands([output]);
       return;
     }
 
+    case 'curated':
+      return sendBotCommands([curated()]);
+
     case 'tierlist':
     case 'tiers':
-      return sendBotCommands([tierlist(), donate()]);
+      if (guild && is_channel(channel, 'bot_commands', "main")) {
+        return sendMultiResponse([tierlist(), curated(), donate()])
+      } else {
+        return sendBotCommands([tierlist(), donate()]);
+      }
 
     /* Matchmaking */
     case 'cupid':
