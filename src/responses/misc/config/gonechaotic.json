@@ -1431,7 +1431,14 @@
         "You're gonna Kharry that weight": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/your_g10.jpg",
             "type": "Attack"
-        }
+        },
+        "Chaotic_Nicole":{
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/nicole10.png",
+            "text": "Battlegear you control has Untargetable.\n\nAttacks from the Gone Chaotic sets played by\nCreatures from the Gone Chaotic sets deal\nadditional 5 damage to creatures not from Gone\nChaotic sets.",
+            "flavor": "Careful , she's sassy.", 
+            "type": "Character"
+	}        
+
     },
     "Gone4Ever": {
         "Ambiguous Attack": {
