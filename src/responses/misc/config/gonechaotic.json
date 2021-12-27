@@ -838,7 +838,7 @@
             "type": "Creature",
             "tribe": "Danian",
             "stats": [175,40,10,10,50],
-            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage <:courage:897668043595984936>\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
+            "text": "When your significant other is in the room Luv\ngains 10 energy and Outperform Courage :5\nThe creature engaged with Luv gains Courage\nbased on the damage Luv's attacks would do.\nIf they reach 175 Courage or higher destroy\nthat creature.\nWhen Luv becomes engaged,congradulate\nher for getting married."
         },
         "M'arrillian Bubble Blowing Chamber": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/m_arri10.jpg",
@@ -1431,7 +1431,14 @@
         "You're gonna Kharry that weight": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/your_g10.jpg",
             "type": "Attack"
-        }
+        },
+        "Chaotic_Nicole":{
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/nicole10.png",
+            "text": "Battlegear you control has Untargetable.\n\nAttacks from the Gone Chaotic sets played by\nCreatures from the Gone Chaotic sets deal\nadditional 5 damage to creatures not from Gone\nChaotic sets.",
+            "flavor": "Careful , she's sassy.", 
+            "type": "Character"
+	}        
+
     },
     "Gone4Ever": {
         "Ambiguous Attack": {
@@ -2281,63 +2288,6 @@
             "type": "Battlegear",
             "text": "The Equipped Creature has an additional 5 energy.\n\n If Equipped Creature is a Chieftain it has \"<:Water:701188881890017300>Water 5\"\n\nWhen the equipped Creature becomes engaged, if the Equipped\nCreature is \"Aa'une the B@lligarch\" flip it to the right or left",
             "flavor": "behold! the spherical sceptar! The round rod! The\nmight B@LLTON!"
-        },
-        "Out of Control B@llgy":{
-            "img": "https://i.imgur.com/XBoYPuE.png",
-            "type": "Battlegear",
-            "text": "The equipped Creature has \"Range\" and \"Swift 200\" \n\nThe Equipped Creature can move during your opponents turn\nand must move if able on every turn (moves on an opponents\nturn occur Just before your opponent moves their first Crea-\nture, and cannot begin a combat)\n\nThis Battlegear Begins the game Face-up."
-        },
-        "B@lldron of Vitality":{
-            "img": "https://i.imgur.com/kZbb5AX.png",
-            "type": "Battlegear",
-            "text": "Remove a Creature, Battlegear, Mugic, and an Attack with 1 or\n more Build points in your discard pile from the game: The\nEquipped Creature gains 30 Energy",
-            "flavor": "At least its more healthy than what they serve at the\nport court."
-        },
-        "Symb@ll Cymb@ll":{
-            "img": "https://i.imgur.com/5Cn1XBP.png",
-            "type": "Battlegear",
-            "text": "When the Equippped Creature becomes Engaged, choose a set\nsymbol, the Equipped Creature does an additional 10 damage\nwith Attacks with that set symbol.",
-            "flavor": "What could these strange symbols mean? Eh, its\nprobably nothing don't worry about it."
-        },
-        "Confertab@ll Bed":{
-            "img": "https://i.imgur.com/2cKeaTW.png",
-            "type": "Battlegear",
-            "text": "The Equipped Creature may Choose not to play an Attack card.\n\nThe equipped Creature has an Additional 5 Energy for each\nAttack card in your hand.",
-            "flavor": "\"Finally I can live out my fantasy of getting a good\nnights sleep\n"
-        },
-        "Recharge B@llttery":{
-            "img": "https://i.imgur.com/OylR7NK.png",
-            "type": "Battlegear",
-            "text": "Sacrifice this Battlegear: The equipped Creature can use\nabilities that can only be used once per turn, twice this turn.\nUse this ability on if the equipped Creature is an Overworlder.\n\nThis Battlegear Begins the game face-up",
-            "flavor": "Finally with the power of pure lightning I can recharge\nmyself! ... wait this is the wrong charge cable..."
-        },
-        "Elder B@lltar":{
-            "img": "https://i.imgur.com/V9vhQBF.png",
-            "type": "Battlegear",
-            "text": "Sacrifice this Battlegear: Before flipping any of your cards this\nturn, your opponent may guess the full name and subname on\nthe other side, if they guess wrong Draw an attack card and\nDiscard an attack card. Play this ability only if the Equipped\nCreature is a Mipedian\n\nThis Battlegear Begins the game face-up",
-            "flavor": "While you watch his coin, he's stealing yours"
-        },
-        "Glob@ll Surveyor":{
-            "img": "https://i.imgur.com/p5oDWMM.png",
-            "type": "Battlegear",
-            "text": "Sacrifice this Battlegear: Look at the top 3 Cards of a Location\ndeck, Put them back in any order, they remain face-up while in\nthe deck. Play this ability only if the Creature is a Danian.\n\nThis Battlegear Begins the game face up",
-            "flavor": "Pff everyone knows Perim is flat."
-        },
-        "B@llby Trap":{
-            "img": "https://i.imgur.com/SS3euXp.png",
-            "type": "Battlegear",
-            "text": "This Batlegear Begins the Game face-up\nThis Battlegears name must be visible at all times\nWhen your opponent says this battlegears name, flip it\nface-down\nAt the beginning of Combat Deal 10 Damage to the opposing\nEngaged Creature, if this Battlegear was Face-up before\ncombat started, Deal 20 Damage instead"
-        },    
-        "B@llrons of Indifference":{
-            "img": "https://i.imgur.com/pp5opgY.png",
-            "type": "Battlegear",
-            "text": "The equipped Creature is not destoryed from having damage \nequal to or above its Energy.\n\nWhen the equipped Creature takes Attack damage while its\ndamage equal to or above its Energy, destroy it.",
-            "flavor": "¯\\_(ツ)_/¯"
-        },
-        "Pointless B@llble, Closed":{
-            "img":"https://i.imgur.com/qStlZcC.png",
-            "type": "Battlegear",
-            "text": "The equipped Creature has \"Expend an Elemental type: put a widjet counter on this card\"\n\nWhen a Creature with 5 or more widget counters on it wins\n combat, put a gizmo counter on this card\n\nWhen you shuffle your attack deck, you may remove a gizmo\ncounter from this card, if you do flip it.\n\n**Begins the game Face-up on this side**"
         }
     }        
 }   
