@@ -1458,6 +1458,12 @@
             "img": "https://i.servimg.com/u/f26/18/37/62/02/chaori13.png",
             "type": "Creature"
         },
+        "Chaotic Nicole": {
+            "img": "https://i.servimg.com/u/f26/18/37/62/02/nicole10.png",
+            "text": "Battlegear you control has Untargetable.\n\nAttacks from the Gone Chaotic sets played by\nCreatures from the Gone Chaotic sets deal\nadditional 5 damage to creatures not from Gone\nChaotic sets.",
+            "flavor": "Careful, she's sassy.", 
+            "type": "Character"
+        },
         "Exia, Purified": {
             "img": "https://i.servimg.com/u/f26/18/37/62/02/exia_12.png",
             "type": "Creature"
