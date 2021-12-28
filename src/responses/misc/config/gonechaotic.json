@@ -2344,6 +2344,91 @@
             "img":"https://i.imgur.com/qStlZcC.png",
             "type": "Battlegear",
             "text": "The equipped Creature has \"Expend an Elemental type: put a widjet counter on this card\"\n\nWhen a Creature with 5 or more widget counters on it wins\n combat, put a gizmo counter on this card\n\nWhen you shuffle your attack deck, you may remove a gizmo\ncounter from this card, if you do flip it.\n\n**Begins the game Face-up on this side**"
+        },
+        "Pointless B@llble, Open":{
+            "img": "https://i.imgur.com/aaNx7AW.png",
+            "type": "Battlegear",
+            "text": "As this card flips to this side, choose a letter.\n\nWhen the Equipped Creature plays an attack,put a doodad\ncounter on this card for each instance of the chosen letter in that attack name.\n\nWhenever a new location is revealed, if this card has 20 or\n more doodad counters on it, put a whazit counter on it for\neach time the chosen letter appears in that location's name.\n\nWhen this card has 5 or more whazit counters, sacrifice it"
+        },
+        "B@llad of Union":{
+            "img": "https://i.imgur.com/OVchslJ.png",
+            "tribe": "OverWorld",
+            "type": "Mugic",
+            "text": "Target Creature You control is Considered adjacent to\nevery space with another Creature you control.",
+            "flavor": "Listen... I need some space right now..."
+        },
+        "Refrain in Denib@ll":{
+            "img": "https://i.imgur.com/UxgKMJc.png",
+            "tribe": "OverWorld",
+            "type": "Mugic",
+            "text": "You may pretend target mugic was negated *[this does\nnot effect the game in any way]*\n\nIf you lost a game where you played this card, you may say\n you won the game.*[this does not eddect the result of the game]*"
+        },
+        "B@llad of the Void":{
+            "img": "https://i.imgur.com/UDvIVk3.png",
+            "tribe": "UnderWorld",
+            "type": "Mugic",
+            "text": "Target Creature you Control loses all abilities and flavor\ntext and it gains 20 Energy.",
+            "flavor": "Oh no someone erased the fl"
+        },
+        "Ode of Umb@llrage":{
+            "img": "https://i.imgur.com/edUFnUm.png",
+            "tribe": "UnderWorld",
+            "type": "Mugic",
+            "text": "Target Creature Deals an Additional 5 attack damage,\nChoose a person outside the game, they choose what\nattacks that creature plays this turn.",
+            "flavor": "Saddly this card doesn't work because no one wants to\n wathc you play Chaotic"
+        },
+        "B@llad of Exploration":{
+            "img": "https://i.imgur.com/HeLkMbz.png",
+            "tribe": "Danian",
+            "type": "Mugic",
+            "text": "Look at the top 2 Cards of your location deck, Put one\n the top or bottom of your location deck, and one on the\ntop or bottom of your opponents location deck.",
+            "flavor": "You came to wrong location motherfluxer"
+        },
+        "Unb@llanced Ode":{
+            "img": "https://i.imgur.com/cDbGJZc.png",
+            "tribe": "Danian",
+            "type": "Mugic",
+            "text": "Your Engaged Creature gains 10 energy. Deal 10\ndamage to the Opposing Engaged Creature.\n\nYour Opponent must balance this card on the back of\none of there hands until the end of turn. If it falls off\nreturn it to your hand."
+        },
+        "B@llad of Disguise":{
+            "img": "https://i.imgur.com/awD5Q9Q.png",
+            "tribe": "Mipedian",
+            "type": "Mugic",
+            "text": "Replace Target unengaged Creature you control with\n another Creature with the same name form outside the\n game. play this mugic only while the burst is empty.*(The\nnew Creature enters on the same space with no counters\nand becomes equipped with all the battlegear the other\nhad)*"
+        },
+        "Dampening B@lltz":{ 
+            "img": "https://i.imgur.com/sCxthKi.png",
+            "tribe":"Mipedian",
+            "type": "Mugic",
+            "text": "Damage dealt by target Attack is reduced by 30\n\nIf the attack contains a word related to sound, reduce its\ndamage to 0 instead",
+            "flavor": "After Screamer moved in to the appartment above him,\nTianne had to take drastic measures."
+        },
+        "B@lling of Aa'une":{
+            "img": "https://i.imgur.com/vkaYvrz.png",
+            "tribe": "M'arrillian",
+            "type": "Mugic",
+            "text": "Minions may play this mugic as though it was generic\n\nFlip any Creature name \"Aa'une the B@lligarch\"to the \nright or left.",
+            "flavor":"Hey this is Aa'une, I can't come to the phone right now,\nI'm busy turning perim into an ocean, leave a message\n and I'll get back to you as soon as I can!"
+        },
+        "Forgetab@ll Tune":{
+            "img": "https://i.imgur.com/9aeg25b.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Ok this card is awesome, you target two of your creatures and then...\nwait no, you target two of your opponent's creatures... no your opponent\n targets two of your creatures... and then... wait was it unengaged\nCreatures? oh and you can only play this while they have more\nCreatures... no while YOU have more Creatures in your discard... wait\nno... shoot I can\t remember... this card was such a sweet combo with\nNecrabe too. oh well just have target Creature gain 10 Energy or\nsomething I guess.",
+        },
+        "B@lldlum Baritone":{ 
+            "img": "https://i.imgur.com/hCEkuX4.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Remove 2 random cards in the game form the game(Counts\nevery card in a deck,on the battleboard,in a hand, on the burst,\n or in a discard pile)",
+            "flavor": "eh, I'm just gonna randomly generate some flavor text\n\"Some clain that plagues of a war means the blessings to\nits impact on me.\"-Nebres"
+        },
+        "Orginb@ll Melody":{
+            "img": "https://i.imgur.com/WJWC0qg.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Choose 3 different, Generic Mugic from \"Dawn of Perim\" at\nrandom, cast a copy of each of those Mugic.*(If you choose a\nMugic with no legal target that mugic can't be cast.)*",
+            "flavor":"Those who cannot learn from history are doomed to\nrepeat it."
         }
     }        
 }   
