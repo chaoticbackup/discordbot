@@ -166,7 +166,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
       }
       break;
     case "M'arrillian":
-      joining_msg = '<:Mar:294942283273601044> You\'ll serve your purpose.';
+      joining_msg = '<:dealwithit:920071682008449046> You\'ll serve your purpose.';
       break;
     case 'OverWorld':
       if (leaving_tribe === 'UnderWorld') {

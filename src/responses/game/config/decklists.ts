@@ -67,7 +67,7 @@ export const sortedlist = {
     "Grantkae Control",
     "Hermatred",
     "Oath",
-    "Tartereklessness",
+    "Tartareklessness",
     "Trampling Mammoth",
     "Ursis Dagger"
   ],
@@ -455,7 +455,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Ulmquad", "Lomma, Desert Wanderer", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Na-inna"]
   },
-  Tartereklessness: {
+  Tartareklessness: {
     url: "https://chaoticbackup.forumotion.com/t1686-tartereklessness",
     tribe: "M'arrillian",
     tags: [],
