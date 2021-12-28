@@ -2411,7 +2411,24 @@
             "flavor":"Hey this is Aa'une, I can't come to the phone right now,\nI'm busy turning perim into an ocean, leave a message\n and I'll get back to you as soon as I can!"
         },
         "Forgetab@ll Tune":{
-            "img": "https://i.imgur.com/9aeg25b.png"
+            "img": "https://i.imgur.com/9aeg25b.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Ok this card is awesome, you target two of your creatures and then...\nwait no, you target two of your opponent's creatures... no your opponent\n targets two of your creatures... and then... wait was it unengaged\nCreatures? oh and you can only play this while they have more\nCreatures... no while YOU have more Creatures in your discard... wait\nno... shoot I can\t remember... this card was such a sweet combo with\nNecrabe too. oh well just have target Creature gain 10 Energy or\nsomething I guess.",
+        },
+        "B@lldlum Baritone":{ 
+            "img": "https://i.imgur.com/hCEkuX4.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Remove 2 random cards in the game form the game(Counts\nevery card in a deck,on the battleboard,in a hand, on the burst,\n or in a discard pile)",
+            "flavor": "eh, I'm just gonna randomly generate some flavor text\n\"Some clain that plagues of a war means the blessings to\nits impact on me.\"-Nebres"
+        },
+        "Orginb@ll Melody":{
+            "img": "https://i.imgur.com/WJWC0qg.png",
+            "tribe": "Generic",
+            "type": "Mugic",
+            "text": "Choose 3 different, Generic Mugic from \"Dawn of Perim\" at\nrandom, cast a copy of each of those Mugic.*(If you choose a\nMugic with no legal target that mugic can't be cast.)*",
+            "flavor":"Those who cannot learn from history are doomed to\nrepeat it."
         }
     }        
 }   
