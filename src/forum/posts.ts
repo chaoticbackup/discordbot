@@ -8,7 +8,7 @@ virtualConsole.sendTo(console);
 const config = {
   seconds: 180, // keep greater than 30 
   default_channel: servers('main').channel('gen_1'),
-  test_channel: servers('develop').channel('gen'),
+  // default_channel: servers('develop').channel('gen'),
   forum: 'http://chaoticbackup.forumotion.com',
   expire: 10
 };
@@ -75,7 +75,7 @@ export default class ForumPosts {
 
   constructor(bot: Client) {
     this.bot = bot;
-    this.channel = (process.env.NODE_ENV !== 'development') ? config.default_channel : config.test_channel;
+    this.channel = config.default_channel;
   }
 
   start() {

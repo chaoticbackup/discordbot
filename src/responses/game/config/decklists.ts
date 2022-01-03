@@ -440,7 +440,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "Mipedian",
     tags: ["Strike"],
     type: ["Midrange"],
-    creatures: ["Malvadine, The King's Herald", "Headmaster Ankhyja", "Ifjann", "Owayki"]
+    creatures: ["Malvadine, The King's Herald", "Headmaster Ankhyja", "Ifjann", "Owayki", "Iflar, The Crown Prince"]
   },
   "Swimming Team": {
     url: "https://chaoticbackup.forumotion.com/t1567-swimming-team",
