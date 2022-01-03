@@ -49,7 +49,6 @@ export const sortedlist = {
   ],
   A: [
     "Aszil Compost",
-    "Be a Man",
     "Come Sail Away",
     "Danian Burn",
     "Elegy Spam",
@@ -57,7 +56,9 @@ export const sortedlist = {
     "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
-    "Tree Frogs"
+    "Tree Frogs",
+    "Ursis Dagger",
+    "Wise Guys"
   ],
   B: [
     "Blazvatan",
@@ -68,8 +69,7 @@ export const sortedlist = {
     "Hermatred",
     "Oath",
     "Tartareklessness",
-    "Trampling Mammoth",
-    "Ursis Dagger"
+    "Trampling Mammoth"
   ],
   curated: [
     "Erak'tabb Tartarek",
@@ -80,7 +80,8 @@ export const sortedlist = {
     "Ocean Man",
     "OverWorld Muges",
     "OverWorld Elemental",
-    "UnderWorld Discipline Burn"
+    "UnderWorld Discipline Burn",
+    "Ursis D Muge"
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
@@ -139,13 +140,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Water"],
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
-  },
-  "Be a Man": {
-    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
-    tribe: "OverWorld",
-    tags: [],
-    type: ["Control"],
-    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
   },
   "Blazvatan": {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
@@ -491,11 +485,25 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Chaor", "Rothar, Forceful Negotiator", "Ulmar, Perithon Racer", "Kopond, High Muge"]
   },
   "Ursis Dagger": {
-    url: "https://chaoticbackup.forumotion.com/t1670-ursis",
+    url: "https://chaoticbackup.forumotion.com/t1670-ursis-dagger#15191",
     tribe: "Mixed",
     tags: ["Tribeless", "Dagger", "Infection"],
     type: ["Aggro-Control"],
-    creatures: ["Bladez", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training"]
+    creatures: ["Bladez", "Lomma, Desert Wanderer", "Ursis", "Ragetrod", "Vunhra", "Smildon", "Taffial", "Ajara", "Tangath Toborn, In Training", "Xelfe", "Arkanin"]
+  },
+  "Ursis D Muge": {
+    url: "https://chaoticbackup.forumotion.com/t1670-ursis-dagger#15192",
+    tribe: "Mixed",
+    tags: ["Tribeless", "Dagger", "Muge"],
+    type: ["Aggro"],
+    creatures: ["Ursis", "Arkanin", "Ulmar, Perithon Racer", "Lore", "Slufurah"]
+  },
+  "Wise Guys": {
+    url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
+    tribe: "OverWorld",
+    tags: [],
+    type: ["Control"],
+    creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
   },
 };
 
