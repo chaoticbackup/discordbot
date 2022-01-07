@@ -437,7 +437,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(make(flatten(args)));
       
     /* See the Future */
-    case: 'prediction':
+    case 'prediction':
       return send(prediction());
 
     /* Languages */
