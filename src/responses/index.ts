@@ -37,6 +37,7 @@ import gone from './misc/gone';
 import { compliment, insult } from './misc/insult_compliment';
 import joke from './misc/joke';
 import { make, menu, order } from './misc/menu';
+import { prediction } from './misc/predictions';
 import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
 import { answer, trivia, whistle } from './misc/trivia';
@@ -434,6 +435,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(display_card('Arkanin', ['image'], bot));
       else
         return send(make(flatten(args)));
+      
+    /* See the Future */
+    case: 'prediction':
+      return send(prediction());
 
     /* Languages */
     case 'speak':
