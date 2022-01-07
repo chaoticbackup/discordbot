@@ -37,7 +37,7 @@ import gone from './misc/gone';
 import { compliment, insult } from './misc/insult_compliment';
 import joke from './misc/joke';
 import { make, menu, order } from './misc/menu';
-import { prediction } from './misc/predictions';
+import prediction from './misc/prediction';
 import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
 import { answer, trivia, whistle } from './misc/trivia';
