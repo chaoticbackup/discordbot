@@ -294,7 +294,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length < 1) {
         return send('Please provide a rule, or use **!rulebook** or **!guide**');
       } else {
-        return sendBotCommands([glossary(flatten(args))]);
+        return send(glossary(flatten(args)));
       }
 
     /* Documents */
