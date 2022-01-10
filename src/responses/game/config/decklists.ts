@@ -85,7 +85,7 @@ export const sortedlist = {
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
-    "Arrthoa Herken Loyal",
+    "Arrthoa Loyal",
     "Aszil Courage",
     "Brathe Yourself",
     "Bodal's Boys",
@@ -134,12 +134,12 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Control", "Combo"],
     creatures: ["Aszil, the Young Queen", "Kolmo, Assimilated", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer", "Tassanil, High Elementalist", "Lore"]
   },
-  "Arrthoa Herken Loyal": {
-    url: "https://chaoticbackup.forumotion.com/t1616-arrthoa",
+  "Arrthoa Loyal": {
+    url: "https://chaoticbackup.forumotion.com/t1616-arrthoa-loyal#15193",
     tribe: "OverWorld",
-    tags: ["Water"],
+    tags: ["Water", "Prexxor Chasm"],
     type: ["Midrange"],
-    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken"]
+    creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken", "Tangath Toborn, In Training"]
   },
   "Blazvatan": {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
@@ -438,7 +438,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   Strike: {
     url: "https://chaoticbackup.forumotion.com/t1568-strike",
     tribe: "Mipedian",
-    tags: ["Strike"],
+    tags: ["Strike", "Prexxor Chasm"],
     type: ["Midrange"],
     creatures: ["Malvadine, The King's Herald", "Headmaster Ankhyja", "Ifjann", "Owayki", "Iflar, The Crown Prince"]
   },
@@ -501,7 +501,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   "Wise Guys": {
     url: "https://chaoticbackup.forumotion.com/t1563-wise-guys",
     tribe: "OverWorld",
-    tags: [],
+    tags: ["Prexxor Chasm"],
     type: ["Control"],
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
   },
