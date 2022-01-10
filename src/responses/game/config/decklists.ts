@@ -45,7 +45,7 @@ export const sortedlist = {
     "Rawr",
     "Strike",
     "Swimming Team",
-    "UW Burn",
+    "UnderWorld Discipline Burn"
   ],
   A: [
     "Aszil Compost",
@@ -80,7 +80,6 @@ export const sortedlist = {
     "Ocean Man",
     "OverWorld Muges",
     "OverWorld Elemental",
-    "UnderWorld Discipline Burn",
     "Ursis D Muge"
   ],
   // Place any unranked decks here for the purpose of linting
@@ -104,7 +103,8 @@ export const sortedlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
-    "Stelgar Compost"
+    "Stelgar Compost",
+    "UnderWorld Fire Burn",
   ]
 } as const;
 
@@ -470,7 +470,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
-  "UW Burn": {
+  "UnderWorld Fire Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
