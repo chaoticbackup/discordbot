@@ -53,22 +53,22 @@ export const sortedlist = {
     "Danian Burn",
     "Elegy Spam",
     "Fliandar",
+    "Kolmpost",
     "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
-    "Tree Frogs",
     "Ursis Dagger",
     "Wise Guys"
   ],
   B: [
     "Blazvatan",
     "Compost Malvone",
-    "Kolmpost",
     "Gan'trak Bladez",
     "Grantkae Control",
     "Hermatred",
     "Oath",
     "Tartareklessness",
+    "Tree Frogs",
     "Trampling Mammoth"
   ],
   curated: [
