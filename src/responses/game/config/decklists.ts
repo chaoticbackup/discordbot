@@ -63,7 +63,7 @@ export const sortedlist = {
   B: [
     "Blazvatan",
     "Compost Malvone",
-    "Discipline Compost",
+    "Kolmpost",
     "Gan'trak Bladez",
     "Grantkae Control",
     "Hermatred",
@@ -189,13 +189,6 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Water", "Air", "Burn"],
     type: ["Midrange"],
     creatures: ["Gareep", "Ulmquad", "Illexia, The Danian Queen", "Irrabeq", "Nunkworm, Assimilated"]
-  },
-  "Discipline Compost": {
-    url: "https://chaoticbackup.forumotion.com/t1681-danian-discipline-compost",
-    tribe: "Danian",
-    tags: ["Compost"],
-    type: ["Midrange"],
-    creatures: ["Tarin", "Makanaz", "Ivelaan", "Elhadd", "Mhein", "Illexia, The Danian Queen"]
   },
   "Elegy Spam": {
     url: "https://chaoticbackup.forumotion.com/t1708-elegy-spam",
@@ -329,6 +322,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Warbeast"],
     type: ["Prison"],
     creatures: ["Ailav", "Khorror", "Ranun", "Savell", "Xelfe"]
+  },
+  "Kolmpost": {
+    url: "https://chaoticbackup.forumotion.com/t1681-danian-discipline-compost#15200",
+    tribe: "Danian",
+    tags: ["Compost"],
+    type: ["Midrange"],
+    creatures: ["Tarin", "Makanaz", "Ivelaan", "Elhadd", "Mhein", "Illexia, The Danian Queen", "Kolmo, Assimilated"]
   },
   Lankerek: {
     url: "https://chaoticbackup.forumotion.com/t1569-lankerek",
