@@ -165,14 +165,14 @@ function getDecklist(input: string): RichEmbed | string {
     return output;
   }
 
-  if ((output = getCreatures(input)) instanceof RichEmbed) {
-    return output;
-  }
-
   if ((output = getTags(input)) instanceof RichEmbed) {
     return output;
   }
 
+  if ((output = getCreatures(input)) instanceof RichEmbed) {
+    return output;
+  }
+  
   return "I'm unable to find decks that match your search terms";
 }
 
