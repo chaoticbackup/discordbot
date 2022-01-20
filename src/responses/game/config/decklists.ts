@@ -100,6 +100,7 @@ export const sortedlist = {
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
+    "Mandiblor Printer",
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
@@ -343,6 +344,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: [],
     type: ["Midrange"],
     creatures: ["Grantkae, Mipedian General", "Lyssta", "Malvadine, The King's Herald", "Ursis", "Vunhra"]
+  },
+  "Mandiblor Printer": {
+    url: "https://chaoticbackup.forumotion.com/t1702-mandiblor-printer-aka-kolmo-compost",
+    tribe: "Danian",
+    tags: ["Compost"],
+    type: ["Prison"],
+    creatures: ["Kolmo, Assimilated", "Hiadrom", "Illexia, The Danian Queen", "Makanaz", "Ivelaan"]
   },
   MaxWreck: {
     url: "https://chaoticbackup.forumotion.com/t1566-maxwreck",
