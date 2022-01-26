@@ -416,7 +416,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Maxxor, Protector of Perim", "Najarin, High Muge of the Lake", "Arbeid", "Drabe", "Tarterek, Psi Overloader", "Garv"]
   },
   Rawr: {
-    url: "https://chaoticbackup.forumotion.com/t1682-rawr",
+    url: "https://chaoticbackup.forumotion.com/t1682-rawr#15201",
     tribe: "Mipedian",
     tags: [],
     type: ["Control"],
