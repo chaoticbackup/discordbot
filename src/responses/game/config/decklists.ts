@@ -41,6 +41,8 @@ export const axes: {[key in DeckType]: string} = {
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 export const sortedlist = {
   S: [
+    "Danian Burn",
+    "Kolmpost",
     "Rawr",
     "Strike",
     "Swimming Team",
@@ -49,11 +51,9 @@ export const sortedlist = {
   A: [
     "Aszil Compost",
     "Come Sail Away",
-    "Danian Burn",
     "Elegy Spam",
     "Fliandar",
     "Healdrom",
-    "Kolmpost",
     "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
@@ -185,7 +185,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Magmon, Engulfed", "Tangath Toborn, In Training", "Tangath Toborn, OverWorld General", "Akkalbi"]
   },
   "Danian Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1669-danian-burn",
+    url: "https://chaoticbackup.forumotion.com/t1669-danian-burn#15092",
     tribe: "Danian",
     tags: ["Water", "Air", "Burn"],
     type: ["Midrange"],
