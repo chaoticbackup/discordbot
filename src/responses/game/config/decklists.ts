@@ -516,3 +516,18 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
 };
 
 export const decklist = _decklist as {[key: string]: Deck};
+
+const pauper: {
+  [key: string]: Pick<Deck, "url" | "tribe" | "creatures">
+} = {
+  "Hiadrom Compost": {
+    url: "https://chaoticbackup.forumotion.com/t1641-pauper-hiadrome#15205",
+    tribe: "Danian",
+    creatures: ["Hiadrom", "Gareep", "Wamma, Flame Guard", "Ivelaan"]
+  },
+  "Part'soa Emna'ool": {
+    "url": "https://chaoticbackup.forumotion.com/t1637-pauper-marrillian-courage#15204",
+    tribe: "M'arrillian",
+    creatures: ["Part'soa", "Emna'ool", "Rol'doi", "Irrabeq", "Xis'torq", "Uholdan"]
+  }
+}

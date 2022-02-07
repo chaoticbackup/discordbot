@@ -14,4 +14,6 @@ export default function (name: string) {
       return `${non[card]}`;
     }
   }
+
+  return 'Kazdan took your card';
 }
