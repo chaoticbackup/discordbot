@@ -36,6 +36,7 @@ export interface BaseCard {
 }
 
 export interface Attack extends BaseCard {
+  gsx$type: 'Attacks'
   gsx$fire: number | string
   gsx$air: number | string
   gsx$earth: number | string
@@ -45,10 +46,12 @@ export interface Attack extends BaseCard {
 }
 
 export interface Battlegear extends BaseCard {
+  gsx$type: 'Battlegear'
   gsx$subtype: string
 }
 
 export interface Creature extends BaseCard {
+  gsx$type: 'Creatures'
   gsx$tribe: string
   gsx$courage: string | number
   gsx$power: string | number
@@ -64,11 +67,13 @@ export interface Creature extends BaseCard {
 }
 
 export interface Location extends BaseCard {
+  gsx$type: 'Locations'
   gsx$initiative: string
   gsx$subtype: string
 }
 
 export interface Mugic extends BaseCard {
+  gsx$type: 'Mugic'
   gsx$tribe: string
   gsx$cost: number | string
 }

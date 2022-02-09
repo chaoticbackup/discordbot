@@ -73,12 +73,13 @@ const filterMugic: Filter = (scan: Scanned) => {
   if (scan.type === 'Mugic') return toScannable(scan);
 };
 
-const tribeFilter = (tribe: CreatureTribe | MugicTribe): Filter => {
+const tribeFilter = (tribe: CreatureTribe | MugicTribe | 'Mixed'): Filter => {
   return (scan: Scanned) => {
     const card = API.find_cards_by_name(scan.name)[0] as Creature | Mugic;
     const type = card.gsx$type;
     if (
       (type === 'Creatures' || type === 'Mugic') &&
+      /* @ts-ignore */
       parseTribe(card.gsx$tribe, type) === generify(tribe, type)
     ) {
       return toScannable(scan);

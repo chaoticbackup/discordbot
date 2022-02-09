@@ -94,11 +94,11 @@ export default function (name: string, bot: Client, options: string[]) {
     re.setDescription(text);
   }
 
-  if (card.type === "Character") {
-    re.setColor("7d2a5e");
+  if (card.type === 'Character') {
+    re.setColor('7d2a5e');
   }
-  else if (card.type === "Mutant") {
-    re.setColor("25cc37")
+  else if (card.type === 'Mutant') {
+    re.setColor('25cc37');
   }
   else {
     re.setColor(color({ gsx$type: parseType(card.type), gsx$tribe: card.tribe } as Card));
