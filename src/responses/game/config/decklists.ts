@@ -54,7 +54,6 @@ export const sortedlist = {
     "Elegy Spam",
     "Fliandar",
     "Healdrom",
-    "PoP",
     "Sis Ops",
     "Stelphor (Kraken)",
     "Ursis Dagger",
@@ -67,6 +66,7 @@ export const sortedlist = {
     "Grantkae Control",
     "Hermatred",
     "Oath",
+    "PoP",
     "Tartareklessness",
     "Tree Frogs",
     "Trampling Mammoth"
