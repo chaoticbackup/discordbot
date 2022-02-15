@@ -5,24 +5,26 @@ import {
   Card, Mugic, Location, Creature, isCreature, isMugic, isLocation, isAttack, isBattlegear
 } from '../../definitions';
 import Icons from '../../common/bot_icons';
-import find_card from './find';
+import found_card_list from './found_card_list';
 
 export default function (name: string, options: string[], bot: Client): string | RichEmbed {
-  const results = API.find_cards_ignore_comma(name, options);
-
-  if (results.length <= 0) {
-    const find_results = find_card(name);
-
-    if (!find_results) {
-      return "That's not a valid card name";
-    }
-
-    return find_results;
-  }
+  let results = API.find_cards_ignore_comma(name, options);
 
   // Random card
   if (!name) {
     return Response(rndrsp(results, 'card'), options, bot);
+  }
+
+  if (results.length === 0) {
+    results = API.find_card_name(name);
+
+    if (results.length === 0) {
+      return "That's not a valid card name";
+    }
+
+    else if (results.length > 1) {
+      return found_card_list(name, results)!;
+    }
   }
 
   return Response(results[0], options, bot);

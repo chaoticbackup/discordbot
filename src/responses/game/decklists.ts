@@ -97,7 +97,7 @@ function getCreatures(input: string) {
   results.forEach((c) => {
     if (c.gsx$type === 'Creatures') {
       if (card === undefined) {
-        card = c as Creature;
+        card = c;
         versions.push(c.gsx$name);
       }
       else if (c.gsx$name.startsWith(card.gsx$name)) {
@@ -172,7 +172,7 @@ function getDecklist(input: string): RichEmbed | string {
   if ((output = getCreatures(input)) instanceof RichEmbed) {
     return output;
   }
-  
+
   return "I'm unable to find decks that match your search terms";
 }
 
@@ -187,7 +187,7 @@ function getTierlist() {
       const entry = `[${deck}](${decklist[deck].url})\n`;
       if (message.length + entry.length >= 1024) {
         output.addField(
-          (!cont ? key: `${key} cont.`), message, true
+          (!cont ? key : `${key} cont.`), message, true
         );
         message = '';
         cont = true;
@@ -195,7 +195,7 @@ function getTierlist() {
       message += entry;
     });
     output.addField(
-      (!cont ? key: `${key} cont.`), message, true
+      (!cont ? key : `${key} cont.`), message, true
     );
   }
 
@@ -207,19 +207,19 @@ function getCurated() {
 
   let message = '';
   let cont = false;
-  sortedlist["curated"].forEach((deck: string) => {
+  sortedlist.curated.forEach((deck: string) => {
     const entry = `[${deck}](${decklist[deck].url})\n`;
-      if (message.length + entry.length >= 1024) {
-        output.addField(
-          (!cont ? "Curated List" : "\u200B"), message, true
-        );
-        message = '';
-        cont = true;
-      }
-      message += entry;
+    if (message.length + entry.length >= 1024) {
+      output.addField(
+        (!cont ? 'Curated List' : '\u200B'), message, true
+      );
+      message = '';
+      cont = true;
+    }
+    message += entry;
   });
   output.addField(
-    (!cont ? "Curated List" : "\u200B"), message, true
+    (!cont ? 'Curated List' : '\u200B'), message, true
   );
 
   return output;

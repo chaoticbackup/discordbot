@@ -1,12 +1,10 @@
 import { escape_text } from '../../common';
-import { API } from '../../database';
+import { Card } from '../../definitions';
 
 /*
-Find a list of names based on input
+Formated a list of names based on input and list of cards
 */
-export default function find_card(name: string) {
-  const results = API.find_card_name(name);
-
+export default function found_card_list(name: string, results: Card[]) {
   if (results.length === 0) {
     return;
   }

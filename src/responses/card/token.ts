@@ -28,7 +28,7 @@ export default function (name: string) {
   name = name.replace(/[ ]+/, '_');
 
   if (tokens[name]) {
-    const url = API.base_image + tokens[name]
+    const url = API.base_image + tokens[name];
     return new RichEmbed().setImage(url);
   }
 }

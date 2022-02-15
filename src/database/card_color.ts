@@ -1,17 +1,17 @@
 import { Attack, Battlegear, Creature, Location, Mugic } from '../definitions';
 import { ColorResolvable } from 'discord.js';
 
-export default function card_color (card: Attack | Battlegear | Creature | Location | Mugic): ColorResolvable {
+export default function card_color(card: Attack | Battlegear | Creature | Location | Mugic): ColorResolvable {
   switch (card.gsx$type) {
     case 'Attacks':
-      { return '#586b81'; }
+    { return '#586b81'; }
     case 'Battlegear':
-      { return '#aebdce'; }
+    { return '#aebdce'; }
     case 'Locations':
-      { return '#419649'; }
+    { return '#419649'; }
     case 'Creatures':
     case 'Mugic':
-      switch ((card as Creature | Mugic).gsx$tribe) {
+      switch (card.gsx$tribe) {
         case 'OverWorld':
           return '#1994d1';
         case 'UnderWorld':

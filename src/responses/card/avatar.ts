@@ -4,6 +4,10 @@ import { Creature } from '../../definitions';
 import { rndrsp } from '../../common';
 
 export default function (name: string) {
+  if (API.data === 'local') {
+    return 'Database offline; unable to find cards by name';
+  }
+
   const results = API.find_cards_ignore_comma(name, ['type=creature']) as Creature[];
   let card: Creature;
 

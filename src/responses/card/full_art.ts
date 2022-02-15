@@ -4,6 +4,10 @@ import { Card } from '../../definitions';
 import { rndrsp } from '../../common';
 
 export default function (name: string, options: string[]) {
+  if (API.data === 'local') {
+    return 'Database offline; unable to find cards by name';
+  }
+
   const results = API.find_cards_ignore_comma(name);
   let card: Card;
 

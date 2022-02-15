@@ -66,7 +66,6 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   };
 
   const response = async (): Promise<void> => {
-
     if (development) {
       // Dev command prefix
       if (content.substring(0, 2) === 'd!')
@@ -74,20 +73,20 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 
       // Prevents double bot responses on production servers
       if ((!message.guild || message.guild.id !== servers('develop').id))
-        return;
+        return Promise.resolve();
     }
 
     // If the message is a command
     if (content.charAt(0) === '!' || content.substring(0, 2).toLowerCase() === 'c!')
       return command_response(bot, message, mentions, send);
-    
+
     // If no commands check message content for spam or quips
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
     ) {
-      if (checkSpam(bot, message)) return;
-      else
-      return checkSass(bot, message, mentions, send);
+      if (!checkSpam(bot, message)) {
+        return checkSass(bot, message, mentions, send);
+      }
     }
   };
 
@@ -218,13 +217,13 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
       (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
     );
-  }
+  };
 
   const sendMultiResponse = async (content: Array<string | RichEmbed>, ch: Channel = message.channel as Channel) => {
     for await (const c of content) {
       if (c) await ch.send(c).catch((e) => { throw (e); });
     }
-  }
+  };
 
   const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null) => {
     let ch = message.channel as Channel;
@@ -233,7 +232,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
     }
     sendMultiResponse(content, ch);
-  }
+  };
 
   /**
     * Full command set
@@ -375,8 +374,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'tierlist':
     case 'tiers':
-      if (guild && is_channel(channel, 'bot_commands', "main")) {
-        return sendMultiResponse([tierlist(), curated(), donate()])
+      if (guild && is_channel(channel, 'bot_commands', 'main')) {
+        return sendMultiResponse([tierlist(), curated(), donate()]);
       } else {
         return sendBotCommands([tierlist(), donate()]);
       }
@@ -435,7 +434,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(display_card('Arkanin', ['image'], bot));
       else
         return send(make(flatten(args)));
-      
+
     /* See the Future */
     case 'prediction':
       return send(prediction());
