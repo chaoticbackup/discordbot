@@ -490,7 +490,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "UnderWorld",
     tags: ["Burn"],
     type: ["Aggro"],
-    creatures: ["Chaor", "Rothar, Forceful Negotiator", "Ulmar, Perithon Racer", "Kopond, High Muge"]
+    creatures: ["Chaor", "Rothar, Forceful Negotiator", "Ulmar, Perithon Racer", "Kopond, High Muge of the Hearth"]
   },
   "Ursis Dagger": {
     url: "https://chaoticbackup.forumotion.com/t1670-ursis-dagger#15191",
