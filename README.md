@@ -12,6 +12,16 @@ This bot is written in Javascript using Nodejs ([node installation](https://node
 npm install
 ```
 
+If you wish to use the ScanQuest, you will need to have MongoDB ([mongodb](https://www.mongodb.com/try/download/community)).
+
+Create an ``auth.json`` file in the ``src`` folder.
+```json
+{
+    "token": "your bot token",
+    "db_uri": "connection uri to mongodb"
+}
+```
+
 ### Development Running
 To start the bot in development mode
 ```bash

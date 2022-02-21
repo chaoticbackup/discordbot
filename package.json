@@ -34,6 +34,7 @@
     "jsdom": "^14.1.0",
     "lokijs": "^1.5.12",
     "moment": "^2.29.1",
+    "mongodb": "^4.4.0",
     "node-fetch": "^2.6.5",
     "path": "^0.12.7",
     "regenerator-runtime": "^0.13.9",
