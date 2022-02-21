@@ -11,7 +11,7 @@ Promise<{guild?: Guild, guildMember?: GuildMember }>
   const { guild, member, author } = message;
   const guildMember: GuildMember = (member !== undefined)
     ? member
-    : await guild.fetchMember(author).then((m) => m);
+    : await guild.fetchMember(author);
 
   return { guild, guildMember };
 }

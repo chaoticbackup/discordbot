@@ -6,7 +6,7 @@ const virtualConsole = new VirtualConsole();
 virtualConsole.sendTo(console);
 
 const config = {
-  seconds: 180, // keep greater than 30 
+  seconds: 180, // keep greater than 30
   default_channel: servers('main').channel('gen_1'),
   // default_channel: servers('develop').channel('gen'),
   forum: 'http://chaoticbackup.forumotion.com',

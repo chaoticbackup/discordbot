@@ -22,9 +22,9 @@ export default async function (bot: Client, message: Message, mentions: string[]
   const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/, 'i');
   if (content.match(back_regex)) {
     const response = "Although Chaotic's return has been confirmed, these things take a lot of time. They have yet to give an official statement and we don't have any details regarding dates or specifics. We will make an announcement and ping everyone when they do.";
-    return await send(response).then((message: Message) => {
-      message.react('586395473716445184').catch(msgCatch);
-    });
+    const m: Message = await send(response).catch(msgCatch);
+    await m.react('586395473716445184').catch(msgCatch);
+    return;
   }
 
   // Fast way to check if card been added to recode
@@ -157,7 +157,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return compliment([users('bf')], '', message.guild);
     }
     else if (isUser(message, 'ferric')) {
-      const responses = ["How's the dam coming along?", "Is it raining cool beavers?"];
+      const responses = ["How's the dam coming along?", 'Is it raining cool beavers?'];
       return rndrsp(responses);
     }
 

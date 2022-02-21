@@ -70,7 +70,8 @@ export const brainwash = async (
   if (mentions.length > 0) {
     if (moderator) {
       await asyncForEach(mentions, async (id: string) => {
-        await guild.fetchMember(id).then(brainwashMember);
+        const member = await guild.fetchMember(id);
+        brainwashMember(member);
       });
     }
   }
