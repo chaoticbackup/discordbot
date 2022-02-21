@@ -11,7 +11,7 @@ export default async (db: ScanQuestDB, message: Message, mentions: string[], sen
       guildMember = await message.guild.fetchMember(mentions[0]);
     }
     else {
-      if (db.is_receive_channel(message.guild.id, message.channel.id)) {
+      if (await db.is_receive_channel(message.guild.id, message.channel.id)) {
         return await send(help())
           .then(async () => { await send(donate()); });
       }

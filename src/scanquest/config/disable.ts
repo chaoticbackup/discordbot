@@ -8,23 +8,40 @@ export async function disable(this: ScanQuest, server: Server, yes: boolean, sen
       return await send('This server is already disabled');
     }
 
-    server.disabled = false;
-    this.db.servers.update(server);
+    const res = await this.db.servers.updateOne(
+      { id: server.id },
+      {
+        $set: { disabled: false }
+      }
+    );
 
-    await send('This server is now enabled');
-
-    this.spawner.startTimer(server);
+    if (res.acknowledged) {
+      await send('This server is now enabled');
+      this.spawner.startTimer(server);
+    }
+    else {
+      await send('failed to enable server');
+    }
   }
   else {
     if (!yes) {
       return await send('This server is already enabled');
     }
 
+    const res = await this.db.servers.updateOne(
+      { id: server.id },
+      {
+        $set: { disabled: true }
+      }
+    );
+
     this.spawner.clearTimeout(server);
 
-    server.disabled = true;
-    this.db.servers.update(server);
-
-    await send('This server has been disabled');
+    if (res.acknowledged) {
+      await send('This server has been disabled');
+    }
+    else {
+      await send('failed to disable server; but stopped spawn timer');
+    }
   }
 }

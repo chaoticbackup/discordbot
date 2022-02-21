@@ -90,7 +90,7 @@ export default class {
 
     await response.react(yes);
 
-    this.updateMessage(one, two, undefined, response);
+    await this.updateMessage(one, two, undefined, response);
 
     return response;
   }
@@ -104,7 +104,7 @@ export default class {
     });
   }
 
-  public updateMessage(one: GuildMember, two: GuildMember, trade?: ActiveTrade, response?: Message) {
+  public async updateMessage(one: GuildMember, two: GuildMember, trade?: ActiveTrade, response?: Message) {
     if (!trade) trade = this.find(one, two) as ActiveTrade;
     if (!response) response = this.messages.get(trade.msg_id);
 
@@ -112,12 +112,12 @@ export default class {
 
     // swap users if out of order
     if (one.id === trade.one.id) {
-      content = `${one.displayName}: ${this.listScans(one.id, trade.one.scans)}\n`
-        + `${two.displayName}: ${this.listScans(two.id, trade.two.scans)}\n`;
+      content = `${one.displayName}: ${await this.listScans(one.id, trade.one.scans)}\n`
+        + `${two.displayName}: ${await this.listScans(two.id, trade.two.scans)}\n`;
     }
     else {
-      content = `${two.displayName}: ${this.listScans(two.id, trade.one.scans)}\n`
-      + `${one.displayName}: ${this.listScans(one.id, trade.two.scans)}\n`;
+      content = `${two.displayName}: ${await this.listScans(two.id, trade.one.scans)}\n`
+      + `${one.displayName}: ${await this.listScans(one.id, trade.two.scans)}\n`;
     }
 
     content += `\n${help(0)}\n${help()}\n${help(1)}`;
@@ -125,9 +125,11 @@ export default class {
     response?.edit(content).catch(msgCatch);
   }
 
-  public listScans(id: Snowflake, cards: number[]) {
+  public async listScans(id: Snowflake, cards: number[]) {
     let msg = '';
-    const player = this.db.findOnePlayer({ id: id });
+    const player = await this.db.findOnePlayer({ id: id });
+    if (!player) return '';
+
     cards.forEach((i) => {
       if (i < player.scans.length) {
         const card = toScannable(player.scans[i]) as Scannable;
@@ -137,10 +139,10 @@ export default class {
     return msg.replace(/;.{0,1}$/, '');
   }
 
-  public complete(one: GuildMember, two: GuildMember) {
+  public async complete(one: GuildMember, two: GuildMember) {
     const trade = this.find(one, two) as ActiveTrade;
-    const p1 = this.db.findOnePlayer({ id: one.id });
-    const p2 = this.db.findOnePlayer({ id: two.id });
+    const p1 = await this.db.findOnePlayer({ id: one.id });
+    const p2 = await this.db.findOnePlayer({ id: two.id });
 
     const c1 = [] as Scanned[];
     const c2 = [] as Scanned[];

@@ -13,7 +13,18 @@ import ScanQuest from './scanquest';
 import servers from './common/servers';
 import { Channel } from './definitions';
 
-const auth = require('./auth.json') as {token: string};
+interface auth {
+  token: string
+  db_uri: string
+  client?: string
+}
+
+const auth = require('./auth.json') as auth | undefined;
+
+if (!auth || !auth.token) {
+  logger.error('Missing auth.json config file');
+  process.exit(1);
+}
 
 const development = process.env.NODE_ENV === 'development';
 export let devType = process.env.APP_ENV ?? '';
@@ -21,7 +32,7 @@ export let devType = process.env.APP_ENV ?? '';
 // Initialize Discord Bot and server components
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
-const sq = new ScanQuest(bot);
+const sq = new ScanQuest(bot, auth);
 
 // Disabled freatures if api.json is missing or set to false
 if (!development) {
@@ -35,9 +46,9 @@ if (!development) {
   catch (e) { }
 }
 
-const start = () => {
+const start = async () => {
   if (devType === 'all') {
-    // sq.start();
+    sq.start();
     fp.start();
   }
   else if (devType === 'scan') {
@@ -99,8 +110,8 @@ bot.on('message', msg => {
 const name_regex = new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i');
 bot.on('guildMemberAdd', (member: GuildMember) => {
   if (name_regex.test(member.displayName)) {
-    if (member.bannable) { 
-      member.ban({ reason: 'url in username' }) 
+    if (member.bannable) {
+      member.ban({ reason: 'url in username' });
     }
   }
 });

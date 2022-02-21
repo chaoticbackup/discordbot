@@ -21,7 +21,7 @@ export default class Scanner {
     const guild_id = message.guild.id;
     const author_id = message.author.id;
 
-    const server = this.db.servers.findOne({ id: guild_id });
+    const server = await this.db.servers.findOne({ id: guild_id });
     if (server === null) return;
 
     if (server.activescans.length === 0) {
@@ -29,7 +29,12 @@ export default class Scanner {
       return;
     }
 
-    const player = this.db.findOnePlayer({ id: author_id });
+    const player = await this.db.findOnePlayer({ id: author_id });
+
+    if (player === null) {
+      await send('Trouble loading player; please try again');
+      return;
+    }
 
     // give or take a minute
     const now = moment().subtract(1, 'minute');
@@ -88,11 +93,28 @@ export default class Scanner {
     }
 
     selected.players.push(player.id);
-    this.db.servers.update(server);
+    const scan_idx = server.activescans.findIndex(scan => scan.expires === selected!.expires);
+
+    let res = await this.db.servers.updateOne(
+      { id: server.id },
+      {
+        $set: { [`activescans.${scan_idx}.players`]: selected.players }
+      }
+    );
+
+    if (!res.acknowledged) {
+      await send('Unable to update scan');
+      return;
+    }
 
     const card = Object.assign({}, selected.scan); // clone card to assign code
-    card.code = this.db.generateCode();
-    await this.db.save(player, card);
+    card.code = await this.db.generateCode();
+    res = await this.db.save(player, card);
+
+    if (!res.acknowledged) {
+      await send('Unable to update scan');
+      return;
+    }
 
     const m = await send(toScannable(card)!.getCard(this.icons));
 

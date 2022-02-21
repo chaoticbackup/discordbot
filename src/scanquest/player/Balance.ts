@@ -10,7 +10,7 @@ Promise<void> {
     !(
       message.channel instanceof DMChannel ||
         (message.guild && (
-          db.is_receive_channel(message.guild.id, message.channel.id) ||
+          await db.is_receive_channel(message.guild.id, message.channel.id) ||
           message.member.hasPermission('ADMINISTRATOR'))
         )
     )
@@ -21,13 +21,13 @@ Promise<void> {
       isUser(message, 'daddy') &&
       (user = (/user=([\w]{2,})/).exec(options.join(' '))))
   {
-    const p = db.players.findOne({ id: user[1] });
+    const p = await db.players.findOne({ id: user[1] });
     if (p) {
-      const member = await message.guild.fetchMember(p.id).then((m) => m);
+      const member = await message.guild.fetchMember(p.id);
       return await send(`${member.displayName} balance is: ${p.coins ?? 0} coins`);
     }
   } else {
-    const player = db.findOnePlayer({ id: message.author.id });
-    return await send(`Your balance is: ${player.coins ?? 0} coins`);
+    const player = await db.findOnePlayer({ id: message.author.id });
+    return await send(`Your balance is: ${player?.coins ?? 0} coins`);
   }
 }

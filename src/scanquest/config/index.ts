@@ -18,11 +18,11 @@ export default async function (this: ScanQuest, message: Message, args: string[]
   }
   if (message.guild && (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_MESSAGES'))) {
     if (args.length === 0) {
-      // todo this is for init a new server
+      // TODO this is for init a new server
       return await send('Cannot configure a new server at this time');
     }
 
-    const server = this.db.servers.findOne({ id: message.guild.id });
+    const server = await this.db.servers.findOne({ id: message.guild.id });
     if (server === null) {
       return await send('This server is not configured for Perim Scan Quest');
     }

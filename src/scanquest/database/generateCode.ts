@@ -1,7 +1,7 @@
 import { Code } from '../../definitions';
 import ScanQuestDB from '.';
 
-export default function (db: ScanQuestDB): Code {
+export default async function (db: ScanQuestDB): Promise<Code> {
   // 0-9 A-F
   // 48-57 65-70
   let code = '';
@@ -17,9 +17,13 @@ export default function (db: ScanQuestDB): Code {
         digit++;
       }
     }
-  } while (db.usedcodes.find({ code: { $eq: code } }).length > 0);
+  } while (await db.usedcodes.findOne({ code: { $eq: code } }) !== null);
 
-  db.usedcodes.insertOne({ code });
+  const res = await db.usedcodes.insertOne({ code });
 
-  return code;
+  if (res.acknowledged) {
+    return code;
+  }
+
+  return await Promise.reject('Failed to update db');
 }

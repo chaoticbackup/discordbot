@@ -1,13 +1,11 @@
 import { Snowflake } from 'discord.js';
-import Loki, { Collection } from 'lokijs';
-import path from 'path';
 import logger from '../../logger';
 import servers from '../../common/servers';
-import db_path from '../../database/db_path';
 import { Scanned } from '../scan_type/Scanned';
 import { Code } from '../../definitions';
 import generateCode from './generateCode';
-const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
+
+import { Collection, MongoClient, UpdateResult } from 'mongodb';
 
 export class Player {
   public id: Snowflake;
@@ -47,7 +45,8 @@ export class Server {
   public disabled: boolean;
 
   constructor(
-    { id, send_channel, receive_channel }: {id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake}
+    { id, send_channel, receive_channel }:
+    { id: Snowflake, send_channel: Snowflake, receive_channel: Snowflake }
   ) {
     this.id = id;
     this.send_channel = send_channel;
@@ -83,110 +82,117 @@ const init_config = {
 };
 
 class ScanQuestDB {
-  private db: Loki;
+  private readonly db_uri?: string;
+  private client: MongoClient;
   public players: Collection<Player>;
   public servers: Collection<Server>;
   public usedcodes: Collection<UsedCode>;
   public trades: Collection<Trade>;
 
+  public constructor(auth: any) {
+    this.db_uri = auth?.db_uri;
+  }
+
   public async start(): Promise<void> {
-    return await new Promise((resolve) => {
-      this.db = new Loki(path.resolve(db_path, 'scanquest.db'), {
-        adapter: new LokiFSStructuredAdapter(),
-        autoload: true,
-        autosave: true,
-        throttledSaves: false,
-        autoloadCallback: () => {
-          const players = this.db.getCollection('players') as Collection<Player>;
-          if (players === null) {
-            this.players = this.db.addCollection('players');
-          }
-          else {
-            this.players = players;
-          }
+    if (!this.db_uri) return await Promise.reject();
 
-          const usedcodes = this.db.getCollection('usedcodes') as Collection<UsedCode>;
-          if (usedcodes === null) {
-            this.usedcodes = this.db.addCollection('usedcodes');
-          }
-          else {
-            this.usedcodes = usedcodes;
-          }
+    const client = new MongoClient(this.db_uri);
 
-          const servers = this.db.getCollection('servers') as Collection<Server>;
-          if (servers === null) {
-            this.servers = this.db.addCollection('servers');
-            this.servers.insertOne(new Server(init_config));
-          }
-          else {
-            this.servers = servers;
-            if (this.servers.findOne({ id: init_config.id }) === null) {
-              this.servers.insertOne(new Server(init_config));
-            }
-          }
+    try {
+      await client.connect();
+      await client.db('scanquest').command({ ping: 1 });
+    } catch (e) {
+      logger.error(e);
+      return await Promise.reject();
+    }
 
-          const trades = this.db.getCollection('trades') as Collection<Trade>;
-          if (trades === null) {
-            this.trades = this.db.addCollection('trades');
-          }
-          else {
-            this.trades = trades;
-          }
+    this.client = client;
+    const db = client.db('scanquest');
 
-          return resolve();
-        }
-      });
-    });
+    const collections = (await db.listCollections().toArray());
+    const collectionNames = collections.map(c => c.name);
+
+    console.log(this.db_uri);
+
+    if (!collectionNames.includes('servers')) {
+      await db.createCollection('servers');
+      this.servers = db.collection('servers');
+      await this.servers.insertOne(new Server(init_config));
+    } else {
+      this.servers = db.collection('servers');
+      if (this.servers.findOne({ id: init_config.id }) === null) {
+        await this.servers.insertOne(new Server(init_config));
+      }
+    }
+    this.servers.createIndex({ id: 1 }, { unique: true }).finally(() => {});
+
+    if (!collectionNames.includes('players')) {
+      await db.createCollection('players');
+    }
+    this.players = db.collection('players');
+    this.players.createIndex({ id: 1 }, { unique: true }).finally(() => {});
+
+    if (!collectionNames.includes('usedcodes')) {
+      await db.createCollection('usedcodes');
+    }
+    this.usedcodes = db.collection('usedcodes');
+
+    if (!collectionNames.includes('trades')) {
+      await db.createCollection('trades');
+    }
+    this.trades = db.collection('trades');
   }
 
   public async close(): Promise<void> {
-    return await new Promise((resolve) => {
-      this.db.saveDatabase((err) => {
-        if (err) {
-          logger.error(`save error : ${err}`);
-        }
-        this.db.close((err) => {
-          if (err) {
-            logger.error(`close error : ${err}`);
-          }
-          resolve();
-        });
-      });
-    });
+    return this.client.close();
   }
 
-  public async save(player: Player, card: Scanned): Promise<void>;
-  public async save(member_id: Snowflake, card: Scanned): Promise<void>;
-  public async save(arg1: Player | Snowflake, card: Scanned): Promise<void> {
-    const player: Player = (typeof arg1 === 'string') ? this.findOnePlayer({ id: arg1 }) : arg1;
+  public async save(player: Player, card: Scanned): Promise<UpdateResult>;
+  public async save(member_id: Snowflake, card: Scanned): Promise<UpdateResult>;
+  public async save(arg1: Player | Snowflake, card: Scanned): Promise<UpdateResult> {
+    const player = (typeof arg1 === 'string') ? await this.findOnePlayer({ id: arg1 }) : arg1;
 
-    player.scans.push(card);
-    this.players.update(player);
-    return await Promise.resolve();
+    const scans = player?.scans ?? [];
+    scans.push(card);
+
+    return await this.players.updateOne(
+      { id: player?.id },
+      {
+        $set: { scans }
+      },
+      { upsert: true }
+    );
   }
 
-  public is_send_channel = (server_id: Snowflake, channel_id: Snowflake): boolean => {
-    const server = this.servers.findOne({ id: server_id });
+  public is_send_channel = async (server_id: Snowflake, channel_id: Snowflake) => {
+    const server = await this.servers.findOne({ id: server_id });
     if (server === null) return false;
     return (server.send_channel === channel_id);
   };
 
-  public is_receive_channel = (server_id: Snowflake, channel_id: Snowflake): boolean => {
-    const server = this.servers.findOne({ id: server_id });
+  public is_receive_channel = async (server_id: Snowflake, channel_id: Snowflake) => {
+    const server = await this.servers.findOne({ id: server_id });
     if (server === null) return false;
     return (server.receive_channel === channel_id);
   };
 
-  public findOnePlayer = ({ id: player_id }: {id: Snowflake}) => {
-    const player = this.players.findOne({ id: player_id });
-    if (player === null) {
-      return this.players.insertOne(new Player(player_id)) as Player & LokiObj;
+  public findOnePlayer = async ({ id: player_id }: {id: Snowflake}): Promise<Player | null> => {
+    const player = await this.players.findOne({ id: player_id });
+    if (player !== null) {
+      return player;
     }
-    return player;
+
+    const p = new Player(player_id);
+    const res = await this.players.insertOne(p);
+    if (res.acknowledged) {
+      return p;
+    }
+
+    return null;
   };
 
-  public generateCode() {
-    return generateCode(this);
+  public async generateCode() {
+    return await generateCode(this);
   }
 }
 

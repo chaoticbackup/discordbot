@@ -1,6 +1,6 @@
 import ScanQuestDB, { Server } from '../database';
 
-export function channel(db: ScanQuestDB, server: Server, args: string[]): string | undefined {
+export async function channel(db: ScanQuestDB, server: Server, args: string[]): Promise<string | undefined> {
   switch (args[0]) {
     case 'list': {
       return `send: <#${server.send_channel}>\nreceive: <#${server.receive_channel}>`;
@@ -9,8 +9,12 @@ export function channel(db: ScanQuestDB, server: Server, args: string[]): string
       if (args.length < 2) return;
       const channel = args.slice(1).join(' ').match(/<#([0-9]*)>/)?.[1] ?? '';
       if (channel !== '') {
-        server.send_channel = channel;
-        db.servers.update(server);
+        await db.servers.updateOne(
+          { id: server.id },
+          {
+            $set: { send_channel: channel }
+          }
+        );
       }
       return;
     }
@@ -18,8 +22,12 @@ export function channel(db: ScanQuestDB, server: Server, args: string[]): string
       if (args.length < 2) return;
       const channel = args.slice(1).join(' ').match(/<#([0-9]*)>/)?.[1] ?? '';
       if (channel !== '') {
-        server.receive_channel = channel;
-        db.servers.update(server);
+        await db.servers.updateOne(
+          { id: server.id },
+          {
+            $set: { receive_channel: channel }
+          }
+        );
       }
       return;
     }

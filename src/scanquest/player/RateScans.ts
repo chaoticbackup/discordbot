@@ -4,12 +4,15 @@ import { ScannableCreature } from '../scan_type/Creature';
 import rate from '../../responses/rate';
 import { toScannable } from '../scan_type/toScannable';
 
-export default function (db: ScanQuestDB, message: Message, args: string[], options: string[], bot: Client) {
+export default async function (db: ScanQuestDB, message: Message, args: string[], options: string[], bot: Client) {
   if (args.length > 0) {
     const index = parseInt(args[0]);
     if (!isNaN(index) && index >= 0) {
-      const player = db.findOnePlayer({ id: message.author.id });
-      if (player.scans.length <= index) {
+      const player = await db.findOnePlayer({ id: message.author.id });
+      if (!player || player.scans.length === 0) {
+        return 'You have no scans';
+      }
+      if (player.scans.length < index) {
         return `Scan ID must be within your number of scans (${player.scans.length - 1})`;
       }
       const scan = toScannable(player.scans[index]);

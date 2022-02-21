@@ -15,6 +15,7 @@ import { balance, listScans, rate } from './player';
 import Scanner from './scanner/Scanner';
 import Spawner from './spawner/Spawner';
 import Trader from './trader/Trader';
+import debug from '../common/debug';
 
 const development = (process.env.NODE_ENV === 'development');
 
@@ -27,12 +28,13 @@ export default class ScanQuest {
   protected scanner: Scanner;
   protected trader: Trader;
 
-  constructor(bot: Client) {
+  constructor(bot: Client, auth: any) {
     this.bot = bot;
-    this.db = new ScanQuestDB();
+    this.db = new ScanQuestDB(auth);
   }
 
   start() {
+    clearTimeout(this.timeout);
     // Check to see if database has been initialized
     if (!API.data) {
       // Try again in a second
@@ -45,21 +47,21 @@ export default class ScanQuest {
     }
 
     // Initialize components
-    this.db.start().then(() => {
+    this.db.start().then(async () => {
       this.spawner = new Spawner(this.bot, this.db);
       this.scanner = new Scanner(this.bot, this.db);
-      this.trader = new Trader(this.bot, this.db);
+      // this.trader = new Trader(this.bot, this.db);
 
+      await this.spawner.start();
       logger.info('ScanQuest has started');
       this.init = true;
     }).catch(() => {
-      logger.info('ScanQuest did not start');
+      logger.error('ScanQuest did not start');
     });
   }
 
   async stop() {
-    clearTimeout(this.timeout);
-    this.spawner.stop();
+    await this.spawner.stop();
     return await this.db.close();
   }
 
@@ -93,7 +95,7 @@ export default class ScanQuest {
       switch (cmd) {
         case 'skon':
         case 'scan':
-          if (message.guild && this.db.is_receive_channel(message.guild.id, message.channel.id)) {
+          if (message.guild && await this.db.is_receive_channel(message.guild.id, message.channel.id)) {
             await this.scanner.scan(message, flatten(args), send)
             .then(async (m) => {
               if (m && cmd === 'skon') await m.react('728825180763324447');
@@ -111,29 +113,29 @@ export default class ScanQuest {
           return await balance(this.db, message, options, send);
         case 'trade':
           if (message.guild) {
-            await this.trader.trade(args, mentions, message);
+            // await this.trader.trade(args, mentions, message); TODO
           }
           return;
 
         /* Admin functions */
         case 'load':
           if (isUser(message, ['daddy', 'bf'])) {
-            await send(loadScan(this.db, args));
+            await send(await loadScan(this.db, args));
           }
           return;
         case 'reroll':
           if (message.guild && isUser(message, ['daddy', 'bf'])) {
-            this.spawner.reroll(message);
+            await this.spawner.reroll(message);
           }
           return;
         case 'spawn':
           if (message.guild && isUser(message, ['daddy', 'bf'])) {
-            this.spawner.spawn(message, args, options);
+            await this.spawner.spawn(message, args, options);
           }
           return;
         case 'scanlist':
           if (message.guild && isUser(message, ['daddy', 'bf'])) {
-            await send(this.spawner.list(message));
+            await send(await this.spawner.list(message));
           }
           return;
         case 'perim':
@@ -141,7 +143,7 @@ export default class ScanQuest {
       }
     }
     else if (message.guild) {
-      this.spawner.tick(message);
+      this.spawner.tick(message).catch((e) => { debug(this.bot, e); });
     }
   }
 }

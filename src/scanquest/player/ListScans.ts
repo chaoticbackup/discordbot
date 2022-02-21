@@ -19,7 +19,7 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
     !(
       message.channel instanceof DMChannel ||
       (message.guild && (
-        db.is_receive_channel(message.guild.id, message.channel.id) ||
+        await db.is_receive_channel(message.guild.id, message.channel.id) ||
         message.member.hasPermission('ADMINISTRATOR'))
       )
     )
@@ -34,14 +34,14 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
     (user = (/user=([\w]{2,})/).exec(options.join(' '))))
   {
     ids.push(user[1]);
-    const p = db.players.findOne({ id: ids[1] });
+    const p = await db.players.findOne({ id: ids[1] });
     if (p) player = p;
     else return;
   } else {
-    player = db.findOnePlayer({ id: ids[0] });
+    player = await db.findOnePlayer({ id: ids[0] });
   }
 
-  if (player.scans.length === 0) {
+  if (!player || player.scans.length === 0) {
     return await send('You have no scans');
   }
 
@@ -82,14 +82,15 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
         const collector = message.channel.createMessageCollector(filter, { max: 1, time: 45000 });
         collector.on('collect', (message: Message) => {
           const new_list = list.filter((card) => {
-            return card.details.toLowerCase().startsWith(text);
+            return card.details.toLowerCase().startsWith(message.content);
           });
           if (new_list.length > 0) {
             instance.array = new_list;
             Pagination._loadList(false).catch((e) => { logger.error(e); });
+          } else {
+            message.channel.send('No scans match this search').catch(msgCatch);
           }
-          if (message.deletable) message.delete().catch(() => {});
-          message.channel.send('No scans match this search').catch(msgCatch);
+          if (message.deletable) message.delete().catch(msgCatch);
         });
         collector.on('end', () => {
           if (resp.deletable) resp.delete().catch(msgCatch);

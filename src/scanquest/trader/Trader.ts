@@ -45,7 +45,7 @@ export default class Trader {
           await send('Trade with this user is already pending');
           break;
         case TradeStatus.offering:
-          this.postOffer(one, two, content);
+          await this.postOffer(one, two, content);
           break;
         default:
           break;
@@ -104,7 +104,7 @@ export default class Trader {
 
     response.awaitReactions(filter, { max: 2, time: 240000, errors: ['time'] })
     .then(async () => {
-      this.trades.complete(one, two);
+      await this.trades.complete(one, two);
       await send(`The trade between ${one.displayName} and ${two.displayName} has been completed!`);
     })
     .catch(async () => {
@@ -113,7 +113,7 @@ export default class Trader {
     });
   }
 
-  protected postOffer(one: GuildMember, two: GuildMember, content: string) {
+  protected async postOffer(one: GuildMember, two: GuildMember, content: string) {
     const cards = parseScans(content);
     const trade = this.trades.find(one, two);
 
@@ -124,7 +124,7 @@ export default class Trader {
       trade.two.scans = cards;
     }
     this.trades.update(one, two, { ...trade });
-    this.trades.updateMessage(one, two);
+    await this.trades.updateMessage(one, two);
   }
 }
 

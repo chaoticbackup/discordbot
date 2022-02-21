@@ -1,6 +1,6 @@
 import { RichEmbed } from 'discord.js';
 
-import { Card, Battlegear, Creature, Location, Mugic, CardType } from '../../definitions';
+import { Card, CardType } from '../../definitions';
 import { API } from '../../database';
 import { Scannable } from '../scan_type/Scannable';
 import { Server, ActiveScan } from '../database';
@@ -72,15 +72,17 @@ export default class Select {
       image = arg2;
     }
 
-    const card = API.find_cards_by_name(scannable.card.name)[0];
+    // const card = API.find_cards_by_name(scannable.card.name)[0];
 
-    const t = card.gsx$type;
-    const type = (t in type_map) ? type_map[t] : 0;
+    // const t = card.gsx$type;
+    // const type = (t in type_map) ? type_map[t] : 0;
 
-    const r = card.gsx$rarity.toLowerCase();
-    const rarity = (r in rarity_map) ? rarity_map[r] : 0;
+    // const r = card.gsx$rarity.toLowerCase();
+    // const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
-    const active = type * rarity;
+    // const active = type * rarity;
+
+    const active = 7 * 24; // TODO 1 week for all scans!
 
     this.setTitle(image, active);
     image.setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
@@ -133,10 +135,10 @@ export default class Select {
     if (!this.isSpawnable(card)) return [];
     switch (card.gsx$type) {
       case 'Attacks': return [];
-      case 'Battlegear': return this.scan_battlegear.generate(card as Battlegear);
-      case 'Creatures': return this.scan_creature.generate(card as Creature);
-      case 'Locations': return this.scan_locations.generate(card as Location);
-      case 'Mugic': return this.scan_mugic.generate(card as Mugic);
+      case 'Battlegear': return this.scan_battlegear.generate(card);
+      case 'Creatures': return this.scan_creature.generate(card);
+      case 'Locations': return this.scan_locations.generate(card);
+      case 'Mugic': return this.scan_mugic.generate(card);
       default: return [];
     }
   }
@@ -154,10 +156,10 @@ export default class Select {
   public isSpawnable(card: Card) {
     switch (card.gsx$type) {
       case 'Attacks': return false;
-      case 'Battlegear': return this.scan_battlegear.isSpawnable(card as Battlegear);
-      case 'Creatures': return this.scan_creature.isSpawnable(card as Creature);
-      case 'Locations': return this.scan_locations.isSpawnable(card as Location);
-      case 'Mugic': return this.scan_mugic.isSpawnable(card as Mugic);
+      case 'Battlegear': return this.scan_battlegear.isSpawnable(card);
+      case 'Creatures': return this.scan_creature.isSpawnable(card);
+      case 'Locations': return this.scan_locations.isSpawnable(card);
+      case 'Mugic': return this.scan_mugic.isSpawnable(card);
       default: return false;
     }
   }

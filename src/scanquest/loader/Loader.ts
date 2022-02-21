@@ -25,14 +25,19 @@ export function load(type: string, content: string): Scanned | null {
   }
 }
 
-export default function (db: ScanQuestDB, args: string[]): string | undefined {
+export default async function loadScan(db: ScanQuestDB, args: string[]): Promise<string | undefined> {
   const id = args[0];
   const type = args[1];
   const content = args.splice(1).join(' ');
-  const info = content.substr(content.indexOf(' ') + 1);
+  const info = content.substring(content.indexOf(' ') + 1);
   const card = load(type, info);
   if (card) {
-    db.save(id, card).catch(() => {});
+    const res = await db.save(id, card);
+    if (res.acknowledged) {
+      return 'loaded scan to player';
+    } else {
+      return 'failed to load scan to player';
+    }
   } else {
     return ('!load <#id> <type> <name> [...stats]');
   }
