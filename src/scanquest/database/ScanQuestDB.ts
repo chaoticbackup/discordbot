@@ -1,5 +1,4 @@
 import { Snowflake } from 'discord.js';
-import logger from '../../logger';
 import servers from '../../common/servers';
 import { Scanned } from '../scan_type/Scanned';
 import { Code } from '../../definitions';
@@ -94,7 +93,7 @@ class ScanQuestDB {
   }
 
   public async start(): Promise<void> {
-    if (!this.db_uri) return await Promise.reject();
+    if (!this.db_uri) return await Promise.reject('db_uri not configured');
 
     const client = new MongoClient(this.db_uri);
 
@@ -102,8 +101,7 @@ class ScanQuestDB {
       await client.connect();
       await client.db('scanquest').command({ ping: 1 });
     } catch (e) {
-      logger.error(e);
-      return await Promise.reject();
+      return await Promise.reject(e);
     }
 
     this.client = client;

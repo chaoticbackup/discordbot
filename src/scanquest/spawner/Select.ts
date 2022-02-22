@@ -8,6 +8,7 @@ import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
 import { SpawnMugic } from '../scan_type/Mugic';
+import moment from 'moment';
 
 interface Selection {
   scannable: Scannable
@@ -48,7 +49,7 @@ export default class Select {
   public setTitle(image: RichEmbed, active: number) {
     let title = '';
 
-    if (active > 1) title = `Scan expires in ${active} hours`;
+    if (active > 1) title = `Scan expires <t:${moment().add(active, 'hours').unix()}:R>`;
     else if (Number(active.toFixed(2)) > 0) title = `Scan expires in ${active * 60} minutes`;
     else title = 'Scan expired';
     image.setTitle(title);

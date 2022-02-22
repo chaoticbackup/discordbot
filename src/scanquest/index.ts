@@ -55,7 +55,8 @@ export default class ScanQuest {
       await this.spawner.start();
       logger.info('ScanQuest has started');
       this.init = true;
-    }).catch(() => {
+    }).catch((e) => {
+      logger.error(e);
       logger.error('ScanQuest did not start');
     });
   }
