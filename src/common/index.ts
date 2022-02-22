@@ -94,5 +94,5 @@ export function keys<O extends object>(obj: O): Array<keyof O> {
 }
 
 export function stripMention(arg: string) {
-  return arg.replace('@', '');
+  return arg.replaceAll('@', '');
 }

@@ -8,7 +8,7 @@ import { stripMention } from '../../common';
 
 export type Filter = (scan: Scanned) => Scannable | undefined;
 
-export function setFilter(text: string): Filter {
+export default function createFilter(text: string): Filter {
   const args = text.toLowerCase().split(' ').filter(i => i);
 
   if (args.length === 0) {
@@ -57,7 +57,7 @@ export function setFilter(text: string): Filter {
   if (cards.length > 0) {
     return filterName(cards);
   }
-  else throw new Error(`${stripMention(args[0])} isn't a valid type, available tribe, or card name`);
+  else throw new Error(`${stripMention(text)} isn't a valid type, available tribe, or card name`);
 }
 
 const filterName: (cards: Card[]) => Filter = (cards: Card[]) => {

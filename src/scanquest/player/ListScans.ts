@@ -2,7 +2,7 @@ import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { Attachment, DMChannel, Message, TextChannel } from 'discord.js';
 import { isUser } from '../../common/users';
 import ScanQuestDB, { Player } from '../database';
-import { Filter, setFilter } from './typeFilter';
+import createFilter, { Filter } from './typeFilter';
 import { SendFunction } from '../../definitions';
 import { Scannable } from '../scan_type/Scannable';
 
@@ -54,7 +54,7 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
   let filterType: Filter;
 
   try {
-    filterType = setFilter(text);
+    filterType = createFilter(text);
   }
   catch (e) {
     return await send(e.message);
