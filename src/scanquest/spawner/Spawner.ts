@@ -17,8 +17,8 @@ import { msgCatch } from '../../common';
  */
 const config = {
   tick: 1.5 * 1000,
-  // debounce: 2 * 60 * 1000,
-  debounce: 10 * 1000,
+  debounce: 2 * 60 * 1000,
+  // debounce: 10 * 1000,
   safety: 10,
   next: 2, // TODO PARTY
   activity_window: 15 * 60 * 1000

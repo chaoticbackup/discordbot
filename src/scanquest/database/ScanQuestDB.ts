@@ -112,8 +112,6 @@ class ScanQuestDB {
     const collections = (await db.listCollections().toArray());
     const collectionNames = collections.map(c => c.name);
 
-    console.log(this.db_uri);
-
     if (!collectionNames.includes('servers')) {
       await db.createCollection('servers');
       this.servers = db.collection('servers');
