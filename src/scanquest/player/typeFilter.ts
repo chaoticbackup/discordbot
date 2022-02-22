@@ -1,59 +1,72 @@
 import { CreatureTribe, generify, parseTribe, parseType, MugicTribe } from '../../common/card_types';
 import { API } from '../../database';
-import { Creature, Mugic } from '../../definitions';
+import { Card, Creature, Mugic } from '../../definitions';
 import { toScannable } from '../scan_type/toScannable';
 import { Scannable } from '../scan_type/Scannable';
 import { Scanned } from '../scan_type/Scanned';
 import { stripMention } from '../../common';
 
-type Filter = (scan: Scanned) => Scannable | undefined;
+export type Filter = (scan: Scanned) => Scannable | undefined;
 
-export function setFilter(content: string): Filter {
-  const args = content.toLowerCase().split(' ').slice(1);
+export function setFilter(text: string): Filter {
+  const args = text.toLowerCase().split(' ').filter(i => i);
 
-  if (args.length > 0) {
-    let type = parseType(args[0]);
-    if (type === 'Attacks') throw new Error("Attacks aren't collectable");
-    else if (type === 'Battlegear') {
-      return filterBattlegear;
-    }
-    else if (type === 'Creatures') {
-      if (args.length > 1) {
-        const tribe = parseTribe(args[1], 'Creatures');
-        if (tribe !== undefined) {
-          return tribeCreaturesFilter(tribe);
-        }
-      }
-      return filterCreature;
-    }
-    else if (type === 'Locations') {
-      return filterLocation;
-    }
-    else if (type === 'Mugic') {
-      if (args.length > 1) {
-        const tribe = parseTribe(args[1], 'Mugic');
-        if (tribe !== undefined) {
-          return tribeMugicFilter(tribe);
-        }
-      }
-      return filterMugic;
-    }
-    else {
-      const tribe = parseTribe(args[0]);
+  if (args.length === 0) {
+    return noFilter;
+  }
+
+  let type = parseType(args[0]);
+  if (type === 'Attacks') throw new Error("Attacks aren't collectable");
+  else if (type === 'Battlegear') {
+    return filterBattlegear;
+  }
+  else if (type === 'Creatures') {
+    if (args.length > 1) {
+      const tribe = parseTribe(args[1], 'Creatures');
       if (tribe !== undefined) {
-        if (args.length > 1) {
-          type = parseType(args[1]);
-          if (type === 'Mugic') return tribeMugicFilter(generify(tribe, 'Mugic'));
-          if (type === 'Creatures') return tribeCreaturesFilter(generify(tribe, 'Creatures'));
-        }
-        return tribeFilter(tribe);
+        return tribeCreaturesFilter(tribe);
       }
-      else throw new Error(`${stripMention(args[0])} isn't an active tribe`);
+    }
+    return filterCreature;
+  }
+  else if (type === 'Locations') {
+    return filterLocation;
+  }
+  else if (type === 'Mugic') {
+    if (args.length > 1) {
+      const tribe = parseTribe(args[1], 'Mugic');
+      if (tribe !== undefined) {
+        return tribeMugicFilter(tribe);
+      }
+    }
+    return filterMugic;
+  }
+  else {
+    const tribe = parseTribe(args[0]);
+    if (tribe !== undefined) {
+      if (args.length > 1) {
+        type = parseType(args[1]);
+        if (type === 'Mugic') return tribeMugicFilter(generify(tribe, 'Mugic'));
+        if (type === 'Creatures') return tribeCreaturesFilter(generify(tribe, 'Creatures'));
+      }
+      return tribeFilter(tribe);
     }
   }
 
-  return noFilter;
+  const cards = API.find_cards_ignore_comma(text);
+  if (cards.length > 0) {
+    return filterName(cards);
+  }
+  else throw new Error(`${stripMention(args[0])} isn't a valid type, available tribe, or card name`);
 }
+
+const filterName: (cards: Card[]) => Filter = (cards: Card[]) => {
+  return (scan: Scanned) => {
+    if (cards.find(c => c.gsx$name === scan.name)) {
+      return toScannable(scan);
+    }
+  };
+};
 
 const noFilter: Filter = (scan: Scanned) => toScannable(scan);
 
