@@ -135,7 +135,7 @@ export default class Spawner {
   }
 
   public async spawn(message: Message, args: string[], options: string[]) {
-    await custom.call(this, message, args, options.join(' ').toLowerCase());
+    await custom.call(this, message, args, options);
   }
 
   public async list(message: Message) {

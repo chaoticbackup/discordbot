@@ -16,12 +16,12 @@ export default function parseCommand(content: string):
   }
 
   // prevents the bot from being used to maliciously mention everyone
-  result = result.replace(/@(here|everyone)/, '');
+  result = result.replace(/@(here|everyone)/g, ' ');
 
   const cmd = result.split(' ')[0].toLowerCase();
 
   const options: string[] = [];
-  result = result.replace(/(?:--|—)(([\w]+="((\\")|([^"]))*")|([^\s]+))[\s]?/, (_match: any, p1: string) => {
+  result = result.replace(/(?:--|—)(([\w]+="((\\")|([^"]))*")|([^\s]+))[\s]?/g, (_match: any, p1: string) => {
     options.push(p1);
     return '';
   });

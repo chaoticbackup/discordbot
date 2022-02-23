@@ -1,7 +1,7 @@
 import { Message, RichEmbed, TextChannel } from 'discord.js';
 import moment, { Moment } from 'moment';
 
-import { msgCatch, stripMention } from '../../common';
+import { isUser, msgCatch, stripMention } from '../../common';
 import { parseType } from '../../common/card_types';
 import { API } from '../../database';
 import { Card } from '../../definitions';
@@ -67,18 +67,39 @@ const expiresDiff = (expires: Moment) => {
   return expires.startOf('minute').diff(moment().startOf('minute'), 'hours');
 };
 
-const cmd = '!spawn <content> --expire=[+/-<number>m/h | timestamp] --message=[Snowflake] --type=[CardType]';
-export default async function (this: Spawner, message: Message, args: string[], options: string): Promise<void> {
+const cmd = '!spawn <content> --expire=[+/-<number>m/h | timestamp] --message=[Snowflake] --type=[CardType] --fix';
+export default async function (this: Spawner, message: Message, args: string[], opts: string[]): Promise<void> {
   const server = await this.db.servers.findOne({ id: message.guild.id });
 
   if (!server) return;
 
-  let regex_arr: RegExpExecArray | null = null;
   const content = args.join(' ');
+  const options = opts.join(' ').toLowerCase();
+
+  let regex_arr: RegExpExecArray | null = null;
 
   regex_arr = (/message=([\d]{2,})/).exec(options);
   const msg_id = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
   const scan_idx = (msg_id) ? server.activescans.findIndex((s) => s.msg_id === msg_id) : -1;
+
+  if (options.includes('fix')) {
+    if (!msg_id) {
+      message.channel.send('!spawn --fix --message=[Snowflake]').catch(msgCatch);
+      return;
+    }
+    (this.bot.channels.get(server.send_channel) as TextChannel)
+    .fetchMessage(msg_id)
+    .then(async (message) => {
+      if (isUser(message, 'me') && message.editable && message.embeds.length > 0) {
+        await message.edit(new RichEmbed(message.embeds[0]));
+      }
+    })
+    .catch((e) => {
+      message.channel.send('Unable to fetch specified message id').catch(msgCatch);
+      debug(this.bot, e, 'errors');
+    });
+    return;
+  }
 
   regex_arr = (/expire=([\w.+-]{2,})/).exec(options);
   const expire_change = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
@@ -203,7 +224,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
   else {
     (this.bot.channels.get(server.send_channel) as TextChannel).fetchMessage(msg_id)
     .then(async (message) => {
-      if (message?.editable && message.embeds.length > 0) {
+      if (isUser(message, 'me') && message.editable && message.embeds.length > 0) {
         await message.edit(image);
         const expires = this.expiresToDate(active);
 
