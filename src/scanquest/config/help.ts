@@ -62,7 +62,7 @@ ${emote_help}
 export const first_scan = (perim: string) => `
 Hi there! It looks like this is your first time scanning something, so here's some extra info! Different cards will spawn based on how active the server is, and can be scanned for the amount of time listed above them in <#${perim}>.
 You can see a full list of your scans by typing \`\`!list\`\`,  and navigate it with the buttons at the bottom (the buttons are explained at the bottom of this message). You can also trade with another person by typing \`!trade <@user>\` and following the prompts.
-All of this is just for fun right now, but we hope you enjoy! If you have any other questions, we'll be happy to help in either <#135657678633566208>. That's where most of the server hangs out. 
+All of this is just for fun right now, but we hope you enjoy! If you have any other questions, we'll be happy to help in <#135657678633566208>. That's where most of the server hangs out. 
 If you need the list of commands again, you can type \`\`!perim help\`\`.
 ${emote_help}
 `;
