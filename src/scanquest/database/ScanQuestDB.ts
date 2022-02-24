@@ -42,6 +42,7 @@ export class Server {
   public activescans: ActiveScan[];
   public remaining: Date | null; // remaining time until next scan
   public disabled: boolean;
+  public role: Snowflake | undefined;
 
   constructor(
     { id, send_channel, receive_channel }:
