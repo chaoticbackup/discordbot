@@ -10,10 +10,17 @@ import { SpawnLocation } from '../scan_type/Location';
 import { SpawnMugic } from '../scan_type/Mugic';
 import moment from 'moment';
 
-interface Selection {
+/**
+ * @property {Scannable} scannable
+ * @property {RichEmbed} image - Rich Embed
+ * @property {number} active - Hours active
+ * @property {number} next - The maximum time until the next spawn
+ */
+export interface Selection {
   scannable: Scannable
   image: RichEmbed
   active: number
+  next: number
 }
 
 const rarity_map = {
@@ -73,22 +80,30 @@ export default class Select {
       image = arg2;
     }
 
-    // const card = API.find_cards_by_name(scannable.card.name)[0];
+    const card = API.find_cards_by_name(scannable.card.name)[0];
 
     // const t = card.gsx$type;
     // const type = (t in type_map) ? type_map[t] : 0;
 
-    // const r = card.gsx$rarity.toLowerCase();
+    const r = card.gsx$rarity.toLowerCase();
     // const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
     // const active = type * rarity;
 
     const active = 7 * 24; // TODO 1 week for all scans!
+    let next: number;
+    if (r === 'common' || r === 'uncommon') {
+      next = 2;
+    } else if (r === 'rare') {
+      next = 3;
+    } else {
+      next = Math.min(4, active);
+    }
 
     this.setTitle(image, active);
     image.setDescription(`Get started by typing \`\`!scan\`\` in <#${server.receive_channel}>!`);
 
-    return { scannable, image, active };
+    return { scannable, image, active, next };
   }
 
   // Creatures spawn more often than locations and battlegear

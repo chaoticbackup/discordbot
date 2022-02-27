@@ -201,7 +201,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
     [sc, img] = this.select.generateFromType(type, server.activescans);
   }
 
-  let { scannable, image, active } = this.select.card(server, sc, img);
+  let { scannable, image, active, next } = this.select.card(server, sc, img);
 
   if (expire_change) {
     const expires = parseExpires(this.expiresToDate(active), expire_change);
@@ -215,7 +215,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
   if (!msg_id) {
     if (active > 0) {
-      this.spawnCard(server, scannable, image, active);
+      this.spawnCard(server, { scannable, image, active, next });
     }
     else {
       message.channel.send('Cannot spawn a new card that already expired').catch(msgCatch);

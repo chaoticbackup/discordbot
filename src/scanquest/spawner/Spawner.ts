@@ -2,17 +2,15 @@ import { Client, Message, Snowflake, TextChannel, RichEmbed } from 'discord.js';
 import moment, { Moment } from 'moment';
 
 import ScanQuestDB, { ActiveScan, Server } from '../database';
-import Select from './Select';
-import debug from '../../common/debug';
+import Select, { Selection } from './Select';
 import custom from './custom';
-import { Scannable } from '../scan_type/Scannable';
+import debug from '../../common/debug';
 import { msgCatch } from '../../common';
 
 /**
  * @tick seconds in milliseconds
  * @debounce minutes in milliseconds
  * @safety minutes
- * @next hours
  * @activity_window minutes in milliseconds
  */
 const config = {
@@ -20,7 +18,6 @@ const config = {
   debounce: 2 * 60 * 1000,
   // debounce: 10 * 1000,
   safety: 10,
-  next: 2, // TODO PARTY
   activity_window: 15 * 60 * 1000
 };
 
@@ -274,8 +271,8 @@ export default class Spawner {
     debug(this.bot, `Amount of value in the previous interval: ${amount}`);
 
     try {
-      const { scannable, image, active } = this.select.card(server, amount);
-      this.spawnCard(server, scannable, image, active);
+      const selection = this.select.card(server, amount);
+      this.spawnCard(server, selection);
     }
     catch (e) {
       debug(this.bot, e.message, 'errors');
@@ -290,8 +287,9 @@ export default class Spawner {
    * Sends a card image to the configed channel
    * @param active hours
   */
-  protected spawnCard(server: Server, scannable: Scannable, image: RichEmbed, active: number) {
+  protected spawnCard(server: Server, selection: Selection) {
     const { send_channel } = server;
+    const { active, scannable, image } = selection;
     let remaining: Date;
 
     const expires = this.expiresToDate(active);
@@ -319,7 +317,7 @@ export default class Spawner {
       await message.edit(image);
 
       // Min time is to ensure longer spawns don't take too long and no inactive scans for short ones
-      const endTime = moment().add(Math.min(active, config.next), 'hours');
+      const endTime = moment().add(selection.next, 'hours');
       this.setSendTimeout(server, endTime);
       remaining = endTime.toDate();
     })
