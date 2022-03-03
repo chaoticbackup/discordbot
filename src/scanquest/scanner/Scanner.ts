@@ -71,34 +71,56 @@ export default class Scanner {
       }
     }
     else {
-      const name = API.find_cards_ignore_comma(args)[0]?.gsx$name ?? null;
+      const name: string | undefined = API.find_cards_ignore_comma(args)[0]?.gsx$name ?? undefined;
+
       if (name) {
-        selected = server.activescans.find(scan => scan.scan.name === name);
+        const name_match = server.activescans.filter(scan => scan.scan.name === name);
+        if (name_match.length > 0) {
+          let already = false;
+          for (const match of name_match) {
+            if (match.players.includes(player.id)) {
+              already = true;
+              continue;
+            }
+            else if (moment(match.expires).isBefore(now)) {
+              continue;
+            }
+            else {
+              selected = match;
+              already = false;
+              break;
+            }
+          }
+          if (selected === undefined) {
+            // If we don't have an active scan its because its either been scanned or expired
+            if (already) {
+              await send(`You've already scanned this ${name}`);
+              return;
+            } else {
+              await send(`${name} is no longer active`);
+              return;
+            }
+          }
+        }
       }
 
       if (selected === undefined) {
         await send(`${name || stripMention(args)} isn't an active scan`);
         return;
       }
-
-      if (moment(selected.expires).isBefore(now)) {
-        await send(`${name} is no longer active`);
-        return;
-      }
-
-      if (selected.players.includes(player.id)) {
-        await send(`You've already scanned this ${selected.scan.name}`);
-        return;
-      }
     }
 
-    selected.players.push(player.id);
-    const scan_idx = server.activescans.findIndex(scan => scan.expires === selected!.expires);
+    if (selected === undefined) {
+      await send('Error loading scan');
+      return;
+    }
+
+    const scan_idx = server.activescans.findIndex(scan => scan.msg_id === selected!.msg_id);
 
     let res = await this.db.servers.updateOne(
       { id: server.id },
       {
-        $set: { [`activescans.${scan_idx}.players`]: selected.players }
+        $push: { [`activescans.${scan_idx}.players`]: player.id }
       }
     );
 

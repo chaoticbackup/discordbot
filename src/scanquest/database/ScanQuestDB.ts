@@ -4,7 +4,7 @@ import { Scanned } from '../scan_type/Scanned';
 import { Code } from '../../definitions';
 import generateCode from './generateCode';
 
-import { Collection, MongoClient, UpdateResult } from 'mongodb';
+import { Collection, MongoClient, ObjectId, UpdateResult } from 'mongodb';
 
 export class Player {
   public id: Snowflake;
@@ -21,7 +21,7 @@ export class Player {
 export class ActiveScan {
   public scan: Scanned;
   public expires: Date;
-  public msg_id?: Snowflake;
+  public msg_id: Snowflake;
   public players: Snowflake[];
 
   constructor(
@@ -149,11 +149,21 @@ class ScanQuestDB {
   public async save(arg1: Player | Snowflake, card: Scanned): Promise<UpdateResult> {
     const player = (typeof arg1 === 'string') ? await this.findOnePlayer({ id: arg1 }) : arg1;
 
-    const scans = player?.scans ?? [];
+    if (!player) {
+      return {
+        acknowledged: false,
+        matchedCount: 0,
+        modifiedCount: 0,
+        upsertedCount: 0,
+        upsertedId: new ObjectId()
+      };
+    }
+
+    const scans = player.scans ?? [];
     scans.push(card);
 
     return await this.players.updateOne(
-      { id: player?.id },
+      { id: player.id },
       {
         $set: { scans }
       },
