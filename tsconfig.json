@@ -35,7 +35,6 @@
       "module": "esnext",
       // List of folders to include type definitions from.
       "typeRoots": [
-        "./node_modules/@types",
         "./src/**/*.d.ts"
       ],
       "skipLibCheck": true,
