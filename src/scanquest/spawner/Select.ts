@@ -24,12 +24,12 @@ export interface Selection {
 }
 
 const rarity_map = {
-  promo: 4,
-  'ultra rare': 4.5,
+  promo: 7,
+  'ultra rare': 7,
   'super rare': 4,
   rare: 3,
-  uncommon: 2,
-  common: 2
+  uncommon: 1,
+  common: 1
 };
 
 const type_map: {[key in CardType]: number} = {
@@ -86,18 +86,17 @@ export default class Select {
     // const type = (t in type_map) ? type_map[t] : 0;
 
     const r = card.gsx$rarity.toLowerCase();
-    // const rarity = (r in rarity_map) ? rarity_map[r] : 0;
+    const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
     // const active = type * rarity;
 
-    const active = 7 * 24; // TODO 1 week for all scans!
+    const active = rarity * 24; // TODO days!
+    // TODO adjust levels for scans after event
     let next: number;
-    if (r === 'common' || r === 'uncommon') {
-      next = 2;
-    } else if (r === 'rare') {
-      next = 3;
-    } else {
+    if (r === 'common' || r === 'uncommon' || r === 'rare') {
       next = Math.min(4, active);
+    } else {
+      next = 2;
     }
 
     this.setTitle(image, active);
