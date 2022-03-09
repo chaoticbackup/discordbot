@@ -290,11 +290,11 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
   "Grantkae Control": {
-    url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control",
+    url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control#15207",
     tribe: "Mixed",
     tags: [],
     type: ["Aggro-Control"],
-    creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Herald", "Ulmquad"]
+    creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Herald", "Ulmquad", "Illiar", "Kolmo, Purified"]
   },
   Grounded: {
     url: "https://chaoticbackup.forumotion.com/t1660-grounded",
