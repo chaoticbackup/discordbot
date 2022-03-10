@@ -24,12 +24,12 @@ export interface Selection {
 }
 
 const rarity_map = {
-  promo: 7,
-  'ultra rare': 7,
-  'super rare': 4,
+  promo: 2,
+  'ultra rare': 2,
+  'super rare': 2,
   rare: 3,
-  uncommon: 1,
-  common: 1
+  uncommon: 4,
+  common: 4
 };
 
 const type_map: {[key in CardType]: number} = {
@@ -94,7 +94,8 @@ export default class Select {
     // TODO adjust levels for scans after event
     let next: number;
     if (r === 'common' || r === 'uncommon' || r === 'rare') {
-      next = Math.min(4, active);
+      // next = Math.min(4, active);
+      next = 4;
     } else {
       next = 2;
     }
