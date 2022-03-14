@@ -23,21 +23,21 @@ export interface Selection {
   next: number
 }
 
-const rarity_map = {
+const rarity_map: {[key: string]: number} = {
   promo: 2,
-  'ultra rare': 2,
-  'super rare': 2,
-  rare: 3,
-  uncommon: 4,
-  common: 4
+  'ultra rare': 1,
+  'super rare': 1.5,
+  rare: 2,
+  uncommon: 3,
+  common: 3
 };
 
 const type_map: {[key in CardType]: number} = {
   Attacks: 0,
-  Battlegear: 3,
-  Creatures: 2,
-  Locations: 4,
-  Mugic: 4,
+  Battlegear: 2,
+  Creatures: 1,
+  Locations: 2,
+  Mugic: 2.5,
 };
 
 export default class Select {
@@ -82,22 +82,25 @@ export default class Select {
 
     const card = API.find_cards_by_name(scannable.card.name)[0];
 
-    // const t = card.gsx$type;
-    // const type = (t in type_map) ? type_map[t] : 0;
+    const t = card.gsx$type;
+    const type = (t in type_map) ? type_map[t] : 0;
 
     const r = card.gsx$rarity.toLowerCase();
     const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
-    // const active = type * rarity;
-
-    const active = rarity * 24; // TODO days!
     // TODO adjust levels for scans after event
     let next: number;
     if (r === 'common' || r === 'uncommon' || r === 'rare') {
-      // next = Math.min(4, active);
-      next = 4;
+      next = Math.min(4, (type + rarity));
     } else {
       next = 2;
+    }
+
+    let active = 0;
+    if (rarity > 0 && type > 0) {
+      active = 12 * (type + rarity);
+    } else {
+      next = 0;
     }
 
     this.setTitle(image, active);
