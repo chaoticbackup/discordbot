@@ -69,7 +69,7 @@ export async function clear(amount: number, message: Message, mentions: string[]
 }
 
 export async function haxxor(message: Message): Promise<void> {
-  if (isUser(message, ['daddy', 'bf'])
+  if (isUser(message, ['daddy', 'bf', 'ferric'])
       || (message.guild?.id === servers('main').id && isModerator(message.member))
   ) {
     await message.channel.send('Resetting...');
