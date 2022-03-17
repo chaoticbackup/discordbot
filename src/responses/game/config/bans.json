@@ -24,10 +24,10 @@
 		"Illusionary Lake",
 		"Imaginary Walls",
 		"Lord Van Bloot, Servant of Aa'une",
-		"Lore, Ancestral Caller",
 		"Lore, High Muge of the Hive",
 		"Lore's Chamber of Recall",
 		"Melody of the Meek",
+		"Mipedim Mirage",
 		"Mock'adyn",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
@@ -40,10 +40,13 @@
 		"Song of Resistance",
 		"Strain of Infection",
 		"Supercooled Rain",
-		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"watchlist": [
+		"Before the Storm",
+		"Lore, Ancestral Caller",
+		"Na-inna",
+		"Vial of Liquid Thought"
 	],
 	"pauper": [
 		"Dror'niq",
@@ -212,6 +215,9 @@
 		"Melody of the Meek": [
 			"Taking only 10 damage from every source is brutal. Even with only 30 energy this card would be a big advantage.\nBut there's tons of effects Creatures gain energy - making it difficult to kill a Creature using this Mugic.",
 			"See Strike of the Meek"
+		],
+		"Mipedim Mirage": [
+			"Mipedim Mirage provides a huge swings. While its swift is not always releveant, revealing it later in the game can let a fighter reach an exposed backline, which forces people to make less valiable creature placement in the off chance that it gets revealed.\nThe strongest aspect of this location is its mirage effect. Manipulating your opponent's next combat and reducing their autonomy to attack."
 		],
 		"Mock'adyn": [
 			"Mock'adyn's ability to build counters and heal renewability outpaces almost all decks. When played well, it even stablizes against super aggro builds and then there's little chance of winning against its value."
