@@ -128,18 +128,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
     const remove_role = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === remove_role)) {
       if (t === tribe) {
-        switch(t) {
-          case "Danian":
-          case "M'arrillian":
-          case "Mipedian":
-            tribe = tribe + "s";
-            break;
-          case "OverWorld":
-          case "UnderWorld":
-            tribe = tribe + "ers";
-            break;
-        }
-        return `You are already part of the ${tribe}.`;
+        return `You are already part of the ${tribe}s.`;
       }
       else {
         await member.removeRole(remove_role).catch(() => {});
