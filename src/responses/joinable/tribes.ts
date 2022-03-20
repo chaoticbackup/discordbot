@@ -128,7 +128,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
     const remove_role = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === remove_role)) {
       if (t === tribe) {
-        switch(tribe) {
+        switch(t) {
           case "Danian":
           case "M'arrillian":
           case "Mipedian":
