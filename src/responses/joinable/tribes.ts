@@ -3,7 +3,7 @@ import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorlder', 'UnderWorlder', 'Tribeless', 'Frozen'];
+const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
 
 export const tribe = async (
   args: string[], guild?: Guild, member?: GuildMember
@@ -92,7 +92,7 @@ const displayTribe = (guild: Guild, member: GuildMember): string => {
       if (bw && member.roles.find(role => role === bw)) {
         tribe = `You are a brainwashed ${t}`;
       } else {
-        tribe = `You are part of the ${t}s`;
+        tribe = `You are part of the ${t} tribe`;
       }
     }
   });
@@ -128,7 +128,7 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
     const remove_role = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === remove_role)) {
       if (t === tribe) {
-        return `You are already part of the ${tribe}.`;
+        return `You are already part of the ${tribe}s.`;
       }
       else {
         await member.removeRole(remove_role).catch(() => {});
