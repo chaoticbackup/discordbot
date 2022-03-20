@@ -3,7 +3,7 @@ import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
+const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorlder', 'UnderWorlder', 'Tribeless', 'Frozen'];
 
 export const tribe = async (
   args: string[], guild?: Guild, member?: GuildMember
@@ -90,14 +90,10 @@ const displayTribe = (guild: Guild, member: GuildMember): string => {
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
       if (bw && member.roles.find(role => role === bw)) {
-        tribe = `You are a brainwashed ${(() => {
-          if (t === 'OverWorld') return 'OverWorlder';
-          else if (t === 'UnderWorld') return 'UnderWorlder';
-          else return t;
-        })()}`;
-        return;
+        tribe = `You are a brainwashed ${t}`;
+      } else {
+        tribe = `You are part of the ${t}s`;
       }
-      tribe = `You are part of the ${t}`;
     }
   });
   if (tribe) return tribe;
