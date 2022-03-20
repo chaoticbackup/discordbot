@@ -131,15 +131,13 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
         switch(tribe) {
           case "Danian":
           case "M'arrillian":
-          case "Mipedian": {
+          case "Mipedian":
             tribe = tribe + "s";
             break;
-          }
           case "OverWorld":
-          case "UnderWorld": {
+          case "UnderWorld":
             tribe = tribe + "ers";
             break;
-          }
         }
         return `You are already part of the ${tribe}.`;
       }
