@@ -3,7 +3,7 @@ import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tribes = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
+const tribe_roles = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
 
 export const tribe = async (
   args: string[], guild?: Guild, member?: GuildMember
@@ -28,7 +28,7 @@ export const tribe = async (
   }
 
   if (args.length < 2) {
-    return '!tribe \'join|leave\' <tribe>';
+    return '!tribe \'join|leave|show\' <tribe>';
   }
 
   if (param === 'join') {
@@ -82,20 +82,36 @@ export const brainwash = async (
   return '';
 };
 
+const parseTribePlurality = (tribe: string, p: boolean = true) => {
+  switch (tribe) {
+    case 'Danian':
+    case "M'arrillian":
+    case 'Mipedian': {
+      return `${tribe}${p && 's'}`;
+    }
+    case 'OverWorld':
+    case 'UnderWorld': {
+      return `${tribe}er${p && 's'}`;
+    }
+    default:
+      return `${tribe}`;
+  }
+};
+
 const displayTribe = (guild: Guild, member: GuildMember): string => {
   const bw = guild.roles.find(role => role.name === 'Brainwashed');
 
   let tribe = '';
-  tribes.forEach((t) => {
+  for (const t of tribe_roles) {
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
       if (bw && member.roles.find(role => role === bw)) {
-        tribe = `You are a brainwashed ${t}`;
+        tribe = `You are a brainwashed ${parseTribePlurality(t, false)}`;
       } else {
-        tribe = `You are part of the ${t} tribe`;
+        tribe = `You are part of the ${parseTribePlurality(t)}`;
       }
     }
-  });
+  }
   if (tribe) return tribe;
   return 'You have not declared an allegiance. Use !tribe join *tribe name*';
 };
@@ -103,7 +119,7 @@ const displayTribe = (guild: Guild, member: GuildMember): string => {
 const leaveTribe = async (guild: Guild, member: GuildMember): Promise<string> => {
   let leaving_msg = 'You are not part of a tribe';
 
-  for (const t of tribes) {
+  for (const t of tribe_roles) {
     const gr = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === gr)) {
       await member.removeRole(gr)
@@ -124,11 +140,11 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
 
   const tribe = (input === 'assimilate') ? 'Danian' : parseTribe(input, 'Joinable');
 
-  for (const t of tribes) {
+  for (const t of tribe_roles) {
     const remove_role = guild.roles.find(role => role.name === t);
     if (member.roles.find(role => role === remove_role)) {
       if (t === tribe) {
-        return `You are already part of the ${tribe}s.`;
+        return `You are already part of the ${parseTribePlurality(t)}`;
       }
       else {
         await member.removeRole(remove_role).catch(() => {});
