@@ -63,7 +63,7 @@ export const sortedlist = {
     "Blazvatan",
     "Compost Malvone",
     "Gan'trak Bladez",
-    "Grantkae Control",
+    "Grantkae Nivenna",
     "Hermatred",
     "Oath",
     "PoP",
@@ -289,7 +289,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  "Grantkae Control": {
+  "Grantkae Nivenna": {
     url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control#15207",
     tribe: "Mixed",
     tags: [],
@@ -418,9 +418,9 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
   Rawr: {
     url: "https://chaoticbackup.forumotion.com/t1682-rawr#15201",
     tribe: "Mipedian",
-    tags: [],
+    tags: ["Warbeast"],
     type: ["Control"],
-    creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe"]
+    creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe", "Smildon", "Yterio"]
   },
   "Sis Ops": {
     url: "https://chaoticbackup.forumotion.com/t1667-multi-tribe-mash-up",
