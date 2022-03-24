@@ -88,13 +88,7 @@ export default class Select {
     const r = card.gsx$rarity.toLowerCase();
     const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
-    // TODO adjust levels for scans after event
-    let next: number;
-    if (r === 'common' || r === 'uncommon' || r === 'rare') {
-      next = Math.min(4, (type + rarity));
-    } else {
-      next = 2;
-    }
+    let next: number = Math.min(6, (type + rarity));
 
     let active = 0;
     if (rarity > 0 && type > 0) {
