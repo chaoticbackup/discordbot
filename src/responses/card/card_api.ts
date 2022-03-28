@@ -1,10 +1,12 @@
 import { Client, Emoji, RichEmbed } from 'discord.js';
+
 import { rndrsp } from '../../common';
+import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import {
   Card, Mugic, Location, Creature, isCreature, isMugic, isLocation, isAttack, isBattlegear
 } from '../../definitions';
-import Icons from '../../common/bot_icons';
+
 import found_card_list from './found_card_list';
 
 export default function (name: string, options: string[], bot: Client): string | RichEmbed {
@@ -111,7 +113,9 @@ function Response(card: Card, options: string[], bot: Client) {
     body += Elements(props);
   }
 
-  body += Ability(card.gsx$ability, mc, props);
+  if (card.gsx$ability) {
+    body += Ability(card.gsx$ability, mc, props);
+  }
 
   if (isCreature(card) && card.gsx$brainwashed) {
     body += `**Brainwashed**\n${Ability(card.gsx$brainwashed, mc, props)}`;
