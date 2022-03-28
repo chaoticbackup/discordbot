@@ -107,6 +107,18 @@
         }],
         "curly": "off",
         "func-call-spacing": "off",
+        "import/order": ["warn", {
+          "groups": [
+            ["builtin", "external", "internal"],
+            "parent",
+            ["sibling", "index"]
+          ],
+          "newlines-between": "always-and-inside-groups",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive":true
+          }
+        }],
         "no-case-declarations": "off",
         "no-console": "warn",
         "no-dupe-class-members": "off",
