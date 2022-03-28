@@ -1,11 +1,12 @@
 import { Client, Message, Snowflake, TextChannel, RichEmbed } from 'discord.js';
 import moment, { Moment } from 'moment';
 
-import ScanQuestDB, { ActiveScan, Server } from '../database';
-import Select, { Selection } from './Select';
-import custom from './custom';
-import debug from '../../common/debug';
 import { msgCatch } from '../../common';
+import debug from '../../common/debug';
+import ScanQuestDB, { ActiveScan, Server } from '../database';
+
+import custom from './custom';
+import Select, { Selection } from './Select';
 
 /**
  * @tick seconds in milliseconds
@@ -14,7 +15,7 @@ import { msgCatch } from '../../common';
  * @activity_window minutes in milliseconds
  */
 const config = {
-  tick: 1.8 * 1000,
+  tick: 1.9 * 1000,
   debounce: 2 * 60 * 1000,
   // debounce: 10 * 1000,
   safety: 10,

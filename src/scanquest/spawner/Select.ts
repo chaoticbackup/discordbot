@@ -1,14 +1,14 @@
 import { RichEmbed } from 'discord.js';
+import moment from 'moment';
 
-import { Card, CardType } from '../../definitions';
 import { API } from '../../database';
-import { Scannable } from '../scan_type/Scannable';
+import { Card, CardType } from '../../definitions';
 import { Server, ActiveScan } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
 import { SpawnMugic } from '../scan_type/Mugic';
-import moment from 'moment';
+import { Scannable } from '../scan_type/Scannable';
 
 /**
  * @property {Scannable} scannable
@@ -24,7 +24,7 @@ export interface Selection {
 }
 
 const rarity_map: {[key: string]: number} = {
-  promo: 2,
+  promo: 1.5,
   'ultra rare': 1,
   'super rare': 1.5,
   rare: 2,
@@ -88,7 +88,7 @@ export default class Select {
     const r = card.gsx$rarity.toLowerCase();
     const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
-    let next: number = Math.min(6, (type + rarity));
+    let next: number = Math.max(4, (9 - rarity * 2));
 
     let active = 0;
     if (rarity > 0 && type > 0) {
