@@ -2,10 +2,10 @@ import { RichEmbed } from 'discord.js';
 import moment from 'moment';
 
 import { API } from '../../database';
-import { Card, CardType } from '../../definitions';
+import { Card, CardType, Creature } from '../../definitions';
 import { Server, ActiveScan } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
-import { SpawnCreature } from '../scan_type/Creature';
+import { ScannableCreature, SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
 import { SpawnMugic } from '../scan_type/Mugic';
 import { Scannable } from '../scan_type/Scannable';
@@ -69,12 +69,21 @@ export default class Select {
   public card(server: Server, amount: number): Selection
   public card(server: Server, scannable?: Scannable, image?: RichEmbed): Selection
   public card(server: Server, arg1?: Scannable | number, arg2?: RichEmbed): Selection {
-    let scannable;
-    let image;
+    let scannable: Scannable;
+    let image: RichEmbed;
 
     if (arg1 === undefined || typeof arg1 === 'number' || arg2 === undefined) {
       const amount = (typeof arg1 === 'number') ? arg1 : 0;
-      [scannable, image] = this.select(server, amount);
+      [, image] = this.select(server, amount);
+      // April Fools TODO
+      const yokkis = API.find_cards_by_name('Yokkis, Spooker')[0] as Creature;
+      [scannable] = this.scan_creature.generate(yokkis);
+      const { card } = (scannable as ScannableCreature);
+      card.courage -= 10;
+      card.power -= 10;
+      card.wisdom -= 10;
+      card.speed -= 10;
+      card.energy -= 5;
     } else {
       scannable = arg1;
       image = arg2;
