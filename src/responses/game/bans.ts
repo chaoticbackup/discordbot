@@ -1,10 +1,11 @@
 import { Guild, GuildMember, Message } from 'discord.js';
+
 import { can_send, rndrsp, uppercase, cleantext } from '../../common';
-import { Channel } from '../../definitions';
 import { API } from '../../database';
+import { Channel } from '../../definitions';
 
 import ban_lists from './config/bans.json';
-const { formats, detailed, reasons, jokes, unique } = ban_lists;
+const { formats, detailed, reasons, jokes } = ban_lists;
 
 function f() {
   let message = 'Community Formats:\n';
@@ -25,11 +26,9 @@ export function banlist(message: Message, options: string[] = []) {
     response = `**${uppercase(_format)}:**\n${formats[_format]}`;
   };
 
-  const list_bans = (_format: string) => {
-    response += '\n==Banned Cards==';
-    ban_lists[_format].forEach((key: string) => {
-      response += `\n${key}`;
-    });
+  const list_bans = (_format: string, header = '\n==**Banned Cards**==') => {
+    response += header;
+    response = (ban_lists[_format] as string[]).reduce((prev, curr) => `${prev}\n${curr}`, response);
   };
 
   const format = (options.length === 0) ? 'standard' : options[0].toLowerCase();
@@ -39,10 +38,8 @@ export function banlist(message: Message, options: string[] = []) {
     case 'standard': {
       title('standard');
       list_bans('standard');
-      response += '\n=====\n**Unique:** (only 1 copy allowed)';
-      unique.forEach((key: string) => {
-         response += `\n${key}`;
-       });
+      response += '\n==**Unique** (only 1 copy allowed)==';
+      list_bans('unique', '');
       response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
       break;
     }
@@ -75,6 +72,7 @@ export function banlist(message: Message, options: string[] = []) {
     // Advanced Apprentice
     case 'advanced apprentice':
     case 'aap': {
+      // can't use title() because it is abbreviated
       response = `**Advanced Apprentice (AAP):**\n${formats.aap}`;
       list_bans('aap');
       break;

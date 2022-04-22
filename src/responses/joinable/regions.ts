@@ -1,8 +1,11 @@
-import { Guild, GuildMember, Message, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
+import { Guild, GuildMember, Message, TextChannel } from 'discord.js';
+
 import { asyncForEach, msgCatch } from '../../common';
-import { MeetupsDB, Region, Member } from './MeetupsDB';
+
 import commands from '../command_help.json';
+
+import { MeetupsDB, Region, Member } from './MeetupsDB';
 
 const rmSpecialChars = (text: string): string => {
   text = text.replace('é', 'e');
@@ -154,10 +157,10 @@ export default async function (
                   .catch(msgCatch)
                 );
                 if (added.length > 0) {
-                  let msg = 'Added ';
-                  added.forEach((name) => {
-                    msg += `${name}, `;
-                  });
+                  const msg = added.reduce(
+                    (prev, name) => `${prev}${name}, `,
+                    'Added '
+                  );
                   return `${msg.slice(0, -2)} to ${region.name}`;
                 }
                 return `No users were added to ${region.name}`;
