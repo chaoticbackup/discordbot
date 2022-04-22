@@ -39,10 +39,10 @@ export function banlist(message: Message, options: string[] = []) {
     case 'standard': {
       title('standard');
       list_bans('standard');
-      // response += '\n=====\n**Watchlist:** (not banned)';
-      // watchlist.forEach((key: string) => {
-      //   response += `\n${key}`;
-      // });
+      response += '\n=====\n**Unique:** (only 1 copy allowed)';
+      unique.forEach((key: string) => {
+         response += `\n${key}`;
+       });
       response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
       break;
     }
