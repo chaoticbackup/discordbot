@@ -4,7 +4,7 @@ import { Channel } from '../../definitions';
 import { API } from '../../database';
 
 import ban_lists from './config/bans.json';
-const { formats, detailed, reasons, jokes } = ban_lists;
+const { formats, detailed, reasons, jokes, unique } = ban_lists;
 
 function f() {
   let message = 'Community Formats:\n';
