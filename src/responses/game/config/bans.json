@@ -1,7 +1,6 @@
 {
 	"formats": {
 		"standard": "All cards with banlist",
-		"unique": "The cards limited to 1 copy",
 		"unrestricted": "No banned cards",
 		"pauper": "Commons and Uncommons only",
 		"noble": "Commons, Uncommons, and Rares only",
