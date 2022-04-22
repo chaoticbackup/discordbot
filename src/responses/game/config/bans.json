@@ -20,7 +20,7 @@
 		"Dranakis Threshold",
 		"Dror'niq",
 		"Enre-hep, High Muge of the Desert",
-		"Hune Paltanin",
+		"Ikkatosh, the Aich King",
 		"Illusionary Lake",
 		"Imaginary Walls",
 		"Lord Van Bloot, Servant of Aa'une",
@@ -29,10 +29,10 @@
 		"Melody of the Meek",
 		"Mipedim Mirage",
 		"Mock'adyn",
+		"Na-inna",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
 		"Numin Voidland",
-		"Prexxor Chasm, The Blight",
 		"Primal Smash",
 		"Psionic Serenade",
 		"Ramarhvir, The Danian Hivebringer",
@@ -40,12 +40,21 @@
 		"Song of Resistance",
 		"Strain of Infection",
 		"Supercooled Rain",
+		"Talisman of the Mandiblor",
+		"Whirling Wail",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"watchlist": [
 		"Before the Storm",
 		"Lore, Ancestral Caller",
 		"Na-inna",
+		"Vial of Liquid Thought"
+	],
+	"limited": [
+		"Elemental Elegy",
+		"Malvadine, the King's Herald",
+		"Ulmar, Perithon Racer",
+		"Prexxor Chasm",
 		"Vial of Liquid Thought"
 	],
 	"pauper": [
@@ -308,6 +317,10 @@
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
 			"Did you like that one hit Slash Claw? Want to see it again?",
 			"Go on, take a swig of the vial."
+		],
+		"Whirling Wail": [
+			"We have a history of banning cards that prevent you from using mugic or abilities especially one sided ones and this is no exception, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage.",
+			"The dinosaurs had it too good for too long."
 		],
 		"Xerium Armor": [
 			"Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check.",
