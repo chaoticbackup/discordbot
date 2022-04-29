@@ -45,6 +45,8 @@ export default function prediction() {
     'Ifjann',
     "Aa'une the Oligarch",
     'Rhyme of the Reckless',
+    "Olkiex' Apron",
+    'Lake Ken-i-Po',
     'Melody of Mirage',
     'Xerium Armor',
     'Fortissimo',
@@ -98,6 +100,11 @@ export default function prediction() {
     'because Metal won a tournament with it',
     'because what are *you* gonna do about it?',
     'so we can remember what happiness feels like',
+    'because Danians ruined the game',
+    'because why not?',
+    'for spamming the same link too many times',
+    "to push the M'arrillian agenda",
+    "because it's stupid OP",
     'because it was too pure for this world',
     'because we hate fun',
     'because it was datamined from the Chaotic VR fishing game',
@@ -167,7 +174,7 @@ export default function prediction() {
     'so that Neekwin can come off',
     "to bring back the good ol' days",
     'because Chio made a typo while editing the banlist',
-    'because King has bought 20 copies of it.'
+    'because King has bought 20 copies of it.',
     'because Nicole wills it',
     'to spite the codemasters',
     'so the player base would stop complaining',
@@ -182,15 +189,26 @@ export default function prediction() {
   var random_card;
   var reason;
   var prediction;
+  var islimited = Math.floor((10 * Math.random()));
   if (isbanned >= 7) {
     random_card = bannedCards[Math.floor(Math.random() * bannedCards.length)];
     reason = unbanReasons[Math.floor(Math.random() * unbanReasons.length)];
-    prediction = random_card.concat(' is unbanned ', reason);
+    if (islimited >= 8 {
+      prediction = random_card.concat(' is limited ', reason);
+    }
+    else{
+      prediction = random_card.concat(' is unbanned ', reason);
+    }
   } 
   else {
     random_card = unbannedCards[Math.floor(Math.random() * unbannedCards.length)];
     reason = banReasons[Math.floor(Math.random() * banReasons.length)];
-    prediction = random_card.concat(' is banned ', reason);
+    if (islimited >= 8 {
+      prediction = random_card.concat(' is limited ', reason);
+    }
+    else{
+      prediction = random_card.concat(' is banned ', reason);
+    }
   }
   return prediction;
 }
