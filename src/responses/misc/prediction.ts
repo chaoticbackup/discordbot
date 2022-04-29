@@ -53,12 +53,10 @@ export default function prediction() {
     'Makanaz',
     'Kiru City Tunnels',
     'Garv',
-    'Lake Ken-i-Po',
     "Gan'trak",
     'Kebna',
     "Em'swa",
     'Olkiex',
-    "Olkiex' Apron",
     'Gigantroper',
     'Interlude of Interuption',
     'Interlude of Consequence',
@@ -93,7 +91,6 @@ export default function prediction() {
     "because it's inherently unfair",
     'because of the potential interactions with Etalla',
     "because we learned our lesson with Dror'niq",
-    "because it's stupid OP",
     'for being confusing to new players',
     'because it was degenerate and allowed too many FTKs',
     "so we don't have another 8 hour argument",
@@ -107,8 +104,6 @@ export default function prediction() {
     'because Chaotic is never coming back',
     'because it was part of a tax-evasion scheme',
     "because it's a rulings nightmare",
-    'for spamming the same link too many times',
-    "to push the M'arrillian agenda",
     'to honor democracy',
     'for crimes against The Party',
     'because if you use this card you deserve to be in jail',
@@ -121,7 +116,6 @@ export default function prediction() {
     "because TCD won't let us have nice things",
     "because Chio won't let us have nice things",
     'in case we want to unban Drorniq',
-    'because I deem it so',
     'because you could not withstand its power',
     'because they are canonically destroyed',
     'because the people will it',
@@ -132,7 +126,6 @@ export default function prediction() {
     'so the player base would stop complaining',
     'because #YOLO',
     'to tank the price',
-    'because why not?',
     'because it crashed Recode',
     'as part of a complex seven card trade deal',
     'to make show decks playable',
@@ -143,7 +136,6 @@ export default function prediction() {
     'to prevent the Doors of the Deepmines from reopening',
     'to lower the power level of the meta',
     'because you people just will not shut up about it',
-    'because Danians ruined the game',
     'to spice up the meta'
   ];
   var unbanReasons = [
@@ -190,7 +182,7 @@ export default function prediction() {
   var random_card;
   var reason;
   var prediction;
-  if (isbanned >= 6) {
+  if (isbanned >= 7) {
     random_card = bannedCards[Math.floor(Math.random() * bannedCards.length)];
     reason = unbanReasons[Math.floor(Math.random() * unbanReasons.length)];
     prediction = random_card.concat(' is unbanned ', reason);
