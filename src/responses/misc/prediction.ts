@@ -193,7 +193,7 @@ export default function prediction() {
   if (isbanned >= 7) {
     random_card = bannedCards[Math.floor(Math.random() * bannedCards.length)];
     reason = unbanReasons[Math.floor(Math.random() * unbanReasons.length)];
-    if (islimited >= 8 {
+    if (islimited >= 8) {
       prediction = random_card.concat(' is limited ', reason);
     }
     else{
@@ -203,7 +203,7 @@ export default function prediction() {
   else {
     random_card = unbannedCards[Math.floor(Math.random() * unbannedCards.length)];
     reason = banReasons[Math.floor(Math.random() * banReasons.length)];
-    if (islimited >= 8 {
+    if (islimited >= 8) {
       prediction = random_card.concat(' is limited ', reason);
     }
     else{
