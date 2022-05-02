@@ -55,46 +55,40 @@ export const toplist: Array<deck_names[number]> = [
 // The names in the decklist have to be found in this list
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 export const sortedlist = {
-  S: [
-    "Danian Burn",
-    "Kolmpost",
-    "Rawr",
-    "Strike",
-    "Swimming Team",
-    "UnderWorld Discipline Burn"
-  ],
-  A: [
+  toplist: [
     "Aszil Compost",
     "Arrthoa Ulmquad",
-    "Elegy Spam",
-    "Fliandar",
-    "Grantkae Nivenna",
-    "Healdrom",
-    "Sis Ops",
+    "Blazvatan Warbeast",
+    "Danian Burn",
+    "Kolmpost",
+    "PoP",
+    "Rawr",
+    "Strike",
     "Stelphor (Kraken)",
+    "UnderWorld Burn",
     "Ursis Dagger",
     "Wise Guys"
   ],
-  B: [
-    "Blazvatan Warbeast",
+  S: [],
+  A: [],
+  B: [],
+  curated: [
     "Compost Malvone",
+    "Elegy Spam",
+    "Erak'tabb Tartarek",
+    "Firefly",
+    "Fliandar",
     "Gan'trak Bladez",
+    "Grantkae Nivenna",
+    "Healdrom",
     "Hermatred",
-    "Oath",
+    "Nimmei",
+    "OverWorld Elemental",
+    "OverWorld Muges",
     "PoP",
     "Tartareklessness",
+    "Trampling Mammoth",
     "Tree Frogs",
-    "Trampling Mammoth"
-  ],
-  curated: [
-    "Erak'tabb Tartarek",
-    "Feasting",
-    "Firefly",
-    "Flame On",
-    "Nimmei",
-    "Ocean Man",
-    "OverWorld Muges",
-    "OverWorld Elemental",
     "Ursis D Muge"
   ],
   // Place any unranked decks here for the purpose of linting
@@ -106,6 +100,8 @@ export const sortedlist = {
     "Bodal's Boys",
     "Crack the Whep",
     "Fire and Brimstone",
+    "Feasting",
+    "Flame On",
     "Flying Frogs",
     "Four Arms",
     "Gan'trak Issaley",
@@ -120,14 +116,20 @@ export const sortedlist = {
     "MaxWreck",
     "Mip Reckless",
     "No Healing",
+    "Oath Oasis",
+    "Ocean Man",
     "Stelgar Compost",
+    "Sis Ops",
+    "Swimming Team",
     "UnderWorld Burn",
   ]
 } as const;
 
 export const tierlist = sortedlist as any as {[key in Tier]: string[]};
 
-type deck_names = typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] | typeof sortedlist["_"] | typeof sortedlist["curated"];
+type deck_names =
+  typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] |
+  typeof sortedlist["_"] | typeof sortedlist["curated"] | typeof sortedlist["toplist"];
 interface Deck {
   url: string
   tribe: Tribe
@@ -403,7 +405,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Ursis", "Galmedar", "Smildon", "Vunhra"]
   },
-  Oath: {
+  "Oath Oasis": {
     url: "https://chaoticbackup.forumotion.com/t1683-oath-of-the-oasis",
     tribe: "Mixed",
     tags: [],
@@ -506,14 +508,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
     type: ["Aggro"],
-    creatures: ["Chaor, The Fierce", "Ulmar, Perithon Racer", "Takinom, The Shadowknight", "Kaal", "Kopond, High Muge of the Hearth", "Nivena"]
-  },
-  "UnderWorld Discipline Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15170",
-    tribe: "UnderWorld",
-    tags: ["Burn"],
-    type: ["Aggro"],
-    creatures: ["Chaor", "Rothar, Forceful Negotiator", "Ulmar, Perithon Racer", "Kopond, High Muge of the Hearth"]
+    creatures: ["Chaor, The Fierce", "Ulmar, Perithon Racer", "Takinom, The Shadowknight", "Kaal", "Kopond, High Muge of the Hearth", "Nivena", "Chaor", "Rothar, Forceful Negotiator", "Lord Van Bloot"]
   },
   "Ursis Dagger": {
     url: "https://chaoticbackup.forumotion.com/t1670-ursis-dagger#15191",
