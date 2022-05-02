@@ -5,7 +5,7 @@ import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
 
-import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers } from './config/decklists';
+import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers, toplist } from './config/decklists';
 
 function getTiers(input: string) {
   input = input.toUpperCase();
@@ -178,10 +178,12 @@ function getDecklist(input: string): RichEmbed | string {
   return "I'm unable to find decks that match your search terms";
 }
 
+/*
 function getTierlist() {
   const output = new RichEmbed()
     // eslint-disable-next-line max-len
-    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists. Decks are ordered alphabetically.\nFor additional decks use `!deck` or `!curated`');
+    .setDescription('Disclaimer: This tierlist does not always accurately reflect the meta or present the optimal deck lists.
+    Decks are ordered alphabetically.\nFor additional decks use `!deck` or `!curated`');
   for (const key of tiers) {
     let message = '';
     let cont = false;
@@ -200,6 +202,34 @@ function getTierlist() {
       (!cont ? key : `${key} cont.`), message, true
     );
   }
+
+  return output;
+}
+*/
+
+function getTierlist() {
+  const output = new RichEmbed()
+  // eslint-disable-next-line max-len
+    .setDescription('A alphabetically ordered list of the top decks.\nDisclaimer these deck lists are not always up to date and may require tuning');
+
+  let message = '';
+  let cont = false;
+
+  toplist.forEach((deck) => {
+    const entry = `[${deck}](${decklist[deck].url})\n`;
+    if (message.length + entry.length >= 1024) {
+      output.addField(
+        (!cont ? 'Toplist' : 'cont.'), message, true
+      );
+      message = '';
+      cont = true;
+    }
+    message += entry;
+  });
+
+  output.addField(
+    (!cont ? 'Toplist' : 'cont.'), message, true
+  );
 
   return output;
 }

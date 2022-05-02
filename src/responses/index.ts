@@ -374,11 +374,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'tierlist':
     case 'tiers':
-      if (guild && is_channel(channel, 'bot_commands', 'main')) {
-        return sendMultiResponse([tierlist(), curated(), donate()]);
-      } else {
-        return sendBotCommands([tierlist(), donate()]);
-      }
+      // if (guild && is_channel(channel, 'bot_commands', 'main')) {
+      //   return sendMultiResponse([tierlist(), curated(), donate()]);
+      // } else {
+      return sendBotCommands([tierlist(), donate()]);
+      // }
 
     /* Matchmaking */
     case 'cupid':

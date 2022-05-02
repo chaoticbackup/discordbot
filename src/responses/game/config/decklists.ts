@@ -37,6 +37,21 @@ export const axes: {[key in DeckType]: string} = {
   "Anti-Meta": "Answers, Tempo, Essential"
 };
 
+export const toplist: Array<deck_names[number]> = [
+  "Aszil Compost",
+  "Arrthoa Ulmquad",
+  "Blazvatan Warbeast",
+  "Danian Burn",
+  "Kolmpost",
+  "PoP",
+  "Rawr",
+  "Strike",
+  "Stelphor (Kraken)",
+  "UnderWorld Burn",
+  "Ursis Dagger",
+  "Wise Guys"
+];
+
 // The names in the decklist have to be found in this list
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 export const sortedlist = {
@@ -50,7 +65,7 @@ export const sortedlist = {
   ],
   A: [
     "Aszil Compost",
-    "Come Sail Away",
+    "Arrthoa Ulmquad",
     "Elegy Spam",
     "Fliandar",
     "Grantkae Nivenna",
@@ -61,7 +76,7 @@ export const sortedlist = {
     "Wise Guys"
   ],
   B: [
-    "Blazvatan",
+    "Blazvatan Warbeast",
     "Compost Malvone",
     "Gan'trak Bladez",
     "Hermatred",
@@ -86,6 +101,7 @@ export const sortedlist = {
   _: [
     "Arrthoa Loyal",
     "Aszil Courage",
+    "Aa'une Tarterek",
     "Brathe Yourself",
     "Bodal's Boys",
     "Crack the Whep",
@@ -105,7 +121,7 @@ export const sortedlist = {
     "Mip Reckless",
     "No Healing",
     "Stelgar Compost",
-    "UnderWorld Fire Burn",
+    "UnderWorld Burn",
   ]
 } as const;
 
@@ -142,7 +158,14 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Arrthoa, Captain of the Ezoa", "Lomma, Desert Wanderer", "Maxxor, Elemental Champion", "Rellim, Watermaster", "Herken", "Tangath Toborn, In Training"]
   },
-  Blazvatan: {
+  "Aa'une Tarterek": {
+    url: "https://chaoticbackup.forumotion.com/t1724-aa-une",
+    tribe: "M'arrillian",
+    tags: ["Water", "Psionic Serenade"],
+    type: ["Gimmick"],
+    creatures: ["Aa'une", "Tarterek, Psi Overloader", "Nunk'worn", "Lam'inkal"]
+  },
+  "Blazvatan Warbeast": {
     url: "https://chaoticbackup.forumotion.com/t1582-blazvatan",
     tribe: "Mipedian",
     tags: ["Warbeast", "Air", "Earth"],
@@ -163,7 +186,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
   },
-  "Come Sail Away": {
+  "Arrthoa Ulmquad": {
     url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
     tribe: "Mixed",
     tags: ["Fluidmorph"],
@@ -478,7 +501,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Lanker", "Ikkatosh, The Aich King", "Anarkiar", "Garv", "Lomma, Desert Wanderer"]
   },
-  "UnderWorld Fire Burn": {
+  "UnderWorld Burn": {
     url: "https://chaoticbackup.forumotion.com/t1661-uw-burn#15077",
     tribe: "UnderWorld",
     tags: ["Burn", "Fire"],
@@ -516,18 +539,3 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
 };
 
 export const decklist = _decklist as {[key: string]: Deck};
-
-const pauper: {
-  [key: string]: Pick<Deck, "url" | "tribe" | "creatures">
-} = {
-  "Hiadrom Compost": {
-    url: "https://chaoticbackup.forumotion.com/t1641-pauper-hiadrome#15205",
-    tribe: "Danian",
-    creatures: ["Hiadrom", "Gareep", "Wamma, Flame Guard", "Ivelaan"]
-  },
-  "Part'soa Emna'ool": {
-    url: "https://chaoticbackup.forumotion.com/t1637-pauper-marrillian-courage#15204",
-    tribe: "M'arrillian",
-    creatures: ["Part'soa", "Emna'ool", "Rol'doi", "Irrabeq", "Xis'torq", "Uholdan"]
-  }
-};
