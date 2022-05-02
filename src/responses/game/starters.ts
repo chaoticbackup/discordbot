@@ -1,5 +1,7 @@
 import { Snowflake, RichEmbed, Message } from 'discord.js';
+
 import users from '../../common/users';
+
 import starters_json from './config/starters.json';
 
 const starters = starters_json as Record<string, Record<string, {name: string, link: string}>>;

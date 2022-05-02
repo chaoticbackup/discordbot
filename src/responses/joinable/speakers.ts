@@ -1,5 +1,6 @@
-import { Guild, GuildMember, Role, Message, TextChannel } from 'discord.js';
 import { FieldsEmbed } from 'discord-paginationembed';
+import { Guild, GuildMember, Role, Message, TextChannel } from 'discord.js';
+
 import { cleantext, uppercase, hasPermission } from '../../common';
 
 const suffix = '_speakers';

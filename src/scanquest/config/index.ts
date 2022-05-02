@@ -1,12 +1,13 @@
 import { Message } from 'discord.js';
 
+import ScanQuest from '..';
 import { SendFunction } from '../../definitions';
 import { Server } from '../database';
-import help from './help';
-import ScanQuest from '..';
-import { ignore } from './ignore';
+
 import { channel } from './channel';
 import { disable } from './disable';
+import help from './help';
+import { ignore } from './ignore';
 
 export default async function (this: ScanQuest, message: Message, args: string[], mentions: string[], send: SendFunction) {
   if (args.length > 0) {

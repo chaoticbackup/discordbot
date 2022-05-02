@@ -1,7 +1,8 @@
 import { Message, DMChannel } from 'discord.js';
-import ScanQuestDB from '../database';
+
 import { isUser } from '../../common/users';
 import { SendFunction } from '../../definitions';
+import ScanQuestDB from '../database';
 
 export default async function balance(db: ScanQuestDB, message: Message, options: string[], send: SendFunction):
 Promise<void> {

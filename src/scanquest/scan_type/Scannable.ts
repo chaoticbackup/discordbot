@@ -1,6 +1,8 @@
 import { RichEmbed } from 'discord.js';
-import { Scanned } from './Scanned';
+
 import Icons from '../../common/bot_icons';
+
+import { Scanned } from './Scanned';
 
 /**
  * @param card The scanned card characteristics

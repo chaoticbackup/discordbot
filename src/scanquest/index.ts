@@ -1,6 +1,7 @@
 import { Client, Message } from 'discord.js';
 
 import { flatten, msgCatch } from '../common';
+import debug from '../common/debug';
 import parseCommand from '../common/parseCommand';
 import { isUser } from '../common/users';
 
@@ -8,14 +9,13 @@ import { API } from '../database';
 import { SendFunction } from '../definitions';
 import logger from '../logger';
 
-import ScanQuestDB from './database';
 import perim from './config';
+import ScanQuestDB from './database';
 import loadScan from './loader/Loader';
 import { balance, listScans, rate } from './player';
 import Scanner from './scanner/Scanner';
 import Spawner from './spawner/Spawner';
 import Trader from './trader/Trader';
-import debug from '../common/debug';
 
 const development = (process.env.NODE_ENV === 'development');
 

@@ -1,9 +1,12 @@
 import { Client, RichEmbed } from 'discord.js';
-import { color } from '../../database';
+
 import { cleantext, rndrsp } from '../../common';
-import { Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5, Gone_Chaotic_5 } from './config/gonechaotic.json';
+
 import { parseType } from '../../common/card_types';
+import { color } from '../../database';
 import { Card } from '../../definitions';
+
+import { Custom, Extra, Holiday, GoneChaotic, Gone2Chaotic, GoneChaotic3, Gone4Ever, Gone4_5, Gone_Chaotic_5 } from './config/gonechaotic.json';
 
 interface Gone {
   img: string

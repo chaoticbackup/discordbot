@@ -1,9 +1,9 @@
 import { ScannableBattlegear, ScannedBattlegear } from './Battlegear';
 import { ScannableCreature, ScannedCreature } from './Creature';
 import { ScannableLocation, ScannedLocation } from './Location';
+import { ScannableMugic, ScannedMugic } from './Mugic';
 import { Scannable } from './Scannable';
 import { Scanned } from './Scanned';
-import { ScannableMugic, ScannedMugic } from './Mugic';
 
 /**
  * @param scan Scanned to transform into Scannable

@@ -1,7 +1,8 @@
-import ScanQuestDB from '../database';
 import { Message, Client } from 'discord.js';
-import { ScannableCreature } from '../scan_type/Creature';
+
 import rate from '../../responses/rate';
+import ScanQuestDB from '../database';
+import { ScannableCreature } from '../scan_type/Creature';
 import { toScannable } from '../scan_type/toScannable';
 
 export default async function (db: ScanQuestDB, message: Message, args: string[], options: string[], bot: Client) {

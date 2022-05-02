@@ -1,4 +1,5 @@
 import { rndrsp } from '../../common';
+
 import jokes from './config/jokes.json';
 
 export default function (input: string = '') {

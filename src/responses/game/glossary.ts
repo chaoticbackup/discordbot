@@ -1,4 +1,5 @@
 import { cleantext } from '../../common';
+
 import glossary from './config/glossary.json';
 
 export default function (rule: string) {

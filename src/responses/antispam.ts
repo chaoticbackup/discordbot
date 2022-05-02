@@ -1,4 +1,5 @@
 import { Snowflake, Message, Client, TextChannel } from 'discord.js';
+
 import { msgCatch } from '../common';
 import servers from '../common/servers';
 

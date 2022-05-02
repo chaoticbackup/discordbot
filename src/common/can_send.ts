@@ -1,5 +1,7 @@
 import { Guild, GuildMember } from 'discord.js';
+
 import { Channel } from '../definitions';
+
 import servers, { is_channel } from './servers';
 
 type msg = string | null | undefined;

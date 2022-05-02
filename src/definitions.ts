@@ -1,4 +1,5 @@
 import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment, Message } from 'discord.js';
+
 import { CardType } from './common/card_types';
 
 // export class Channel extends TextBasedChannel(Discord.Channel)

@@ -1,4 +1,5 @@
 import { Client, Emoji } from 'discord.js';
+
 import { cards } from '../../database';
 
 function GenericCounter(cardtext: string, genCounter: Emoji) {

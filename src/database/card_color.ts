@@ -1,5 +1,6 @@
-import { Attack, Battlegear, Creature, Location, Mugic } from '../definitions';
 import { ColorResolvable } from 'discord.js';
+
+import { Attack, Battlegear, Creature, Location, Mugic } from '../definitions';
 
 export default function card_color(card: Attack | Battlegear | Creature | Location | Mugic): ColorResolvable {
   switch (card.gsx$type) {

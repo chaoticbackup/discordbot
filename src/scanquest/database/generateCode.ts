@@ -1,4 +1,5 @@
 import { Code } from '../../definitions';
+
 import ScanQuestDB from '.';
 
 export default async function (db: ScanQuestDB): Promise<Code> {

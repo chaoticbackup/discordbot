@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { Snowflake, GuildMember, Message, Collection } from 'discord.js';
 import logger from '../../logger';
 import ScanQuestDB from '../database';

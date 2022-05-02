@@ -1,6 +1,8 @@
 import { Guild, GuildMember, PermissionResolvable } from 'discord.js';
-import RandomResponse from './RandomResponse';
+
 import logger from '../logger';
+
+import RandomResponse from './RandomResponse';
 
 export const { rndrsp } = new RandomResponse();
 export * from './can_send';

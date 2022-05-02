@@ -1,7 +1,10 @@
 import { RichEmbed } from 'discord.js';
+
 import { Card } from '../../definitions';
-import { Scannable } from './Scannable';
+
 import { ActiveScan } from '../database';
+
+import { Scannable } from './Scannable';
 
 export abstract class Spawn {
   /**

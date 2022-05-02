@@ -1,4 +1,5 @@
 import { isLangType, languageEnglish, lang_type, list } from '../../common/languages';
+
 import episodes_json from './config/episodes.json';
 const episodes = episodes_json as Partial<Record<lang_type, Record<string, string>>>;
 

@@ -1,9 +1,11 @@
 import { Client, Message, GuildMember, CollectorFilter, MessageReaction } from 'discord.js';
-import ScanQuestDB from '../database';
-import TradeManager, { TradeStatus, sendFunction, yes, no } from './TradeManager';
+
+import { msgCatch } from '../../common';
 import debug from '../../common/debug';
 import logger from '../../logger';
-import { msgCatch } from '../../common';
+import ScanQuestDB from '../database';
+
+import TradeManager, { TradeStatus, sendFunction, yes, no } from './TradeManager';
 
 export default class Trader {
   readonly bot: Client;

@@ -1,11 +1,14 @@
 import { RichEmbed } from 'discord.js';
+
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Mugic } from '../../definitions';
+
+import { ActiveScan } from '../database';
+
 import { Scannable } from './Scannable';
 import { Scanned } from './Scanned';
 import { Spawn } from './Spawn';
-import { ActiveScan } from '../database';
 
 function isCard(arg: any): arg is Mugic {
   return (arg as Mugic)?.gsx$name !== undefined;

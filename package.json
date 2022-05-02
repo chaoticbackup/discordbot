@@ -14,7 +14,7 @@
     "stop": "forever stop build/bot.js",
     "gitauto": "forever start node_modules/git-auto-pull/git-auto-pull.js ../../ \"yarn rebuild\"",
     "lint": "tsc --noEmit; eslint '*/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --fix"
   },
   "repository": "git+https://github.com/chaoticbackup/discordbot.git",
   "license": "MIT",

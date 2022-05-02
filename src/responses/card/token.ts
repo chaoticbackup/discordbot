@@ -1,4 +1,5 @@
 import { RichEmbed } from 'discord.js';
+
 import { API } from '../../database';
 
 /**

@@ -1,4 +1,5 @@
 import { Guild } from 'discord.js';
+
 import { rndrsp } from '../../common';
 
 import c from './config/compliments.json';

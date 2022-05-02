@@ -1,15 +1,17 @@
 /* eslint-disable max-len */
 import { Client, Message, RichEmbed } from 'discord.js';
+
 import { is_channel, rndrsp, escape_text, msgCatch } from '../common';
 import servers from '../common/servers';
 import users, { isUser } from '../common/users';
 
-import { compliment, insult } from './misc/insult_compliment';
 import { SendFunction } from '../definitions';
-import { display_card } from './card';
 
-import { quips, hello, rhymes } from './sass.json';
+import { display_card } from './card';
+import { compliment, insult } from './misc/insult_compliment';
+
 import { isMissing } from './misc/missing_cards';
+import { quips, hello, rhymes } from './sass.json';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));

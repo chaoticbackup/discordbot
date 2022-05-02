@@ -1,12 +1,12 @@
 import { Guild, Message, DMChannel } from 'discord.js';
 import fs from 'fs-extra';
 import path from 'path';
-import logger from '../logger';
 
-import { isUser } from '../common/users';
-import { API } from '../database';
 import { isModerator, hasPermission, msgCatch } from '../common';
 import servers from '../common/servers';
+import { isUser } from '../common/users';
+import { API } from '../database';
+import logger from '../logger';
 
 export async function rm(message: Message, guild?: Guild): Promise<void> {
   if (message.channel instanceof DMChannel) {

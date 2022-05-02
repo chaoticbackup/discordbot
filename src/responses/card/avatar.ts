@@ -1,7 +1,8 @@
 import { RichEmbed } from 'discord.js';
+
+import { rndrsp } from '../../common';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
-import { rndrsp } from '../../common';
 
 export default function (name: string) {
   if (API.data === 'local') {

@@ -1,8 +1,9 @@
+import { Message } from 'discord.js';
 import fs from 'fs-extra';
 import path from 'path';
-import db_path from '../../database/db_path';
-import { Message } from 'discord.js';
+
 import servers from '../../common/servers';
+import db_path from '../../database/db_path';
 
 const channel_id = process.env.NODE_ENV !== 'development'
   ? servers('main').channel('cupid')

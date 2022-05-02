@@ -1,10 +1,10 @@
+import { stripMention } from '../../common';
 import { CreatureTribe, generify, parseTribe, parseType, MugicTribe } from '../../common/card_types';
 import { API } from '../../database';
 import { Card, Creature, Mugic } from '../../definitions';
-import { toScannable } from '../scan_type/toScannable';
 import { Scannable } from '../scan_type/Scannable';
 import { Scanned } from '../scan_type/Scanned';
-import { stripMention } from '../../common';
+import { toScannable } from '../scan_type/toScannable';
 
 export type Filter = (scan: Scanned) => Scannable | undefined;
 

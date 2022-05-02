@@ -1,7 +1,8 @@
 import { Guild, GuildMember, Role } from 'discord.js';
+
 import { hasPermission } from '../../common';
-import { Channel } from '../../definitions';
 import servers from '../../common/servers';
+import { Channel } from '../../definitions';
 
 const types = ['recode', 'untap', 'tts', 'pauper', 'spell'] as const;
 

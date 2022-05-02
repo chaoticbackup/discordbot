@@ -1,8 +1,8 @@
+import ScanQuestDB from '../database';
 import { ScannedBattlegear } from '../scan_type/Battlegear';
 import { ScannedCreature } from '../scan_type/Creature';
 import { ScannedLocation } from '../scan_type/Location';
 import { Scanned } from '../scan_type/Scanned';
-import ScanQuestDB from '../database';
 
 /**
 * This shouldn't be null unless error in json file

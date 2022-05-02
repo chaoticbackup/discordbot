@@ -1,4 +1,5 @@
 import { Card, Creature } from '../definitions';
+
 import API from './Api';
 
 // Seperating the export is important to maintain the singleton

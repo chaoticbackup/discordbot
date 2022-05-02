@@ -1,6 +1,7 @@
-import { JSDOM, VirtualConsole } from 'jsdom';
-import jquery from 'jquery';
 import { Client, RichEmbed } from 'discord.js';
+import jquery from 'jquery';
+import { JSDOM, VirtualConsole } from 'jsdom';
+
 import servers from '../common/servers';
 const virtualConsole = new VirtualConsole();
 virtualConsole.sendTo(console);

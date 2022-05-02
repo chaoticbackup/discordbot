@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { Guild, GuildMember } from 'discord.js';
+
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
 

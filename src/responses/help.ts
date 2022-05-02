@@ -1,5 +1,7 @@
 import { GuildMember, RichEmbed } from 'discord.js';
+
 import { isModerator } from '../common';
+
 import command_help from './command_help.json';
 
 /*

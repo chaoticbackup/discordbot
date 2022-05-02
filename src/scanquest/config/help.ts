@@ -1,4 +1,5 @@
 import { Message, GuildMember } from 'discord.js';
+
 import { donate, msgCatch } from '../../common';
 import { SendFunction } from '../../definitions';
 import ScanQuestDB from '../database/ScanQuestDB';

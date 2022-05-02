@@ -1,11 +1,14 @@
 import { RichEmbed } from 'discord.js';
-import { Scanned } from './Scanned';
-import { Scannable } from './Scannable';
+
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Creature } from '../../definitions';
-import { Spawn } from './Spawn';
+
 import { ActiveScan } from '../database';
+
+import { Scannable } from './Scannable';
+import { Scanned } from './Scanned';
+import { Spawn } from './Spawn';
 
 function isCard(arg: any): arg is Creature {
   return (arg as Creature)?.gsx$name !== undefined;

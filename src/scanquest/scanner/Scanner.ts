@@ -1,12 +1,13 @@
 import { Message, Client } from 'discord.js';
 import moment from 'moment';
-import { API } from '../../database';
-import Icons from '../../common/bot_icons';
-import ScanQuestDB, { ActiveScan } from '../database';
-import { SendFunction } from '../../definitions';
-import { toScannable } from '../scan_type/toScannable';
-import { first_scan } from '../config/help';
+
 import { stripMention } from '../../common';
+import Icons from '../../common/bot_icons';
+import { API } from '../../database';
+import { SendFunction } from '../../definitions';
+import { first_scan } from '../config/help';
+import ScanQuestDB, { ActiveScan } from '../database';
+import { toScannable } from '../scan_type/toScannable';
 
 export default class Scanner {
   readonly icons: Icons;

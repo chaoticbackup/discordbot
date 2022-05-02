@@ -3,13 +3,14 @@ import moment, { Moment } from 'moment';
 
 import { isUser, msgCatch, stripMention } from '../../common';
 import { parseType } from '../../common/card_types';
+import debug from '../../common/debug';
 import { API } from '../../database';
 import { Card } from '../../definitions';
 import { ActiveScan } from '../database';
 import { ScannableCreature } from '../scan_type/Creature';
 import { Scannable } from '../scan_type/Scannable';
+
 import Spawner from './Spawner';
-import debug from '../../common/debug';
 
 const parseExpires = (oldExpires: Date, change: string): false | Moment => {
   let newExpires: Moment | undefined;

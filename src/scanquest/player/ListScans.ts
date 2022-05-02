@@ -1,10 +1,13 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { Attachment, DMChannel, Message, TextChannel } from 'discord.js';
+
 import { isUser } from '../../common/users';
-import ScanQuestDB, { Player } from '../database';
-import createFilter, { Filter } from './typeFilter';
 import { SendFunction } from '../../definitions';
+import ScanQuestDB, { Player } from '../database';
+
 import { Scannable } from '../scan_type/Scannable';
+
+import createFilter, { Filter } from './typeFilter';
 
 interface scan {
   index: number

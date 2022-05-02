@@ -1,10 +1,12 @@
 import { Snowflake } from 'discord.js';
-import servers from '../../common/servers';
-import { Scanned } from '../scan_type/Scanned';
-import { Code } from '../../definitions';
-import generateCode from './generateCode';
 
 import { Collection, MongoClient, ObjectId, UpdateResult } from 'mongodb';
+
+import servers from '../../common/servers';
+import { Code } from '../../definitions';
+import { Scanned } from '../scan_type/Scanned';
+
+import generateCode from './generateCode';
 
 export class Player {
   public id: Snowflake;
@@ -183,7 +185,7 @@ class ScanQuestDB {
     return (server.receive_channel === channel_id);
   };
 
-  public findOnePlayer = async ({ id: player_id }: {id: Snowflake}): Promise<Player | null> => {
+  public findOnePlayer = async ({ id: player_id }: {id: Snowflake}): Promise<Player> => {
     const player = await this.players.findOne({ id: player_id });
     if (player !== null) {
       return player;
@@ -194,8 +196,9 @@ class ScanQuestDB {
     if (res.acknowledged) {
       return p;
     }
-
-    return null;
+    else {
+      throw new Error('Unable to create player');
+    }
   };
 
   public async generateCode() {

@@ -1,4 +1,5 @@
 import { Guild, GuildMember } from 'discord.js';
+
 import { cleantext, uppercase } from '../../common';
 import { SendFunction } from '../../definitions';
 

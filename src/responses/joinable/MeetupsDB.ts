@@ -1,7 +1,9 @@
 import { GuildMember, Snowflake } from 'discord.js';
 import Loki, { Collection } from 'lokijs';
 import path from 'path';
+
 import db_path from '../../database/db_path';
+
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
 
 export class Region {

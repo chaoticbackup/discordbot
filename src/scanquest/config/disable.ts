@@ -1,6 +1,6 @@
 import ScanQuest from '..';
-import { Server } from '../database';
 import { SendFunction } from '../../definitions';
+import { Server } from '../database';
 
 export async function disable(this: ScanQuest, server: Server, yes: boolean, send: SendFunction) {
   if (server.disabled) {

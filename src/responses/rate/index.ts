@@ -1,11 +1,14 @@
-import { API } from '../../database';
-import { devType } from '../../bot';
 import { Client } from 'discord.js';
+
+import { devType } from '../../bot';
+import Icons from '../../common/bot_icons';
+import { API } from '../../database';
+
 import { isCreature } from '../../definitions';
+
 import { king } from './king';
 import { metal } from './metal';
 import { smildon } from './smildon';
-import Icons from '../../common/bot_icons';
 
 export default function (text: string, options: string[], bot: Client) {
   // This allows people to rate their scans and not trigger an error

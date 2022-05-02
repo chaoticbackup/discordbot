@@ -1,8 +1,10 @@
 import { RichEmbed } from 'discord.js';
+
 import { cleantext } from '../../common';
 import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
+
 import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers } from './config/decklists';
 
 function getTiers(input: string) {

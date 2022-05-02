@@ -1,6 +1,8 @@
 import { Client } from 'discord.js';
-import logger from '../logger';
+
 import { Channel } from '../definitions';
+import logger from '../logger';
+
 import servers from './servers';
 
 type channels = 'debug' | 'errors';

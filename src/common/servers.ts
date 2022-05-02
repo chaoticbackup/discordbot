@@ -1,4 +1,5 @@
 import { Snowflake, Message, TextChannel } from 'discord.js';
+
 import { Channel } from '../definitions';
 
 class Server {

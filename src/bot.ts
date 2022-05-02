@@ -4,14 +4,13 @@ import 'regenerator-runtime/runtime';
 
 import Discord, { GuildMember } from 'discord.js';
 
-import logger from './logger';
-import responses from './responses';
-import startForumAPI from './forum/api';
-import ForumPosts from './forum/posts';
-import ScanQuest from './scanquest';
-
 import servers from './common/servers';
 import { Channel } from './definitions';
+import startForumAPI from './forum/api';
+import ForumPosts from './forum/posts';
+import logger from './logger';
+import responses from './responses';
+import ScanQuest from './scanquest';
 
 interface auth {
   token: string

@@ -1,12 +1,15 @@
 import { RichEmbed } from 'discord.js';
-import { Scanned } from './Scanned';
-import { Scannable } from './Scannable';
-import { Initiative } from '../../responses/card/card_api';
+
 import Icons from '../../common/bot_icons';
 import { API, color } from '../../database';
 import { Location } from '../../definitions';
-import { Spawn } from './Spawn';
+import { Initiative } from '../../responses/card/card_api';
+
 import { ActiveScan } from '../database';
+
+import { Scannable } from './Scannable';
+import { Scanned } from './Scanned';
+import { Spawn } from './Spawn';
 
 function isCard(arg: any): arg is Location {
   return (arg as Location)?.gsx$name !== undefined;

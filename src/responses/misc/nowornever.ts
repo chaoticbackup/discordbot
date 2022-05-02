@@ -1,4 +1,5 @@
 import { cleantext } from '../../common';
+
 import non from './config/nowornever.json';
 
 export default function (name: string) {

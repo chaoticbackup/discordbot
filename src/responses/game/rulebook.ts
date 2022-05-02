@@ -1,4 +1,5 @@
 import { lang_type, isLangType, list, languageEnglish } from '../../common/languages';
+
 import rulebook_json from './config/rulebooks.json';
 const rulebooks = rulebook_json as Partial<Record<lang_type, Record<string, string>>>;
 

@@ -1,5 +1,7 @@
 import { RichEmbed } from 'discord.js';
+
 import { API } from '../../database';
+
 import missing from './config/recode_missing.json';
 
 export function missing_cards() {

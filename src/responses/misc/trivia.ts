@@ -1,4 +1,5 @@
 import { GuildMember, User } from 'discord.js';
+
 import { isModerator } from '../../common';
 
 interface Response {

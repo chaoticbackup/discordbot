@@ -1,5 +1,6 @@
 import { parseTribe, parseType, MugicTribe, CreatureTribe, CardType, generify } from '../../common/card_types';
 import commands from '../command_help.json';
+
 import gsjson from './config/goodstuff.json';
 
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
