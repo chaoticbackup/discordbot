@@ -37,21 +37,6 @@ export const axes: {[key in DeckType]: string} = {
   "Anti-Meta": "Answers, Tempo, Essential"
 };
 
-export const toplist: Array<deck_names[number]> = [
-  "Aszil Compost",
-  "Arrthoa Ulmquad",
-  "Blazvatan Warbeast",
-  "Danian Burn",
-  "Kolmpost",
-  "PoP",
-  "Rawr",
-  "Strike",
-  "Stelphor (Kraken)",
-  "UnderWorld Burn",
-  "Ursis Dagger",
-  "Wise Guys"
-];
-
 // The names in the decklist have to be found in this list
 // This is to prevent crashes with the tierlist command if a deckname is mispelled or missing
 export const sortedlist = {
@@ -85,7 +70,6 @@ export const sortedlist = {
     "Nimmei",
     "OverWorld Elemental",
     "OverWorld Muges",
-    "PoP",
     "Tartareklessness",
     "Trampling Mammoth",
     "Tree Frogs",

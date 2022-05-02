@@ -5,7 +5,7 @@ import { parseTribe } from '../../common/card_types';
 import { API } from '../../database';
 import { Creature } from '../../definitions';
 
-import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers, toplist } from './config/decklists';
+import { tierlist, decklist, sortedlist, axes, isTier, isType, tiers } from './config/decklists';
 
 function getTiers(input: string) {
   input = input.toUpperCase();
@@ -215,7 +215,7 @@ function getTierlist() {
   let message = '';
   let cont = false;
 
-  toplist.forEach((deck) => {
+  sortedlist.toplist.forEach((deck) => {
     const entry = `[${deck}](${decklist[deck].url})\n`;
     if (message.length + entry.length >= 1024) {
       output.addField(
