@@ -67,6 +67,10 @@
         "cmd": "!token 'orange'|'blue' ['1'|'2']",
         "alias": "parasite"
     },
+    "sealed": {
+        "cmd": "!sealed pool <number>",
+        "details": "Opens specified number of packs from a curated sealed pool"
+    },
     "faq": {
         "cmd": "!faq <phrase>",
         "list": "Answers to some of the common questions"

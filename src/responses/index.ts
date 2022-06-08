@@ -40,6 +40,7 @@ import { make, menu, order } from './misc/menu';
 import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
 import prediction from './misc/prediction';
+import generate_sealed_pool from './misc/sealed_simulator';
 import { answer, trivia, whistle } from './misc/trivia';
 import watch from './misc/watch';
 
@@ -282,6 +283,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
     case 'token': {
       return send(display_token(flatten(args)));
+    }
+    case 'sealed': {
+      if (args[0] === 'pool' && !isNaN(Number(args[1]))) {
+        if (guildMember) {
+          let gm = guildMember;
+          if (mentions.length > 0 && isModerator(guildMember)) {
+            gm = await message.guild.fetchMember(mentions[0]);
+          }
+          gm.send(generate_sealed_pool(Number(args[1])));
+        }
+        return send(`Generating sealed card pool with ${args[1]} pack(s)`);
+      }
+      break;
     }
 
     /* Rules */

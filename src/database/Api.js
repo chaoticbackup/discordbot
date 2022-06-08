@@ -24,7 +24,7 @@ export default class API {
   get thumb_missing() { return "1JYjPzkv74IhzlHTyVh2niTDyui73HSfp" }
   get card_back() { return "https://i.imgur.com/xbeDBRJ.png" }
   // such secure, much wow
-  get key() { 
+  static key() { 
     return ["AIz", "aSy", "Bfq", "09-", "tBi", "78b", "nH6", "6f1", "Lkn", "zGD", "XM9", "Zu9", "JG0"].join("");
   }
 
@@ -44,8 +44,8 @@ export default class API {
     });
   }
 
-  path(spreadsheetID) {
-    return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}/values/Sheet1?key=${this.key}`
+  static path(spreadsheetID) {
+    return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}/values/Sheet1?key=${API.key()}`
   }
 
   constructor() {
@@ -71,7 +71,7 @@ export default class API {
   }
 
   async getSpreadsheet(spreadsheetId) {
-    const url = this.path(spreadsheetId);
+    const url = API.path(spreadsheetId);
 
     try {
       const response = await fetch(url);
