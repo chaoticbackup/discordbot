@@ -28,8 +28,8 @@ const rarity_map: {[key: string]: number} = {
   'ultra rare': 1,
   'super rare': 1.5,
   rare: 2,
-  uncommon: 3,
-  common: 3
+  uncommon: 2.5,
+  common: 2.5
 };
 
 const type_map: {[key in CardType]: number} = {
