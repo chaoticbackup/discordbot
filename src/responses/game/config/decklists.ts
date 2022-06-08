@@ -58,6 +58,7 @@ export const sortedlist = {
   A: [],
   B: [],
   curated: [
+    "Aa'une Tarterek",
     "Compost Malvone",
     "Elegy Spam",
     "Erak'tabb Tartarek",
@@ -79,7 +80,6 @@ export const sortedlist = {
   _: [
     "Arrthoa Loyal",
     "Aszil Courage",
-    "Aa'une Tarterek",
     "Brathe Yourself",
     "Bodal's Boys",
     "Crack the Whep",
