@@ -69,7 +69,8 @@
     },
     "sealed": {
         "cmd": "!sealed pool <number>",
-        "details": "Opens specified number of packs from a curated sealed pool"
+        "details": "Opens specified number of packs from a curated sealed pool and messages you",
+        "mod": "If you mention a user, I'll send the packs to that user"
     },
     "faq": {
         "cmd": "!faq <phrase>",

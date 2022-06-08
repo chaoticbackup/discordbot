@@ -131,11 +131,21 @@ export default function generate_sealed_pool(amount: number) {
   const makeSection = (type: string, cards: Card[]) => {
     let message = '';
     let cont = false;
+    let dup = 1;
 
-    cards.map(c => c.name)
-    .sort((c1, c2) => c1.localeCompare(c2))
-    .forEach((card) => {
-      const entry = `${card}\n`;
+    const sorted = cards.map(c => c.name).sort((c1, c2) => c1.localeCompare(c2));
+
+    const { length } = sorted;
+
+    sorted.forEach((card, index) => {
+      if (index < length && card === sorted[index + 1]) {
+        dup++;
+        return;
+      }
+
+      const entry = dup > 1 ? `${card} [x${dup}]\n` : `${card}\n`;
+      dup = 1;
+
       if (message.length + entry.length >= 1024) {
         output.addField(
           (!cont ? type : `${type} cont.`), message, true

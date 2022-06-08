@@ -286,12 +286,19 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
     case 'sealed': {
       if (args[0] === 'pool' && !isNaN(Number(args[1]))) {
+        const amount = Number(args[1]);
+        if (amount > 40) {
+          return send('Maximum of *40* packs at a time');
+        }
         if (guildMember) {
           let gm = guildMember;
           if (mentions.length > 0 && isModerator(guildMember)) {
             gm = await message.guild.fetchMember(mentions[0]);
           }
-          gm.send(generate_sealed_pool(Number(args[1])));
+          gm.send(generate_sealed_pool(amount));
+        }
+        else {
+          send(generate_sealed_pool(amount));
         }
         return send(`Generating sealed card pool with ${args[1]} pack(s)`);
       }
