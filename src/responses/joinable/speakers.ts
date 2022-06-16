@@ -56,7 +56,7 @@ export default async function (message: Message, args: string[], guild?: Guild, 
 
   if (!role) return languageList(guild);
 
-  if (args.length < 2) return memberList(message, role, language);
+  if (args.length < 2) return await memberList(message, role, language);
 
   switch (cleantext(args[1])) {
     case 'list': {

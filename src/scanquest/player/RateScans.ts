@@ -10,7 +10,7 @@ export default async function (db: ScanQuestDB, message: Message, args: string[]
     const index = parseInt(args[0]);
     if (!isNaN(index) && index >= 0) {
       const player = await db.findOnePlayer({ id: message.author.id });
-      if (!player || player.scans.length === 0) {
+      if (player.scans.length === 0) {
         return 'You have no scans';
       }
       if (player.scans.length < index) {

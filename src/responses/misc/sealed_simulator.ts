@@ -66,6 +66,7 @@ class Sealed {
     this.db = new Loki(path.resolve(db_folder, 'sealed_pool.db'), {
       autosave: true,
       autoload: true,
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       autoloadCallback: databaseInitialize.bind(this),
       adapter: new LokiFSStructuredAdapter()
     });
@@ -91,7 +92,7 @@ class Sealed {
 
     const genrarity = (rarity: string, num: number) => {
       pview
-        .applyFind({ rarity: rarity });
+        .applyFind({ rarity });
       const results = pview.data();
       for (let i = 0; i < num; i++) generateCard(results);
       pview.removeFilters();

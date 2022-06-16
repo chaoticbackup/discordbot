@@ -19,7 +19,7 @@ const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
   await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${content}||`);
 };
 
-const link_regex = new RegExp(/(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g);
+const link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g;
 export function checkSpam(bot: Client, msg: Message): Boolean {
   if (/@(here|everyone)/.test(msg.content) && link_regex.test(msg.content)) {
     if (msg.member.kickable) {

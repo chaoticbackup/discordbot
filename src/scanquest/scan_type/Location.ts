@@ -62,8 +62,8 @@ export class SpawnLocation extends Spawn {
     );
   }
 
-  generate(location: Location): [ScannableLocation, RichEmbed]
-  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableLocation, RichEmbed]
+  generate(location: Location): [ScannableLocation, RichEmbed];
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableLocation, RichEmbed];
   generate(arg1: Location | ActiveScan[], arg2?: string[]): [ScannableLocation, RichEmbed] {
     let location: Location;
 

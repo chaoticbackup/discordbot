@@ -107,8 +107,8 @@ export class SpawnCreature extends Spawn {
     this.creatures = creatures.filter(c => API.hasAvatar(c) && API.hasImage(c));
   }
 
-  generate(card: Creature): [ScannableCreature, RichEmbed]
-  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableCreature, RichEmbed]
+  generate(card: Creature): [ScannableCreature, RichEmbed];
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableCreature, RichEmbed];
   generate(arg1: Creature | ActiveScan[], arg2?: string[]): [ScannableCreature, RichEmbed] {
     let creature: Creature;
 

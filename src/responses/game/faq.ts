@@ -10,7 +10,7 @@ function f(q: string) {
     return response;
   }
 
-  for (var key in faq) {
+  for (const key in faq) {
     if (key.indexOf(q) === 0) {
       if (/^[0-9]/.test(faq[key])) {
         return `(${faq[key]}) ${cr[faq[key]]}`;

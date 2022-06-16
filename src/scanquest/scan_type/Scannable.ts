@@ -10,6 +10,6 @@ import { Scanned } from './Scanned';
 export interface Scannable {
   card: Scanned
 
-  toString(): string
-  getCard(icons: Icons): RichEmbed
+  toString: () => string
+  getCard: (icons: Icons) => RichEmbed
 }

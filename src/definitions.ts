@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/method-signature-style */
 import Discord, { RichEmbed, StringResolvable, MessageOptions, Attachment, Message } from 'discord.js';
 
 import { CardType } from './common/card_types';
+
+export interface AuthFile {
+  token: string
+  db_uri: string
+  client?: string
+}
 
 // export class Channel extends TextBasedChannel(Discord.Channel)
 export interface Channel extends Discord.Channel {

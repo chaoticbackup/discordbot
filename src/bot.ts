@@ -5,20 +5,14 @@ import 'regenerator-runtime/runtime';
 import Discord, { GuildMember } from 'discord.js';
 
 import servers from './common/servers';
-import { Channel } from './definitions';
+import { AuthFile, Channel } from './definitions';
 import startForumAPI from './forum/api';
 import ForumPosts from './forum/posts';
 import logger from './logger';
 import responses from './responses';
 import ScanQuest from './scanquest';
 
-interface auth {
-  token: string
-  db_uri: string
-  client?: string
-}
-
-const auth = require('./auth.json') as auth | undefined;
+const auth: AuthFile | undefined = require('./auth.json');
 
 if (!auth || !auth.token) {
   logger.error('Missing auth.json config file');
@@ -106,7 +100,7 @@ bot.on('message', msg => {
 });
 
 // Ban Spam
-const name_regex = new RegExp('(discord\.me)|(discord\.gg)|(bit\.ly)|(twitch\.tv)|(twitter\.com)', 'i');
+const name_regex = /(discord.me)|(discord.gg)|(bit.ly)|(twitch.tv)|(twitter.com)/i;
 bot.on('guildMemberAdd', (member: GuildMember) => {
   if (name_regex.test(member.displayName)) {
     if (member.bannable) {
@@ -116,7 +110,6 @@ bot.on('guildMemberAdd', (member: GuildMember) => {
 });
 
 process.on('unhandledRejection', (err) => {
-  // @ts-ignore
   stackTrace = err;
   // Status.READY
   if (bot.status === 0) sendError();
@@ -137,7 +130,7 @@ bot.login(auth.token).then(() => {
 
 /* Windows pick up sigint */
 if (process.platform === 'win32') {
-  var rl = require('readline').createInterface({
+  const rl = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
   });
@@ -156,6 +149,7 @@ process.on('SIGINT', handle);
 process.on('SIGTERM', handle);
 
 process.on('message', (msg) => {
+  // @ts-ignore
   if (msg?.signal === 'SIGINT') handle(msg.signal);
 });
 

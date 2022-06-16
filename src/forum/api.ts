@@ -19,7 +19,7 @@ export default () => {
 
     if (cards.length > 0) {
       const image = API.cardImage(cards[0]);
-      res.send({ image: image });
+      res.send({ image });
     }
     else {
       res.status(404).send('Card not found');

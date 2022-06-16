@@ -59,8 +59,8 @@ export class SpawnBattlegear extends Spawn {
     );
   }
 
-  generate(card: Battlegear): [ScannableBattlegear, RichEmbed]
-  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableBattlegear, RichEmbed]
+  generate(card: Battlegear): [ScannableBattlegear, RichEmbed];
+  generate(activescans: ActiveScan[], rarities?: string[]): [ScannableBattlegear, RichEmbed];
   generate(arg1: Battlegear | ActiveScan[], arg2?: string[]): [ScannableBattlegear, RichEmbed] {
     let battlegear: Battlegear;
     if (isCard(arg1)) {

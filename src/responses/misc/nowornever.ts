@@ -10,7 +10,7 @@ export default function (name: string) {
   }
 
   name = cleantext(name);
-  for (var card in non) {
+  for (const card in non) {
     if (cleantext(card).indexOf(name) === 0) {
       return `${non[card]}`;
     }

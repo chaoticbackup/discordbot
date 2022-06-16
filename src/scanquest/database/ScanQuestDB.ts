@@ -3,7 +3,7 @@ import { Snowflake } from 'discord.js';
 import { Collection, MongoClient, ObjectId, UpdateResult } from 'mongodb';
 
 import servers from '../../common/servers';
-import { Code } from '../../definitions';
+import { AuthFile, Code } from '../../definitions';
 import { Scanned } from '../scan_type/Scanned';
 
 import generateCode from './generateCode';
@@ -91,7 +91,7 @@ class ScanQuestDB {
   public usedcodes: Collection<UsedCode>;
   public trades: Collection<Trade>;
 
-  public constructor(auth: any) {
+  public constructor(auth: AuthFile) {
     this.db_uri = auth?.db_uri;
   }
 

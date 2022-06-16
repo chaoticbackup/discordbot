@@ -83,7 +83,7 @@ export default class Spawner {
       endTime.subtract(amount, 'milliseconds');
 
       await this.db.servers.updateOne(
-        { id: id },
+        { id },
         { $set: { remaining: endTime.toDate() } }
       );
     }
@@ -146,7 +146,7 @@ export default class Spawner {
   public async tick(message: Message) {
     const { id } = message.guild;
     // only monitor the servers the bot is configured for
-    const server = await this.db.servers.findOne({ id: id });
+    const server = await this.db.servers.findOne({ id });
     if (!server || (server.ignore_channels?.includes(message.channel.id) ?? true)) return;
 
     // Ignore short messages
@@ -209,7 +209,7 @@ export default class Spawner {
       else {
         this.setSendTimeout(server, endTime);
         await this.db.servers.updateOne(
-          { id: id },
+          { id },
           { $set: { remaining: endTime.toDate() } }
         );
         db_msg += `Timer set for ${endTime.format(date_format)}. ${remaining / 1000} seconds remaining.`;

@@ -46,7 +46,7 @@ function md(date: string[]) {
     month = monthTable[date[1]];
     day = date[2].slice(0, -1);
   }
-  return { month: month, day: parseInt(day) };
+  return { month, day: parseInt(day) };
 }
 
 function newDate(dateTime: string): Date {

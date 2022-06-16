@@ -12,7 +12,7 @@ const rmSpecialChars = (text: string): string => {
   return text;
 };
 
-const memberList = async (message: Message, guild: Guild, region: Region): Promise<string | void> => {
+const memberList = async (message: Message, guild: Guild, region: Region): Promise<string | undefined> => {
   const members: Member[] = MeetupsDB.getMembersInRegion(region);
 
   if (members.length === 0) return 'No members';
@@ -41,7 +41,7 @@ const memberList = async (message: Message, guild: Guild, region: Region): Promi
     .setArray(displayNames.sort(sort))
     .formatField(`List of Members: (${members.length})`, name => name);
 
-  return await Pagination.build();
+  await Pagination.build();
 };
 
 const regionList = async (): Promise<string> => {
@@ -69,7 +69,7 @@ const regionList = async (): Promise<string> => {
  */
 export default async function (
   message: Message, args: string[], mentions: string[], guild?: Guild, user?: GuildMember
-): Promise<string | void> {
+): Promise<string | undefined> {
   if (!guild || !user) {
     return 'You can only use this command in a guild';
   }
@@ -219,7 +219,7 @@ export default async function (
     }
   }
   catch (err) {
-    return Promise.resolve(err);
+    return await Promise.resolve(err);
   }
 
   return commands.region.cmd;

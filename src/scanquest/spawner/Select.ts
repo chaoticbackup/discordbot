@@ -66,8 +66,8 @@ export default class Select {
    * Picks a new card and duration to send
    * @param server The server that we're picking a card for
    */
-  public card(server: Server, amount: number): Selection
-  public card(server: Server, scannable?: Scannable, image?: RichEmbed): Selection
+  public card(server: Server, amount: number): Selection;
+  public card(server: Server, scannable?: Scannable, image?: RichEmbed): Selection;
   public card(server: Server, arg1?: Scannable | number, arg2?: RichEmbed): Selection {
     let scannable;
     let image;

@@ -21,7 +21,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   const content = escape_text(message.content);
 
   // coming back
-  const back_regex = new RegExp(/((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/, 'i');
+  const back_regex = /((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/i;
   if (content.match(back_regex)) {
     const response = "Although Chaotic's return has been confirmed, these things take a lot of time. They have yet to give an official statement and we don't have any details regarding dates or specifics. We will make an announcement and ping everyone when they do.";
     const m: Message = await send(response).catch(msgCatch);
@@ -30,7 +30,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   // Fast way to check if card been added to recode
-  const missing_regex = new RegExp(/is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/, 'i');
+  const missing_regex = /is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/i;
   if (missing_regex.test(content)) {
     const name = missing_regex.exec(content)!;
     return await send(isMissing(name[1]));
@@ -86,12 +86,12 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   if (content.match(/(stack\?|cumulative.*?\?)/i)) {
-    const myreg = new RegExp('((elementproof|(water|fire|air|earth)(proof|[ ]?[0-9x]+)|intimidate(\s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(\s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?', 'i');
+    const myreg = /((elementproof|(water|fire|air|earth)(proof|[ ]?[0-9x]+)|intimidate(s)?(energy|courage|wisdom|power|speed)?|(outperform|exaust)(s)?(energy|courage|wisdom|power|speed)?|strike|swift|support|recklessness)[ ]?[0-9x]*|tarin)(.+stacks)?/i;
     if (myreg.test(content)) {
       const match = myreg.exec(content)!;
       return await send(`Yes, ${match[0].trim()} stacks.`);
     }
-    if (new RegExp('hive', 'i').test(content)) {
+    if (/hive/i.test(content)) {
       return await send('Abilities granted by hive stack.');
     }
     return await send('Does the ability contain a number? Abilities with numerical quantities are cumulative (stack).\nExamples of cumulative abilities are: Strike, Recklessness, Intimidate, Element X, Elementproof, Exhaust, Outperform, Support, and Swift');
