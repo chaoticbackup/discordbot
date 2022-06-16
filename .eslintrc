@@ -4,7 +4,7 @@
     "eslint:recommended"
   ],
   "plugins": [
-    "babel"
+    "@babel"
   ],
   "rules": {
     "dot-notation": "off",
@@ -30,7 +30,7 @@
   "overrides": [
     {
       "files": ["*.js"],
-      "parser": "babel-eslint",
+      "parser": "@babel/eslint-parser",
       "parserOptions": { 
         "ecmaVersion": 2019,
         "sourceType": "module",
@@ -40,7 +40,7 @@
           "legacyDecorators": true
         },
         "babelOptions": {
-          "configFile": "babel.config.js"
+          "configFile": "./babel.config.js"
         }
       },
       "rules": {
@@ -75,11 +75,13 @@
           "SwitchCase": 1,
           "MemberExpression": "off"
         }],
+        "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-empty-function": ["error", { 
           "allow": ["arrowFunctions"] 
         }], // TODO
         "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true}],
+        "@typescript-eslint/no-invalid-void-type": ["error"],
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-var-requires": "off",
@@ -125,6 +127,7 @@
         "no-extra-boolean-cast": "off",
         "no-use-before-define": "off",
         "no-useless-escape": "off",
+        "no-void": ["error", { "allowAsStatement": true }],
         "operator-linebreak": "off",
         "prefer-const": "warn",
         "prefer-destructuring": ["error", {
