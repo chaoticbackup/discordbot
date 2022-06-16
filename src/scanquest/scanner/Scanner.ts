@@ -1,4 +1,4 @@
-import { Message, Client } from 'discord.js';
+import { Message, Client, Snowflake } from 'discord.js';
 import moment from 'moment';
 
 import { stripMention } from '../../common';
@@ -6,7 +6,7 @@ import Icons from '../../common/bot_icons';
 import { API } from '../../database';
 import { SendFunction } from '../../definitions';
 import { first_scan } from '../config/help';
-import ScanQuestDB, { ActiveScan } from '../database';
+import ScanQuestDB, { ActiveScan, Player } from '../database';
 import { toScannable } from '../scan_type/toScannable';
 
 export default class Scanner {
@@ -18,34 +18,25 @@ export default class Scanner {
     this.db = db;
   }
 
-  scan = async (message: Message, args: string, send: SendFunction): Promise<Message | void> => {
-    const guild_id = message.guild.id;
-    const author_id = message.author.id;
-
+  scan = async (player: Player, guild_id: Snowflake, args: string, send: SendFunction): Promise<Message | undefined> => {
     const server = await this.db.servers.findOne({ id: guild_id });
-    if (server === null) return;
 
-    if (server.activescans.length === 0) {
-      await send('There is no scannable card');
+    if (!server) {
+      await send('Error loading active scans');
       return;
     }
 
-    const player = await this.db.findOnePlayer({ id: author_id });
-
-    if (player === null) {
-      await send('Trouble loading player; please try again');
-      return;
-    }
+    const { activescans } = server;
 
     // give or take a minute
     const now = moment().subtract(1, 'minute');
 
     let selected: ActiveScan | undefined;
     if (args === '') {
-      let i = 1;
+      let i = 0;
       let all = false;
-      while (i <= server.activescans.length) {
-        selected = server.activescans[server.activescans.length - i];
+      while (i < activescans.length) {
+        selected = activescans[i];
         i++;
 
         if (moment(selected.expires).isSameOrBefore(now)) {
@@ -75,7 +66,7 @@ export default class Scanner {
       const name: string | undefined = API.find_cards_ignore_comma(args)[0]?.gsx$name ?? undefined;
 
       if (name) {
-        const name_match = server.activescans.filter(scan => scan.scan.name === name);
+        const name_match = activescans.filter(scan => scan.scan.name === name);
         if (name_match.length > 0) {
           let already = false;
           for (const match of name_match) {
@@ -116,7 +107,7 @@ export default class Scanner {
       return;
     }
 
-    const scan_idx = server.activescans.findIndex(scan => scan.msg_id === selected!.msg_id);
+    const scan_idx = activescans.findIndex(scan => scan.msg_id === selected!.msg_id);
 
     let res = await this.db.servers.updateOne(
       { id: server.id },
@@ -126,7 +117,7 @@ export default class Scanner {
     );
 
     if (!res.acknowledged) {
-      await send('Unable to update scan');
+      await send('Unable to update activescan');
       return;
     }
 
@@ -135,7 +126,7 @@ export default class Scanner {
     res = await this.db.save(player, card);
 
     if (!res.acknowledged) {
-      await send('Unable to update scan');
+      await send('Unable to generate code');
       return;
     }
 

@@ -6,14 +6,14 @@ import parseCommand from '../common/parseCommand';
 import { isUser } from '../common/users';
 
 import { API } from '../database';
-import { SendFunction } from '../definitions';
+import { AuthFile, SendFunction } from '../definitions';
 import logger from '../logger';
 
 import perim from './config';
 import ScanQuestDB from './database';
 import loadScan from './loader/Loader';
 import { balance, listScans, rate } from './player';
-import Scanner from './scanner/Scanner';
+import Scanner from './scanner/ScanQueue';
 import Spawner from './spawner/Spawner';
 import Trader from './trader/Trader';
 
@@ -28,7 +28,7 @@ export default class ScanQuest {
   protected scanner: Scanner;
   protected trader: Trader;
 
-  constructor(bot: Client, auth: any) {
+  constructor(bot: Client, auth: AuthFile) {
     this.bot = bot;
     this.db = new ScanQuestDB(auth);
   }
@@ -97,21 +97,21 @@ export default class ScanQuest {
         case 'skon':
         case 'scan':
           if (message.guild && await this.db.is_receive_channel(message.guild.id, message.channel.id)) {
-            await this.scanner.scan(message, flatten(args), send)
-            .then(async (m) => {
-              if (m && cmd === 'skon') await m.react('728825180763324447');
-            });
+            await this.scanner.scan(message, flatten(args), send, cmd === 'skon');
           }
           return;
         case 'list':
         case 'scans':
         case 'skons':
-          return await listScans(this.db, message, args.join(' '), options, send);
+          await listScans(this.db, message, args.join(' '), options, send);
+          return;
         case 'rate':
-          return await send(rate(this.db, message, args, options, this.bot));
+          await send(rate(this.db, message, args, options, this.bot));
+          return;
         case 'balance':
         case 'coins':
-          return await balance(this.db, message, options, send);
+          await balance(this.db, message, options, send);
+          return;
         case 'trade':
           if (message.guild) {
             // await this.trader.trade(args, mentions, message); TODO
@@ -140,7 +140,7 @@ export default class ScanQuest {
           }
           return;
         case 'perim':
-          return await perim.call(this, message, args, mentions, send);
+          await perim.call(this, message, args, mentions, send);
       }
     }
     else if (message.guild) {
