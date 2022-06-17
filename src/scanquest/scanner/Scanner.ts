@@ -1,13 +1,18 @@
-import { Message, Client, Snowflake } from 'discord.js';
+import { Client, RichEmbed, Snowflake } from 'discord.js';
 import moment from 'moment';
 
 import { stripMention } from '../../common';
 import Icons from '../../common/bot_icons';
 import { API } from '../../database';
-import { SendFunction } from '../../definitions';
 import { first_scan } from '../config/help';
 import ScanQuestDB, { ActiveScan, Player } from '../database';
 import { toScannable } from '../scan_type/toScannable';
+
+import {
+  ALL_SCANS, ALREADY_SCANNED, ERROR_ACTIVESCAN, ERROR_CODE, ERROR_LOADING_SCAN, NOT_ACTIVE, NO_LONGER_ACTIVE, NO_SCANS, SCANNED
+} from './ErrorMessages';
+
+type ReturnArray = [string, ...Array<string | RichEmbed>];
 
 export default class Scanner {
   readonly icons: Icons;
@@ -18,12 +23,11 @@ export default class Scanner {
     this.db = db;
   }
 
-  scan = async (player: Player, guild_id: Snowflake, args: string, send: SendFunction): Promise<Message | undefined> => {
+  scan = async (player: Player, guild_id: Snowflake, args: string): Promise<string | ReturnArray> => {
     const server = await this.db.servers.findOne({ id: guild_id });
 
     if (!server) {
-      await send('Error loading active scans');
-      return;
+      throw new Error(ERROR_LOADING_SCAN);
     }
 
     const { activescans } = server;
@@ -53,13 +57,11 @@ export default class Scanner {
       }
 
       if (all) {
-        await send('You\'ve scanned all active scans');
-        return;
+        return [ALL_SCANS, `<@${player.id}>`];
       }
 
       if (selected === undefined) {
-        await send('There is no active scans');
-        return;
+        return NO_SCANS;
       }
     }
     else {
@@ -86,25 +88,21 @@ export default class Scanner {
           if (selected === undefined) {
             // If we don't have an active scan its because its either been scanned or expired
             if (already) {
-              await send(`You've already scanned this ${name}`);
-              return;
+              return [ALREADY_SCANNED, name];
             } else {
-              await send(`${name} is no longer active`);
-              return;
+              return [NO_LONGER_ACTIVE, name];
             }
           }
         }
       }
 
       if (selected === undefined) {
-        await send(`${name || stripMention(args)} isn't an active scan`);
-        return;
+        return [NOT_ACTIVE, `${name || stripMention(args)}`];
       }
     }
 
     if (selected === undefined) {
-      await send('Error loading scan');
-      return;
+      return ERROR_LOADING_SCAN;
     }
 
     const scan_idx = activescans.findIndex(scan => scan.msg_id === selected!.msg_id);
@@ -117,8 +115,7 @@ export default class Scanner {
     );
 
     if (!res.acknowledged) {
-      await send('Unable to update activescan');
-      return;
+      return ERROR_ACTIVESCAN;
     }
 
     const card = Object.assign({}, selected.scan); // clone card to assign code
@@ -126,16 +123,18 @@ export default class Scanner {
     res = await this.db.save(player, card);
 
     if (!res.acknowledged) {
-      await send('Unable to generate code');
-      return;
+      return ERROR_CODE;
     }
 
-    const m = await send(toScannable(card)!.getCard(this.icons));
+    const response: ReturnArray = [
+      SCANNED,
+      toScannable(card)!.getCard(this.icons)
+    ];
 
     if (player.scans.length <= 1) {
-      await send(first_scan(server.send_channel));
+      response.push(first_scan(server.send_channel));
     }
 
-    return m;
+    return response;
   };
 }

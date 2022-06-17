@@ -3,6 +3,7 @@ import { Client, Message, Snowflake } from 'discord.js';
 import { SendFunction } from '../../definitions';
 import ScanQuestDB, { Player } from '../database';
 
+import { ALL_SCANS, NOT_ACTIVE, SCANNED, substitute } from './ErrorMessages';
 import Scanner from './Scanner';
 
 type PlayerQueue = Map<Snowflake, Array<{
@@ -34,7 +35,7 @@ export default class ScanQueue {
     if (server === null) return;
 
     if (server.activescans.length === 0) {
-      await send('There is no scannable card');
+      await send(NOT_ACTIVE);
       return;
     }
 
@@ -49,7 +50,8 @@ export default class ScanQueue {
   };
 
   enqueue = async (player: Player, first = false): Promise<void> => {
-    if (!first) await new Promise(resolve => setTimeout(resolve, 200));
+    // debounce requests
+    if (!first) await new Promise(resolve => setTimeout(resolve, 500));
 
     if (!this.queue.has(player.id)) return;
 
@@ -60,8 +62,26 @@ export default class ScanQueue {
 
     const { guild_id, args, send, skon } = this.queue.get(player.id)!.shift()!;
 
-    const m = await this.scanner.scan(player, guild_id, args, send);
-    if (m && skon) await m.react('728825180763324447');
+    const message = await this.scanner.scan(player, guild_id, args);
+    if (typeof message === 'string') {
+      await send(message);
+    } else {
+      // Parameterized error
+      if (message[0] !== SCANNED) {
+        // Prevents too many repeated messages
+        if (message[0] === ALL_SCANS) {
+          this.queue.set(player.id, []);
+        }
+        const args = message.slice(1) as string[];
+        await send(substitute(message[0], ...args));
+      } else {
+        const m = await send(message[1]);
+        if (message.length === 3) {
+          await send(message[2]);
+        }
+        if (m && skon) await m.react('728825180763324447');
+      }
+    }
 
     await this.enqueue(player);
   };
