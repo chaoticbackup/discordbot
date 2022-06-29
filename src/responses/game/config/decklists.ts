@@ -404,11 +404,11 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     creatures: ["Ontinee", "Na-inna", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Glapaal"]
   },
   "OverWorld Elemental": {
-    url: "https://chaoticbackup.forumotion.com/t1570-overworld-elemental",
+    url: "https://chaoticbackup.forumotion.com/t1570-overworld-elemental#15186",
     tribe: "OverWorld",
-    tags: ["Fire", "Earth", "Water"],
+    tags: [],
     type: ["Midrange"],
-    creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake"]
+    creatures: ["Gronmor", "Tangath Toborn, In Training", "Intress, Natureforce", "Najarin, High Muge of the Lake", "Ebkeex, Patchwork Minion"]
   },
   "OverWorld Muges": {
     url: "https://chaoticbackup.forumotion.com/t1690-overworld-muge",
