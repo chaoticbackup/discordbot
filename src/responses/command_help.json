@@ -213,6 +213,12 @@
     "portal": {
         "details": "Sends a link to the portal"
     },
+    "creator": {
+        "details": "Sends a link to the card creator"
+    },
+    "maker": {
+        "alias": "creator"
+    },
     "recode": {
         "cmd": "!recode ['tutorial|missing']",
         "details": "Sends a link to Chaotic Recode, a video tutorial, or the list of missing cards"

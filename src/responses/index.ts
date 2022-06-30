@@ -424,6 +424,10 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'portal':
       return send('https://chaoticbackup.github.io/portal/');
 
+    case 'creator':
+    case 'maker':
+      return send('https://chaoticbackup.github.io/chaoticcardcreator/');
+
     case 'recode':
       if (args.length > 0 && args[0] === 'tutorial') {
         return send('https://www.youtube.com/watch?v=Djxp6OVbHmI');
