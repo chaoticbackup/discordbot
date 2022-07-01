@@ -9,7 +9,7 @@ import { AuthFile, Channel } from './definitions';
 import startForumAPI from './forum/api';
 import ForumPosts from './forum/posts';
 import logger from './logger';
-import responses from './responses';
+import responses from './responses/commands';
 import ScanQuest from './scanquest';
 
 const auth: AuthFile | undefined = require('./auth.json');
