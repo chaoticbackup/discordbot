@@ -105,7 +105,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
 }
 
 function checkMentions(message: Message, mentions: string[]): string | undefined {
-  const content = message.content.replace(`<@!${users('me')}>`, '');
+  const content = message.content.replace(`<@${users('me')}>`, '');
 
   if (mentions.includes(users('afjak'))) {
     if (message.channel.id === servers('main').channel('ruling_questions')) return;
@@ -164,6 +164,9 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     }
     else if (isUser(message, 'chio')) {
       return rndrsp(user.chio);
+    }
+    else if (isUser(message, 'daddy')) {
+      return rndrsp(user.daddy);
     }
 
     return randomHello.hello(message);
