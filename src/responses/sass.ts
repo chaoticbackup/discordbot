@@ -11,7 +11,7 @@ import { display_card } from './card';
 import { compliment, insult } from './misc/insult_compliment';
 
 import { isMissing } from './misc/missing_cards';
-import { quips, hello, rhymes } from './sass.json';
+import { quips, hello, rhymes, user } from './sass_options';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -114,9 +114,12 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (content.length === 0) {
-      return (rndrsp(rhymes, 'rhymes'));
+      return rndrsp(rhymes, 'rhymes');
     }
 
+    if (/(how[’']s nicole)|(how are you)/i.test(content)) {
+      return rndrsp(["I'm doing great! Thanks for asking.", "Every day's great when I've got my friends!"]);
+    }
     if (/rule 34/i.test(content)) {
       return '<:cerbie_bonk:833781431842897991>';
     }
@@ -135,32 +138,29 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       }
       return 'I forgive you';
     }
-    if (/did.+(king).+(make|create)/i.test(content)) {
-      const responses = ['Yeah he did!', "He's the best dad!", '*big smile*', 'Sometimes I give him a hard time'];
-      return rndrsp(responses);
-    }
     if (/who.+(made|created)/i.test(content)) {
       let displayName: string | null = message.guild.members.get(users('daddy'))?.displayName ?? null;
       if (displayName === null) {
         displayName = `<@${users('daddy')}>`;
       }
-      return `${displayName} taught me Chaotic`;
+      return rndrsp([`${displayName} taught me Chaotic`, `${displayName} the best dad!`, `${displayName}, but sometimes I give him a hard time`]);
     }
 
     if (isUser(message, 'brat')) {
       if ((/((nee|nii)-chan)|baka/i).test(content)) {
         return 'Thank you weeb';
       } else {
-        const responses = ["Yes? Oh… it's you", 'Stop bothering me', 'So is this what having a younger brother is like?', "Dad, he's picking on me", 'Sigh, here we go again'];
-        return rndrsp(responses);
+        return rndrsp(user.brat);
       }
     }
     else if (isUser(message, 'bf')) {
       return compliment([users('bf')], '', message.guild);
     }
     else if (isUser(message, 'ferric')) {
-      const responses = ["How's the dam coming along?", 'Is it raining cool beavers?'];
-      return rndrsp(responses);
+      return rndrsp(user.ferric);
+    }
+    else if (isUser(message, 'chio')) {
+      return rndrsp(user.chio);
     }
 
     return rndrsp(hello, 'hello');

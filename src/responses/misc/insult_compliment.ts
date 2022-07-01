@@ -11,6 +11,8 @@ const commands = {
 };
 
 export function compliment(mentions: string[], name: string, guild?: Guild): string {
+  if (mentions.includes('279331985955094529'))
+  { return rndrsp(['Aw thank you!', 'You should try complementing your other friends too!', '*blush*']); }
   return flirt_dirt('compliment', mentions, name, guild);
 }
 
