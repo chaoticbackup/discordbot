@@ -1,13 +1,17 @@
 
-import { RichEmbed } from 'discord.js';
+import { GuildMember, Message, RichEmbed } from 'discord.js';
 import fs from 'fs-extra';
 import Loki from 'lokijs';
 // @ts-ignore
 import fetch from 'node-fetch';
 import path from 'path';
 
+import { isModerator } from '../../common/index.js';
+import users from '../../common/users.js';
+
 import API from '../../database/Api.js';
 import db_path from '../../database/db_path';
+import { SendFunction } from '../../definitions.js';
 import logger from '../../logger';
 
 const LokiFSStructuredAdapter = require('lokijs/src/loki-fs-structured-adapter');
@@ -110,7 +114,34 @@ class Sealed {
 
 const set = new Sealed();
 
-export default function generate_sealed_pool(amount: number) {
+export default async function (
+  amount: number, message: Message, guildMember: GuildMember | undefined, mentions: string[], send: SendFunction
+) {
+  if (amount > 40) {
+    return await send('Maximum of *40* packs at a time');
+  }
+  const pool = generate_sealed_pool(amount);
+  if (guildMember) {
+    let gm = guildMember;
+    if (mentions.length > 0 && isModerator(guildMember)) {
+      if (mentions.includes(users('me'))) {
+        return await send('Thanks for the packs!');
+      }
+      gm = await message.guild.fetchMember(mentions[0]);
+    }
+    void gm.send(pool)
+    .then(() => {
+      pool.setDescription(`<@${gm.id}>`);
+      void guildMember.send(pool);
+    });
+  }
+  else {
+    void send(pool);
+  }
+  return await send(`Generating sealed card pool with ${amount} pack(s)`);
+}
+
+export function generate_sealed_pool(amount: number) {
   const cards = set.packs(amount);
 
   const attacks: Card[] = [];
