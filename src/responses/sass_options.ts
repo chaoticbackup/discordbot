@@ -6,8 +6,7 @@ export const quips = {
   '\\*\\*\\*ANY\\*\\*\\* day now': ["I'm out of clever things to say", 'So persistant', "This isn't even my final form"],
   'rule 34': ["not on this server we don't"],
   'wombo combo': ["that ain't frafdo"],
-  'assume[ ][^ ]*( )?gender': ['keep that to Tumblr'],
-  '(the lava pond\\?)': ['https://cdn.discordapp.com/attachments/279820713794338816/521116041426894881/THE_LAVA_POND.gif']
+  'the lava pond\\?': ['https://cdn.discordapp.com/attachments/279820713794338816/521116041426894881/THE_LAVA_POND.gif']
 };
 
 export const hello = ['Hello :wave:', 'Want to be my friend?', 'Feeling lonely?', 'If I had a Nicole for everytime you @ me...', "Sorry I'm in a match right now", 'Nicole is not available, please leave a message after the tone', 'Hello there <:WhyHello:586724104732672000>', 'Chaotic mail?', "Bots can't talk silly", "Speak up; I can't hear you.", 'You are valuable and worthy of love', '5 more minutes, Mom!', "Nobody's home", "Let's talk.. IN CHAOTIC!", 'Can I take your !order?', "I'm too Nicool for you :sunglasses:", "You don't control me you M'arrillian wanna be!", 'WHO DARES DISTURB MY SLUMBER?!', "If you @ me again I'm putting your favorite card on the banlist", 'Chaotic Nicole is brought to you by http://chaoticbackup.forumotion.com/', "What's so im-Port-ent?", 'Hello, my name is Inicole Montoya, you killed my father, prepare to die', 'seen', 'You humans are so needy', '@smellyhuman, yes?', 'My dream is to one day be a bot for the actual Chaotic website.', "I'm shy, so you talk I'll listen", 'You can tag anyone you want actually, the whole server is me in disguise.', 'smiles and nods', 'People always say @ Nicole and never how’s Nicole? :pensive:', '¡Nicolé', 'Do you have a surprise for me?', 'Just because you CAN talk to me doesn’t mean you have to…'];

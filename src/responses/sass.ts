@@ -98,7 +98,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 
   for (const key in quips) {
-    if (content.match(new RegExp(key, 'i'))) {
+    if (new RegExp(key, 'i').test(message.content)) {
       return await send(rndrsp(quips[key]));
     }
   }
