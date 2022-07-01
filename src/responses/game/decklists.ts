@@ -151,12 +151,12 @@ function getDecklist(input: string): RichEmbed | string {
   }
 
   if (input.length <= 2) {
-    if ((output = getTiers(input)) instanceof RichEmbed) {
-      return output;
-    }
-    else {
-      return 'Provide at least 3 characters to search for decks';
-    }
+    // if ((output = getTiers(input)) instanceof RichEmbed) {
+    //   return output;
+    // }
+    // else {
+    return 'Provide at least 3 characters to search for decks';
+    // }
   }
 
   if ((output = getTypes(input)) instanceof RichEmbed) {

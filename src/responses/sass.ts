@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Client, Message, RichEmbed } from 'discord.js';
+import { Client, Message, RichEmbed, Snowflake } from 'discord.js';
 
 import { is_channel, rndrsp, escape_text, msgCatch } from '../common';
 import servers from '../common/servers';
@@ -11,7 +11,7 @@ import { display_card } from './card';
 import { compliment, insult } from './misc/insult_compliment';
 
 import { isMissing } from './misc/missing_cards';
-import { quips, hello, rhymes, user } from './sass_options';
+import { quips, hello, jingles, user, hbu } from './sass_options';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
   if (mentions.length > 0) return await send(checkMentions(message, mentions));
@@ -114,11 +114,14 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
   if (mentions.includes(users('me'))) {
     if (content.length === 0) {
-      return rndrsp(rhymes, 'rhymes');
+      return rndrsp(jingles, 'jingles');
     }
 
+    if (/hello/i.test(content)) {
+      return rndrsp(hello.friendly.slice(0, 2));
+    }
     if (/(how[’']s nicole)|(how are you)/i.test(content)) {
-      return rndrsp(["I'm doing great! Thanks for asking.", "Every day's great when I've got my friends!"]);
+      return rndrsp(hbu);
     }
     if (/rule 34/i.test(content)) {
       return '<:cerbie_bonk:833781431842897991>';
@@ -163,6 +166,67 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
       return rndrsp(user.chio);
     }
 
-    return rndrsp(hello, 'hello');
+    return randomHello.hello(message);
   }
 }
+
+const moods = Object.keys(hello);
+class Hello {
+  sr: Map<Snowflake, {mood: keyof typeof hello, responses: string[], timeout?: NodeJS.Timeout}> = new Map();
+
+  hello = (message: Message) => {
+    const { id } = message.author;
+    let mood;
+    let resp;
+
+    if (!this.sr.has(id)) {
+      mood = rndrsp(moods) as any;
+      this.sr.set(id, { mood, responses: [] });
+    }
+
+    let t = this.sr.get(id)!;
+
+    clearTimeout(t.timeout);
+
+    if (t.responses.length >= hello[t.mood].length || t.responses.length > 4) {
+      switch (t.mood) {
+        case 'mean':
+          resp = "Sorry, I'll be nicer now!";
+          break;
+        case 'friendly':
+          break;
+        case 'silly':
+          resp = 'Alright, phew got that out of me';
+          break;
+        case 'away':
+          resp = 'Chaotic Nicole is brought to you by <http://chaoticbackup.forumotion.com/>';
+          break;
+      }
+      mood = rndrsp(moods.filter((v) => v !== t.mood)) as any;
+      t = { mood, responses: [] };
+      this.sr.set(id, t);
+    }
+
+    if (resp) return resp;
+
+    const list = hello[t.mood].filter(v => !t.responses.includes(v));
+
+    const rand = Math.floor(Math.random() * list.length);
+    resp = list[rand];
+
+    t.responses.push(resp);
+
+    t.timeout = setTimeout(
+      () => {
+        this.sr.delete(id);
+      },
+      30 * 1000
+    );
+
+    this.sr.set(id, t);
+
+    return resp;
+  };
+}
+
+const randomHello = new Hello();

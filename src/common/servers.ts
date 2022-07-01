@@ -53,6 +53,12 @@ export function is_channel<A extends Message | Channel>(arg1: A, name: string, g
   return false;
 }
 
+export function is_server(channel: Channel, name: serverName): boolean {
+  const server = servers(name);
+  if (Object.keys(server.channels).length === 0) return false;
+  return channel.id === server.channel(name);
+}
+
 const serverList = [
   {
     name: 'main',

@@ -2,7 +2,7 @@ import { Guild, GuildMember } from 'discord.js';
 
 import { Channel } from '../definitions';
 
-import servers, { is_channel } from './servers';
+import servers, { is_channel, is_server } from './servers';
 
 type msg = string | null | undefined;
 
@@ -32,7 +32,7 @@ export function can_send(channel: Channel, guild?: Guild, arg3?: GuildMember | m
     msg = arg4;
   }
 
-  if (!is_channel(channel, 'bot_commands', 'main')) {
+  if (is_server(channel, 'main') && !is_channel(channel, 'bot_commands', 'main')) {
     if (guildMember?.roles.find(role => role.name === 'Super Rare')) return true;
     if (msg !== null) {
       channel.send(msg ?? `Please ask me in <#${servers('main').channel('bot_commands')}> :)`)
