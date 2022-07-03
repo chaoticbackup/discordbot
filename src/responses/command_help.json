@@ -149,7 +149,7 @@
     },
     "whyban": {
         "cmd": "!whyban <card>",
-        "details": "Explains why a card is be banned, or why people think it should be banned.\nSome of the cards with serious reasons also have joke reaons why they should be banned ``--joke``"
+        "details": "Explains why a card is be banned, or why people think it should be banned.\nSome cards have a ``--detailed`` explaination. Cards also have joke reaons why they should be banned ``--joke``"
     },
     "strong": {
         "alias": "good"
