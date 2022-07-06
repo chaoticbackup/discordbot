@@ -122,18 +122,19 @@ export default async function (
   }
   const pool = generate_sealed_pool(amount);
   if (guildMember) {
-    let gm = guildMember;
     if (mentions.length > 0 && isModerator(guildMember)) {
       if (mentions.includes(users('me'))) {
         return await send('Thanks for the packs!');
       }
-      gm = await message.guild.fetchMember(mentions[0]);
-    }
-    void gm.send(pool)
-    .then(() => {
-      pool.setDescription(`<@${gm.id}>`);
+      const gm = await message.guild.fetchMember(mentions[0]);
+      void gm.send(pool)
+      .then(() => {
+        pool.setDescription(`<@${gm.id}>`);
+        void guildMember.send(pool);
+      });
+    } else {
       void guildMember.send(pool);
-    });
+    }
   }
   else {
     void send(pool);
