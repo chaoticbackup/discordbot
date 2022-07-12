@@ -1,4 +1,4 @@
-import { Snowflake, Message, TextChannel } from 'discord.js';
+import { Snowflake, Message, TextChannel, Guild } from 'discord.js';
 
 import { Channel } from '../definitions';
 
@@ -34,29 +34,31 @@ export default function servers(name: serverName): Server {
  */
 export function is_channel(message: Message, name: string): boolean;
 export function is_channel(channel: Channel, name: string, guild?: serverName): boolean;
-export function is_channel<A extends Message | Channel>(arg1: A, name: string, guild?: serverName) {
+export function is_channel<A extends Message | Channel>(arg1: A, name: string, guild: serverName = 'main') {
+  let channel;
   if (arg1 instanceof Message) {
-    const { channel } = arg1;
-    if (channel instanceof TextChannel) {
-      return (channel.name === name);
+    if (arg1.channel instanceof TextChannel) {
+      ({ channel } = arg1);
+    } else {
+      return false;
     }
-    return false;
   }
   else if (arg1 instanceof TextChannel) {
-    const channel = arg1;
-    if (!guild) guild = 'main';
-    const server = servers(guild);
-    if (Object.keys(server.channels).length === 0) return false;
-    return channel.id === server.channel(name);
+    channel = arg1;
+  }
+  else {
+    return false;
   }
 
-  return false;
-}
-
-export function is_server(channel: Channel, name: serverName): boolean {
-  const server = servers(name);
+  const server = servers(guild);
   if (Object.keys(server.channels).length === 0) return false;
   return channel.id === server.channel(name);
+}
+
+export function is_server(guild: Guild, name: serverName): boolean {
+  const server = servers(name);
+  if (Object.keys(server.channels).length === 0) return false;
+  return guild.id === server.id;
 }
 
 const serverList = [

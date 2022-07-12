@@ -227,8 +227,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
   };
 
   const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null) => {
-    let ch = message.channel as Channel;
-    if (!can_send(channel, guild, guildMember, msg)) {
+    let ch: Channel = channel;
+    if (!can_send(ch, guild, guildMember, msg)) {
       content.unshift(`<@!${message.author.id}>`);
       ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
     }
