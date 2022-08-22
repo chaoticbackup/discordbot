@@ -6,7 +6,9 @@ import missing from './config/recode_missing.json';
 
 export function missing_cards() {
   const output = new RichEmbed()
-  .setDescription('List of cards not currently in Chaotic Recode:');
+  .setDescription(
+    '[List of cards not currently in Chaotic Recode:](https://docs.google.com/document/d/1gIuc_q3H4fg0-X2Y2hrQBo_YJcTmtV6kYoDJP1gq_qE)'
+  );
 
   for (const type in missing) {
     let message = '';
@@ -22,7 +24,6 @@ export function missing_cards() {
 const { Attacks, Battlegear, Creatures, Locations, Mugic } = missing;
 const cards = ([] as string[]).concat(Attacks, Battlegear, Creatures, Locations, Mugic);
 
-// eslint-disable-next-line max-len
 const mined = ['Kobarri (Datamined DS)', 'Nexdoors (Datamined)', 'Song of Transportation (Datamined)', 'Swarm Song (Datamined)', 'Tarteme (Datamined DS)'];
 
 export function isMissing(name: string) {
