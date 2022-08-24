@@ -21,7 +21,6 @@
 		"Dror'niq",
 		"Enre-hep, High Muge of the Desert",
 		"Hune Paltanin",
-		"Ikkatosh, the Aich King",
 		"Illusionary Lake",
 		"Imaginary Walls",
 		"Lord Van Bloot, Servant of Aa'une",
@@ -29,28 +28,25 @@
 		"Lore's Chamber of Recall",
 		"Melody of the Meek",
 		"Mipedim Mirage",
-		"Mock'adyn",
-		"Na-inna",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
 		"Numin Voidland",
+		"Prexxor Chasm",
 		"Primal Smash",
 		"Psionic Serenade",
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'pa Sahkk, Condensation Ceremony",
-		"Song of Resistance",
-		"Strain of Infection",
 		"Supercooled Rain",
 		"Talisman of the Mandiblor",
-		"Whirling Wail",
+		"Ulmquad",
+		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"unique": [
 		"Elemental Elegy",
-		"Malvadine, the King's Herald",
-		"Prexxor Chasm",
-		"Ulmar, Perithon Racer",
-		"Vial of Liquid Thought"
+		"Mock'adyn",
+		"Na-inna",
+		"Ulmar, Perithon Racer"
 	],
 	"pauper": [
 		"Dror'niq",
@@ -307,6 +303,9 @@
 		],
 		"Ulmar, Perithon Racer": [
 			"In pauper, having 20 renewable damage each turn proves to be overwhelming against the resources in other decks. In addition, Ulmar can cast both Cannon of Casuality or Caster's Warsong making it invaluable in pauper burn decks dominance."
+		],
+		"Ulmquad": [
+			"Ulmquad has one of the best 1mc activated abilities in the game doing a massive 20 energy swing while engaged. Not only that he is able to use his ability while unengaged, which is particularly punishing with how Chaotics rules system interacting with smaller burn damage, because you can die mid burst if you ever get low enough on energy even as high 30, no amount of energy gain can save you if your opponent chains their Ulmquad's ability and they have a large enough stack of counters. Ulmquad makes any effect that gives mugic counters much stronger, as he is the best place to put them."
 		],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
