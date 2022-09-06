@@ -3,7 +3,7 @@
 import { Client, DiscordAPIError, DMChannel, Message, RichEmbed } from 'discord.js';
 
 import { can_send, cleantext, donate, flatten, hasPermission, isModerator, is_channel, msgCatch } from '../common';
-import debug from '../common/debug';
+import debug, { handleError } from '../common/debug';
 import parseCommand from '../common/parseCommand';
 import { messageGuild } from '../common/parseMessageGuild';
 import servers from '../common/servers';
@@ -95,8 +95,7 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   .catch((error) => {
     // Send Error to Bot Testing Server
     const server_source = message.guild ? message.guild.name : `DM ${message.author.username}`;
-
-    debug(bot, `${server_source}: ${message.content}\n${error.message}\n${error.stack}`, 'errors');
+    handleError(bot, error, server_source);
 
     if (development) return;
 

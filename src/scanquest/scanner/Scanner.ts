@@ -1,5 +1,6 @@
 import { Client, RichEmbed, Snowflake } from 'discord.js';
 import moment from 'moment';
+import { UpdateResult } from 'mongodb';
 
 import { stripMention } from '../../common';
 import Icons from '../../common/bot_icons';
@@ -30,7 +31,7 @@ export default class Scanner {
       throw new Error(ERROR_LOADING_SCAN);
     }
 
-    const { activescans } = server;
+    const activescans = await this.db.getActiveScans(server);
 
     // give or take a minute
     const now = moment().subtract(1, 'minute');
@@ -105,12 +106,12 @@ export default class Scanner {
       return ERROR_LOADING_SCAN;
     }
 
-    const scan_idx = activescans.findIndex(scan => scan.msg_id === selected!.msg_id);
+    let res: UpdateResult;
 
-    let res = await this.db.servers.updateOne(
-      { id: server.id },
+    res = await this.db.scans.updateOne(
+      { _id: selected._id },
       {
-        $push: { [`activescans.${scan_idx}.players`]: player.id }
+        $push: { players: player.id }
       }
     );
 

@@ -21,6 +21,7 @@ export class Player {
 }
 
 export class ActiveScan {
+  public _id: ObjectId;
   public scan: Scanned;
   public expires: Date;
   public msg_id: Snowflake;
@@ -41,7 +42,7 @@ export class Server {
   public send_channel: Snowflake;
   public receive_channel: Snowflake;
   public ignore_channels: Snowflake[];
-  public activescans: ActiveScan[];
+  public activescan_ids: ObjectId[];
   public remaining: Date | null; // remaining time until next scan
   public disabled: boolean;
   public role: Snowflake | undefined;
@@ -54,7 +55,7 @@ export class Server {
     this.send_channel = send_channel;
     this.receive_channel = receive_channel;
     this.ignore_channels = [];
-    this.activescans = [];
+    this.activescan_ids = [];
     this.remaining = null;
     this.disabled = false;
   }
@@ -90,6 +91,7 @@ class ScanQuestDB {
   public servers: Collection<Server>;
   public usedcodes: Collection<UsedCode>;
   public trades: Collection<Trade>;
+  public scans: Collection<ActiveScan>;
 
   public constructor(auth: AuthFile) {
     this.db_uri = auth?.db_uri;
@@ -130,6 +132,11 @@ class ScanQuestDB {
     }
     this.players = db.collection('players');
     this.players.createIndex({ id: 1 }, { unique: true }).finally(() => {});
+
+    if (!collectionNames.includes('scans')) {
+      await db.createCollection('scans');
+    }
+    this.scans = db.collection('scans');
 
     if (!collectionNames.includes('usedcodes')) {
       await db.createCollection('usedcodes');
@@ -199,6 +206,12 @@ class ScanQuestDB {
     else {
       throw new Error('Unable to create player');
     }
+  };
+
+  public getActiveScans = async ({ activescan_ids }: Server) => {
+    return await this.scans.find({
+      _id: { $in: activescan_ids }
+    }).toArray();
   };
 
   public async generateCode() {
