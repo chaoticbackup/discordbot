@@ -1,9 +1,10 @@
 import { Message, RichEmbed, TextChannel } from 'discord.js';
 import moment, { Moment } from 'moment';
+import { InsertOneResult, UpdateResult } from 'mongodb';
 
 import { isUser, msgCatch, stripMention } from '../../common';
 import { parseType } from '../../common/card_types';
-import debug from '../../common/debug';
+import debug, { formatTimestamp } from '../../common/debug';
 import { API } from '../../database';
 import { Card } from '../../definitions';
 import { ActiveScan } from '../database';
@@ -23,38 +24,43 @@ const parseExpires = (oldExpires: Date, change: string): false | Moment => {
     set = 'sub';
   }
 
-  if (set === undefined) {
-    if (change === 'now') {
-      newExpires = moment();
+  try {
+    if (set === undefined) {
+      if (change === 'now') {
+        newExpires = moment();
+      }
+      else {
+        const t = moment(change);
+        if (t.isValid()) {
+          newExpires = t;
+        }
+      }
     }
     else {
-      const t = moment(change);
-      if (t.isValid()) {
-        newExpires = t;
+      const regex_arr = (/[+-](\d+[.]?\d?)[hm]?/).exec(change);
+      if (regex_arr && regex_arr.length > 1) {
+        const num = regex_arr[1];
+        if (change.endsWith('m')) {
+          if (set === 'add') {
+            newExpires = moment(oldExpires).add(num, 'minutes');
+          }
+          else {
+            newExpires = moment(oldExpires).subtract(num, 'minutes');
+          }
+        }
+        else {
+          if (set === 'add') {
+            newExpires = moment(oldExpires).add(num, 'hours');
+          }
+          else {
+            newExpires = moment(oldExpires).subtract(num, 'hours');
+          }
+        }
       }
     }
   }
-  else {
-    const regex_arr = (/[+-](\d+[.]?\d?)[hm]?/).exec(change);
-    if (regex_arr && regex_arr.length > 1) {
-      const num = regex_arr[1];
-      if (change.endsWith('m')) {
-        if (set === 'add') {
-          newExpires = moment(oldExpires).add(num, 'minutes');
-        }
-        else {
-          newExpires = moment(oldExpires).subtract(num, 'minutes');
-        }
-      }
-      else {
-        if (set === 'add') {
-          newExpires = moment(oldExpires).add(num, 'hours');
-        }
-        else {
-          newExpires = moment(oldExpires).subtract(num, 'hours');
-        }
-      }
-    }
+  catch {
+    return false;
   }
 
   if (newExpires === undefined) {
@@ -81,7 +87,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
   regex_arr = (/message=([\d]{2,})/).exec(options);
   const msg_id = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
-  const scan_idx = (msg_id) ? server.activescans.findIndex((s) => s.msg_id === msg_id) : -1;
+  const scan = (msg_id) ? await this.db.scans.findOne({ msg_id }) : null;
 
   if (options.includes('fix')) {
     if (!msg_id) {
@@ -110,49 +116,60 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
   // Update existing card's expires
   if (content.length === 0 && card_type === undefined) {
-    if (scan_idx >= 0 && expire_change !== undefined) {
-      const scan = server.activescans[scan_idx];
-
+    if (scan !== null && expire_change !== undefined) {
       const expires = parseExpires(scan.expires, expire_change);
+
       if (expires === false) {
         message.channel.send(`${expire_change} is not a valid format`).catch(msgCatch);
       } else {
-        const res = await this.db.servers.updateOne(
-          { id: server.id },
-          {
-            $set: { [`activescans.${scan_idx}.expires`]: expires.toDate() }
-          }
+        const res = await this.db.scans.updateOne(
+          { _id: scan._id },
+          { $set: { expires: expires.toDate() } }
         );
 
         if (res.acknowledged) {
+          const active = expiresDiff(expires);
+
           await (this.bot.channels.get(server.send_channel) as TextChannel).fetchMessage(msg_id!)
           .then(async (message) => {
             if (message?.editable && message.embeds.length > 0) {
               const embed = new RichEmbed(message.embeds[0]);
-              this.select.setTitle(embed, expiresDiff(expires));
+              this.select.setTitle(embed, active);
               await message.edit(embed);
             }
           })
           .catch(msgCatch);
 
-          message.channel.send(`${scan.scan.name} updated to expire at ${moment(expires.toDate()).format('hh:mm:ss A')}`)
-          .catch(msgCatch);
+          if (Number(active.toFixed(2)) <= 0) {
+            const server = await this.db.servers.findOne({ id: message.guild.id });
+            if (server) await this.cleanOldScans(server);
+            message.channel.send(`${scan.scan.name} updated to expire now`)
+            .catch(msgCatch);
+          } else {
+            message.channel.send(`${scan.scan.name} updated to expire at ${formatTimestamp(moment(expires.toDate()))}`)
+            .catch(msgCatch);
+          }
         }
         else {
-          message.channel.send('Unable to update scan in db').catch(msgCatch);
+          message.channel.send('Unable to update scan in db')
+          .catch(msgCatch);
         }
       }
       return;
     }
     else if (msg_id) {
-      message.channel.send('Not a valid message id').catch(msgCatch);
+      message.channel.send('Not a valid scan message id')
+      .catch(msgCatch);
       return;
     }
     else {
-      message.channel.send(cmd).catch(msgCatch);
+      message.channel.send(cmd)
+      .catch(msgCatch);
       return;
     }
   }
+
+  const activescans = await this.db.getActiveScans(server);
 
   // Generate a new card
   let card: Card;
@@ -199,10 +216,10 @@ export default async function (this: Spawner, message: Message, args: string[], 
       message.channel.send(`${stripMention(card_type!)} is not a valid card type`).catch(msgCatch);
       return;
     }
-    [sc, img] = this.select.generateFromType(type, server.activescans);
+    [sc, img] = this.select.generateFromType(type, activescans);
   }
 
-  let { scannable, image, active, next } = this.select.card(server, sc, img);
+  let { scannable, image, active, next } = await this.select.card(server, sc, img);
 
   if (expire_change) {
     const expires = parseExpires(this.expiresToDate(active), expire_change);
@@ -216,7 +233,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
   if (!msg_id) {
     if (active > 0) {
-      this.spawnCard(server, { scannable, image, active, next });
+      await this.spawnCard(server, { scannable, image, active, next });
     }
     else {
       message.channel.send('Cannot spawn a new card that already expired').catch(msgCatch);
@@ -229,23 +246,17 @@ export default async function (this: Spawner, message: Message, args: string[], 
         await message.edit(image);
         const expires = this.expiresToDate(active);
 
-        const { activescans } = server;
-
-        if (scan_idx >= 0) {
-          activescans[scan_idx].expires = expires;
-          activescans[scan_idx].scan = scannable.card;
+        let res: UpdateResult | InsertOneResult<ActiveScan>;
+        if (scan !== null) {
+          res = await this.db.scans.updateOne(
+            { _id: scan._id },
+            { $set: { expires, scan: scannable.card } }
+          );
+        // If unable to find existing scan, update message with a new scan
         } else {
-          activescans.push(new ActiveScan({ scan: scannable.card, expires, msg_id }));
+          res = await this.db.scans.insertOne(new ActiveScan({ scan: scannable.card, expires, msg_id }));
         }
 
-        const res = await this.db.servers.updateOne(
-          {
-            id: server.id
-          },
-          {
-            $set: { activescans }
-          }
-        );
         if (res.acknowledged) {
           message.channel.send('Updated existing scan').catch(msgCatch);
         } else {

@@ -34,7 +34,7 @@ export default class ScanQueue {
     const server = await this.db.servers.findOne({ id: guild_id });
     if (server === null) return;
 
-    if (server.activescans.length === 0) {
+    if (server.activescan_ids.length === 0) {
       await send(NOT_ACTIVE);
       return;
     }

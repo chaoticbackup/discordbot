@@ -1,8 +1,8 @@
-import { Client, Message, Snowflake, TextChannel, RichEmbed } from 'discord.js';
+import { Client, Message, Snowflake, TextChannel, RichEmbed, Guild } from 'discord.js';
 import moment, { Moment } from 'moment';
 
 import { msgCatch } from '../../common';
-import debug from '../../common/debug';
+import debug, { formatTimestamp, handleError } from '../../common/debug';
 import ScanQuestDB, { ActiveScan, Server } from '../database';
 
 import custom from './custom';
@@ -46,8 +46,6 @@ interface Activity {
   amount: number
 }
 
-const date_format = 'hh:mm:ss A';
-
 export default class Spawner {
   private readonly timers: Map<Snowflake, Timer> = new Map();
   private readonly debouncer: Map<Snowflake, Amount> = new Map();
@@ -61,15 +59,13 @@ export default class Spawner {
   constructor(bot: Client, db: ScanQuestDB) {
     this.bot = bot;
     this.db = db;
-    this.select = new Select();
+    this.select = new Select(db);
   }
 
   async start() {
     // get timers from database
     const servers = this.db.servers.find({ disabled: false });
-    await servers.forEach((server) => {
-      this.startTimer(server);
-    });
+    await servers.forEach(this.startTimer.bind(this));
   }
 
   async stop() {
@@ -89,18 +85,31 @@ export default class Spawner {
     }
   }
 
+  protected handleError(e: any, arg1: Server | Guild) {
+    let source;
+    if (arg1 instanceof Server) {
+      source = this.bot.guilds.find((g) => g.id === arg1.id).name;
+    }
+    else if (arg1 instanceof Guild) {
+      source = arg1.name;
+    }
+    handleError(this.bot, e, source);
+  }
+
   public clearTimeout(server: Server) {
     if (this.timers.has(server.id)) {
       clearTimeout(this.timers.get(server.id)!.timeout);
+    } else {
+      debug(this.bot, `Could not clear timer for ${server.id}`);
     }
   }
 
-  private setSendTimeout(server: Server, endTime: Moment) {
+  public setSendTimeout(server: Server, endTime: Moment) {
     this.clearTimeout(server);
 
     const timeout = setTimeout(() => {
       debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
-      this.newSpawn(server);
+      this.newSpawn(server).catch(e => this.handleError(e, server));
     }, endTime.diff(moment()));
     this.timers.set(server.id, { timeout, endTime });
   }
@@ -114,7 +123,7 @@ export default class Spawner {
       }
       else {
         debug(this.bot, `When starting scanquest for <#${server.send_channel}>, existing spawn timer had already expired`);
-        this.newSpawn(server);
+        this.newSpawn(server).catch(e => this.handleError(e, server));
       }
     }
   }
@@ -128,17 +137,25 @@ export default class Spawner {
         return;
       }
       debug(this.bot, `${message.author.username} has issued a reroll`);
-      this.newSpawn(server, true);
+      await this.newSpawn(server, true);
     }
   }
 
   public async spawn(message: Message, args: string[], options: string[]) {
-    await custom.call(this, message, args, options);
+    await custom.call(this, message, args, options).catch(e => this.handleError(e, message.guild));
   }
 
   public async list(message: Message) {
     const s = await this.db.servers.findOne({ id: message.guild.id });
-    return s?.activescans.map(sc => `${sc.scan.name} (${moment(sc.expires).format(date_format)}) #${sc.msg_id}`).concat('\n');
+
+    let res = 'No active scans';
+    if (s) {
+      const activeScans = await this.db.getActiveScans(s);
+      if (activeScans.length > 0) {
+        res = activeScans.map(sc => `${sc.scan.name} (${formatTimestamp(moment(sc.expires))}) #${sc.msg_id}`).join('\n');
+      }
+    }
+    return res;
   }
 
   // Decrease spawn timer countdown with activity
@@ -167,7 +184,7 @@ export default class Spawner {
     }
     else {
       setTimeout(() => {
-        this.reduce(server).catch(() => {});
+        this.reduce(server).catch(e => this.handleError(e, server));
       }, config.debounce);
       this.debouncer.set(id, { amount: reduce });
     }
@@ -200,11 +217,11 @@ export default class Spawner {
       endTime.subtract(amount, 'milliseconds');
       const remaining = endTime.diff(moment(), 'milliseconds');
 
-      let db_msg = `<#${send_channel}>: ${moment(endTime).add(amount, 'milliseconds').format(date_format)} reduced by ${amount / 1000} seconds.\n`;
+      let db_msg = `<#${send_channel}>: ${formatTimestamp(moment(endTime).add(amount, 'milliseconds'))} reduced by ${amount / 1000} seconds.\n`;
 
       if (remaining <= config.debounce) {
         db_msg += 'Remaining time insufficiant, generating now...';
-        this.newSpawn(server);
+        await this.newSpawn(server);
       }
       else {
         this.setSendTimeout(server, endTime);
@@ -212,7 +229,7 @@ export default class Spawner {
           { id },
           { $set: { remaining: endTime.toDate() } }
         );
-        db_msg += `Timer set for ${endTime.format(date_format)}. ${remaining / 1000} seconds remaining.`;
+        db_msg += `Timer set for ${formatTimestamp(endTime)}. ${remaining / 1000} seconds remaining.`;
       }
       debug(this.bot, db_msg);
     }
@@ -220,14 +237,17 @@ export default class Spawner {
     this.debouncer.delete(id);
   }
 
-  private cleanOldScans(server: Server) {
-    const { send_channel, activescans } = server;
-    return activescans.filter(({ expires, scan, msg_id }) => {
+  protected async cleanOldScans(server: Server) {
+    const { send_channel } = server;
+
+    const activescan_ids = (await this.db.getActiveScans(server))
+    .filter(({ expires, scan, msg_id }) => {
       const s = moment(expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
       if (!s) {
-        debug(this.bot, `${scan.name} expired (${moment(expires).format(date_format)})`);
+        debug(this.bot, `${scan.name} expired (${formatTimestamp(moment(expires))})`);
         if (msg_id) {
-          (this.bot.channels.get(send_channel) as TextChannel).fetchMessage(msg_id)
+          (this.bot.channels.get(send_channel) as TextChannel)
+          .fetchMessage(msg_id)
           .then(async (message) => {
             if (message?.editable && message.embeds.length > 0) {
               const embed = new RichEmbed(message.embeds[0]);
@@ -238,18 +258,27 @@ export default class Spawner {
           .catch(msgCatch);
         }
       }
-      return s;
-    });
+      return !!s;
+    })
+    .map(scan => scan._id);
+
+    const res = await this.db.servers.updateOne(
+      { id: server.id },
+      { $set: { activescan_ids } }
+    );
+    if (!res.acknowledged) {
+      debug(this.bot, 'Unable to save cleaned activescans', 'errors');
+    }
   }
 
-  protected newSpawn(server: Server, force = false) {
-    const { activescans, send_channel, disabled, id } = server;
+  protected async newSpawn(server: Server, force = false) {
+    const { activescan_ids, send_channel, disabled, id } = server;
     if (disabled) {
       debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
       return;
     }
 
-    if (!force && activescans.length > 0 && this.last_sent.has(id)) {
+    if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
       debug(this.bot, `<#${send_channel}>: Recently generated a scan for server`);
 
       const d = moment().diff(moment(this.last_sent.get(id)), 'minutes');
@@ -259,7 +288,7 @@ export default class Spawner {
       }
     }
 
-    debug(this.bot, `<#${send_channel}>: Attempting to generate a scan at ${moment().format(date_format)}`);
+    debug(this.bot, `<#${send_channel}>: Attempting to generate a scan at ${formatTimestamp(moment())}`);
 
     this.last_sent.set(id, moment());
 
@@ -272,11 +301,17 @@ export default class Spawner {
     debug(this.bot, `Amount of value in the previous interval: ${amount}`);
 
     try {
-      const selection = this.select.card(server, amount);
-      this.spawnCard(server, selection);
+      const selection = await this.select.card(server, amount);
+      // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
+      await this.cleanOldScans(server);
+      const remaining = await this.spawnCard(server, selection);
+      await this.db.servers.updateOne(
+        { id: server.id },
+        { $set: { remaining } }
+      );
     }
     catch (e) {
-      debug(this.bot, e.message, 'errors');
+      this.handleError(e, server);
     }
   }
 
@@ -286,31 +321,32 @@ export default class Spawner {
 
   /**
    * Sends a card image to the configed channel
-   * @param active hours
   */
-  protected spawnCard(server: Server, selection: Selection) {
+  protected async spawnCard(server: Server, selection: Selection): Promise<Date> {
     const { send_channel } = server;
     const { active, scannable, image } = selection;
-    let remaining: Date;
 
     const expires = this.expiresToDate(active);
 
-    // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
-    const activescans = this.cleanOldScans(server);
-
-    (this.bot.channels.get(send_channel) as TextChannel).send(new RichEmbed().setDescription('Spawning...'))
+    return await (this.bot.channels.get(send_channel) as TextChannel)
+    .send(new RichEmbed().setDescription('Spawning...'))
     .then(async (message) => {
-      debug(this.bot, `<#${send_channel}>: Generated ${scannable.card.name} active until ${moment(expires).format(date_format)} at ${moment().format(date_format)}`);
+      debug(this.bot, `<#${send_channel}>: Generated ${scannable.card.name} active until ${formatTimestamp(moment(expires))} at ${formatTimestamp(moment())}`);
 
-      // add to list of active scans
-      activescans.push(new ActiveScan({ scan: scannable.card, expires, msg_id: message.id }));
-
-      const res = await this.db.servers.updateOne(
-        { id: server.id },
-        { $set: { activescans } }
+      const scanRes = await this.db.scans.insertOne(
+        new ActiveScan({ scan: scannable.card, expires, msg_id: message.id })
       );
 
-      if (!res.acknowledged) {
+      if (!scanRes.acknowledged) {
+        throw new Error('DB could not create new scan');
+      }
+
+      const serverRes = await this.db.servers.updateOne(
+        { id: server.id },
+        { $push: { activescan_ids: scanRes.insertedId } }
+      );
+
+      if (!serverRes.acknowledged) {
         throw new Error('DB could not update server active scans');
       }
 
@@ -320,21 +356,13 @@ export default class Spawner {
       // Min time is to ensure longer spawns don't take too long and no inactive scans for short ones
       const endTime = moment().add(selection.next, 'hours');
       this.setSendTimeout(server, endTime);
-      remaining = endTime.toDate();
+      return endTime.toDate();
     })
     .catch((e) => {
       const endTime = moment().add(10, 'minutes');
       this.setSendTimeout(server, endTime);
-      remaining = endTime.toDate();
       debug(this.bot, e, 'errors');
-    })
-    .finally(() => {
-      this.db.servers.updateOne(
-        { id: server.id },
-        { $set: { remaining } }
-      ).catch((e) => {
-        debug(this.bot, e, 'errors');
-      });
+      return endTime.toDate();
     });
   }
 }

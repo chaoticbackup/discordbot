@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import { API } from '../../database';
 import { Card, CardType } from '../../definitions';
-import { Server, ActiveScan } from '../database';
+import ScanQuestDB, { Server, ActiveScan } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
 import { SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
@@ -46,7 +46,10 @@ export default class Select {
   private readonly scan_locations: SpawnLocation;
   private readonly scan_mugic: SpawnMugic;
 
-  constructor() {
+  readonly db: ScanQuestDB;
+
+  constructor(db: ScanQuestDB) {
+    this.db = db;
     this.scan_battlegear = new SpawnBattlegear();
     this.scan_creature = new SpawnCreature();
     this.scan_locations = new SpawnLocation();
@@ -66,15 +69,16 @@ export default class Select {
    * Picks a new card and duration to send
    * @param server The server that we're picking a card for
    */
-  public card(server: Server, amount: number): Selection;
-  public card(server: Server, scannable?: Scannable, image?: RichEmbed): Selection;
-  public card(server: Server, arg1?: Scannable | number, arg2?: RichEmbed): Selection {
+  public async card(server: Server, amount: number): Promise<Selection>;
+  public async card(server: Server, scannable?: Scannable, image?: RichEmbed): Promise<Selection>;
+  public async card(server: Server, arg1?: Scannable | number, arg2?: RichEmbed): Promise<Selection> {
     let scannable;
     let image;
 
     if (arg1 === undefined || typeof arg1 === 'number' || arg2 === undefined) {
       const amount = (typeof arg1 === 'number') ? arg1 : 0;
-      [scannable, image] = this.select(server, amount);
+      const activescans = await this.db.getActiveScans(server);
+      [scannable, image] = this.select(activescans, amount);
     } else {
       scannable = arg1;
       image = arg2;
@@ -104,7 +108,7 @@ export default class Select {
   }
 
   // Creatures spawn more often than locations and battlegear
-  private select(server: Server, amount: number): [Scannable, RichEmbed] {
+  private select(activescans: ActiveScan[], amount: number): [Scannable, RichEmbed] {
     let scannable: Scannable;
     let image: RichEmbed;
 
@@ -112,22 +116,22 @@ export default class Select {
     // 4%
     if (rnd < 1) {
       const rarities = this.filterRarities('Mugic', amount);
-      [scannable, image] = this.scan_mugic.generate(server.activescans, rarities);
+      [scannable, image] = this.scan_mugic.generate(activescans, rarities);
     }
     // 16%
     else if (rnd < 5) {
       const rarities = this.filterRarities('Locations', amount);
-      [scannable, image] = this.scan_locations.generate(server.activescans, rarities);
+      [scannable, image] = this.scan_locations.generate(activescans, rarities);
     }
     // 20 %
     else if (rnd < 10) {
       const rarities = this.filterRarities('Battlegear', amount);
-      [scannable, image] = this.scan_battlegear.generate(server.activescans, rarities);
+      [scannable, image] = this.scan_battlegear.generate(activescans, rarities);
     }
     // 60%
     else {
       const rarities = this.filterRarities('Creatures', amount);
-      [scannable, image] = this.scan_creature.generate(server.activescans, rarities);
+      [scannable, image] = this.scan_creature.generate(activescans, rarities);
     }
 
     return [scannable, image];

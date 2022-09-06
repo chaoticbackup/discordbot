@@ -135,7 +135,7 @@ export default class ScanQuest {
           }
           return;
         case 'scanlist':
-          if (message.guild && isUser(message, ['daddy', 'bf'])) {
+          if (message.guild) {
             await send(await this.spawner.list(message));
           }
           return;
