@@ -127,25 +127,13 @@ class ScanQuestDB {
     }
     this.servers.createIndex({ id: 1 }, { unique: true }).finally(() => {});
 
-    if (!collectionNames.includes('players')) {
-      await db.createCollection('players');
-    }
     this.players = db.collection('players');
     this.players.createIndex({ id: 1 }, { unique: true }).finally(() => {});
 
-    if (!collectionNames.includes('scans')) {
-      await db.createCollection('scans');
-    }
     this.scans = db.collection('scans');
 
-    if (!collectionNames.includes('usedcodes')) {
-      await db.createCollection('usedcodes');
-    }
     this.usedcodes = db.collection('usedcodes');
 
-    if (!collectionNames.includes('trades')) {
-      await db.createCollection('trades');
-    }
     this.trades = db.collection('trades');
   }
 
