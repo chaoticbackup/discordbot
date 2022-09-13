@@ -1,8 +1,10 @@
+import { WithId } from 'mongodb';
+
 import ScanQuest from '..';
 import { SendFunction } from '../../definitions';
 import { Server } from '../database';
 
-export async function disable(this: ScanQuest, server: Server, yes: boolean, send: SendFunction) {
+export async function disable(this: ScanQuest, server: WithId<Server>, yes: boolean, send: SendFunction) {
   if (server.disabled) {
     if (yes) {
       return await send('This server is already disabled');
@@ -29,7 +31,7 @@ export async function disable(this: ScanQuest, server: Server, yes: boolean, sen
     }
 
     const res = await this.db.servers.updateOne(
-      { id: server.id },
+      { _id: server._id },
       {
         $set: { disabled: true }
       }

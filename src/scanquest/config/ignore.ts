@@ -1,8 +1,10 @@
+import { WithId } from 'mongodb';
+
 import ScanQuestDB, { Server } from '../database';
 
 const parse = (sa: string[]) => (sa.map(s => s.match(/<#([0-9]*)>/)?.[1] ?? '')).filter((f): f is string => f !== '');
 
-export async function ignore(db: ScanQuestDB, server: Server, args: string[]): Promise<string | undefined> {
+export async function ignore(db: ScanQuestDB, server: WithId<Server>, args: string[]): Promise<string | undefined> {
   switch (args[0]) {
     case 'list': {
       if (server.ignore_channels.length === 0) {
@@ -22,7 +24,7 @@ export async function ignore(db: ScanQuestDB, server: Server, args: string[]): P
         if (channel && !server.ignore_channels.includes(channel)) ignore_channels.push(channel);
       });
       const res = await db.servers.updateOne(
-        { id: server.id },
+        { _id: server._id },
         {
           $set: { ignore_channels }
         }
@@ -39,7 +41,7 @@ export async function ignore(db: ScanQuestDB, server: Server, args: string[]): P
       const channels = parse(args.slice(1));
       const ignore_channels = server.ignore_channels?.filter((channel) => !channels.includes(channel)) ?? [];
       const res = await db.servers.updateOne(
-        { id: server.id },
+        { _id: server._id },
         {
           $set: { ignore_channels }
         }

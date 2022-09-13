@@ -1,6 +1,6 @@
 import { Message, RichEmbed, TextChannel } from 'discord.js';
 import moment, { Moment } from 'moment';
-import { InsertOneResult, UpdateResult } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 import { isUser, msgCatch, stripMention } from '../../common';
 import { parseType } from '../../common/card_types';
@@ -244,26 +244,40 @@ export default async function (this: Spawner, message: Message, args: string[], 
     .then(async (message) => {
       if (isUser(message, 'me') && message.editable && message.embeds.length > 0) {
         await message.edit(image);
-        const expires = this.expiresToDate(active);
 
-        let res: UpdateResult | InsertOneResult<ActiveScan>;
-        if (scan !== null) {
-          res = await this.db.scans.updateOne(
-            { _id: scan._id },
-            { $set: { expires, scan: scannable.card } }
-          );
-        // If unable to find existing scan, update message with a new scan
-        } else {
-          res = await this.db.scans.insertOne(new ActiveScan({ scan: scannable.card, expires, msg_id }));
-        }
+        try {
+          const expires = this.expiresToDate(active);
 
-        if (res.acknowledged) {
+          let scan_id: ObjectId;
+          if (scan !== null) {
+            const res = await this.db.scans.updateOne(
+              { _id: scan._id },
+              { $set: { expires, scan: scannable.card } }
+            );
+            if (!res.acknowledged) throw new Error('existing scan');
+            scan_id = scan._id;
+          // If unable to find existing scan, update message with a new scan
+          } else {
+            const res = await this.db.scans.insertOne(new ActiveScan({ scan: scannable.card, expires, msg_id }));
+            if (!res.acknowledged) throw new Error('new scan');
+            scan_id = res.insertedId;
+          }
+
+          if (server.activescan_ids.find((id) => id === scan_id) === undefined) {
+            const res = await this.db.servers.updateOne(
+              { _id: server._id },
+              { $push: { activescan_ids: scan_id } }
+            );
+            if (!res.acknowledged) throw new Error('server scans');
+          }
+
           message.channel.send('Updated existing scan').catch(msgCatch);
-        } else {
-          message.channel.send('DB failed to update existing scan').catch(msgCatch);
+        }
+        catch (e) {
+          message.channel.send(`DB failed to update ${e.message}`).catch(msgCatch);
         }
       } else {
-        message.channel.send('Unable to update specificed message').catch(msgCatch);
+        message.channel.send('Unable to update specificed message id').catch(msgCatch);
       }
     })
     .catch((e) => {
