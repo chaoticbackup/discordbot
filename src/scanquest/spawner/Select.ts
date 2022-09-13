@@ -23,7 +23,7 @@ export interface Selection {
   next: number
 }
 
-const rarity_map: {[key: string]: number} = {
+const rarity_map: { [key: string]: number } = {
   promo: 1.5,
   'ultra rare': 1,
   'super rare': 1.5,
@@ -32,12 +32,12 @@ const rarity_map: {[key: string]: number} = {
   common: 2.5
 };
 
-const type_map: {[key in CardType]: number} = {
+const type_map: { [key in CardType]: number } = {
   Attacks: 0,
   Battlegear: 2,
   Creatures: 1,
   Locations: 2,
-  Mugic: 2.5,
+  Mugic: 2.5
 };
 
 export default class Select {

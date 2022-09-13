@@ -1,5 +1,6 @@
 import { Client, Message, Snowflake, TextChannel, RichEmbed, Guild } from 'discord.js';
 import moment, { Moment } from 'moment';
+import { WithId } from 'mongodb';
 
 import { msgCatch } from '../../common';
 import debug, { formatTimestamp, handleError } from '../../common/debug';
@@ -96,7 +97,7 @@ export default class Spawner {
     handleError(this.bot, e, source);
   }
 
-  public clearTimeout(server: Server) {
+  public clearTimeout(server: WithId<Server>) {
     if (this.timers.has(server.id)) {
       clearTimeout(this.timers.get(server.id)!.timeout);
     } else {
@@ -104,7 +105,7 @@ export default class Spawner {
     }
   }
 
-  public setSendTimeout(server: Server, endTime: Moment) {
+  public setSendTimeout(server: WithId<Server>, endTime: Moment) {
     this.clearTimeout(server);
 
     const timeout = setTimeout(() => {
@@ -114,7 +115,7 @@ export default class Spawner {
     this.timers.set(server.id, { timeout, endTime });
   }
 
-  public startTimer(server: Server) {
+  public startTimer(server: WithId<Server>) {
     if (server.remaining) {
       const endTime = moment(server.remaining);
       const remaining = endTime.diff(moment(), 'milliseconds');
@@ -190,7 +191,7 @@ export default class Spawner {
     }
   }
 
-  private setActivity(server: Server) {
+  private setActivity(server: WithId<Server>) {
     const { id } = server;
 
     const now = moment();
@@ -205,7 +206,7 @@ export default class Spawner {
     this.activity.set(id, activities);
   }
 
-  private async reduce(server: Server) {
+  private async reduce(server: WithId<Server>) {
     this.setActivity(server);
 
     const { id, send_channel } = server;
@@ -237,7 +238,7 @@ export default class Spawner {
     this.debouncer.delete(id);
   }
 
-  protected async cleanOldScans(server: Server) {
+  protected async cleanOldScans(server: WithId<Server>) {
     const { send_channel } = server;
 
     const activescan_ids = (await this.db.getActiveScans(server))
@@ -271,7 +272,7 @@ export default class Spawner {
     }
   }
 
-  protected async newSpawn(server: Server, force = false) {
+  protected async newSpawn(server: WithId<Server>, force = false) {
     const { activescan_ids, send_channel, disabled, id } = server;
     if (disabled) {
       debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
@@ -322,7 +323,7 @@ export default class Spawner {
   /**
    * Sends a card image to the configed channel
   */
-  protected async spawnCard(server: Server, selection: Selection): Promise<Date> {
+  protected async spawnCard(server: WithId<Server>, selection: Selection): Promise<Date> {
     const { send_channel } = server;
     const { active, scannable, image } = selection;
 

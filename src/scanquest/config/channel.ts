@@ -1,6 +1,8 @@
+import { WithId } from 'mongodb';
+
 import ScanQuestDB, { Server } from '../database';
 
-export async function channel(db: ScanQuestDB, server: Server, args: string[]): Promise<string | undefined> {
+export async function channel(db: ScanQuestDB, server: WithId<Server>, args: string[]): Promise<string | undefined> {
   switch (args[0]) {
     case 'list': {
       return `send: <#${server.send_channel}>\nreceive: <#${server.receive_channel}>`;
@@ -10,7 +12,7 @@ export async function channel(db: ScanQuestDB, server: Server, args: string[]): 
       const channel = args.slice(1).join(' ').match(/<#([0-9]*)>/)?.[1] ?? '';
       if (channel !== '') {
         await db.servers.updateOne(
-          { id: server.id },
+          { _id: server._id },
           {
             $set: { send_channel: channel }
           }
@@ -23,7 +25,7 @@ export async function channel(db: ScanQuestDB, server: Server, args: string[]): 
       const channel = args.slice(1).join(' ').match(/<#([0-9]*)>/)?.[1] ?? '';
       if (channel !== '') {
         await db.servers.updateOne(
-          { id: server.id },
+          { _id: server._id },
           {
             $set: { receive_channel: channel }
           }
