@@ -280,10 +280,9 @@ export default class Spawner {
     }
 
     if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
-      debug(this.bot, `<#${send_channel}>: Recently generated a scan for server`);
-
       const d = moment().diff(moment(this.last_sent.get(id)), 'minutes');
       if (d < config.safety) {
+        debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
         this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
         return;
       }
