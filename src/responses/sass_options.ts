@@ -16,7 +16,7 @@ export const hello = {
   away: ["Sorry I'm in a match right now", 'Nicole is not available, please leave a message after the tone', "Nobody's home", '*seen*']
 };
 
-export const hbu = ["I'm doing great! Thanks for asking", "Every day's great when I've got my friends!", 'mmmmm concentrating on this match.. going.. to.. WON!', 'Excited for the next tournament!'];
+export const hbu = ["I'm doing great! Thanks for asking", "Every day's great when I've got my friends!", 'Hold on, concentrating on this match\nabout to\n WON!', 'Excited for the next tournament!'];
 
 export const jingles = ['Wadda ya want, Rebant?', "What's up, Ghatup?", 'How are you, Biondu?', "What's going on, Hoton?", 'Doing well, Savell?', 'How you been, Najarin?', "Where's life at, Attacat?", 'Feeling fly, Ozlai?', 'Everything cool, Zamool?', "What's the deal, Kreaal?", "What's jerkin, Herken?", "What's the scene, Tir'baleen?", "What's the fuss, Dardemus?", "What's the plan, Blazvatan?", "What's to know, Accato?", 'Say your fill, Tassanil', "What's to say, Gimwei?", "Say your thing, H'earring", "What's the hoot, Van Bloot?", 'What I miss, Yokkis?'];
 
