@@ -19,7 +19,14 @@ export function formatTimestamp(date: Moment): string {
 }
 
 export default function debug(bot: Client, channelmsg: string, channel: channels = 'debug') {
-  const logmsg = channelmsg.replaceAll(/<t:(.*?):T>/g, (_, cap) => moment(cap).format(date_format));
+  let logmsg;
+  try {
+    logmsg = channelmsg.replaceAll(/<t:(.*?):T>/g, (_, cap) => moment(cap).format(date_format));
+  } catch (e) {
+    logger.error(e.stack);
+    logmsg = channelmsg;
+  }
+
   // Don't log problems while in development
   if (process.env.NODE_ENV === 'development') {
     (channel === 'errors') ? logger.error(logmsg) : logger.info(logmsg);
