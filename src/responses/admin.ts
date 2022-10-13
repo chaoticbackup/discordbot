@@ -1,4 +1,4 @@
-import { Guild, Message, DMChannel } from 'discord.js';
+import { Guild, Message, DMChannel, Client, TextChannel } from 'discord.js';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -106,5 +106,28 @@ export function logs() {
   }
   catch (e) {
     msgCatch(e);
+  }
+}
+
+export async function talk(bot: Client, message: Message, text: string, opts: string[]) {
+  const options = opts.join(' ').toLowerCase();
+  if (isUser(message, ['daddy'])) {
+    const channel_id = (/channel=([0-9]{2,})/).exec(options);
+    const message_id = (/message=([0-9]{2,})/).exec(options);
+    if (channel_id && channel_id.length > 0) {
+      const chan = (bot.channels.get(channel_id[1]) as TextChannel);
+
+      if (message_id && message_id.length > 0) {
+        const msg = await chan.fetchMessage(message_id[1]);
+        if (msg.editable) {
+          msg.edit(text)
+          .catch(logger.error);
+        }
+      }
+      else {
+        chan.send(text)
+        .catch(logger.error);
+      }
+    }
   }
 }

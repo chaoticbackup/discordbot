@@ -413,5 +413,10 @@
         "cmd": "!logs",
         "details": "Sends a list of bot logs",
         "mod": true
+    },
+    "talk": {
+        "cmd": "!talk --channel=<id> [--message=<id>] <text>",
+        "details": "Sends a message to a channel/edits a message",
+        "mod": true
     }
 }
