@@ -10,7 +10,7 @@ import servers from '../common/servers';
 
 import { Channel, SendFunction } from '../definitions';
 
-import { clear, haxxor, logs, rm } from './admin';
+import { clear, haxxor, logs, rm, talk } from './admin';
 import { checkSpam } from './antispam';
 
 import { avatar, display_card, display_token, find_card, full_art } from './card';
@@ -626,6 +626,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     case 'logs':
       return send(logs());
+
+    case 'talk':
+      return talk(bot, message, args.join(' '), options);
 
       // Not a recognized command
     default:
