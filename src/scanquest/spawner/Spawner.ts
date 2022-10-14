@@ -83,6 +83,8 @@ export default class Spawner {
         { id },
         { $set: { remaining: endTime.toDate() } }
       );
+
+      this.timers.delete(id);
     }
   }
 
@@ -105,8 +107,8 @@ export default class Spawner {
     }
   }
 
-  public setSendTimeout(server: WithId<Server>, endTime: Moment) {
-    this.clearTimeout(server);
+  public setSendTimeout(server: WithId<Server>, endTime: Moment, clear = true) {
+    if (clear) this.clearTimeout(server);
 
     const timeout = setTimeout(() => {
       debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
@@ -120,7 +122,7 @@ export default class Spawner {
       const endTime = moment(server.remaining);
       const remaining = endTime.diff(moment(), 'milliseconds');
       if (remaining > config.debounce) {
-        this.setSendTimeout(server, endTime);
+        this.setSendTimeout(server, endTime, false);
       }
       else {
         debug(this.bot, `When starting scanquest for <#${server.send_channel}>, existing spawn timer had already expired`);
