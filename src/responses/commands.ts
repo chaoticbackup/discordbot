@@ -3,7 +3,7 @@
 import { Client, DiscordAPIError, DMChannel, Message, RichEmbed } from 'discord.js';
 
 import { can_send, cleantext, donate, flatten, hasPermission, isModerator, is_channel, msgCatch } from '../common';
-import debug, { handleError } from '../common/debug';
+import { handleError } from '../common/debug';
 import parseCommand from '../common/parseCommand';
 import { messageGuild } from '../common/parseMessageGuild';
 import servers from '../common/servers';

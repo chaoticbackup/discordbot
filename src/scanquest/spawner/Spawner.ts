@@ -109,7 +109,7 @@ export default class Spawner {
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment, clear = true) {
     if (clear) this.clearTimeout(server);
-
+    debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
     const timeout = setTimeout(() => {
       debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
       this.newSpawn(server).catch(e => this.handleError(e, server));
@@ -306,10 +306,11 @@ export default class Spawner {
       const selection = await this.select.card(server, amount);
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       await this.cleanOldScans(server);
-      const remaining = await this.spawnCard(server, selection);
+      const endTime = await this.spawnCard(server, selection);
+      this.setSendTimeout(server, endTime);
       await this.db.servers.updateOne(
         { id: server.id },
-        { $set: { remaining } }
+        { $set: { remaining: endTime.toDate() } }
       );
     }
     catch (e) {
@@ -324,7 +325,7 @@ export default class Spawner {
   /**
    * Sends a card image to the configed channel
   */
-  protected async spawnCard(server: WithId<Server>, selection: Selection): Promise<Date> {
+  protected async spawnCard(server: WithId<Server>, selection: Selection) {
     const { send_channel } = server;
     const { active, scannable, image } = selection;
 
@@ -353,18 +354,14 @@ export default class Spawner {
       }
 
       // Update the message to reflect the spawned instance
-      await message.edit(image);
+      await message.edit(image).catch(msgCatch);
 
       // Min time is to ensure longer spawns don't take too long and no inactive scans for short ones
-      const endTime = moment().add(selection.next, 'hours');
-      this.setSendTimeout(server, endTime);
-      return endTime.toDate();
+      return moment().add(selection.next, 'hours');
     })
     .catch((e) => {
-      const endTime = moment().add(10, 'minutes');
-      this.setSendTimeout(server, endTime);
       debug(this.bot, e, 'errors');
-      return endTime.toDate();
+      return moment().add(config.safety, 'minutes');
     });
   }
 }
