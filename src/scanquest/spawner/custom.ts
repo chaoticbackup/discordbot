@@ -1,6 +1,6 @@
 import { Message, RichEmbed, TextChannel } from 'discord.js';
 import moment, { Moment } from 'moment';
-import { ObjectId } from 'mongodb';
+import { ObjectId, UpdateResult } from 'mongodb';
 
 import { isUser, msgCatch, stripMention } from '../../common';
 import { parseType } from '../../common/card_types';
@@ -89,9 +89,23 @@ export default async function (this: Spawner, message: Message, args: string[], 
   const msg_id = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
   const scan = (msg_id) ? await this.db.scans.findOne({ msg_id }) : null;
 
+  const addIfMissing = async (scan_id: ObjectId, err = '') => {
+    if (server.activescan_ids.find((id) => id === scan_id) === undefined) {
+      const res = await this.db.servers.updateOne(
+        { _id: server._id },
+        { $push: { activescan_ids: scan_id } }
+      );
+      if (!res.acknowledged) throw new Error(err || "can't add scan to server activescans");
+    }
+  };
+
   if (options.includes('fix')) {
     if (!msg_id) {
       message.channel.send('!spawn --fix --message=[Snowflake]').catch(msgCatch);
+      return;
+    }
+    if (scan === null) {
+      message.channel.send('message does not have a scan').catch(msgCatch);
       return;
     }
     (this.bot.channels.get(server.send_channel) as TextChannel)
@@ -100,6 +114,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
       if (isUser(message, 'me') && message.editable && message.embeds.length > 0) {
         await message.edit(new RichEmbed(message.embeds[0]));
       }
+      await addIfMissing(scan._id);
     })
     .catch((e) => {
       message.channel.send('Unable to fetch specified message id').catch(msgCatch);
@@ -121,40 +136,47 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
       if (expires === false) {
         message.channel.send(`${expire_change} is not a valid format`).catch(msgCatch);
-      } else {
+        return;
+      }
+
+      try {
         const res = await this.db.scans.updateOne(
           { _id: scan._id },
           { $set: { expires: expires.toDate() } }
         );
 
-        if (res.acknowledged) {
-          const active = expiresDiff(expires);
+        if (!res.acknowledged) throw new Error("can't update scan");
 
-          await (this.bot.channels.get(server.send_channel) as TextChannel).fetchMessage(msg_id!)
-          .then(async (message) => {
-            if (message?.editable && message.embeds.length > 0) {
-              const embed = new RichEmbed(message.embeds[0]);
-              this.select.setTitle(embed, active);
-              await message.edit(embed);
-            }
-          })
-          .catch(msgCatch);
+        // If unable to find existing scan (probably broke)
+        await addIfMissing(scan._id);
 
-          if (Number(active.toFixed(2)) <= 0) {
-            const server = await this.db.servers.findOne({ id: message.guild.id });
-            if (server) await this.cleanOldScans(server);
-            message.channel.send(`${scan.scan.name} updated to expire now`)
-            .catch(msgCatch);
-          } else {
-            message.channel.send(`${scan.scan.name} updated to expire at ${formatTimestamp(moment(expires.toDate()))}`)
-            .catch(msgCatch);
+        const active = expiresDiff(expires);
+
+        await (this.bot.channels.get(server.send_channel) as TextChannel).fetchMessage(msg_id!)
+        .then(async (message) => {
+          if (message?.editable && message.embeds.length > 0) {
+            const embed = new RichEmbed(message.embeds[0]);
+            this.select.setTitle(embed, active);
+            await message.edit(embed);
           }
-        }
-        else {
-          message.channel.send('Unable to update scan in db')
+        })
+        .catch(msgCatch);
+
+        if (Number(active.toFixed(2)) <= 0) {
+          const server = await this.db.servers.findOne({ id: message.guild.id });
+          if (server) await this.cleanOldScans(server);
+          message.channel.send(`${scan.scan.name} updated to expire now`)
+          .catch(msgCatch);
+        } else {
+          message.channel.send(`${scan.scan.name} updated to expire at ${formatTimestamp(moment(expires.toDate()))}`)
           .catch(msgCatch);
         }
+      } catch (e) {
+        message.channel.send('Unable to update scan in db')
+        .catch(msgCatch);
+        debug(this.bot, e, 'errors');
       }
+
       return;
     }
     else if (msg_id) {
@@ -263,13 +285,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
             scan_id = res.insertedId;
           }
 
-          if (server.activescan_ids.find((id) => id === scan_id) === undefined) {
-            const res = await this.db.servers.updateOne(
-              { _id: server._id },
-              { $push: { activescan_ids: scan_id } }
-            );
-            if (!res.acknowledged) throw new Error('server scans');
-          }
+          await addIfMissing(scan_id, 'server scans');
 
           message.channel.send('Updated existing scan').catch(msgCatch);
         }
