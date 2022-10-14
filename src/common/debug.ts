@@ -21,7 +21,7 @@ export function formatTimestamp(date: Moment): string {
 export default function debug(bot: Client, channelmsg: string, channel: channels = 'debug') {
   let logmsg;
   try {
-    logmsg = channelmsg.replaceAll(/<t:(.*?):T>/g, (_, cap) => moment(cap).format(date_format));
+    logmsg = channelmsg.replaceAll(/<t:(.*?):T>/g, (_, cap) => { return moment.unix(cap).format(date_format); });
   } catch (e) {
     logger.error(e.stack);
     logmsg = channelmsg;
