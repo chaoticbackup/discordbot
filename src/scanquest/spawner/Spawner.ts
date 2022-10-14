@@ -6,7 +6,7 @@ import { msgCatch } from '../../common';
 import debug, { formatTimestamp, handleError } from '../../common/debug';
 import ScanQuestDB, { ActiveScan, Server } from '../database';
 
-import custom from './custom';
+import custom from './CustomSpawner';
 import Select, { Selection } from './Select';
 
 /**
