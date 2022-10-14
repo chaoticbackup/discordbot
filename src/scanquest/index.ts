@@ -124,11 +124,6 @@ export default class ScanQuest {
             await send(await loadScan(this.db, args));
           }
           return;
-        case 'reroll':
-          if (message.guild && isUser(message, ['daddy', 'bf'])) {
-            await this.spawner.reroll(message);
-          }
-          return;
         case 'spawn':
           if (message.guild && isUser(message, ['daddy', 'bf'])) {
             await this.spawner.spawn(message, args, options);

@@ -97,7 +97,7 @@
         "details": "I show a list of rulebooks I have. Equivalent to `!rulebook --list`"
     },
     "cr": {
-        "cmd": "!cr [<section>]",
+        "cmd": "!cr <section|>",
         "details": "I'll give you the Comphrensive Rules document, or just the section specified"
     },
     "comprehensive": {
@@ -191,7 +191,7 @@
         "alias": "lf"
     },
     "lf": {
-        "cmd": "!lf [<type>]",
+        "cmd": "!lf <type|>",
         "list": "Adds a specific match making roles"
     },
     "lookingfor": {
@@ -201,7 +201,7 @@
         "alias": "lf"
     },
     "cancel": {
-        "cmd": "!cancel [<type>]",
+        "cmd": "!cancel <type|>",
         "list": "Remove the specified or all matchmaking roles"
     },
     "donate": {
@@ -220,7 +220,7 @@
         "alias": "creator"
     },
     "recode": {
-        "cmd": "!recode ['tutorial|missing']",
+        "cmd": "!recode 'tutorial|missing'",
         "details": "Sends a link to Chaotic Recode, a video tutorial, or the list of missing cards"
     },
     "forum": {
