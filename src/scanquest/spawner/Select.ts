@@ -92,13 +92,12 @@ export default class Select {
     const r = card.gsx$rarity.toLowerCase();
     const rarity = (r in rarity_map) ? rarity_map[r] : 0;
 
-    let next: number = Math.max(4, (9 - rarity * 2));
-
+    let next = 0;
     let active = 0;
+
     if (rarity > 0 && type > 0) {
       active = 12 * (type + rarity);
-    } else {
-      next = 0;
+      next = Math.max(4, (9 - rarity * 2));
     }
 
     this.setTitle(image, active);
