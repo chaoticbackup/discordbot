@@ -7,7 +7,7 @@ import debug, { formatTimestamp, handleError } from '../../common/debug';
 import ScanQuestDB, { ActiveScan, Server } from '../database';
 
 import config from './config';
-import custom from './CustomSpawner';
+import custom from './custom';
 import handleActivity from './handleActivity';
 import Select, { Selection } from './Select';
 
