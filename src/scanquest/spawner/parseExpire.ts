@@ -2,13 +2,16 @@ import moment, { Moment } from 'moment';
 
 const parseExpires = (oldExpires: Date, change: string): false | Moment => {
   let newExpires: Moment | undefined;
-  let set: 'add' | 'sub' | undefined;
+  let set: 'add' | 'sub' | 'set' | undefined;
 
   if (change.startsWith('+')) {
     set = 'add';
   }
   else if (change.startsWith('-')) {
     set = 'sub';
+  }
+  else if (change.startsWith('|')) {
+    set = 'set';
   }
 
   try {
@@ -24,24 +27,19 @@ const parseExpires = (oldExpires: Date, change: string): false | Moment => {
       }
     }
     else {
-      const regex_arr = (/[+-](\d+[.]?\d?)[hm]?/).exec(change);
+      const regex_arr = (/[+-|](\d+[.]?\d?)[hm]?/).exec(change);
       if (regex_arr && regex_arr.length > 1) {
         const num = regex_arr[1];
-        if (change.endsWith('m')) {
-          if (set === 'add') {
-            newExpires = moment(oldExpires).add(num, 'minutes');
-          }
-          else {
-            newExpires = moment(oldExpires).subtract(num, 'minutes');
-          }
+        const unit = change.endsWith('m') ? 'minutes' : 'hours';
+
+        if (set === 'add') {
+          newExpires = moment(oldExpires).add(num, unit);
+        }
+        else if (set === 'sub') {
+          newExpires = moment(oldExpires).subtract(num, unit);
         }
         else {
-          if (set === 'add') {
-            newExpires = moment(oldExpires).add(num, 'hours');
-          }
-          else {
-            newExpires = moment(oldExpires).subtract(num, 'hours');
-          }
+          newExpires = moment().add(num, unit);
         }
       }
     }

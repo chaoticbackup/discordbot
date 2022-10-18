@@ -15,10 +15,10 @@ import parseExpires from './parseExpire';
 import Spawner from './Spawner';
 
 const expiresDiff = (expires: Moment) => {
-  return expires.startOf('minute').diff(moment().startOf('minute'), 'hours');
+  return expires.startOf('minute').diff(moment().startOf('minute'), 'minutes') / 60;
 };
 
-const cmd = '!spawn [<content>] [--fix] [--new] [--expire=<+/-<number>m/h | timestamp>] [--message=<Snowflake>] [--type=<CardType>]';
+const cmd = "!spawn [<content>] [--fix] [--new] [--expire=<'+-|'<number>'mh' | timestamp>] [--message=<Snowflake>] [--type=<CardType>]";
 
 export default async function (this: Spawner, message: Message, args: string[], opts: string[]): Promise<void> {
   const content = args.join(' ');
@@ -53,7 +53,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
   const msg_id = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
   const scan = (msg_id) ? await this.db.scans.findOne({ msg_id }) : null;
 
-  regex_arr = (/expire=([\w.+-]{2,})/).exec(options);
+  regex_arr = (/expire=([\w.+-|]{2,})/).exec(options);
   const expire_change = (regex_arr && regex_arr.length > 1) ? regex_arr[1] : undefined;
 
   regex_arr = (/type=([\w]{2,})/).exec(options);

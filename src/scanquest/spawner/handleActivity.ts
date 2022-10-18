@@ -68,7 +68,7 @@ export default function handleActivity(this: Spawner) {
     }
     else {
       setTimeout(() => {
-        this.addActivity(server);
+        this.calculateActivity(server);
         reduce(server).catch(e => this.handleError(e, server));
       }, config.debounce);
       this.debouncer.set(id, { amount: reducing });
