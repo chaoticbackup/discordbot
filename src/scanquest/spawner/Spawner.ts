@@ -4,7 +4,7 @@ import { WithId } from 'mongodb';
 
 import { msgCatch } from '../../common';
 import debug, { formatTimestamp, handleError } from '../../common/debug';
-import ScanQuestDB, { ActiveScan, Server } from '../database';
+import ScanQuestDB, { ActiveScan, Activity, Server } from '../database';
 
 import config from './config';
 import custom from './custom';
@@ -24,14 +24,6 @@ interface Timer {
  * @param amount The number of miliseconds to reduce a timer by
  */
 interface Amount {
-  amount: number
-}
-
-/**
- * This is used for calculating activity "density"
- */
-interface Activity {
-  timestamp: Moment
   amount: number
 }
 
@@ -65,14 +57,21 @@ export default class Spawner {
       const { endTime, timeout } = timer;
 
       clearTimeout(timeout);
-      this.timers.delete(id);
 
       const amount = (this.debouncer.get(id)?.amount ?? 0);
       endTime.subtract(amount, 'milliseconds');
 
+      this.calculateActivity({ id } as Server);
+      const activity = this.activity.get(id) ?? [];
+
       await this.db.servers.updateOne(
         { id },
-        { $set: { remaining: endTime.toDate() } }
+        {
+          $set: {
+            remaining: endTime.toDate(),
+            activity
+          }
+        }
       );
     }
   }
@@ -105,7 +104,7 @@ export default class Spawner {
     debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
     const timeout = setTimeout(() => {
       debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
-      this.addActivity(server);
+      this.calculateActivity(server);
       this.debouncer.delete(server.id);
       this.newSpawn(server).catch(e => this.handleError(e, server));
     }, endTime.diff(moment()));
@@ -116,6 +115,9 @@ export default class Spawner {
     if (server.remaining) {
       const endTime = moment(server.remaining);
       const remaining = endTime.diff(moment(), 'milliseconds');
+
+      this.activity.set(server.id, server.activity ?? []);
+
       if (remaining > config.debounce) {
         this.setSendTimeout(server, endTime, false);
       }
@@ -135,7 +137,7 @@ export default class Spawner {
         return;
       }
       debug(this.bot, `${message.author.username} has issued a reroll`);
-      this.addActivity(server);
+      this.calculateActivity(server);
       this.debouncer.delete(server.id);
       await this.newSpawn(server, { force: true }).catch(e => this.handleError(e, server));
     }
@@ -160,24 +162,24 @@ export default class Spawner {
     return res;
   }
 
-  protected addActivity(server: WithId<Server>) {
-    const { id } = server;
-
+  protected calculateActivity({ id }: Server) {
     const now = moment();
 
-    let activities = this.activity.get(id) ?? [];
+    const activities = this.activity.get(id) ?? [];
 
-    activities = activities.filter(value => now.diff(value.timestamp, 'minutes') <= config.activity_window);
+    // Why am I only calculating last x minutes of activity?
+    // activities = activities.filter(value => now.diff(value.timestamp, 'minutes') <= config.activity_window);
 
     const amount = (this.debouncer.get(id)?.amount ?? 0);
-    activities.push({ timestamp: now, amount });
+    activities.push({ timestamp: now.toDate(), amount });
 
     this.activity.set(id, activities);
   }
 
   protected async newSpawn(server: WithId<Server>, options: { force?: boolean, clear?: boolean } = {}) {
     const { force = false, clear = false } = options;
-    const { activescan_ids, send_channel, disabled, id } = server;
+    const { id, activescan_ids, send_channel, disabled } = server;
+
     if (disabled) {
       debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
       return;
@@ -187,7 +189,7 @@ export default class Spawner {
       const d = moment().diff(moment(this.last_sent.get(id)), 'minutes');
       if (d < config.safety) {
         debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
-        this.setSendTimeout(server, moment().add(config.safety, 'minutes'), clear);
+        this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
         return;
       }
     }
@@ -199,6 +201,7 @@ export default class Spawner {
     let amount = 0;
     if (this.activity.has(id)) {
       this.activity.get(id)!.forEach(v => { amount += v.amount; });
+      this.activity.set(id, []);
     }
 
     // TODO can be removed after determining weight
@@ -209,10 +212,15 @@ export default class Spawner {
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       await this.cleanOldScans(server);
       const endTime = await this.spawnCard(server, selection);
-      this.setSendTimeout(server, endTime);
+      this.setSendTimeout(server, endTime, clear);
       await this.db.servers.updateOne(
-        { id: server.id },
-        { $set: { remaining: endTime.toDate() } }
+        { id },
+        {
+          $set: {
+            remaining: endTime.toDate(),
+            activity: []
+          }
+        }
       );
     }
     catch (e) {
@@ -270,7 +278,7 @@ export default class Spawner {
     .filter(({ expires, scan, msg_id }) => {
       const s = moment(expires).isSameOrAfter(moment().subtract(config.debounce, 'milliseconds'));
       if (!s) {
-        debug(this.bot, `${scan.name} expired (${formatTimestamp(moment(expires))})`);
+        debug(this.bot, `Attempting to expire ${scan.name}`);
         if (msg_id) {
           (this.bot.channels.get(send_channel) as TextChannel)
           .fetchMessage(msg_id)
@@ -279,12 +287,15 @@ export default class Spawner {
               const embed = new RichEmbed(message.embeds[0]);
               this.select.setTitle(embed, 0);
               await message.edit(embed);
+              debug(this.bot, `${scan.name} expired (${formatTimestamp(moment(expires))})`);
             }
           })
           .catch(msgCatch);
+        } else {
+          debug(this.bot, `Missing msg_id for ${scan.name}`);
         }
       }
-      return !!s;
+      return s;
     })
     .map(scan => scan._id);
 

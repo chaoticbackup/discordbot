@@ -37,6 +37,13 @@ export class ActiveScan {
   }
 }
 
+/**
+ * This is used for calculating activity "density"
+ */
+export interface Activity {
+  timestamp: Date
+  amount: number
+}
 export class Server {
   public id: Snowflake;
   public send_channel: Snowflake;
@@ -44,6 +51,7 @@ export class Server {
   public ignore_channels: Snowflake[];
   public activescan_ids: ObjectId[];
   public remaining: Date | null; // remaining time until next scan
+  public activity: Activity[];
   public disabled: boolean;
   public role: Snowflake | undefined;
 
@@ -57,6 +65,7 @@ export class Server {
     this.ignore_channels = [];
     this.activescan_ids = [];
     this.remaining = null;
+    this.activity = [];
     this.disabled = false;
   }
 }
@@ -180,7 +189,7 @@ class ScanQuestDB {
     return (server.receive_channel === channel_id);
   };
 
-  public findOnePlayer = async ({ id: player_id }: {id: Snowflake}): Promise<Player> => {
+  public findOnePlayer = async ({ id: player_id }: { id: Snowflake }): Promise<Player> => {
     const player = await this.players.findOne({ id: player_id });
     if (player !== null) {
       return player;
