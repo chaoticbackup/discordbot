@@ -15,30 +15,39 @@ export default function handleActivity(this: Spawner) {
     // If another source spawns, they should delete the debounce id,
     // in that case, no need to reduce
     if (!this.debouncer.has(id)) return;
+    this.calculateActivity(id);
 
     const amount = (this.debouncer.get(id)?.amount ?? 0);
     this.debouncer.delete(id);
 
     if (this.timers.has(id)) {
-      const { endTime } = this.timers.get(id)!;
+      // Prevents ticking down of safety period
+      if (
+        this.last_sent.has(id) &&
+        moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety
+      ) return;
+
+      const { endTime, timeout } = this.timers.get(id)!;
+      clearTimeout(timeout);
 
       endTime.subtract(amount, 'milliseconds');
       const remaining = endTime.diff(moment(), 'milliseconds');
 
-      let db_msg = `<#${send_channel}>: ${formatTimestamp(moment(endTime).add(amount, 'milliseconds'))} reduced by ${amount / 1000} seconds.\n`;
+      let db_msg = `<#${send_channel}>: ${formatTimestamp(moment(endTime).add(amount, 'milliseconds'))} reduced by ${amount / 1000} seconds.`;
       if (remaining <= config.debounce) {
-        db_msg += 'Remaining time insufficiant, generating now...';
-        await this.newSpawn(server);
+        db_msg += '\nRemaining time insufficiant, generating now...';
+        debug(this.bot, db_msg);
+        this.newSpawn(id, { clear: false });
       }
       else {
+        db_msg += `${remaining / 1000} seconds remaining.`;
+        debug(this.bot, db_msg);
         this.setSendTimeout(server, endTime);
         await this.db.servers.updateOne(
           { id },
           { $set: { remaining: endTime.toDate() } }
         );
-        db_msg += `Timer set for ${formatTimestamp(endTime)}. ${remaining / 1000} seconds remaining.`;
       }
-      debug(this.bot, db_msg);
     }
   };
 
@@ -68,8 +77,7 @@ export default function handleActivity(this: Spawner) {
     }
     else {
       setTimeout(() => {
-        this.calculateActivity(server);
-        reduce(server).catch(e => this.handleError(e, server));
+        reduce(server).catch(e => this.handleError(e, id));
       }, config.debounce);
       this.debouncer.set(id, { amount: reducing });
     }
