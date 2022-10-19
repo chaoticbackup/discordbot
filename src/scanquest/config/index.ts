@@ -27,12 +27,11 @@ export default async function (this: ScanQuest, message: Message, args: string[]
     if (server === null) {
       return await send('This server is not configured for Perim Scan Quest');
     }
-
     switch (args[0]) {
       case 'remaining': return await send(remaining(server));
-      case 'ignore': return await send(ignore(this.db, server, args.slice(1)));
+      case 'ignore': return await send(await ignore(this.db, server, args.slice(1)));
       case 'channel':
-      case 'channels': return await send(channel(this.db, server, args.slice(1)));
+      case 'channels': return await send(await channel(this.db, server, args.slice(1)));
       case 'disable': return await disable.call(this, server, true, send);
       case 'enable': return await disable.call(this, server, false, send);
     }
