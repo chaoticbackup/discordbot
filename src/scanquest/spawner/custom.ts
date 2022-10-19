@@ -39,6 +39,7 @@ export default async function (this: Spawner, message: Message, args: string[], 
         { $push: { activescan_ids: scan_id } }
       );
       if (!res.acknowledged) throw new Error(err || "can't add scan to server activescans");
+      return true;
     }
   };
 
@@ -78,7 +79,9 @@ export default async function (this: Spawner, message: Message, args: string[], 
       if (message.editable && message.embeds.length > 0) {
         await message.edit(new RichEmbed(message.embeds[0]));
       }
-      await addIfMissing(scan._id);
+      if (await addIfMissing(scan._id)) {
+        send('Updated existing scan');
+      }
     })
     .catch((e) => {
       send('Unable to fetch specified message id');
