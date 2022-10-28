@@ -614,10 +614,11 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
     // fallthrough if number provided
     case 'clean':
+    case 'clear':
     case 'delete': {
       const num = parseInt(flatten(args));
       if (isNaN(num) || num <= 0) return;
-      return clear(num, message, mentions);
+      return clear(bot, num, message, mentions);
     }
 
     /* Hard reset bot */

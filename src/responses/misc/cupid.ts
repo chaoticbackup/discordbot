@@ -6,7 +6,7 @@ import servers from '../../common/servers';
 import db_path from '../../database/db_path';
 
 const channel_id = process.env.NODE_ENV !== 'development'
-  ? servers('main').channel('cupid')
+  ? servers('main').channel('match_making')
   : servers('develop').channel('bot_commands');
 
 export default function (args: string[], message: Message) {

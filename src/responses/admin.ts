@@ -1,9 +1,9 @@
-import { Guild, Message, DMChannel, Client, TextChannel } from 'discord.js';
+import { Guild, Message, DMChannel, Client, TextChannel, Collection, RichEmbed } from 'discord.js';
 import fs from 'fs-extra';
 import path from 'path';
 
 import { isModerator, hasPermission, msgCatch } from '../common';
-import servers from '../common/servers';
+import servers, { is_server } from '../common/servers';
 import { isUser } from '../common/users';
 import { API } from '../database';
 import logger from '../logger';
@@ -31,7 +31,23 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
     });
 }
 
-export async function clear(amount: number, message: Message, mentions: string[] = []): Promise<void> {
+async function log(bot: Client, message: Message, messageHash: Collection<string, Message>) {
+  if (is_server(message.guild, 'main')) {
+    const { member } = message;
+    const embed = new RichEmbed()
+    .setAuthor(`${member.displayName} #${member.user.tag}`, member.user.avatar)
+    .setColor('#ff4711')
+    .setDescription('Bulk Deleted Messages');
+
+    // TODO
+
+    await (bot.channels.get(servers('main').channel('logs')) as TextChannel)
+    .send(embed)
+    .catch(() => {});
+  }
+}
+
+export async function clear(bot: Client, amount: number, message: Message, mentions: string[] = []): Promise<void> {
   if (isNaN(amount) || amount <= 0) return;
 
   if (message.channel instanceof DMChannel) {
@@ -48,16 +64,19 @@ export async function clear(amount: number, message: Message, mentions: string[]
     if (amount <= 25) {
       if (mentions.length > 0) {
         return await message.channel.fetchMessages()
-        .then(async messages => {
+        .then(async (messages) => {
           const b_messages = messages.filter(m => mentions.includes(m.author.id)).first(amount);
-          if (b_messages.length > 0) {
-            await message.channel.bulkDelete(b_messages);
-          }
-          await message.delete();
+          b_messages.push(message);
+
+          await message.channel.bulkDelete(b_messages)
+          .then(async (value) => await log(bot, message, value))
+          .catch(() => {});
         });
       }
       else {
-        await message.channel.bulkDelete(amount + 1).catch(() => {});
+        await message.channel.bulkDelete(amount + 1)
+        .then(async (value) => await log(bot, message, value))
+        .catch(() => {});
       }
     }
     else {

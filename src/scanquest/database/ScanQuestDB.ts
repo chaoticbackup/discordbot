@@ -147,7 +147,7 @@ class ScanQuestDB {
   }
 
   public async close(): Promise<void> {
-    return this.client.close();
+    return await this.client.close();
   }
 
   public async save(player: Player, card: Scanned): Promise<UpdateResult>;

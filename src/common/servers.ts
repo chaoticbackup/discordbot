@@ -2,39 +2,38 @@ import { Snowflake, Message, TextChannel, Guild } from 'discord.js';
 
 import { Channel } from '../definitions';
 
-class Server {
-  name: string;
-  id: string;
-  channels: Record<string, Snowflake>;
+class Server<T extends ServerName> {
+  id: Snowflake;
+  channels: typeof serverHash[T]['channels'];
 
-  constructor(
-    { name, id, channels }: {name: string, id: string, channels: Record<string, Snowflake>})
-  {
-    this.name = name;
-    this.id = id;
-    this.channels = channels;
+  constructor(server: typeof serverHash[T]) {
+    this.id = server.id;
+    this.channels = server.channels;
   }
 
-  channel(name: string): Snowflake {
-    const channel = this.channels[name];
-    if (channel) return channel;
-    else return '';
-  }
+  channel = (name: keyof typeof serverHash[T]['channels']) => {
+    return this.channels[name];
+  };
 }
 
-export default function servers(name: serverName): Server {
-  const server = _servers.find(server => server.name === name);
-  if (server === undefined) return new Server({ name: '', id: '', channels: {} });
-  return server;
+export default function servers<T extends ServerName>(name: T): Server<T> {
+  const server = serverHash[name];
+  // @ts-ignore this shouldn't be hit unless someone doesn't have linting on
+  if (server === undefined) return new Server({ id: '', channels: {} });
+  return new Server(server);
+}
+
+export function is_server(guild: Guild, name: ServerName): boolean {
+  return guild.id === servers(name).id;
 }
 
 /**
  * Checks whether a channel is the specified name
  * @param guild Optionally specify which guild this channel should be in (default main)
  */
-export function is_channel(message: Message, name: string): boolean;
-export function is_channel(channel: Channel, name: string, guild?: serverName): boolean;
-export function is_channel<A extends Message | Channel>(arg1: A, name: string, guild: serverName = 'main') {
+export function is_channel(message: Message, channel_name: string): boolean;
+export function is_channel(channel: Channel, channel_name: string, guild?: ServerName): boolean;
+export function is_channel<A extends Message | Channel>(arg1: A, channel_name: string, guild: ServerName = 'main') {
   let channel;
   if (arg1 instanceof Message) {
     if (arg1.channel instanceof TextChannel) {
@@ -50,22 +49,14 @@ export function is_channel<A extends Message | Channel>(arg1: A, name: string, g
     return false;
   }
 
-  const server = servers(guild);
-  if (Object.keys(server.channels).length === 0) return false;
-  return channel.id === server.channel(name);
+  return channel.id === servers(guild).channels[channel_name];
 }
 
-export function is_server(guild: Guild, name: serverName): boolean {
-  const server = servers(name);
-  if (Object.keys(server.channels).length === 0) return false;
-  return guild.id === server.id;
-}
-
-const serverList = [
-  {
-    name: 'main',
+const serverHash = {
+  main: {
     id: '135657678633566208',
     channels: {
+      logs: '708674018349154356',
       staff: '293610368947716096',
       gen_1: '135657678633566208',
       gen_2: '587376910364049438',
@@ -80,12 +71,10 @@ const serverList = [
       other_games: '286993363175997440',
       perim: '656156361029320704',
       french: '407259697348083717',
-      recode: '706962283284398172',
-      dev: '509822128342958083'
+      recode: '706962283284398172'
     }
   },
-  {
-    name: 'develop',
+  develop: {
     id: '504052742201933824',
     channels: {
       gen: '504052742201933827',
@@ -94,23 +83,38 @@ const serverList = [
       debug: '712680358939852883'
     }
   },
-  {
-    name: 'trading',
+  trading: {
     id: '617128322593456128',
     channels: {}
   },
-  {
-    name: 'international',
+  international: {
     id: '624576671630098433',
     channels: {
       bot_commands: '624632794739376129'
     }
   },
-  {
-    name: 'unchained',
+  unchained: {
     id: '339031939811901441',
     channels: {
       bot_commands: '392869882863026179'
+    }
+  }
+} as const;
+
+type ServerName = keyof typeof serverHash;
+
+export { serverHash as servers };
+
+/*
+I did some cool TS stuff that I want to remember, you're welcome future me
+Check the git history of the file too
+
+const serverList = [
+  {
+    name: 'main',
+    id: '135657678633566208',
+    channels: {
+      gen_1: '135657678633566208',
     }
   }
 ] as const;
@@ -120,3 +124,4 @@ const _servers: Server[] = serverList.map(s => new Server(s));
 const _names = serverList.map(s => s.name);
 
 type serverName = typeof _names[number];
+*/
