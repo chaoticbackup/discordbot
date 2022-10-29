@@ -18,7 +18,7 @@ class Server<T extends ServerName> {
 
 export default function servers<T extends ServerName>(name: T): Server<T> {
   const server = serverHash[name];
-  // @ts-ignore this shouldn't be hit unless someone doesn't have linting on
+  // @ts-ignore this shouldn't be hit unless dev doesn't have linting on
   if (server === undefined) return new Server({ id: '', channels: {} });
   return new Server(server);
 }

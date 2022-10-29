@@ -1,4 +1,4 @@
-import { Guild, Message, DMChannel, Client, TextChannel, Collection, RichEmbed } from 'discord.js';
+import { Guild, Message, DMChannel, Client, TextChannel, Collection, RichEmbed, Snowflake } from 'discord.js';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -31,19 +31,23 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
     });
 }
 
-async function log(bot: Client, message: Message, messageHash: Collection<string, Message>) {
+async function log(bot: Client, message: Message, messageHash: Collection<Snowflake, Message>) {
   if (is_server(message.guild, 'main')) {
     const { member } = message;
-    const embed = new RichEmbed()
-    .setAuthor(`${member.displayName} #${member.user.tag}`, member.user.avatar)
-    .setColor('#ff4711')
-    .setDescription('Bulk Deleted Messages');
 
-    // TODO
+    for (const deleted of messageHash.array()) {
+      if (deleted.id === message.id) continue;
 
-    await (bot.channels.get(servers('main').channel('logs')) as TextChannel)
-    .send(embed)
-    .catch(() => {});
+      const embed = new RichEmbed()
+      .setAuthor(`#${member.user.tag}`, member.user.avatarURL)
+      .setColor('#ff4711')
+      .setTitle('Bulk Deleted Message')
+      .setDescription(deleted.content);
+
+      await (bot.channels.get(servers('main').channel('logs')) as TextChannel)
+      .send(embed)
+      .catch(() => {});
+    }
   }
 }
 
