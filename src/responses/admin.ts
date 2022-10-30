@@ -33,7 +33,7 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
 
 async function log(bot: Client, message: Message, messageHash: Collection<Snowflake, Message>) {
   if (is_server(message.guild, 'main')) {
-    const { member } = message;
+    const { member, channel } = message;
 
     for (const deleted of messageHash.array()) {
       if (deleted.id === message.id) continue;
@@ -41,7 +41,7 @@ async function log(bot: Client, message: Message, messageHash: Collection<Snowfl
       const embed = new RichEmbed()
       .setAuthor(`#${member.user.tag}`, member.user.avatarURL)
       .setColor('#ff4711')
-      .setTitle('Bulk Deleted Message')
+      .setTitle(`Message sent by <@${deleted.author.id}> bulk deleted in <#${channel.id}>`)
       .setDescription(deleted.content);
 
       await (bot.channels.get(servers('main').channel('logs')) as TextChannel)
