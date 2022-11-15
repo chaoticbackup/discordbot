@@ -379,6 +379,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'curated':
       return sendBotCommands([curated()]);
 
+    case 'toplist':
     case 'tierlist':
     case 'tiers':
       // if (guild && is_channel(channel, 'bot_commands', 'main')) {

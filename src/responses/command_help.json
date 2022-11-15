@@ -181,6 +181,9 @@
         "cmd": "!tierlist",
         "list": "Returns the tierlist. Or acts as an alias to `!decks` if input is provided"
     },
+    "toplist": {
+        "alias": "tierlist"
+    },
     "tiers": {
         "alias": "tierlist"
     },

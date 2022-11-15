@@ -24,5 +24,5 @@ export const user = {
   brat: ["Yes? Oh… it's you", 'Stop bothering me', 'So is this what having a younger brother is like?', "Dad, he's picking on me", 'Sigh, here we go again'],
   daddy: ['Hey dad, welcome home. Mr. Chiodosin said hi', 'Hey dad, we throwing down in the dromes tonight?', 'Come on daddy, let me take your car pwease', "I'm studying with Mages tonight, I'll be back later"],
   chio: ["Good morning Mr. Chiodosin. I'm ready to learn *yawn*\nOkay maybe after first period...", 'Hey Mr. Chiodosin, thanks for the help last week, nailed the test!', 'Pop quiz??'],
-  ferric: ["How's the dam coming along?", 'Is it raining cool beavers?', 'What mischief have you gotten yourself into this time?'],
+  ferric: ["How's the dam coming along?", 'Is it raining cool beavers?', 'What mischief have you gotten yourself into this time?']
 };

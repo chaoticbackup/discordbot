@@ -175,7 +175,7 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
 
 const moods = Object.keys(hello);
 class Hello {
-  sr: Map<Snowflake, {mood: keyof typeof hello, responses: string[], timeout?: NodeJS.Timeout}> = new Map();
+  sr: Map<Snowflake, { mood: keyof typeof hello, responses: string[], timeout?: NodeJS.Timeout }> = new Map();
 
   hello = (message: Message) => {
     const { id } = message.author;
