@@ -26,7 +26,7 @@ export function isType(input: string): input is DeckType {
   return types.includes(input as any);
 }
 
-export const axes: {[key in DeckType]: string} = {
+export const axes: { [key in DeckType]: string } = {
   Aggro: "Threats, Tempo, Redundant",
   Control: "Answers, Inevitable, Redundant",
   Combo: "Threats, Inevitable, Essential",
@@ -42,9 +42,7 @@ export const axes: {[key in DeckType]: string} = {
 export const sortedlist = {
   toplist: [
     "Aszil Compost",
-    "Arrthoa Ulmquad",
     "Blazvatan Warbeast",
-    "Danian Burn",
     "Kolmpost",
     "PoP",
     "Rawr",
@@ -60,12 +58,9 @@ export const sortedlist = {
   curated: [
     "Aa'une Tarterek",
     "Compost Malvone",
-    "Elegy Spam",
     "Erak'tabb Tartarek",
-    "Firefly",
     "Fliandar",
     "Gan'trak Bladez",
-    "Grantkae Nivenna",
     "Healdrom",
     "Hermatred",
     "Nimmei",
@@ -104,12 +99,11 @@ export const sortedlist = {
     "Ocean Man",
     "Stelgar Compost",
     "Sis Ops",
-    "Swimming Team",
-    "UnderWorld Burn",
+    "UnderWorld Burn"
   ]
 } as const;
 
-export const tierlist = sortedlist as any as {[key in Tier]: string[]};
+export const tierlist = sortedlist as any as { [key in Tier]: string[] };
 
 type deck_names =
   typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] |
@@ -122,7 +116,7 @@ interface Deck {
   creatures: string[]
 }
 
-const _decklist: {[key in deck_names[number]]: Deck} = {
+const _decklist: { [key in deck_names[number]]: Deck } = {
   "Aszil Compost": {
     url: "https://chaoticbackup.forumotion.com/t1580-aszil-compost",
     tribe: "Danian",
@@ -172,13 +166,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brathe", "Bladez", "Vunhra", "Smildon", "Ikkatosh, The Aich King"]
   },
-  "Arrthoa Ulmquad": {
-    url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
-    tribe: "Mixed",
-    tags: ["Fluidmorph"],
-    type: ["Aggro-Control"],
-    creatures: ["Arrthoa, Captain of the Ezoa", "Nunk'worm", "Lomma, Desert Wanderer", "Ulmquad", "Rellim, Watermaster"]
-  },
+  // "Arrthoa Ulmquad": {
+  //   url: "https://chaoticbackup.forumotion.com/t1680-master-of-the-sails",
+  //   tribe: "Mixed",
+  //   tags: ["Fluidmorph"],
+  //   type: ["Aggro-Control"],
+  //   creatures: ["Arrthoa, Captain of the Ezoa", "Nunk'worm", "Lomma, Desert Wanderer", "Ulmquad", "Rellim, Watermaster"]
+  // },
   "Compost Malvone": {
     url: "https://chaoticbackup.forumotion.com/t1710-compost-malvone#15183",
     tribe: "Mixed",
@@ -193,20 +187,20 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Magmon, Engulfed", "Tangath Toborn, In Training", "Tangath Toborn, OverWorld General", "Akkalbi"]
   },
-  "Danian Burn": {
-    url: "https://chaoticbackup.forumotion.com/t1669-danian-burn#15092",
-    tribe: "Danian",
-    tags: ["Water", "Air", "Burn"],
-    type: ["Midrange"],
-    creatures: ["Gareep", "Ulmquad", "Illexia, The Danian Queen", "Irrabeq", "Nunkworm, Assimilated"]
-  },
-  "Elegy Spam": {
-    url: "https://chaoticbackup.forumotion.com/t1708-elegy-spam",
-    tribe: "Mixed",
-    tags: ["Elemental Elegy"],
-    type: ["Control"],
-    creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
-  },
+  // "Danian Burn": {
+  //   url: "https://chaoticbackup.forumotion.com/t1669-danian-burn#15092",
+  //   tribe: "Danian",
+  //   tags: ["Water", "Air", "Burn"],
+  //   type: ["Midrange"],
+  //   creatures: ["Gareep", "Ulmquad", "Illexia, The Danian Queen", "Irrabeq", "Nunkworm, Assimilated"]
+  // },
+  // "Elegy Spam": {
+  //   url: "https://chaoticbackup.forumotion.com/t1708-elegy-spam",
+  //   tribe: "Mixed",
+  //   tags: ["Elemental Elegy"],
+  //   type: ["Control"],
+  //   creatures: ["Ulmquad", "Najarin, Younger", "Na-inna", "Lamin'kal", "Na-inna"]
+  // },
   "Erak'tabb Tartarek": {
     url: "https://chaoticbackup.forumotion.com/t1689-erak-tabb-tartarek",
     tribe: "M'arrillian",
@@ -228,13 +222,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro"],
     creatures: ["Brimflame", "Chaor", "Bladez", "Takinom, The Shadowknight", "Kopond, High Muge of the Hearth"]
   },
-  Firefly: {
-    url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
-    tribe: "M'arrillian",
-    tags: ["Mipedian Fulgurite"],
-    type: ["Gimmick"],
-    creatures: ["Lam'inkal", "Rellim, Watermaster", "Bahrakatan, The Coralsmith", "Ulmquad", "Rol'doi"]
-  },
+  // Firefly: {
+  //   url: "https://chaoticbackup.forumotion.com/t1585-firefly#15015",
+  //   tribe: "M'arrillian",
+  //   tags: ["Mipedian Fulgurite"],
+  //   type: ["Gimmick"],
+  //   creatures: ["Lam'inkal", "Rellim, Watermaster", "Bahrakatan, The Coralsmith", "Ulmquad", "Rol'doi"]
+  // },
   "Flame On": {
     url: "https://chaoticbackup.forumotion.com/t1577-flame-on",
     tribe: "Mixed",
@@ -298,13 +292,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Aggro-Control"],
     creatures: ["Noaz, Mipedian Cavalerist", "Headmaster Ankyja", "Gintanai, The Forgotten", "Xelfe"]
   },
-  "Grantkae Nivenna": {
-    url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control#15207",
-    tribe: "Mixed",
-    tags: [],
-    type: ["Aggro-Control"],
-    creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Herald", "Ulmquad", "Illiar", "Kolmo, Purified"]
-  },
+  // "Grantkae Nivenna": {
+  //   url: "https://chaoticbackup.forumotion.com/t1651-grantkae-control#15207",
+  //   tribe: "Mixed",
+  //   tags: [],
+  //   type: ["Aggro-Control"],
+  //   creatures: ["Grantkae, Mipedian General", "Kalt", "Nivenna, UnderWorld Lieutenant", "Malvadine, The King's Herald", "Ulmquad", "Illiar", "Kolmo, Purified"]
+  // },
   Grounded: {
     url: "https://chaoticbackup.forumotion.com/t1660-grounded",
     tribe: "UnderWorld",
@@ -459,13 +453,13 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     type: ["Midrange"],
     creatures: ["Malvadine, The King's Herald", "Headmaster Ankhyja", "Ifjann", "Owayki", "Iflar, The Crown Prince"]
   },
-  "Swimming Team": {
-    url: "https://chaoticbackup.forumotion.com/t1567-swimming-team",
-    tribe: "Mixed",
-    tags: [],
-    type: ["Midrange"],
-    creatures: ["Ulmquad", "Lomma, Desert Wanderer", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Na-inna"]
-  },
+  // "Swimming Team": {
+  //   url: "https://chaoticbackup.forumotion.com/t1567-swimming-team",
+  //   tribe: "Mixed",
+  //   tags: [],
+  //   type: ["Midrange"],
+  //   creatures: ["Ulmquad", "Lomma, Desert Wanderer", "Phelphor, Of the Deep", "Tangath Toborn, OverWorld General", "Na-inna"]
+  // },
   Tartareklessness: {
     url: "https://chaoticbackup.forumotion.com/t1686-tartereklessness",
     tribe: "M'arrillian",
@@ -514,7 +508,7 @@ const _decklist: {[key in deck_names[number]]: Deck} = {
     tags: ["Prexxor Chasm"],
     type: ["Control"],
     creatures: ["Ikkatosh, The Aich King", "Aivenna", "Drabe", "Garv", "Porthyn", "Tarterek, Psi Overloader", "Lomma, Desert Wanderer"]
-  },
+  }
 };
 
-export const decklist = _decklist as {[key: string]: Deck};
+export const decklist = _decklist as { [key: string]: Deck };
