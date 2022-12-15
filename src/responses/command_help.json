@@ -166,9 +166,9 @@
         "alias": "decks"
     },
     "decks": {
-        "cmd": "!decks <tribe|type|teir|keyword|creature>",
+        "cmd": "!decks <tribe|type|keyword|creature>",
         "list": "Sends a list of community curated decks based on user input",
-        "details": "Specify a tribe, tier, deck type, keyword, or Creature to search for decks.\nYou can use `!deck types` to see an explaination on how types are defined."
+        "details": "To search for decks, specify a tribe, deck type, keyword, or Creature.\nYou can use `!deck types` to see an explaination on how types are defined."
     },
     "decklist": {
         "alias": "decks"
