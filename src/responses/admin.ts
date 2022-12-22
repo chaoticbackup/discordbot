@@ -31,22 +31,30 @@ export async function rm(message: Message, guild?: Guild): Promise<void> {
     });
 }
 
+function trimLength(content: string) {
+  return content.length > 2000 ? `${content.substring(0, 2000 - 3)}...` : content;
+}
+
 async function log(bot: Client, message: Message, messageHash: Collection<Snowflake, Message>) {
   if (is_server(message.guild, 'main')) {
     const { member, channel } = message;
 
-    for (const deleted of messageHash.array()) {
+    const messages = messageHash.array().sort((x, y) => x.createdTimestamp - y.createdTimestamp);
+
+    for (const deleted of messages) {
       if (deleted.id === message.id) continue;
 
       const embed = new RichEmbed()
-      .setAuthor(`#${member.user.tag}`, member.user.avatarURL)
-      .setColor('#ff4711')
-      .setTitle(`Message sent by <@${deleted.author.id}> bulk deleted in <#${channel.id}>`)
-      .setDescription(deleted.content);
+        .setAuthor(`#${member.user.tag}`, member.user.avatarURL)
+        .setColor('#ff4711')
+        .setTitle('Bulk Delete')
+        .setDescription(
+          trimLength(`**Sent by <@${deleted.author.id}> in <#${channel.id}>**\n${deleted.content}`)
+        );
 
       await (bot.channels.get(servers('main').channel('logs')) as TextChannel)
-      .send(embed)
-      .catch(() => {});
+        .send(embed)
+        .catch(() => {});
     }
   }
 }
