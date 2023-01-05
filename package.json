@@ -26,7 +26,7 @@
     "chokidar": "^3.5.3",
     "core-js": "^3.25.5",
     "discord-paginationembed": "^1.0.3",
-    "discord.js": "^11.6.4",
+    "discord.js": "DanudeSandstorm/discord.js#v11",
     "express": "^4.18.2",
     "forever": "^3.0.4",
     "fs-extra": "^10.1.0",
