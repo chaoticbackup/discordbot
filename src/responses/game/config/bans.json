@@ -23,10 +23,13 @@
 		"Hune Paltanin",
 		"Illusionary Lake",
 		"Imaginary Walls",
+		"Inner Flood",
 		"Lord Van Bloot, Servant of Aa'une",
 		"Lore, High Muge of the Hive",
 		"Lore's Chamber of Recall",
+		"Makanaz",
 		"Melody of the Meek",
+		"Mind Mash",
 		"Mipedim Mirage",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
@@ -37,8 +40,8 @@
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'pa Sahkk, Condensation Ceremony",
 		"Supercooled Rain",
-		"Talisman of the Mandiblor",
 		"Ulmquad",
+		"Unheard Melody",
 		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
@@ -46,11 +49,13 @@
 		"Elemental Elegy",
 		"Mock'adyn",
 		"Na-inna",
+		"Talisman of the Mandiblor",
 		"Ulmar, Perithon Racer"
 	],
 	"pauper": [
 		"Dror'niq",
 		"Em'swa",
+		"Improvisational Melody",
 		"Makanaz",
 		"Mock'adyn",
 		"Na-inna",
@@ -181,6 +186,12 @@
 			"Reducing 10 damage per attack is strong. Even a modest energy M'arrillian or Minion could be able to take 4 or more attacks than usual because of the reduction.\nReturning a Mugic is not a sufficient benefit for the opposing player to counter-act the battle's damage reduction.",
 			"Psst, just walk through the wall. It doesn't exist."
 		],
+		"Improvisational Melody": [
+			"Underworld burn was a serious issue for the pauper format, especially with there ability to play 3 free mugic."
+		],
+		"Inner Flood": [
+			"It's been the best 0bp in the game by alot for quite a while, the ability to move counters off of creatures who can make them (popularly fluidmorphers) onto creatures who can use them for ability was always potent but so was messing with your opponents ability to play mugic or activated abilities by moving there counters around in annoying ways, all while not having to commit to untill the attack resolves. Frankly the effect is stronger than alot of 1bp attacks often."
+		],
 		"Interlude of Interruption": [
 			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often splashed into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
 			"Pay the toll"
@@ -208,7 +219,7 @@
 			"Sorry, the truck already emptied the recycle bin."
 		],
 		"Makanaz": [
-			"Makanaz is an overstatted creature with an effect that continues providing vast value even after your opponent manages to kill it. In standard there are a few ways to counter discard pile effects which makes including Makanaz a risk. In pauper, in addition to the overall weaker card pool, there is only one option: Void Dirge. Makanaz's existance is so meta warping that almost every deck has to include Void Dirge. So Makanaz will be banned to allow decks to get that 6th mugic slot back, which should allow for other compost effects to be more viable since there should be less Void Dirge."
+			"Makanaz is an overstatted creature with an effect that continues providing vast value even after your opponent manages to kill it. In pauper, in addition to the overall weaker card pool, there is only one option: Void Dirge."
 		],
 		"Malvadine, The King's Herald": [
 			"His high stats, and ability to defend, make him essential in any mono-Mipedian deck. He has strike and Air 5, which makes him versitile in practically all deck types."
@@ -216,6 +227,9 @@
 		"Melody of the Meek": [
 			"Taking only 10 damage from every source is brutal. Even with only 30 energy this card would be a big advantage.\nBut there's tons of effects Creatures gain energy - making it difficult to kill a Creature using this Mugic.",
 			"See Strike of the Meek"
+		],
+		"Mind Mash": [
+			"The Overworld deck has been very potent and that is partially do to it's use of this attack. 60 damage is enough to win a battle almost single handedly and Tartarek on the team makes it not too hard to get that almost every time. When combined with the denial mugic the Overworld has and the use of Garv to remove things like Xerium Armor, the regular counterplay to giant attacks like this wasn't as effective. Overall I decided those cards were more popular and widely used than this one so they'll be staying and this will be going"
 		],
 		"Mipedim Mirage": [
 			"Mipedim Mirage provides a huge swings. While its swift is not always relevant, revealing it later in the game can let a fighter reach an exposed backline, which forces people to make less valuable creature placement in the off chance that it gets revealed.\nThe strongest aspect of this location is its mirage effect. Manipulating your opponent's next combat and reducing their autonomy to attack."
@@ -309,6 +323,9 @@
 		],
 		"Ulmquad": [
 			"Ulmquad has one of the best 1mc activated abilities in the game doing a massive 20 energy swing while engaged. Not only that he is able to use his ability while unengaged, which is particularly punishing with how Chaotics rules system interacting with smaller burn damage, because you can die mid burst if you ever get low enough on energy even as high 30, no amount of energy gain can save you if your opponent chains their Ulmquad's ability and they have a large enough stack of counters. Ulmquad makes any effect that gives mugic counters much stronger, as he is the best place to put them."
+		],
+		"Unheard Melody": [
+			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with na-inna around so this mugic is being benched."
 		],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
