@@ -15,7 +15,7 @@ const linkMessages = new Map<Snowflake, Store>();
 
 const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
   const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
-  const content = (msg ?? message.content.replaceAll(/@(here|everyone)/g, '$1'));
+  const content = (msg ?? message.content.replaceAll(/@(here|everyone)/g, '$1').replaceAll(link_regex, '<$1>'));
   await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${content}||`);
 };
 
