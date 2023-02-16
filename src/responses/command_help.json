@@ -230,15 +230,6 @@
         "cmd": "!forum ['decks']",
         "details": "Sends a link to the forum, or specifically the deck building subforum"
     },
-    "fun": {
-        "alias": "agame"
-    },
-    "funstuff": {
-        "alias": "agame"
-    },
-    "agame": {
-        "details": "Sends a list of cards that A-Game considers fun to play with"
-    },
     "menu": {
         "details": "What's on the menu in the Port Court? Let's find out!"
     },

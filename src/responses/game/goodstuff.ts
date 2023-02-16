@@ -6,25 +6,14 @@ import gsjson from './config/goodstuff.json';
 type bp = '0' | '1' | '2' | '3' | '4' | '5';
 
 interface GoodStuff {
-  Attacks: {[key in bp]: string[] }
+  Attacks: { [key in bp]: string[] }
   Battlegear: string[]
-  Creatures: {[key in CreatureTribe]: string[] }
+  Creatures: { [key in CreatureTribe]: string[] }
   Locations: string[]
-  Mugic: {[key in MugicTribe]: string[] }
+  Mugic: { [key in MugicTribe]: string[] }
 }
 
-const { agame, goodstuff, support } = gsjson as { agame: string[], support: string[], goodstuff: GoodStuff };
-
-export { fs as funstuff, gs as goodstuff };
-
-function fs() {
-  let message = '';
-  agame.sort((a, b) => a.localeCompare(b))
-  .forEach((card) => {
-    message += `${card}\n`;
-  });
-  return message;
-}
+const { goodstuff, support } = gsjson as { support: string[], goodstuff: GoodStuff };
 
 function gs(args: string[]) {
   if (args.length === 0 || args[0] === '') {
@@ -67,6 +56,8 @@ function gs(args: string[]) {
     return Tribe(tribe, type);
   }
 }
+
+export { gs as goodstuff };
 
 function Mugic() {
   let msg = '';

@@ -21,7 +21,7 @@ import { banlist, formats, whyban } from './game/bans';
 import { decklist, tier, tierlist, curated } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
-import { funstuff, goodstuff } from './game/goodstuff';
+import { goodstuff } from './game/goodstuff';
 import rulebook from './game/rulebook';
 import starters from './game/starters';
 
@@ -429,11 +429,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send('https://chaoticbackup.forumotion.com/f11-deck-building/');
       }
       return send('https://chaoticbackup.forumotion.com/');
-
-    case 'fun':
-    case 'funstuff':
-    case 'agame':
-      return send(funstuff());
 
     /* Cooking */
     case 'menu':
