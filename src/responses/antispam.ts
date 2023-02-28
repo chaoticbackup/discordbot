@@ -13,15 +13,18 @@ interface Store {
 
 const linkMessages = new Map<Snowflake, Store>();
 
+const link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g;
+// https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
+const number_regex = /(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/g;
+
 const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
   const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
   const content = (msg ?? message.content.replaceAll(/@(here|everyone)/g, '$1').replaceAll(link_regex, '<$&>'));
   await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${content}||`);
 };
 
-const link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g;
 export function checkSpam(bot: Client, msg: Message): Boolean {
-  if (/@(here|everyone)/.test(msg.content) && link_regex.test(msg.content)) {
+  if (/@(here|everyone)/.test(msg.content) && (link_regex.test(msg.content) || number_regex.test(msg.content))) {
     if (msg.member.kickable) {
       msg.member.kick('Spammed same link. Typically spam bot behavior.')
       .then(async () => await notifyStaff(bot, msg))
@@ -33,7 +36,7 @@ export function checkSpam(bot: Client, msg: Message): Boolean {
     return true;
   }
 
-  if (msg.content.includes('chaoticrecode') || !link_regex.test(msg.content)) {
+  if (msg.content.includes('chaoticrecode') || (!link_regex.test(msg.content) && !number_regex.test(msg.content))) {
     if (linkMessages.has(msg.author.id)) {
       const { ids, link } = linkMessages.get(msg.author.id)!;
       if (ids.length > 1) {
@@ -47,7 +50,7 @@ export function checkSpam(bot: Client, msg: Message): Boolean {
     return false;
   }
 
-  const new_link = msg.content.match(link_regex)![0];
+  const new_link = (msg.content.match(link_regex) ?? msg.content.match(number_regex))![0];
   if (linkMessages.has(msg.author.id)) {
     const { link, ids } = linkMessages.get(msg.author.id)!;
     if (new_link.localeCompare(link) === 0) {
