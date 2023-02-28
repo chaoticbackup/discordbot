@@ -1,5 +1,4 @@
 /* eslint-disable no-prototype-builtins */
-/* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-for-in-array */
 
 function match(list: Array<Array<number | string>>) {
@@ -13,16 +12,16 @@ function match(list: Array<Array<number | string>>) {
 
     for (const j in list) {
       temp.push(-1);
-      const a = list[i].findIndex((e) => e == j);
+      const a = list[i].findIndex((e) => e === j);
       if (a < 0) continue;
 
-      const b = list[j].findIndex((e) => e == i);
+      const b = list[j].findIndex((e) => e === i);
       if (b < 0) continue;
 
       temp[j] = Math.round((a + (0.1 * a) + b + (0.1 * b)) * 10) / 10;
 
       // Sort by weight (lowest first)
-      if (low.length == 0) {
+      if (low.length === 0) {
         low.push(Number(j));
         continue;
       }
@@ -45,7 +44,7 @@ function match(list: Array<Array<number | string>>) {
       if (!matches[i] && outer[i].length > depth) {
         const idx = outer[i][depth];
 
-        if (!matches[idx] && outer[idx][0] == i) {
+        if (!matches[idx] && outer[idx][0] === i) {
           matches[i] = idx.toString();
           matches[idx] = i;
           continue;
