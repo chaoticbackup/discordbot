@@ -15,7 +15,7 @@ const linkMessages = new Map<Snowflake, Store>();
 
 const link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?/g;
 // https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
-const number_regex = /(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/g;
+const number_regex = /(?<=( |^))(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/gm;
 
 const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
   const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;

@@ -31,7 +31,7 @@ export function is_server(guild: Guild, name: ServerName): boolean {
  * Checks whether a channel is the specified name
  * @param guild Optionally specify which guild this channel should be in (default main)
  */
-export function is_channel(message: Message, channel_name: string): boolean;
+export function is_channel(message: Message, channel_name: string, guild?: ServerName): boolean;
 export function is_channel(channel: Channel, channel_name: string, guild?: ServerName): boolean;
 export function is_channel<A extends Message | Channel>(arg1: A, channel_name: string, guild: ServerName = 'main') {
   let channel;

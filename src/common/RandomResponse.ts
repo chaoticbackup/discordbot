@@ -1,5 +1,5 @@
 export default class RandomResponse {
-  sr: {[key: string]: any[]} = {}; // stored responses
+  sr: { [key: string]: any[] } = {}; // stored responses
 
   rndrsp = <T>(items: T[], command?: string): T => {
     const { sr } = this;
