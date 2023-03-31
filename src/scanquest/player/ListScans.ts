@@ -1,7 +1,7 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
 import { Attachment, Client, DMChannel, Message, TextChannel } from 'discord.js';
 
-import { handleError } from '../../common/debug';
+import debug from '../../common/debug';
 import { isUser } from '../../common/users';
 import { SendFunction } from '../../definitions';
 import ScanQuestDB, { Player } from '../database';
@@ -70,7 +70,7 @@ export default async (
       return ([filterType(scan), i]);
     }
     catch (e) {
-      handleError(bot, e);
+      debug(bot, e);
       return [undefined, i];
     }
   }).filter(([s]) => s !== undefined) as Array<[Scannable, number]>;

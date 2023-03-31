@@ -92,8 +92,9 @@ const tribeFilter = (tribe: CreatureTribe | MugicTribe | 'Mixed'): Filter => {
     if (type === 'Creatures' || type === 'Mugic') {
       const card = API.find_cards_ignore_comma(scan.name)[0] as Creature | Mugic;
 
+      if (!card) throw new Error(`${scan.name} is not a card`);
       /* @ts-ignore */
-      if (parseTribe(card.gsx$tribe, type) === generify(tribe, type))
+      if (card && parseTribe(card.gsx$tribe, type) === generify(tribe, type))
         return toScannable(scan);
     }
   };
