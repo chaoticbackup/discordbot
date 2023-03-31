@@ -1,10 +1,10 @@
 import { FieldsEmbed, IFunctionEmoji } from 'discord-paginationembed';
-import { Attachment, DMChannel, Message, TextChannel } from 'discord.js';
+import { Attachment, Client, DMChannel, Message, TextChannel } from 'discord.js';
 
+import { handleError } from '../../common/debug';
 import { isUser } from '../../common/users';
 import { SendFunction } from '../../definitions';
 import ScanQuestDB, { Player } from '../database';
-
 import { Scannable } from '../scan_type/Scannable';
 
 import createFilter, { Filter } from './typeFilter';
@@ -22,7 +22,9 @@ const formatRow = (scan: scan) => {
   return `${scan.index}) ${scan.details}`;
 };
 
-export default async (db: ScanQuestDB, message: Message, text: string, options: string[], send: SendFunction): Promise<void> => {
+export default async (
+  db: ScanQuestDB, message: Message, text: string, options: string[], send: SendFunction, bot: Client
+): Promise<void> => {
   // If not dm or receive channel
   if (
     !(
@@ -64,7 +66,13 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
   }
 
   const list = player.scans.map((scan, i) => {
-    return ([filterType(scan), i]);
+    try {
+      return ([filterType(scan), i]);
+    }
+    catch (e) {
+      handleError(bot, e);
+      return [undefined, i];
+    }
   }).filter(([s]) => s !== undefined) as Array<[Scannable, number]>;
 
   if (list.length === 0) {
@@ -82,7 +90,7 @@ export default async (db: ScanQuestDB, message: Message, text: string, options: 
   const functionEmojis: IFunctionEmoji<scan> = {
     '⬇️': (_, instance) => {
       instance.array = list.sort(([a], [b]) => a.card.name.localeCompare(b.card.name)).map(toRow);
-    },
+    }
     // '🔎': (user, instance) => {
     //   const msg = `<@!${message.author.id}>, search for cards by name`;
     //   message.channel.send(msg)
