@@ -16,6 +16,7 @@ export default function createFilter(text: string): Filter {
   }
 
   let type = parseType(args[0]);
+
   if (type === 'Attacks') throw new Error("Attacks aren't collectable");
   else if (type === 'Battlegear') {
     return filterBattlegear;
@@ -102,14 +103,18 @@ const tribeFilter = (tribe: CreatureTribe | MugicTribe | 'Mixed'): Filter => {
 
 const tribeCreaturesFilter = (tribe: CreatureTribe): Filter => {
   return (scan: Scanned) => {
-    const card = API.find_cards_by_name(scan.name)[0] as Creature;
-    if (parseTribe(card.gsx$tribe, 'Creatures') === tribe) return toScannable(scan);
+    if (scan.type === 'Creatures') {
+      const card = API.find_cards_ignore_comma(scan.name)[0] as Creature;
+      if (parseTribe(card.gsx$tribe, 'Creatures') === tribe) return toScannable(scan);
+    }
   };
 };
 
 const tribeMugicFilter = (tribe: MugicTribe): Filter => {
   return (scan: Scanned) => {
-    const card = API.find_cards_by_name(scan.name)[0] as Mugic;
-    if (parseTribe(card.gsx$tribe, 'Mugic') === tribe) return toScannable(scan);
+    if (scan.type === 'Mugic') {
+      const card = API.find_cards_ignore_comma(scan.name)[0] as Mugic;
+      if (parseTribe(card.gsx$tribe, 'Mugic') === tribe) return toScannable(scan);
+    }
   };
 };

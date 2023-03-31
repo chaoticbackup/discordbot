@@ -70,7 +70,7 @@ export default async (
       return ([filterType(scan), i]);
     }
     catch (e) {
-      debug(bot, e);
+      debug(bot, e.stack);
       return [undefined, i];
     }
   }).filter(([s]) => s !== undefined) as Array<[Scannable, number]>;
