@@ -2,10 +2,10 @@ import { RichEmbed } from 'discord.js';
 import moment from 'moment';
 
 import { API } from '../../database';
-import { Card, CardType } from '../../definitions';
+import { Card, CardType, Creature } from '../../definitions';
 import ScanQuestDB, { Server, ActiveScan } from '../database';
 import { SpawnBattlegear } from '../scan_type/Battlegear';
-import { SpawnCreature } from '../scan_type/Creature';
+import { ScannableCreature, SpawnCreature } from '../scan_type/Creature';
 import { SpawnLocation } from '../scan_type/Location';
 import { SpawnMugic } from '../scan_type/Mugic';
 import { Scannable } from '../scan_type/Scannable';
@@ -130,8 +130,13 @@ export default class Select {
     }
     // 60%
     else {
-      const rarities = this.filterRarities('Creatures', amount);
-      [scannable, image] = this.scan_creature.generate(activescans, rarities);
+      // const rarities = this.filterRarities('Creatures', amount);
+      // [scannable, image] = this.scan_creature.generate(activescans, rarities);
+      const creature = API.find_card_name('Yokkis')[2] as Creature;
+      image = new RichEmbed()
+        .setImage(API.cardAvatar(creature))
+        .setURL(API.cardAvatar(creature));
+      scannable = new ScannableCreature(creature);
     }
 
     return [scannable, image];
