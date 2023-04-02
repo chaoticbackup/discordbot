@@ -130,13 +130,8 @@ export default class Select {
     }
     // 60%
     else {
-      // const rarities = this.filterRarities('Creatures', amount);
-      // [scannable, image] = this.scan_creature.generate(activescans, rarities);
-      const creature = API.find_card_name('Yokkis')[2] as Creature;
-      image = new RichEmbed()
-        .setImage(API.cardAvatar(creature))
-        .setURL(API.cardAvatar(creature));
-      scannable = new ScannableCreature(creature);
+      const rarities = this.filterRarities('Creatures', amount);
+      [scannable, image] = this.scan_creature.generate(activescans, rarities);
     }
 
     return [scannable, image];
