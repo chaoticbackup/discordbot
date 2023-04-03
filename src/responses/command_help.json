@@ -230,6 +230,14 @@
         "cmd": "!forum ['decks']",
         "details": "Sends a link to the forum, or specifically the deck building subforum"
     },
+    "pack": {
+        "cmd": "!pack simulator",
+        "alias": "packsimulator"
+    },
+    "": {
+        "cmd": "!packsimulator",
+        "details": "Sends a link to the pack simulator"
+    },
     "menu": {
         "details": "What's on the menu in the Port Court? Let's find out!"
     },

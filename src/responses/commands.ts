@@ -430,6 +430,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       }
       return send('https://chaoticbackup.forumotion.com/');
 
+    case 'pack': {
+      if (args.length <= 1 && args[1] !== 'simulator') return;
+    } // fallthrough
+    case 'packsimulator':
+      return send('https://chaoticbackup.github.io/EnterTheCode/PackSimulator/');
+
     /* Cooking */
     case 'menu':
       return send(menu());
