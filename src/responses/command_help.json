@@ -110,6 +110,7 @@
     },
     "guide": {
         "cmd": "!guide",
+        "list": "A player made guide that contains a full glossary definition",
         "details": "It's a player made guide that provides a more thorough explaination of the basic rules"
     },
     "starters": {
