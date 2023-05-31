@@ -146,7 +146,7 @@
 			"Its splashable inclusion in Mixed decks allows an easy way to surpress opponents playstyle with limited cost to their own deck."
 		],
 		"Elemental Elegy": [
-			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. Against non-elemental Creatures, it becomes a \"Song of Stasis\" to stall the attack of a Creature. Because of its dual nature, it provides too much advantage.",
+			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. The decision to remove Element hate from a tribe which already has a lot of flexibility in deck building was made to reduce the power of Danians abd reduce prominence of Element hate in meta.",
 			"Danians plagiarized both the OverWorld and UnderWorld."
 		],
 		"Em'swa": [
@@ -175,6 +175,9 @@
 			"She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage and completely counters burn archtypes.",
 			"Foxy Waifu"
 		],
+		"Ice Disks": [
+			"Decks have been this and Whirling Wail to limit opponent's ability to interact. By limiting this attack, decks should have more opportunity to utalize their resoures"
+		],
 		"Ikkatosh, The Aich King": [
 			"His ability gives significant advantage to cards that were already designed strong to offset their lack of elements. Cards like Aivenna and Anarkiar surpass other fighters with the extraordinary energy and Outperform.",
 			"Is a tree"
@@ -194,7 +197,7 @@
 			"It's been the best 0bp in the game by alot for quite a while, the ability to move counters off of creatures who can make them (popularly fluidmorphers) onto creatures who can use them for ability was always potent but so was messing with your opponents ability to play mugic or activated abilities by moving there counters around in annoying ways, all while not having to commit to untill the attack resolves. Frankly the effect is stronger than alot of 1bp attacks often."
 		],
 		"Interlude of Interruption": [
-			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often splashed into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
+			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often included into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
 			"Pay the toll"
 		],
 		"Lanker": [
@@ -262,7 +265,7 @@
 			"The M'arrillians learned a better use for dead creatures than revival like the UnderWorlders."
 		],
 		"Prexxor Chasm": [
-			" It's very punishing to players whose support are less capable of fighting it gets around any counterplay such as defender or location hate and an important factor it allows the person using it to have 2 combats on their turn."
+			"It's very punishing to players whose support are less capable of fighting it gets around any counterplay such as defender or location hate and an important factor it allows the person using it to have 2 combats on their turn."
 		],
 		"Prexxor Chasm, The Blight": [
 			"The Blight is a card that provides a huge swing to a game. Burn (especially UnderWorld) presents a huge threat to decks, and running cards that heal/gain energy (most commonly Carnivore's Keening) are essential in that matchup. Additionally, its mirage effect is effectively 20 damage for the next turn. An early game (first or second turn) Prexxor Chasm invalidates protections against UnderWorld Burn and turns an otherwise advantaged deck into a loss through removing critical support creatures or fighters.",
@@ -283,6 +286,9 @@
 		],
 		"Refrain of Denial": [
 			"To shift the meta but giving a wider range of decks access to negation, Refrain of Denial would be switched with Interlude of Interruptions. Having both at the same time could be overbearing."
+		],
+		"Rhyme of the Reckless": [
+			"Changing up the way the OverWorld does thing again by taking away their big damage mugic. Plus it may let us see some less common OverWorld mugic see play."
 		],
 		"Skeletal Springs": [
 			"This location not only prevents Fluidmorphing, but it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a Water deck. So a boost for the player and a potential game breaker for the opponent."
@@ -334,7 +340,7 @@
 			"Go on, take a swig of the vial."
 		],
 		"Whirling Wail": [
-			"We have a history of banning cards that prevent you from using mugic or abilities especially one sided ones and this is no exception, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage.",
+			"We have a history of banning cards that prevent you from using Mugic or abilities especially one sided ones, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage.",
 			"The dinosaurs had it too good for too long."
 		],
 		"Xerium Armor": [
