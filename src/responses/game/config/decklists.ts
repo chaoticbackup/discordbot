@@ -43,13 +43,13 @@ export const sortedlist = {
   toplist: [
     "Aszil Compost",
     "Blazvatan Warbeast",
-    "Kolmpost",
     "PoP",
     "Rawr",
     "Strike",
     "Stelphor (Kraken)",
     "UnderWorld Burn",
     "Ursis Dagger",
+    "Ursis D Muge",
     "Wise Guys"
   ],
   S: [],
@@ -59,6 +59,7 @@ export const sortedlist = {
     "Aa'une Tarterek",
     "Compost Malvone",
     "Erak'tabb Tartarek",
+    "Kolmpost",
     "Fliandar",
     "Gan'trak Bladez",
     "Healdrom",
@@ -66,10 +67,10 @@ export const sortedlist = {
     "Nimmei",
     "OverWorld Elemental",
     "OverWorld Muges",
+    "Savitsa Mash",
     "Tartareklessness",
     "Trampling Mammoth",
-    "Tree Frogs",
-    "Ursis D Muge"
+    "Tree Frogs"
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
@@ -424,6 +425,13 @@ const _decklist: { [key in deck_names[number]]: Deck } = {
     tags: ["Warbeast"],
     type: ["Control"],
     creatures: ["Enre-hep", "Ailav", "Ranun", "Ixxik", "Xelfe", "Smildon", "Yterio"]
+  },
+  "Savitsa Mash": {
+    url: "https://chaoticbackup.forumotion.com/t1691-savitsa-mash",
+    tribe: "Mixed",
+    tags: ["Melody of the Meek"],
+    type: ["Midrange"],
+    creatures: ["Lanker", "Ikkatosh, the Aich King", "Garv", "Savitsa", "Najarin"]
   },
   "Sis Ops": {
     url: "https://chaoticbackup.forumotion.com/t1667-multi-tribe-mash-up",
