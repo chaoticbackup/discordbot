@@ -97,7 +97,7 @@ export default class Select {
     let active = 0;
 
     if (rarity > 0 && type > 0) {
-      active = 12 * (type + rarity);
+      active = 14 * (type + rarity);
       next = Math.max(4, (9 - rarity * 2));
     }
 
