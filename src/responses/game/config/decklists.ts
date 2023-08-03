@@ -74,6 +74,7 @@ export const sortedlist = {
   ],
   // Place any unranked decks here for the purpose of linting
   _: [
+    "Agrino Jaldar",
     "Arrthoa Loyal",
     "Aszil Courage",
     "Brathe Yourself",
@@ -131,6 +132,13 @@ const _decklist: { [key in deck_names[number]]: Deck } = {
     tags: ["Earth", "Courage"],
     type: ["Control", "Combo"],
     creatures: ["Aszil, the Young Queen", "Kolmo, Assimilated", "Illexia, The Danian Queen", "Odu-Bathax, Reservoir Reclaimer", "Tassanil, High Elementalist", "Lore"]
+  },
+  "Agrino Jaldar": {
+    url: "https://chaoticbackup.forumotion.com/t1736-agrino-jaldar",
+    tribe: "M'arrillian",
+    tags: ["Infection"],
+    type: ["Aggro-Control"],
+    creatures: ["Agrino Jaldar", "Blaxxa", "Ghar'lag", "Ritzu'dag", "Tabaal"]
   },
   "Arrthoa Loyal": {
     url: "https://chaoticbackup.forumotion.com/t1616-arrthoa-loyal#15193",
