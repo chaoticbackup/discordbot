@@ -151,6 +151,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return parseCards(args, options);
       case 'image':
         return parseCards(args, ['image']);
+      case 'cutout':
+      case 'avatar':
+        return send(avatar(flatten(args)));
       case 'full':
       case 'fullart':
         return send(full_art(flatten(args), options));
