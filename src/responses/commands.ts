@@ -118,7 +118,7 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 const command_response = async (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> => {
   const { content } = message;
 
-  const { cmd, args, options } = parseCommand(content);
+  const { cmd, args, options, language } = parseCommand(content);
 
   if (options.includes('help'))
     return send(help_command(cmd));
@@ -168,7 +168,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         if (args.length < 1) {
           return send('Please provide a rule, or use **!rulebook** or **!guide**');
         } else {
-          return send(glossary(flatten(args)));
+          return send(glossary(flatten(args), language));
         }
       case 'rulebook':
         return send(rulebook(args, options));
@@ -303,7 +303,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length < 1) {
         return send('Please provide a rule, or use **!rulebook** or **!guide**');
       } else {
-        return send(glossary(flatten(args)));
+        return send(glossary(flatten(args), language));
       }
 
     /* Documents */
