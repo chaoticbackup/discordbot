@@ -228,9 +228,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     }
   };
 
-  const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null) => {
+  const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null, role?: string) => {
     let ch: Channel = channel;
-    if (!can_send(ch, guild, guildMember, msg)) {
+    if (!can_send({ channel, guild, guildMember, msg, role })) {
       content.unshift(`<@!${message.author.id}>`);
       ch = bot.channels.get(servers('main').channel('bot_commands')) as Channel;
     }
@@ -337,7 +337,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null;
-      return sendBotCommands([rsp], msg);
+      return sendBotCommands([rsp], msg, 'Moderator');
     }
 
     case 'formats':

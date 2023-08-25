@@ -101,7 +101,7 @@ export function whyban(
         return `${cardName} isn't banned`;
       }
 
-      if (!(can_send(channel, guild, guildMember))) return;
+      if (!can_send({ channel, guild, guildMember })) return;
 
       if (Object.keys(detailed).includes(cardName)) {
         return `*${cardName}*:\n${detailed[cardName]}`;
@@ -122,7 +122,7 @@ export function whyban(
         }
       }
       else {
-        if (!can_send(channel, guild, guildMember)) return;
+        if (!can_send({ channel, guild, guildMember })) return;
 
         return `*${cardName}*:\n${reasons[cardName][0]}`;
       }
