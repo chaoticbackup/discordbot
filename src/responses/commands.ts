@@ -36,6 +36,7 @@ import { brainwash, tribe } from './joinable/tribes';
 import gone from './misc/gone';
 import { compliment, insult } from './misc/insult_compliment';
 import joke from './misc/joke';
+import mentor_list from './misc/mentor';
 import { make, menu, order } from './misc/menu';
 import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
@@ -481,6 +482,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'colour':
     case 'color':
       return color(args, guild, guildMember, send);
+
+    case 'mentor':
+    case 'mentors':
+      if (is_channel(message, 'learn_to_play'))
+        mentor_list(message).then(send);
+      return;
 
     /* Now or Never */
     case 'never':

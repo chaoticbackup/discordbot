@@ -302,6 +302,13 @@
         "cmd": "!color 'set|remove' <color>",
         "details": "In servers with color roles, I can be used to set colors"
     },
+    "mentor": {
+        "alias": "mentors"
+    },
+    "mentors": {
+        "cmd": "!mentors",
+        "details": "Pings currently online mentors for help"
+    },
     "never": {
         "cmd": "!never <card>",
         "details": "Shows a Chaotic: Now or Never card, or a random one if none specified. Note: I don't have all of the cards."
