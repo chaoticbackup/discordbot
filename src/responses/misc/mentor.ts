@@ -3,7 +3,7 @@ import { Message, Role } from 'discord.js';
 const mentor_list = async (message: Message) => {
   if (!message.guild) return;
 
-  const { guild, member: { nickname } } = message;
+  const { guild, member: { user, nickname } } = message;
 
   const role: Role = guild.roles.find(role => role.name === 'mentor');
 
@@ -16,7 +16,7 @@ const mentor_list = async (message: Message) => {
 
   return (list === '') ?
     'No mentors are online' :
-    `${list}\n${nickname} is looking for help`;
+    `${list}\n${nickname ?? user.username} is looking for help`;
 };
 
 export default mentor_list;
