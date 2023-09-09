@@ -21,6 +21,7 @@
 		"Dror'niq",
 		"Elemental Elegy",
 		"Enre-hep, High Muge of the Desert",
+		"Garv",
 		"Hune Paltanin",
 		"Illusionary Lake",
 		"Imaginary Walls",
@@ -28,17 +29,18 @@
 		"Lord Van Bloot, Servant of Aa'une",
 		"Lore, Ancestral Caller",
 		"Lore, High Muge of the Hive",
+		"Lore's Chamber of Recall",
 		"Mipedim Mirage",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
 		"Numin Voidland",
+		"Phlogiston",
 		"Prexxor Chasm",
 		"Prexxor Chasm, the Blight",
 		"Primal Smash",
 		"Psionic Serenade",
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'pa Sahkk, Condensation Ceremony",
-		"Rhyme of the Reckless",
 		"Supercooled Rain",
 		"Ulmquad",
 		"Vial of Liquid Thought",
@@ -48,7 +50,6 @@
 		"Ice Disks",
 		"Makanaz",
 		"Melody of the Meek",
-		"Na-inna",
 		"Talisman of the Mandiblor",
 		"Twister of Elements",
 		"Whirling Wail"
@@ -156,6 +157,9 @@
 			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most oppressive combos are: Tonal Destruction, Unheard Melody, Consuming Cacophony, Song of Resistance (which can stall a game for hours), and finally a broken combo involves Strain of Infection and Ode to Obscurity to create a loop to generate infinite counters.",
 			"Some reasearch is better left buried in the sand."
 		],
+		"Garv": [
+			"Garv is a card that is both powerful and popular. Its flexibility in disable opponents battlegear or revealing your own battlegear generates a lot of value. Specifically used in Uris Burn to disable opponent's anti-burn battlegear and to flip up unengaged creature's burn."
+		],
 		"Ginar'rash, The Extinguisher": [
 			"Similarly to Illusionary Lake, this card can create an inability to have and gain Fire. As long as you play consistent water attacks, your opponent will not be able to play fire attacks."
 		],
@@ -259,6 +263,9 @@
 		"Numin Voidland": [
 			"Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their attack damage.",
 			"Your attacks, just like your chances at winning, are now **void**."
+		],
+		"Phlogiston": [
+			"Burn is divisive, while both being heavily played and hated. Banning Phlogiston should help reduce some of the overbearing variance without gutting existing burn decks."
 		],
 		"Psionic Serenade": [
 			"This card makes use of an already defeated resource to swing the tempo of a match. High energy minions are already present throughout the meta, giving their decks another tool can make them too strong. Dealing usually 55-65 damage, this all but guarentines a combat win.",
