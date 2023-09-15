@@ -9,6 +9,7 @@ const bannedCards = [
   "Lord van Bloot, Servant of Aa'une",
   'Imaginary Walls',
   'Mipedim Mirage',
+  'Garv',
   'Bi-Mowercycle',
   'Vial of Liquid Thought',
   'Elemental Elegy',
@@ -22,7 +23,7 @@ const bannedCards = [
   'Aerdak',
   'All of the element hate',
   'Every FTK',
-  'Rhyme of the Reckless',
+  'The Phlogiston',
   'Inner Flood',
   "Ulmquad",
   'Enre-hep, High Muge of the Desert'
