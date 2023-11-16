@@ -7,7 +7,7 @@ import missing from './config/recode_missing.json';
 export function missing_cards() {
   const output = new RichEmbed()
   .setDescription(
-    '[List of cards not currently in Chaotic Recode:](https://docs.google.com/document/d/1gIuc_q3H4fg0-X2Y2hrQBo_YJcTmtV6kYoDJP1gq_qE)'
+    '[List of cards not currently in Chaotic Recode:](https://docs.google.com/document/d/1S6uUguWyn6zjtz-Ai_iWugzzEA_MaCWZUbFYw3yCGCM)'
   );
 
   for (const type in missing) {
