@@ -11,6 +11,7 @@
 	},
 	"standard": [
 		"Aer'dak",
+		"Arkanin",
 		"AZAIA Mindscrying Chamber",
 		"Bi-Mowercycle",
 		"Bodal, Flamedrill Researcher",
@@ -21,7 +22,6 @@
 		"Dror'niq",
 		"Elemental Elegy",
 		"Enre-hep, High Muge of the Desert",
-		"Garv",
 		"Hune Paltanin",
 		"Illusionary Lake",
 		"Imaginary Walls",
@@ -30,6 +30,7 @@
 		"Lore, Ancestral Caller",
 		"Lore, High Muge of the Hive",
 		"Lore's Chamber of Recall",
+		"Mind Mash",
 		"Mipedim Mirage",
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
@@ -42,6 +43,7 @@
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'pa Sahkk, Condensation Ceremony",
 		"Supercooled Rain",
+		"Talisman of the Mandiblor",
 		"Ulmquad",
 		"Vial of Liquid Thought",
 		"Zamool, Lord Van Bloot's Enforcer"
@@ -50,8 +52,9 @@
 		"Ice Disks",
 		"Makanaz",
 		"Melody of the Meek",
-		"Talisman of the Mandiblor",
 		"Twister of Elements",
+		"Ursis",
+		"Warbeast Power Leash",
 		"Whirling Wail"
 	],
 	"pauper": [
@@ -102,6 +105,9 @@
 		"Aer'dak": [
 			"It's very easy with effects like Xelfe and Bi-Mowercycle to give 4-6 of your opponent's creatures range. Letting you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants can win before the first combat.",
 			"She can one shot a deck, but still uses a spear"
+		],
+		"Arkanin": [
+			"This deck has been pretty dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done. I'm aware the Arkanin ban might be unnecessary with one Ursis but I'm playing it safe on this one"
 		],
 		"Aszil, The Young Queen": [
 			"She consistently gives her tribe earth. Removing the deck building restrictions of synergizing elements on creatures, without the downside of gear that grants elements or playing Mugic or abilities to give Earth. In addition, by having Hive active, your Mandiblors have Outperform Courage 5. She's purely value with no reason not to include her in an earth/courage deck. Other creatures that give resources have a cost."
@@ -341,6 +347,10 @@
 		"Unheard Melody": [
 			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with na-inna around so this mugic is being benched."
 		],
+		"Ursis": [
+			"Ursis + Arkanin has been dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done, I'm hoping just one Ursis will let fans of him still use him in combo with the dudes if they want.",
+			"Stop cheating, Crellan"
+		],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
 			"Did you like that one hit Slash Claw? Want to see it again?",
@@ -409,9 +419,6 @@
 		],
 		"Strike of the Meek": [
 			"I'm actually surprised you looked this up."
-		],
-		"Ursis": [
-			"Stop cheating, Crellan"
 		]
 	},
 	"detailed": {
