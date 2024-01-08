@@ -24,7 +24,7 @@ export function missing_cards() {
 const { Attacks, Battlegear, Creatures, Locations, Mugic } = missing;
 const cards = ([] as string[]).concat(Attacks, Battlegear, Creatures, Locations, Mugic);
 
-const mined = ['Kobarri, (Datamined DS)', 'Nexdoors, (Datamined)', 'Song of Transportation, (Datamined)', 'Swarm Song, (Datamined)', 'Tarteme, (Datamined DS)', 'Mondo Rondo'];
+const mined = ['Mondo Rondo'];
 
 export function isMissing(name: string) {
   const results = API.find_cards_ignore_comma(name);
