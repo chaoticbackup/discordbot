@@ -18,7 +18,7 @@ const link_regex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-
 const number_regex = /(?<=( |^))(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-‑]?\d{3}[\s.-‑]?\d{4}/gm;
 
 const notifyStaff = async (bot: Client, message: Message, msg?: string) => {
-  const channel = bot.channels.get(servers('main').channel('staff')) as TextChannel;
+  const channel = bot.channels.get(servers('main').channel('admin')) as TextChannel;
   const content = (msg ?? message.content.replaceAll(/@(here|everyone)/g, '$1').replaceAll(link_regex, '<$&>'));
   await channel.send(`Kicked suspected spam: ${message.member.displayName}\nContent: ||${content}||`);
 };
