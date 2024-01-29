@@ -2,7 +2,6 @@
     "Attacks": [
         "Acid Wash",
         "Faster than the Wind",
-        "Granite Balls",
         "Infight",
         "Malevolent Blast",
         "Pillar Quake",
@@ -11,12 +10,10 @@
         "Terraport"
     ], 
     "Battlegear": [
-        "Aerodrone",
         "Ankh of Kehn-Sep",
         "Colstone",
         "Crown of Aa'une",
         "Hunter's Lure",
-        "Hyperhover",
         "Ice Cloak",
         "Ikkatosh's Aichstick",
         "Kha'rall Shard of Chance",
@@ -56,14 +53,11 @@
         "Korg",
         "Krekk, Phalanx Recon",
         "Lore, High Muge of the Hive",
-        "Mommark, Clonemaster",
         "Nauthilax, Tainted",
         "Necrabe",
         "Neffa",
-        "Nimmei, Expedition Overseer",
         "Nis'dabba",
         "Nukasai",
-        "Orbaat",
         "Ozlai, Chaor's Pilot",
         "Rarran, Tainted",
         "Ri'oha",
@@ -91,7 +85,6 @@
         "Ijahni Outpost",
         "Imaginary Walls",
         "Indigo Grove",
-        "Iparu Jungle",
         "Lake Blakeer",
         "Najarin's Castle",
         "Oipont's Lookout",
@@ -104,7 +97,6 @@
         "Sha-Kree Flats",
         "The Barracks",
         "The Heart of the Jungle",
-        "Ulmar's Projection Cavern",
         "Van Bloot's Banquet"
     ], 
     "Mugic": [
@@ -120,7 +112,6 @@
         "Hive Destruction",
         "Hymn of Teleportation",
         "Illusion Glissando",
-        "Intress' Healing Ballad",
         "Kopond's Composition",
         "Melody of Mirrored Actions",
         "Mondo Rondo",
@@ -132,7 +123,6 @@
         "Song of Stable Shields",
         "Swartbron Battlesong",
         "Switch Riff",
-        "Symphonic Pelagic Maresong",
-        "Ulmar's Activating Arpeggio"
+        "Symphonic Pelagic Maresong"
     ]
 }
