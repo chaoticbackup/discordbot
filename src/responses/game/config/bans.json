@@ -172,6 +172,9 @@
 		"Headmaster Ankhyja, Seeker of the Art": [
 			"Prevents opponent's interaction with your creatures leading to less strategic games. Stunts decks that rely on targeting opponents."
 		],
+		"Hiadrom": [
+			"Hiadrom in Aszil Compost has been an extremely strong deck for a long time, so this change is meant to weaken that deck. Irrabeq as good replacement should keep the deck playable."
+		],
 		"Hive Amber": [
 			"See Hive Unsung"
 		],
@@ -216,6 +219,9 @@
 			"Bowser steals your stars, Lord van Bloot steals your elements.",
 			"Its okay, you think, your opponent queued up with a discipline based deck.",
 			"His sickle is just compensating"
+		],
+		"Lore": [
+			"Mixed burn decks continued to dominate the meta. Removing the incremental damage available at any time reduces the risk of dying when a creature is too low in health and cannot respond to many additional instances of burn chained on the burst."
 		],
 		"Lore, Ancestral Caller": [
 			"Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore. Unlike other cards that remvoe Creatures from the discard, Lore's ability to gain Mugic counters furthers the disparity in matchups. And unlike Kileron, Lore's ability only applies to the opponent. Additionaly, since Lore has an activated ability on which to spend these counters, has the energy and disciplines of a fighter, and has subtype Muge, the combination of factors pushes him into the overbearing territory and makes Danian burn too powerful.",
@@ -345,7 +351,7 @@
 			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with na-inna around so this mugic is being benched."
 		],
 		"Ursis": [
-			"Ursis + Arkanin has been dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done, I'm hoping just one Ursis will let fans of him still use him in combo with the dudes if they want.",
+			"Ursis + Burn has been dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done, I'm hoping just one Ursis will let fans of him still use him in combo with the dudes if they want.",
 			"Stop cheating, Crellan"
 		],
 		"Vial of Liquid Thought": [
@@ -354,7 +360,7 @@
 			"Go on, take a swig of the vial."
 		],
 		"Whirling Wail": [
-			"We have a history of banning cards that prevent you from using Mugic or abilities especially one sided ones, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage.",
+			"We have a history of banning cards that prevent you from using Mugic or abilities especially one sided ones, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage. Additionally, this used in burn decks would prevent many of the typical interactions that could counterplay burn.",
 			"The dinosaurs had it too good for too long."
 		],
 		"Xerium Armor": [
