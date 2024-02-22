@@ -35,6 +35,7 @@
 		"Najarin, Fluidmorphers' Foe",
 		"Neekwin",
 		"Numin Voidland",
+		"Phelphor, Of the Deep",
 		"Prexxor Chasm",
 		"Prexxor Chasm, The Blight",
 		"Primal Smash",
@@ -49,10 +50,10 @@
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"unique": [
+		"Dror'niq",
 		"Melody of the Meek",
 		"Twister of Elements",
-		"Ulmar, Perithon Racer",
-		"Warbeast Power Leash"
+		"Ulmar, Perithon Racer"
 	],
 	"pauper": [
 		"Dror'niq",
@@ -272,6 +273,9 @@
 		"Numin Voidland": [
 			"Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their attack damage.",
 			"Your attacks, just like your chances at winning, are now **void**."
+		],
+		"Phelphor, Of the Deep": [
+			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup."
 		],
 		"Phlogiston": [
 			"Burn is divisive, while both being heavily played and hated. Banning Phlogiston should help reduce some of the overbearing variance without gutting existing burn decks."
