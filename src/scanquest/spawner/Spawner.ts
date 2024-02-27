@@ -87,11 +87,11 @@ export default class Spawner {
     handleError(this.bot, e, source);
   }
 
-  public clearTimeout(server: WithId<Server>) {
+  public clearTimeout(server: WithId<Server>, forced = true) {
     if (this.timers.has(server.id)) {
       clearTimeout(this.timers.get(server.id)!.timeout);
-    } else {
-      debug(this.bot, `Could not clear timer for <#${server.send_channel}>`);
+    } else if (forced) {
+      debug(this.bot, `Server did not have timer for <#${server.send_channel}>`);
     }
   }
 
@@ -100,6 +100,7 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
+    this.clearTimeout(server, false);
     debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
     const timeout = setTimeout(() => {
@@ -191,7 +192,7 @@ export default class Spawner {
         return;
       }
 
-      if (clear) this.clearTimeout(server);
+      this.clearTimeout(server, clear);
 
       if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
         if (moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety) {
