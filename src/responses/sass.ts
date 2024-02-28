@@ -10,7 +10,6 @@ import { SendFunction } from '../definitions';
 import { display_card } from './card';
 import { compliment, insult } from './misc/insult_compliment';
 
-import { isMissing } from './misc/missing_cards';
 import { quips, hello, jingles, user, hbu } from './sass_options';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
@@ -32,8 +31,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // Fast way to check if card been added to recode
   const missing_regex = /is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/i;
   if (missing_regex.test(content)) {
-    const name = missing_regex.exec(content)!;
-    return await send(isMissing(name[1]));
+    return await send('Is the card `disabled` on recode? Then its missing');
   }
 
   // Special case for Quebec people trying to sell

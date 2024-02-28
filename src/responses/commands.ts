@@ -38,7 +38,6 @@ import { compliment, insult } from './misc/insult_compliment';
 import joke from './misc/joke';
 import mentor_list from './misc/mentor';
 import { make, menu, order } from './misc/menu';
-import { missing_cards } from './misc/missing_cards';
 import nowornever from './misc/nowornever';
 import prediction from './misc/prediction';
 import generate_sealed_pool from './misc/sealed_simulator';
@@ -424,7 +423,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send('https://www.youtube.com/watch?v=Djxp6OVbHmI');
       }
       if (args.length > 0 && args[0] === 'missing') {
-        return sendBotCommands([missing_cards()]);
+        return sendBotCommands(['Cards marked as `disabled` are not programmed on recode.']);
       }
       return send('https://chaoticrecode.com/');
 
