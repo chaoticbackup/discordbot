@@ -17,7 +17,7 @@ import { avatar, display_card, display_token, find_card, full_art } from './card
 
 import commands from './command_help.json';
 
-import { banlist, formats, whyban } from './game/bans';
+import { banlist, banlist_update, formats, whyban } from './game/bans';
 import { decklist, tier, tierlist, curated } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
@@ -331,9 +331,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Banlist and Formats */
     case 'banlist': {
-      const rsp = (options.length === 0 && args.length > 0)
-        ? banlist(message, [flatten(args)])
-        : banlist(message, options);
+      let rsp: string;
+      if (args.length > 0 && args[0].toLowerCase() === 'update') {
+        rsp = banlist_update(message);
+      } else {
+        rsp = (options.length === 0 && args.length > 0)
+          ? banlist(message, [flatten(args)])
+          : banlist(message, options);
+      }
       const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null;

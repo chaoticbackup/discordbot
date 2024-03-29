@@ -19,6 +19,16 @@ function f() {
 
 export { f as formats };
 
+export function banlist_update(message: Message) {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+  const date = message.createdAt.toLocaleDateString('en-US', options);
+  let response = `**Standard (${date})**\n==**Banned Cards**==`;
+  response += (ban_lists.standard).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += '\n==**Unique Cards**==';
+  response += (ban_lists.unique).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  return response;
+}
+
 export function banlist(message: Message, options: string[] = []) {
   let response = '';
 

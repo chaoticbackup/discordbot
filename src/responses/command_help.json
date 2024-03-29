@@ -126,9 +126,10 @@
         "details": "Shows a list of the community formats and their definitions"
     },
     "banlist": {
-        "cmd": "!banlist\n!ban, !whyban <card-name>",
+        "cmd": "!banlist <format|>\n!ban, !whyban <card-name>",
         "list":"You can use `!format` for the list of formats", 
-        "details": "Ask me about the banlist or why a card is or could be banned `!whyban <card>`.\nThere are different `!formats` with their own banlists."
+        "details": "Ask me about the banlist or why a card is or could be banned `!whyban <card>`.\nThere are different `!formats` with their own banlists.",
+        "mod": "!banlist update\nSends a formatted message for the banlist update channel"
     },
     "standard": {
         "details": "Use `!banlist standard`"
