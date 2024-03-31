@@ -30,11 +30,12 @@
 		"Lore, Ancestral Caller",
 		"Lore, High Muge of the Hive",
 		"Lore's Chamber of Recall",
+		"Melody of the Meek",
 		"Mind Mash",
 		"Mipedim Mirage",
 		"Najarin, Fluidmorphers' Foe",
-		"Neekwin",
 		"Numin Voidland",
+		"Ode to Obscurity",
 		"Phelphor, Of the Deep",
 		"Prexxor Chasm",
 		"Prexxor Chasm, The Blight",
@@ -51,7 +52,7 @@
 	],
 	"unique": [
 		"Dror'niq",
-		"Melody of the Meek",
+		"Neekwin",
 		"Twister of Elements",
 		"Ulmar, Perithon Racer"
 	],
@@ -273,6 +274,9 @@
 		"Numin Voidland": [
 			"Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their attack damage.",
 			"Your attacks, just like your chances at winning, are now **void**."
+		],
+		"Ode to Obscurity": [
+			"Combined with Fliander, Danian Carapace, and a Fluidmorpher to cast Ode to Obscurity at a higher cost, this Mugic enabled Fliander to heal 100s of energy. Especially when paired with Carnivore's Keening which causes Fliander to self infect from Recklessness."
 		],
 		"Phelphor, Of the Deep": [
 			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup."
