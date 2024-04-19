@@ -114,9 +114,8 @@
         "details": "It's a player made guide that provides a more thorough explaination of the basic rules"
     },
     "starters": {
-        "cmd":"!starters", 
-        "list": "Player made starter decks", 
-        "details": "I'll provide a list of starter decks. Default are Metal's old recode starter decks, but you can add ``--king`` or ``--ivan`` for different ones."
+        "cmd":"!starters",
+        "details": "Links to the forum's starter deck contents post"
     },
     "starter": {
         "alias": "starters"

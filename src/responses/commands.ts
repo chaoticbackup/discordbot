@@ -23,7 +23,6 @@ import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { goodstuff } from './game/goodstuff';
 import rulebook from './game/rulebook';
-import starters from './game/starters';
 
 import { all_commands, help_command, help_list } from './help';
 
@@ -327,7 +326,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     /* Starters */
     case 'starter':
     case 'starters':
-      return send(starters(message, options));
+      return send('<https://chaoticbackup.forumotion.com/t1458-starter-deck-list-exclusives-promos-and-pack-contents>');
 
     /* Banlist and Formats */
     case 'banlist': {
