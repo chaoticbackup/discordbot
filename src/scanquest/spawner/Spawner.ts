@@ -87,11 +87,9 @@ export default class Spawner {
     handleError(this.bot, e, source);
   }
 
-  public clearTimeout(server: WithId<Server>, forced = true) {
+  public clearTimeout(server: WithId<Server>) {
     if (this.timers.has(server.id)) {
       clearTimeout(this.timers.get(server.id)!.timeout);
-    } else if (forced) {
-      debug(this.bot, `Server did not have timer for <#${server.send_channel}>`);
     }
   }
 
@@ -100,7 +98,7 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
-    this.clearTimeout(server, false);
+    this.clearTimeout(server);
     debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
     const timeout = setTimeout(() => {
@@ -123,7 +121,7 @@ export default class Spawner {
       }
       else {
         debug(this.bot, `When starting scanquest for <#${server.send_channel}>, existing spawn timer had already expired`);
-        this.newSpawn(server.id, { clear: false });
+        this.newSpawn(server.id);
       }
     }
   }
@@ -175,7 +173,7 @@ export default class Spawner {
   }
 
   // Don't pass server!!, since this can be in a timeout, server instance might be stale on call
-  protected newSpawn(id: Snowflake, options: { force?: boolean, clear?: boolean } = {}) {
+  protected newSpawn(id: Snowflake, options: { force?: boolean } = {}) {
     this.db.servers.findOne({ id })
     .then(async (server) => {
       if (!server) {
@@ -184,7 +182,7 @@ export default class Spawner {
         return;
       }
 
-      const { force = false, clear = false } = options;
+      const { force = false } = options;
       const { activescan_ids, send_channel, disabled } = server;
 
       if (disabled) {
@@ -192,9 +190,10 @@ export default class Spawner {
         return;
       }
 
-      this.clearTimeout(server, clear);
+      this.clearTimeout(server);
 
       if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
+        debug(this.bot, `<#${send_channel}>: Last generated a scan at ${formatTimestamp(this.last_sent.get(id)!)}`);
         if (moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety) {
           debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
           this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
@@ -224,7 +223,6 @@ export default class Spawner {
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       await this.cleanOldScans(server);
       const endTime = await this.spawnCard(server, selection);
-      this.setSendTimeout(server, endTime);
       await this.db.servers.updateOne(
         { id },
         {
@@ -234,6 +232,7 @@ export default class Spawner {
           }
         }
       );
+      this.setSendTimeout(server, endTime);
     })
     .catch((e) => {
       this.handleError(e, id);

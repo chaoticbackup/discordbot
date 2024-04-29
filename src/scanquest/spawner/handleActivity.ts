@@ -37,10 +37,10 @@ export default function handleActivity(this: Spawner) {
       if (remaining <= config.debounce) {
         db_msg += '\nRemaining time insufficiant, generating now...';
         debug(this.bot, db_msg);
-        this.newSpawn(id, { clear: false });
+        this.newSpawn(id);
       }
       else {
-        db_msg += `${remaining / 1000} seconds remaining.`;
+        db_msg += ` ${remaining / 1000} seconds remaining.`;
         debug(this.bot, db_msg);
         this.setSendTimeout(server, endTime);
         await this.db.servers.updateOne(
