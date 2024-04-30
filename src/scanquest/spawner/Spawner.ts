@@ -56,7 +56,7 @@ export default class Spawner {
     for (const [id, timer] of this.timers) {
       const { endTime, timeout } = timer;
 
-      clearTimeout(timeout);
+      global.clearTimeout(timeout);
 
       const amount = (this.debouncer.get(id)?.amount ?? 0);
       endTime.subtract(amount, 'milliseconds');
@@ -89,7 +89,7 @@ export default class Spawner {
 
   public clearTimeout(server: WithId<Server>) {
     if (this.timers.has(server.id)) {
-      clearTimeout(this.timers.get(server.id)!.timeout);
+      global.clearTimeout(this.timers.get(server.id)!.timeout);
     }
   }
 
@@ -98,6 +98,7 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
+    debug(this.bot, `Existing end time: ${this.timers.get(server.id)?.endTime && formatTimestamp(this.timers.get(server.id)!.endTime)}`);
     this.clearTimeout(server);
     debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
@@ -189,8 +190,6 @@ export default class Spawner {
         debug(this.bot, `<#${send_channel}>: Scanquest is disabled on this server`);
         return;
       }
-
-      this.clearTimeout(server);
 
       if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
         debug(this.bot, `<#${send_channel}>: Last generated a scan at ${formatTimestamp(this.last_sent.get(id)!)}`);
