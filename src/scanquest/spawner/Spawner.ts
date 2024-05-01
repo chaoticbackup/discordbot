@@ -183,7 +183,6 @@ export default class Spawner {
         debug(this.bot, `${name} (${id}): Scanquest is not configured for this server`, 'errors');
         return;
       }
-      debug(this.bot, `Existing end time: ${this.timers.get(server.id)?.endTime && formatTimestamp(this.timers.get(server.id)!.endTime)}`);
 
       const { force = false } = options;
       const { activescan_ids, send_channel, disabled } = server;
