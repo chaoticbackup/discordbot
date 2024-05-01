@@ -31,7 +31,6 @@ export default class Spawner {
   protected readonly timers: Map<Snowflake, Timer> = new Map();
   protected readonly debouncer: Map<Snowflake, Amount> = new Map();
   protected readonly activity: Map<Snowflake, Activity[]> = new Map();
-  protected readonly last_sent: Map<Snowflake, Moment> = new Map();
 
   readonly bot: Client;
   readonly db: ScanQuestDB;
@@ -87,9 +86,10 @@ export default class Spawner {
     handleError(this.bot, e, source);
   }
 
-  public clearTimeout(server: WithId<Server>) {
-    if (this.timers.has(server.id)) {
-      global.clearTimeout(this.timers.get(server.id)!.timeout);
+  public clearTimeout(server_id: Snowflake) {
+    if (this.timers.has(server_id)) {
+      global.clearTimeout(this.timers.get(server_id)!.timeout);
+      this.timers.delete(server_id);
     }
   }
 
@@ -98,15 +98,17 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
-    this.clearTimeout(server);
-    debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
+    debug(this.bot, `<#${server.send_channel}>: Attempting to set timer`);
+    if (!this.timers.has(server.id)) {
+      debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
-    const timeout = setTimeout(() => {
-      debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
-      this.newSpawn(server.id);
-    }, endTime.diff(moment()));
+      const timeout = setTimeout(() => {
+        debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
+        this.newSpawn(server.id);
+      }, endTime.diff(moment()));
 
-    this.timers.set(server.id, { timeout, endTime });
+      this.timers.set(server.id, { timeout, endTime });
+    }
   }
 
   public startTimer(server: WithId<Server>) {
@@ -182,7 +184,6 @@ export default class Spawner {
         return;
       }
       debug(this.bot, `Existing end time: ${this.timers.get(server.id)?.endTime && formatTimestamp(this.timers.get(server.id)!.endTime)}`);
-      this.clearTimeout(server);
 
       const { force = false } = options;
       const { activescan_ids, send_channel, disabled } = server;
@@ -192,10 +193,16 @@ export default class Spawner {
         return;
       }
 
-      if (!force && activescan_ids.length > 0 && this.last_sent.has(id)) {
-        debug(this.bot, `<#${send_channel}>: Last generated a scan at ${formatTimestamp(this.last_sent.get(id)!)}, ${moment().diff(moment(this.last_sent.get(id)), 'minutes')}`);
-        if (moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety) {
+      if (!force && activescan_ids.length > 0) {
+        const last_sent = await this.db.scans.findOne({ _id: activescan_ids[activescan_ids.length - 1] });
+
+        if (last_sent) {
+          debug(this.bot, `<#${send_channel}>: Last generated a scan at ${formatTimestamp(moment(last_sent._id.getTimestamp()))}, ${moment().diff(moment(last_sent._id.getTimestamp()), 'minutes')}`);
+        }
+
+        if (last_sent && moment().diff(moment(last_sent._id.getTimestamp()), 'minutes') < config.safety) {
           debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
+          this.clearTimeout(server.id);
           this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
           return;
         }
@@ -207,8 +214,6 @@ export default class Spawner {
       }
 
       debug(this.bot, `<#${send_channel}>: Attempting to generate a scan at ${formatTimestamp(moment())}`);
-
-      this.last_sent.set(id, moment());
 
       let amount = 0;
       if (this.activity.has(id)) {
@@ -233,6 +238,7 @@ export default class Spawner {
           }
         }
       );
+      this.clearTimeout(server.id);
       this.setSendTimeout(server, endTime);
     })
     .catch((e) => {

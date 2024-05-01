@@ -37,7 +37,7 @@ export async function disable(this: ScanQuest, server: WithId<Server>, yes: bool
       }
     );
 
-    this.spawner.clearTimeout(server);
+    this.spawner.clearTimeout(server.id);
 
     if (res.acknowledged) {
       await send('This server has been disabled');

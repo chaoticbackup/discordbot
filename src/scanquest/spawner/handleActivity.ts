@@ -22,13 +22,12 @@ export default function handleActivity(this: Spawner) {
 
     if (this.timers.has(id)) {
       // Prevents ticking down of safety period
-      if (
-        this.last_sent.has(id) &&
-        moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety
-      ) return;
+      // if (
+      //   this.last_sent.has(id) &&
+      //   moment().diff(moment(this.last_sent.get(id)), 'minutes') < config.safety
+      // ) return;
 
-      const { endTime, timeout } = this.timers.get(id)!;
-      clearTimeout(timeout);
+      const { endTime } = this.timers.get(id)!;
 
       endTime.subtract(amount, 'milliseconds');
       const remaining = endTime.diff(moment(), 'milliseconds');
@@ -42,6 +41,7 @@ export default function handleActivity(this: Spawner) {
       else {
         db_msg += ` ${remaining / 1000} seconds remaining.`;
         debug(this.bot, db_msg);
+        this.clearTimeout(id);
         this.setSendTimeout(server, endTime);
         await this.db.servers.updateOne(
           { id },
