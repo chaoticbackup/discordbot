@@ -98,7 +98,6 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
-    debug(this.bot, `Existing end time: ${this.timers.get(server.id)?.endTime && formatTimestamp(this.timers.get(server.id)!.endTime)}`);
     this.clearTimeout(server);
     debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
@@ -182,6 +181,8 @@ export default class Spawner {
         debug(this.bot, `${name} (${id}): Scanquest is not configured for this server`, 'errors');
         return;
       }
+      debug(this.bot, `Existing end time: ${this.timers.get(server.id)?.endTime && formatTimestamp(this.timers.get(server.id)!.endTime)}`);
+      this.clearTimeout(server);
 
       const { force = false } = options;
       const { activescan_ids, send_channel, disabled } = server;
@@ -222,6 +223,7 @@ export default class Spawner {
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
       await this.cleanOldScans(server);
       const endTime = await this.spawnCard(server, selection);
+      debug(this.bot, `Next spawn set at ${formatTimestamp(endTime)}`);
       await this.db.servers.updateOne(
         { id },
         {
