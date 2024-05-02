@@ -88,6 +88,7 @@ export default class Spawner {
 
   public clearTimeout(server_id: Snowflake) {
     if (this.timers.has(server_id)) {
+      debug(this.bot, `Clearing timer ${this.timers.get(server_id)!.timeout[Symbol.toPrimitive]}`);
       global.clearTimeout(this.timers.get(server_id)!.timeout);
       this.timers.delete(server_id);
     }
@@ -98,12 +99,12 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
-    debug(this.bot, `<#${server.send_channel}>: Attempting to set timer`);
     if (!this.timers.has(server.id)) {
       debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
       const timeout = setTimeout(() => {
         debug(this.bot, `<#${server.send_channel}>: Timer expired, generating now`);
+        this.clearTimeout(server.id); // Clear old timeout for future timeouts to be set
         this.newSpawn(server.id);
       }, endTime.diff(moment()));
 
@@ -201,7 +202,6 @@ export default class Spawner {
 
         if (last_sent && moment().diff(moment(last_sent._id.getTimestamp()), 'minutes') < config.safety) {
           debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
-          this.clearTimeout(server.id);
           this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
           return;
         }
@@ -224,8 +224,6 @@ export default class Spawner {
       debug(this.bot, `Amount of value in the previous interval: ${amount}`);
 
       const selection = await this.select.card(server, amount);
-      // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
-      await this.cleanOldScans(server);
       const endTime = await this.spawnCard(server, selection);
       debug(this.bot, `Next spawn set at ${formatTimestamp(endTime)}`);
       await this.db.servers.updateOne(
@@ -237,8 +235,9 @@ export default class Spawner {
           }
         }
       );
-      this.clearTimeout(server.id);
       this.setSendTimeout(server, endTime);
+      // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
+      await this.cleanOldScans(server);
     })
     .catch((e) => {
       this.handleError(e, id);
