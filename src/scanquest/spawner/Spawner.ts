@@ -88,7 +88,7 @@ export default class Spawner {
 
   public clearTimeout(server_id: Snowflake) {
     if (this.timers.has(server_id)) {
-      debug(this.bot, `Clearing timer ${this.timers.get(server_id)!.timeout[Symbol.toPrimitive]}`);
+      debug(this.bot, `Clearing timer ${this.timers.get(server_id)!.timeout[Symbol.toPrimitive]()}`);
       global.clearTimeout(this.timers.get(server_id)!.timeout);
       this.timers.delete(server_id);
     }
