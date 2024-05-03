@@ -131,7 +131,10 @@ export default class ScanQuest {
           return;
         case 'scanlist':
           if (message.guild) {
-            await send(await this.spawner.list(message));
+            const messageList = await this.spawner.list(message);
+            for (const message of messageList) {
+              await send(message);
+            }
           }
           return;
         case 'perim':

@@ -149,13 +149,22 @@ export default class Spawner {
   public async list(message: Message) {
     const s = await this.db.servers.findOne({ id: message.guild.id });
 
-    let res = 'Not a configured scanquest server';
+    let res = ['Not a configured scanquest server'];
     if (s) {
       const activeScans = await this.db.getActiveScans(s);
       if (activeScans.length > 0) {
-        res = activeScans.map(sc => `${sc.scan.name} (${formatTimestamp(moment(sc.expires))}) #${sc.msg_id}`).join('\n');
+        return activeScans.reduce<string[]>((agg, sc) => {
+          const last = agg[agg.length - 1];
+          const curr = `${sc.scan.name} (${formatTimestamp(moment(sc.expires))}) #${sc.msg_id}`;
+          if (last.length + curr.length <= (2000 - 2)) {
+            agg[agg.length - 1] = `\n${curr}`;
+          } else {
+            agg.push(curr);
+          }
+          return agg;
+        }, ['**Active Scans**']);
       } else {
-        res = 'No active scans';
+        res = ['No active scans'];
       }
     }
     return res;
