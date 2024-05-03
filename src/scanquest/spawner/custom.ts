@@ -30,7 +30,9 @@ export default async function (this: Spawner, message: Message, args: string[], 
 
   const server = await this.db.servers.findOne({ id: message.guild.id });
 
-  if (!server) return;
+  if (!server || server.disabled) {
+    return;
+  }
 
   const addIfMissing = async (scan_id: ObjectId, err = '') => {
     if (server.activescan_ids.find((id) => id === scan_id) === undefined) {
@@ -141,12 +143,13 @@ export default async function (this: Spawner, message: Message, args: string[], 
     });
 
     if (Number(active.toFixed(2)) <= 0) {
-      const server = await this.db.servers.findOne({ id: message.guild.id });
-      if (server) await this.cleanOldScans(server);
       send(`${scan.scan.name} updated to expire now`);
     } else {
       send(`${scan.scan.name} updated to expire at ${formatTimestamp(moment(expires.toDate()))}`);
     }
+
+    // clean up expired scans just cause
+    await this.cleanOldScans(server.id);
 
     return;
   }
@@ -215,10 +218,10 @@ export default async function (this: Spawner, message: Message, args: string[], 
     this.select.setTitle(image, active);
   }
 
-  // Spawn new card
+  // Spawn specified scan
   if (!msg_id) {
     if (active > 0) {
-      await this.spawnCard(server, { scannable, image, active, next });
+      await this.spawnSelectedScan(server, { scannable, image, active, next });
     }
     else {
       send('Cannot spawn a new card that already expired');

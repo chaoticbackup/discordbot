@@ -180,7 +180,7 @@ export default class Spawner {
     this.db.servers.findOne({ id })
     .then(async (server) => {
       if (!server) {
-        const name = this.bot.guilds.find((g) => g.id === id)?.name ?? 'unkonwn';
+        const name = this.bot.guilds.find((g) => g.id === id)?.name ?? 'unknown';
         debug(this.bot, `${name} (${id}): Scanquest is not configured for this server`, 'errors');
         return;
       }
@@ -197,11 +197,11 @@ export default class Spawner {
         const last_sent = await this.db.scans.findOne({ _id: activescan_ids[activescan_ids.length - 1] });
 
         if (last_sent) {
-          debug(this.bot, `<#${send_channel}>: Last generated a scan at ${formatTimestamp(moment(last_sent._id.getTimestamp()))}, ${moment().diff(moment(last_sent._id.getTimestamp()), 'minutes')}`);
+          debug(this.bot, `Last generated a scan at ${formatTimestamp(moment(last_sent._id.getTimestamp()))}, ${moment().diff(moment(last_sent._id.getTimestamp()), 'minutes')}`);
         }
 
         if (last_sent && moment().diff(moment(last_sent._id.getTimestamp()), 'minutes') < config.safety) {
-          debug(this.bot, `<#${send_channel}>: Recently generated a scan for server. Trying again in ${config.safety} minutes`);
+          debug(this.bot, `Recently generated a scan for server. Trying again in ${config.safety} minutes`);
           this.setSendTimeout(server, moment().add(config.safety, 'minutes'));
           return;
         }
@@ -224,7 +224,7 @@ export default class Spawner {
       debug(this.bot, `Amount of value in the previous interval: ${amount}`);
 
       const selection = await this.select.card(server, amount);
-      const endTime = await this.spawnCard(server, selection);
+      const endTime = await this.spawnSelectedScan(server, selection);
       debug(this.bot, `Next spawn set at ${formatTimestamp(endTime)}`);
       await this.db.servers.updateOne(
         { id },
@@ -237,7 +237,7 @@ export default class Spawner {
       );
       this.setSendTimeout(server, endTime);
       // note: this is done after generating a new one so that a recently generated scan doesn't get regenerated
-      await this.cleanOldScans(server);
+      await this.cleanOldScans(id);
     })
     .catch((e) => {
       this.handleError(e, id);
@@ -247,9 +247,9 @@ export default class Spawner {
   /**
    * Sends a card image to the configed channel
   */
-  protected async spawnCard(server: WithId<Server>, selection: Selection) {
+  protected async spawnSelectedScan(server: WithId<Server>, selection: Selection): Promise<moment.Moment> {
     const { send_channel } = server;
-    const { active, scannable, image } = selection;
+    const { active, scannable, image, next } = selection;
 
     const expires = this.expiresToDate(active);
 
@@ -279,7 +279,7 @@ export default class Spawner {
       await message.edit(image).catch(msgCatch);
 
       // Min time is to ensure longer spawns don't take too long and no inactive scans for short ones
-      return moment().add(selection.next, 'hours');
+      return moment().add(next, 'hours');
     })
     .catch((e) => {
       this.handleError(e, server.id);
@@ -287,7 +287,9 @@ export default class Spawner {
     });
   }
 
-  protected async cleanOldScans(server: WithId<Server>) {
+  protected async cleanOldScans(id: Snowflake) {
+    // This function will only be called after validating server is active
+    const server = (await this.db.servers.findOne({ id }))!;
     const { send_channel } = server;
 
     const activescan_ids = (await this.db.getActiveScans(server))

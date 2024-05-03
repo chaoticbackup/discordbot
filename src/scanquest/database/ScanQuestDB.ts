@@ -205,7 +205,7 @@ class ScanQuestDB {
     }
   };
 
-  public getActiveScans = async ({ activescan_ids }: Server) => {
+  public getActiveScans = async ({ activescan_ids }: Pick<Server, 'activescan_ids'>) => {
     return await this.scans.find({
       _id: { $in: activescan_ids }
     }).toArray();
