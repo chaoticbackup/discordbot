@@ -99,6 +99,7 @@ export default class Spawner {
   }
 
   public setSendTimeout(server: WithId<Server>, endTime: Moment) {
+    // Attempt to stop race conditions between setting timers
     if (!this.timers.has(server.id)) {
       debug(this.bot, `<#${server.send_channel}>: Setting timer for ${formatTimestamp(endTime)}`);
 
@@ -216,6 +217,7 @@ export default class Spawner {
         }
       }
 
+      // Delete debouncer so timer will be reset on next message sent
       if (this.debouncer.has(id)) {
         this.calculateActivity(id);
         this.debouncer.delete(id);

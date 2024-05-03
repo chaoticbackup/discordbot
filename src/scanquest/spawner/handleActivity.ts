@@ -54,11 +54,11 @@ export default function handleActivity(this: Spawner) {
 
   // Decrease spawn timer countdown with activity
   // Assign point value to next spawn, size of messages decrease from point value
-  const tick = async (message: Message) => {
+  return async (message: Message) => {
     const { id } = message.guild;
     // only monitor the servers the bot is configured for
     const server = await this.db.servers.findOne({ id });
-    if (!server || (server.ignore_channels?.includes(message.channel.id) ?? true)) return;
+    if (!server || server.disabled || (server.ignore_channels?.includes(message.channel.id) ?? true)) return;
 
     // Ignore short messages
     const content = message.content.replace(/<:.*:[0-9]*>/gi, '');
@@ -83,6 +83,4 @@ export default function handleActivity(this: Spawner) {
       this.debouncer.set(id, { amount: reducing });
     }
   };
-
-  return tick;
 }
