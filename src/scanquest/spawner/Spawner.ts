@@ -88,8 +88,8 @@ export default class Spawner {
 
   public clearTimeout(server_id: Snowflake) {
     if (this.timers.has(server_id)) {
-      debug(this.bot, `Clearing timer ${this.timers.get(server_id)!.timeout[Symbol.toPrimitive]()}`);
-      global.clearTimeout(this.timers.get(server_id)!.timeout);
+      debug(this.bot, `Clearing timer ${this.timers.get(server_id)?.timeout[Symbol.toPrimitive]()}`);
+      global.clearTimeout(this.timers.get(server_id)?.timeout);
       this.timers.delete(server_id);
     }
   }
@@ -158,7 +158,7 @@ export default class Spawner {
           const last = agg[agg.length - 1];
           const curr = `${sc.scan.name} (${formatTimestamp(moment(sc.expires))}) #${sc.msg_id}`;
           if (last.length + curr.length <= (2000 - 2)) {
-            agg[agg.length - 1] = `\n${curr}`;
+            agg[agg.length - 1] = `${last}\n${curr}`;
           } else {
             agg.push(curr);
           }
