@@ -36,9 +36,8 @@ export default function handleActivity(this: Spawner) {
 
       let db_msg = `<#${send_channel}>: ${formatTimestamp(moment(endTime).add(amount, 'milliseconds'))} reduced by ${amount / 1000} seconds.`;
       if (remaining <= config.debounce) {
-        db_msg += '\nRemaining time insufficiant, generating now...';
+        db_msg += '\nRemaining time insufficiant, waiting for next timeout...';
         debug(this.bot, db_msg);
-        this.newSpawn(id);
       }
       else {
         db_msg += ` ${remaining / 1000} seconds remaining.`;
