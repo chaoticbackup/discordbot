@@ -19,7 +19,6 @@
 		"Deadwater Devastation",
 		"Dranakis Threshold",
 		"Elemental Elegy",
-		"Enre-hep, High Muge of the Desert",
 		"Hiadrom",
 		"Hune Paltanin",
 		"Illusionary Lake",
@@ -28,10 +27,8 @@
 		"Lord Van Bloot, Servant of Aa'une",
 		"Lore",
 		"Lore, Ancestral Caller",
-		"Lore, High Muge of the Hive",
 		"Lore's Chamber of Recall",
 		"Melody of the Meek",
-		"Mind Mash",
 		"Mipedim Mirage",
 		"Najarin, Fluidmorphers' Foe",
 		"Numin Voidland",
@@ -45,16 +42,16 @@
 		"Rao'Pa Sahkk, Condensation Ceremony",
 		"Supercooled Rain",
 		"Talisman of the Mandiblor",
+		"Tonal Destruction",
 		"Ulmquad",
+		"Unheard Melody",
 		"Vial of Liquid Thought",
 		"Whirling Wail",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"unique": [
 		"Dror'niq",
-		"Neekwin",
-		"Twister of Elements",
-		"Ulmar, Perithon Racer"
+		"Twister of Elements"
 	],
 	"pauper": [
 		"Dror'niq",
