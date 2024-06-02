@@ -25,12 +25,12 @@ const bannedCards = [
   'Every FTK',
   'The Phlogiston',
   'Inner Flood',
-  "Ulmquad",
-  'Enre-hep, High Muge of the Desert'
+  "Ulmquad"
 ];
 const unbannedCards = [
   'Ursis',
   "Carnivore's Keening",
+  'Enre-hep, High Muge of the Desert',
   'Before the Storm',
   'Ulmar, Perithon Racer',
   "Malvadine, the King's Herald",
@@ -88,7 +88,7 @@ const unbannedCards = [
 ];
 const banReasons = [
   'to balance out Fivarth OTK',
-  'because Chio wills it',
+  'because Lurasidone wills it',
   "because it's inherently unfair",
   'because of the potential interactions with Etalla',
   "because we learned our lesson with Dror'niq",
@@ -120,7 +120,7 @@ const banReasons = [
   'because the OverWorld has had it too good for too long',
   'because it was used to kidnap people',
   "because TCD won't let us have nice things",
-  "because Chio won't let us have nice things",
+  "because Lurasidone won't let us have nice things",
   'in case we want to unban Drorniq',
   'because you could not withstand its power',
   'because they are canonically destroyed',
@@ -147,10 +147,11 @@ const banReasons = [
 const unbanReasons = [
   'because Chaotic is never coming back',
   'because the revival is tomorrow',
-  'because Chio wills it',
+  'because Lurasidone wills it',
   'to remind players what fear is',
   "to push the M'arrillian agenda",
   'because it seemed like a good idea at the time',
+  'because Lurasidone lets us have too many nice things',
   'to get my deck out of C-tier',
   'but only in Pauper',
   'because.',
@@ -170,10 +171,10 @@ const unbanReasons = [
   'to make show decks playable',
   'because we can always undo it, who cares',
   "for 'balance'",
-  'because Chio gave it a pardon',
+  'because Lurasidone gave it a pardon',
   'so that Neekwin can come off',
   "to bring back the good ol' days",
-  'because Chio made a typo while editing the banlist',
+  'because Lurasidone made a typo while editing the banlist',
   'because King has bought 20 copies of it.',
   'because Nicole wills it',
   'to spite the codemasters',
