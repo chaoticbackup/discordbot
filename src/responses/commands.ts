@@ -84,7 +84,7 @@ export default (async function (bot: Client, message: Message): Promise<void> {
     if (message.guild &&
       (message.guild.id === servers('main').id || message.guild.id === servers('develop').id)
     ) {
-      if (!checkSpam(bot, message)) {
+      if (message.guild.id === servers('develop').id || !checkSpam(bot, message)) {
         return checkSass(bot, message, mentions, send);
       }
     }
