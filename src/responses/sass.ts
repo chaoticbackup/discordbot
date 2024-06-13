@@ -13,7 +13,7 @@ import { compliment, insult } from './misc/insult_compliment';
 import { quips, hello, jingles, user, hbu } from './sass_options';
 
 export default async function (bot: Client, message: Message, mentions: string[], send: SendFunction): Promise<void> {
-  if (mentions.length > 0) return await send(checkMentions(message, mentions));
+  if (mentions.length > 0) return await send(await checkMentions(message, mentions));
 
   if (message.content.substring(0, 2) === '``') return;
 
@@ -102,11 +102,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
   }
 }
 
-function checkMentions(message: Message, mentions: string[]): string | undefined {
-  if (message.reference) return;
+async function checkMentions(message: Message, mentions: string[]): Promise<string | undefined> {
   const content = message.content.replace(`<@${users('me')}>`, '');
 
-  if (mentions.includes(users('afjak'))) {
+  if (!message.reference && mentions.includes(users('afjak'))) {
     if (message.channel.id === servers('main').channel('ruling_questions')) return;
     return ('Don\'t @ the Oracle. He sees everything anyway');
   }
@@ -115,7 +114,6 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
     if (content.length === 0) {
       return rndrsp(jingles, 'jingles');
     }
-
     if (/hello/i.test(content)) {
       return rndrsp(hello.friendly.slice(0, 2));
     }
@@ -146,6 +144,14 @@ function checkMentions(message: Message, mentions: string[]): string | undefined
         displayName = `<@${users('daddy')}>`;
       }
       return rndrsp([`${displayName} taught me Chaotic`, `${displayName} the best dad!`, `${displayName}, but sometimes I give him a hard time`]);
+    }
+
+    // Check if the message is a reply to a message from Nicole that's a card
+    if (message.reference?.messageID) {
+      const original = await message.channel.fetchMessage(message.reference.messageID);
+      if (original.embeds.length > 0) {
+        return;
+      }
     }
 
     if (isUser(message, 'brat')) {
