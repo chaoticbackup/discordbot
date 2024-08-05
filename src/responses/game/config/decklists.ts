@@ -90,6 +90,7 @@ export const sortedlist = {
     "Getting Ripped",
     "Gintanai",
     "Grounded",
+    "Iflar the Invader",
     "Khorror",
     "Lankerek",
     "Lyssta Mixed",
@@ -328,6 +329,13 @@ const _decklist: { [key in deck_names[number]]: Deck } = {
     tags: ["Compost", "Infection", "Courage"],
     type: ["Combo"],
     creatures: ["Tabaal", "Illexia, The Danian Queen", "Ivelaan", "Elhadd", "Hermatred"]
+  },
+  "Iflar the Invader": {
+    url: "https://chaoticrecode.com/deck/9d6bf918539f08a1d29544d37e4bd828",
+    tribe: "Mipedian",
+    type: ["Strike"],
+    tags: ["Mipedian", "Strike", "Speed"],
+    creatures: ["Headmaster Ankhyja", "Owayki", "Malvadine, The King's Herald", "Iflar, The Crown Prince"]
   },
   Khorror: {
     url: "https://chaoticbackup.forumotion.com/t1588-khorror",
