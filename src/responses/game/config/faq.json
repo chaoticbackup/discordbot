@@ -1,5 +1,5 @@
 {
-    "independent": "8.2.3.5",
+    "independent": "Once activated or triggered, an abilities exist on the burst independently of the card that created them. Destruction or removal of the source will not remove the ability from the Burst or cause it to fail to resolve.",
     "fizzle": "8.5.1",
     "multiple": "8.3.3",
     "reopen": "8.3.4",
