@@ -111,6 +111,14 @@ async function checkMentions(message: Message, mentions: string[]): Promise<stri
   }
 
   if (mentions.includes(users('me'))) {
+    // Check if the message is a reply to a message from Nicole that's a card
+    if (message.reference?.messageID) {
+      const original = await message.channel.fetchMessage(message.reference.messageID);
+      if (original.embeds.length > 0) {
+        return;
+      }
+    }
+
     if (content.length === 0) {
       return rndrsp(jingles, 'jingles');
     }
@@ -123,13 +131,16 @@ async function checkMentions(message: Message, mentions: string[]): Promise<stri
     if (/rule 34/i.test(content)) {
       return '<:cerbie_bonk:833781431842897991>';
     }
-    if (/hate/i.test(content)) {
+    if (/(hate|stupid|dumb)/i.test(content)) {
+      randomHello.setMood(message.author.id, 'mean');
       return insult([message.author.id], message.author.username, message.guild);
     }
     if (/love/i.test(content)) {
+      randomHello.setMood(message.author.id, 'friendly');
       return '❤️ you too';
     }
     if (/thank(s)*([ ]you)*/i.test(content)) {
+      randomHello.setMood(message.author.id, 'friendly');
       return 'You are welcome';
     }
     if (/sorry/i.test(content)) {
@@ -144,14 +155,6 @@ async function checkMentions(message: Message, mentions: string[]): Promise<stri
         displayName = `<@${users('daddy')}>`;
       }
       return rndrsp([`${displayName} taught me Chaotic`, `${displayName} the best dad!`, `${displayName}, but sometimes I give him a hard time`]);
-    }
-
-    // Check if the message is a reply to a message from Nicole that's a card
-    if (message.reference?.messageID) {
-      const original = await message.channel.fetchMessage(message.reference.messageID);
-      if (original.embeds.length > 0) {
-        return;
-      }
     }
 
     if (isUser(message, 'brat')) {
@@ -170,17 +173,24 @@ async function checkMentions(message: Message, mentions: string[]): Promise<stri
     else if (isUser(message, 'chio')) {
       return rndrsp(user.chio);
     }
-    else if (isUser(message, 'daddy')) {
-      return rndrsp(user.daddy);
-    }
+    // else if (isUser(message, 'daddy')) {
+    //   return rndrsp(user.daddy);
+    // }
 
     return randomHello.hello(message);
   }
 }
 
-const moods = Object.keys(hello);
+type mood = keyof typeof hello;
+
+const moods = Object.keys(hello) as mood[];
 class Hello {
-  sr: Map<Snowflake, { mood: keyof typeof hello, responses: string[], timeout?: NodeJS.Timeout }> = new Map();
+  sr: Map<Snowflake, { mood: mood, responses: string[], timeout?: NodeJS.Timeout }> = new Map();
+
+  setMood = (id: Snowflake, mood: mood) => {
+    const responses = this.sr.get(id)?.responses ?? [];
+    this.sr.set(id, { mood, responses });
+  };
 
   hello = (message: Message) => {
     const { id } = message.author;
@@ -188,7 +198,7 @@ class Hello {
     let resp;
 
     if (!this.sr.has(id)) {
-      mood = rndrsp(moods) as any;
+      mood = rndrsp(moods);
       this.sr.set(id, { mood, responses: [] });
     }
 
@@ -210,7 +220,7 @@ class Hello {
           resp = 'Chaotic Nicole is brought to you by <http://chaoticbackup.forumotion.com/>';
           break;
       }
-      mood = rndrsp(moods.filter((v) => v !== t.mood)) as any;
+      mood = rndrsp(moods.filter((v) => v !== t.mood));
       t = { mood, responses: [] };
       this.sr.set(id, t);
     }
@@ -228,7 +238,7 @@ class Hello {
       () => {
         this.sr.delete(id);
       },
-      30 * 1000
+      60 * 1000
     );
 
     this.sr.set(id, t);
