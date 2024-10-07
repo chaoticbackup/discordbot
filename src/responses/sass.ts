@@ -173,9 +173,9 @@ async function checkMentions(message: Message, mentions: string[]): Promise<stri
     else if (isUser(message, 'chio')) {
       return rndrsp(user.chio);
     }
-    // else if (isUser(message, 'daddy')) {
-    //   return rndrsp(user.daddy);
-    // }
+    else if (isUser(message, 'daddy')) {
+      return rndrsp(user.daddy);
+    }
 
     return randomHello.hello(message);
   }
