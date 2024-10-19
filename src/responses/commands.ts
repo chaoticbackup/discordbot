@@ -164,6 +164,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send(faq(flatten(args)));
       case 'keyword':
       case 'rule':
+      case 'rules':
         if (args.length < 1) {
           return send('Please provide a rule, or use **!rulebook** or **!guide**');
         } else {
