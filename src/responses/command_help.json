@@ -80,6 +80,9 @@
         "cmd": "!rule <rule>",
         "list": "Returns the definition of the rule"
     },
+    "rules": {
+        "alias": "rule"
+    },
     "keyword": {
         "cmd": "!keyword <rule>",
         "alias": "rule"
