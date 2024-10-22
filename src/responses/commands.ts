@@ -18,7 +18,7 @@ import { avatar, display_card, display_token, find_card, full_art } from './card
 import commands from './command_help.json';
 
 import { banlist, banlist_update, formats, whyban } from './game/bans';
-import { decklist, tier, tierlist, curated } from './game/decklists';
+import { decklist, tier, tierlist } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { goodstuff } from './game/goodstuff';
@@ -383,9 +383,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (output) sendBotCommands([output]);
       return;
     }
-
-    case 'curated':
-      return sendBotCommands([curated()]);
 
     case 'toplist':
     case 'tierlist':
