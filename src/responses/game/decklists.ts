@@ -234,32 +234,8 @@ function getTierlist() {
   return output;
 }
 
-function getCurated() {
-  const output = new RichEmbed();
-
-  let message = '';
-  let cont = false;
-  sortedlist.curated.forEach((deck: string) => {
-    const entry = `[${deck}](${decklist[deck].url})\n`;
-    if (message.length + entry.length >= 1024) {
-      output.addField(
-        (!cont ? 'Curated List' : '\u200B'), message, true
-      );
-      message = '';
-      cont = true;
-    }
-    message += entry;
-  });
-  output.addField(
-    (!cont ? 'Curated List' : '\u200B'), message, true
-  );
-
-  return output;
-}
-
 export {
   getTierlist as tierlist,
   getDecklist as decklist,
-  getTiers as tier,
-  getCurated as curated
+  getTiers as tier
 };
