@@ -28,12 +28,6 @@ export default async function (bot: Client, message: Message, mentions: string[]
     return;
   }
 
-  // Fast way to check if card been added to recode
-  const missing_regex = /is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/i;
-  if (missing_regex.test(content)) {
-    return await send('Is the card `disabled` on recode? Then its missing');
-  }
-
   // Special case for Quebec people trying to sell
   if (message.channel.id === servers('main').channel('french')) {
     if (content.includes('vendre')) {
