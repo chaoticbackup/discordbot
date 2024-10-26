@@ -22,16 +22,10 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // coming back
   const back_regex = /((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/i;
   if (content.match(back_regex)) {
-    const response = "Chaotic's return has been confirmed, and we are expecting an official statement in October. We will make an announcement and ping everyone when they do.";
+    const response = "While Chaotic's return has not been officially confirmed, you'll be the first to know when we get news. (We will make an announcement and ping everyone when they do.)";
     const m: Message = await send(response).catch(msgCatch);
     await m.react('586395473716445184').catch(msgCatch);
     return;
-  }
-
-  // Fast way to check if card been added to recode
-  const missing_regex = /is (.*) (missing (in|on)|added (in|on|to)|(?<!(added|missing)[ ])(in|on)) recode\?/i;
-  if (missing_regex.test(content)) {
-    return await send('Is the card `disabled` on recode? Then its missing');
   }
 
   // Special case for Quebec people trying to sell
