@@ -45,7 +45,7 @@ export async function find_card(name: string, bot: Client, send: SendFunction) {
 
   const response: Message = await send(text);
 
-  for (let i = 0; i < cards.length && i < 9; i++) {
+  for (let i = 0; i < cards.length && i < 5; i++) {
     await response.react(numbers[i]);
   }
 
