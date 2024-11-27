@@ -1,6 +1,7 @@
-import { Client } from 'discord.js';
+import { Client, Message, MessageReaction } from 'discord.js';
 
 import { API } from '../../database';
+import { SendFunction } from '../../definitions';
 
 import card_db from './card_api';
 import card_local from './card_local';
@@ -23,18 +24,49 @@ export function display_card(name: string, options: string[], bot: Client) {
   }
 }
 
-export function find_card(name: string) {
+const numbers = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣'];
+
+export async function find_card(name: string, bot: Client, send: SendFunction) {
   if (API.data === 'local') {
-    return 'Database offline; unable to find cards by name';
+    return await send('Database offline; unable to find cards by name');
   }
 
   if (name.length < 2) {
-    return 'Use at least 2 characters';
+    return await send('Use at least 2 characters');
   }
 
-  const resp = found_card_list(name, API.find_card_name(name));
+  const cards = API.find_card_name(name);
 
-  if (!resp) return 'No cards match this search';
+  if (cards.length === 0) {
+    return await send('No cards match this search');
+  }
 
-  return resp;
+  const text = found_card_list(name, cards);
+
+  const response: Message = await send(text);
+
+  for (let i = 0; i < cards.length && i < 9; i++) {
+    await response.react(numbers[i]);
+  }
+
+  const filter = (reaction: MessageReaction) => {
+    return numbers.includes(reaction.emoji.name);
+  };
+
+  return await response.awaitReactions(filter, { max: 1, time: 15000, errors: ['time'] })
+  .then(async collected => {
+    const reaction = collected.first();
+    const index = numbers.indexOf(reaction.emoji.name);
+
+    if (index >= 0) {
+      const card = cards[index];
+      const embed = display_card(card.gsx$name, [], bot);
+      await send(embed);
+    }
+
+    await response.clearReactions();
+  })
+  .catch(async () => {
+    await response.clearReactions();
+  });
 }

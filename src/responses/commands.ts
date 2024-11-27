@@ -62,7 +62,7 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 
   // Prevents sending an empty message
   const send: SendFunction = async (msg, options) => {
-    if (msg) return message.channel.send(msg, options).catch(msgCatch);
+    if (msg) return await message.channel.send(msg, options).catch(msgCatch);
   };
 
   const response = async (): Promise<void> => {
@@ -157,7 +157,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'fullart':
         return send(full_art(flatten(args), options));
       case 'find':
-        return send(find_card(flatten(args)));
+        return find_card(flatten(args), bot, send);
       case 'rate':
         return send(rate_card(flatten(args), options, bot));
       case 'faq':
@@ -268,7 +268,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'avatar':
       return send(avatar(flatten(args)));
     case 'find':
-      return send(find_card(flatten(args)));
+      return find_card(flatten(args), bot, send);
     case 'rate':
       return send(rate_card(flatten(args), options, bot));
     case 'readthecard':
