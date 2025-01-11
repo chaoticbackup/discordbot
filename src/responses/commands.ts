@@ -184,12 +184,8 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         return send('<https://drive.google.com/file/d/1eVyw_KtKGlpUzHCxVeitomr6JbcsTl55/view>');
       case 'guide':
         return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
-      case 'banlist': {
-        const rsp = (options.length === 0 && args.length > 0)
-          ? banlist(message, [flatten(args)])
-          : banlist(message, options);
-        return send(rsp);
-      }
+      case 'banlist':
+        return send(banlist(message, flatten(args) || 'standard', options));
       case 'ban':
       case 'whyban':
         return send(whyban(flatten(args), channel, guild, guildMember, options));
@@ -335,9 +331,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0 && args[0].toLowerCase() === 'update') {
         rsp = banlist_update(message);
       } else {
-        rsp = (options.length === 0 && args.length > 0)
-          ? banlist(message, [flatten(args)])
-          : banlist(message, options);
+        rsp = banlist(message, flatten(args) || 'standard', options);
       }
       const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`

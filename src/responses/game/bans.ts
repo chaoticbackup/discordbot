@@ -23,36 +23,40 @@ export function banlist_update(message: Message) {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   const date = message.createdAt.toLocaleDateString('en-US', options);
   let response = `**Standard (${date})**\n==**Banned Cards**==`;
-  response += (ban_lists.standard).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += (ban_lists.standard.ban).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
   response += '\n==**Unique Cards**==';
-  response += (ban_lists.unique).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += (ban_lists.standard.unique).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
   response += '\n==**Loyal Cards**==';
-  response += (ban_lists.loyal).reduce<string>((prev, curr) => `${prev}\n${curr}`, '') as string;
+  response += (ban_lists.standard.loyal).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
   return response;
 }
 
-export function banlist(message: Message, options: string[] = []) {
+export function banlist(message: Message, format: string, options: string[] = []) {
   let response = '';
 
   const title = (_format: string) => {
     response = `**${uppercase(_format)}:**\n${formats[_format]}`;
   };
 
-  const list_bans = (_format: string, header = '\n==**Banned Cards**==') => {
+  const list_bans = (_format: string, list: string, header = '\n==**Banned Cards**==') => {
     response += header;
-    response = (ban_lists[_format] as string[]).reduce((prev, curr) => `${prev}\n${curr}`, response);
+    response = (ban_lists[_format][list] as string[]).reduce((prev, curr) => `${prev}\n${curr}`, response);
   };
 
-  const format = (options.length === 0) ? 'standard' : options[0].toLowerCase();
+  if (options.includes('no-unique')) {
+    list_bans('ununique', '\n==**Non-Unique Cards**==');
+    return response;
+  }
 
   switch (format) {
     // Standard
     case 'standard': {
       title('standard');
-      list_bans('standard');
-      list_bans('unique', '\n==**Unique Cards**==');
-      list_bans('loyal', '\n==**Loyal Cards**==');
-      response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
+      list_bans('standard', 'ban');
+      list_bans('standard', 'unique', '\n==**Unique Cards**==');
+      list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
+      response += '\n=====\nYou can ask why a card was banned with ``"!whyban <card name>"``';
+      response += '\nYou can see what cards have unique removed with ``!banlist --no-unique``';
       break;
     }
     // Legacy
@@ -64,21 +68,21 @@ export function banlist(message: Message, options: string[] = []) {
     // Pauper
     case 'pauper': {
       title('pauper');
-      list_bans('pauper');
+      list_bans('pauper', 'ban');
       break;
     }
     // Noble
     case 'peasant':
     case 'noble': {
       title('noble');
-      list_bans('noble');
+      list_bans('noble', 'ban');
       break;
     }
     // Modern
     case 'rotation':
     case 'modern': {
       title('modern');
-      list_bans('modern');
+      list_bans('modern', 'ban');
       break;
     }
     // Advanced Apprentice
@@ -86,7 +90,7 @@ export function banlist(message: Message, options: string[] = []) {
     case 'aap': {
       // can't use title() because it is abbreviated
       response = `**Advanced Apprentice (AAP):**\n${formats.aap}`;
-      list_bans('aap');
+      list_bans('aap', 'ban');
       break;
     }
     default: {
