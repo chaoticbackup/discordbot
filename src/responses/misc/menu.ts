@@ -2,8 +2,6 @@ import { cleantext } from '../../common';
 
 import { order, make } from './config/menu.json';
 
-export { _menu as menu, _make as make, _order as order };
-
 const _menu = () => {
   let message = '**Port Court Menu**\n=====';
   for (const key in order) {
@@ -40,3 +38,5 @@ const _order = (item: string) => {
 
   return "Sorry, I don't serve that. Use !menu";
 };
+
+export { _menu as menu, _make as make, _order as order };

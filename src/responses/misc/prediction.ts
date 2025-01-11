@@ -25,7 +25,7 @@ const bannedCards = [
   'Every FTK',
   'The Phlogiston',
   'Inner Flood',
-  "Ulmquad"
+  'Ulmquad'
 ];
 const unbannedCards = [
   'Ursis',
@@ -34,10 +34,10 @@ const unbannedCards = [
   'Before the Storm',
   'Ulmar, Perithon Racer',
   "Malvadine, the King's Herald",
-  "Melody of the Meek",
-  "Strain of Infection",
-  "Royal Mipedian Academy of Melee Arts",
-  "Na-inna",
+  'Melody of the Meek',
+  'Strain of Infection',
+  'Royal Mipedian Academy of Melee Arts',
+  'Na-inna',
   "Mock'adyn",
   'Phoenix Belt',
   'Drabe',

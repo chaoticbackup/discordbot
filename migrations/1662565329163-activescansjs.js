@@ -18,7 +18,7 @@ module.exports.up = () => {
             $set : { activescan_ids: Object.values(results.insertedIds) }
           }
         );
-        await server_db.updateMany({}, {$unset: {"activescans": 1} })
+        await server_db.updateMany({}, { $unset: { "activescans": 1 }})
       }
     } catch (e) {
       console.error(e);

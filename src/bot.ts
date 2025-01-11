@@ -14,7 +14,7 @@ import ScanQuest from './scanquest';
 
 const auth: AuthFile | undefined = require('./auth.json');
 
-if (!auth || !auth.token) {
+if (!auth?.token) {
   logger.error('Missing auth.json config file');
   process.exit(1);
 }
