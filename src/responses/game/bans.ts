@@ -38,13 +38,13 @@ export function banlist(message: Message, format: string, options: string[] = []
     response = `**${uppercase(_format)}:**\n${formats[_format]}`;
   };
 
-  const list_bans = (_format: string, list: string, header = '\n==**Banned Cards**==') => {
+  const list_bans = (_format: keyof typeof formats, list: string, header = '\n==**Banned Cards**==') => {
     response += header;
     response = (ban_lists[_format][list] as string[]).reduce((prev, curr) => `${prev}\n${curr}`, response);
   };
 
   if (options.includes('no-unique')) {
-    list_bans('ununique', '\n==**Non-Unique Cards**==');
+    list_bans('standard', 'ununique', '\n==**Non-Unique Cards**==');
     return response;
   }
 
