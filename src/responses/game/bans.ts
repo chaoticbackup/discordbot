@@ -26,6 +26,8 @@ export function banlist_update(message: Message) {
   response += (ban_lists.standard).reduce((prev, curr) => `${prev}\n${curr}`, '');
   response += '\n==**Unique Cards**==';
   response += (ban_lists.unique).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += '\n==**Loyal Cards**==';
+  response += (ban_lists.loyal).reduce<string>((prev, curr) => `${prev}\n${curr}`, '') as string;
   return response;
 }
 
@@ -48,8 +50,8 @@ export function banlist(message: Message, options: string[] = []) {
     case 'standard': {
       title('standard');
       list_bans('standard');
-      response += '\n==**Unique** (only 1 copy allowed)==';
-      list_bans('unique', '');
+      list_bans('unique', '\n==**Unique Cards**==');
+      list_bans('loyal', '\n==**Loyal Cards**==');
       response += '\n=====\nYou can ask why a card was banned with "!whyban *card name*"';
       break;
     }

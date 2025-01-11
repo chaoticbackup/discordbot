@@ -16,7 +16,6 @@
 		"Bi-Mowercycle",
 		"Bodal, Flamedrill Researcher",
 		"Cadence Clash",
-		"Consuming Cacophony",
 		"Deadwater Devastation",
 		"Dranakis Threshold",
 		"Elemental Elegy",
@@ -25,23 +24,19 @@
 		"Imaginary Walls",
 		"Inner Flood",
 		"Lord Van Bloot, Servant of Aa'une",
-		"Lore",
 		"Lore, Ancestral Caller",
 		"Lore's Chamber of Recall",
 		"Melody of the Meek",
 		"Mipedim Mirage",
-		"Na-inna",
 		"Najarin, Fluidmorphers' Foe",
 		"Numin Voidland",
-		"Ode to Obscurity",
-		"Phelphor, Of the Deep",
-		"Pouril Forest",
 		"Prexxor Chasm",
 		"Primal Smash",
 		"Psionic Serenade",
 		"Ramarhvir, The Danian Hivebringer",
 		"Rao'Pa Sahkk, Condensation Ceremony",
 		"Rhyme of the Reckless",
+		"Strain of Infection",
 		"Supercooled Rain",
 		"Talisman of the Mandiblor",
 		"The Phlogiston",
@@ -50,14 +45,22 @@
 		"Unheard Melody",
 		"Vial of Liquid Thought",
 		"Whirling Wail",
+		"Xelfe",
 		"Zamool, Lord Van Bloot's Enforcer"
 	],
 	"unique": [
-		"Dror'niq",
 		"Melody of Mirage",
+		"Na-inna",
 		"Neekwin",
+		"Phelphor, Of the Deep",
 		"Ulmquad",
 		"Twister of Elements"
+	],
+	"loyal": [
+		"Consuming Cacophony",
+		"Dror'niq",
+		"Phelphor, Of the Deep",
+		"Ulmar, Perithon Racer"
 	],
 	"pauper": [
 		"Dror'niq",
@@ -139,7 +142,7 @@
 			"Chaac's bugs scare away your elements."
 		],
 		"Consuming Cacophony": [
-			"Consuming Cacophony was banned due to a combo involving Enre-hep High Muge of the Desert, and also to tune down UnderWorld discipline burn."
+			"Consuming Cacophony is loyal due to a combo involving Enre-hep High Muge of the Desert."
 		],
 		"Deadwater Devastation": [
 			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater Devastation early game cripples their options. Fluidmorph decks that play Deadwater Devastation disproportionately effect non-Fluidmorph decks since they generate Mugic counters.",
@@ -266,7 +269,7 @@
 			"Mock'adyn's ability to build counters and heal renewability outpaces almost all decks. When played well, it even stablizes against super aggro builds and then there's little chance of winning against its value."
 		],
 		"Na-inna": [
-			"Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Combine with a fluidmorpher."
+			"Na-inna can mess with your opponent by moving Counters from the Creatures that could utilize. But its real benefit is moving Counters to cards that should be limited on Mugic Counters. Often times combined with a fluidmorpher."
 		],
 		"Najarin, Fluidmorphers' Foe": [
 			"Plenty of card like Heptagon Hail, Chimegrid and Baladeer's Flute allow Najarin to get a plenty of Mugic Counters. Then being able to spend these Counters to give Creatures Energy is strong. This becomes worse When fighting a deck that gains Mugic Counters such as Fluidmorphers.\nBut if that's not bad enough, he shuts down any M'arrillian deck with a built in Refrain of Denial.",
@@ -288,7 +291,7 @@
 			"Combined with Fliander, Danian Carapace, and a Fluidmorpher to cast Ode to Obscurity at a higher cost, this Mugic enabled Fliander to heal 100s of energy. Especially when paired with Carnivore's Keening which causes Fliander to self infect from Recklessness."
 		],
 		"Phelphor, Of the Deep": [
-			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup."
+			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup. Restricting Phelphor to M'arrillians should help reduce the power of frustrating mixed decks while boosting M'arrillians."
 		],
 		"Phlogiston": [
 			"Burn is divisive, while both being heavily played and hated. Banning Phlogiston should help reduce some of the overbearing variance without gutting existing burn decks."
@@ -365,7 +368,7 @@
 			"You would have thought a twister of elements would have used all the elements... or at least twisted some elements."
 		],
 		"Ulmar, Perithon Racer": [
-			"In Standard, UnderWorld Burn has been consistently too strong. With Ulmar, the deck’s access to renewable burn  allowed it to out-value a lot of decks. Reducing Ulmar to one is a good way to cut back on its output without crippling it.\nIn Pauper, having 20 renewable damage each turn proves to be overwhelming against the resources in other decks. In addition, Ulmar can cast both Cannon of Casuality or Caster's Warsong making it invaluable in pauper burn decks dominance."
+			"In Standard, Burn has been consistently too strong. With Ulmar, deck's access to renewable burn allowed it to out-value a lot of decks. Restricting Ulmar to UnderWorld is a good way to keep the tribe's power without having burn be rampant in mixed decks.\nIn Pauper, having 20 renewable damage each turn proves to be overwhelming against the resources in other decks. In addition, Ulmar can cast both Cannon of Casuality or Caster's Warsong making it invaluable in pauper burn decks dominance."
 		],
 		"Ulmquad": [
 			"Ulmquad has one of the best 1mc activated abilities in the game doing a massive 20 energy swing while engaged. Not only that he is able to use his ability while unengaged, which is particularly punishing with how Chaotics rules system interacting with smaller burn damage, because you can die mid burst if you ever get low enough on energy even as high 30, no amount of energy gain can save you if your opponent chains their Ulmquad's ability and they have a large enough stack of counters. Ulmquad makes any effect that gives mugic counters much stronger, as he is the best place to put them."
@@ -374,7 +377,7 @@
 			"Unbalancing Battlesong is an overpushed Mugic, with 30 net energy for 1 mugic counter. Eliminating this Mugic allows for stronger Danian creatures to remain unbanned while reducing the tribe's overall power."
 		],
 		"Unheard Melody": [
-			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with na-inna around so this mugic is being benched."
+			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with Na-inna around so this mugic is being benched."
 		],
 		"Ursis": [
 			"Ursis + Burn has been dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done, I'm hoping just one Ursis will let fans of him still use him in combo with the dudes if they want.",
