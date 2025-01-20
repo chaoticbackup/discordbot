@@ -160,7 +160,7 @@
 	},
 	"reasons": {
 		"Aer'dak": [
-			"It's very easy with effects like Xelfe and Bi-Mowercycle to give 4-6 of your opponent's creatures range. Letting you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants can win before the first combat.",
+			"It's easy with to give 4-6 of your opponent's creatures range and you win the game for 10 Mugic Counters. At most, this can take a couple of combats to happen, but some variants without banned cards can win before the first combat.",
 			"She can one shot a deck, but still uses a spear"
 		],
 		"Arkanin": [
@@ -443,6 +443,9 @@
 		"Whirling Wail": [
 			"We have a history of banning cards that prevent you from using Mugic or abilities especially one sided ones, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage. Additionally, this used in burn decks would prevent many of the typical interactions that could counterplay burn.",
 			"The dinosaurs had it too good for too long."
+		],
+		"Xelfe": [
+			"Xelfe is an overwhelming card for decks that don't have a defender, its easy inclusion in Mipedian decks serves a double function with his high Mugic Ability. Removing Xelfe will also reduce some of the large swing of going first."
 		],
 		"Xerium Armor": [
 			"Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check.",

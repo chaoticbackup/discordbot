@@ -23,11 +23,11 @@ export function banlist_update(message: Message) {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   const date = message.createdAt.toLocaleDateString('en-US', options);
   let response = `**Standard (${date})**\n==**Banned Cards**==`;
-  response += (ban_lists.standard.ban).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
+  response += (ban_lists.standard.ban).reduce((prev, curr) => `${prev}\n${curr}`, '');
   response += '\n==**Unique Cards**==';
-  response += (ban_lists.standard.unique).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
+  response += (ban_lists.standard.unique).reduce((prev, curr) => `${prev}\n${curr}`, '');
   response += '\n==**Loyal Cards**==';
-  response += (ban_lists.standard.loyal).reduce((prev, curr) => `${prev}\n${curr}`, '') as string;
+  response += (ban_lists.standard.loyal).reduce((prev, curr) => `${prev}\n${curr}`, '');
   return response;
 }
 
