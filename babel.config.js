@@ -17,13 +17,13 @@ module.exports = function (api) {
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-syntax-import-meta",
-    "@babel/proposal-object-rest-spread",
-    ["@babel/plugin-proposal-class-properties", { "loose": false }],
-    "@babel/plugin-proposal-json-strings",
+    "@babel/plugin-transform-object-rest-spread",
+    ["@babel/plugin-transform-class-properties", { "loose": false }],
+    "@babel/plugin-transform-json-strings",
     "@babel/plugin-transform-arrow-functions",
-    "@babel/plugin-proposal-nullish-coalescing-operator",
-    "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-transform-nullish-coalescing-operator",
+    "@babel/plugin-transform-optional-chaining",
+    "@babel/plugin-transform-export-namespace-from",
     "@babel/plugin-proposal-export-default-from"
   ];
 
