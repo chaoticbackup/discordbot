@@ -30,18 +30,17 @@
 			"Mipedim Mirage",
 			"Najarin, Fluidmorphers' Foe",
 			"Numin Voidland",
+			"Olkiex' Apron",
 			"Prexxor Chasm",
 			"Primal Smash",
 			"Psionic Serenade",
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
-			"Rhyme of the Reckless",
 			"Strain of Infection",
 			"Supercooled Rain",
 			"Talisman of the Mandiblor",
 			"The Phlogiston",
 			"Tonal Destruction",
-			"Unbalancing Battlesong",
 			"Unheard Melody",
 			"Vial of Liquid Thought",
 			"Whirling Wail",
@@ -55,13 +54,15 @@
 			"Neekwin",
 			"Phelphor, Of the Deep",
 			"Twister of Elements",
-			"Ulmquad"
+			"Ulmquad",
+			"Unbalancing Battlesong"
 		],
 		"loyal": [
 			"Arkanin",
 			"Consuming Cacophony",
 			"Dror'niq",
 			"Phelphor, Of the Deep",
+			"Rhyme of the Reckless",
 			"Ulmar, Perithon Racer"
 		],
 		"ununique": [
@@ -343,6 +344,9 @@
 		"Ode to Obscurity": [
 			"Combined with Fliander, Danian Carapace, and a Fluidmorpher to cast Ode to Obscurity at a higher cost, this Mugic enabled Fliander to heal 100s of energy. Especially when paired with Carnivore's Keening which causes Fliander to self infect from Recklessness."
 		],
+		"Olkiex' Apron": [
+			"Strike utalizes Apron to remove threats from the opponent with very little cost to their own creatures. Since Malvadine has so much value, for example, the benifit of removing the opponent's extra energy or Xerium Armor makes them closer to two shot range."
+		],
 		"Phelphor, Of the Deep": [
 			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup. Restricting Phelphor to M'arrillians should help reduce the power of frustrating mixed decks while boosting M'arrillians."
 		],
@@ -383,7 +387,7 @@
 			"To shift the meta but giving a wider range of decks access to negation, Refrain of Denial would be switched with Interlude of Interruptions. Having both at the same time could be overbearing."
 		],
 		"Rhyme of the Reckless": [
-			"Changing up the way the OverWorld does thing again by taking away their big damage mugic. Plus it may let us see some less common OverWorld mugic see play."
+			"Rhyme of the Reckless is punishing Mugic, especially against Mipedians. By limiting accessablility to OverWorld, loyal decks can remain powerful, without boosting mixed effectiveness against Mipedians."
 		],
 		"Skeletal Springs": [
 			"This location not only prevents Fluidmorphing, but it also acts like Dranakis Threshold for them. The compensation? Water 5. Most players running this location use it in a Water deck. So a boost for the player and a potential game breaker for the opponent."
@@ -427,7 +431,7 @@
 			"Ulmquad has one of the best 1mc activated abilities in the game doing a massive 20 energy swing while engaged. Not only that he is able to use his ability while unengaged, which is particularly punishing with how Chaotics rules system interacting with smaller burn damage, because you can die mid burst if you ever get low enough on energy even as high 30, no amount of energy gain can save you if your opponent chains their Ulmquad's ability and they have a large enough stack of counters. Ulmquad makes any effect that gives mugic counters much stronger, as he is the best place to put them."
 		],
 		"Unbalancing Battlesong": [
-			"Unbalancing Battlesong is an overpushed Mugic, with 30 net energy for 1 mugic counter. Eliminating this Mugic allows for stronger Danian creatures to remain unbanned while reducing the tribe's overall power."
+			"Unbalancing Battlesong is an overpushed Mugic, with 30 net energy for 1 mugic counter. Limiting this Mugic allows for stronger Danian creatures to remain unbanned."
 		],
 		"Unheard Melody": [
 			"The ability to destory a creature from any  health is extremely potent, and while this mugic couldn't be used early in the game it wasn't too hard to find a chance to play it eventually just meaning you could safely through all your resources at earlier fights then use this one mugic to clean up whoever Is left. Yes some creatures could hold onto there MC to avoid dying but not everyone had tha luxury, especially with Na-inna around so this mugic is being benched."
