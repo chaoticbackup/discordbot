@@ -26,8 +26,12 @@ export function banlist_update(message: Message) {
   response += (ban_lists.standard.ban).reduce((prev, curr) => `${prev}\n${curr}`, '');
   response += '\n==**Unique Cards**==';
   response += (ban_lists.standard.unique).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += '\n==**Legendary Removed Cards**==';
+  response += (ban_lists.standard.unlegendary).reduce((prev, curr) => `${prev}\n${curr}`, '');
   response += '\n==**Loyal Cards**==';
   response += (ban_lists.standard.loyal).reduce((prev, curr) => `${prev}\n${curr}`, '');
+  response += '\n==**Loyal Removed Cards**==';
+  response += (ban_lists.standard.unloyal).reduce((prev, curr) => `${prev}\n${curr}`, '');
   return response;
 }
 
