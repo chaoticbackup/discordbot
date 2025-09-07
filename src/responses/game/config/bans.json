@@ -14,6 +14,7 @@
 			"Aer'dak",
 			"AZAIA Mindscrying Chamber",
 			"Bi-Mowercycle",
+			"Bodal, Flamedrill Researcher",
 			"Cadence Clash",
 			"Deadwater Devastation",
 			"Dranakis Threshold",
@@ -22,6 +23,7 @@
 			"Illusionary Lake",
 			"Imaginary Walls",
 			"Inner Flood",
+			"Lake Ken-I-Po",
 			"Lord Van Bloot, Servant of Aa'une",
 			"Lore, High Muge of the Hive",
 			"Lore's Chamber of Recall",
@@ -29,8 +31,10 @@
 			"Mipedian Dew Farm",
 			"Mipedim Mirage",
 			"Najarin, Fluidmorphers' Foe",
+			"Numin Voidland",
 			"Olkiex' Apron",
 			"Phelphor, Of the Deep",
+			"Prexxor Chasm",
 			"Prexxor Chasm, The Blight",
 			"Primal Smash",
 			"Psionic Serenade",
@@ -43,7 +47,6 @@
 			"Unheard Melody",
 			"Vial of Liquid Thought",
 			"Whirling Wail",
-			"Xelfe",
 			"Zamool, Lord Van Bloot's Enforcer"
 		],
 		"unique": [
@@ -59,7 +62,6 @@
 		],
 		"loyal": [
 			"Arkanin",
-			"Bodal, Flamedrill Researcher",
 			"Consuming Cacophony",
 			"Dror'niq",
 			"Elemental Elegy",
@@ -67,6 +69,9 @@
 			"Phelphor, Of the Deep",
 			"Rhyme of the Reckless",
 			"Ulmar, Perithon Racer"
+		],
+		"unloyal": [
+			"Lord Van Bloot"
 		],
 		"ununique": [
 			"Castle Pillar",
@@ -277,6 +282,9 @@
 		"Interlude of Interruption": [
 			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often included into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
 			"Pay the toll"
+		],
+		"Lake Ken-I-Po": [
+			"At this location, UnderWorld Burn can overwhelm matchups that normally contend with it using negates."
 		],
 		"Lanker": [
 			"Lanker grants disciplines on demand. His ability is not limited to once per turn. If you use his ability until he has 5 energy remaining, he can increase stats for at least 5 times ((30-5)/5) per turn. Giving their engaged Creature the ability to prevent your challenges, win initiatives, and any other benefits of obscenely high disciplines.\nA common strategy is to equip Lanker with Kha'rall Husk Armor. So by giving him this additional energy you distribute (30+50-5)/5 x 15 (225) worth of disciplines.",

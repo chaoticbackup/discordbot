@@ -55,6 +55,7 @@ export function banlist(message: Message, format: string, options: string[] = []
       list_bans('standard', 'ban');
       list_bans('standard', 'unique', '\n==**Unique Cards**==');
       list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
+      list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
       response += '\n=====\nYou can ask why a card was banned with ``"!whyban <card name>"``';
       response += '\nYou can see what cards have unique removed with ``!banlist --no-unique``';
       break;
