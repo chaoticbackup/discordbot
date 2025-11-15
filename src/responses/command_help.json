@@ -177,19 +177,9 @@
     "decklist": {
         "alias": "decks"
     },
-    "tier": {
-        "cmd": "!tier <tier>",
-        "details": "Sends a list of the specific tier decks"
-    },
-    "tierlist": {
-        "cmd": "!tierlist",
-        "list": "Returns the tierlist. Or acts as an alias to `!decks` if input is provided"
-    },
     "toplist": {
-        "alias": "tierlist"
-    },
-    "tiers": {
-        "alias": "tierlist"
+        "cmd": "!toplist",
+        "list": "Sends a list of top community curated decks"
     },
     "cupid": {
         "alias": "lf"

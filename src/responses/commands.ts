@@ -18,7 +18,7 @@ import { avatar, display_card, display_token, find_card, full_art } from './card
 import commands from './command_help.json';
 
 import { banlist, banlist_update, formats, whyban } from './game/bans';
-import { decklist, tier, tierlist } from './game/decklists';
+import { decklist, toplist } from './game/decklists';
 import { cr, faq } from './game/faq';
 import glossary from './game/glossary';
 import { goodstuff } from './game/goodstuff';
@@ -366,26 +366,14 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     case 'goodstuff':
       return send(goodstuff(args));
 
-    /* Decklists and Tierlist */
+    /* Decklists */
     case 'deck':
     case 'decks':
     case 'decklist':
       return sendBotCommands([decklist(flatten(args))]);
 
-    case 'tier': {
-      const output = tier(cleantext(flatten(args)));
-      if (output) sendBotCommands([output]);
-      return;
-    }
-
     case 'toplist':
-    case 'tierlist':
-    case 'tiers':
-      // if (guild && is_channel(channel, 'bot_commands', 'main')) {
-      //   return sendMultiResponse([tierlist(), curated(), donate()]);
-      // } else {
-      return sendBotCommands([tierlist(), donate()]);
-      // }
+      return sendBotCommands([toplist(), donate()]);
 
     /* Matchmaking */
     case 'cupid':

@@ -5,22 +5,14 @@
  I do a lot of funny Typescript stuff in this file to force validation for the linter
 */
 
-export const tiers = ["S", "A", "B"] as const;
-
 const tribes = ["OverWorld", "UnderWorld", "Danian", "Mipedian", "M'arrillian", "Mixed"] as const;
 
 // https://en.wikipedia.org/wiki/Magic:_The_Gathering_deck_types#:~:text=The%20traditional%20archetypes%20fit
 const types = ["Aggro", "Control", "Combo", "Aggro-Control", "Gimmick", "Midrange", "Anti-Meta", "Prison"] as const;
 
-type Tier = typeof tiers[number];
-
 type Tribe = typeof tribes[number];
 
 type DeckType = typeof types[number];
-
-export function isTier(input: string): input is Tier {
-  return tiers.includes(input as any);
-}
 
 export function isType(input: string): input is DeckType {
   return types.includes(input as any);
@@ -52,9 +44,6 @@ export const sortedlist = {
     "Ursis D Muge",
     "Wise Guys"
   ],
-  S: [],
-  A: [],
-  B: [],
   curated: [
     "Aa'une Tarterek",
     "Compost Malvone",
@@ -105,10 +94,7 @@ export const sortedlist = {
   ]
 } as const;
 
-export const tierlist = sortedlist as any as { [key in Tier]: string[] };
-
 type deck_names =
-  typeof sortedlist["S"] | typeof sortedlist["A"] | typeof sortedlist["B"] |
   typeof sortedlist["_"] | typeof sortedlist["curated"] | typeof sortedlist["toplist"];
 interface Deck {
   url: string
