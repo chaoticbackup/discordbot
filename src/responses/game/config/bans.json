@@ -131,13 +131,20 @@
 	},
 	"pauper": {
 		"ban": [
+			"Canon of Casualty",
+			"Chaac",
 			"Dror'niq",
+			"Elemental Denial",
 			"Em'swa",
-			"Improvisational Melody",
-			"Makanaz",
 			"Mock'adyn",
 			"Na-inna",
 			"Numin Voidland",
+			"Part'soa",
+			"Phelphor, Of the Deep"
+		],
+		"unique": [
+			"Lanker",
+			"Makanaz",
 			"Ulmar, Perithon Racer"
 		]
 	},
