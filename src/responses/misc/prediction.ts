@@ -11,7 +11,7 @@ const bannedCards = [
   'Bi-Mowercycle',
   'Vial of Liquid Thought',
   'Elemental Elegy',
-  'Talisman of Mandiblor',
+  'Talisman of the Mandiblor',
   "Najarin, Fluidmorphers' Foe",
   "Olkiex' Apron",
   "Dror'niq",
@@ -26,7 +26,6 @@ const bannedCards = [
   'Every FTK',
   'The Phlogiston',
   'Inner Flood',
-  'Ulmquad',
   'Phelphor, of the Deep',
   'Lore, Ancestral Caller'
 ];
@@ -35,6 +34,7 @@ const unbannedCards = [
   'Neekwin',
   'Chaac',
   "Carnivore's Keening",
+  'Ulmquad',
   'Enre-hep, High Muge of the Desert',
   'Before the Storm',
   'Ulmar, Perithon Racer',
@@ -228,5 +228,6 @@ export default function prediction() {
   }
   return prediction;
 }
+
 
 
