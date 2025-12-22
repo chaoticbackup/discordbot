@@ -195,7 +195,8 @@ const unbanReasons = [
   'to spice up the meta',
   "because that's Chaotic as Gannon intended",
   "because we didn't learn our lesson the first time",
-  'because surely no one will play it anyway'
+  'because surely no one will play it anyway',
+  'so players will complain about real decks again'
 ];
 
 export default function prediction() {
@@ -227,4 +228,5 @@ export default function prediction() {
   }
   return prediction;
 }
+
 
