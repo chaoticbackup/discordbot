@@ -533,9 +533,9 @@ const command_response = async (bot: Client, message: Message, mentions: string[
         if (args[0].toLowerCase() === 'overworld') {
           return send('<https://cdn.discordapp.com/attachments/135657678633566208/617384989641801897/OW-Map-0518.jpg>');
         } else
-        if (args[0].toLowerCase() === 'underworld') {
-          return send('<https://cdn.discordapp.com/attachments/135657678633566208/617385013129773057/UW-Map-0517.jpg>');
-        }
+          if (args[0].toLowerCase() === 'underworld') {
+            return send('<https://cdn.discordapp.com/attachments/135657678633566208/617385013129773057/UW-Map-0517.jpg>');
+          }
       }
       return send(commands.map.cmd);
     }

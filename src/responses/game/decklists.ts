@@ -187,5 +187,5 @@ function getTopList() {
 
 export {
   getTopList as toplist,
-  getDecklist as decklist,
+  getDecklist as decklist
 };
