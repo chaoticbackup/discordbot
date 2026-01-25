@@ -195,6 +195,9 @@ export default class API {
 
       const tribe = (/tribe=([\w']{2,})/).exec(options);
       if (tribe) filters.push({ gsx$tribe: { $regex: new RegExp(tribe[1], 'i') }});
+
+      const rarity = (/rarity=([\w]{2,})/).exec(options);
+      if (rarity) filters.push({ gsx$rarity: { $regex: new RegExp(rarity[1], 'i') }});
     }
 
     // Search by name

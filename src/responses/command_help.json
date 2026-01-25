@@ -2,7 +2,7 @@
     "card": {
         "cmd": "!card <card-name> [;<card-name>...]", 
         "list": "Returns a card; has many options", 
-        "details": "Provide a card name and I'll return the card's text as well as its picture.\nWithout a card name, I'll return a random card. You can ask for multiple cards using a semi-colon\nYou can use ``--type=`` for card type or ``--tribe=`` for a Tribe (no space after the = ).\nAdditional options are ``--min``, ``--max``, ``--detailed``, ``--text``, ``--stats``, ``--ability``, ``--image``"
+        "details": "Provide a card name and I'll return the card's text as well as its picture.\nWithout a card name, I'll return a random card. You can ask for multiple cards using a semi-colon\nYou can use ``--type=`` for card type or ``--tribe=`` for a Tribe or ``--rarity=`` for a rarity (no space after the = ).\nAdditional options are ``--min``, ``--max``, ``--detailed``, ``--text``, ``--stats``, ``--ability``, ``--image``"
     },
     "cards": {
         "alias": "card"
