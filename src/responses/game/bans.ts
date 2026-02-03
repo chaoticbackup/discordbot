@@ -34,8 +34,12 @@ export function banlist_update(message: Message) {
   list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
   list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
   list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
+  const response1 = response;
 
-  return response;
+  response = ''
+  list_bans('standard', 'ununique', '\n==**Non-Unique Cards**==');
+
+  return [response1, response];
 }
 
 export function banlist(message: Message, format: string, options: string[] = []) {
@@ -47,7 +51,7 @@ export function banlist(message: Message, format: string, options: string[] = []
 
   const list_bans = (_format: keyof typeof formats, list: string, header = '\n==**Banned Cards**==') => {
     response += header;
-    response = (ban_lists[_format][list] as string[]).reduce((prev, curr) => `${prev}\n${curr}`, response);
+    response = (ban_lists[_format][list] as string[]).reduce((prev, curr) => `${prev}\n* ${curr}`, response);
   };
 
   if (options.includes('no-unique')) {

@@ -327,16 +327,16 @@ const command_response = async (bot: Client, message: Message, mentions: string[
 
     /* Banlist and Formats */
     case 'banlist': {
-      let rsp: string;
+      let rsp: string[];
       if (args.length > 0 && args[0].toLowerCase() === 'update') {
         rsp = banlist_update(message);
       } else {
-        rsp = banlist(message, flatten(args) || 'standard', options);
+        rsp = [banlist(message, flatten(args) || 'standard', options)];
       }
       const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
         : null;
-      return sendBotCommands([rsp], msg, 'Moderator');
+      return sendBotCommands(rsp, msg, 'Moderator');
     }
 
     case 'formats':
