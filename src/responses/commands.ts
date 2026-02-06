@@ -91,14 +91,14 @@ export default (async function (bot: Client, message: Message): Promise<void> {
   };
 
   return response()
-  .catch((error) => {
+  .catch((error: DiscordAPIError & Error) => {
     // Ignore DM channel errors and unknown message errors (e.g. deleted)
     if (error?.code === 50003 || error?.code === 10008)
       return;
 
     // Send Error to Bot Testing Server
     let server_source = message.guild ? message.guild.name : `DM ${message.author.username}`;
-    server_source += `\n(${content.split('\n')[0]})`;
+    server_source += `\n\`${content.split('\n')[0]}\``;
     handleError(bot, error, server_source);
 
     if (development) return;
