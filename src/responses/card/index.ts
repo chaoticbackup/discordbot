@@ -66,7 +66,4 @@ export async function find_card(name: string, bot: Client, send: SendFunction) {
 
     await response.clearReactions();
   })
-  .catch(async () => {
-    await response.clearReactions();
-  });
 }

@@ -9,7 +9,7 @@ import servers from './servers';
 type channels = 'debug' | 'errors';
 
 export function handleError(bot: Client, e: any, source = 'unknown') {
-  debug(bot, `${source}: ${e.message}\n${e.stack}`, 'errors');
+  debug(bot, `${source}\n${e.message}\n${e.stack}`, 'errors');
 }
 
 const date_format = 'hh:mm:ss A';
