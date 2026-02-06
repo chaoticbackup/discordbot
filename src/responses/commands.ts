@@ -92,6 +92,10 @@ export default (async function (bot: Client, message: Message): Promise<void> {
 
   return response()
   .catch((error) => {
+    // Ignore DM channel errors (error code 50003)
+    if (error?.code === 50003)
+      return;
+
     // Send Error to Bot Testing Server
     const server_source = message.guild ? message.guild.name : `DM ${message.author.username}`;
     handleError(bot, error, server_source);
