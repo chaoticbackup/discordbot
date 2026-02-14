@@ -8,7 +8,7 @@ import servers from './servers';
 
 type channels = 'debug' | 'errors';
 
-export function handleError(bot: Client, e: any, source = 'unknown') {
+export function handleError(bot: Client, e: Error, source = 'unknown') {
   debug(bot, `${source}\n${e.message}\n${e.stack}`, 'errors');
 }
 
