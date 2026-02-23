@@ -31,6 +31,7 @@ export function banlist_update(message: Message) {
 
   list_bans('standard', 'ban');
   list_bans('standard', 'unique', '\n==**Unique Cards**==');
+  list_bans('standard', 'legendary', '\n==**Legendary Cards**==');
   list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
   list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
   list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
@@ -65,6 +66,7 @@ export function banlist(message: Message, format: string, options: string[] = []
       title('standard');
       list_bans('standard', 'ban');
       list_bans('standard', 'unique', '\n==**Unique Cards**==');
+      list_bans('standard', 'legendary', '\n==**Legendary Cards**==');
       list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
       list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
       list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');

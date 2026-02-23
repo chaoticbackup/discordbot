@@ -17,27 +17,28 @@
 			"Bi-Mowercycle",
 			"Bodal, Flamedrill Researcher",
 			"Cadence Clash",
+			"Chaac",
 			"Deadwater Devastation",
 			"Dranakis Threshold",
+			"Dranakis Threshold, Portal to the Past",
 			"Dror'niq",
-			"Elemental Elegy",
-			"Enre-hep, High Muge of the Desert",
 			"Hune Paltanin",
 			"Illusionary Lake",
 			"Imaginary Walls",
-			"Inner Flood",
+			"Kopond, High Muge of the Hearth",
 			"Lake Ken-I-Po",
 			"Lord Van Bloot, Servant of Aa'une",
 			"Lore, Ancestral Caller",
 			"Lore's Chamber of Recall",
 			"Melody of the Meek",
-			"Mind Mash",
 			"Mipedian Dew Farm",
 			"Mipedim Mirage",
 			"Najarin, Fluidmorphers' Foe",
 			"Numin Voidland",
 			"Olkiex' Apron",
 			"Phelphor, Of the Deep",
+			"Phoenix Belt",
+			"Pouril Forest",
 			"Prexxor Chasm",
 			"Prexxor Chasm, The Blight",
 			"Primal Smash",
@@ -50,24 +51,31 @@
 			"Tonal Destruction",
 			"Unheard Melody",
 			"Vial of Liquid Thought",
+			"Warbeast Power Leash",
 			"Whirling Wail",
 			"Zamool, Lord Van Bloot's Enforcer"
 		],
 		"unique": [
-			"Interlude of Interruption",
+			"Barath Beyond, UnderWorld General",
+			"Gorram, Danian General",
+			"Grantkae, Mipedian General",
+			"Inner Flood",
 			"Na-inna",
-			"Melody of Mirage",
+			"Malvadine, The King's Herald",
+			"Mind Mash",
 			"Mock'adyn",
 			"Neekwin",
+			"Refrain of Denial",
 			"Rhyme of the Reckless",
+			"Scepter of the Infernal Parasite",
+			"Tangath Toborn, OverWorld General",
 			"Ulmquad",
-			"Unbalancing Battlesong",
-			"Ursis"
+			"Unbalancing Battlesong"
 		],
 		"loyal": [
 			"Arkanin",
-			"Malvadine, The King's Herald",
-			"Phelphor, Of the Deep",
+			"Consuming Cacophony",
+			"Interlude of Interruption",
 			"Rhyme of the Reckless",
 			"Ulmar, Perithon Racer",
 			"Ulmquad"
@@ -79,12 +87,25 @@
 			"Iparu, Metallic Ally",
 			"Lord Van Bloot"
 		],
+		"legendary": [
+			"Arbeid",
+			"Elemental Elegy",
+			"Garv",
+			"Lore",
+			"Lore, High Muge of the Hive",
+			"Na-inna",
+			"Nivenna",
+			"Taffial"
+		],
 		"unlegendary": [
 			"Barath Beyond, UnderWorld General",
 			"Gorram, Danian General",
-			"Grantkae, Mipedian General"
+			"Grantkae, Mipedian General",
+			"Scepter of the Infernal Parasite",
+			"Tangath Toborn, OverWorld General"
 		],
 		"ununique": [
+			"Blazvatan, The Epic Warbeast",
 			"Castle Pillar",
 			"Foothold Assault Trench",
 			"Gambreor's Hut",
@@ -199,6 +220,9 @@
 		"Algal Wings of Attraction": [
 			"With Xelfe, decks have been using a jump + algal wings to ravish the backlines. Aside from that, it takes away attack decisions, which is one of the more significant ways that a player can exercise agency."
 		],
+		"Arbeid": [
+			"Arbeid is a great card to help against high attack damage decks like Strike. In an effort to tone down reusability, Arbeid has been made legendary to not fit in Na-inna decks."
+		],
 		"Arkanin": [
 			"This deck has been pretty dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done. I'm aware the Arkanin ban might be unnecessary with one Ursis but I'm playing it safe on this one"
 		],
@@ -240,6 +264,10 @@
 			"Dranakis Threshold prevents interaction outside of playing attacks. Decks that focus on Attacks as their win condition (namely Mipedian Strike) can use this lack of interaction to effectively guarantee a win with this location. This card is very frustrating to play against by reducing a turn to who had better attack draws.",
 			"Tried to circumvent the Zamool ban.",
 			"Advanced Apprentice the location."
+		],
+		"Dranakis Threshold, Portal to the Past": [
+			"An automatic inclusion in any Warbeast or Ursis deck. This aims to control the overall power of those decks. Additionally, the location breaks a lot of tribal interactions causing unexpected side effects.",
+			"We found Afjak!"
 		],
 		"Dror'niq": [
 			"His first ability allows him to deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nAlthough his second ability takes 4 Mugic Counters, he can use it while unengaged and it essentially provides Recklessness 10 for 30-50 damage in a typical combat.",
@@ -309,6 +337,9 @@
 			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often included into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
 			"Pay the toll"
 		],
+		"Kopond, High Muge of the Hearth": [
+			"Burn has historically performed well in both queue and competitive formats. While burn is necessary to prevent certain decks from running rampant, removing the extra 20–50 burn damage from UnderWorld should tone it down appropriately."
+		],
 		"Lake Ken-I-Po": [
 			"At this location, UnderWorld Burn can overwhelm matchups that normally contend with it using negates."
 		],
@@ -323,7 +354,7 @@
 			"His sickle is just compensating"
 		],
 		"Lore": [
-			"Mixed burn decks continued to dominate the meta. Removing the incremental damage available at any time reduces the risk of dying when a creature is too low in health and cannot respond to many additional instances of burn chained on the burst."
+			"Mixed burn decks continued to dominate the meta. The incremental damage available at any time reduces the risk of dying when a creature is too low in health and cannot respond to many additional instances of burn chained on the burst."
 		],
 		"Lore, Ancestral Caller": [
 			"Decks that rely on discard interaction, (Danian compost, Mipedian Glost, OverWorld Strain of the Tide, M'arrillian Psi-mageddon, etc.) instantly lose their combo against Lore. Unlike other cards that remvoe Creatures from the discard, Lore's ability to gain Mugic counters furthers the disparity in matchups. And unlike Kileron, Lore's ability only applies to the opponent. Additionaly, since Lore has an activated ability on which to spend these counters, has the energy and disciplines of a fighter, and has subtype Muge, the combination of factors pushes him into the overbearing territory and makes Danian burn too powerful.",
@@ -377,6 +408,9 @@
 			"Yeah, I know you're mad about this.",
 			"It's in his flavor text..."
 		],
+		"Nivenna": [
+			"Nivenna unloyal is meant to support mixed decks built around elemental-focused attack strategies. Limiting its interaction and repetition with Na-inna should help prevent abuse"
+		],
 		"Numin Voidland": [
 			"Discipline supremacy is solidified here. It provides an unfair advantage against decks that rely on elemental attacks for their attack damage.",
 			"Your attacks, just like your chances at winning, are now **void**."
@@ -389,6 +423,9 @@
 		],
 		"Phelphor, Of the Deep": [
 			"Phelphor's ability to stall out games, and disrupt opponent's creature placement caused Phelphor to become the defacto fluidmorpher for mixed decks. This reduction of the opponents agency creates a frustrating matchup. Restricting Phelphor to M'arrillians should help reduce the power of frustrating mixed decks while boosting M'arrillians."
+		],
+		"Phoenix Belt": [
+			"A slight hit to both Burn and Strike decks. Nexus Fuse remains the next logical replacement, but this change aims to reduce the overall burn presence in the meta."
 		],
 		"Phlogiston": [
 			"Burn is divisive, while both being heavily played and hated. Banning Phlogiston should help reduce some of the overbearing variance without gutting existing burn decks."
@@ -424,7 +461,7 @@
 			"*At least Fluidmorphers are having fun at the beach.*"
 		],
 		"Refrain of Denial": [
-			"To shift the meta but giving a wider range of decks access to negation, Refrain of Denial would be switched with Interlude of Interruptions. Having both at the same time could be overbearing."
+			"Running two Refrain of Denial and one Interlude of Interruption has become standard in most OverWorld decks and even some mixed builds. This has led to a restrictive gameplay. Limiting Refrain of Denial should encourage more Mugic choices."
 		],
 		"Rhyme of the Reckless": [
 			"Rhyme of the Reckless is punishing Mugic, especially against Mipedians. By limiting accessablility to OverWorld, loyal decks can remain powerful, without boosting mixed effectiveness against Mipedians."
@@ -446,6 +483,9 @@
 			"Removing 4 Mugic Counters severely cripples most decks. Aside from a couple of cards that negate attacks, it is not preventable.",
 			"Your opponent didn't need Mugic Counters anyway.",
 			"Nothing like a nice super cool shower to wash off the dirt from a hard days work"
+		],
+		"Taffial": [
+			"Taffial is a good tool in Ursis builds, giving access to 2 Mipedian Mugic Counter as well as boosting attack damage. By making Taffial Legendary, it will force a tradeoff with other good support options."
 		],
 		"Talisman of the Mandiblor": [
 			"You spend resources taking out their strong Mandiblor fighter, just to have it come back at the price of a support creature. The Creature can be placed anywhere on the board, allowing them to jump next to their opponents support creatures. Additionally, because it can be sacrificed at any time, it can be used to \"skip\" your opponent's turn: after they engage, you activate it and waste their combat and bring back a fighter.",
@@ -484,6 +524,9 @@
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
 			"Did you like that one hit Slash Claw? Want to see it again?",
 			"Go on, take a swig of the vial."
+		],
+		"Warbeast Power Leash": [
+			"Ixxik and Warbeasts previously benefited from having five damage modifiers in both directions. Ailav appears integral to the deck’s success, so banning Powerleash should push these decks to experiment with new gear options."
 		],
 		"Whirling Wail": [
 			"We have a history of banning cards that prevent you from using Mugic or abilities especially one sided ones, being locked out of mugic for a battle is pretty huge and puts alot of power in decks that can run this card without even having to give up on the damage. Additionally, this used in burn decks would prevent many of the typical interactions that could counterplay burn.",
