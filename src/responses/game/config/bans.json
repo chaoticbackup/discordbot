@@ -45,6 +45,7 @@
 			"Psionic Serenade",
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
+			"Strain of Infection",
 			"Supercooled Rain",
 			"Talisman of the Mandiblor",
 			"The Phlogiston",
@@ -60,6 +61,7 @@
 			"Gorram, Danian General",
 			"Grantkae, Mipedian General",
 			"Inner Flood",
+			"Interlude of Interruption",
 			"Na-inna",
 			"Malvadine, The King's Herald",
 			"Mind Mash",
@@ -81,11 +83,14 @@
 			"Ulmquad"
 		],
 		"unloyal": [
+			"Arbeid",
 			"Crown of Aa'une",
 			"Ikkatosh, Guardian of Nature",
 			"Intress, Natureforce",
 			"Iparu, Metallic Ally",
-			"Lord Van Bloot"
+			"Lord Van Bloot",
+			"Nivenna",
+			"Scepter of the Infernal Parasite"
 		],
 		"legendary": [
 			"Arbeid",
