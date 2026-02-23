@@ -43,7 +43,7 @@ export function banlist_update(message: Message) {
   return [response1, response];
 }
 
-export function banlist(message: Message, format: string, options: string[] = []) {
+export function banlist(message: Message, format: string, options: string[] = []): string[] {
   let response = '';
 
   const title = (_format: string) => {
@@ -57,7 +57,7 @@ export function banlist(message: Message, format: string, options: string[] = []
 
   if (options.includes('no-unique')) {
     list_bans('standard', 'ununique', '\n==**Non-Unique Cards**==');
-    return response;
+    return [response];
   }
 
   switch (format) {
@@ -65,14 +65,17 @@ export function banlist(message: Message, format: string, options: string[] = []
     case 'standard': {
       title('standard');
       list_bans('standard', 'ban');
-      list_bans('standard', 'unique', '\n==**Unique Cards**==');
       list_bans('standard', 'legendary', '\n==**Legendary Cards**==');
       list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
       list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
       list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
+      let response1 = response;
+      response = '';
+      list_bans('standard', 'unique', '\n==**Unique Cards**==');
+      list_bans('standard', 'ununique', '\n==**Non-Unique Cards**==');
       response += '\n=====\nYou can ask why a card was banned with ``"!whyban <card name>"``';
-      response += '\nYou can see what cards have unique removed with ``!banlist --no-unique``';
-      break;
+      
+      return [response1, response];
     }
     // Legacy
     case 'unrestricted':
@@ -113,7 +116,7 @@ export function banlist(message: Message, format: string, options: string[] = []
     }
   }
 
-  return response;
+  return [response];
 }
 
 export function whyban(

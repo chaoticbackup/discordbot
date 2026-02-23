@@ -136,6 +136,12 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     });
   };
 
+  const sendMultiResponse = async (content: Array<string | RichEmbed>, ch: Channel = message.channel as Channel) => {
+    for await (const c of content) {
+      if (c) await ch.send(c).catch((e) => { throw (e); });
+    }
+  };
+
   /**
     * Public Servers (Limited functions)
     */
@@ -190,7 +196,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       case 'guide':
         return send('<https://docs.google.com/document/d/1WJZIiINLk_sXczYziYsizZSNCT3UUZ19ypN2gMaSifg/view>');
       case 'banlist':
-        return send(banlist(message, flatten(args) || 'standard', options));
+        return sendMultiResponse(banlist(message, flatten(args) || 'standard', options));
       case 'ban':
       case 'whyban':
         return send(whyban(flatten(args), channel, guild, guildMember, options));
@@ -221,12 +227,6 @@ const command_response = async (bot: Client, message: Message, mentions: string[
     return (guild && guildMember && guildMember.roles.size === 1 && guild.id === servers('main').id &&
       (channel.id === servers('main').channel('gen_1') || channel.id === servers('main').channel('gen_2'))
     );
-  };
-
-  const sendMultiResponse = async (content: Array<string | RichEmbed>, ch: Channel = message.channel as Channel) => {
-    for await (const c of content) {
-      if (c) await ch.send(c).catch((e) => { throw (e); });
-    }
   };
 
   const sendBotCommands = (content: Array<string | RichEmbed>, msg: string | null = null, role?: string) => {
@@ -336,7 +336,7 @@ const command_response = async (bot: Client, message: Message, mentions: string[
       if (args.length > 0 && args[0].toLowerCase() === 'update') {
         rsp = banlist_update(message);
       } else {
-        rsp = [banlist(message, flatten(args) || 'standard', options)];
+        rsp = banlist(message, flatten(args) || 'standard', options);
       }
       const msg = !is_channel(message, 'banlist_discussion')
         ? `I'm excited you want to follow the ban list, but to keep the channel from clogging up, can you ask me in <#${servers('main').channel('bot_commands')}>?`
