@@ -23,6 +23,8 @@
 			"Dranakis Threshold, Portal to the Past",
 			"Dror'niq",
 			"Hune Paltanin",
+			"Ice Sheet",
+			"Inner Flood",
 			"Illusionary Lake",
 			"Imaginary Walls",
 			"Kopond, High Muge of the Hearth",
@@ -31,6 +33,7 @@
 			"Lore, Ancestral Caller",
 			"Lore's Chamber of Recall",
 			"Melody of the Meek",
+			"Minor Roar",
 			"Mipedian Dew Farm",
 			"Mipedim Mirage",
 			"Najarin, Fluidmorphers' Foe",
@@ -60,7 +63,6 @@
 			"Barath Beyond, UnderWorld General",
 			"Gorram, Danian General",
 			"Grantkae, Mipedian General",
-			"Inner Flood",
 			"Interlude of Interruption",
 			"Na-inna",
 			"Malvadine, The King's Herald",
@@ -320,6 +322,9 @@
 		"Ice Disks": [
 			"Decks have been this and Whirling Wail to limit opponent's ability to interact. By limiting this attack, decks should have more opportunity to utalize their resoures"
 		],
+		"Ice Sheet": [
+			"Fluidmorph has a strategy to stall to build up counters to create a one shot off of Ice Sheet."
+		],
 		"Ikkatosh, The Aich King": [
 			"His ability gives significant advantage to cards that were already designed strong to offset their lack of elements. Cards like Aivenna and Anarkiar surpass other fighters with the extraordinary energy and Outperform.",
 			"Is a tree"
@@ -388,6 +393,9 @@
 		],
 		"Mind Mash": [
 			"The Overworld deck has been very potent and that is partially do to it's use of this attack. 60 damage is enough to win a battle almost single handedly and Tartarek on the team makes it not too hard to get that almost every time. When combined with the denial mugic the Overworld has and the use of Garv to remove things like Xerium Armor, the regular counterplay to giant attacks like this wasn't as effective. Overall I decided those cards were more popular and widely used than this one so they'll be staying and this will be going"
+		],
+		"Minor Roar": [
+			"Fluidmorph has a strategy to stall to build up counters to create a one shot off of Minor Roar."
 		],
 		"Mipedian Dew Farm": [
 			"Mipedian Dew Farm allows Fluidmorphers to have an overwhelming combat advantage."
