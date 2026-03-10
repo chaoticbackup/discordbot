@@ -1,4 +1,4 @@
-import { Client, Message, MessageReaction } from 'discord.js';
+import { Client, Message, MessageReaction, User } from 'discord.js';
 
 import { API } from '../../database';
 import { SendFunction } from '../../definitions';
@@ -49,8 +49,8 @@ export async function find_card(name: string, bot: Client, send: SendFunction) {
     await response.react(numbers[i]);
   }
 
-  const filter = (reaction: MessageReaction) => {
-    return numbers.includes(reaction.emoji.name);
+  const filter = (reaction: MessageReaction, user: User) => {
+    return numbers.includes(reaction.emoji.name) && user.id !== bot.user.id;
   };
 
   return await response.awaitReactions(filter, { max: 1, time: 15000, errors: ['time'] })
