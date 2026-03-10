@@ -27,6 +27,10 @@ const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
 const sq = new ScanQuest(bot, auth);
 
+if (!development) {
+  devType = 'all';
+}
+
 const start = async () => {
   if (devType === 'all') {
     sq.start();
