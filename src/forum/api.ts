@@ -1,4 +1,5 @@
 import express from 'express';
+import { exec } from 'child_process';
 
 import { API } from '../database';
 import logger from '../logger';
@@ -6,7 +7,18 @@ import logger from '../logger';
 const app = express();
 const port = 3000;
 
-export default () => {
+const killPort = (port: number) => {
+  return new Promise<void>((resolve) => {
+    exec(`lsof -ti:${port} | xargs kill -9`, (error) => {
+      // Ignore errors, as the port might not be in use
+      resolve();
+    });
+  });
+};
+
+export default async () => {
+  await killPort(port);
+
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -26,5 +38,6 @@ export default () => {
     }
   });
 
-  app.listen(port, () => logger.info(`Card API listening on port ${port}`));
+  const server = app.listen(port, () => logger.info(`Card API listening on port ${port}`));
+  return server;
 };

@@ -11,6 +11,7 @@ import ForumPosts from './forum/posts';
 import logger from './logger';
 import responses from './responses/commands';
 import ScanQuest from './scanquest';
+import { Server } from 'http';
 
 const auth: AuthFile | undefined = require('./auth.json');
 
@@ -26,6 +27,7 @@ export let devType = process.env.APP_ENV ?? '';
 const bot = new Discord.Client();
 const fp = new ForumPosts(bot);
 const sq = new ScanQuest(bot, auth);
+let forumServer: Server | null = null;
 
 // Disabled freatures if api.json is missing or set to false
 if (!development) {
@@ -33,7 +35,7 @@ if (!development) {
     const api = require('./api.json');
     if (!!api) {
       devType = 'all';
-      startForumAPI();
+      forumServer = await startForumAPI();
     }
   }
   catch (e) { }
@@ -53,6 +55,9 @@ const start = async () => {
 };
 
 const stop = async () => {
+  if (forumServer) {
+    forumServer.close();
+  }
   if (devType === 'all') {
     await sq.stop();
     fp.stop();
