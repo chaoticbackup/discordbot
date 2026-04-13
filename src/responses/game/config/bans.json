@@ -11,8 +11,7 @@
 	},
 	"standard": {
 		"ban": [
-			"Aer'dak",
-			"Algal Wings of Attraction",
+			"Armament Adagio",
 			"AZAIA Mindscrying Chamber",
 			"Bi-Mowercycle",
 			"Bodal, Flamedrill Researcher",
@@ -22,6 +21,7 @@
 			"Dranakis Threshold",
 			"Dranakis Threshold, Portal to the Past",
 			"Dror'niq",
+			"Em'swa",
 			"Hune Paltanin",
 			"Ice Sheet",
 			"Inner Flood",
@@ -33,12 +33,13 @@
 			"Lore, Ancestral Caller",
 			"Lore's Chamber of Recall",
 			"Melody of the Meek",
-			"Minor Roar",
 			"Mipedian Dew Farm",
 			"Mipedim Mirage",
+			"Mount Pillar Reservoir, Neth'uar's Foothold",
 			"Najarin, Fluidmorphers' Foe",
 			"Numin Voidland",
 			"Olkiex' Apron",
+			"Part'soa",
 			"Phelphor, Of the Deep",
 			"Phoenix Belt",
 			"Pouril Forest",
@@ -48,22 +49,27 @@
 			"Psionic Serenade",
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
-			"Strain of Infection",
 			"Supercooled Rain",
 			"Talisman of the Mandiblor",
 			"The Phlogiston",
 			"Tonal Destruction",
-			"Unheard Melody",
 			"Vial of Liquid Thought",
 			"Warbeast Power Leash",
 			"Whirling Wail",
+			"Xelfe",
 			"Zamool, Lord Van Bloot's Enforcer"
 		],
 		"unique": [
 			"Barath Beyond, UnderWorld General",
+			"Crown of Aa'une",
+			"Dry Touch",
+			"Eroding Blast",
+			"Extinguishing Fountain",
+			"Gravel Grind",
 			"Gorram, Danian General",
 			"Grantkae, Mipedian General",
-			"Interlude of Interruption",
+			"Hornsabre",
+			"Melody of Mirage",
 			"Na-inna",
 			"Malvadine, The King's Herald",
 			"Mind Mash",
@@ -72,15 +78,20 @@
 			"Refrain of Denial",
 			"Rhyme of the Reckless",
 			"Scepter of the Infernal Parasite",
+			"Strain of Infection",
 			"Tangath Toborn, OverWorld General",
 			"Ulmquad",
-			"Unbalancing Battlesong"
+			"Unbalancing Battlesong",
+			"Vacuum Hemisphere",
+			"Warriors of Owayki"
 		],
 		"loyal": [
+			"Aer'dak",
 			"Arkanin",
 			"Consuming Cacophony",
 			"Interlude of Interruption",
 			"Rhyme of the Reckless",
+			"Strain of Infection",
 			"Ulmar, Perithon Racer",
 			"Ulmquad"
 		],
@@ -90,14 +101,14 @@
 			"Ikkatosh, Guardian of Nature",
 			"Intress, Natureforce",
 			"Iparu, Metallic Ally",
-			"Lord Van Bloot",
 			"Nivenna",
 			"Scepter of the Infernal Parasite"
 		],
 		"legendary": [
-			"Arbeid",
+			"Algal Wings of Attraction",
 			"Elemental Elegy",
 			"Garv",
+			"Jorre, Mipedian Lieutenant",
 			"Lore",
 			"Lore, High Muge of the Hive",
 			"Na-inna",
@@ -106,10 +117,13 @@
 		],
 		"unlegendary": [
 			"Barath Beyond, UnderWorld General",
+			"Crown of Aa'une",
 			"Gorram, Danian General",
 			"Grantkae, Mipedian General",
+			"Hornsabre",
 			"Scepter of the Infernal Parasite",
-			"Tangath Toborn, OverWorld General"
+			"Tangath Toborn, OverWorld General",
+			"Warriors of Owayki"
 		],
 		"ununique": [
 			"Blazvatan, The Epic Warbeast",
@@ -153,7 +167,6 @@
 			"Nis'dabba",
 			"Rath'tab",
 			"Rath'tab, Mind Scryer",
-			"Rellim, Watermaster",
 			"Ritzu'dag",
 			"Takinom, The Shadowknight",
 			"Wilt'dred",
@@ -227,6 +240,9 @@
 		"Algal Wings of Attraction": [
 			"With Xelfe, decks have been using a jump + algal wings to ravish the backlines. Aside from that, it takes away attack decisions, which is one of the more significant ways that a player can exercise agency."
 		],
+		"Armament Adagio": [
+			"A direct hit to Mipedians. The combination with Enre-Hep HM often instantly ended games, leaving key battlegear combos unusable and creating an unfun experience."
+		],
 		"Arbeid": [
 			"Arbeid is a great card to help against high attack damage decks like Strike. In an effort to tone down reusability, Arbeid has been made legendary to not fit in Na-inna decks."
 		],
@@ -263,9 +279,21 @@
 		"Consuming Cacophony": [
 			"Consuming Cacophony is loyal due to a combo involving Enre-hep High Muge of the Desert."
 		],
+		"Crown of Aa'une": [
+			"Removing loyal restriction allows for deck ideas without requiring a chieftain."
+		],
 		"Deadwater Devastation": [
 			"It can severely hinder your opponent's Mugic abilty. Since most decks don't have ample Mugic counters, playing Deadwater Devastation early game cripples their options. Fluidmorph decks that play Deadwater Devastation disproportionately effect non-Fluidmorph decks since they generate Mugic counters.",
 			"Big Splash."
+		],
+		"Dry Touch": [
+			"Elemental hate remains prevalent outside of these attacks. Its repeatable nature at 2 felt excessive; further adjustments will be made if it continues to be too strong."
+		],
+		"Eroding Blast": [
+			"Elemental hate remains prevalent outside of these attacks. Its repeatable nature at 2 felt excessive; further adjustments will be made if it continues to be too strong."
+		],
+		"Extinguishing Fountain": [
+			"Elemental hate remains prevalent outside of these attacks. Its repeatable nature at 2 felt excessive; further adjustments will be made if it continues to be too strong."
 		],
 		"Dranakis Threshold": [
 			"Dranakis Threshold prevents interaction outside of playing attacks. Decks that focus on Attacks as their win condition (namely Mipedian Strike) can use this lack of interaction to effectively guarantee a win with this location. This card is very frustrating to play against by reducing a turn to who had better attack draws.",
@@ -288,7 +316,7 @@
 			"Danians plagiarized both the OverWorld and UnderWorld."
 		],
 		"Em'swa": [
-			"In pauper, renewable resources such as fluidmorphers tend to be too be too strong. Combined with Chaac to cover the early game, Em'swa all but ensures that you're opponent won't be playing elemental attacks. Additionaly, since Chaac, in pauper, doesn't have other ways to be renewable, Em'swa made more sense as the choice."	
+			"Renewable resources such as fluidmorphers tend to be too be too strong. Combined with Chaac to cover the early game, Em'swa all but ensures that you're opponent won't be playing elemental attacks. Additionaly, since Chaac, in pauper, doesn't have other ways to be renewable, Em'swa made more sense as the choice."	
 		],
 		"Enre-hep, High Muge of the Desert": [
 			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most oppressive combos are: Tonal Destruction, Unheard Melody, Consuming Cacophony, Song of Resistance (which can stall a game for hours), and finally a broken combo involves Strain of Infection and Ode to Obscurity to create a loop to generate infinite counters.",
@@ -302,6 +330,9 @@
 		],
 		"Grounding Grapple": [
 			"Grounding Grapple lets you reorder your top three locations, **and** reveal a new location. Unlike the other attacks that reveal a new location, this does not have the cost of losing earth."
+		],
+		"Gravel Grind": [
+			"This should encourage more Compost/Revival decks. Gravel Grind at 1 still provides Earth decks with an answer, making Void Dirge unnecessary in every deck."
 		],
 		"Headmaster Ankhyja, Seeker of the Art": [
 			"Prevents opponent's interaction with your creatures leading to less strategic games. Stunts decks that rely on targeting opponents."
@@ -318,6 +349,9 @@
 		"Hune Paltanin": [
 			"She provides massive healing potential to OverWorld decks. Her ability has no cost, so her inclusion in decks is resource advantage and completely counters burn archtypes.",
 			"Foxy Waifu"
+		],
+		"Hornsabre": [
+			"A boost to OverWorld. The added chip damage proved decisive in matchups. Greater variation from OW was expected but did not materialize. Hopefully Wise guys/POP see more play."
 		],
 		"Ice Disks": [
 			"Decks have been this and Whirling Wail to limit opponent's ability to interact. By limiting this attack, decks should have more opportunity to utalize their resoures"
@@ -346,6 +380,9 @@
 		"Interlude of Interruption": [
 			"Interlude of Interruption allows OverWorlders to cheaply counter opponents. Because of its low cost, this Mugic is often included into mixed decks containing OverWorlders. Since both mixed and OverWorld decks lean towards activated abilities and contain ample Mugic counters, running this Mugic can prevent an opponents strategy without drawback.",
 			"Pay the toll"
+		],
+		"Jorre, Mipedian Lieutenant": [
+			"Having both Jorre and Algal at legendary will stop the original reason algal got banned (jumping into the backrow and forcing their supports to fight)."
 		],
 		"Kopond, High Muge of the Hearth": [
 			"Burn has historically performed well in both queue and competitive formats. While burn is necessary to prevent certain decks from running rampant, removing the extra 20–50 burn damage from UnderWorld should tone it down appropriately."
@@ -390,6 +427,9 @@
 		"Melody of the Meek": [
 			"Taking only 10 damage from every source is brutal. Even with only 30 energy this card would be a big advantage.\nBut there's tons of effects Creatures gain energy - making it difficult to kill a Creature using this Mugic.",
 			"See Strike of the Meek"
+		],
+		"Mount Pillar Reservoir, Neth'uar's Foothold": [
+			"A controversial location for Chieftain-based decks. While many locations supported these decks, this one often felt like a free revival unless the battleboard was played perfectly."
 		],
 		"Mind Mash": [
 			"The Overworld deck has been very potent and that is partially do to it's use of this attack. 60 damage is enough to win a battle almost single handedly and Tartarek on the team makes it not too hard to get that almost every time. When combined with the denial mugic the Overworld has and the use of Garv to remove things like Xerium Armor, the regular counterplay to giant attacks like this wasn't as effective. Overall I decided those cards were more popular and widely used than this one so they'll be staying and this will be going"
@@ -442,6 +482,9 @@
 		],
 		"Phlogiston": [
 			"Burn is divisive, while both being heavily played and hated. Banning Phlogiston should help reduce some of the overbearing variance without gutting existing burn decks."
+		],
+		"Part'soa": [
+			"The next changes address the Fluidmorpher issue. Partsoa offered excessive utility, creating frustrating gameplay and heavily suppressing most decks unless specifically countered. Aer'dak may (in theory) introduce another viable fighter option for Minor Roar and Unheard Melody to be used, and can theoretically hit decks using range."
 		],
 		"Psionic Serenade": [
 			"This card makes use of an already defeated resource to swing the tempo of a match. High energy minions are already present throughout the meta, giving their decks another tool can make them too strong. Dealing usually 55-65 damage, this all but guarentines a combat win.",
@@ -532,6 +575,9 @@
 		"Ursis": [
 			"Ursis + Burn has been dominant with its combination of high flexibility and power, that flexibility with deck construction made this ultimately feel like what needed to be done.",
 			"Stop cheating, Crellan"
+		],
+		"Vacuum Hemisphere": [
+			"Elemental hate remains prevalent outside of these attacks. Its repeatable nature at 2 felt excessive; further adjustments will be made if it continues to be too strong."
 		],
 		"Vial of Liquid Thought": [
 			"Allows the player to take advantage of high build point attacks. With different combinations, the player can spam subsequent high damage.",
