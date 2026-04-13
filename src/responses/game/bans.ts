@@ -32,13 +32,13 @@ export function banlist_update(message: Message) {
   list_bans('standard', 'ban');
   list_bans('standard', 'unique', '\n==**Unique Cards**==');
   list_bans('standard', 'legendary', '\n==**Legendary Cards**==');
-  list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
   list_bans('standard', 'loyal', '\n==**Loyal Cards**==');
-  list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
   const response1 = response;
 
   response = ''
-  list_bans('standard', 'ununique', '\n==**Non-Unique Cards**==');
+  list_bans('standard', 'unlegendary', '\n==**Legendary Removed Cards**==');
+  list_bans('standard', 'unloyal', '\n==**Loyal Removed Cards**==');
+  list_bans('standard', 'ununique', '\n==**Unique Removed Cards**==');
 
   return [response1, response];
 }
