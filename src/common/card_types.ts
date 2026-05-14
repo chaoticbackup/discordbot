@@ -13,7 +13,7 @@ export function parseTribe(input: string): CreatureTribe | MugicTribe | 'Mixed' 
 export function parseTribe(input: string, type: 'Mixed'): Tribe | 'Mixed' | undefined;
 export function parseTribe(input: string, type: 'Mugic'): MugicTribe | undefined;
 export function parseTribe(input: string, type: 'Creatures'): CreatureTribe | undefined;
-export function parseTribe(input: string, type: 'Joinable'): CreatureTribe | 'Frozen' | undefined;
+export function parseTribe(input: string, type: 'Joinable'): CreatureTribe | 'Frozen' | 'Mixed' | undefined;
 export function parseTribe(
   input: string, type?: 'Mugic' | 'Creatures' | 'Mixed' | 'Joinable'
 ): CreatureTribe | MugicTribe | 'Mixed' | 'Frozen' | undefined {

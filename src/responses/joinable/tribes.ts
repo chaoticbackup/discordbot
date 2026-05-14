@@ -4,7 +4,7 @@ import { Guild, GuildMember } from 'discord.js';
 import { asyncForEach, hasPermission, isModerator } from '../../common';
 import { parseTribe } from '../../common/card_types';
 
-const tribe_roles = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen'];
+const tribe_roles = ['Danian', 'Mipedian', "M'arrillian", 'OverWorld', 'UnderWorld', 'Tribeless', 'Frozen', 'Mixed'];
 
 export const tribe = async (
   args: string[], guild?: Guild, member?: GuildMember
@@ -213,6 +213,9 @@ const joinTribe = async (guild: Guild, member: GuildMember, input: string): Prom
       break;
     case 'Frozen':
       joining_msg = 'Shhhh we haven\'t been revealed yet';
+      break;
+    case 'Mixed':
+      joining_msg = 'You\'re a little bit of everything, aren\'t you?';
       break;
     default:
       return `${input} is not a valid faction`;
