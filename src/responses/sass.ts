@@ -22,7 +22,7 @@ export default async function (bot: Client, message: Message, mentions: string[]
   // coming back
   const back_regex = /((.*(chaotic).*(return|(com|be).*(back)).*)|(.*news.*(reboot|rebirth).*)|(.*(announcement|update).*chaotic.*))\?/i;
   if (content.match(back_regex)) {
-    const response = "https://chaoticgame.com/ \n https://i.imgur.com/oNNdpdb.png";
+    const response = '"We promised the Chaotic community we would come back, and we are delivering something truly special."\n- Brian C. Gannon\n<https://chaoticgame.com>';
     const m: Message = await send(response).catch(msgCatch);
     await m.react('586395473716445184').catch(msgCatch);
     return;
