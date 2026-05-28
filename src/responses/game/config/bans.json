@@ -16,7 +16,6 @@
 			"Bi-Mowercycle",
 			"Bodal, Flamedrill Researcher",
 			"Cadence Clash",
-			"Chaac",
 			"Deadwater Devastation",
 			"Dranakis Threshold",
 			"Dranakis Threshold, Portal to the Past",
@@ -39,7 +38,6 @@
 			"Najarin, Fluidmorphers' Foe",
 			"Numin Voidland",
 			"Olkiex' Apron",
-			"Part'soa",
 			"Phelphor, Of the Deep",
 			"Phoenix Belt",
 			"Pouril Forest",
@@ -50,48 +48,36 @@
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
 			"Supercooled Rain",
-			"Talisman of the Mandiblor",
 			"The Phlogiston",
-			"Tonal Destruction",
+			"Unheard Melody",
 			"Vial of Liquid Thought",
-			"Warbeast Power Leash",
 			"Whirling Wail",
 			"Xelfe",
 			"Zamool, Lord Van Bloot's Enforcer"
 		],
 		"unique": [
-			"Barath Beyond, UnderWorld General",
-			"Crown of Aa'une",
 			"Dry Touch",
 			"Eroding Blast",
 			"Extinguishing Fountain",
-			"Gravel Grind",
-			"Gorram, Danian General",
 			"Grantkae, Mipedian General",
 			"Hornsabre",
+			"Interlude of Interruption",
 			"Melody of Mirage",
 			"Na-inna",
-			"Malvadine, The King's Herald",
 			"Mind Mash",
-			"Mock'adyn",
 			"Neekwin",
 			"Refrain of Denial",
 			"Rhyme of the Reckless",
-			"Scepter of the Infernal Parasite",
-			"Strain of Infection",
 			"Tangath Toborn, OverWorld General",
+			"Twister of Elements",
 			"Ulmquad",
 			"Unbalancing Battlesong",
-			"Vacuum Hemisphere",
-			"Warriors of Owayki"
+			"Vacuum Hemisphere"
 		],
 		"loyal": [
 			"Aer'dak",
 			"Arkanin",
 			"Consuming Cacophony",
-			"Interlude of Interruption",
-			"Rhyme of the Reckless",
-			"Strain of Infection",
 			"Ulmar, Perithon Racer",
 			"Ulmquad"
 		],
@@ -106,14 +92,20 @@
 		],
 		"legendary": [
 			"Algal Wings of Attraction",
+			"Chaac",
 			"Elemental Elegy",
+			"Enre-hep, High Muge of the Desert",
 			"Garv",
+			"Ifjann",
 			"Jorre, Mipedian Lieutenant",
 			"Lore",
 			"Lore, High Muge of the Hive",
+			"Mock'adyn",
 			"Na-inna",
 			"Nivenna",
-			"Taffial"
+			"Part'soa",
+			"Strain of Infection",
+			"Talisman of the Mandiblor"
 		],
 		"unlegendary": [
 			"Barath Beyond, UnderWorld General",
@@ -126,7 +118,6 @@
 			"Warriors of Owayki"
 		],
 		"ununique": [
-			"Blazvatan, The Epic Warbeast",
 			"Castle Pillar",
 			"Foothold Assault Trench",
 			"Gambreor's Hut",
@@ -149,17 +140,13 @@
 			"Fal'makin",
 			"Fal'makin, AZAIA Inquisitor",
 			"Gal'drad",
-			"Heptadd",
 			"Ihun'kalin",
 			"Ihun'kalin, Psionic Master",
-			"Intress, Natureforce",
 			"Jus'hebban",
-			"Lyssta",
 			"Milla'iin",
 			"Milla'iin, Foothold Commander",
 			"Neth'uar",
 			"Ritzu'dag",
-			"Takinom, The Shadowknight",
 			"Xis'torq"
 		]
 	},
@@ -311,6 +298,9 @@
 		"Enre-hep, High Muge of the Desert": [
 			"Enre-hep has the ability to remove unique from any Mugic. He combos well with expensive Mugic cast from one of his teammates and copying it multiple times for high value. The most oppressive combos are: Tonal Destruction, Unheard Melody, Consuming Cacophony, Song of Resistance (which can stall a game for hours), and finally a broken combo involves Strain of Infection and Ode to Obscurity to create a loop to generate infinite counters.",
 			"Some reasearch is better left buried in the sand."
+		],
+		"Ifjann": [
+			"Disrupts to deadly combo of Enre-hep/Na-inna/Ifjann from overwhelming opponents. Hopefully adds for a more challenging decision for strike players, specifically into the OW matchup."
 		],
 		"Garv": [
 			"Garv is a card that is both powerful and popular. Its flexibility in disable opponents battlegear or revealing your own battlegear generates a lot of value. Specifically used in Uris Burn to disable opponent's anti-burn battlegear and to flip up unengaged creature's burn."
