@@ -44,6 +44,10 @@ const parseType = (type: string, channel: Channel, guild: Guild): Type => {
 export function lookingForMatch(arg0: string, channel: Channel, guild?: Guild, member?: GuildMember) {
   if (!guild || !member || !canMatch(guild, channel)) return;
 
+  if (!arg0) {
+    return `Please specify a match type: ${types.join(', ')}`;
+  }
+
   const type = parseType(arg0, channel, guild);
 
   const role = guild.roles.find((role: Role) => role.name === `${type}_match`);
