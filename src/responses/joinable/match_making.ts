@@ -4,7 +4,7 @@ import { hasPermission } from '../../common';
 import servers from '../../common/servers';
 import { Channel } from '../../definitions';
 
-const types = ['recode', 'untap', 'tts', 'pauper', 'spell', 'rewind'] as const;
+const types = ['recode', 'untap', 'tts', 'pauper', 'spell', 'rewind', 'dromes'] as const;
 
 type Type = typeof types[number];
 
