@@ -11,6 +11,7 @@
 	},
 	"standard": {
 		"ban": [
+			"Aer'dak",
 			"Armament Adagio",
 			"AZAIA Mindscrying Chamber",
 			"Bi-Mowercycle",
@@ -20,6 +21,7 @@
 			"Dranakis Threshold",
 			"Dranakis Threshold, Portal to the Past",
 			"Dror'niq",
+			"Ebena'bakku",
 			"Em'swa",
 			"Hune Paltanin",
 			"Ice Sheet",
@@ -39,6 +41,7 @@
 			"Numin Voidland",
 			"Olkiex' Apron",
 			"Phelphor, Of the Deep",
+			"Phoenix Belt",
 			"Pouril Forest",
 			"Prexxor Chasm",
 			"Prexxor Chasm, The Blight",
@@ -46,7 +49,9 @@
 			"Psionic Serenade",
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
+			"Skeletal Springs",
 			"Supercooled Rain",
+			"Talisman of the Mandiblor",
 			"The Phlogiston",
 			"Unheard Melody",
 			"Vial of Liquid Thought",
@@ -61,22 +66,23 @@
 			"Grantkae, Mipedian General",
 			"Hornsabre",
 			"Interlude of Interruption",
+			"Malvadine, The King's Herald",
 			"Melody of Mirage",
 			"Na-inna",
-			"Mind Mash",
 			"Neekwin",
 			"Refrain of Denial",
 			"Rhyme of the Reckless",
 			"Tangath Toborn, OverWorld General",
-			"Twister of Elements",
 			"Ulmquad",
 			"Unbalancing Battlesong",
-			"Vacuum Hemisphere"
+			"Vacuum Hemisphere",
+			"Warbeast Power Leash"
 		],
 		"loyal": [
-			"Aer'dak",
 			"Arkanin",
 			"Consuming Cacophony",
+			"Interlude of Interruption",
+			"Rhyme of the Reckless",
 			"Ulmar, Perithon Racer",
 			"Ulmquad"
 		],
@@ -95,7 +101,6 @@
 			"Elemental Elegy",
 			"Enre-hep, High Muge of the Desert",
 			"Garv",
-			"Ifjann",
 			"Jorre, Mipedian Lieutenant",
 			"Lore",
 			"Lore, High Muge of the Hive",
@@ -136,6 +141,7 @@
 			"Mindful Finish",
 			"Psi-mageddon",
 			"Ultimate Warstance",
+			"Blazvatan, The Epic Warbeast",
 			"Emna'ool",
 			"Erak'tabb",
 			"Fal'makin",
@@ -143,11 +149,14 @@
 			"Gal'drad",
 			"Ihun'kalin",
 			"Ihun'kalin, Psionic Master",
+			"Intress, Natureforce",
 			"Jus'hebban",
+			"Lyssta",
 			"Milla'iin",
 			"Milla'iin, Foothold Commander",
 			"Neth'uar",
 			"Ritzu'dag",
+			"Takinom, The Shadowknight",
 			"Xis'torq"
 		]
 	},
@@ -292,6 +301,9 @@
 		"Elemental Elegy": [
 			"This card allows Danains to shoot down elemental attacks, which can guarantee a combat win if the opposing creature doesn't have a way to gain elements. The decision to remove Element hate from a tribe which already has a lot of flexibility in deck building was made to reduce the power of Danians abd reduce prominence of Element hate in meta.",
 			"Danians plagiarized both the OverWorld and UnderWorld."
+		],
+		"Ebena'bakku": [
+			"This card was removed from standard because it significantly reduced the agency of the opponent's deck. While the overall power level wasn't top, the inability to play into Ebena'bakku would lead to a frustrating experience."
 		],
 		"Em'swa": [
 			"Renewable resources such as fluidmorphers tend to be too be too strong. Combined with Chaac to cover the early game, Em'swa all but ensures that you're opponent won't be playing elemental attacks. Additionaly, since Chaac, in pauper, doesn't have other ways to be renewable, Em'swa made more sense as the choice."	
