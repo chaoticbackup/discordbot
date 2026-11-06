@@ -17,12 +17,16 @@
 			"Bi-Mowercycle",
 			"Bodal, Flamedrill Researcher",
 			"Cadence Clash",
+			"Chaac",
+			"Consuming Cacophony",
 			"Deadwater Devastation",
 			"Dranakis Threshold",
 			"Dranakis Threshold, Portal to the Past",
 			"Dror'niq",
 			"Ebena'bakku",
+			"Elemental Elegy",
 			"Em'swa",
+			"Hornsabre",
 			"Hune Paltanin",
 			"Ice Sheet",
 			"Inner Flood",
@@ -34,6 +38,7 @@
 			"Lore, Ancestral Caller",
 			"Lore's Chamber of Recall",
 			"Melody of the Meek",
+			"Mind Mash",
 			"Mipedian Dew Farm",
 			"Mipedim Mirage",
 			"Mount Pillar Reservoir, Neth'uar's Foothold",
@@ -50,9 +55,11 @@
 			"Ramarhvir, The Danian Hivebringer",
 			"Rao'Pa Sahkk, Condensation Ceremony",
 			"Skeletal Springs",
+			"Strain of Infection",
 			"Supercooled Rain",
 			"Talisman of the Mandiblor",
 			"The Phlogiston",
+			"Tonal Destruction",
 			"Unheard Melody",
 			"Vial of Liquid Thought",
 			"Whirling Wail",
@@ -60,57 +67,44 @@
 			"Zamool, Lord Van Bloot's Enforcer"
 		],
 		"unique": [
+			"Casters' Warsong",
 			"Dry Touch",
 			"Eroding Blast",
 			"Extinguishing Fountain",
 			"Grantkae, Mipedian General",
-			"Hornsabre",
 			"Interlude of Interruption",
-			"Malvadine, The King's Herald",
 			"Melody of Mirage",
 			"Na-inna",
 			"Neekwin",
-			"Refrain of Denial",
 			"Rhyme of the Reckless",
 			"Tangath Toborn, OverWorld General",
 			"Ulmquad",
 			"Unbalancing Battlesong",
+			"Ursis",
 			"Vacuum Hemisphere",
 			"Warbeast Power Leash"
 		],
 		"loyal": [
 			"Arkanin",
-			"Consuming Cacophony",
 			"Interlude of Interruption",
 			"Rhyme of the Reckless",
 			"Ulmar, Perithon Racer",
 			"Ulmquad"
 		],
 		"unloyal": [
-			"Arbeid",
 			"Crown of Aa'une",
 			"Ikkatosh, Guardian of Nature",
-			"Intress, Natureforce",
 			"Iparu, Metallic Ally",
-			"Nivenna",
 			"Scepter of the Infernal Parasite"
 		],
 		"legendary": [
 			"Algal Wings of Attraction",
-			"Chaac",
-			"Elemental Elegy",
-			"Enre-hep, High Muge of the Desert",
+			"Droskin",
 			"Garv",
 			"Jorre, Mipedian Lieutenant",
-			"Lore",
-			"Lore, High Muge of the Hive",
 			"Mock'adyn",
-			"Na-inna",
-			"Nivenna",
 			"Part'soa",
-			"Strain of Infection",
-			"Talisman of the Mandiblor",
-			"Tonal Destruction"
+			"Xerium Armor"
 		],
 		"unlegendary": [
 			"Barath Beyond, UnderWorld General",
@@ -149,14 +143,11 @@
 			"Gal'drad",
 			"Ihun'kalin",
 			"Ihun'kalin, Psionic Master",
-			"Intress, Natureforce",
 			"Jus'hebban",
-			"Lyssta",
 			"Milla'iin",
 			"Milla'iin, Foothold Commander",
 			"Neth'uar",
 			"Ritzu'dag",
-			"Takinom, The Shadowknight",
 			"Xis'torq"
 		]
 	},
@@ -259,12 +250,15 @@
 			"They're bouncy, trouncy, flouncy, pouncy\nFun, fun, fun, fun, fun!",
 			"If everyone has negate, no one has negate!"
 		],
+		"Caster's Warsong": [
+			"Setting to one reduces the damage output of burn across decks like Ursis, UnderWorld, and Danian."	
+		],
 		"Chaac": [
 			"Chaac, provides early game dominance by shutting down element based decks early game, combining this with the late game power of Fluidmorphing causes an overly consistent resource advantage. For example: with Em'swa in late games, makes Elemental decks unable to win, or with Mock'adyn to stall while building up healing.\n*(Previously Chaac had been allowed because M'arrillians were underwhelming compared to the other tribes.)*",
 			"Chaac's bugs scare away your elements."
 		],
 		"Consuming Cacophony": [
-			"Consuming Cacophony is loyal due to a combo involving Enre-hep High Muge of the Desert."
+			"Consuming Cacophony is banned due to a combo involving Enre-hep High, Muge of the Desert and due to the overall power level of burn."
 		],
 		"Crown of Aa'une": [
 			"Removing loyal restriction allows for deck ideas without requiring a chieftain."
@@ -290,6 +284,9 @@
 		"Dranakis Threshold, Portal to the Past": [
 			"An automatic inclusion in any Warbeast or Ursis deck. This aims to control the overall power of those decks. Additionally, the location breaks a lot of tribal interactions causing unexpected side effects.",
 			"We found Afjak!"
+		],
+		"Droskin": [
+			"This was frequently combined with Xerium Armor. At Legendary, should force a tradeoff."
 		],
 		"Dror'niq": [
 			"His first ability allows him to deal 10 damage for 1 Mugic Counter, and when he's stored up enough counters, he can one-shot opposing engaged Creatures.\nAlthough his second ability takes 4 Mugic Counters, he can use it while unengaged and it essentially provides Recklessness 10 for 30-50 damage in a typical combat.",
@@ -344,7 +341,7 @@
 			"Foxy Waifu"
 		],
 		"Hornsabre": [
-			"A boost to OverWorld. The added chip damage proved decisive in matchups. Greater variation from OW was expected but did not materialize. Hopefully Wise guys/POP see more play."
+			"The added chip damage proved decisive in matchups. Combined with Garv, OverWorld decks felt too strong."
 		],
 		"Ice Disks": [
 			"Decks have been this and Whirling Wail to limit opponent's ability to interact. By limiting this attack, decks should have more opportunity to utalize their resoures"
@@ -588,7 +585,7 @@
 			"Xelfe is an overwhelming card for decks that don't have a defender, its easy inclusion in Mipedian decks serves a double function with his high Mugic Ability. Removing Xelfe will also reduce some of the large swing of going first."
 		],
 		"Xerium Armor": [
-			"Against the typical opponent, this Battlegear makes them unable to play their best attacks to maximum damage against big damage decks (like Strike or Element X). With a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check.",
+			"This was frequently combined with Droskin or Garv. At legendary should force a tradeoff.\nWith a high Energy Creature, it takes a long time to defeat it.\nThe downsides are it isn't effective against match-ups which do consistent 15-20 Damage attacks, and Battlegear removal/flipping abilities keep it in check.",
 			"Taunt needs nerf"
 		],
 		"Zamool, Lord Van Bloot's Enforcer": [
